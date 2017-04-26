@@ -2,11 +2,10 @@
 #uheader .ulogo{margin:0 auto; height:60px; line-height:60px; width:100px; background:#254A98; text-align:center; }
 
 #uheader .utitle{padding-left:3%; height:60px; line-height:60px; font-size:2rem; color:#BFD1F5;}
-#uheader .uad{display:block; margin-right:4rem; width:67px; height:40px;}
+#uheader .uad{display:block; margin-right:8rem; width:67px; height:40px;}
 
 #uheader .unav{margin-top:0; height:60px;} 
-#uheader .unav > li{margin:5px 0; padding:0 0.5rem; height:50px; line-height:50px; border-right:1px solid #305F8B;}
-#uheader .unav > li:last-child{border:0px;} 
+#uheader .unav > li{margin:7px 0; padding:0 0.5rem; height:46px; line-height:46px; border-left:1px solid #305F8B;}
 #uheader .unav > li > a > span{font-size:1.4rem; color:#BFD1F5;} 
 #uheader .unav > li > a{padding:0 1rem;} 
 

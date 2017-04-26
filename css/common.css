@@ -17,14 +17,12 @@
 
 
 #umenu{position:fixed; top:60px; left:0px; z-index:1000; margin:0; padding:0; width:100px; height:100%; background:#254A98;}
-#umenu .uarrow{position:absolute; display:none; width:0px; right:-13px; top:20px; height:0px; border:8px solid transparent; border-left-color:#1A2753;}
-#umenu > li{position:relative; margin-top:0; height:61px; line-height:61px; border-top:1px solid #325E8B;}
+#umenu > li{position:relative; margin-top:0; height:55px; line-height:55px; border-top:1px solid #325E8B;}
 #umenu > li > a{padding:0 0 0 1.6rem;color:#C5D4F3; font-size:1.4rem;}
 #umenu > li:hover{border-left:3px solid #F0C65A; background-color:#1A2753;}
 #umenu > li:focus{border-left:3px solid #F0C65A; background-color:#1A2753;}
 #umenu > li:hover > a{color:#F0C65A;padding:0 0 0 1.6rem}
 #umenu > li:focus > a{color:#F0C65A;padding:0 0 0 1.6rem}
-#umenu > li:hover .uarrow{position:absolute; display:block; width:0px; right:-13px; top:21px; height:0px; border:8px solid transparent; border-left-color:#1A2753;}
 #umenu .am-active,
 #umenu .am-active:hover,
 #umenu .am-active:focus{border-left:3px solid #F0C65A; background-color:#1A2753;}

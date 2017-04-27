@@ -24,6 +24,7 @@
 #uuser .upagedec{margin-left:1.2rem; font-size:1.2rem; color:#999B98;}
 /*新增会员*/
 #umodal1 .uadduserlist{width:50%; border-radius:1rem;}
+#umodal1 .uadduserlist .ucontent1{padding-left:0px;}
 #umodal1 .uadduserlist > .uhd{margin-bottom:10px; padding:0 0 0 1.5rem; height:50px; line-height:50px; border-bottom:1px solid #DDE1EA; text-align:left; font-weight:bold;}
 #umodal1 .uadduserlist > .uhd > .uclose{position:absolute; right:1rem; top:1rem; display:block; width:2rem; height:2rem; line-height:2rem; background-color:#BBBBBB; border-radius:50%; text-align:center;}
 #umodal1 .uadduserlist > .uhd > .uclose:hover{background:#F0611D; transform: rotate(360deg);}
@@ -72,12 +73,13 @@
 #umodal3 .upackages .ucont2 .uiconexchange{padding-top:140px}
 #umodal3 .upackages .ucont2 .uheader1 td{background-color:#2AA672; color:#ffffff;}
 #umodal3 .upackages .ucont2 .uheader2 td{background-color:#D89E4C; color:#ffffff;}
+#umodal3 .upackages .ucont2 .ufont1{color:#000; font-size:1.6rem;}
 #umodal3 .upackages > .uft{width:100%; height:92px;}
 #umodal3 .upackages > .uft .uc1{position:absolute;right:200px; bottom:30px;}
 #umodal3 .upackages > .uft .uc2{position:absolute;right:50px; bottom:24px;}
 .inputmin1{margin:0 1rem; width:40px; text-align:center; font-size:1.4rem;}
 
-exchange
+
 
 
 

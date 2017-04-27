@@ -1,0 +1,49 @@
+#uheader{margin-bottom:0; height:60px; background:#2D3D61; font-size:1.4rem;}
+#uheader .ulogo{margin:0 auto; height:60px; line-height:60px; width:100px; background:#254A98; text-align:center; }
+
+#uheader .utitle{padding-left:3%; height:60px; line-height:60px; font-size:2rem; color:#BFD1F5;}
+#uheader .uad{display:block; margin-right:8rem; width:67px; height:40px;}
+
+#uheader .unav{margin-top:0; height:60px;} 
+#uheader .unav > li{margin:7px 0; padding:0 0.5rem; height:46px; line-height:46px; border-left:1px solid #305F8B;}
+#uheader .unav > li > a > span{font-size:1.4rem; color:#BFD1F5;} 
+#uheader .unav > li > a{padding:0 1rem;} 
+
+#uheader .unav .uuser:after{position:absolute; right:0px; bottom:13px; content:""; display:inline-block; width:0; height:0; border-bottom:6px solid #DEE9EB; border-left:6px solid transparent;} 
+#uheader .unav .ushop:after{position:absolute; right:0px; bottom:13px; content:""; display:inline-block; width:0; height:0; border-bottom:6px solid #DEE9EB; border-left:6px solid transparent;} 
+#uheader .unav > li.am-active> a > span{color:#F0C65A;} 
+#uheader .unav > li.am-active> a > .uuser:after{border-top:4px solid #F0C65A; border-left:4px solid transparent; border-right:4px solid transparent; border-bottom:none;} 
+#uheader .unav > li.am-active> a > .ushop:after{border-top:4px solid #F0C65A; border-left:4px solid transparent; border-right:4px solid transparent; border-bottom:none;} 
+
+
+#umenu{position:fixed; top:60px; left:0px; z-index:1000; margin:0; padding:0; width:100px; height:100%; background:#254A98;}
+#umenu > li{position:relative; margin-top:0; height:55px; line-height:55px; border-top:1px solid #325E8B;}
+#umenu > li > a{padding:0 0 0 1.6rem;color:#C5D4F3; font-size:1.4rem;}
+#umenu > li:hover{border-left:3px solid #F0C65A; background-color:#1A2753;}
+#umenu > li:focus{border-left:3px solid #F0C65A; background-color:#1A2753;}
+#umenu > li:hover > a{color:#F0C65A;padding:0 0 0 1.6rem}
+#umenu > li:focus > a{color:#F0C65A;padding:0 0 0 1.6rem}
+#umenu .am-active,
+#umenu .am-active:hover,
+#umenu .am-active:focus{border-left:3px solid #F0C65A; background-color:#1A2753;}
+#umenu .am-active > a{background-color:inherit;}
+#umenu .am-active .uarrow,
+#umenu .am-active:hover .uarrow{position:absolute; display:block; width:0px; right:-13px; top:21px; height:0px; border:8px solid transparent; border-left-color:#1A2753;}
+#umenu .am-active>a{color:#F0C65A;}
+#umenu .am-active:hover>a{color:#F0C65A;}
+#umenu .am-active:focus>a{color:#F0C65A;}
+
+
+#umenu #cmenuright{position:absolute; top:-125px; left:100%; background:#fff; border:0;}
+#umenu #cmenuright li{padding-left:1.2rem; margin-bottom:1rem; font-size:2rem;}
+#umenu #cmenuright a{color:#000000;}
+#umenu #cmenuright::after{display:none;}
+#umenu #cmenuright::before{display:none;}
+
+.gcontent{position:fixed; overflow:auto; padding:10px 0 0 101px; width:100%; height:100%; background:#F1F1F1;}
+
+
+#uheader .unav > li > a:hover{background-color:#2D3D61;}
+#uheader .unav > li > a:focus{background-color:#2D3D61;}
+#umenu > li > a:hover{background-color:#1A2753;}
+#umenu > li > a:focus{background-color:#1A2753;}

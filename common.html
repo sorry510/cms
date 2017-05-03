@@ -1,78 +1,82 @@
 <!doctype html>
 <html class="no-js">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>会员管理系统1.0.4</title>
-  <meta ncuie="description" content="dd">
-  <meta ncuie="keywords" content="table">
-  <meta ncuie="renderer" content="webkit">
-  <link rel="stylesheet" href="css/amazeui.min.css">
-  <link rel="stylesheet" href="css/common.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=1200, initial-scale=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<link rel="stylesheet" href="css/amazeui.css">
+	<link rel="stylesheet" href="icon/iconfont.css">
+	<link rel="stylesheet" href="css/common.css">
 </head>
 <body>
-
 <!-- header -->
 <header id="uheader" class="am-topbar am-topbar-fixed-top">
-  <div class="am-topbar-brand ulogo">
-    <a href=""><img src="./img/logo.jpg"></a>
-  </div>
-  <div>
-    <div class="am-topbar-left utitle">河南奕之堂健康管理有限公司——唐人街老店</div>
-    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right unav">
-      <li><a href="javascript:;"><span class="am-icon-bell-o am-icon-sm">&nbsp消息</span></li><li class="am-dropdown" data-am-dropdown>
-        <a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
-          <span class="am-icon-user am-icon-sm"></span>&nbsp<span class="uuser"> 收银员 </span>
-        </a>
-        <ul class="am-dropdown-content">
-          <li><a href="#"><span class="am-icon-user am-icon-fw"></span> 资料</a></li>
-          <li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 设置</a></li>
-          <li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 退出</a></li>
-        </ul>
-      </li><li class="am-dropdown" data-am-dropdown>
-        <a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
-          <span class="am-icon-home am-icon-fw am-icon-sm"></span>&nbsp<span class="ushop">转换为管理员</span>
-        </a>
-        <ul class="am-dropdown-content">
-          <li><a href="#"><span class="am-icon-user am-icon-fw"></span> 唐人街老店</a></li>
-          <li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 伏牛路新店</a></li>
-          <li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 第八号当铺</a></li>
-        </ul>
-      </li>
-      <li style="display:none;"><a href="javascript:;"><span class="am-icon-home am-icon-sm">&nbsp转换为管理员</span></a></li>
-    </ul>
-    <a href="#" class="am-topbar-right uad"><img src="img/ad.jpg"></a>
-  </div>
+	<div class="am-topbar-brand ulogo">
+		<a href=""><img src="./img/logo.jpg"></a>
+	</div>
+	<div class="am-topbar-left utitle">河南奕之堂健康管理有限公司——唐人街老店</div>
+	<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right unav">
+		<li>
+			<a href="javascript:;"><span class="iconfont icon-systemprompt_fill"></span> <span>消息</span></a>
+		</li>
+		<li class="am-dropdown" data-am-dropdown>
+			<a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
+				<span class="iconfont icon-wode"></span> <span class="udropdown">收银员</span>
+			</a>
+			<ul class="am-dropdown-content umenu1">
+				<li><a href="#"><span class="am-icon-user am-icon-fw"></span> 资料</a></li>
+				<li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 设置</a></li>
+				<li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 退出</a></li>
+			</ul>
+		</li>
+		<li class="am-dropdown" data-am-dropdown>
+			<a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
+				<span class="iconfont icon-dianpu1"></span> <span class="udropdown">转换为管理员</span>
+			</a>
+			<ul class="am-dropdown-content umenu2">
+				<li><a href="#"><span class="am-icon-user am-icon-fw"></span> 唐人街老店</a></li>
+				<li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 伏牛路新店</a></li>
+				<li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 第八号当铺第八号当铺第八号当铺</a></li>
+			</ul>
+		</li>
+	</ul>
+	<a href="#" class="am-topbar-right uad">视频教程</a>
 </header>
+<!-- header end -->
 
-<!-- leftmenu -->
+<!-- left menu -->
 <ul id="umenu" class="am-nav">
-  <li><a href=""><span class="am-icon-user am-icon-fw"></span> 收银</a></div></li>
-  <li class="am-active"><a href=""><span class="am-icon-vimeo-square am-icon-fw"></span> 会员</a></div></li>
-  <li><a href=""><span class="am-icon-clock-o am-icon-fw"></span> 预约</a></div></li>
-  <li><a href=""><span class="am-icon-file-text-o am-icon-fw"></span> 明细</a></div></li>
-  <li><a href=""><span class="am-icon-database am-icon-fw"></span> 支出</a></div></li>
-  <li><a href=""><span class="am-icon-line-chart am-icon-fw"></span> 统计</a></div></li>
-  <li><a href=""><span class="am-icon-wechat am-icon-fw"></span> 微服务</a></div></li>
-  <li><a href=""><span class="am-icon-mobile am-icon-fw am-icon-sm"></span> 微店</a></div></li>
-  <li class="am-dropdown" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog am-icon-fw"></span> 设置</a>
-  <ul id="cmenuright" class="am-dropdown-content">
-        <li><a href="#"><span class="am-icon-user am-icon-fw"></span> 资料</a></li>
-        <li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 设置</a></li>
-        <li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 退出</a></li>
-      </ul>
-  </li>
+	<li class="am-active"><a href="main.html"><span class="iconfont icon-caiwu-xianxing"></span> 收银</a></li>
+	<li><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+	<li><a href="appoint.html"><span class="iconfont icon-clock"></span> 预约</a></li>
+	<li><a href="detail.html"><span class="iconfont icon-ziliao"></span> 明细</a></li>
+	<li><a href=""><span class="iconfont icon-jifen-xianxing"></span> 支出</a></li>
+	<li><a href=""><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
+	<li><a href=""><span class="iconfont icon-weixin"></span> 微信</a></li>
+	<li><a href=""><span class="iconfont icon-weidian"></span> 微店</a></li>
+	<li class="am-dropdown" data-am-dropdown>
+		<a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-setup"></span> 设置</a>
+		<ul class="am-dropdown-content umenu3">
+			<li><a href="employee.html"><span class="am-icon-user am-icon-fw"></span> 员工管理</a></li>
+			<li><a href="#"><span class="am-icon-cog am-icon-fw"></span> 设置</a></li>
+			<li><a href="#"><span class="am-icon-power-off am-icon-fw"></span> 退出</a></li>
+		</ul>
+	</li>
 </ul>
+<!-- left menu end -->
 
 <!-- main -->
-<div id="" class="gcontent">
+<div id="" class="gcontent am-tabs" data-am-tabs>
 </div>
-   
 
-
-
+<
 <script src="js/jquery.min.js"></script>
-<script src="js/amazeui.min.js"></script>
-
+<script src="js/amazeui.js"></script>
 </body>
 </html>
+

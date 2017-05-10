@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="icon/iconfont.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/style.css">
+  <style type="text/css">
+    
+  </style>
 </head>
-
 <body id="ubody">
 <!-- header -->
 <header id="uheader" class="am-topbar am-topbar-fixed-top">
@@ -50,10 +52,9 @@
   <a href="#" class="am-topbar-right uad">视频教程</a>
 </header>
 <!-- header end -->
-
 <!-- left menu -->
 <ul id="uleftbar" class="am-nav">
-  <li><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+  <li class="uhighlight "><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
   <li><a href="detail.html"><span class="iconfont icon-ziliao"></span> 明细</a></li>
   <li><a href="#"><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
   <li class="am-dropdown" data-am-dropdown>
@@ -87,9 +88,76 @@
 <!-- left menu end -->
 
 <!-- main -->
-<div class="gcontent am-tabs">
+<div class="gcontent umain am-tabs">
+  <ul class="am-nav am-nav-tabs ubreadnav ua">
+		<li class="am-active"><a href="javascript: void(0)">实时数据</a></li>
+		<li><a  href="javascript: void(0)">今日提醒</a></li>
+		<div class="ua1">
+		  <span class="ua1a"> 客服电话：<span class="ua1a1">400-870-8228</span></span>
+		  <span class="ua1b">短信余额：<span class="ua1b1">0&nbsp;</span>条</span>	
+		  <span class="ua1c"><span href="#">到期时间：2017-12-31(续费)</span></span>
+		</div>
+  </ul>
+  
+  <div class="am-tabs-bd ub">
+		<div class="gspace10"></div>
+		<div class="am-alert ub1a" data-am-alert>
+		  <div class="am-topbar-right am-close ub1a1"></div>
+		  <p>系统通知：您正在试用报表模块，使用截止时间为2017-03-27，如需要协助请于客服人员联系400-870-8228 13541086911</p>
+		</div>
+		<div class="ub1b">实时数据：今天00：00至明天00：00</div>			
+		
+		<ul class="ub1c">
+		  <li>
+				<div class="ub1c1">
+				  <img src="./img/total-price.jpg" alt="" />
+				</div>
+				<div class="ub1c2">
+				  <div class="ub1c2a">今日总营业额：</div>
+				  <div class="ub1c2b"><span>1234567890</span>元</div>
+				</div>
+		  </li>
+		  <li>
+		  	<div class="ub1c1">
+			    <img src="./img/count.jpg" alt="" />
+			  </div>
+				<div class="ub1c2">
+				  <div class="ub1c2a">商品收入：</div>
+				  <div class="ub1c2b"><span class="ub1c2b1">1234567890</span>元</div>
+				</div>
+		  </li>
+		  <li class="youhui">
+		  	<div class="ub1c1">
+		      <img src="./img/count.jpg" alt="" />
+		    </div>
+				<div class="ub1c2">
+				  <div class="ub1c2a">会员优惠：</div>
+				  <div class="ub1c2b"><span class="ub1c2b1">1234567890</span>元</div>
+				</div>
+		  </li>
+		</ul>
+		<div class="gspace10"></div>
+		<ul class="ub1d">
+		  <li>会员到期&nbsp;:&nbsp;<a href="#" class="am-badge am-badge-warning am-radius active">50</a></li>
+		  <li>生日提醒&nbsp;:&nbsp;<a href="#" class="am-badge am-badge-warning am-radius">0</a></li>
+		  <li>库存报警&nbsp;:&nbsp;<a href="#" class="am-badge am-badge-warning am-radius">6</a></li>
+		  <li>今日预约&nbsp;:&nbsp;<a href="#" class="am-badge am-badge-warning am-radius">3</a></li>
+		  <li>30天未到店&nbsp;:&nbsp;<a href="#" class="am-badge am-badge-warning am-radius">30</a></li>
+		</ul>
+		<div class="gspace50"></div>
+		<ul class="ub1e">
+			<li><a href="#"><img src="./img/img-1.jpg" alt=""><br><span>收银</span></a></li>
+			<li><a href="#"><img src="./img/img-2.jpg" alt=""><br><span>会员</span></a></li>
+			<li><a href="#"><img src="./img/img-3.jpg" alt=""><br><span>办卡</span></a></li>
+			<li><a href="#"><img src="./img/img-4.jpg" alt=""><br><span>预约</span></a></li>
+		</ul>
+  </div>
+
+  <!--<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>123-->
 </div>
+ 
 <script src="js/jquery.min.js"></script>
-<script src="js/amazeui.min.js"></script>
+<script src="js/amazeui.js"></script>
 </body>
 </html>
+

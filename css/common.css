@@ -22,51 +22,40 @@
 #uheader .uad {margin-right:8rem; width:70px; height:37px; line-height:28px; background:url('../img/ad.jpg') no-repeat; text-align:center; color:#FFFF02;}
 #uheader .am-active > .am-dropdown-content {margin-top: 12px;}
 
-#umenu {position:fixed; top:60px; left:0px; bottom:0px; z-index:1000; margin:0; padding:0; width:100px; background-color:#254A98;}
-#umenu > li {margin-top:0; line-height:55px; border-top:1px solid #325E8B;}
-#umenu > li > a {padding:0 0 0 1.6rem; color:#C5D4F3; font-size:1.6rem;}
-#umenu > li > a:hover{background-color:#1A2753;}
-#umenu > li > a:focus{background-color:#1A2753;}
-#umenu > li:hover {border-left:3px solid #F0C65A;}
-#umenu > li:hover > a {background-color:#1A2753; color:#F0C65A;}
-#umenu > li.uhighlight {border-left:3px solid #F0C65A;}
-#umenu > li.uhighlight > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar {position:fixed; top:60px; left:0px; bottom:0px; z-index:1000; margin:0; padding:0; width:100px; background-color:#254A98;}
+#uleftbar > li {margin-top:0; line-height:55px; border-top:1px solid #325E8B;}
+#uleftbar > li > a {padding:0 0 0 1.6rem; color:#C5D4F3; font-size:1.6rem;}
+#uleftbar > li > a:hover{background-color:#1A2753;}
+#uleftbar > li > a:focus{background-color:#1A2753;}
+#uleftbar > li:hover {border-left:3px solid #F0C65A;}
+#uleftbar > li:hover > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar > li.uhighlight {border-left:3px solid #F0C65A;}/*普通菜单高亮显示*/
+#uleftbar > li.uhighlight > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar > li.am-active {border-left:3px solid #F0C65A;}/*带菜单点击高亮显示*/
+#uleftbar > li.am-active > a {background-color:#1A2753; color:#F0C65A;}
+
+#uleftbar .umenu-common{position:absolute; top:0px; left:0px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
+#uleftbar .umenu-common:before {left:0px; top:0%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
+#uleftbar .umenu-common:after{display:none;} 
+#uleftbar .umenu-common>li{background-color:#254A98;}
+#uleftbar .umenu-common>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
+#uleftbar .umenu-common>li>a:hover,#umenu .umenu-common>li>a:focus{color:#F0C65A}
+
 /*商品*/
-#umenu .umenu-goods {position:absolute; top:-30px; left:105px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
-#umenu .umenu-goods:before {left:-16px; top:70%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
-#umenu .umenu-goods:after{display:none;} 
-#umenu .iconshop{vertical-align:baseline;}
-#umenu .umenu-goods>li{background-color:#254A98;}
-#umenu .umenu-goods>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
-#umenu .umenu-goods>li>a:hover,#umenu .umenu3>li>a:focus{color:#F0C65A}
-
+#uleftbar .umenu-common.umenu-goods {top:-30px; left:105px;}
+#uleftbar .umenu-common.umenu-goods:before {left:-16px; top:70%;} 
 /*收银员设置*/
-#umenu .umenu-set2 {position:absolute; top:10px; left:105px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
-#umenu .umenu-set2:before {left:-16px; top:55%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
-#umenu .umenu-set2:after{display:none;} 
-#umenu .umenu-set2>li{background-color:#254A98;}
-#umenu .umenu-set2>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
-#umenu .umenu-set2>li>a:hover,#umenu .umenu3>li>a:focus{color:#F0C65A}
-/*管理员设置菜单*/
-#umenu .umenu-set {position:absolute; top:-212px; left:105px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
-#umenu .umenu-set:before {left:-16px; top:90%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
-#umenu .umenu-set:after{display:none;} 
-#umenu .umenu-set>li{background-color:#254A98;}
-#umenu .umenu-set>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
-#umenu .umenu-set>li>a:hover,#umenu .umenu-set>li>a:focus{color:#F0C65A}
-
+#uleftbar .umenu-common.umenu-set2 {top:10px; left:105px;}
+#uleftbar .umenu-common.umenu-set2:before {left:-16px; top:55%;} 
+/*管理员设置*/
+#uleftbar .umenu-common.umenu-set {top:-212px; left:105px;}
+#uleftbar .umenu-common.umenu-set:before {left:-16px; top:90%;} 
 /*微信菜单*/
-#umenu .umenu-wechat {position:absolute; top:-25px; left:105px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
-#umenu .umenu-wechat:before {left:-16px; top:70%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
-#umenu .umenu-wechat:after{display:none;} 
-#umenu .umenu-wechat>li{background-color:#254A98;}
-#umenu .umenu-wechat>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
-#umenu .umenu-wechat>li>a:hover,#umenu .umenu-wechat>li>a:focus{color:#F0C65A}
+#uleftbar .umenu-common.umenu-wechat {top:-25px; left:105px;}
+#uleftbar .umenu-common.umenu-wechat:before {left:-16px; top:70%;} 
 
 
-
-
-.gcontent{position:fixed; overflow:auto; padding:10px 0 61px 101px; width:100%; height:100%; background:#F1F1F1;}
+.gcontent{position:fixed; top:61px; bottom:0; left:101px; right:0; overflow:auto; background:#F1F1F1;}
 .gcontent .am-tabs-bd{border:none;}
 li{list-style:none;}
 .gspace5{height:5px; line-height:5px; font-size:5px;}
@@ -78,6 +67,11 @@ li{list-style:none;}
 .gspace50{height:50px;}
 .gmoneycolor{color: #E9601C;}
 .gmoneycolor2{color: #E9601C;font-size: 1.8rem;}
+
+/*   *号加红  */
+/*<span class="am-text-danger">*</span>*/
+
+
 /*公共部分*/
 
 /*公共table1样式,直接复制粘贴至TABLE标签即可*/
@@ -124,6 +118,8 @@ li{list-style:none;}
 #ubody .utable1 tr{background: #FFFFFF; height: 37px;}
 #ubody .utable1 tr td{vertical-align: middle; }
 #ubody .utable1 .utr1{background: #E9EEF2;}
+/*表格中如果有操作列，在那一列td上加上uhandle属性*/
+#ubody .utable1 .uhandle{width: 12%;}
 
 /*公共table2样式,直接复制粘贴至TABLE标签即可*/
 /* class="am-table am-table-bordered am-table-hover am-table-compact gtable2" */
@@ -226,7 +222,12 @@ li{list-style:none;}
 /*单选框样式*/
 #ubody .am-radio-inline, .am-checkbox-inline{ vertical-align: baseline; }
 #ubody .uradio1{line-height:32px;}
+
 /*工具栏输入框样式*/
+/*<input class="am-form-field uinput0" type="text" name="">*/
+#ubody .uinput0{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 100px; height: 32px; font-size: 1.4rem;}
+#ubody .uinput0:focus{outline: none;}
+
 /*<input class="am-form-field uinput1" type="text" name="">*/
 #ubody .uinput1{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 140px; height: 32px; font-size: 1.4rem;}
 #ubody .uinput1:focus{outline: none;}
@@ -330,6 +331,7 @@ li{list-style:none;}
 #ubody .utable1 .iconfont{font-size:1.2rem;}
 #ubody .utable2 .iconfont{font-size:1.2rem;}
 #ubody .utable3 .iconfont{font-size:1.2rem;}
+
 /*充值按钮*/
 /*<button class="am-btn am-btn-warning am-radius am-btn-sm ubtncz">
   <i class="iconfont icon-chongzhi"></i>
@@ -435,7 +437,7 @@ li{list-style:none;}
 #ubody .ubtaddl{height:40px; width:110px; font-size:1.6rem; border-radius:5px;}
 
 /*
-<div class="am-modal" tabindex="-1" id="umodaluseradd">
+<div class="am-modal" tabindex="-1" id="">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhd">新增会员
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>
@@ -443,13 +445,13 @@ li{list-style:none;}
     <form action="" method='get'>
       <div class="am-modal-bd am-g ubd1">
              <div class="am-u-lg-6">
-               <span class="uspan1">会员姓名：</span><input type="text" class="am-form-field am-form-field uinput-md">
+               <span class="uspan1">会员姓名：</span><input type="text" class="am-form-field uinput-md">
              </div>
              <div class="am-u-lg-6">
-               <span class="uspan1">手机号码：</span><input type="text" class="am-form-field am-form-field uinput-md">
+               <span class="uspan1">手机号码：</span><input type="text" class="am-form-field uinput-md">
              </div> 
              <div class="am-u-lg-6">
-               <span class="uspan1">会员卡号：</span><input type="text" class="am-form-field am-form-field uinput-md">
+               <span class="uspan1">会员卡号：</span><input type="text" class="am-form-field uinput-md">
              </div> 
              <div class="am-u-lg-6 uradio1">
                <span class="uspan1">启用密码：</span><label class="am-radio-inline">
@@ -460,10 +462,10 @@ li{list-style:none;}
               </label>
              </div>
              <div class="am-u-lg-6 aispwd">
-               <span class="uspan1">输入密码：</span><input type="password" class="am-form-field am-form-field uinput-md">
+               <span class="uspan1">输入密码：</span><input type="password" class="am-form-field uinput-md">
              </div>
              <div class="am-u-lg-6 aispwd">
-               <span class="uspan1">确认密码：</span><input type="password" class="am-form-field am-form-field uinput-md">
+               <span class="uspan1">确认密码：</span><input type="password" class="am-form-field uinput-md">
              </div>  
              <div class="am-u-lg-6 uradio1">
                <span class="uspan1">性别：</span><label class="am-radio-inline">
@@ -504,17 +506,17 @@ li{list-style:none;}
                   <option value="d">禁用</option>
                 </select>
              </div>
-            <div class="am-u-lg-12">
+             <div class="am-u-lg-12">
               <span class="uspan1">联系地址：</span>
               <input type="password" class="am-form-field uinput-lg">
              </div>
               <div class="am-u-lg-12" style="height:auto;">
               <span class="uspan1">备注：</span>
-              <textarea class="utextarea" row="3"></textarea>
-            </div>   
+              <textarea class="am-form-field utextarea" row="3"></textarea>
+             </div>   
       </div>
       <div class="am-modal-footer uft1">
-            <button type="button" class="am-btn am-btn-success ubtn2 ubtnnextl"><i class="iconfont icon-xiangyou2"></i>
+            <button type="submit" class="am-btn am-btn-success ubtn2 ubtnnextl"><i class="iconfont icon-xiangyou2"></i>
         下一步</button> 
       </div>
     </form>
@@ -591,6 +593,22 @@ li{list-style:none;}
 .am-modal-dialog.umodal .uft1 .ubtn2{position:absolute; right:50px; bottom:24px;}
 .am-modal-dialog.umodal .uft1 .ubtn3{position:absolute; left:50px; bottom:24px;}
 
+/*删除按钮弹出框*/
+/*<div class="am-modal am-modal-confirm udelmodal" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd udelhd"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你，确定要删除这条记录吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>*/
+
+#ubody .am-modal.udelmodal .am-modal-dialog .am-modal-hd.udelhd{padding:15px 10px 5px 10px; text-align:center; border-bottom:none; }
+#ubody .am-modal.udelmodal .am-modal-dialog{width:540px; border-radius:5px;}
 
 
 

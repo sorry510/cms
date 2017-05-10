@@ -1,0 +1,98 @@
+/*appoint页面样式*/
+#ubody .uappoint .ub{border:none;}
+/*弹出框搜索按钮导致的改动*/
+#ubody .uappoint .ucont1{width:46%; padding-right:0px;}
+#ubody .uappoint .ucont2{padding-left:0px;}
+#ubody .uappoint .ucont3{padding-right:0px;}
+#ubody .uappoint .ucont3 .uspan1.uspan2{width:60px;}
+/*删除提醒框宽度调整*/
+/*#ubody #my-confirm.uappointa .am-modal-dialog{width:400px; border-radius:5px;}
+#ubody #my-confirm.uappointa .am-modal-hd{padding:10px 0px; text-align:center; border-bottom:none;}
+#ubody #my-confirm.uappointa .am-modal-bd{padding:10px 0px;}*/
+
+
+/*appoint1页面样式*/
+#ubody .uappoint1 .line{width:95%; margin:0px auto; border-bottom:1px solid #cccccc;}
+#ubody .uappoint1 .ub .ub1b{margin:0px auto; height:40px; line-height:40px; width:95%; font-size:1.6rem;}
+#ubody .uappoint1 .ub .ub1c{overflow:hidden; zoom:1; margin:0px auto; width:95%; }
+#ubody .uappoint1 .ub .ub1c ul{float:left; overflow:hidden; zoom:1; margin:0px; margin-right:1.5%; padding:0px; width:18%; background:#fff; font-size:1.4rem; border-radius:5px;}
+#ubody .uappoint1 .ub .ub1c .ub1c1{padding-left:15px; height:40px; line-height:40px; color:#353537; background:#D89E4C;}
+#ubody .uappoint1 .ub .ub1c .ub1c2{margin:0 8%; height:40px; line-height:40px; color:#353537;background:#fff; border-bottom:1px solid #EEEEEE; text-align:center; }
+#ubody .uappoint1 .ub .ub1c .ub1c3{height:30px; line-height:30px; color:#717171;background:#fff; text-align:center; font-size:1.2rem;}
+#ubody .uappoint1 .ub .ub1c .ub1c4{padding-left:15px; height:40px; line-height:40px; color:#fff;background:#2AA672;}
+
+
+/*收银页面样式*/
+#ubody .umain .ua .ua1{float:right; height:50px; line-height:50px; font-size:1.4rem;}
+#ubody .umain .ua .ua1 .ua1a{margin-right:35px;}
+#ubody .umain .ua .ua1 .ua1a .ua1a1{color:#FE4300; }
+#ubody .umain .ua .ua1 .ua1b{margin-right:60px;}
+#ubody .umain .ua .ua1 .ua1b .ua1b1{color:#FE4300; font-size:1.4rem;}
+#ubody .umain .ua .ua1 .ua1c{padding:2px 10px; color:#fff; background:#65B32B; border-radius:5px; font-size:1.4rem;}
+#ubody .umain .ua .ua1 .ua1c a{color:#fff;}
+#ubody .umain .ub{margin:0px auto; width:95%; border:none; padding:0px;}
+#ubody .umain .ub1a{padding:0px 1%; width:100%; height:50px; line-height:50px; background:#FFF9D7; color:#454543; font-size:1.4rem; border-radius:5px; border:1px solid #F7DE9C;}
+#ubody .umain .ub1a1{margin-top:12px; margin-right:1%; padding:0px; height:24px; line-height:16px;  background:url(../img/open1.png) no-repeat; border-radius:50%;}
+#ubody .umain .ub1b{height:50px; line-height:50px; font-size:1.6rem; font-weight:bold;}
+#ubody .umain .ub1c{overflow:hidden; zoom:1; margin:0px; padding:0px; height:90px; width:100%; box-sizing:border-box; border-radius:5px;}
+#ubody .umain .ub1c>li{float:left; margin-right:2%; height:90px; width:32%; background:#fff; box-sizing:border-box; border:1px solid #ddd;}
+#ubody .umain .ub1c .youhui{margin-right:0px;}
+#ubody .umain .ub1c .ub1c1{float:left; width:35%; height:100%; text-align:center;}
+#ubody .umain .ub1c .ub1c1 img{margin-top:15px; height:60px;}
+#ubody .umain .ub1c .ub1c2{float:right; width:64%;  font-size:1.4rem;}
+#ubody .umain .ub1c .ub1c2 .ub1c2a{margin-top:15px;}
+#ubody .umain .ub1c .ub1c2 .ub1c2b{height:50px;}
+#ubody .umain .ub1c .ub1c2 .ub1c2b span{font-size:2.4rem; color:#FB7B00; font-weight:bold;}
+#ubody .umain .ub1c .ub1c2 .ub1c2b .ub1c2b1{color:#6A6F6B;}
+#ubody .umain .ub1d{overflow:hidden; zoom:1; margin:0px; padding:0px; height:45px; line-height:45px; width:100%; background:#fff; box-sizing:border-box; border-radius:5px; border:1px solid #ddd;}
+#ubody .umain .ub1d li{float:left; width:18%; padding-left:3%; font-size:1.4rem;}
+#ubody .umain .ub1d a{padding:5px 10px; background:#65B32B; font-size:1.4rem; font-weight:normal; border-radius:5px;}
+#ubody .umain .ub1d .active{background:#fe4300;}
+#ubody .umain .ub1e{overflow:hidden; zoom:1; margin:0px; padding:0px 10%; width:100%;}
+#ubody .umain .ub1e li{float:left;  width:25%; text-align:center;}
+#ubody .umain .ub1e img{height:100px;}
+#ubody .umain .ub1e span{height:40px; line-height:40px; font-size:1.8rem; display:inline-block;}
+
+/*detail明细页面样式*/
+#ubody .ginput4 { outline:none; border: 1px solid #ccc; border-radius: 3px; width: 180px; font-size: 1.4rem;}
+#ubody .ginput5 { outline:none; border: 1px solid #ccc; border-radius: 3px; font-size: 1.4rem; width: 180px; height: 80px;}
+.goffcanvas{width: 50%;background: #FFFFFF;border:0;}
+#udetail .ub{ border:none;}
+#uoffcanvas {font-size:1.4rem;}
+#uoffcanvas .title{font-size: 1.8rem; font-weight: bold; color: #2E2E2E;}
+#uoffcanvas p{ padding-left: 3.5%; color: #666666;}
+#uoffcanvas .am-offcanvas-bar .am-offcanvas-content .ua{ overflow: hidden; zoom:1;}
+#uoffcanvas .am-offcanvas-bar .am-offcanvas-content .ua .ua1{ float: left;}
+#uoffcanvas .am-offcanvas-bar .am-offcanvas-content .ua .ua2{ float: left; margin-top: 0; margin-left: 20px; display: inline;}
+#uoffcanvas .am-offcanvas-bar .am-offcanvas-content .ub{ text-align: right;}
+#uoffcanvas span{ color: black;}
+.am-offcanvas-bar:after{background: #FFFFFF;}
+#doc-modal-1{font-size:1.4rem;}
+#doc-modal-1 .a{ border-radius: 10px;}
+#doc-modal-1 .am-modal-dialog .ua form .ua2{ font-size: 13px; text-align: center;}
+#doc-modal-1 p{ margin: 0 15px; padding-left:10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; text-align: left; color: grey; font-size: 12px;}
+#doc-modal-1 .am-modal-dialog .ua form .ua1{ overflow: hidden; zoom:1; margin: 0 20px;}
+#doc-modal-1 .am-modal-dialog .ua form .ua1 button{ float: right; margin-left:10px;}
+#doc-modal-1 .am-modal-dialog .ua form .ua1 .a2{ float: right; margin-right: 15px; display: inline; padding-top:9px; color: #656668; font-size: 13px;}
+.am-modal-hd{padding: 0; padding-left: 20px; text-align: left; padding-bottom: 5px; border-bottom: 1px solid #ccc;}
+
+
+/*user页面样式*/
+#uuser .uspancolor1{border-radius:3px;font-weight:normal;}
+/*会员充值*/
+#umodalusercz.uuser .umodal{width:883px;}
+#umodalusercz.uuser .umodal > .uft1 .ub1{position:absolute;bottom:50px; left:30px;}
+#umodalusercz.uuser .umodal > .uft1 .ub2{position:absolute;bottom:10px; left:30px;}
+/*购买套餐*/
+#umodalusertc.uuser .umodal{width:883px;}
+#umodalusertc.uuser .umodal .ubd2 .ucont2 {margin:10px 0 0 0;}
+#umodalusertc.uuser .umodal .ubd2 .ucont2 .uiconexchange{padding-top:140px}
+#umodalusertc.uuser .umodal > .uft1 .uc1{position:absolute;right:200px; bottom:30px;}
+/*购买完成*/
+#umodalusertcwc.uuser .umodal{width:883px;}
+#umodalusertcwc.uuser .umodal .ubd2 .ucont2 {margin:10px 0 0 0;}
+#umodalusertcwc.uuser .umodal .ubd2 .ucont3 {margin:10px 0 0 0;}
+#umodalusertcwc.uuser .umodal .ubd2 .ucont3 .tabsleft{padding-right:10px;}
+#umodalusertcwc.uuser .umodal .ubd2 .ucont3 .tabsright{padding-left:10px;}
+#umodalusertcwc.uuser .umodal > .uft1 .ud1{position:absolute;bottom:40px; left:30px;}
+

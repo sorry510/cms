@@ -29,8 +29,8 @@
 #umenu > li > a:focus{background-color:#1A2753;}
 #umenu > li:hover {border-left:3px solid #F0C65A;}
 #umenu > li:hover > a {background-color:#1A2753; color:#F0C65A;}
-#umenu > li.am-active {border-left:3px solid #F0C65A;}
-#umenu > li.am-active > a {background-color:#1A2753; color:#F0C65A;}
+#umenu > li.uhighlight {border-left:3px solid #F0C65A;}
+#umenu > li.uhighlight > a {background-color:#1A2753; color:#F0C65A;}
 /*商品*/
 #umenu .umenu-goods {position:absolute; top:-30px; left:105px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
 #umenu .umenu-goods:before {left:-16px; top:70%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 

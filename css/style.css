@@ -77,7 +77,7 @@
 .am-modal-hd{padding: 0; padding-left: 20px; text-align: left; padding-bottom: 5px; border-bottom: 1px solid #ccc;}
 
 
-/*user页面样式*/
+/***********************************************user页面样式******************************************/
 #uuser .uspancolor1{border-radius:3px;font-weight:normal;}
 /*会员充值*/
 #umodalusercz.uuser .umodal{width:883px;}
@@ -95,4 +95,5 @@
 #umodalusertcwc.uuser .umodal .ubd2 .ucont3 .tabsleft{padding-right:10px;}
 #umodalusertcwc.uuser .umodal .ubd2 .ucont3 .tabsright{padding-left:10px;}
 #umodalusertcwc.uuser .umodal > .uft1 .ud1{position:absolute;bottom:40px; left:30px;}
+/******************************************************************************************************/
 

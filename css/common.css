@@ -1,59 +1,60 @@
+/*公共样式*/
+/*头部*/
 #uheader {margin-bottom:0; height:60px; background:#2D3D61; font-size:1.4rem;}
-#uheader .ulogo {width:100px; height:60px; line-height:60px; background:#254A98; text-align:center; }
+#uheader .ulogo {width:100px; height:60px; line-height:60px; background:#254A98; text-align:center;}
 #uheader .utitle {padding-left:5rem; height:60px; line-height:60px; font-size:2rem; color:#BFD1F5;}
-#uheader .unav {margin-top:0;} 
-#uheader .unav .umenu1{background-color:#2D3D61; border:1px solid #254A98;}  
-#uheader .unav .umenu1:before{border-bottom-color:#2D3D61;}  
-#uheader .unav .umenu1:after{border-bottom-color:#2D3D61;}  
-#uheader .unav .umenu1 > li > a{color:#BFD1F5;}  
-#uheader .unav .umenu1 > li > a{color:#BFD1F5;}  
-#uheader .unav .umenu1 > li > a:hover,#uheader .unav .umenu1 > li > a:focus{color:#F0C65A; background-color:inherit;}  
+#uheader .unav {margin-top:0;}
+#uheader .unav .umenu1 {background-color:#2D3D61; border:1px solid #254A98;}
+#uheader .unav .umenu1:before {border-bottom-color:#2D3D61;}
+#uheader .unav .umenu1:after {border-bottom-color:#2D3D61;}
+#uheader .unav .umenu1 > li > a{color:#BFD1F5;}
+#uheader .unav .umenu1 > li > a{color:#BFD1F5;}
+#uheader .unav .umenu1 > li > a:hover, #uheader .unav .umenu1 > li > a:focus{color:#F0C65A; background-color:inherit;}
 #uheader .unav > li {margin:7px 0; padding:0 1.3rem; height:46px; line-height:46px; border-left:1px solid #305F8B;}
-#uheader .unav > li > a {padding:0 1rem; line-height:46px;} 
+#uheader .unav > li > a {padding:0 1rem; line-height:46px;}
 #uheader .unav > li > a:after {display:none;}
 #uheader .unav > li > a:hover:after {display:none;}
 #uheader .unav > li > a:hover{background-color:#2D3D61;}
 #uheader .unav > li > a:focus{background-color:#2D3D61;}
 #uheader .unav > li > a > span {font-size:1.4rem; color:#BFD1F5;}
 #uheader .unav > li > a > span.iconfont {font-size:1.6rem;}
-#uheader .unav > li > a > .udropdown:after {position:absolute; right:0px; bottom:13px; content:""; display:inline-block; width:0; height:0; border-bottom:6px solid #DEE9EB; border-left:6px solid transparent;} 
+#uheader .unav > li > a > .udropdown:after {position:absolute; right:0px; bottom:13px; content:""; display:inline-block; width:0; height:0; border-bottom:6px solid #DEE9EB; border-left:6px solid transparent;}
 #uheader .unav > li.am-active > a span {color:#F0C65A;}
 #uheader .unav > li.am-active > a .udropdown:after {border-bottom:6px solid #F0C65A;}
 #uheader .uad {margin-right:8rem; width:70px; height:37px; line-height:28px; background:url('../img/ad.jpg') no-repeat; text-align:center; color:#FFFF02;}
 #uheader .am-active > .am-dropdown-content {margin-top: 12px;}
-
+/*左侧*/
 #uleftbar {position:fixed; top:60px; left:0px; bottom:0px; z-index:1000; margin:0; padding:0; width:100px; background-color:#254A98;}
 #uleftbar > li {margin-top:0; line-height:55px; border-top:1px solid #325E8B;}
 #uleftbar > li > a {padding:0 0 0 1.6rem; color:#C5D4F3; font-size:1.6rem;}
-#uleftbar > li > a:hover{background-color:#1A2753;}
-#uleftbar > li > a:focus{background-color:#1A2753;}
+#uleftbar > li > a:hover {background-color:#1A2753;}
+#uleftbar > li > a:focus {background-color:#1A2753;}
 #uleftbar > li:hover {border-left:3px solid #F0C65A;}
 #uleftbar > li:hover > a {background-color:#1A2753; color:#F0C65A;}
 #uleftbar > li.uhighlight {border-left:3px solid #F0C65A;}/*普通菜单高亮显示*/
 #uleftbar > li.uhighlight > a {background-color:#1A2753; color:#F0C65A;}
-#uleftbar > li.am-active {border-left:3px solid #F0C65A;}/*带菜单点击高亮显示*/
+#uleftbar > li.am-active {border-left:3px solid #F0C65A;}/*带子菜单点击高亮显示*/
 #uleftbar > li.am-active > a {background-color:#1A2753; color:#F0C65A;}
-
-#uleftbar .umenu-common{position:absolute; top:0px; left:0px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
-#uleftbar .umenu-common:before {left:0px; top:0%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;} 
-#uleftbar .umenu-common:after{display:none;} 
-#uleftbar .umenu-common>li{background-color:#254A98;}
-#uleftbar .umenu-common>li>a{background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
-#uleftbar .umenu-common>li>a:hover,#umenu .umenu-common>li>a:focus{color:#F0C65A}
-
+#uleftbar .umenu2 {position:absolute; top:0px; left:0px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
+#uleftbar .umenu2:before {left:0px; top:0%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;}
+#uleftbar .umenu2:after {display:none;}
+#uleftbar .umenu2 > li {background-color:#254A98;}
+#uleftbar .umenu2 > li > a {background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
+#uleftbar .umenu2 > li > a:hover, #uleftbar .umenu2 > li > a:focus {color:#F0C65A}
 /*商品*/
-#uleftbar .umenu-common.umenu-goods {top:-30px; left:105px;}
-#uleftbar .umenu-common.umenu-goods:before {left:-16px; top:70%;} 
+#uleftbar .umenu2.umenu2-goods {top:-30px; left:105px;}
+#uleftbar .umenu2.umenu2-goods:before {left:-16px; top:70%;}
 /*收银员设置*/
-#uleftbar .umenu-common.umenu-set2 {top:10px; left:105px;}
-#uleftbar .umenu-common.umenu-set2:before {left:-16px; top:55%;} 
+#uleftbar .umenu2.umenu2-set2 {top:10px; left:105px;}
+#uleftbar .umenu2.umenu2-set2:before {left:-16px; top:55%;}
 /*管理员设置*/
-#uleftbar .umenu-common.umenu-set {top:-212px; left:105px;}
-#uleftbar .umenu-common.umenu-set:before {left:-16px; top:90%;} 
+#uleftbar .umenu2.umenu2-set {top:-212px; left:105px;}
+#uleftbar .umenu2.umenu2-set:before {left:-16px; top:90%;}
 /*微信菜单*/
-#uleftbar .umenu-common.umenu-wechat {top:-25px; left:105px;}
-#uleftbar .umenu-common.umenu-wechat:before {left:-16px; top:70%;} 
+#uleftbar .umenu2.umenu2-wechat {top:-25px; left:105px;}
+#uleftbar .umenu2.umenu2-wechat:before {left:-16px; top:70%;}
 
+/******************************************************************************************************/
 
 .gcontent{position:fixed; top:61px; bottom:0; left:101px; right:0; overflow:auto; background:#F1F1F1;}
 .gcontent .am-tabs-bd{border:none;}
@@ -67,194 +68,67 @@ li{list-style:none;}
 .gspace50{height:50px;}
 .gmoneycolor{color: #E9601C;}
 .gmoneycolor2{color: #E9601C;font-size: 1.8rem;}
+#ubody label{font-weight:normal; font-size:14px; padding-top:5px;}
 
-/*   *号加红  */
-/*<span class="am-text-danger">*</span>*/
-
+/******************************************************************************************************/
 
 /*公共部分*/
-
-/*公共table1样式,直接复制粘贴至TABLE标签即可*/
-/* class="am-table am-table-bordered am-table-hover am-table-compact utable1" */
-/*
-  测试用
-  <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
-        <tr class="utr1">
-          <td>开卡类型</td>
-          <td>消费单号</td>
-          <td>卡号</td>
-          <td>姓名</td>
-          <td>消费类型</td>
-          <td>现金</td>
-          <td>刷卡</td>
-          <td>团购</td>
-          <td>消费店铺</td>
-        </tr>
-        <tr>
-          <td>2015-06-18&nbsp;12:21</td>
-          <td>2017030412456</td>
-          <td>HY1001</td>
-          <td>刘艳秋</td>
-          <td>消费</td>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>解放路分店</td>
-        </tr>
-        <tr>
-          <td>2015-06-18&nbsp;12:21</td>
-          <td>2017030412456</td>
-          <td>HY1001</td>
-          <td>刘艳秋</td>
-          <td>消费</td>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>解放路分店</td>
-        </tr>
-  </table>
- */
-#ubody .utable1{width: 95%; margin: 0 auto; text-align: center; font-size: 1.4rem;}
-#ubody .utable1 tr{background: #FFFFFF; height: 37px;}
-#ubody .utable1 tr td{vertical-align: middle; }
-#ubody .utable1 .utr1{background: #E9EEF2;}
-/*表格中如果有操作列，在那一列td上加上uhandle属性*/
-#ubody .utable1 .uhandle{width: 12%;}
-
-/*公共table2样式,直接复制粘贴至TABLE标签即可*/
-/* class="am-table am-table-bordered am-table-hover am-table-compact gtable2" */
-#ubody .utable2{text-align: center; font-size: 1.4rem;}
-#ubody .utable2 tr{background: #FFFFFF; height: 37px;}
-#ubody .utable2 tr td{vertical-align: middle;}
-#ubody .utable2 .utr1{background: #2AA672; color:#FFFFFF}
-
-/*公共table3样式,直接复制粘贴至TABLE标签即可*/
-/* class="am-table am-table-bordered am-table-hover am-table-compact gtable3" */
-#ubody .utable3{text-align: center; font-size: 1.4rem;}
-#ubody .utable3 tr{background: #FFFFFF; height: 37px;}
-#ubody .utable3 tr td{vertical-align: middle;}
-#ubody .utable3 .utr1{background: #D89E4C; color:#FFFFFF;}
+/*公共table样式*/
+#ubody .utable{width: 95%; margin: 0 auto; text-align: center; font-size: 1.4rem;}
+#ubody .utable tr{background: #FFFFFF; height: 37px;}
+#ubody .utable tr td{vertical-align: middle; }
+#ubody .utable thead tr{background: #E9EEF2;}
+/*公共table2样式*/
+#ubody .utable2{width:100%;}
+#ubody .utable2 thead tr{background: #2AA672; color:#FFFFFF}
+/*公共table3样式*/
+#ubody .utable3{width: 100%;}
+#ubody .utable3 thead tr{background: #D89E4C; color:#FFFFFF;}
 
 /*分页*/
-/*
-  <ul class="am-pagination am-pagination-centered upages">
-   <li class="upagedec">共1页 3条记录</li>
-   <li class="am-disabled"><a href="#">&laquo;</a></li>
-   <li class="am-active"><a href="#">1</a></li>
-   <li><a href="#">2</a></li>
-   <li><a href="#">3</a></li>
-   <li><a href="#">&raquo;</a></li>
-  </ul>
-*/
-
-#ubody .upages li a{font-size:1.4rem; padding:0.4rem 0.5rem;}
+#ubody .upages li a{font-size:1.4rem; padding:0.4rem 0.5rem; width: 30px;}
 #ubody .upages li.am-active a{font-size:1.4rem; background:#D89E4C; border-color:#D89E4C; border-radius:3px;}
 #ubody .upagedec{margin-left:1.4rem; font-size:1.4rem; color:#999B98;}
 
-/*工具栏日期输入框*/
-/*
-  <div class="am-input-group am-datepicker-date udatepicker1" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-    <input type="text" class="am-form-field">
-    <span class="am-input-group-btn am-datepicker-add-on">
-      <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-    </span>
-  </div>  
- */
 /*工具栏日期输入框样式*/
-#ubody .udatepicker1{vertical-align: middle; background:#fff; border:1px solid #CCCCCC;display: inline-flex;border-radius: 3px;}
-#ubody .udatepicker1 input{margin:0px; width:111px; height:30px;border:none;}
-#ubody .udatepicker1 button{margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
-#ubody .udatepicker1 .am-btn:focus,.am-btn:active:focus {outline: none;}
+#ubody .udatepicker{vertical-align: middle; background:#fff;display: inline-flex;border:1px solid #CCCCCC;border-radius: 3px;}
+#ubody .udatepicker input{margin:0px; height:30px; width:111px; border:none;box-shadow: none;-webkit-box-shadow:none;}
+#ubody .udatepicker button{margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
+#ubody .udatepicker .am-btn:focus,.am-btn:active:focus {outline: none;}
+#ubody .udatepicker180 input{width: 151px;}
+#ubody .am-input-group.am-datepicker-date.udatepicker.udatepickermax{width:100%;}
+#ubody .udatepickermax input{width: 86%;}
 
+/*工具栏下拉框样式*/
+#ubody .uselect + .am-selected .am-selected-btn.am-btn-default{border-radius: 3px;border-color:#CCCCCC; background: #FFFFFF; height: 32px;padding:0 1em;}
+#ubody .uselect + .am-selected .am-selected-btn.am-btn-default .am-selected-status{padding-right: 12px; text-align: center; font-size: 1.4rem;}
+/*弹出框下拉框样式*/
+#ubody .uselect110 + .am-selected{width: 110px;}
+#ubody .uselect120 + .am-selected{width: 120px;}
+#ubody .uselect180 + .am-selected{width: 180px;}
+#ubody .uselectauto + .am-selected{width: auto;}
+#ubody .uselectmax + .am-selected{width: 100%;}
 
-/****************************************弹出框日期输入框***********************************************/
-/*
-    <div  class="am-input-group am-datepicker-date udatepicker2" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-      <input type="text" class="am-form-field">
-      <span class="am-input-group-btn am-datepicker-add-on">
-        <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-      </span>
-    </div>  
- */
-/*弹出框日期输入框样式*/
-#ubody .udatepicker2{vertical-align: middle; background:#fff; border:1px solid #CCCCCC;display: table-cell;border-radius: 3px;}
-#ubody .udatepicker2 input{margin:0px; width:151px; height:30px;border:none;}
-#ubody .udatepicker2 button{margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
-#ubody .udatepicker2 .am-btn:focus,.am-btn:active:focus {outline: none;}
-
-/*********************************************************************************************************/
-/*工具栏下拉框样式,直接复制粘贴至select标签即可*/
-/* class="uselect1" data-am-selected */
-/* 
-  <select class="uselect1" data-am-selected name="">
-    <option value="all">全部</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-  </select>
-*/
-#ubody .uselect1 + .am-selected{width: 110px;border-radius: 3px;border: 1px solid #CCCCCC}
-#ubody .uselect1 + .am-selected .am-selected-btn.am-btn-default{border:none; background: #FFFFFF; height: 30px;padding:0 1em;}
-#ubody .uselect1 + .am-selected .am-selected-btn.am-btn-default .am-selected-status{padding-right: 12px; text-align: center; font-size: 1.4rem;}
-/*弹出框下拉框样式,直接复制粘贴至select标签即可*/
-/*   class="uselect2" data-am-selected  */
-#ubody .uselect2 + .am-selected{width: 180px; border-radius: 3px;border: 1px solid #CCCCCC}
-#ubody .uselect2 + .am-selected .am-selected-btn.am-btn-default{border:none; background: #FFFFFF; height: 30px;padding:0 1em;}
-#ubody .uselect2 + .am-selected .am-selected-btn.am-btn-default .am-selected-status{padding-right: 12px; text-align: center; font-size: 1.4rem;}
-/*   class="uselect3" data-am-selected  */
-#ubody .uselect3 + .am-selected{width: 120px; border-radius: 3px;border: 1px solid #CCCCCC}
-#ubody .uselect3 + .am-selected .am-selected-btn.am-btn-default{border:none; background: #FFFFFF; height: 26px;padding:0 1em;}
-#ubody .uselect3 + .am-selected .am-selected-btn.am-btn-default .am-selected-status{padding-right: 12px; text-align: center; font-size: 1.4rem;}
-/*单选框*/
-/*
-    <div class="am-form-group ">
-      <h3>性别</h3>
-      <label class="am-radio-inline uradio">
-        <input type="radio" name="radio10" value="male" data-am-ucheck> 男
-      </label>
-      <label class="am-radio-inline">
-        <input type="radio" name="radio10" value="female" data-am-ucheck> 女
-      </label>
-      <label class="am-radio-inline">
-        <input type="radio" name="radio10" value="pig" data-am-ucheck> 人妖
-      </label>
-    </div>
- */
-/*单选框样式*/
-#ubody .am-radio-inline, .am-checkbox-inline{ vertical-align: baseline; }
-#ubody .uradio1{line-height:32px;}
+/*单选框多选框样式*/
+#ubody .am-ucheck-icons{ top:6px; }
 
 /*工具栏输入框样式*/
-/*<input class="am-form-field uinput0" type="text" name="">*/
-#ubody .uinput0{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 100px; height: 32px; font-size: 1.4rem;}
-#ubody .uinput0:focus{outline: none;}
+#ubody .uinput{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 140px; height: 32px; font-size: 1.4rem;}
+#ubody .uinput:focus{outline: none;box-shadow: none;-webkit-box-shadow:none;}
+#ubody .uinput100{width: 100px;}
+#ubody .uinput120{width: 120px; height: 26px;}
+#ubody .uinput180{width: 180px;}
+#ubody .uinput505{width: 505px;}
+#ubody .uinputmax{width: 100%;}
 
-/*<input class="am-form-field uinput1" type="text" name="">*/
-#ubody .uinput1{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 140px; height: 32px; font-size: 1.4rem;}
-#ubody .uinput1:focus{outline: none;}
-/*弹出框中短输入框样式*/
-#ubody .uinput-sm{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 120px; height: 26px; font-size: 1.4rem;}
-#ubody .uinput-sm:focus{outline: none;}
-/*弹出框中中输入框样式*/
-#ubody .uinput-md{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 180px; height: 32px; font-size: 1.4rem;}
-#ubody .uinput-md:focus{outline: none;}
-/*弹出框中长输入框样式*/
-#ubody .uinput-lg{display: inline-block; border: 1px solid #CCCCCC; border-radius: 3px; width: 505px; height: 32px; font-size: 1.4rem;}
-#ubody .uinput-lg:focus{outline: none;}
 /*弹出框中textarea输入框样式*/
-#ubody .utextarea{ border: 1px solid #CCCCCC; border-radius: 3px; width: 505px; height: 75px; font-size: 1.4rem;}
+#ubody .utextarea{ border: 1px solid #CCCCCC; border-radius: 3px; width: 400px; height: 75px; font-size: 1.4rem;}
 #ubody .utextarea:focus{outline: none;}
-
-
-
-
+#ubody .utextarea505{width:505px;}
+#ubody .utextareamax{width:100%;}
 
 /****************************************面包屑导航***********************************************/
-/*<ul class="am-nav am-nav-tabs ubreadnav">
-    <li class="am-active"><a href="javascript: void(0)">今日预约</a></li>
-    <li><a href="javascript: void(0)">明日预约</a></li>
-    <li><a href="javascript: void(0)">更多预约</a></li>
-  </ul>*/
-#ubody .ubreadnav{overflow:hidden; zoom:1; padding:0px 2.5%; background:#fff;}
+#ubody .ubreadnav{overflow:hidden; zoom:1; margin:0px; padding:0px 2.5%; background:#fff;}
 #ubody .ubreadnav li{float:left; height:50px; line-height:50px; font-size:1.6rem; cursor:pointer}
 #ubody .ubreadnav a{height:50px; padding-top:15px; color:#000;}
 #ubody .ubreadnav .am-active a{border:none; border-bottom:4px solid #EBB440;  font-weight:bold;}
@@ -263,317 +137,92 @@ li{list-style:none;}
 #ubody .ubreadnav a:hover{background:#fff; color:#FA7307; border-color:#fff;}
 #ubody .ubreadnav a:focus{background:#fff; color:#000; border-color:#fff;}
 
+#ubody .ubreadnav div{float:right; height:50px; line-height:50px; font-size:1.4rem;}
+#ubody .ubreadnav .utel{margin-right:35px;}
+#ubody .ubreadnav .utel .unumb1{color:#FE4300;}
+#ubody .ubreadnav .umessage{margin-right:60px;}
+#ubody .ubreadnav .umessage .unumb2{color:#FE4300; font-size:1.4rem;}
+#ubody .ubreadnav .utime{padding:2px 10px; color:#fff; background:#65B32B; border-radius:5px; font-size:1.4rem;}
 
 /****************************************工具栏***********************************************/
-/*工具栏1有右边添加按钮*/
-/*<div class="utools">
-    <form class="am-form-inline am-vertical-align-middle ufrm" action="#" method="get" role="form">
-      <div class="umar">    
-               搜索：  
-      <input class="am-form-field uinput1" type="text" name="">  
-    </div>
-    </form> 
-    <button class="am-btn am-btn-primary am-radius ubtnadd">
-    <i class="iconfont icon-clock"></i>
-      新增预约
-    </button>
-  </div>*/
-/*工具栏2没有右边添加按钮*/
-/*<div class="utools">
-    <form class="am-form-inline am-vertical-align-middle ufrm2" action="#" method="get" role="form">
-      <div class="umar">    
-              搜索： 
-      <input class="am-form-field uinput1" type="text" name=""> 
-    </div>   
-    </form> 
-  </div>*/
-
 /*工具栏样式*/
-#ubody .utools{overflow:visible; margin:0px auto; height:42px; width:95%; color:#464646; font-size:1.4rem;}
+#ubody .utools{overflow:visible; margin:0px auto; width:95%; color:#464646; font-size:1.4rem;}
 #ubody .utools .ufrm{margin-top:4px; font-size:1.4rem; width:84%;}
-#ubody .utools .ufrm .umar{margin-right:20px; display:inline;}
+#ubody .utools .am-form-group{margin:0 20px 10px 0;}
 #ubody .ubtnadd{float:right; width:12%; height:40px; border-radius:5px;}
 #ubody .utools .ufrm2{margin-top:4px; font-size:1.4rem; width:100%;}
-#ubody .utools .ufrm2 .umar{margin-right:20px; display:inline;}
+#ubody .utools .am-form-group{ margin:0 20px 10px 0;}
 /*按钮*/
 #ubody .iconfont{margin-right:1px; vertical-align:middle;}
 
 
 /****************************************工具栏中的按钮***********************************************/
 /*查询按钮*/
-/*<button type="submit" class="am-btn am-btn-success am-radius am-btn-sm ubtnsearch">
-  <i class="iconfont icon-search"></i>查询
-</button>*/
-#ubody .ubtnsearch{margin-left:10px; height:32px; font-size:1.4rem; border-radius:5px;}
+#ubody .ubtn-tools-search{height:32px; font-size:1.4rem; background:#2AA672; color:#fff; border-radius:5px;}
 /*添加按钮*/
-/*  <button class="am-btn am-btn-primary am-radius ubtnadd"  data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">
-    <i class="iconfont icon-clock"></i>
-    新增预约
-    </button>
-  <button class="am-btn am-btn-primary am-radius ubtnadd">
-    <i class="iconfont icon-addition"></i>
-    新增会员
-  </button>
-  <button class="am-btn am-btn-primary am-radius ubtnadd">
-    <i class="iconfont icon-group"></i>
-    新增员工
-  </button>
-  <button class="am-btn am-btn-primary am-radius ubtnadd">
-    <i class="iconfont icon-jifen-xianxing"></i>
-    新增支出
-  </button>
-*/
-#ubody .ubtnadd{float:right; width:12%; height:40px; border-radius:5px;}
-
-
+#ubody .ubtn-tools-add{float:right; width:12%; height:40px; background:#3D76C7; color:#fff; border-radius:5px;}
 /****************************************表格中的按钮***********************************************/
-/*充值，买套餐，编辑，删除，停用，打印小票，到店*/
-#ubody .utable1 .iconfont{font-size:1.2rem;}
-#ubody .utable2 .iconfont{font-size:1.2rem;}
-#ubody .utable3 .iconfont{font-size:1.2rem;}
-
-/*充值按钮*/
-/*<button class="am-btn am-btn-warning am-radius am-btn-sm ubtncz">
-  <i class="iconfont icon-chongzhi"></i>
-  充值
-</button>*/
-#ubody .ubtncz{font-size:1.2rem; padding:4px 6px; height:22px; background:#FA7307; border:none;}
-/*买套餐按钮*/
-/*<button class="am-btn am-btn-warning am-radius am-btn-sm ubtngm">
-  <i class="iconfont icon-liwu"></i>
-  买套餐
-</button>*/
-#ubody .ubtngm{font-size:1.2rem; padding:4px 6px; height:22px; background:#FA7307; border:none;}
-/*编辑按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtncz">
-  <i class="iconfont icon-bianji"></i>
-  编辑
-</button>*/
-#ubody .ubtnbj{font-size:1.2rem; padding:4px 6px; height:22px; background:#59B04F; border:none;}
-/*删除按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtndel">
-  <i class="iconfont icon-shanchu"></i>
-  删除
-</button>*/
-#ubody .ubtndel{font-size:1.2rem; padding:4px 6px; height:22px; background:#AAAAAA; border:none;}
-/*停用按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtncz">
-  <i class="iconfont icon-tingyong"></i>
-  停用
-</button>*/
-#ubody .ubtnty{font-size:1.2rem; padding:4px 6px; height:22px; background:#238a5e; border:none;}
-/*打印小票按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtndy">
-  <i class="iconfont icon-dayin"></i>
-  打印小票
-</button>*/
-#ubody .ubtndy{font-size:1.2rem; padding:4px 6px; height:22px; background:#F87405; vertical-align:sub; border:none;}
-/*到店按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtndd">
-  <i class="iconfont icon-chongzhi"></i>
-  到店
-</button>*/
-#ubody .ubtndd{font-size:1.2rem; padding:4px 6px; height:22px; background:#59B04F; border:none;}
-
-
+/*徽章基础样式*/
+#ubody .ubtn-badge{padding:4px 6px; height:22px; color:#fff; font-size:1.2rem; border-radius:2px; border:none;}
+#ubody .ubtn-badge .iconfont{font-size:1.2rem;}
+/*橙色徽章*/
+#ubody .ubtn-badge-orange{background:#FA7307;}
+/*蓝色徽章*/
+#ubody .ubtn-badge-blue{background:#3D76C7;}
+/*灰色徽章*/
+#ubody .ubtn-badge-gray{background:#AAAAAA;}
+/*绿色徽章*/
+#ubody .ubtn-badge-green{background:#59B04F;}
+/*红色徽章*/
+#ubody .ubtn-badge-red{background:#d83819;}
 /****************************************弹出框中按钮***********************************************/
-/*确定，下一步，完成，到店消费,取消预约，反结账，买套餐，取消,搜索，打印小票，增加员工*/
-/*<button class="am-btn am-btn-success am-radius ubtnqdl">
-  <i class="iconfont icon-yuanxingxuanzhong"></i>
-  确定
-</button>*/
-#ubody .ubtnqdl{height:40px; width:120px; background:#2AA672; font-size:1.6rem; border-radius:5px;}
-/*<button class="am-btn am-btn-success am-radius ubtnnextl">
-  <i class="iconfont icon-xiangyou2"></i>
-  下一步
-</button>*/
-#ubody .ubtnnextl{height:40px; width:120px; font-size:1.6rem; border-radius:5px;}
-/*<button class="am-btn am-btn-success am-radius ubtnwcl">
-  <i class="iconfont icon-yuanxingxuanzhong"></i>
-  完成
-</button>*/
-#ubody .ubtnwcl{height:40px; width:110px; font-size:1.6rem; border-radius:5px;}
-/*<button class="am-btn am-btn-default am-radius am-btn-sm ubtnqxyl">
-  <i class="iconfont icon-shanchu"></i>
-  取消预约
-</button>*/
-#ubody .ubtnqxyl{height:40px; width:120px; font-size:1.6rem; border-radius:5px; border:none;}
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtnddxfl">
-  <i class="iconfont icon-chongzhi"></i>
-  到店消费
-</button>*/
-#ubody .ubtnddxfl{height:40px; width:120px; font-size:1.6rem; border-radius:5px; border:none;}
-/*<button class="am-btn am-btn-danger am-radius am-btn-sm ubtnfjzl">
-  <i class="iconfont icon-huaidanbaotui"></i>
-  反结帐
-</button>*/
-#ubody .ubtnfjzl{height:40px; width:120px; font-size:1.6rem; border-radius:5px; border:none; vertical-align:baseline;}
-#ubody .ubtnfjzl i{vertical-align:baseline;}
-/*<button class="am-btn am-btn-warning am-radius am-btn-sm">
-  <i class="iconfont icon-liwu"></i>
-  买套餐
-</button>*/
-#ubody .ubtnmtcl{height:40px; width:120px; font-size:1.6rem; border-radius:5px; border:none;}
-/*<button class="am-btn am-btn-default am-radius am-btn-sm ubtnqxl">
-  <i class="iconfont icon-shanchu"></i>
-  取消
-</button>*/
-#ubody .ubtnqxl{height:40px; width:120px; font-size:1.6rem; border-radius:5px; border:none;}
-/*<button type="submit" class="am-btn am-btn-success am-radius am-btn-sm ubtncxl">
-  <i class="iconfont icon-search"></i>搜索
-</button>*/
-#ubody .ubtncxl{padding:2px 6px; height:32px; font-size:1.4rem; border-radius:5px; border:none;}
-/*打印小票按钮*/
-/*<button class="am-btn am-btn-primary am-radius am-btn-sm ubtndyl">
-  <i class="iconfont icon-dayin"></i>
-  打印小票
-</button>*/
-#ubody .ubtndyl{height:40px; width:120px; font-size:1.6rem; background:#3D76C7; border-radius:5px; border:none;}
-/*增加员工*/
-/*<button class="am-btn am-btn-primary am-radius ubtnaddl">
-  <i class="iconfont icon-group"></i>
-  新增员工
-</button>*/
-#ubody .ubtaddl{height:40px; width:110px; font-size:1.6rem; border-radius:5px;}
+/*按钮基础样式：大、中、小*/
+#ubody .ubtn-lg{padding:0px 20px; height:40px; line-height:40px; color:#fff; font-size:1.6rem; border-radius:5px; border:none;}
+#ubody .ubtn-md{padding:0px 20px; height:35px; line-height:35px; color:#fff; font-size:1.4rem; border-radius:5px; border:none;}
+#ubody .ubtn-sm{padding:0px 10px; height:32px; line-height:32px; color:#fff; font-size:1.4rem; border-radius:5px; border:none;}
+/*绿色*/
+#ubody .ubtn-green{background:#2AA672;}
+/*橙色*/
+#ubody .ubtn-orange{background:#FA7307;}
+/*蓝色*/
+#ubody .ubtn-blue{background:#3D76C7;}
+/*灰色*/
+#ubody .ubtn-gray{background:#AAAAAA;}
+/*红色*/
+#ubody .ubtn-red{background:#d83819;}
 
-/*
-<div class="am-modal" tabindex="-1" id="">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhd">新增会员
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>
-    </div>
-    <form action="" method='get'>
-      <div class="am-modal-bd am-g ubd1">
-             <div class="am-u-lg-6">
-               <span class="uspan1">会员姓名：</span><input type="text" class="am-form-field uinput-md">
-             </div>
-             <div class="am-u-lg-6">
-               <span class="uspan1">手机号码：</span><input type="text" class="am-form-field uinput-md">
-             </div> 
-             <div class="am-u-lg-6">
-               <span class="uspan1">会员卡号：</span><input type="text" class="am-form-field uinput-md">
-             </div> 
-             <div class="am-u-lg-6 uradio1">
-               <span class="uspan1">启用密码：</span><label class="am-radio-inline">
-                <input class="achecked" type="radio" name="ispwd" value="0" flag="0" data-am-ucheck> 是
-              </label>
-              <label class="am-radio-inline">
-                <input class="achecked" type="radio" name="ispwd" value="1" flag="1" data-am-ucheck checked> 否
-              </label>
-             </div>
-             <div class="am-u-lg-6 aispwd">
-               <span class="uspan1">输入密码：</span><input type="password" class="am-form-field uinput-md">
-             </div>
-             <div class="am-u-lg-6 aispwd">
-               <span class="uspan1">确认密码：</span><input type="password" class="am-form-field uinput-md">
-             </div>  
-             <div class="am-u-lg-6 uradio1">
-               <span class="uspan1">性别：</span><label class="am-radio-inline">
-                <input type="radio" name="radio10" value="male" data-am-ucheck> 男
-              </label>
-              <label class="am-radio-inline">
-                <input type="radio" name="radio10" value="female" data-am-ucheck> 女
-              </label>
-              <label class="am-radio-inline">
-                <input type="radio" name="radio10" value="pig" data-am-ucheck> 人妖
-              </label>
-             </div> 
-             <div class="am-u-lg-6">
-               <span class="uspan1">出生日期：</span>
-                <div  class="am-input-group am-datepicker-date udatepicker2" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-                     <input type="text" class="am-form-field">
-                     <span class="am-input-group-btn am-datepicker-add-on">
-                       <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-                     </span>
-                   </div>  
-             </div> 
-             <div class="am-u-lg-6">
-               <span class="uspan1">到期时间：</span>
-                <div  class="am-input-group am-datepicker-date udatepicker2" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-                      <input type="text" class="am-form-field">
-                      <span class="am-input-group-btn am-datepicker-add-on">
-                        <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-                      </span>
-                    </div>  
-             </div> 
-             <div class="am-u-lg-6">
-               <span class="uspan1">服务生：</span>
-                <select class="uselect2" data-am-selected>
-                  <option value="a">Apple</option>
-                  <option value="b">Banana</option>
-                  <option value="o">Orange</option>
-                  <option value="m">Mango</option>
-                  <option value="d">禁用</option>
-                </select>
-             </div>
-             <div class="am-u-lg-12">
-              <span class="uspan1">联系地址：</span>
-              <input type="password" class="am-form-field uinput-lg">
-             </div>
-              <div class="am-u-lg-12" style="height:auto;">
-              <span class="uspan1">备注：</span>
-              <textarea class="am-form-field utextarea" row="3"></textarea>
-             </div>   
-      </div>
-      <div class="am-modal-footer uft1">
-            <button type="submit" class="am-btn am-btn-success ubtn2 ubtnnextl"><i class="iconfont icon-xiangyou2"></i>
-        下一步</button> 
-      </div>
-    </form>
-  </div>
-</div>
-*/
+/*警告框*/
+#ubody .uwarning{margin:0px auto; padding:15px 1%; width:95%; line-height:20px; background:#FFF9D7; color:#454543; font-size:1.4rem; border-radius:5px; border:1px solid #F7DE9C;}
+#ubody .uwarning .uclose{margin-right:1%; padding:0px; height:24px; line-height:16px;  background:url(../img/tubiao.jpg) no-repeat; border-radius:50%;}
+
 /*弹出框*/
-/*<div class="am-modal-dialog umodal">*/
 .am-modal-dialog.umodal{width:673px; border-radius:1rem; font-size:14px;}
-/*<div class="am-modal-hd uhd">*/
 #ubody .am-modal-dialog.umodal .uhd{margin-bottom:10px; padding:0 0 0 1.5rem; height:50px; line-height:50px; border-bottom:1px solid #DDE1EA; text-align:left; font-weight:bold;}
-/*<a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close></a>*/
 #ubody .am-modal-dialog.umodal .uhd > .uclose{position:absolute; right:10px; top:10px; line-height:17px;}
 
 /**************************bd1适用于表单********************************************************************/
-/*<div class="am-modal-bd am-g ubd1">*/
-#ubody .am-modal-dialog.umodal .ubd1{font-size:14px;}
-#ubody .am-modal-dialog.umodal .ubd1 > [class*="am-u-"]{margin:0 0 1rem 0; height:32px; text-align:left;}
-#ubody .am-modal-dialog.umodal .ubd1 .uspan1{float:left; width:90px; line-height:32px; text-align:right;}
+#ubody .am-modal-dialog.umodal .ubd1{font-size:14px; padding-top:10px;}
+
+#ubody .am-modal-dialog.umodal .ubd1 .am-form-group{margin:0 3% 0 2%; margin-bottom: 1.5rem; width: 95%}
+#ubody .am-modal-dialog.umodal .ubd1 .am-form-group [class*=am-u-]+[class*=am-u-]:last-child{float:left;}
+#ubody .am-modal-dialog.umodal .ubd1 .am-form-group [class*=am-u-]{padding-left: 0;}
 /***********************************************************************************************************/
 
 /*****************************bd2适用于div******************************************************************/
-/*<div class="am-modal-bd am-g ubd1">*/
 .am-modal-dialog.umodal .ubd2{padding:0 2rem 5rem 2rem;}
 .am-modal-dialog.umodal .ubd2 [class*="am-u-"]{padding:0;}
-/*<h3 class="utitle">会员资料</h3>*/
+/*会员资料*/
 .am-modal-dialog.umodal .ubd2 .utitle{margin:10px 0 0 0; height:35px; line-height:35px; text-align:left; font-size:14px; font-weight:bold;}
-/*<div class="am-g ucont1">
-  <div class="am-u-lg-4">会员卡号：1000125</div>
-  <div class="am-u-lg-4">会员姓名：张三</div>
-  <div class="am-u-lg-4">手机号码：3700824417</div>
-  <div class="am-u-lg-4">余额：<span class="gmoneycolor">0.00</span>元</div>
-  <div class="am-u-lg-4">会员折扣：<span class="gmoneycolor">8</span>折</div>
-  <div  class="am-u-lg-4"></div>
-</div>*/
-/* am-u-* 的一个div */
 .am-modal-dialog.umodal .ubd2 .ucont1{border-top:solid 1px #DDE1EA; border-bottom:solid 1px #DDE1EA;}
 .am-modal-dialog.umodal .ubd2 .ucont1 > [class*="am-u-"]{margin:10px 0; text-align:left; font-size:14px; font-weight:normal;}
 
-/*<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
-  <ul class="am-tabs-nav am-nav am-nav-tabs">
-    <li class="am-active"><a href="javascript: void(0)">手动优惠</a></li>
-  </ul>
-
-  <div class="am-tabs-bd">
-    <div class="am-tab-panel am-active">
-          <input type="text" class="umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
-    </div>
-  </div>
-</div>*/
 /*弹出框中的选项卡*/
 #ubody .umodal .am-tabs-bd .am-tab-panel{padding:30px 0 30px 2rem; text-align:left;}
 #ubody .umodal .am-nav-tabs li{height:33px;}
 #ubody .umodal .am-nav-tabs li > a{height:33px; color:#606A61;}
 #ubody .umodal .am-nav-tabs li.am-active > a{background-color:#D89E4C; color:#fff;}
 /*一些弹出框特殊的input样式*/
-/*钱input*/
+/*moneyinput*/
 #ubody .umodal .umoneyinput{display:inline-block; width:200px; height:45px; border:1px solid #D89E4C; font-size:20px; color:#C40100; font-weight:bold;}
 #ubody .umodal .umoneyinput:focus{border: 1px solid #D89E4C; outline:none;}
 #ubody .umodal .umoneyinput::-webkit-input-placeholder { color: #C40100; text-overflow: ellipsis; }
@@ -585,42 +234,11 @@ li{list-style:none;}
 /************************************************************************************************************/
 
 /*底部*/
-/*<div class="am-modal-footer uft1">*/
 .am-modal-dialog.umodal .uft1{width:100%; height:92px;}
-/*<button type="button" class="am-btn am-btn-success am-radius ubtn2"><i class="iconfont icon-yuanxingxuanzhong"></i>
-        完成</button>*/
 .am-modal-dialog.umodal .uft1 .ubtn1{position:absolute; right:180px; bottom:24px;}
 .am-modal-dialog.umodal .uft1 .ubtn2{position:absolute; right:50px; bottom:24px;}
 .am-modal-dialog.umodal .uft1 .ubtn3{position:absolute; left:50px; bottom:24px;}
 
 /*删除按钮弹出框*/
-/*<div class="am-modal am-modal-confirm udelmodal" tabindex="-1" id="my-confirm">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd udelhd"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你，确定要删除这条记录吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>*/
-
 #ubody .am-modal.udelmodal .am-modal-dialog .am-modal-hd.udelhd{padding:15px 10px 5px 10px; text-align:center; border-bottom:none; }
 #ubody .am-modal.udelmodal .am-modal-dialog{width:540px; border-radius:5px;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

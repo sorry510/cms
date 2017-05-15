@@ -83,6 +83,12 @@
 #umodalusercz.uuser .umodal{width:883px;}
 #umodalusercz.uuser .umodal > .uft1 .ub1{position:absolute;bottom:50px; left:30px;}
 #umodalusercz.uuser .umodal > .uft1 .ub2{position:absolute;bottom:10px; left:30px;}
+#umodalusercz.uuser .umoneyinput{display:inline-block; width:200px; height:45px; border:1px solid #D89E4C; font-size:20px; color:#C40100; font-weight:bold;}
+#umodalusercz.uuser .umoneyinput:focus{border: 1px solid #D89E4C; outline:none;}
+#umodalusercz.uuser .umoneyinput::-webkit-input-placeholder { color: #C40100; text-overflow: ellipsis; }
+#umodalusercz.uuser .umoneyinput::-moz-placeholder { color: #C40100 !important; text-overflow: ellipsis; } /* for the future */ 
+#umodalusercz.uuser .umoneyinput:-ms-input-placeholder { color: #C40100 !important; text-overflow: ellipsis; }
+
 /*购买套餐*/
 #umodalusertc.uuser .umodal{width:883px;}
 #umodalusertc.uuser .umodal .ubd2 .ucont2 {margin:10px 0 0 0;}

@@ -64,11 +64,11 @@
 #uleftbar .umenu2.umenu2-set {top:-212px; left:105px;}
 #uleftbar .umenu2.umenu2-set:before {left:-16px; top:90%;}
 /*微信菜单*/
-#uleftbar .umenu2.umenu2-wechat {top:-25px; left:105px;}
+#uleftbar .umenu2.umenu2-wechat {top:-30px; left:105px;}
 #uleftbar .umenu2.umenu2-wechat:before {left:-16px; top:70%;}
 
 /*面包屑导航样式*/
-#ubody .ubread {padding:0px 2.5%; background:#FFFFFF;}
+#ubody .ubread {padding:0px 2.5%; background:#FFFFFF; box-shadow:0px 0px 10px #d1d1d1;}
 #ubody .ubread li {font-size:1.6rem;}
 #ubody .ubread a {padding-bottom:0px; padding-top:0px; height:50px; line-height:50px; background:#FFFFFF; color:#000000;}
 #ubody .ubread a:hover {color:#FA7307;}

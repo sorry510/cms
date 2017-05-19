@@ -13,13 +13,7 @@
   <link rel="stylesheet" href="icon/iconfont.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/style.css">
-  <style type="text/css">
-    #upay .upay{margin:0 auto; width:95%; font-size:14px;}
-    #upay .upay li{background-color:#F1F1F1; border:none;}
-    #upay .upay li .uspanr{float:left; width:180px; line-height:32px; text-align:right;}
-  </style>
 </head>
-
 <body id="ubody">
 <!-- header -->
 <header id="uheader" class="am-topbar am-topbar-fixed-top">
@@ -55,12 +49,13 @@
   <a href="#" class="am-topbar-right uad">视频教程</a>
 </header>
 <!-- header end -->
+
 <!-- left bar -->
 <ul id="uleftbar" class="am-nav">
-  <li class="uhighlight"><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+  <li><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
   <li><a href="detail.html"><span class="iconfont icon-ziliao"></span> 明细</a></li>
   <li><a href="#"><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
-  <li class="am-dropdown" data-am-dropdown>
+  <li class="am-dropdown uhighlight" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-iconfont31quanbushangpin"></span> 商品</a>
     <ul class="am-dropdown-content umenu2 umenu2-goods">
       <li><a href="goodsinfo.html"><span class="iconfont icon-question"></span> 通用型商品</a></li>
@@ -70,8 +65,8 @@
   <li><a href="employee.html"><span class="iconfont icon-baobiao-xianxing"></span> 员工</a></li>
   <li class="am-dropdown" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-weixin"></span> 微信</a>
-    <ul class="am-dropdown-content umenu2 umenu2-pay">
-      <li><a href="pay.html"><span class="iconfont icon-question"></span> 公众号设置</a></li>
+    <ul class="am-dropdown-content umenu2 umenu2-wechat">
+      <li><a href="wechat.html"><span class="iconfont icon-question"></span> 公众号设置</a></li>
       <li><a href="#"><span class="iconfont icon-question"></span> 微店设置</a></li>
     </ul>
   </li>
@@ -81,32 +76,80 @@
       <li><a href="baseinfo.html"><span class="iconfont icon-question"></span> 企业信息</a></li>
       <li><a href="config.html"><span class="iconfont icon-question"></span> 参数设置</a></li>
       <li><a href="shop.html"><span class="iconfont icon-question"></span> 分店信息</a></li>
-      <li><a href="operator.html"><span class="am-icon-user am-icon-fw"></span> 操作员设置</a></li>
+      <li><a href="employee.html"><span class="am-icon-user am-icon-fw"></span> 收银员管理</a></li>
       <li><a href="card.html"><span class="iconfont icon-question"></span> 会员卡设置</a></li>
       <li><a href="package.html"><span class="iconfont icon-question"></span> 套餐设置</a></li>
       <li><a href="payconfig.html"><span class="iconfont icon-question"></span> 支付设置</a></li>
+      <li><a href="shopmanager.html"><span class="iconfont icon-question"></span> 分店管理</a></li>
     </ul>
   </li>
 </ul>
 <!-- left bar end -->
 
-<!-- main -->
-<div id="upay" class="gcontent">
+<!-- content -->
+<div id="ushopgoods" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-     <li><a href="payconfig.html">支付宝支付设置</a></li>
-     <li class="am-active"><a href="wxconfig.html">微信支付设置</a></li>
+    <li class="am-active"><a href="shopgoods.html">店铺型商品</a></li>
   </ul>
   <div class="gspace15"></div>
-  <ul class="am-list am-list-static upay">
-    <li><span class="uspanr">支付的APPID：</span><input class="am-form-field uinput" type="text"></li>
-    <li><span class="uspanr">商户号MCHID：</span><input class="am-form-field uinput" type="text"></li>
-    <li><span class="uspanr">商户支付密钥KEY：</span><input class="am-form-field uinput" type="text"></li>
-    <li><span class="uspanr">公众帐号SECRET：</span><input class="am-form-field uinput" type="text"></li>
-    <li><span class="uspanr">服务器异步通知页面url：</span><textarea class="am-form-field utextarea" disabled>https://open.weixin.qq.com/connect/oauth2/authorize?appid=&redirect_uri=http%3A%2F%2Fshop1.e8860.com%2Ffw%2Fweixin%2Fs_oauth2.php%3Ftid%3D</textarea></li>
-    <li><span class="uspanr">服务器同步通知页面url：</span><textarea class="am-form-field utextarea" disabled>https://open.weixin.qq.com/connect/oauth2/authorize?appid=&redirect_uri=http%3A%2F%2Fshop1.e8860.com%2Ffw%2Fweixin%2Fs_oauth2.php%3Ftid%3D</textarea></li>
+  <div class="utools">
+    <form class="am-form-inline uform">
+      <div class="am-form-group">    
+        请选择店铺： 
+        <select class="uselect" data-am-selected name="">
+          <option value="all">实物店铺A</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select> 
+      </div>        
+    </form> 
+  </div>
+  <div class="gspace30"></div>
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
+    <thead>
+      <tr>
+        <td>商品分类</td>
+        <td>商品编码</td>
+        <td>商品名称</td>
+        <td>商品规格</td>
+        <td>商品价格</td>
+        <td>会员价格</td>
+      </tr>
+    </thead>
+    <tr>
+      <td>灌肠</td>
+      <td></td>
+      <td>32</td>
+      <td>----</td>
+      <td class="gtext-orange">23元</td>
+      <td class="gtext-orange">2元</td>
+    </tr> 
+    <tr>
+      <td>灌肠</td>
+      <td></td>
+      <td>32</td>
+      <td>----</td>
+      <td class="gtext-orange">23元</td>
+      <td class="gtext-orange">2元</td>
+    </tr>
+    <tr>
+      <td>灌肠</td>
+      <td></td>
+      <td>32</td>
+      <td>----</td>
+      <td class="gtext-orange">23元</td>
+      <td class="gtext-orange">2元</td>
+    </tr>
+  </table>
+  <ul class="am-pagination am-pagination-centered upages">
+    <li class="upage-info">共1页 3条记录</li>
+    <li class="am-disabled"><a href="#">&laquo;</a></li>
+    <li class="am-active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">&raquo;</a></li>
   </ul>
 </div>
-
 <script src="js/jquery.min.js"></script>
 <script src="js/amazeui.min.js"></script>
 </body>

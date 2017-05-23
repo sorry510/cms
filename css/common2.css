@@ -1,0 +1,214 @@
+/*全局样式*/
+.gcontent {position:fixed; top:61px; bottom:0; left:101px; right:0; overflow:auto; background:#F1F1F1;}
+.gspace5 {height:5px; line-height:5px; font-size:5px;}
+.gspace10 {height:10px; line-height:10px; font-size:10px;}
+.gspace15 {height:15px;}
+.gspace20 {height:20px;}
+.gspace25 {height: 25px;}
+.gspace30 {height:30px;}
+.gspace50 {height:50px;}
+.gtext-orange {color:#FA7307;}
+.gtext-green {color:#2AA672;}
+.gtext-blue {color:#3D76C7;}
+
+/*公共样式*/
+/*header*/
+#uheader {margin-bottom:0; height:60px; background:#2D3D61; font-size:1.4rem;}
+#uheader .ulogo {width:100px; height:60px; line-height:60px; background:#254A98; text-align:center;}
+#uheader .utitle {padding-left:50px; height:60px; line-height:60px; font-size:2rem; color:#BFD1F5;}
+#uheader .unav {margin-top:0;}
+#uheader .unav .umenu1 {background-color:#2D3D61; border:1px solid #254A98;}
+#uheader .unav .umenu1:before {border-bottom-color:#2D3D61;}
+#uheader .unav .umenu1:after {border-bottom-color:#2D3D61;}
+#uheader .unav .umenu1 > li > a{color:#BFD1F5;}
+#uheader .unav .umenu1 > li > a{color:#BFD1F5;}
+#uheader .unav .umenu1 > li > a:hover, #uheader .unav .umenu1 > li > a:focus{color:#F0C65A; background-color:inherit;}
+#uheader .unav > li {margin:7px 0; padding:0 13px; height:46px; line-height:46px; border-left:1px solid #305F8B;}
+#uheader .unav > li > a {padding:0 10px; line-height:46px;}
+#uheader .unav > li > a:after {display:none;}
+#uheader .unav > li > a:hover:after {display:none;}
+#uheader .unav > li > a:hover {background-color:#2D3D61;}
+#uheader .unav > li > a:focus {background-color:#2D3D61;}
+#uheader .unav > li > a > span {font-size:1.4rem; color:#BFD1F5;}
+#uheader .unav > li > a > span.iconfont {font-size:1.6rem;}
+#uheader .unav > li > a > .udropdown:after {position:absolute; right:0px; bottom:13px; content:""; display:inline-block; width:0; height:0; border-bottom:6px solid #DEE9EB; border-left:6px solid transparent;}
+#uheader .unav > li.am-active > a span {color:#F0C65A;}
+#uheader .unav > li.am-active > a .udropdown:after {border-bottom:6px solid #F0C65A;}
+#uheader .uad {margin-right:80px; width:70px; height:37px; line-height:28px; background:url('../img/ad.jpg') no-repeat; text-align:center; color:#FFFF02;}
+#uheader .am-active > .am-dropdown-content {margin-top: 12px;}
+/*leftbar*/
+#uleftbar {position:fixed; top:60px; left:0px; bottom:0px; z-index:1000; margin:0; padding:0; width:100px; background-color:#254A98;}
+#uleftbar > li {margin-top:0; line-height:55px; border-top:1px solid #325E8B;}
+#uleftbar > li > a {padding:0 0 0 18px; color:#C5D4F3; font-size:1.6rem;}
+#uleftbar > li > a:hover {background-color:#1A2753;}
+#uleftbar > li > a:focus {background-color:#1A2753;}
+#uleftbar > li:hover {border-left:3px solid #F0C65A;}
+#uleftbar > li:hover > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar > li.uhighlight {border-left:3px solid #F0C65A;}/*普通菜单高亮显示*/
+#uleftbar > li.uhighlight > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar > li.am-active {border-left:3px solid #F0C65A;}/*带子菜单点击高亮显示*/
+#uleftbar > li.am-active > a {background-color:#1A2753; color:#F0C65A;}
+#uleftbar .umenu2 {position:absolute; top:0px; left:0px; margin:0px; background-color:#254A98; border:1px solid #254A98;}
+#uleftbar .umenu2:before {left:0px; top:0%; content:""; display:inline-block; width:0; height:0; border-bottom:8px solid transparent; border-top:8px solid transparent; border-right:8px solid #254A98;}
+#uleftbar .umenu2:after {display:none;}
+#uleftbar .umenu2 > li {background-color:#254A98;}
+#uleftbar .umenu2 > li > a {background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
+#uleftbar .umenu2 > li > a:hover, #uleftbar .umenu2 > li > a:focus {color:#F0C65A}
+
+#uleftbar .umenu2.umenu2-one {top:5px; left:105px;}
+#uleftbar .umenu2.umenu2-one:before {left:-16px; top:60%;}
+
+#uleftbar .umenu2.umenu2-two {top:-30px; left:105px;}
+#uleftbar .umenu2.umenu2-two:before {left:-16px; top:75%;}
+
+#uleftbar .umenu2.umenu2-three {top:-70px; left:105px;}
+#uleftbar .umenu2.umenu2-three:before {left:-16px; top:85%;}
+
+#uleftbar .umenu2.umenu2-four {top:-105px; left:105px;}
+#uleftbar .umenu2.umenu2-four:before {left:-16px; top:87%;}
+
+#uleftbar .umenu2.umenu2-five {top:-145px; left:105px;}
+#uleftbar .umenu2.umenu2-five:before {left:-16px; top:90%;}
+
+#uleftbar .umenu2.umenu2-six {top:-180px; left:105px;}
+#uleftbar .umenu2.umenu2-six:before {left:-16px; top:92%;}
+
+#uleftbar .umenu2.umenu2-seven {top:-215px; left:105px;}
+#uleftbar .umenu2.umenu2-seven:before {left:-16px; top:92%;}
+
+/*面包屑导航样式*/
+#ubody .ubread {padding:0px 2.5% 0px; background:#FFFFFF; box-shadow:0px 0px 10px #d1d1d1;}
+#ubody .ubread li {font-size:1.6rem;}
+#ubody .ubread a {padding-bottom:0px; padding-top:0px; height:50px; line-height:50px; background:#FFFFFF; color:#000000;}
+#ubody .ubread a:hover {color:#FA7307;}
+#ubody .ubread li.am-active a {border-bottom:4px solid #EBB440; font-weight:bold;}
+#ubody .ubread li.am-active a:hover {border-bottom:4px solid #EBB440; color:#000000; font-weight:bold;}
+#ubody .ubread div {float:right; height:50px; line-height:50px; font-size:1.4rem;}
+#ubody .ubread .utel {margin-right:35px;}
+#ubody .ubread .utel span {color:#FE4300;}
+#ubody .ubread .umessage {margin-right:35px;}
+#ubody .ubread .umessage span {color:#FE4300;}
+#ubody .ubread .utime {padding:2px 10px; border-radius:5px; background:#65B32B; color:#FFFFFF;}
+#ubody .ubread .utime:hover {background:#FE4300; color:#FFFFFF;}
+
+/*警告框样式*/
+#ubody .uwarning {margin:0px auto; padding:15px 1%; width:95%; line-height:20px; border:1px solid #F7DE9C; border-radius:5px; background:#FFF9D7; color:#454543; font-size:1.4rem;}
+#ubody .uwarning .uclose2 {margin-right:1%; padding:0px; height:24px; line-height:16px; border-radius:50%; background:url('../img/close2.jpg') no-repeat;}
+
+/*工具栏样式*/
+#ubody .utools {overflow:visible; margin:0px auto; width:95%; color:#464646; font-size:1.4rem;}
+#ubody .utools .uform {margin-top:4px; font-size:1.4rem; width:100%;}
+#ubody .utools .am-form-group {margin:0 20px 10px 0;}
+#ubody .utools .uform2 {margin-top:4px; font-size:1.4rem; width:84%; display:inline-block;}
+#ubody .utools .am-form-group {margin:0 20px 10px 0;}
+#ubody .utools>button{float: right;}
+
+/*表格样式*/
+#ubody .utable1 {margin:0 auto; width:95%; font-size:1.4rem; text-align:center;}
+#ubody .utable1 thead tr{background:#E9EEF2; height:37px;}
+#ubody .utable1 tbody tr {background:#FFFFFF; height:37px;}
+#ubody .utable1 td {vertical-align:middle;}
+#ubody .utable2 {margin:0 auto; width:100%; font-size:1.4rem; text-align:center;}
+#ubody .utable2 thead tr{background:#2AA672; color:#FFFFFF; height:37px;}
+#ubody .utable2 tbody tr {background:#FFFFFF; height:37px;}
+#ubody .utable2 td {vertical-align:middle;}
+#ubody .utable3 {margin:0 auto; width:100%; font-size:1.4rem; text-align:center;}
+#ubody .utable3 thead tr{background:#D89E4C; color:#FFFFFF; height:37px;}
+#ubody .utable3 tbody tr {background:#FFFFFF; height:37px;}
+#ubody .utable3 td {vertical-align:middle;}
+
+/*分页样式*/
+#ubody .upages li a {padding:4px 5px; width:30px; font-size:1.4rem;}
+#ubody .upages li.am-active a {border-radius:3px; border-color:#D89E4C; background:#D89E4C;}
+#ubody .upages .upage-info {margin-right:14px; font-size:1.4rem; color:#999B98;}
+
+/*输入框样式*/
+#ubody .uinput {display:inline-block; width:140px; height:32px; border:1px solid #CCCCCC; border-radius:3px; font-size:1.4rem;}
+#ubody .uinput:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
+#ubody .uinput.uinput-max {width:100%;}
+/*#ubody .uinput.uinput-money {width:200px; height:45px; border:1px solid #D89E4C; color:#C40100; font-size:20px; font-weight:bold; text-align:center;}
+#ubody .uinput.uinput-money::-webkit-input-placeholder {color:#C40100; text-overflow:ellipsis;}
+#ubody .uinput.uinput-money::-moz-placeholder {color:#C40100 !important; text-overflow: ellipsis;}
+#ubody .uinput.uinput-money:-ms-input-placeholder {color:#C40100 !important; text-overflow:ellipsis;}*/
+
+/*工具栏日期输入框样式*/
+#ubody .udatepicker {display:inline-flex; vertical-align:middle; border:1px solid #CCCCCC; border-radius:3px; background:#FFFFFF;}
+#ubody .udatepicker input {margin:0px; height:30px; width:111px; border:none; box-shadow:none; -webkit-box-shadow:none;}
+#ubody .udatepicker button {margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
+#ubody .udatepicker.udatepicker-max {width:100%;}
+#ubody .udatepicker.udatepicker-max input {width:86%;}
+
+/*下拉框样式*/
+#ubody .uselect + .am-selected .am-selected-btn.am-btn-default {padding:0 15px; height:32px; border-radius:3px; border-color:#CCCCCC; background:#FFFFFF;}
+#ubody .uselect + .am-selected .am-selected-btn.am-btn-default .am-selected-status {padding-right:12px; font-size:1.4rem; text-align:center;}
+#ubody .uselect + .am-selected {width:120px;}
+#ubody .uselect.uselect-max + .am-selected {width:100%;}
+#ubody .uselect.uselect-auto + .am-selected {width:auto;}
+
+/*大文本输入框样式*/
+#ubody .utextarea {width:400px; height:75px; border:1px solid #CCCCCC; border-radius:3px; font-size: 1.4rem;}
+#ubody .utextarea:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
+#ubody .utextarea.utextarea-max {width:100%;}
+
+/*按钮样式*/
+/*工具栏搜索按钮样式*/
+#ubody .ubtn-search {padding:0 15px; height:32px; line-height:32px; border:none; border-radius:5px; background:#2AA672; color:#FFFFFF; font-size:1.4rem;}
+/*弹出框搜索按钮样式*/
+#ubody .ubtn-search2 {padding:0px 10px; height:32px; line-height:32px; border:none; border-radius:5px; color:#FFFFFF; font-size:1.4rem;}
+/*确认按钮样式*/
+#ubody .ubtn-sure {padding:0px 20px; height:40px; line-height:40px; border:none; border-radius:5px; color:#FFFFFF; font-size:1.6rem;}
+/*表格按钮样式*/
+#ubody .ubtn-table {padding:4px 6px; height:22px; border:none; border-radius:2px; color:#FFFFFF; font-size:1.2rem;}
+#ubody .ubtn-table .iconfont {font-size:1.2rem;}
+/*按钮颜色*/
+/*蓝色*/
+#ubody .ubtn-blue {background:#3D76C7;}
+/*绿色*/
+#ubody .ubtn-green {background:#2AA672;}
+/*橙色*/
+#ubody .ubtn-orange {background:#FA7307;}
+/*红色*/
+#ubody .ubtn-red {background:#d83819;}
+/*灰色*/
+#ubody .ubtn-gray {background:#AAAAAA;}
+
+/*弹出框*/
+/*弹出框头部*/
+#ubody .umodal {width:670px; border-radius:10px; font-size:14px;}
+#ubody .umodal .uhead {margin-bottom:10px; padding:0 0 0 15px; height:50px; line-height:50px; border-bottom:1px solid #DDE1EA; font-weight:bold; text-align:left;}
+#ubody .umodal .uhead > .uclose {position:absolute; right:10px; top:10px; line-height:17px;}
+
+/**************************main1适用于表单********************************************************************/
+#ubody .umodal .umain1 {padding-top:10px; font-size:14px;}
+#ubody .umodal .umain1 .am-form-group {margin:0 3% 0 2%; margin-bottom: 15px; width: 95%}
+#ubody .umodal .umain1 .am-form-group [class*=am-u-]+[class*=am-u-]:last-child {float:left;}
+#ubody .umodal .umain1 .am-form-group [class*=am-u-] {padding-left: 0;}
+/***********************************************************************************************************/
+
+/*****************************main2适用于div******************************************************************/
+.am-modal-dialog.umodal .umain2 {padding:0 20px 50px 20px;}
+.am-modal-dialog.umodal .umain2 [class*="am-u-"]{padding:0;}
+.am-modal-dialog.umodal .umain2 .utitle {margin:10px 0 0 0; height:35px; line-height:35px; text-align:left; font-size:14px; font-weight:bold;}
+.am-modal-dialog.umodal .umain2 .ucontent {border-top:solid 1px #DDE1EA; border-bottom:solid 1px #DDE1EA;}
+.am-modal-dialog.umodal .umain2 .ucontent > [class*="am-u-"] {margin:10px 0; text-align:left; font-size:14px; font-weight:normal;}
+
+/*弹出框中的选项卡*/
+#ubody .umodal .am-tabs-bd .am-tab-panel {padding:30px 0 30px 20px; text-align:left;}
+#ubody .umodal .am-nav-tabs li > a {height:33px; color:#606A61;}
+#ubody .umodal .am-nav-tabs li.am-active > a {background-color:#D89E4C; color:#FFFFFF;}
+/************************************************************************************************************/
+
+/*弹出框底部*/
+#ubody .umodal .ufoot {height:92px;}
+#ubody .umodal .ufoot .am-btn-group {float:right; margin:30px 20px 0 0;}
+#ubody .umodal .ufoot .am-btn-group button {margin-right:10px;}
+
+/*删除按钮弹出框*/
+#ubody .uconfirm {width:540px; border-radius:5px;}
+#ubody .uconfirm .uhead {padding:15px 10px 5px 10px; border-bottom:none; text-align:center;}
+
+/*其他部分*/
+#ubody li {list-style:none;}
+#ubody .am-btn:focus, .am-btn:active:focus {outline:none;}
+#ubody .am-form-horizontal .am-radio-inline {padding-top:0;}
+#ubody label.am-form-label {font-weight:normal; font-size:14px; padding-top:5px;}

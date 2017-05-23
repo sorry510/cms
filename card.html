@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="icon/iconfont.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/style.css">
+  <style type="text/css">
+    #ubody .uremark{height:32px; line-height:32px;}
+  </style>
 </head>
 <body id="ubody">
 <!-- header -->
@@ -52,7 +55,7 @@
 
 <!-- left bar -->
 <ul id="uleftbar" class="am-nav">
-  <li class="uhighlight"><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+  <li><a href="user.html"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
   <li><a href="detail.html"><span class="iconfont icon-ziliao"></span> 明细</a></li>
   <li><a href="#"><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
   <li class="am-dropdown" data-am-dropdown>
@@ -70,7 +73,7 @@
       <li><a href="#"><span class="iconfont icon-question"></span> 微店设置</a></li>
     </ul>
   </li>
-  <li class="am-dropdown" data-am-dropdown>
+  <li class="am-dropdown uhighlight" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-setup"></span> 系统</a>
     <ul class="am-dropdown-content umenu2 umenu2-set">
       <li><a href="baseinfo.html"><span class="iconfont icon-question"></span> 企业信息</a></li>
@@ -89,19 +92,10 @@
 <div id="ucard" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
     <li class="am-active"><a href="card.html">会员卡信息</a></li>
-    <li><a href="cardtype.html">会员卡分类</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
-      <div class="am-form-group">
-        开卡店铺：
-        <select class="uselect" data-am-selected name="">
-          <option value="all">全部</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
       <div class="am-form-group">
         卡类型：
         <select class="uselect" data-am-selected name="">
@@ -109,10 +103,6 @@
            <option value="2">2</option>
            <option value="3">3</option>
         </select>
-      </div>
-      <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">查询内容：</label>
-        <input type="text" class="am-form-field uinput uinput140" placeholder="卡号/手机号/姓名" name="">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -129,12 +119,10 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
-        <td>会员卡名称</td>
-        <td>会员卡类别</td>
-        <td>会员卡折扣</td>
-        <td>会员卡余额</td>
-        <td>会员卡时效</td>
-        <td>操作</td>
+        <td>会员卡类型</td>
+        <td>描述</td>
+        <td>折扣</td>
+        <td style="width:12%;">操作</td>
       </tr>
     </thead>
     <tbody>
@@ -142,10 +130,8 @@
         <td>8折卡</td>
         <td>折扣卡</td>
         <td>8</td>
-        <td>0</td>
-        <td>永久</td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green">
+          <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
            编辑
           </button>
@@ -159,10 +145,8 @@
         <td>10次卡</td>
         <td>次数卡</td>
         <td>10</td>
-        <td>0</td>
-        <td>永久</td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green">
+          <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
            编辑
           </button>
@@ -176,10 +160,8 @@
         <td>vip尊贵</td>
         <td>一卡通</td>
         <td>6</td>
-        <td>0</td>
-        <td>2015-6-30~2020-6-30</td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green">
+          <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
            编辑
           </button>
@@ -203,56 +185,67 @@
 <!-- 弹出框添加 -->
 <div id="ucardm1" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增会员卡
+    <div class="am-modal-hd uhead">新增会员卡类型
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">会员卡名称</label>
-          <div class="am-u-lg-4">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
-          <label class="am-u-lg-2 am-form-label" for="">会员卡类别</label>
-          <div class="am-u-lg-4">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">会员卡余额</label>
-          <div class="am-u-lg-4">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
-          <label class="am-u-lg-2 am-form-label" for="">会员卡折扣</label>
-          <div class="am-u-lg-4">
+          <label class="am-u-lg-3 am-form-label" for="">会员卡类型</label>
+          <div class="am-u-lg-4 am-u-end">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">会员卡时效</label>
+          <label class="am-u-lg-3 am-form-label" for="">折扣</label>
           <div class="am-u-lg-4">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
+            <input id="" class="uinput uinput-max" type="text" placeholder="" value="10">
           </div>
-          <label class="am-u-lg-2 am-form-label" for="">所属分店</label>
+          <div class="uremark am-u-lg-3 am-u-end"><span class="gtext-orange">10表示为不打折</span>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">描述</label>
+          <div class="am-u-lg-9">
+            <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ucardm2" class="am-modal" tabindex="-1">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">修改会员卡类型
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">会员卡类型</label>
+          <div class="am-u-lg-4 am-u-end">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">折扣</label>
           <div class="am-u-lg-4">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
+            <input id="" class="uinput uinput-max" type="text" placeholder="" value="10">
+          </div>
+          <div class="uremark am-u-lg-3 am-u-end"><span class="gtext-orange">10表示为不打折</span>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">描述</label>
+          <div class="am-u-lg-9">
+            <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
       </form>

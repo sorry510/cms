@@ -126,6 +126,7 @@
 #ubody .uinput {display:inline-block; width:140px; height:32px; border:1px solid #CCCCCC; border-radius:3px; font-size:1.4rem;}
 #ubody .uinput:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
 #ubody .uinput.uinput-max {width:100%;}
+#ubody .uinput.uinput-60 {width:60px;}
 /*#ubody .uinput.uinput-money {width:200px; height:45px; border:1px solid #D89E4C; color:#C40100; font-size:20px; font-weight:bold; text-align:center;}
 #ubody .uinput.uinput-money::-webkit-input-placeholder {color:#C40100; text-overflow:ellipsis;}
 #ubody .uinput.uinput-money::-moz-placeholder {color:#C40100 !important; text-overflow: ellipsis;}

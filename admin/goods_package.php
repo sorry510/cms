@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$strchannel = 'goods_package';
+$strchannel = 'goods';
 $gtemplate->fun_show('goods_package');
 
 ?>

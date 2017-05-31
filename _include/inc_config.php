@@ -38,10 +38,16 @@ $gconfig['channel']['e'][2] = '配送区域';*/
 
 require(C_ROOT . '/_include/cls_mysql.php');
 $gdb = new cls_mysql();
-$gdb->pub_host = 'nw132dbk.2278lan.dnstoo.com';
-$gdb->pub_user = 'ps930i_f';
-$gdb->pub_password = 'qaz123456';
-$gdb->pub_name = 'ps930i';
+// $gdb->pub_host = 'nw132dbk.2278lan.dnstoo.com';
+// $gdb->pub_user = 'ps930i_f';
+// $gdb->pub_password = 'qaz123456';
+// $gdb->pub_name = 'ps930i';
+// $gdb->pub_prefix = 'bgn_';
+
+$gdb->pub_host = 'localhost';
+$gdb->pub_user = 'root';
+$gdb->pub_password = 'root';
+$gdb->pub_name = 'bgncms';
 $gdb->pub_prefix = 'bgn_';
 $gdb->pub_charset = 'utf8';
 $gdb->fun_connect();

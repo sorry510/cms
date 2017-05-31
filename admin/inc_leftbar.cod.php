@@ -14,7 +14,7 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'employee') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-baobiao-xianxing"></span> 员工</a>
-    <ul class="am-dropdown-content umenu2 umenu2-three">
+    <ul class="am-dropdown-content umenu2 umenu2-five">
       <li><a href="employee_manage.php"><span class="iconfont icon-question"></span> 员工管理</a></li>
       <li><a href="employee_group.php"><span class="iconfont icon-question"></span> 分组管理</a></li>
       <li><a href="employee_bonus.php"><span class="iconfont icon-question"></span> 员工提成</a></li>

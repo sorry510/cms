@@ -87,55 +87,55 @@
         <td>李四</td>
         <td>理疗师</td>
         <td>25</td>
-        <td><span class="gtext-orange">250</span>元</td>
-        <td><span class="gtext-orange">10000</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">10250</span>元</td>
+        <td>250元</td>
+        <td>10000元</td>
+        <td>1025元</td>
+        <td>10250元</td>
         <td>30</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
+        <td>1025元</td>
+        <td>1025元</td>
         <td>50</td>
-        <td><span class="gtext-orange">500</span>元</td>
-        <td><span class="gtext-orange">1500</span>元</td>
-        <td><span class="gtext-orange">1200</span>元</td>
+        <td>500元</td>
+        <td>1500元</td>
+        <td>1200元</td>
         <td><span class="gtext-orange">4500</span>元</td>
         <td>南大街11号当铺</td>
       </tr>
-      <tr>
+       <tr>
         <td>2</td>
-        <td>王5</td>
+        <td>小明</td>
         <td>理疗师</td>
         <td>25</td>
-        <td><span class="gtext-orange">250</span>元</td>
-        <td><span class="gtext-orange">10000</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">10250</span>元</td>
+        <td>250元</td>
+        <td>10000元</td>
+        <td>1025元</td>
+        <td>10250元</td>
         <td>30</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
+        <td>1025元</td>
+        <td>1025元</td>
         <td>50</td>
-        <td><span class="gtext-orange">500</span>元</td>
-        <td><span class="gtext-orange">1500</span>元</td>
-        <td><span class="gtext-orange">1200</span>元</td>
-        <td><span class="gtext-orange">4500</span>元</td>
+        <td>500元</td>
+        <td>1500元</td>
+        <td>1200元</td>
+        <td><span class="gtext-orange">7000</span>元</td>
         <td>南大街11号当铺</td>
       </tr>
       <tr>
         <td>3</td>
-        <td>小明</td>
+        <td>李无</td>
         <td>理疗师</td>
         <td>25</td>
-        <td><span class="gtext-orange">250</span>元</td>
-        <td><span class="gtext-orange">10000</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">10250</span>元</td>
+        <td>250元</td>
+        <td>10000元</td>
+        <td>1025元</td>
+        <td>10250元</td>
         <td>30</td>
-        <td><span class="gtext-orange">1025</span>元</td>
-        <td><span class="gtext-orange">1025</span>元</td>
+        <td>1025元</td>
+        <td>1025元</td>
         <td>50</td>
-        <td><span class="gtext-orange">500</span>元</td>
-        <td><span class="gtext-orange">1500</span>元</td>
-        <td><span class="gtext-orange">1200</span>元</td>
+        <td>500元</td>
+        <td>1500元</td>
+        <td>1200元</td>
         <td><span class="gtext-orange">4500</span>元</td>
         <td>南大街11号当铺</td>
       </tr>

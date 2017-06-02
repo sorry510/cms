@@ -68,7 +68,7 @@
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end">
+          <div class="am-u-lg-4 am-u-end" style="text-align:left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
             </label>
@@ -155,7 +155,7 @@
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end">
+          <div class="am-u-lg-4 am-u-end" style="text-align:left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
             </label>
@@ -247,7 +247,7 @@
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end">
+          <div class="am-u-lg-4 am-u-end" style="text-align:left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
             </label>

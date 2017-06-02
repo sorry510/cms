@@ -11,11 +11,7 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        商品名称： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        商品编号： 
+        商品信息： 
         <input class="am-form-field uinput" type="text" name="">
       </div>
       <div class="am-form-group">
@@ -32,7 +28,7 @@
       新增商品
     </button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
@@ -133,16 +129,11 @@
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">商品名称</label>
           <div class="am-u-lg-4">
-            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+            <input type="text" id="cgoodsname2" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
           </div>
+          <div class="am-u-lg-1" style="line-height:32px">简拼</div>
           <div class="am-u-lg-2 am-u-end">
-            <input type="text" id="cupen" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max" data-foolish-msg="把 密码交出来！" required>
+            <input type="text" id="cupen2" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -152,17 +143,23 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
-            <label class="am-checkbox-inline">
-              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
-            </label>
+          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
+          <div class="am-u-lg-4 am-u-end">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">会员价格</label>
           <div class="am-u-lg-4 am-u-end am-u-end">
             <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
+          <div class="am-u-lg-4 am-u-end am-u-end" style="text-align:left;">
+            <label class="am-checkbox-inline">
+              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
+            </label>
           </div>
         </div>
       </form>
@@ -202,16 +199,11 @@
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">商品名称</label>
           <div class="am-u-lg-4">
-            <input type="text" id="cgoodsname2" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
+            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
           </div>
+          <div class="am-u-lg-1" style="line-height:32px">简拼</div>
           <div class="am-u-lg-2 am-u-end">
             <input type="text" id="cupen2" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max" data-foolish-msg="把 密码交出来！" required>
           </div>
         </div>
         <div class="am-form-group">
@@ -221,17 +213,23 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
-            <label class="am-checkbox-inline">
-              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
-            </label>
+          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
+          <div class="am-u-lg-4 am-u-end">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">会员价格</label>
           <div class="am-u-lg-4 am-u-end am-u-end">
             <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
+          <div class="am-u-lg-4 am-u-end am-u-end" style="text-align:left;">
+            <label class="am-checkbox-inline">
+              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
+            </label>
           </div>
         </div>
       </form>

@@ -43,53 +43,6 @@
       新增会员
     </button>
   </div>
-  <div class="gspace30"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
-    <thead>
-      <tr>
-        <td>卡号</td>
-        <td>姓名</td>
-        <td>手机</td>
-        <td>性别</td>
-        <td>生日</td>
-        <td>开卡时间</td>
-        <td>到期时间</td>
-        <td>积分</td>
-        <td>卡状态</td>
-        <td>开卡店铺</td>
-        <td>消费明细</td>
-        <td>操作</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>hy1001</td>
-        <td>刘艳芳</td>
-        <td>12344920013</td>
-        <td>女</td>
-        <td>1983-05-16</td>
-        <td>2015-06-18</td>
-        <td>2017-06-18</td>
-        <td>625</td>
-        <td>正常</td>
-        <td>解放路分店</td>
-        <td><a href="#">消费明细</a></td>
-        <td>
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen2">
-            <i class="iconfont icon-chongzhi"></i>
-             充值
-          </button>&nbsp;
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen3">
-            <i class="iconfont icon-liwu"></i>
-            买套餐
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="12" style="text-align:left; padding-left:10px">卡类型：<span class="am-badge am-badge-secondary am-text-sm ubadge1">白金型</span>，余：<span class="gtext-orange">￥5680.8</span>，中医问诊(5次)，经络疏通-专家(6次)，艾灸(6次) </td>
-      </tr>
-    </tbody>
-  </table>
   <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
@@ -104,14 +57,15 @@
         <td>积分</td>
         <td>卡状态</td>
         <td>开卡店铺</td>
+        <td>电子档案</td>
         <td>消费明细</td>
         <td>操作</td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>hy1001</td>
-        <td>刘艳芳</td>
+        <td data-am-offcanvas="{target: '#umemberoff1'}"><a href="">ahh120</a></td>
+        <td data-am-offcanvas="{target: '#umemberoff1'}"><a href="">刘艳芳</a></td>
         <td>12344920013</td>
         <td>女</td>
         <td>1983-05-16</td>
@@ -120,6 +74,7 @@
         <td>625</td>
         <td>正常</td>
         <td>解放路分店</td>
+        <td><a href="#">电子档案</a></td>
         <td><a href="#">消费明细</a></td>
         <td>
           <button class="am-btn ubtn-table ubtn-orange cmodelopen2">
@@ -133,58 +88,12 @@
         </td>
       </tr>
       <tr>
-        <td colspan="12" style="text-align:left; padding-left:10px">卡类型：<span class="am-badge am-badge-secondary am-text-sm ubadge1">白金型</span>，余：<span class="gtext-orange">￥5680.8</span>，中医问诊(5次)，经络疏通-专家(6次)，艾灸(6次) </td>
+        <td colspan="13" style="text-align:left; padding-left:10px">卡类型：<span class="am-badge am-badge-secondary am-text-sm ubadge1">白金型</span>，余：<span class="gtext-orange">￥5680.8</span>，中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) </td>
       </tr>
     </tbody>
   </table>
   <div class="gspace15"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
-    <thead>
-      <tr>
-        <td>卡号</td>
-        <td>姓名</td>
-        <td>手机</td>
-        <td>性别</td>
-        <td>生日</td>
-        <td>开卡时间</td>
-        <td>到期时间</td>
-        <td>积分</td>
-        <td>卡状态</td>
-        <td>开卡店铺</td>
-        <td>消费明细</td>
-        <td>操作</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>hy1001</td>
-        <td>刘艳芳</td>
-        <td>12344920013</td>
-        <td>女</td>
-        <td>1983-05-16</td>
-        <td>2015-06-18</td>
-        <td>2017-06-18</td>
-        <td>625</td>
-        <td>正常</td>
-        <td>解放路分店</td>
-        <td><a href="#">消费明细</a></td>
-        <td>
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen2">
-            <i class="iconfont icon-chongzhi"></i>
-             充值
-          </button>&nbsp;
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen3">
-            <i class="iconfont icon-liwu"></i>
-            买套餐
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="12" style="text-align:left; padding-left:10px">卡类型：<span class="am-badge am-badge-secondary am-text-sm ubadge1">白金型</span>，余：<span class="gtext-orange">￥5680.8</span>，中医问诊(5次)，经络疏通-专家(6次)，艾灸(6次) </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="gspace15"></div>
+
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共1页 3条记录</li>
     <li class="am-disabled"><a href="#">&laquo;</a></li>
@@ -198,7 +107,7 @@
 <!-- 新增会员 -->
 <div id="umemberm1" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增员工
+    <div class="am-modal-hd uhead">新增会员
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
@@ -214,12 +123,35 @@
           </div>
         </div>
         <div class="am-form-group">
+          <label class="am-u-lg-2 am-form-label" for="">车牌</label>
+          <div class="am-u-lg-4">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+          <label class="am-u-lg-2 am-form-label" for="">联系人</label>
+          <div class="am-u-lg-4">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="am-u-lg-2 am-form-label">照片</label>
+          <div class="am-u-lg-4 am-form-file" style="text-align: left;">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 选择要上传的照片
+            </button>
+            <input type="file" id="doc-ipt-file-2">
+          </div>
+          <label class="am-u-lg-2 am-form-label">身份证号</label>
+          <div class="am-u-lg-4">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="am-form-group">
           <label class="am-u-lg-2 am-form-label" for="">会员卡号</label>
           <div class="am-u-lg-4">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
           <label class="am-u-lg-2 am-form-label" for="">启用密码</label>
-          <div class="am-u-lg-4">
+          <div class="am-u-lg-4" style="text-align:left;">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck> 是
             </label>
@@ -238,7 +170,7 @@
             <input id="" class="uinput uinput-max" type="password" placeholder="">
           </div>
         </div>
-        <div class="am-form-group">
+        <div class="am-form-group" style="text-align:left;">
           <label class="am-u-lg-2 am-form-label" for="">性别</label>
           <div class="am-u-lg-4">
             <label class="am-radio-inline">
@@ -585,16 +517,46 @@
             </div>
         </div>
       </div>
-
     </div>
     <div class="am-modal-footer ufoot">
-          <div class="ua1">合计：<span class="am-text-lg gtext-orange">126</span>元，折扣：<span class="am-text-lg gtext-orange">8</span>折，应付总共：<span class="am-text-lg gtext-orange">126</span>元</div>
-          <div class="am-btn-group">
-            <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
-              完成
-            </button>
-          </div>
+      <div class="ua1">合计：<span class="am-text-lg gtext-orange">126</span>元，折扣：<span class="am-text-lg gtext-orange">8</span>折，应付总共：<span class="am-text-lg gtext-orange">126</span>元</div>
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+<!-- 侧拉框 -->
+<div id="umemberoff1" class="am-offcanvas">
+  <div class="am-offcanvas-bar am-offcanvas-bar-flip goffcanvas">
+    <div class="am-offcanvas-content" >
+      <div class="am-modal-hd"><span class="title">会员明细</span>
+        <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
+      </div>
+      <div class="gspace15"></div>
+      <div class="am-g ucontent">
+        <div class="am-u-lg-6">会员姓名：张三</div>
+        <div class="am-u-lg-6">手机号码：3700824417</div>
+        <div class="am-u-lg-6">会员卡号：a123212</div>
+        <div class="am-u-lg-6">性别：男</div>
+        <div class="am-u-lg-6">出生日期：1992-04-20</div>
+        <div class="am-u-lg-6">到期时间：2017-06-20</div>
+        <div class="am-u-lg-6">联系地址：无</div>
+        <div class="am-u-lg-6">余额：<span class="gtext-orange">0.00</span>元</div>
+        <div class="am-u-lg-12">备注：无</div>
+        <div class="am-u-lg-6"><button class="am-btn ubtn-sure ubtn-gray">
+          <i class="iconfont icon-shanchu"></i>
+          删除
+        </button></div>
+        <div class="am-u-lg-6"><button class="am-btn ubtn-sure ubtn-red">
+          <i class="iconfont icon-question"></i>
+          停用
+        </button></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="../js/jquery.min.js"></script>
@@ -651,7 +613,13 @@ $(function() {
       // $('.ctadd tbody tr').last().children('td').last().children('a').on('click', function(){
       //   $(this).parent('td').parent('tr').remove();
       // });
-    })
+    });
+    //侧拉关闭
+    var id = '#umemberoff1';
+    var $myOc = $(id);
+    $('.doc-oc-js').on('click', function() {
+      $myOc.offCanvas($(this).data('rel'));
+    });
 });
 $(document).on("click", ".cdel", function() {
     $(this).parent().parent().remove();

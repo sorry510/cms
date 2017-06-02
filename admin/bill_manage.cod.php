@@ -81,19 +81,13 @@
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
           <label class="am-u-lg-3 am-form-label" for="">类别</label>
-          <div class="am-u-lg-4 am-u-end">
+          <div class="am-u-lg-4 am-u-end" style="text-align:left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 支出
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="1" data-am-ucheck> 收入
             </label>  
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">名称</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -106,6 +100,12 @@
               <option value="m">Mango</option>
               <option value="d">禁用</option>
             </select>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="am-u-lg-3 am-form-label" for="">名称</label>
+          <div class="am-u-lg-4 am-u-end">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">

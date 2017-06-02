@@ -99,12 +99,18 @@
 /*moneyinput*/
 #ubody .umodal .umoneyinput{display:inline-block; width:200px; height:45px; border:1px solid #D89E4C; font-size:20px; color:#C40100; font-weight:bold;}
 #ubody .umodal .umoneyinput:focus{border: 1px solid #D89E4C; outline:none;}
-#ubody .umodal .umoneyinput::-webkit-input-placeholder { color: #C40100;}
-#ubody .umodal .umoneyinput::-moz-placeholder { color: #C40100 !important;} /* for the future */ 
-#ubody .umodal .umoneyinput:-ms-input-placeholder { color: #C40100 !important;} 
+#ubody .umodal .umoneyinput::-webkit-input-placeholder {font-size:14px; line-height:30px;}
+#ubody .umodal .umoneyinput::-moz-placeholder { font-size:14px; line-height:30px}
+#ubody .umodal .umoneyinput:-ms-input-placeholder { font-size:14px; line-height:30px} 
 /*加减数字*/
 #ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
 #ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
+/*侧拉框*/
+#umemberoff1 .am-modal-hd{padding: 0; padding-left: 20px;text-align: left;padding-bottom: 5px;border-bottom: 1px solid #ccc;}
+#umemberoff1 .uclose2 { position: absolute;right: 10px; top: 10px; line-height: 17px;}
+#umemberoff1 .title{font-size: 1.8rem; font-weight: bold; color: #2E2E2E;}
+#umemberoff1 .am-offcanvas-bar .am-offcanvas-content .ucontent > [class*="am-u-"] {margin:6px 0; text-align:left; font-size:14px; font-weight:normal;}
+#umemberoff1 .am-offcanvas-bar:after{background: #FFFFFF;}
 /******************************************************************************************************************************/
 /*赠送优惠券*/
 #umarketing_coupon .am-checkbox-inline{padding-top:20px; padding-left:15px;}

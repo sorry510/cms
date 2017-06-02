@@ -11,11 +11,7 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        商品名称： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        商品编号： 
+        商品信息： 
         <input class="am-form-field uinput" type="text" name="">
       </div>
       <div class="am-form-group">
@@ -32,7 +28,7 @@
       新增商品
     </button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>

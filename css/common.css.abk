@@ -7,7 +7,7 @@
 .gspace25 {height: 25px;}
 .gspace30 {height:30px;}
 .gspace50 {height:50px;}
-.gtext-orange {color:#FF4200;font-weight:bold;font-size:16px;}
+.gtext-orange {color:#FA7307;}
 .gtext-green {color:#2AA672;}
 .gtext-blue {color:#3D76C7;}
 
@@ -193,7 +193,7 @@
 .am-modal-dialog.umodal .umain2 [class*="am-u-"]{padding:0;}
 .am-modal-dialog.umodal .umain2 .utitle {margin:10px 0 0 0; height:35px; line-height:35px; text-align:left; font-size:14px; font-weight:bold;}
 .am-modal-dialog.umodal .umain2 .ucontent {border-top:solid 1px #DDE1EA; border-bottom:solid 1px #DDE1EA;}
-.am-modal-dialog.umodal .umain2 .ucontent > [class*="am-u-"] {margin:6px 0; text-align:left; font-size:14px; font-weight:normal;}
+.am-modal-dialog.umodal .umain2 .ucontent > [class*="am-u-"] {margin:10px 0; text-align:left; font-size:14px; font-weight:normal;}
 
 /*弹出框中的选项卡*/
 #ubody .umodal .am-tabs-bd .am-tab-panel {padding:30px 0 30px 20px; text-align:left;}
@@ -215,6 +215,3 @@
 #ubody .am-btn:focus, .am-btn:active:focus {outline:none;}
 #ubody .am-form-horizontal .am-radio-inline {padding-top:0;}
 #ubody label.am-form-label {font-weight:normal; font-size:14px; padding-top:5px;}
-
-/*yd新增*/
-table a{color:#2D7EF6; text-decoration: underline;}

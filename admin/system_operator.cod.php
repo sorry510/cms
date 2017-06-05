@@ -4,30 +4,23 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="usystem_operator" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="#">操作员</a></li>
+    <li class="am-active"><a href="#">操作员管理</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        姓名： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        电话： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        身份证号： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        分店： 
-        <select class="uselect" data-am-selected name="">
+        <label for="doc-ipt-3" class="am-form-label">分店：</label>
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
       </div>
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_operatorm1'}">
@@ -35,27 +28,30 @@
       新增操作员
     </button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
-        <td>操作员账号</td>
-        <td>姓名</td>
         <td>所属分店</td>
-        <td>身份</td>
+        <td>权限</td>
+        <td>操作员帐号</td>
+        <td>姓名</td>
+        <td>手机号码</td>
         <td width="12%">操作</td>
       </tr>
     </thead>
     <tr>
-      <td>201154</td>
-      <td>李小明</td>
       <td>解放路分店</td>
       <td>店长</td>
+      <td>201154</td>
+      <td>李小明</td>
+      <td>123000423</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_operatorm2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -63,15 +59,17 @@
       </td>
     </tr>
     <tr>
-      <td>201152</td>
-      <td>张四</td>
       <td>解放路分店</td>
       <td>管理员</td>
+      <td>201152</td>
+      <td>张四</td>
+      <td>1222354755</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_operatorm2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -91,15 +89,27 @@
 
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="usystem_operatorm1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">新增操作员
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">身份</label>
-          <div class="am-u-lg-5 am-u-end">
+          <label class="umodal-label am-form-label" for="">所属分店：</label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected>
+              <option value="a">Apple</option>
+              <option value="b">Banana</option>
+              <option value="o">Orange</option>
+              <option value="m">Mango</option>
+              <option value="d">禁用</option>
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">权限：</label>
+          <div class="umodal-normal" style="text-align:left;">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 管理员
             </label>
@@ -112,38 +122,26 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">账号</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">帐号：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">密码</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">密码：</label>
+          <div class="umodal-normal">
             <input type="password" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">所属分店</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">姓名</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">姓名：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">手机号码</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">手机号码：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
@@ -159,59 +157,41 @@
   </div>
 </div>
 <div class="am-modal" tabindex="-1" id="usystem_operatorm2">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">修改操作员
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
+    <div class="am-modal-bd">
+      <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">身份</label>
-          <div class="am-u-lg-5 am-u-end">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck checked disabled> 管理员
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="1" data-am-ucheck disabled> 店长
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="2" data-am-ucheck disabled> 收银员
-            </label>  
-          </div>
+          <label class="umodal-label am-form-label" for="">所属分店：</label>
+          <label class="umodal-text am-form-label" style="text-align:left;">秦岭路11号</label>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">账号</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max" value="a123">
-          </div>
+          <label class="umodal-label am-form-label" for="">权限：</label>
+          <label class="umodal-text am-form-label" style="text-align:left;">管理员</label>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">密码</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max" value="1123">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">所属分店</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
-            <select class="uselect uselect-max" data-am-selected disabled>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">姓名</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">帐号：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">手机号码</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">密码：</label>
+          <div class="umodal-normal">
+            <input type="password" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">姓名：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">手机号码：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
@@ -219,7 +199,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>

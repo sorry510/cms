@@ -6,27 +6,26 @@
 <!-- content -->
 <div id="usystem_roomcard" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
+  	<li class="am-active"><a href="javascript: void(0)">房间手牌设置</a></li>
     <li><a href="system_roomcate.php">分类</a></li>
-    <li class="am-active"><a href="javascript: void(0)">房间/手牌</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-  <form class="am-form-inline uform2">
-  </form>
-  <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_roomcardm1'}">
-  <i class="iconfont icon-question"></i>
-    新增房间/手牌
-  </button>
-  <div style="clear: both;"></div>
+	<form class="am-form-inline uform2">
+	</form>
+	<button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_roomcardm1'}">
+	<i class="iconfont icon-question"></i>
+	  新增房间/手牌
+	</button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
         <td>分类</td>
-        <td>房间/手牌号</td>
+        <td>名称</td>
         <td>ID</td>
-        <td style="width: 12%;">操作</td>
+        <td width="12%">操作</td>
       </tr>
     </thead>
     <tr>
@@ -57,31 +56,15 @@
 
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="usystem_roomcardm1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">新增房间/手牌
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">房间/手牌号</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">ID号</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div> 
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类</label>
-          <div class="am-u-lg-4">
+      	<div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">分类：</label>
+          <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected required>
               <option value="a">请选择商品分类</option>
               <option value="b">Banana</option>
@@ -90,7 +73,18 @@
               <option value="d">禁用</option>
             </select>
           </div>
-          <div class="am-u-lg-6">
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-text gtext-green">（备注：房间/手牌号）</div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">ID号：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div> 
       </form>
@@ -106,32 +100,16 @@
 </div>
 
 <div class="am-modal" tabindex="-1" id="usystem_roomcardm2">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">修改房间/手牌
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">房间/手牌号</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">ID号</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div> 
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类</label>
-          <div class="am-u-lg-4">
-            <select class="uselect uselect-max" data-am-selected>
+          <label class="umodal-label am-form-label" for="">分类：</label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected required>
               <option value="a">请选择商品分类</option>
               <option value="b">Banana</option>
               <option value="o">Orange</option>
@@ -139,7 +117,18 @@
               <option value="d">禁用</option>
             </select>
           </div>
-          <div class="am-u-lg-6">
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-text gtext-green">（备注：房间/手牌号）</div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">ID号：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div> 
       </form>

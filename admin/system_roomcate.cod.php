@@ -6,8 +6,8 @@
 <!-- content -->
 <div id="usystem_roomcate" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
+    <li><a href="system_roomcard.php">房间手牌设置</a></li>
     <li class="am-active"><a href="javascript: void(0)">分类</a></li>
-    <li><a href="system_roomcard.php">房间/手牌</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -19,7 +19,7 @@
   </button>
   <div style="clear: both;"></div>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
@@ -53,25 +53,19 @@
 
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="usystem_roomcatem1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple" >
     <div class="am-modal-hd uhead">添加分类
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类名称</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
-          <label class="am-u-lg-2 am-form-label" for=""></label>
-          <div class="am-u-lg-4">
-          </div>
+          <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
         </div> 
-        <div class="am-form-group">
-          <div class="am-u-lg-2 ua1">说明:</div>
-          <div class="am-u-lg-10 ua2">根据门店特点进行分类，如一楼包间，一楼大厅</div>
-        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -85,25 +79,19 @@
 </div>
 
 <div class="am-modal" tabindex="-1" id="usystem_roomcatem2">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">添加分类
+  <div class="am-modal-dialog umodal umodal-simple" >
+    <div class="am-modal-hd uhead">修改分类
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类名称</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
-          <label class="am-u-lg-2 am-form-label" for=""></label>
-          <div class="am-u-lg-4">
-          </div>
+          <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
         </div> 
-        <div class="am-form-group">
-          <div class="am-u-lg-2 ua1">说明:</div>
-          <div class="am-u-lg-10 ua2">根据门店特点进行分类，如一楼包间，一楼大厅</div>
-        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">

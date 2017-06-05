@@ -11,20 +11,25 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        商品信息： 
-        <input class="am-form-field uinput" type="text" name="">
-      </div>
-      <div class="am-form-group">
-        商品分类： 
-        <select class="uselect" data-am-selected name="">
+        <label for="doc-ipt-3" class="am-form-label">商品分类：</label>
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
       </div>
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">搜索：</label>
+        <input class="am-form-field uinput uinput-220" type="text" name="" placeholder="商品名称/简拼/编码">
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_infom1'}">
-    <i class="iconfont icon-question"></i>
+    <i class="iconfont icon-xinzeng"></i>
       新增商品
     </button>
   </div>
@@ -33,26 +38,31 @@
     <thead>
       <tr>
         <td>商品分类</td>
-        <td>商品编码</td>
         <td>商品名称</td>
+        <td>商品编码</td>
         <td>商品价格</td>
         <td>会员价格</td>
-        <td>是否库存</td>
+        <td>参与库存</td>
+        <td>参加活动</td>
+        <td>参与预约</td>
         <td style="width: 12%;">操作</td>
       </tr>
     </thead>  
     <tr>
       <td>纽崔莱</td>
-      <td>saa</td>
       <td>蛋白粉</td>
-      <td class="gtext-orange">560元</td>
-      <td class="gtext-orange">500元</td>
-      <td>是</td>
+      <td>saa</td>
+      <td>560元</td>
+      <td>500元</td>
+      <td class="gtext-green">√</td>
+      <td>限时打折，满送</td>
+      <td class="gtext-green">√</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_infom2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -61,16 +71,19 @@
     </tr>
     <tr>
       <td>纽崔莱</td>
-      <td>saa</td>
       <td>蛋白粉</td>
-      <td class="gtext-orange">560元</td>
-      <td class="gtext-orange">500元</td>
-      <td>是</td>
+      <td>saa</td>
+      <td>560元</td>
+      <td>500元</td>
+      <td class="gtext-green">√</td>
+      <td>限时打折，满送</td>
+      <td class="gtext-green">√</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_infom2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -79,16 +92,19 @@
     </tr>
     <tr>
       <td>纽崔莱</td>
-      <td>saa</td>
       <td>蛋白粉</td>
-      <td class="gtext-orange">560元</td>
-      <td class="gtext-orange">500元</td>
-      <td>是</td>
+      <td>saa</td>
+      <td>560元</td>
+      <td>500元</td>
+      <td class="gtext-orange">×</td>
+      <td>限时打折，满送，满减</td>
+      <td class="gtext-green">√</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_infom2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -109,14 +125,14 @@
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="ugoods_infom1">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增多店通用商品
+    <div class="am-modal-hd uhead">新增商品
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品分类</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">商品分类：</label>
+          <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
               <option value="a">Apple</option>
               <option value="b">Banana</option>
@@ -127,38 +143,66 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品名称</label>
-          <div class="am-u-lg-4">
-            <input type="text" id="cgoodsname2" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
+          <label class="umodal-label am-form-label" for="">商品名称：</label>
+          <div class="umodal-normal">
+            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
           </div>
-          <div class="am-u-lg-1" style="line-height:32px">简拼</div>
-          <div class="am-u-lg-2 am-u-end">
-            <input type="text" id="cupen2" class="am-form-field uinput uinput-max">
+          <div class="umodal-text" style="text-indent:2em;">简拼：</div>
+          <div class="umodal-valid">
+            <input type="text" id="cupen" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品编码</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">商品编码：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">商品价格：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">会员价格</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">会员价格：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
-          <div class="am-u-lg-4 am-u-end am-u-end" style="text-align:left;">
+          <label class="umodal-label am-form-label" for="">参与库存：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" value="1" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加活动：</label>
+          <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
-              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
+              <input type="checkbox"  value="" data-am-ucheck> 限时打折
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 满减
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 满送
+            </label>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio3" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio3" value="1" data-am-ucheck> 不参与
             </label>
           </div>
         </div>
@@ -179,14 +223,14 @@
 
 <div class="am-modal" tabindex="-1" id="ugoods_infom2">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">修改多店通用商品
+    <div class="am-modal-hd uhead">修改商品
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品分类</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">商品分类：</label>
+          <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
               <option value="a">Apple</option>
               <option value="b">Banana</option>
@@ -197,38 +241,66 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品名称</label>
-          <div class="am-u-lg-4">
-            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+          <label class="umodal-label am-form-label" for="">商品名称：</label>
+          <div class="umodal-normal">
+            <input type="text" id="cgoodsname2" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
           </div>
-          <div class="am-u-lg-1" style="line-height:32px">简拼</div>
-          <div class="am-u-lg-2 am-u-end">
+          <div class="umodal-text" style="text-indent:2em;">简拼：</div>
+          <div class="umodal-valid">
             <input type="text" id="cupen2" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品编码</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">商品编码：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">商品价格</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">商品价格：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">会员价格</label>
-          <div class="am-u-lg-4 am-u-end am-u-end">
+          <label class="umodal-label am-form-label" for="">会员价格：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">是否参与库存</label>
-          <div class="am-u-lg-4 am-u-end am-u-end" style="text-align:left;">
+          <label class="umodal-label am-form-label" for="">参与库存：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio2" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio2" value="1" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加活动：</label>
+          <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
-              <input type="checkbox" data-am-ucheck value="1"> 参与库存计算
+              <input type="checkbox"  value="" data-am-ucheck> 限时打折
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 满减
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 满送
+            </label>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="1" data-am-ucheck> 不参与
             </label>
           </div>
         </div>
@@ -236,6 +308,9 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成并继续添加
+        </button>
         <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>

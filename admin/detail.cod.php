@@ -12,27 +12,27 @@
   <div class="utools">
     <form class="am-form-inline uform1">
       <div class="am-form-group">
-        开卡店铺： 
-        <select class="uselect" data-am-selected name="">
+        <label class="am-form-label">开卡店铺：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
           <option value="2">fsdsdfsdfsdffdfsd</option>
           <option value="3">3</option>
         </select>
       </div>
       <div class="am-form-group">
-        卡类型： 
-        <select class="uselect" data-am-selected name="">
+        <label class="am-form-label">卡类型：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
       </div>
       <div class="am-form-group">
-        会员卡号： 
-        <input class="am-form-field uinput" type="text" name="">
+        <label class="am-form-label">会员卡号：</label> 
+        <input class="am-form-field uinput uinput-220" type="text" name="">
       </div>
       <div class="am-form-group">
-        时间： 
+        <label class="am-form-label">时间：</label> 
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field">
           <span class="am-input-group-btn am-datepicker-add-on">
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="am-form-group">
-        至： 
+        <label class="am-form-label">至：</label> 
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field">
           <span class="am-input-group-btn am-datepicker-add-on">
@@ -56,7 +56,7 @@
       </div>       
     </form> 
   </div> 
-  <div class="gspace30"></div>   
+  <div class="gspace15"></div>   
    <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
     <thead>
       <tr>
@@ -69,9 +69,10 @@
         <td>现金</td>
         <td>刷卡</td>
         <td>团购</td>
-        <td>微信/支付宝</td>
+        <td>微信</td>
+        <td>支付宝</td>
         <td>消费店铺</td>
-        <td style="width: 12%;">操作</td>
+        <td width="12%;">操作</td>
       </tr>
     </thead>
     <tr data-am-offcanvas="{target: '#uoffcanvas'}">
@@ -85,24 +86,6 @@
       <td>0.0</td>
       <td>0.0</td>
       <td class="gtext-orange">￥200</td>
-      <td>解放路分店</td>
-      <td>
-        <button class="am-btn ubtn-table ubtn-orange">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-      </td>
-    </tr>
-    <tr data-am-offcanvas="{target: '#uoffcanvas'}">
-      <td>2015-06-18&nbsp;12:21</td>
-      <td>2017030412456</td>
-      <td>HY1001</td>
-      <td>刘艳秋</td>
-      <td>消费</td>
-      <td class="gtext-orange">￥368</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td class="gtext-orange">￥200</td>
       <td>解放路分店</td>
       <td>
@@ -122,6 +105,27 @@
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
+      <td class="gtext-orange">￥200</td>
+      <td class="gtext-orange">￥200</td>
+      <td>解放路分店</td>
+      <td>
+        <button class="am-btn ubtn-table ubtn-orange">
+          <i class="iconfont icon-dayin"></i>
+          打印小票
+        </button>
+      </td>
+    </tr>
+    <tr data-am-offcanvas="{target: '#uoffcanvas'}">
+      <td>2015-06-18&nbsp;12:21</td>
+      <td>2017030412456</td>
+      <td>HY1001</td>
+      <td>刘艳秋</td>
+      <td>消费</td>
+      <td class="gtext-orange">￥368</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td class="gtext-orange">￥200</td>
       <td class="gtext-orange">￥200</td>
       <td>解放路分店</td>
       <td>
@@ -180,7 +184,7 @@
         </ul>
       </div>
       <p><strong>商品消费清单</strong></p>
-      <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
+      <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact" style="color:black;">
         <thead>
           <tr>
             <td>名称</td>
@@ -213,7 +217,7 @@
         </tr>
       </table>
       <p><strong>付款信息</strong></p>
-      <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
+      <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact" style="color: black;">
         <thead>
           <tr>
           <td>支付方式</td>
@@ -227,13 +231,13 @@
       </table>
       <div class="gspace20"></div>
       <div class="ub">
-        <button class="am-btn ubtn-sure ubtn-blue" style="float: left;margin-left: 2.5%;">
+        <button class="am-btn ubtn-sure ubtn-blue button1">
           <i class="iconfont icon-dayin"></i>
           打印小票
         </button>
-        <button class="am-btn ubtn-sure ubtn-red" style="margin-right: 2.5%" data-am-modal="{target: '#udetailm1', closeViaDimmer: 0, width: 300, height: 300}">
+        <button class="am-btn ubtn-sure ubtn-red button2" data-am-modal="{target: '#udetailm1', closeViaDimmer: 0, width: 320, height: 320}">
           <i class="iconfont icon-huaidanbaotui"></i>
-          反结帐
+          退款
         </button>
       </div> 
     </div>
@@ -241,21 +245,21 @@
 </div>
 
 <div id="udetailm1" class="am-modal am-modal-no-btn" tabindex="-1" >
-  <div class="am-modal-dialog umodal" style="width: 300px;">
-    <div class="am-modal-hd uhead" style="height: ">反结账
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">退款
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-4 am-form-label" for="">授权密码</label>
-          <div class="am-u-lg-8">
+          <label class="umodal-label am-form-label" for="">授权密码</label>
+          <div class="umodal-small">
             <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-4 am-form-label" for="">备注</label>
-          <div class="am-u-lg-8">
+          <label class="umodal-label am-form-label" for="">备注</label>
+          <div class="umodal-small">
             <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
           </div>
         </div>
@@ -264,8 +268,11 @@
         <div class="ua1">
           <button class="am-btn ubtn-sure ubtn-red" type="submit">
             <i class="iconfont icon-huaidanbaotui"></i>
-            反结帐
-          </button><a class="a2"  href="">取消</a>
+            退款
+          </button>
+          <button class="am-btn ubtn-sure ubtn-red" type="submit">
+            取消
+          </button>
         </div>
       </form>
     </div>

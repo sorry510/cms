@@ -5,32 +5,31 @@
 <!-- content -->
 <div class="gcontent" id="uemployee_group">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="javascript: void(0);">员工分组管理</a></li>
+    <li><a href="employee_manage.php">员工管理</a></li>
+    <li class="am-active"><a href="javascript: void(0);">员工分组</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#uemployee_groupm1'}">
-      <i class="iconfont icon-question"></i>
+      <i class="iconfont icon-xinzeng"></i>
       新增分组
     </button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
         <td>名称</td>
-        <td>添加时间</td>
         <td style="width:12%;">操作</td>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>办公室</td>
-        <td>2017-6-14</td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green">
+          <button class="am-btn ubtn-table ubtn-green revise"  data-am-modal="{target:'#uemployee_groupm2'}">
             <i class="iconfont icon-bianji"></i>
             修改
           </button>&nbsp;&nbsp;
@@ -42,9 +41,8 @@
       </tr>
       <tr>
         <td>油缸厂</td>
-        <td>2017-6-14</td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green">
+          <button class="am-btn ubtn-table ubtn-green revise"  data-am-modal="{target:'#uemployee_groupm2'}">
             <i class="iconfont icon-bianji"></i>
             修改
           </button>&nbsp;&nbsp;
@@ -60,15 +58,15 @@
 </div>
 <!-- 增加分组弹出框 -->
 <div id="uemployee_groupm1" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增员工分组
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">新增分组
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">名称</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
@@ -83,6 +81,33 @@
     </div>
   </div>
 </div>
+
+<!-- 修改分组弹出框 -->
+<div id="uemployee_groupm2" class="am-modal" tabindex="-1">
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">修改分组
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">分组名称：</label>
+          <div class="umodal-normal">
+            <input id="" class="uinput uinput-max name" type="text" placeholder="">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 删除按钮弹出框 -->
 <div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">
@@ -112,6 +137,14 @@ $(function() {
     });
   });
 });
+
+$(function() {
+  $('.revise').on('click', function(){
+    var name = $(this).parent().siblings().eq(0).text();
+    $("#uemployee_groupm2 .name").val(name);
+  });
+});
+
 </script>
 </body>
 </html>

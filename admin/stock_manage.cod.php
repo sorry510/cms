@@ -36,7 +36,7 @@
       </div>
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#ustock_managerm1'}">
-      <i class="iconfont icon-question"></i>
+      <i class="iconfont icon-xinzeng"></i>
       新增单据
     </button>
   </div>
@@ -104,11 +104,11 @@
     <div class="am-modal-hd uhead">新增单据
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-1 am-form-label" for="">时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -116,8 +116,9 @@
               </span>
             </div>
           </div>
-          <label class="am-u-lg-3 am-form-label" for="">类型</label>
-          <div class="am-u-lg-4">
+          <div class="umodal-search">&nbsp;</div>
+          <label class="umodal-label am-form-label" for="">类型：</label>
+          <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
               <option value="a">店铺通用型</option>
               <option value="b">Banana</option>
@@ -128,18 +129,19 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-1 am-form-label" for="">金额</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">金额：</label>
+          <div class="umodal-normal">
             <input id="" class="am-form-field uinput uinput-max" type="password" placeholder="">
           </div>
-          <label class="am-u-lg-3 am-form-label" for="">经办人</label>
-          <div class="am-u-lg-4">
+          <div class="umodal-search">&nbsp;</div>
+          <label class="umodal-label am-form-label" for="">经办人：</label>
+          <div class="umodal-normal">
             <input id="" class="am-form-field uinput uinput-max" type="password" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-1 am-form-label" for="">备注</label>
-          <div class="am-u-lg-11">
+          <label class="umodal-label am-form-label" for="">备注：</label>
+          <div class="umodal-max">
             <input type="text" class="am-form-field uinput uinput-max" placeholder="">
           </div>
         </div>

@@ -4,9 +4,9 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="uwechat_redpacket" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-     <li class="am-active"><a href="javascript: void(0);">红包设置</a></li>
+     <li class="am-active"><a href="javascript: void(0);">微信红包设置</a></li>
   </ul>
-  <div class="gspace15"></div>
+  <div class="gspace25"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
@@ -67,8 +67,8 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end" style="text-align:left">
+          <label class="umodal-label am-form-label" for="">功能：</label>
+          <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
             </label>
@@ -78,37 +78,37 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总金额</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">总金额：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总人数</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包金额</label>
-          <div class="am-u-lg-2">
+          <label class="umodal-label am-form-label" for="">总人数：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
-          <div class="am-u-lg-1 ua1">~</div>
-           <div class="am-u-lg-2">
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">红包金额：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
-          <div class="am-u-lg-3 am-u-end ua2">随机发放</div>
+          <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
+           <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-text" style="text-indent:1em;">随机发放</div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包祝福语</label>
-          <div class="am-u-lg-7 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
+          <label class="umodal-label am-form-label" for="">祝福语：</label>
+          <div class="umodal-max">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">开始时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">开始时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -118,8 +118,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">结束时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">结束时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -129,8 +129,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">备注</label>
-          <div class="am-u-lg-8">
+          <label class="umodal-label am-form-label" for="">备注：</label>
+          <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
@@ -154,53 +154,53 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end" style="text-align:left">
+          <label class="umodal-label am-form-label" for="">功能：</label>
+          <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
+              <input type="radio" name="radio2" value="0" data-am-ucheck> 开启
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="1" data-am-ucheck> 关闭
+              <input type="radio" name="radio2" value="1" data-am-ucheck> 关闭
             </label>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总金额</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">总金额：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总人数</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包金额</label>
-          <div class="am-u-lg-2">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-1 ua1">~</div>
-           <div class="am-u-lg-2">
+          <label class="umodal-label am-form-label" for="">总人数：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包祝福语</label>
-          <div class="am-u-lg-7 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
+          <label class="umodal-label am-form-label" for="">红包金额：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
+           <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">最低消费额</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
+          <label class="umodal-label am-form-label" for="">祝福语：</label>
+          <div class="umodal-max">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">开始时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">最低消费：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">开始时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -210,8 +210,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">结束时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">结束时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -221,8 +221,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">备注</label>
-          <div class="am-u-lg-8">
+          <label class="umodal-label am-form-label" for="">备注：</label>
+          <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
@@ -246,53 +246,59 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">功能</label>
-          <div class="am-u-lg-4 am-u-end" style="text-align:left">
+          <label class="umodal-label am-form-label" for="">功能：</label>
+          <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 开启
+              <input type="radio" name="radio2" value="0" data-am-ucheck> 开启
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="1" data-am-ucheck> 关闭
+              <input type="radio" name="radio2" value="1" data-am-ucheck> 关闭
             </label>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总金额</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">总金额：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">发放总人数</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">裂变数量</label>
-          <div class="am-u-lg-4 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包金额</label>
-          <div class="am-u-lg-2">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-1 ua1">~</div>
-           <div class="am-u-lg-2">
+          <label class="umodal-label am-form-label" for="">总人数：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">红包祝福语</label>
-          <div class="am-u-lg-7 am-u-end">
-            <input type="password" class="am-form-field uinput uinput-max">
+          <label class="umodal-label am-form-label" for="">裂变数量：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">开始时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">红包金额：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
+           <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">祝福语：</label>
+          <div class="umodal-max">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">最低消费：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">开始时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -302,8 +308,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">结束时间</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">结束时间：</label>
+          <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
               <span class="am-input-group-btn am-datepicker-add-on">
@@ -313,8 +319,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">备注</label>
-          <div class="am-u-lg-8">
+          <label class="umodal-label am-form-label" for="">备注：</label>
+          <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>

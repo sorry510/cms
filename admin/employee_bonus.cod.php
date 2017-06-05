@@ -5,7 +5,7 @@
 <!-- content -->
 <div id="uemployee_bonus" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="javascript: void(0)">员工提成设置</a></li>
+    <li class="am-active"><a href="javascript: void(0)">员工提成方案</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="gspace30"></div>

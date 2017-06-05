@@ -36,7 +36,7 @@
       </div>
     </form>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <div id="container" style="margin:0px auto; height:400px; width:95%;"></div>
 </div>
 <script src="../js/jquery.min.js"></script>

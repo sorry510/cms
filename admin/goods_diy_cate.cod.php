@@ -2,36 +2,52 @@
 <body id="ubody">
 <?php echo $this->fun_fetch('inc_top', ''); ?>
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
-<div id="ugoods_info_cate" class="gcontent">
+<div id="ugoods_diy_cate" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li><a href="goods_diy.php">店铺私有商品</a></li>
+    <li><a href="goods_diy.php">单店销售商品</a></li>
     <li class="am-active"><a href="#">商品分类</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
   <form class="am-form-inline uform2">
+    <div class="am-form-group">
+      <label for="doc-ipt-3" class="am-form-label">分店：</label>
+      <select class="uselect uselect-auto" data-am-selected name="">
+        <option value="all" selected>伏牛路老街</option>
+        <option value="2">正大新区</option>
+        <option value="3">梧桐街老街11号</option>
+      </select>
+    </div>
+    <div class="am-form-group">
+      <button type="submit" class="am-btn ubtn-search">
+        <i class="iconfont icon-search"></i>查询
+      </button>
+    </div>
   </form>
   <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_diy_catem1'}">
-  <i class="iconfont icon-question"></i>
+  <i class="iconfont icon-xinzeng"></i>
     添加分类
   </button>
   <div style="clear: both;"></div>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
       <td>分类名称</td>
+      <td>分店</td>
       <td style="width: 12%;">操作</td>
     </tr>
     </thead>
     <tr>
-      <td>纽崔莱</td>
+      <td>营养类</td>
+      <td>园丁路88号</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_diy_catem2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -39,12 +55,14 @@
       </td>
     </tr> 
     <tr>
-      <td>纽崔莱</td>
+      <td>能量类</td>
+      <td>雷锋路11号</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_diy_catem2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -52,12 +70,14 @@
       </td>
     </tr>
     <tr>
-      <td>纽崔莱</td>
+      <td>水</td>
+      <td>学府街11号</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_diy_catem2'}">
           <i class="iconfont icon-bianji"></i>
-          编辑
+          修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -78,19 +98,64 @@
 
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="ugoods_diy_catem1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">添加分类
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类名称</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">分店：</label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected>
+              <option value="a">Apple</option>
+              <option value="b">Banana</option>
+              <option value="o">Orange</option>
+              <option value="m">Mango</option>
+              <option value="d">禁用</option>
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
-          <label class="am-u-lg-2 am-form-label" for=""></label>
-          <div class="am-u-lg-4">
+        </div> 
+      </form>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="am-modal" tabindex="-1" id="ugoods_diy_catem2">
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">修改分类
+      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd">
+      <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">分店：</label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected>
+              <option value="a">Apple</option>
+              <option value="b">Banana</option>
+              <option value="o">Orange</option>
+              <option value="m">Mango</option>
+              <option value="d">禁用</option>
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div> 
       </form>
@@ -105,33 +170,7 @@
   </div>
 </div>
 
-<div class="am-modal" tabindex="-1" id="ugoods_diy_catem2">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">编辑分类
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">分类名称</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="am-u-lg-2 am-form-label" for=""></label>
-          <div class="am-u-lg-4">
-          </div>
-        </div> 
-      </form>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
-          完成
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- 删除框 -->
 <div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">

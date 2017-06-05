@@ -11,14 +11,22 @@
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">名称：</label>
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="" name="">
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_packagem1'}">
       <i class="iconfont icon-question"></i>
       新增套餐
     </button>
-    <div style="clear: both;"></div>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
@@ -26,7 +34,8 @@
         <td>编码</td>
         <td>价格</td>
         <td>会员价格</td>
-        <td style="width: 12%;">操作</td>
+        <td>有效期限</td>
+        <td width="12%">操作</td>
       </tr>
     </thead>
     <tr>
@@ -34,11 +43,13 @@
       <td>1002158</td>
       <td class="gtext-orange">380元</td>
       <td class="gtext-orange">280元</td>
+      <td class="gtext-orange">2017-12-12</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_packagem2'}">
           <i class="iconfont icon-bianji"></i>
           修改
         </button>
+        &nbsp;
         <button class="am-btn ubtn-table ubtn-gray cdel">
           <i class="iconfont icon-shanchu"></i>
           删除
@@ -46,7 +57,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="12" style="text-align:left; padding-left:10px">
+      <td colspan="6" class="utable-text">
         剪头(10次)，洗头(10次) 
       </td>
     </tr>

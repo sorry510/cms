@@ -12,16 +12,23 @@
   <div class="utools">
     <form class="am-form-inline uform">
       <div class="am-form-group">
-        店铺：
-        <select class="uselect" data-am-selected name="">
-          <option value="all">所有店铺</option>
-          <option value="2">店铺a</option>
-          <option value="3">店铺b</option>
+        分店：
+        <select class="uselect uselect-auto" data-am-selected name="">
+          <option value="2">长春路店</option>
+          <option value="3">梧桐街店</option>
         </select>
       </div>
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">商品名称：</label>
-        <input type="text" class="am-form-field uinput uinput140" placeholder="大宝" name="">
+        商品分类：
+        <select class="uselect uselect-auto" data-am-selected name="">
+          <option value="all">所有分类</option>
+          <option value="2">营养品</option>
+          <option value="3">保健品</option>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">搜索：</label>
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="商品名称/简拼/编码" name="">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -30,34 +37,37 @@
       </div>
     </form>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
         <td>分类</td>
-        <td>编码</td>
         <td>商品名称</td>
+        <td>编码</td>
         <td>价格</td>
         <td>会员价</td>
         <td>库存</td>
+        <td>分店</td>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>洗发水</td>
-        <td>00001</td>
         <td>飘柔洗发水</td>
+        <td>00001</td>
         <td>40元</td>
         <td>35元</td>
         <td>100瓶</td>
+        <td>店铺a</td>
       </tr>
       <tr>
         <td>洗发水</td>
-        <td>00001</td>
         <td>飘柔洗发水</td>
+        <td>00001</td>
         <td>40元</td>
         <td>35元</td>
         <td>100瓶</td>
+        <td>店铺a</td>
       </tr>
     </tbody>
   </table>

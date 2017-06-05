@@ -11,9 +11,6 @@
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
-      <div class="am-form-group">
-        剩余可添加分店数量:&nbsp;&nbsp;<span class="gtext-orange">2</span>
-      </div> 
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_shopmanagem1'}">
       <i class="iconfont icon-question"></i>
@@ -21,13 +18,14 @@
     </button>
     <div style="clear: both;"></div>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
         <td>店铺名称</td>
-        <td>地址</td>
         <td>电话</td>
+        <td>地址</td>
+        <td>地图位置</td>
         <td>最大用户数</td>
         <td>到期时间</td>
         <td style="width: 8%;">操作</td>
@@ -35,15 +33,14 @@
     </thead>
     <tr>
       <td>解放路分店</td>
-      <td>河南省郑州市金水区解放路38号
-        <a href="javascript:void" class="iconfont icon-question"></a>
-        地图
-      </td>
       <td>0371-55912313</td>
+      <td>河南省郑州市金水区解放路38号</td>
+      <td><a href="javascript:void" class="iconfont icon-question"></a>
+        地图</td>
       <td>5</td>
       <td>2020-3-2</td>
       <td>
-        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_shopmanagem2'}">
+        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_shopmanagem1'}">
           <i class="iconfont icon-bianji"></i>
           修改
         </button>
@@ -66,55 +63,44 @@
     <div class="am-modal-hd uhead">新增分店
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">店铺名称</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">店铺名称：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">电话</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">电话：</label>
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">区域</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">区域：</label>
+          <div class="umodal-short" style="margin-right: 20px;">
             <select name="province1" class="uselect uselect-max cmap" data-am-selected>
             </select>
           </div>
-          <div class="am-u-lg-4">
+          <div class="umodal-short">
             <select name="city1" class="uselect uselect-max cmap" data-am-selected>
             </select>
           </div>
-          <div class="am-u-lg-2"></div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">联系地址</label>
-          <div class="am-u-lg-10">
+          <label class="umodal-label am-form-label" for="">联系地址：</label>
+          <div class="umodal-max">
             <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="联系地址">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">地图标注</label>
-          <div class="am-u-lg-10" style="text-align: left;">
-            <button type="submit" class="am-btn ubtn-search2 ubtn-green">
-              标注
-            </button>
+          <label class="umodal-label am-form-label" for="">地图位置：</label>
+          <div class="umodal-max">
+	        <div id="allmap" style="height: 240px;">
+	        </div>
           </div>
-        </div>
-        <div class="am-form-group">
-          <div class="am-u-lg-1">&nbsp;</div>
-          <div id="allmap" style="height: 320px" class="am-u-lg-10">
-          </div>
-          <div class="am-u-lg-1"></div>
+          
         </div>
       </form>
     </div>
@@ -128,72 +114,6 @@
   </div>
 </div>
 
-<div class="am-modal" tabindex="-1" id="usystem_shopmanagem2">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增分店
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">店铺名称</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">电话</label>
-          <div class="am-u-lg-4">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">区域</label>
-          <div class="am-u-lg-4">
-            <select name="province2" class="uselect uselect-max cmap" data-am-selected>
-            </select>
-          </div>
-          <div class="am-u-lg-4">
-            <select name="city2" class="uselect uselect-max cmap" data-am-selected>
-            </select>
-          </div>
-          <div class="am-u-lg-2"></div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">联系地址</label>
-          <div class="am-u-lg-10">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="联系地址">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="am-u-lg-2 am-form-label" for="">地图标注</label>
-          <div class="am-u-lg-10" style="text-align: left;">
-            <button type="submit" class="am-btn ubtn-search2 ubtn-green">
-              标注
-            </button>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <div class="am-u-lg-1">&nbsp;</div>
-          <div id="allmap2" style="height: 320px" class="am-u-lg-10">
-          </div>
-          <div class="am-u-lg-1"></div>
-        </div>
-      </form>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
-          完成
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type='text/javascript' src="../js/PCASClass.js"></script>
@@ -201,7 +121,7 @@
 <script type="text/javascript">
 
 new PCAS("province1","city1");
-new PCAS("province2","city2");
+/*new PCAS("province2","city2");*/
 
 /*var province2 = "{$user.location.0}"; 
 var city2 = "{$user.location.1}";

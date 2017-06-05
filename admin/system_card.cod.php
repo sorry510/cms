@@ -4,50 +4,38 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="ucard" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="#">会员卡信息</a></li>
+    <li class="am-active"><a href="#">会员卡分类</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
-      <div class="am-form-group">
-        卡类型：
-        <select class="uselect" data-am-selected name="">
-           <option value="all">全部</option>
-           <option value="2">2</option>
-           <option value="3">3</option>
-        </select>
-      </div>
-      <div class="am-form-group">
-        <button type="submit" class="am-btn ubtn-search">
-          <i class="iconfont icon-search"></i>查询
-        </button>
-      </div>
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#ucardm1'}">
       <i class="iconfont icon-addition"></i>
-      新增会员卡
+      新增会员卡分类
     </button>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
-        <td>会员卡类型</td>
+        <td>分类名称</td>
+        <td>卡折扣</td>
         <td>描述</td>
-        <td>折扣</td>
         <td style="width:12%;">操作</td>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>8折卡</td>
+        <td>8折</td>
         <td>折扣卡</td>
-        <td>8</td>
         <td>
           <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
-           编辑
+           修改
           </button>
+          &nbsp;
           <button class="am-btn ubtn-table ubtn-gray cdel">
              <i class="iconfont icon-shanchu"></i>
                       删除
@@ -55,14 +43,15 @@
         </td>
       </tr>
       <tr>
-        <td>10次卡</td>
+        <td>10次卡</td>  
+        <td>10折</td>
         <td>次数卡</td>
-        <td>10</td>
         <td>
           <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
-           编辑
+           修改
           </button>
+          &nbsp;
           <button class="am-btn ubtn-table ubtn-gray cdel">
              <i class="iconfont icon-shanchu"></i>
              删除
@@ -71,13 +60,14 @@
       </tr>
       <tr>
         <td>vip尊贵</td>
+        <td>6折</td>
         <td>一卡通</td>
-        <td>6</td>
         <td>
           <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ucardm2'}">
             <i class="iconfont icon-bianji"></i>
-           编辑
+           修改
           </button>
+          &nbsp;
           <button class="am-btn ubtn-table ubtn-gray cdel">
              <i class="iconfont icon-shanchu"></i>
              删除
@@ -97,29 +87,29 @@
 </div>
 <!-- 弹出框添加 -->
 <div id="ucardm1" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增会员卡类型
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">新增会员卡分类
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">会员卡类型</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">折扣</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">卡折扣：</label>
+          <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="" value="10">
           </div>
-          <div class="uremark am-u-lg-3 am-u-end"><span class="gtext-orange">10表示为不打折</span>
+          <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">描述</label>
-          <div class="am-u-lg-9">
+          <label class="umodal-label am-form-label" for="">描述：</label>
+          <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
@@ -135,29 +125,30 @@
   </div>
 </div>
 <div id="ucardm2" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">修改会员卡类型
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">修改会员卡分类
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">会员卡类型</label>
-          <div class="am-u-lg-4 am-u-end">
+          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">折扣</label>
-          <div class="am-u-lg-4">
+          <label class="umodal-label am-form-label" for="">卡折扣：</label>
+          <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="" value="10">
           </div>
-          <div class="uremark am-u-lg-3 am-u-end"><span class="gtext-orange">10表示为不打折</span>
+          <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
+
           </div>
         </div>
         <div class="am-form-group">
-          <label class="am-u-lg-3 am-form-label" for="">描述</label>
-          <div class="am-u-lg-9">
+          <label class="umodal-label am-form-label" for="">描述：</label>
+          <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
@@ -172,6 +163,7 @@
     </div>
   </div>
 </div>
+
 <!-- 删除按钮弹出框 -->
 <div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">

@@ -11,24 +11,16 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        分组：
-        <select class="uselect" data-am-selected name="">
+        <label for="doc-ipt-3" class="am-form-label">分店：</label>
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">请选择</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
       </div>
       <div class="am-form-group">
-        员工：
-        <select class="uselect" data-am-selected name="">
-          <option value="all">请选择</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div class="am-form-group">
-        起止日期：
-        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+        <label for="doc-ipt-3" class="am-form-label">日期：</label>
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
@@ -37,13 +29,17 @@
         </div>  
       </div>
       <div class="am-form-group">    
-        至： 
+        <label for="doc-ipt-3" class="am-form-label">至：</label>
         <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
-        </div>   
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">员工：</label>
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="姓名" name="">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -52,7 +48,7 @@
       </div>
     </form>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
     <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>

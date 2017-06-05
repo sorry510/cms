@@ -56,7 +56,7 @@
       </div>
     </form>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <div class="ua">
     <div class="ua1 ua1-1">收入</div>
     <div class="ua2">

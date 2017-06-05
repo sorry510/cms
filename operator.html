@@ -14,9 +14,7 @@
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/style.css">
   <style type="text/css">
-    #ubody .am-form-horizontal .am-radio-inline{
-      margin:5px 17px 0 0;
-    }
+    [id*="usystem_operatorm"] .am-form-horizontal .am-radio-inline{margin:5px 17px 0 0;}
   </style>
 </head>
 <body id="ubody">
@@ -81,7 +79,7 @@
       <li><a href="baseinfo.html"><span class="iconfont icon-question"></span> 企业信息</a></li>
       <li><a href="config.html"><span class="iconfont icon-question"></span> 参数设置</a></li>
       <li><a href="shop.html"><span class="iconfont icon-question"></span> 分店信息</a></li>
-      <li><a href="operator.html"><span class="am-icon-user am-icon-fw"></span> 操作员设置</a></li>
+      <li><a href="system_operator.html"><span class="am-icon-user am-icon-fw"></span> 操作员设置</a></li>
       <li><a href="card.html"><span class="iconfont icon-question"></span> 会员卡设置</a></li>
       <li><a href="package.html"><span class="iconfont icon-question"></span> 套餐设置</a></li>
       <li><a href="payconfig.html"><span class="iconfont icon-question"></span> 支付设置</a></li>
@@ -91,7 +89,7 @@
 <!-- left bar end -->
 
 <!-- content -->
-<div id="uoperator" class="gcontent">
+<div id="usystem_operator" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
     <li class="am-active"><a href="javascript: void(0)">操作员</a></li>
   </ul>
@@ -119,7 +117,7 @@
         </select>
       </div>
     </form> 
-    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#uoperatorm1'}">
+    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_operatorm1'}">
       <i class="iconfont icon-group"></i>
       新增操作员
     </button>
@@ -141,7 +139,7 @@
       <td>解放路分店</td>
       <td>店长</td>
       <td>
-        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#uoperatorm2'}">
+        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_operatorm2'}">
           <i class="iconfont icon-bianji"></i>
           编辑
         </button>
@@ -157,7 +155,7 @@
       <td>解放路分店</td>
       <td>管理员</td>
       <td>
-        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#uoperatorm2'}">
+        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_operatorm2'}">
           <i class="iconfont icon-bianji"></i>
           编辑
         </button>
@@ -179,7 +177,7 @@
 </div>
 
 <!--modal框-->
-<div class="am-modal" tabindex="-1" id="uoperatorm1">
+<div class="am-modal" tabindex="-1" id="usystem_operatorm1">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">新增操作员
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>
@@ -247,7 +245,7 @@
     </div>
   </div>
 </div>
-<div class="am-modal" tabindex="-1" id="uoperatorm2">
+<div class="am-modal" tabindex="-1" id="usystem_operatorm2">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">修改操作员
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="img/close.jpg"></a>

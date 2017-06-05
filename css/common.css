@@ -54,18 +54,27 @@
 #uleftbar .umenu2 > li {background-color:#254A98;}
 #uleftbar .umenu2 > li > a {background-color:#254A98; color:#C5D4F3; font-size:1.4rem;}
 #uleftbar .umenu2 > li > a:hover, #uleftbar .umenu2 > li > a:focus {color:#F0C65A}
-/*商品*/
-#uleftbar .umenu2.umenu2-goods {top:-30px; left:105px;}
-#uleftbar .umenu2.umenu2-goods:before {left:-16px; top:70%;}
-/*收银员设置*/
-#uleftbar .umenu2.umenu2-set2 {top:10px; left:105px;}
-#uleftbar .umenu2.umenu2-set2:before {left:-16px; top:55%;}
-/*管理员设置*/
-#uleftbar .umenu2.umenu2-set {top:-212px; left:105px;}
-#uleftbar .umenu2.umenu2-set:before {left:-16px; top:90%;}
-/*微信菜单*/
-#uleftbar .umenu2.umenu2-wechat {top:-30px; left:105px;}
-#uleftbar .umenu2.umenu2-wechat:before {left:-16px; top:70%;}
+
+#uleftbar .umenu2.umenu2-one {top:5px; left:105px;}
+#uleftbar .umenu2.umenu2-one:before {left:-16px; top:60%;}
+
+#uleftbar .umenu2.umenu2-two {top:-30px; left:105px;}
+#uleftbar .umenu2.umenu2-two:before {left:-16px; top:75%;}
+
+#uleftbar .umenu2.umenu2-three {top:-70px; left:105px;}
+#uleftbar .umenu2.umenu2-three:before {left:-16px; top:85%;}
+
+#uleftbar .umenu2.umenu2-four {top:-105px; left:105px;}
+#uleftbar .umenu2.umenu2-four:before {left:-16px; top:87%;}
+
+#uleftbar .umenu2.umenu2-five {top:-145px; left:105px;}
+#uleftbar .umenu2.umenu2-five:before {left:-16px; top:90%;}
+
+#uleftbar .umenu2.umenu2-six {top:-180px; left:105px;}
+#uleftbar .umenu2.umenu2-six:before {left:-16px; top:92%;}
+
+#uleftbar .umenu2.umenu2-seven {top:-215px; left:105px;}
+#uleftbar .umenu2.umenu2-seven:before {left:-16px; top:92%;}
 
 /*面包屑导航样式*/
 #ubody .ubread {padding:0px 2.5%; background:#FFFFFF; box-shadow:0px 0px 10px #d1d1d1;}

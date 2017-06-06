@@ -32,6 +32,7 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
+        <td>新增时间</td>
         <td>活动名称</td>
         <td>顾客类型</td>
         <td>开始时间</td>
@@ -42,6 +43,7 @@
     </thead>
     <tbody>
       <tr>
+        <td>2017-05-04 12:00</td>
         <td>端午大酬宾</td>
         <td>不限</td>
         <td>2017-05-04</td>

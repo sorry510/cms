@@ -135,9 +135,9 @@
 #ubody .am-form-file 	> button{width: 100%;height: 36px;}
 
 /*工具栏日期输入框样式*/
-#ubody .udatepicker {display:inline-flex; vertical-align:middle; border:1px solid #CCCCCC; border-radius:3px; background:#FFFFFF;}
-#ubody .udatepicker input {margin:0px; height:34px; width:111px; border:none; box-shadow:none; -webkit-box-shadow:none;}
-#ubody .udatepicker button {margin-top: 2px; margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
+#ubody .udatepicker {display:inline-flex; vertical-align:middle;height:36px; border:1px solid #CCCCCC; border-radius:3px; background:#FFFFFF;}
+#ubody .udatepicker input {margin:0px; height:32px; width:111px; border:none; box-shadow:none; -webkit-box-shadow:none;}
+#ubody .udatepicker button {margin-top: 4px; margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
 #ubody .udatepicker.udatepicker-max {width:100%;}
 #ubody .udatepicker.udatepicker-max input {width:90%;}
 #ubody .udatepicker.udatepicker-220 {width:220px;}
@@ -220,7 +220,7 @@
 #ubody .umodal .umain1 .uleft .ub button{height:28px; line-height:28px;}
 #ubody .umodal .umain1 .uleft .ub .ub1{margin-right:4%; width:35%;}
 #ubody .umodal .umain1 .uleft .ub .ub2{padding:0px; width:20%;}
-#ubody .umodal .umain1 .uleft .uc{overflow:auto; zoom:1; margin:0px; padding:0px; height:350px;}
+#ubody .umodal .umain1 .uleft .uc{overflow-y:scroll; zoom:1; margin:0px; padding:0px; height:350px;}
 #ubody .umodal .umain1 .uleft .uc .uc1{padding:5px 15px; line-height:24px; width:100%; color:#4372C8; border-bottom:1px solid #dddddd;}
 #ubody .umodal .umain1 .uleft .uc .uc2{overflow:hidden; zoom:1; padding:5px 20px; color:#666666; border-bottom:1px solid #EBE9E5;}
 #ubody .umodal .umain1 .uleft .uc .uc2 .uc2a{float:left; padding:0px 10px; width:84%; line-height:24px;}
@@ -228,15 +228,15 @@
 #ubody .umodal .umain1 .uleft .uc .uc2 .uc2b a{text-decoration:underline; color:#2D7EF6;}
 #ubody .umodal .umain1 .uright{float:right; margin-right:2%; display:inline; width:45%;}
 #ubody .umodal .umain1 .uright .ua{color:#28A772; text-align:left; line-height:36px;}
-#ubody .umodal .umain1 .uright .ub-head{overflow:hidden; zoom:1; margin:0px; padding:0px; width:100%;}
-#ubody .umodal .umain1 .uright .ub-head li{float:left; height:34px; line-height:34px; background:#D99F4C; color:#ffffff;}
-#ubody .umodal .umain1 .uright .ub-head .ub-head1{padding-left:20px; width:60%; text-align:left;}
+#ubody .umodal .umain1 .uright .ub-head{overflow:hidden; zoom:1; margin:0px; padding:0px;  background:#D99F4C; color:#ffffff; width:100%;}
+#ubody .umodal .umain1 .uright .ub-head li{float:left; height:34px; line-height:34px;}
+#ubody .umodal .umain1 .uright .ub-head .ub-head1{padding-left:20px; width:55%; text-align:left;}
 #ubody .umodal .umain1 .uright .ub-head .ub-head2{width:20%;}
-#ubody .umodal .umain1 .uright .ub{overflow:auto; zoom:1; margin:0px; padding:0px; width:100%; height:386px; border:1px solid #dddddd;}
+#ubody .umodal .umain1 .uright .ub{overflow-y:scroll; zoom:1; margin:0px; padding:0px; width:100%; height:386px; border:1px solid #dddddd;}
 #ubody .umodal .umain1 .uright .ub li{overflow:hidden; zoom:1; padding:0px; border-bottom:1px solid #dddddd;}
-#ubody .umodal .umain1 .uright .ub .ub1{float:left; padding:5px 10px; width:60%; line-height:24px; color:#666666; text-align:left;}
-#ubody .umodal .umain1 .uright .ub .ub2{float:left; width:20%;}
-#ubody .umodal .umain1 .uright .ub .ub2 input{margin-top:3px; height:28px; line-height:28px; width:70%; text-align:center;}
+#ubody .umodal .umain1 .uright .ub .ub1{float:left; padding:5px 10px; width:59%; line-height:24px; color:#666666; text-align:left;}
+#ubody .umodal .umain1 .uright .ub .ub2{float:left; width:20%; padding-top:3px;}
+#ubody .umodal .umain1 .uright .ub .ub2 input{margin:0 2px 5px 2px; height:20px; line-height:28px; width:35px; text-align:center; display:inline-block;}										
 #ubody .umodal .umain1 .uright .ub .ub3{float:left; padding:5px 0px; width:20%; line-height:24px; }
 #ubody .umodal .umain1 .uright .ub .ub3 a{text-decoration:underline; color:#2D7EF6;}
 /***********************************************************************************************************/

@@ -382,7 +382,7 @@
             <div class="ub1">基础套餐</div>
             <div class="ub2" style="padding-top:3px;">
               <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinputmin1" style="width:35px;height:20px;margin:0 0.2rem 0.5rem 0.2rem;" value="0">
+              <input type="text" name="" class="uinput" value="0">
               <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a>
             </div>
             <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
@@ -608,12 +608,14 @@ $(function() {
       var _self= $(this).siblings('input');
       _self.val(parseInt(_self.val())+1);
     });
+
     // 添加
     $('.cadd').on('click', function(){
       var product = $(this).prev().text();
-      var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><input id="" class="am-form-field uinput uinput-max" type="text" placeholder=""></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
+      var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" value="0">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
       $(".uright .ub").append(addhtml);
     });
+
     //侧拉关闭
     $('.coffcanvas1').on('click', function() {
       $('#umemberoff1').offCanvas('close');
@@ -633,7 +635,9 @@ $(function() {
     //删除
     $(document).on("click",".cdel2",function(){
         $(this).parent().remove();
-
+    });
+    $(document).on("click",".cdel",function(){
+        $(this).parent().parent().remove();
     });
 });
 </script>

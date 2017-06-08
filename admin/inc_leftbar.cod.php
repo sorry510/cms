@@ -1,5 +1,11 @@
 <ul id="uleftbar" class="am-nav">
-  <li class="<?php if($GLOBALS['strchannel'] == 'member') {echo 'uhighlight';} ?>"><a href="member.php"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+  <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'member') {echo 'uhighlight';} ?>" data-am-dropdown>
+    <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-wsmp-payuser"></span>会员</a>
+    <ul class="am-dropdown-content umenu2 umenu2-two">
+      <li><a href="member.php">1. 会员管理</a></li>
+      <li><a href="e-record.php">2. 电子档案</a></li>
+    </ul>
+  </li>
   <li class="<?php if($GLOBALS['strchannel'] == 'appoint') {echo 'uhighlight';} ?>"><a href="appoint.php"><span class="iconfont icon-clock"></span> 预约</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'detail') {echo 'uhighlight';} ?>"><a href="detail.php"><span class="iconfont icon-ziliao"></span> 明细</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'count') {echo 'uhighlight';} ?>"><a href="count.php"><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
@@ -26,7 +32,8 @@
     <ul class="am-dropdown-content umenu2 umenu2-three">
       <li><a href="#">1. 公众号设置</a></li>
       <li><a href="#">2. 微店设置</a></li>
-      <li><a href="wechat_redpacket.php">3. 微信红包设置</a></li>
+      <li><a href="wechat_redpacket.php">3. 微信红包活动</a></li>
+      <li><a href="wechat_redpacket_count.php">4. 微信红包发放统计</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'bill') {echo 'uhighlight';} ?>" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-jifen-xianxing"></span> 收支</a>
@@ -64,8 +71,9 @@
       <li><a href="system_operator.php">5. 操作员管理</a></li>
       <li><a href="system_card.php">6. 会员卡分类</a></li>
       <li><a href="convert.php">7. 积分换礼</a></li>
-      <li><a href="system_roomcard.php">8. 房间手牌设置</a></li>
-      <li><a href="#">9. 打印设置（未做）</a></li>
+      <li><a href="giftmanager.php">7. 礼品设置</a></li>
+      <li><a href="system_roomcard.php">9. 房间手牌设置</a></li>
+      <li><a href="#">10. 打印设置（未做）</a></li>
       
     </ul>
   </li>

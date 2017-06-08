@@ -32,7 +32,7 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
-        <td>收/支</td>
+        <td>收支</td>
         <td>名称</td>
         <td>分类</td>
         <td>金额</td>
@@ -81,7 +81,7 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">类别：</label>
+          <label class="umodal-label am-form-label" for="">收支：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 支出
@@ -89,6 +89,12 @@
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="1" data-am-ucheck> 收入
             </label>  
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -104,14 +110,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
-          <div class="umodal-normal am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">金额：</label>
-          <div class="umodal-normal am-u-end">
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
@@ -151,7 +151,7 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="cadd">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">类别：</label>
+          <label class="umodal-label am-form-label" for="">收支：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="0" data-am-ucheck> 支出
@@ -159,6 +159,12 @@
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="1" data-am-ucheck> 收入
             </label>  
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -174,14 +180,8 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
-          <div class="umodal-normal am-u-end">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">金额：</label>
-          <div class="umodal-normal am-u-end">
+          <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>

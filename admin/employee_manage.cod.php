@@ -56,8 +56,8 @@
         <td>手机号码</td>
         <td>学历</td>
         <td>入职时间</td>
-        <td>参与预约</td>
         <td>基本工资</td>
+        <td>参与预约</td>
         <td>导购提成</td>
         <td width="12%">操作</td>
       </tr>
@@ -72,8 +72,8 @@
       <td>13623812345</td>
       <td>本科</td>
       <td>2008-03-16</td>
-      <td>参与</td>
       <td>2000</td>
+      <td>参与</td>
       <td>2000</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#uemployee_managem2'}">
@@ -445,68 +445,27 @@
         <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
       </div>
       <div class="gspace15"></div>
-      <div class="ua">
-        <ul class="ua1" style="margin-left: 25px;">
-          <li>
-            分店：<span>二七广场店</span>
-          </li>
-          <li>
-            员工姓名：<span>张小明</span>
-          </li>
-          <li>
-           性别：<span>男</span>
-          </li>
-          <li>
-            手机号码：<span>13112234365</span>
-          </li>
-          <li>
-            学历：<span>高中</span>
-          </li>
-          <li>
-            住址：<span>郑州市人民路与XXX交叉口</span>
-          </li>
-          <li>
-            参与预约：<span>参与</span>
-          </li>
-          <li>
-            工作内容：<span>理疗，理发，洗头</span>
-          </li>
-        </ul>
-        <ul class="ua2" style="margin-left: 75px;">
-          <li>
-            员工分组：<span>店员</span>
-          </li>
-          <li>
-            员工编号：<span>HY1001</span>
-          </li>
-          <li>
-            出生日期：<span>1990-03-11</span>
-          </li>
-          <li>
-            身份证号：<span>432522133245356117</span>
-          </li>
-          <li>
-            入职时间：<span>2008-02-01</span>
-          </li>
-          <li>
-            基本工资：<span>2000</span>
-          </li>
-          <li>
-            导购提成：<span>参与</span>
-          </li>
-        </ul>
-      </div>
-      <div class="am-form-group" style="width: 610px;margin-top:0px;margin-bottom:0px;overflow: hidden;">
-        <label class="am-u-lg-2" style="text-align: right;">照片</label>
-        <div class="am-u-lg-4">&nbsp;</div>
-        <label class="am-u-lg-2" style="text-align: right;">身份证</label>
-        <div class="am-u-lg-4">&nbsp;</div>
-      </div>
-      <div class="am-form-group" style="width: 610px;margin-top:0px;margin-left:-15px;overflow: hidden;">
-        <label class="am-u-lg-2">&nbsp;</label>
-        <div class="am-u-lg-4" style="padding-left: 0px;padding-right: 0px;"><img src="../img/wu.jpg"></div>
-        <label class="am-u-lg-2">&nbsp;</label>
-        <div class="am-u-lg-4" style="padding-left: 0px;padding-right: 0px;"><img src="../img/wu.jpg"></div>
+      <div class="am-g ucontent">
+        <div class="am-u-lg-6">分店：<span>二七广场店</span></div>
+        <div class="am-u-lg-6">员工分组：<span>店员</span></div>
+        <div class="am-u-lg-6">员工姓名：<span>张小明</span></div>
+        <div class="am-u-lg-6">员工编号：<span>HY1001</span></div>
+        <div class="am-u-lg-6">性别：<span>男</div>
+        <div class="am-u-lg-6">出生日期：<span>1990-03-11</span></div>
+        <div class="am-u-lg-6">手机号码：<span>13131124545</span></div>
+        <div class="am-u-lg-6">身份证号：<span>410205188203930022</span></div>
+        <div class="am-u-lg-6">学历：<span>高中</span></div>
+        <div class="am-u-lg-6">入职时间：<span>2008-02-01</span></div>
+        <div class="am-u-lg-6">住址：<span>郑州市人民路与XXX路交叉口</span></div>
+        <div class="am-u-lg-6">基本工资：<span>2000</span></div>
+        <div class="am-u-lg-6">参与预约：<span>参与</span></div>
+        <div class="am-u-lg-6">导购提成：<span>参与</span></div>
+        <div class="am-u-lg-12">工作内容：<span>理疗，理发，洗头</span></div>
+        <div class="am-u-lg-12 gspace15"></div>
+        <label class="am-u-lg-6">照片</label>
+        <label class="am-u-lg-6">身份证</label>
+        <div class="am-u-lg-6"><img src="../img/wu.jpg"></div>
+        <div class="am-u-lg-6"><img src="../img/wu.jpg"></div>
       </div>
     </div>
   </div>
@@ -540,7 +499,25 @@ $(function() {
     });
   });
 });
-
+/*右侧弹出框关闭按钮JS*/
+$(function() {
+  var id = '#uoffcanvas';
+  var $myOc = $(id);
+  $('.doc-oc-js').on('click', function() {
+    $myOc.offCanvas($(this).data('rel'));
+  });
+  $('.cdel').on('click', function() {
+    $('#cconfirm').modal({
+      relatedTarget: this,
+      onConfirm: function(options) {
+        $(this.relatedTarget).parent('td').parent('tr').remove();
+      },
+      onCancel: function() {
+        return;
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>

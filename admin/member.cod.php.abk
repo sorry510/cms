@@ -245,6 +245,8 @@
     </div>
   </div>
 </div>
+
+
 <!-- 会员充值 -->
 <div id="umemberm2" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
@@ -252,11 +254,12 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
+      <h3 class="utitle">会员资料</h3>
       <div class="am-g ucontent">
         <div class="am-u-lg-4">会员卡号：1000125</div>
         <div class="am-u-lg-4">会员姓名：张三</div>
         <div class="am-u-lg-4">手机号码：13700824417</div>
-        <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
+        <div class="am-u-lg-4">余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
         <div class="am-u-lg-4">会员卡类型：
           <select data-am-selected class="uselect">
             <option value="a" selected>请选择类型</option>
@@ -268,35 +271,51 @@
         </div>
         <div class="am-u-lg-4">会员折扣：<input class="am-form-field uinput" type="text" name=""></div>
       </div>
-      <div class="gspace15"></div>
-      <div class="utitle">充值金额</div>
-      <div class="am-form-group ucontent2">
-        <div class="umodal-text" style="padding-left:20px; line-height:43px;">实收金额：</div>
-        <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="请输入金额">&nbsp;&nbsp;元
+      <div class="am-g">
+        <div class="am-u-lg-7">
+          <h3 class="utitle">充值金额</h3>
+          <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="utab2">
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+              <li class="am-active"><a href="javascript: void(0)">现金</a></li>
+              <li><a href="javascript: void(0)">刷卡</a></li>
+              <li><a href="javascript: void(0)">支付宝</a></li>
+              <li><a href="javascript: void(0)">微信</a></li>
+            </ul>
+            <div class="am-tabs-bd">
+              <div class="am-tab-panel am-active">
+                <input type="text" class="am-form-field uinput umoneyinput" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field uinput umoneyinput" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field uinput umoneyinput" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field uinput umoneyinput" placeholder="请输入金额"><span> 元</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <label class="umodal-search">&nbsp;</label>
-        <div class="umodal-text" style="line-height:43px;">赠送金额：</div>
-        <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="0.0">&nbsp;&nbsp;元
+        <div class="am-u-lg-1"></div>
+        <div class="am-u-lg-4">
+          <h3 class="utitle">赠送金额</h3>
+          <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="utab3">
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+              <li class="am-active"><a href="javascript: void(0)">赠送金额</a></li>
+            </ul>
+            <div class="am-tabs-bd">
+              <div class="am-tab-panel am-active">
+                <input type="text" class="am-form-field uinput umoneyinput" placeholder="请输入金额"><span> 元</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="gspace15"></div>
-      <div class="utitle">付款方式</div>
-      <div class="am-btn-group ucontent3">
-         <a class="am-btn am-btn-default upay" role="button">现金</a>
-         <a class="am-btn am-btn-default upay" role="button">银行卡</a>
-         <a class="am-btn am-btn-default upay" role="button">微信支付</a>
-         <a class="am-btn am-btn-default upay upay-active" role="button">支付宝</a>
       </div>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="ua1">充值总额：<span class="am-text-lg gtext-orange">0.00</span>元,赠送总额<span class="am-text-lg gtext-orange">0.00</span>元</div>
-      <div class="ua2">
-        <label class="am-checkbox">
-          <input type="checkbox" value="" data-am-ucheck> 打印充值单
-        </label>
-      </div>
+      <div class="ua2"><input type="checkbox"> 打印充值单</div>
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen3"><i class="iconfont icon-liwu"></i>
           买套餐
@@ -315,24 +334,30 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <div class="am-g ucontent" style="margin:0 2%; width:95%;">
+      <div class="am-g ucontent">
         <div class="am-u-lg-4">会员卡号：1000125</div>
         <div class="am-u-lg-4">会员姓名：张三</div>
         <div class="am-u-lg-4">手机号码：3700824417</div>
-        <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
-        <div class="am-u-lg-4">会员卡类型：打折卡</div>
+        <div class="am-u-lg-4">余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
         <div class="am-u-lg-4 am-u-end">会员折扣：<span class="am-text-lg gtext-orange">8</span>折</div>
       </div>
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">添加套餐</a></li>
-          <li><a href="#tab2">扫码添加套餐</a></li>
+          <li class="am-active"><a href="#tab1">套餐种类</a></li>
         </ul>
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
             <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
             <div class="am-form-group ub">
               <form action="">
+                <div class="umodal-normal ub1">
+                  <select class="uselect uselect-max" data-am-selected>
+                    <option value="a">AAA</option>
+                    <option value="b">Banana</option>
+                    <option value="o">Orange</option>
+                    <option value="d">禁用</option>
+                  </select>
+                </div>
                 <div class="umodal-normal ub1">
                   <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
                 </div>
@@ -344,9 +369,9 @@
                 </div>
               </form>
             </div>
-            <ul class="uc" style="height:300px;">
+            <ul class="uc">
               <li class="uc2">
-                <div class="uc2a">基础套餐（138元）基础套餐包含针灸，理疗，足疗，等各项10次</div>
+                <div class="uc2a">基础套餐（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱9普洱普洱普</div>
                 <div class="uc2b cadd"><a href="#">添加</a></div>
               </li>
               <li class="uc2">
@@ -377,17 +402,90 @@
           <li class="ub-head2">数量</li>
           <li class="ub-head2">操作</li>
         </ul>
-        <ul class="ub" style="height:336px;">
+        <ul class="ub">
           <li>
             <div class="ub1">基础套餐</div>
-            <div class="ub2" style="padding-top:3px;">
-              <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinputmin1" style="width:35px;height:20px;margin:0 0.2rem 0.5rem 0.2rem;" value="0">
-              <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a>
+            <div class="ub2">
+              <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
             </div>
             <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
           </li>
         </ul>
+      </div>
+      <div class="am-g">
+        <div class="am-u-lg-4">
+          <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable2">
+            <thead>
+              <tr>
+                <td>套餐名称</td>
+                <td>单价</td>
+                <td>添加</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>基础套餐</td>
+                <td><span class="gtext-orange">￥998</span></td>
+                <td><a href="javascript:;" class="am-text-success cadd1">添加</a></td>
+              </tr>
+              <tr>
+                <td>套餐1</td>
+                <td><span class="gtext-orange">￥1998</span></td>
+                <td><a href="javascript:;" class="am-text-success cadd1">添加</a></td>
+              </tr>
+              <tr>
+                <td>套餐2</td>
+                <td><span class="gtext-orange">￥2998</span></td>
+                <td><a href="javascript:;" class="am-text-success cadd1">添加</a></td>
+              </tr>
+              <tr>
+                <td>健康丽人</td>
+                <td><span class="gtext-orange">￥8888</span></td>
+                <td><a href="javascript:;" class="am-text-success cadd1">添加</a></td>
+              </tr>
+              <tr>
+                <td>套餐3</td>
+                <td><span class="gtext-orange">￥688</span></td>
+                <td><a href="javascript:;" class="am-text-success cadd1">添加</a></td>
+              </tr>
+            </tbody>
+         </table>
+        </div>
+        <div class="am-u-lg-1">
+          <div class="uiconexchange"><i class="iconfont icon-shuangxiangjiantou"></i></div>
+        </div>
+        <div class="am-u-lg-7">
+          <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable3 ctadd">
+            <thead>
+              <tr class="utr1">
+                <td>套餐名称</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>移除</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>基础套餐</td>
+                <td><span class="gtext-orange">￥998</span></td>
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
+              </tr>
+              <tr>
+                <td>健康丽人</td>
+                <td><span class="gtext-orange">￥8888</span></td>
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
+              </tr>
+              <tr>
+                <td>套餐3</td>
+                <td><span class="gtext-orange">￥688</span></td>
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="am-modal-footer ufoot">
@@ -407,122 +505,100 @@
     <div class="am-modal-hd uhead">购买套餐
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd umain2">
+      <h3 class="utitle">会员资料</h3>
       <div class="am-g ucontent">
         <div class="am-u-lg-4">会员卡号：1000125</div>
         <div class="am-u-lg-4">会员姓名：张三</div>
         <div class="am-u-lg-4">手机号码：3700824417</div>
         <div class="am-u-lg-4">余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
-        <div class="am-u-lg-4">会员卡类型：打折卡</div>
         <div class="am-u-lg-4 am-u-end">会员折扣：<span class="am-text-lg gtext-orange">8</span>折</div>
       </div>
       <div class="gspace15"></div>
-      <div class="am-scrollable-vertical" style="max-height:150px;margin:0 4%;">
-        <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable1" style="width:100%;">
-          <thead>
+      <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable2">
+        <thead>
+          <tr>
+            <td>套餐名称</td>
+            <td>内容</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>移除</td>
+          </tr>
+        </thead>
+        <tbody>
             <tr>
-              <td>套餐名称</td>
-              <td>内容</td>
-              <td>单价</td>
-              <td>数量</td>
-              <td>操作</td>
+                <td>基础套餐</td>
+                <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
+                <td><span class="gtext-orange">￥998</span></td>   
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
             </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>基础套餐</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥998</span></td>   
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>健康丽人</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥8888</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="utitle">付款金额</div>
-      <div class="am-form-group ucontent2">
-        <div class="umodal-text" style="padding-left:20px; line-height:43px;">应付金额：</div>
-        <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="请输入金额">&nbsp;&nbsp;元
+            <tr>
+                <td>健康丽人</td>
+                <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
+                <td><span class="gtext-orange">￥8888</span></td>
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
+            </tr>
+            <tr>
+                <td>套餐3</td>
+                <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
+                <td><span class="gtext-orange">￥688</span></td>
+                <td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></a></td>
+                <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="gspace30"></div>
+      <div class="am-g">
+        <h3 class="utitle">支付方式</h3>
+        <div class="am-u-lg-6 utabsleft">
+          <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="utab2">
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+              <li class="am-active"><a href="javascript: void(0)">会员卡扣</a></li>
+              <li><a href="javascript: void(0)">现金</a></li>
+              <li><a href="javascript: void(0)">刷卡</a></li>
+              <li><a href="javascript: void(0)">支付宝</a></li>
+              <li><a href="javascript: void(0)">微信</a></li>
+            </ul>
+
+            <div class="am-tabs-bd tabs">
+              <div class="am-tab-panel am-active">
+                    <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+              </div>
+              <div class="am-tab-panel">
+                <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <label class="umodal-search">&nbsp;</label>
-        <div class="umodal-text" style="line-height:43px;">手动优惠：</div>
-        <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="0.0">&nbsp;&nbsp;元
+        <div class="am-u-lg-6 utabsright">
+            <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="utab2">
+              <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="javascript: void(0)">手动优惠</a></li>
+              </ul>
+
+              <div class="am-tabs-bd">
+                <div class="am-tab-panel am-active">
+                      <input type="text" class="am-form-field umoneyinput" id="doc-ipt-email-1" placeholder="请输入金额"><span> 元</span>
+                </div>
+              </div>
+            </div>
         </div>
-      </div>
-      <div class="utitle">付款方式</div>
-      <div class="am-btn-group ucontent3">
-         <a class="am-btn am-btn-default upay" role="button">现金</a>
-         <a class="am-btn am-btn-default upay" role="button">银行卡</a>
-         <a class="am-btn am-btn-default upay" role="button">微信支付</a>
-         <a class="am-btn am-btn-default upay upay-active" role="button">支付宝</a>
       </div>
     </div>
     <div class="am-modal-footer ufoot">
-      <div class="ufootleft am-text-left">
-        <div>
-          <label class="am-checkbox">
-            <input type="checkbox" value="" data-am-ucheck> 免单
-          </label>
-        </div>
-        <div class="am-text-secondary"><i class="icon iconfont icon-dayin"></i> 预打账单</div>
-        <div>合计：<span class="am-text-lg gtext-orange">126</span>元，折扣：<span class="am-text-lg gtext-orange">8</span>折，实收金额：<span class="am-text-lg gtext-orange">126</span>元
-        </div>
-      </div>
+      <div class="ua1">合计：<span class="am-text-lg gtext-orange">126</span>元，折扣：<span class="am-text-lg gtext-orange">8</span>折，应付总共：<span class="am-text-lg gtext-orange">126</span>元</div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-xiangyou2"></i>
-          上一步
-        </button>
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
@@ -608,11 +684,13 @@ $(function() {
       var _self= $(this).siblings('input');
       _self.val(parseInt(_self.val())+1);
     });
-    // 添加
-    $('.cadd').on('click', function(){
-      var product = $(this).prev().text();
-      var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><input id="" class="am-form-field uinput uinput-max" type="text" placeholder=""></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
-      $(".uright .ub").append(addhtml);
+    // 添加套餐
+    $('.cadd1').on('click',function(){
+      var oldtr = $(this).parent('td').parent('tr').clone();
+      $('.ctadd tbody').append(oldtr);
+      $('.ctadd tbody tr').last().children('td').last().remove();
+      var newtr = '<td><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="adcd" class="uinputmin1" value="1"><a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" >移除</a></td>';
+      $('.ctadd tbody tr').last().append(newtr);
     });
     //侧拉关闭
     $('.coffcanvas1').on('click', function() {
@@ -621,6 +699,7 @@ $(function() {
     //去掉禁止选中
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
+      $(this).off('resize.offcanvas.amui');
     });
     //上传文件
     $('#doc-form-file').on('change', function() {
@@ -630,10 +709,9 @@ $(function() {
       });
       $('#file-list').html(fileNames);
     });
-    //删除
-    $(document).on("click",".cdel2",function(){
-        $(this).parent().remove();
-
+    // 删除
+    $(document).on("click", ".cdel", function() {
+        $(this).parent().parent().remove();
     });
 });
 </script>

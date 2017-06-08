@@ -6,7 +6,7 @@
 <!-- content -->
 <div id="umarketing_voucher" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="javascript: void(0)">代金券设置</a></li>
+    <li class="am-active"><a href="javascript: void(0)">代金券管理</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -21,21 +21,25 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
+        <td>新增时间</td>
         <td>名称</td>
+        <td>面值</td>
+        <td>消费限额</td>
         <td>有效期</td>
         <td>到期时间</td>
-        <td>价值</td>
-        <td>消费限额</td>
+        <td>参加店铺</td>
         <td>备注</td>
         <td width="12%">操作</td>
       </tr>
     </thead>
     <tr>
+      <td>2017-09-08&nbsp;10:36</td>
       <td>一楼大厅</td>
-      <td>1000</td>
-      <td>20110308</td>
-      <td>2131</td>
-      <td>200</td>
+      <td>2131元</td>
+      <td>1000元</td>
+      <td>200天</td>
+      <td>2017-09-08</td>
+      <td>全部</td>
       <td>无</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#umarketing_voucherm2'}">
@@ -75,6 +79,20 @@
           </div>
         </div>
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">面值：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="" >消费限额：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">有效期：</label>
           <div class="umodal-normal">
             <input id="date2" type="text" class="am-form-field uinput uinput-max">
@@ -91,24 +109,26 @@
               </span>
             </div>
           </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">价值：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div> 
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="" >消费限额：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;无以上使用</label>
+          <div class="umodal-text gtext-green">（备注：有效期和到期时间选填一项）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
           <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 全部
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店1
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店2
+            </label>
           </div>
         </div>
       </form>
@@ -137,6 +157,20 @@
           </div>
         </div>
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">面值：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="" >消费限额：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">有效期：</label>
           <div class="umodal-normal">
             <input id="date2" type="text" class="am-form-field uinput uinput-max">
@@ -153,24 +187,26 @@
               </span>
             </div>
           </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">价值：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div> 
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="" >消费限额：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
+          <div class="umodal-text gtext-green">（备注：有效期和到期时间选填一项）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
           <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 全部
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店1
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店2
+            </label>
           </div>
         </div>
       </form>

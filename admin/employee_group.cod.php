@@ -21,7 +21,7 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
-        <td>名称</td>
+        <td>分组名称</td>
         <td style="width:12%;">操作</td>
       </tr>
     </thead>
@@ -65,7 +65,7 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for="">分组名称：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>

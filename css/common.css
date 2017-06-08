@@ -7,7 +7,7 @@
 .gspace25 {height: 25px;}
 .gspace30 {height:30px;}
 .gspace50 {height:50px;}
-.gtext-orange {color:#FF4200;font-weight:bold;font-size:16px;}
+.gtext-orange {color:#FF4200;}
 .gtext-green {color:#2AA672;}
 .gtext-blue {color:#3D76C7;}
 
@@ -133,14 +133,10 @@
 #ubody .uinput.uinput-220 {width:220px;}
 
 #ubody .am-form-file 	> button{width: 100%;height: 36px;}
-/*#ubody .uinput.uinput-money {width:200px; height:45px; border:1px solid #D89E4C; color:#C40100; font-size:20px; font-weight:bold; text-align:center;}
-#ubody .uinput.uinput-money::-webkit-input-placeholder {color:#C40100; text-overflow:ellipsis;}
-#ubody .uinput.uinput-money::-moz-placeholder {color:#C40100 !important; text-overflow: ellipsis;}
-#ubody .uinput.uinput-money:-ms-input-placeholder {color:#C40100 !important; text-overflow:ellipsis;}*/
 
 /*工具栏日期输入框样式*/
 #ubody .udatepicker {display:inline-flex; vertical-align:middle; border:1px solid #CCCCCC; border-radius:3px; background:#FFFFFF;}
-#ubody .udatepicker input {margin:0px; height:30px; width:111px; border:none; box-shadow:none; -webkit-box-shadow:none;}
+#ubody .udatepicker input {margin:0px; height:34px; width:111px; border:none; box-shadow:none; -webkit-box-shadow:none;}
 #ubody .udatepicker button {margin-top: 2px; margin-right:8px; padding:0px; width:20px;height:25px; background:#fff;border:none;}
 #ubody .udatepicker.udatepicker-max {width:100%;}
 #ubody .udatepicker.udatepicker-max input {width:90%;}
@@ -187,10 +183,10 @@
 #ubody .umodal .uhead {padding:0 0 0 15px; height:50px; line-height:50px; border-bottom:1px solid #DDE1EA; font-weight:bold; text-align:left;}
 #ubody .umodal .uhead > .uclose {position:absolute; right:10px; top:10px; line-height:17px;}
 
-/**************************main1适用于表单********************************************************************/
-#ubody .umodal .am-form-group {margin:0 auto; margin-bottom: 15px; width: 92%}
+/*bd*/
 #ubody .umodal .am-modal-bd{padding-top:25px;}
-#ubody .umodal [class*="umodal-"]{float: left; padding-right: 0px;}
+#ubody .umodal .am-form-group {margin:0 auto; margin-bottom: 10px; width: 92%}
+#ubody .umodal [class*="umodal-"]{float:left; padding-right: 0px;padding-left: 0px;}
 #ubody .umodal .umodal-label{width:90px; padding-right: 1rem;}
 #ubody .umodal .umodal-text{text-align: left;line-height: 36px;}
 #ubody .umodal .umodal-max{width:719px;}
@@ -199,31 +195,74 @@
 #ubody .umodal .umodal-short{width:220px;}
 #ubody .umodal .umodal-small{width:165px;}
 #ubody .umodal .umodal-valid{width:100px;}
+#ubody .umodal .umodal-money{width:60px;}
 #ubody .umodal .umodal-search{width:110px;padding-left: 10px;}
+#ubody .umodal .utitle {padding-left:4%; text-align:left; font-weight:bold; font-size:14px; margin:10px 0;}
+#ubody .umodal .ucontent {margin:0 4%; width:92%; border-bottom:solid 1px #DDE1EA;}
+#ubody .umodal .ucontent2 {padding-top:30px; height:100px;border:1px solid #DFCBCB; background:#F5EFE9;}
+#ubody .umodal .ucontent3 {margin:0 4%; width:92%;}
+#ubody .umodal .ucontent3 .upay{margin:0 10px 10px 0; border:1px solid #CFCFCF;}
+#ubody .umodal .ucontent3 .upay.upay-active{background-color:#FFFFFF;background:url("../img/icon-right.jpg") no-repeat bottom right; border:2px solid #A5C95A}
+#ubody .umodal .ucontent > [class*="am-u-"] {margin:5px 0; padding:0; text-align:left; font-size:14px; font-weight:normal;}
+
+/**************************main1适用于表单********************************************************************/
+#ubody .umodal .am-modal-bd.umain1{overflow:auto; zoom:1; padding-top:10px;}
+#ubody .umodal .umain1 .uleft{float:left; margin-left:2%; display:inline; width:45%;}
+#ubody .umodal .umain1 .uleft .am-tabs-nav a{padding:0px 10px; height:36px; line-height:36px;}
+#ubody .umodal .umain1 .uleft .am-tabs-nav .am-active a{background:#28A772; color:#ffffff; }
+#ubody .umodal .umain1 .uleft .am-tab-panel{padding:0px;  text-align:left;}
+#ubody .umodal .umain1 .am-selected-list{max-height:160px;}
+#ubody .umodal .umain1 .uleft .ua{line-height:34px; background:#28A772; color:#ffffff;}
+#ubody .umodal .umain1 .uleft .ua .ua1{padding-left:10%; width:81%; display:inline-block;}
+#ubody .umodal .umain1 .uleft .ua .ua2{display:inline-block; width:12%;}
+#ubody .umodal .umain1 .uleft .ub{margin:0px; padding:4px 4%; width:100%; height:36px; border-bottom:1px solid #EBE9E5;}
+#ubody .umodal .umain1 .uleft .ub input{height:28px; line-height:28px;}
+#ubody .umodal .umain1 .uleft .ub button{height:28px; line-height:28px;}
+#ubody .umodal .umain1 .uleft .ub .ub1{margin-right:4%; width:35%;}
+#ubody .umodal .umain1 .uleft .ub .ub2{padding:0px; width:20%;}
+#ubody .umodal .umain1 .uleft .uc{overflow:auto; zoom:1; margin:0px; padding:0px; height:350px;}
+#ubody .umodal .umain1 .uleft .uc .uc1{padding:5px 15px; line-height:24px; width:100%; color:#4372C8; border-bottom:1px solid #dddddd;}
+#ubody .umodal .umain1 .uleft .uc .uc2{overflow:hidden; zoom:1; padding:5px 20px; color:#666666; border-bottom:1px solid #EBE9E5;}
+#ubody .umodal .umain1 .uleft .uc .uc2 .uc2a{float:left; padding:0px 10px; width:84%; line-height:24px;}
+#ubody .umodal .umain1 .uleft .uc .uc2 .uc2b{float:right; width:15%; text-align:center; color:#868685; line-height:24px;}
+#ubody .umodal .umain1 .uleft .uc .uc2 .uc2b a{text-decoration:underline; color:#2D7EF6;}
+#ubody .umodal .umain1 .uright{float:right; margin-right:2%; display:inline; width:45%;}
+#ubody .umodal .umain1 .uright .ua{color:#28A772; text-align:left; line-height:36px;}
+#ubody .umodal .umain1 .uright .ub-head{overflow:hidden; zoom:1; margin:0px; padding:0px; width:100%;}
+#ubody .umodal .umain1 .uright .ub-head li{float:left; height:34px; line-height:34px; background:#D99F4C; color:#ffffff;}
+#ubody .umodal .umain1 .uright .ub-head .ub-head1{padding-left:20px; width:60%; text-align:left;}
+#ubody .umodal .umain1 .uright .ub-head .ub-head2{width:20%;}
+#ubody .umodal .umain1 .uright .ub{overflow:auto; zoom:1; margin:0px; padding:0px; width:100%; height:386px; border:1px solid #dddddd;}
+#ubody .umodal .umain1 .uright .ub li{overflow:hidden; zoom:1; padding:0px; border-bottom:1px solid #dddddd;}
+#ubody .umodal .umain1 .uright .ub .ub1{float:left; padding:5px 10px; width:60%; line-height:24px; color:#666666; text-align:left;}
+#ubody .umodal .umain1 .uright .ub .ub2{float:left; width:20%;}
+#ubody .umodal .umain1 .uright .ub .ub2 input{margin-top:3px; height:28px; line-height:28px; width:70%; text-align:center;}
+#ubody .umodal .umain1 .uright .ub .ub3{float:left; padding:5px 0px; width:20%; line-height:24px; }
+#ubody .umodal .umain1 .uright .ub .ub3 a{text-decoration:underline; color:#2D7EF6;}
 /***********************************************************************************************************/
-
-/*****************************main2适用于div******************************************************************/
-.am-modal-dialog.umodal .umain2 {padding:0 20px 50px 20px;}
-.am-modal-dialog.umodal .umain2 [class*="am-u-"]{padding:0;}
-.am-modal-dialog.umodal .umain2 .utitle {margin:10px 0 0 0; height:35px; line-height:35px; text-align:left; font-size:14px; font-weight:bold;}
-.am-modal-dialog.umodal .umain2 .ucontent {border-top:solid 1px #DDE1EA; border-bottom:solid 1px #DDE1EA;}
-.am-modal-dialog.umodal .umain2 .ucontent > [class*="am-u-"] {margin:6px 0; text-align:left; font-size:14px; font-weight:normal;}
-
-/*弹出框中的选项卡*/
-#ubody .umodal .am-tabs-bd .am-tab-panel {padding:30px 0 30px 20px; text-align:left;}
-#ubody .umodal .am-nav-tabs li > a {height:33px; color:#606A61;}
-#ubody .umodal .am-nav-tabs li.am-active > a {background-color:#D89E4C; color:#FFFFFF;}
-/************************************************************************************************************/
 
 /*弹出框底部*/
 #ubody .umodal .ufoot {height:77px;}
-#ubody .umodal .ufoot .am-btn-group {float:right; margin:20px 20px 0 0;}
-#ubody .umodal .ufoot .am-btn-group button {margin-right:10px;}
+#ubody .umodal .ufoot .am-btn-group {float:right; margin:20px 32px 0 0;}
+#ubody .umodal .ufoot .am-btn-group button {margin-right:10px;display:inline;}
+#ubody .umodal .ufoot .ubtn-left.am-btn-group {float:left; margin:20px 0 0 32px;}
+#ubody .umodal .ufoot .ubtn-left.am-btn-group button {margin-left:10px;display:inline;}
 
 /*删除按钮弹出框*/
 #ubody .uconfirm {width:540px; border-radius:5px;}
 #ubody .uconfirm .uhead {padding:15px 10px 5px 10px; border-bottom:none; text-align:center;}
-
+/*侧拉弹出框*/
+#ubody .goffcanvas{width: 50%;background: #FFFFFF;border:0;}
+#ubody .goffcanvas {font-size:1.4rem;}
+#ubody .goffcanvas .ubutton1{float: left;margin-left: 2.5%;display: inline-block;}
+#ubody .goffcanvas .ubutton2{float:right;margin-right:2.5%;display: inline-block;}
+#ubody .goffcanvas .am-modal-hd{padding: 0; padding-left: 20px;text-align: left;padding-bottom: 5px;border-bottom: 1px solid #ccc;}
+#ubody .goffcanvas .uclose2 { position: absolute;right: 10px; top: 10px; line-height: 17px;}
+#ubody .goffcanvas .utitle{font-size: 1.8rem; font-weight: bold; color: #2E2E2E;}
+#ubody .goffcanvas p{ padding-left: 3.5%; color: #666666;}
+#ubody .goffcanvas span{ color: black;}
+#ubody .goffcanvas [class*="am-u-"]{margin-bottom:7px;}
+#ubody .am-offcanvas-bar:after{background: #FFFFFF;}
 /*其他部分*/
 #ubody li {list-style:none;}
 #ubody .am-btn:focus, .am-btn:active:focus {outline:none;}

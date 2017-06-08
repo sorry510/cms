@@ -144,11 +144,11 @@
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">红包金额：</label>
-          <div class="umodal-normal">
+          <div class="umodal-money">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
           <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
-           <div class="umodal-normal">
+           <div class="umodal-money">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
           <div class="umodal-text gtext-green">（随机发放）</div>

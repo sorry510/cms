@@ -10,9 +10,36 @@
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-    批量赠送，限时打折，满减
+    <form class="am-form-inline uform1">
+      <div class="am-form-group">
+        <label class="am-form-label">活动名称：</label> 
+        <input class="am-form-field uinput uinput-220" type="text" name="">
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">活动类型：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="">
+          <option value="all">限时打折</option>
+          <option value="2">满减活动</option>
+          <option value="3">满送活动</option>
+          <option value="3">赠送优惠券</option>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">优惠券类型：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="">
+          <option value="all">名称1</option>
+          <option value="2">名称2</option>
+          <option value="3">名称3</option>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>       
+    </form>
   </div>
-  <div class="gspace30"></div>
+  <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>

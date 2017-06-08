@@ -10,8 +10,12 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">查询：</label>
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="" name="">
+        <label class="am-form-label">卡类型：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="">
+          <option value="all">全部卡类型</option>
+          <option value="2">fsdsdfsdfsdffdfsd</option>
+          <option value="3">3</option>
+        </select>
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -20,12 +24,12 @@
       </div>
       <div class="am-form-group">
         <button type="button" class="am-btn ubtn-search" data-am-modal="{target:'#umarketing_couponm2'}">
-          <i class="iconfont icon-question"></i>更多查询条件
+          <i class="iconfont icon-search"></i>更多查询条件
         </button>
       </div>
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#umarketing_couponm1'}">
-      <i class="iconfont icon-addition"></i>
+      <i class="iconfont icon-xinzeng"></i>
       批量赠送
     </button>
   </div>
@@ -33,12 +37,6 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
-        <td>
-          <label class="am-checkbox-inline">
-              <input type="checkbox" value="join" data-am-ucheck id="apickall">
-          </label>
-        </td>
-        <td>顾客类型</td>
         <td>姓名</td>
         <td>性别</td>
         <td>卡号</td>
@@ -48,17 +46,10 @@
         <td>办卡时间</td>
         <td>到期时间</td>
         <td>未到店天数</td>
-        <td style="width:8%;">操作</td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>
-          <label class="am-checkbox-inline">
-              <input type="checkbox" value="join" data-am-ucheck id="apick1">
-          </label>
-        </td>
-        <td>会员</td>
         <td>校长</td>
         <td>男</td>
         <td>a1101</td>
@@ -68,12 +59,6 @@
         <td>2017-05-04</td>
         <td>2017-05-30</td>
         <td>3</td>
-        <td>
-          <button class="am-btn ubtn-table ubtn-green">
-            <i class="iconfont icon-bianji"></i>
-           删除
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
@@ -88,74 +73,40 @@
 </div>
 <!-- 批量赠送 -->
 <div class="am-modal" tabindex="-1" id="umarketing_couponm1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">批量赠送优惠券
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">名称：</label>
+          <div class="umodal-normal">
+            <input class="am-form-field uinput uinput-max" type="" name="">
+          </div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">赠送方式：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 开卡赠送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 充值赠送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 消费赠送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 营销赠送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 微信赠送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 其它方式
-            </label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected>
+              <option value="a">开卡赠送</option>
+              <option value="b">大学</option>
+              <option value="o">Orange</option>
+              <option value="m">Mango</option>
+              <option value="d">禁用</option>
+            </select>
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">优惠券：</label>
-          <div class="umodal-max am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio2" value="0" data-am-ucheck> 代金券 名称1 28元 2017-05-04~2017-05-06
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">&nbsp;</label>
-          <div class="umodal-max am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio2" value="0" data-am-ucheck> 体验券 名称2 38元 2017-05-04~2017-05-06
-            </label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max" data-am-selected>
+              <option value="a">名称1</option>
+              <option value="b">名称2</option>
+              <option value="o">Orange</option>
+              <option value="m">Mango</option>
+              <option value="d">禁用</option>
+            </select>
           </div>
         </div>
         <div class="am-form-group">
@@ -185,7 +136,7 @@
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green copenm3"><i class="iconfont icon-yuanxingxuanzhong"></i>
-          完成
+          确认发放
         </button>
       </div>
     </div>
@@ -199,30 +150,6 @@
     </div>
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cadd">
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">顾客类型：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">卡类型：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">A1</option>
-              <option value="b">Baa</option>
-              <option value="o">C1</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label">性别：</label>
           <div class="umodal-normal am-text-left">
@@ -302,6 +229,7 @@
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
+          <div class="umodal-text">&nbsp;天</div>
         </div>
       </form>
     </div>
@@ -314,15 +242,7 @@
     </div>
   </div>
 </div>
-
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script type="text/javascript">
-$(function() {
-  $(document).on('click','#apickall',function(){
-    $("[id*='apick']").prop('checked',$("#apickall").prop('checked'));
-  })
-});
-</script>
 </body>
 </html>

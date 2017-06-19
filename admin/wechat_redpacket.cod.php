@@ -51,9 +51,13 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
+        <td>新增时间</td>
         <td>活动名称</td>
         <td>类型</td>
         <td>总金额(元)</td>
+        <td>总人数</td>
+        <td>红包金额</td>
+        <td>祝福语</td>
         <td>开始时间</td>
         <td>结束时间</td>
         <td style="width:8%">操作</td>
@@ -61,9 +65,13 @@
     </thead>
     <tbody>
       <tr>
+        <td>2017-04-18</td>
         <td>端午活动</td>
         <td>关注红包</td>
         <td>1000</td>
+        <td>10</td>
+        <td>0.1~2</td>
+        <td>恭喜发财</td>
         <td>2017-06-18</td>
         <td>2017-06-19</td>
         <td>
@@ -73,9 +81,13 @@
           </button>
       </tr>
       <tr>
+        <td>2017-04-18</td>
         <td>端午活动</td>
         <td>消费红包</td>
         <td>1000</td>
+        <td>10</td>
+        <td>0.1~2</td>
+        <td>恭喜发财</td>
         <td>2017-04-18</td>
         <td>2017-04-19</td>
         <td>
@@ -85,9 +97,13 @@
           </button>
       </tr>
       <tr>
+        <td>2017-04-18</td>
         <td>端午活动</td>
         <td>裂变红包</td>
         <td>500</td>
+        <td>10</td>
+        <td>0.1~2</td>
+        <td>恭喜发财</td>
         <td>2017-07-18</td>
         <td>2017-08-19</td>
         <td>

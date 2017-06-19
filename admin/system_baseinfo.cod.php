@@ -121,13 +121,13 @@
             （营业执照或身份证号）
           </div>
         </div>
-        <div class="am-form-group am-form-file">
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">证件上传：</label>
-          <div class="umodal-normal">
+          <div class="umodal-normal  am-form-file">
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width:100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+              <input type="file" id="doc-ipt-file-2">
           </div>
-          <input type="file" id="doc-ipt-file-2">
           <div class="umodal-text" style="color:#2aa672">
             （营业执照或身份证照片）
           </div>

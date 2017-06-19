@@ -10,8 +10,32 @@
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-  <form class="am-form-inline uform2">
-  </form>
+    <form class="am-form-inline uform2">
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">日期：</label>
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+            </button>
+          </span>
+        </div>  
+      </div>
+      <div class="am-form-group">    
+        <label for="doc-ipt-3" class="am-form-label">至：</label>
+        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>
+    </form>
   <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#umarketing_voucherm1'}">
   <i class="iconfont icon-xinzeng"></i>
     新增代金券
@@ -24,9 +48,8 @@
         <td>新增时间</td>
         <td>名称</td>
         <td>面值</td>
-        <td>消费限额</td>
         <td>有效期</td>
-        <td>到期时间</td>
+        <td>消费限额</td>
         <td>参加店铺</td>
         <td>备注</td>
         <td width="12%">操作</td>
@@ -36,9 +59,8 @@
       <td>2017-09-08&nbsp;10:36</td>
       <td>一楼大厅</td>
       <td>2131元</td>
+      <td>10天</td>
       <td>1000元</td>
-      <td>200天</td>
-      <td>2017-09-08</td>
       <td>全部</td>
       <td>无</td>
       <td>
@@ -86,30 +108,18 @@
           <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
         </div>
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="" >消费限额：</label>
           <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
-          <div class="umodal-normal">
-            <input id="date2" type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">到期时间：</label>
-          <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input id="date1" type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-          </div>
-          <div class="umodal-text gtext-green">（备注：有效期和到期时间选填一项）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
@@ -164,30 +174,18 @@
           <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
         </div>
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="" >消费限额：</label>
           <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max">
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
-          <div class="umodal-normal">
-            <input id="date2" type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">到期时间：</label>
-          <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input id="date1" type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-          </div>
-          <div class="umodal-text gtext-green">（备注：有效期和到期时间选填一项）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
@@ -235,26 +233,6 @@
 </div>   
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script>
-$(function() {
-  $('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
-  });
-  $('#date2').on('focusout',function(){
-    if ($('#date2').val()!='') {$('#date1').val(null)}
-  })
-  $('#date4').on('focusout',function(){
-    if ($('#date4').val()!='') {$('#date3').val(null)}
-  })
-});
-</script>
+
 </body>
 </html>

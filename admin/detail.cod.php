@@ -11,11 +11,15 @@
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform1">
+  	  <div class="am-form-group">
+        <label class="am-form-label">会员卡号：</label> 
+        <input class="am-form-field uinput uinput-220" type="text" name="">
+      </div>
       <div class="am-form-group">
         <label class="am-form-label">开卡店铺：</label> 
         <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
-          <option value="2">fsdsdfsdfsdffdfsd</option>
+          <option value="2">大学路分店</option>
           <option value="3">3</option>
         </select>
       </div>
@@ -23,13 +27,9 @@
         <label class="am-form-label">卡类型：</label> 
         <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">全部</option>
-          <option value="2">2</option>
+          <option value="2">钻石卡</option>
           <option value="3">3</option>
         </select>
-      </div>
-      <div class="am-form-group">
-        <label class="am-form-label">会员卡号：</label> 
-        <input class="am-form-field uinput uinput-220" type="text" name="">
       </div>
       <div class="am-form-group">
         <label class="am-form-label">时间：</label> 
@@ -60,10 +60,13 @@
    <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
     <thead>
       <tr>
-        <td>开卡类型</td>
+        <td>消费时间</td>
         <td>消费单号</td>
         <td>卡号</td>
         <td>姓名</td>
+        <td>性别</td>
+        <td>手机号码</td>
+        <td>卡类型</td>
         <td>消费类型</td>
         <td>会员卡扣</td>
         <td>现金</td>
@@ -75,11 +78,14 @@
         <td width="12%;">操作</td>
       </tr>
     </thead>
-    <tr data-am-offcanvas="{target: '#uoffcanvas'}">
+    <tr>
       <td>2015-06-18&nbsp;12:21</td>
-      <td>2017030412456</td>
+      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
       <td>HY1001</td>
       <td>刘艳秋</td>
+      <td>男</td>
+      <td>13176684759</td>
+      <td>会员卡</td>
       <td>消费</td>
       <td class="gtext-orange">￥368</td>
       <td>0.0</td>
@@ -95,11 +101,14 @@
         </button>
       </td>
     </tr>
-    <tr data-am-offcanvas="{target: '#uoffcanvas'}">
+    <tr>
       <td>2015-06-18&nbsp;12:21</td>
-      <td>2017030412456</td>
+      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
       <td>HY1001</td>
       <td>刘艳秋</td>
+      <td>男</td>
+      <td>13176684759</td>
+      <td>会员卡</td>
       <td>消费</td>
       <td class="gtext-orange">￥368</td>
       <td>0.0</td>
@@ -115,11 +124,14 @@
         </button>
       </td>
     </tr>
-    <tr data-am-offcanvas="{target: '#uoffcanvas'}">
+    <tr>
       <td>2015-06-18&nbsp;12:21</td>
-      <td>2017030412456</td>
+      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
       <td>HY1001</td>
       <td>刘艳秋</td>
+      <td>男</td>
+      <td>13176684759</td>
+      <td>会员卡</td>
       <td>消费</td>
       <td class="gtext-orange">￥368</td>
       <td>0.0</td>
@@ -146,100 +158,84 @@
   </ul>
 </div>
 <!-- 侧拉框 -->
-<div id="uoffcanvas" class="am-offcanvas">
+<div id="uoffcanvas" class="am-offcanvas" style="-webkit-user-select:initial;">
   <div class="am-offcanvas-bar am-offcanvas-bar-flip goffcanvas">
     <div class="am-offcanvas-content" >
-      <div class="am-modal-hd"><span class="title">消费单号:201703041256</span>
+      <div class="am-modal-hd"><span class="utitle">消费单号:201703041256</span>
         <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
       </div>
       <div class="gspace15"></div>
-      <div class="ua">
-        <ul class="ua1">
-          <li>
-            消费时间：<span>2017-03-04&nbsp;09:31:06</span>
-          </li>
-          <li>
-            会员卡号：<span>HY1001</span>
-          </li>
-          <li>
-           消费总额：<span>191.0元</span>
-          </li>
-          <li>
-            会员优惠：<span>0.0元</span>
-          </li>
-        </ul>
-        <ul class="ua2">
-          <li>
-            消费时间：<span>201703041256</span>
-          </li>
-          <li>
-            会员卡号：<span>HY1001</span>
-          </li>
-          <li>
-            消费总额：<span>191.0元</span>
-          </li>
-          <li>
-            会员优惠：<span>0.0元</span>
-          </li>
-        </ul>
+      <div class="am-g ucontent">
+        <div class="am-u-lg-6">消费时间：<span>2017-03-03 12:32</span></div>
+        <div class="am-u-lg-6">消费单号：<span>2017030234353</span></div>
+        <div class="am-u-lg-6">会员卡号：<span>103201</span></div>
+        <div class="am-u-lg-6">会员姓名：<span>张小明</span></div>
+        <div class="am-u-lg-6">会员类型：<span>金卡</div>
+        <div class="am-u-lg-6">会员折扣：<span>8折</div>
+        <div class="am-u-lg-6">操作类型：<span>消费</span></div>
+        <div class="am-u-lg-6">本次消费：<span>191.0元</span></div>
+        <div class="am-u-lg-6">支付方式：<span>支付宝</span></div>
+        <div class="am-u-lg-6">手动优惠：<span>--</span></div>
+        <div class="am-u-lg-6">操作人员：<span>张小明</span></div>
+        <div class="am-u-lg-6">是否免单：<span>--</span></div>
       </div>
       <p><strong>商品消费清单</strong></p>
       <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact" style="color:black;">
         <thead>
           <tr>
+          	<td>编码</td>
             <td>名称</td>
             <td>单价</td>
             <td>数量</td>
             <td>金额</td>
-            <td>时间</td>
+            <td>折后价</td>
           </tr>
         </thead>
         <tr>
+          <td>4548415878</td>
           <td>普洱</td>
           <td>88元</td>
           <td>1泡</td>
-          <td>88.0元</td>
-          <td>2017-03-24&nbsp;09:31:44</td>
+          <td>88元</td>
+          <td>58元</td>
         </tr>
         <tr>
+          <td>4548415878</td>
           <td>普洱</td>
           <td>88元</td>
           <td>1泡</td>
-          <td>88.0元</td>
-          <td>2017-03-24&nbsp;09:31:44</td>
+          <td>88元</td>
+          <td>58元</td>
         </tr>
         <tr>
+          <td>4548415878</td>
           <td>普洱</td>
           <td>88元</td>
           <td>1泡</td>
-          <td>88.0元</td>
-          <td>2017-03-24&nbsp;09:31:44</td>
+          <td>88元</td>
+          <td>58元</td>
         </tr>
-      </table>
-      <p><strong>付款信息</strong></p>
-      <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact" style="color: black;">
-        <thead>
-          <tr>
-          <td>支付方式</td>
-          <td>金额</td>
-        </tr>
-        </thead>
         <tr>
-          <td>支付宝</td>
-          <td>371.0元</td>
+          <td>4548415878</td>
+          <td>普洱</td>
+          <td>88元</td>
+          <td>1泡</td>
+          <td>88元</td>
+          <td>58元</td>
         </tr>
       </table>
       <div class="gspace20"></div>
       <div class="ub">
-        <button class="am-btn ubtn-sure ubtn-blue button1">
+        <button class="am-btn ubtn-sure ubtn-blue ubutton1">
           <i class="iconfont icon-dayin"></i>
           打印小票
         </button>
-        <button class="am-btn ubtn-sure ubtn-red button2" data-am-modal="{target: '#udetailm1', closeViaDimmer: 0, width: 320, height: 320}">
+        <button class="am-btn ubtn-sure ubtn-red ubutton2" data-am-modal="{target: '#udetailm1', closeViaDimmer: 0, width: 320, height: 320}">
           <i class="iconfont icon-huaidanbaotui"></i>
           退款
         </button>
-      </div> 
+      </div>
+     <div class="gspace15"></div>
     </div>
   </div>
 </div>
@@ -249,6 +245,7 @@
     <div class="am-modal-hd uhead">退款
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
+    <div class="gspace15"></div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
@@ -263,6 +260,7 @@
             <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
           </div>
         </div>
+        <div class="gspace20"></div>
         <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
         <div class="gspace15"></div>
         <div class="ua1">

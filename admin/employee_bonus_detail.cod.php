@@ -56,6 +56,8 @@
         <td>员工</td>
         <td>类型</td>
         <td>会员卡号</td>
+        <td>会员姓名</td>
+        <td>手机号</td>
         <td>内容</td>
         <td>金额</td>
         <td>提成</td>
@@ -68,9 +70,11 @@
         <td>李四</td>
         <td>办卡</td>
         <td>A12234</td>
+        <td>张山</td>
+        <td>15690851234</td>
         <td>办理vip卡</td>
-        <td>10000</td>
-        <td>1000</td>
+        <td>10000元</td>
+        <td  class="gtext-orange">1000元</td>
         <td>南大街13号老店</td>
       </tr>
       <tr>
@@ -78,9 +82,11 @@
         <td>张三</td>
         <td>服务</td>
         <td>A12234</td>
+        <td>张山</td>
+        <td>15690851234</td>
         <td>烫发</td>
-        <td>2000</td>
-        <td>30</td>
+        <td>2000元</td>
+        <td  class="gtext-orange">30元</td>
         <td>南大街14号老店</td>
       </tr>
       <tr>
@@ -88,9 +94,11 @@
         <td>小明</td>
         <td>商品</td>
         <td>A12234</td>
+        <td>张山</td>
+        <td>15690851234</td>
         <td>购买面膜100张</td>
-        <td>1000</td>
-        <td>400</td>
+        <td>1000元</td>
+        <td  class="gtext-orange">400元</td>
         <td>南大街8号老店</td>
       </tr>
       <tr>
@@ -98,9 +106,11 @@
         <td>小王</td>
         <td>导购</td>
         <td>A12234</td>
+        <td>张山</td>
+        <td>15690851234</td>
         <td>购买和田玉一块</td>
-        <td>8888</td>
-        <td>888</td>
+        <td>8888元</td>
+        <td class="gtext-orange">888元</td>
         <td>南大街88号老店</td>
       </tr>
     </tbody>

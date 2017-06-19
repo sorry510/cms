@@ -5,7 +5,7 @@
 <!-- content -->
 <div class="gcontent" id="umember">
   <ul class="am-nav am-nav-pills ubread">
-	  <li class="am-active"><a href="user.html">会员管理</a></li>
+	  <li class="am-active"><a href="member.html">会员管理</a></li>
 	  <li><a href="#">过期会员</a></li>
 	  <li><a href="#">回收站</a></li>
   </ul>
@@ -53,8 +53,9 @@
         <td>性别</td>
         <td>生日</td>
         <td>开卡时间</td>
+    	<td>卡类型</td>
+    	<td>折扣</td>
         <td>到期时间</td>
-        <td>积分</td>
         <td>卡状态</td>
         <td>开卡店铺</td>
         <td>电子档案</td>
@@ -70,8 +71,9 @@
         <td>女</td>
         <td>1983-05-16</td>
         <td>2015-06-18</td>
+        <td>钻石卡</td>
+        <td><span class="gtext-orange">10</span>折</td>
         <td>2017-06-18</td>
-        <td>625</td>
         <td>正常</td>
         <td>解放路分店</td>
         <td><a href="e-record.php">电子档案</a></td>
@@ -88,12 +90,14 @@
         </td>
       </tr>
       <tr>
-        <td colspan="13" class="utable-text">卡类型：<span class="am-badge am-badge-secondary am-text-sm ubadge1">白金型</span>，卡折扣：<span class="gtext-orange">10</span>折，余：<span class="gtext-orange">￥5680.8</span>，积分：<span class="gtext-orange">1234</span>，套餐：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥5680.8</span>，剩余积分：<span class="gtext-orange">1234</span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+      </tr>
+      <tr>
+        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">10331</span>元，累计赠送：<span class="gtext-orange">568.8</span>元，累计积分：<span class="gtext-orange">89634</span>元</td>
       </tr>
     </tbody>
   </table>
   <div class="gspace15"></div>
-
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共1页 3条记录</li>
     <li class="am-disabled"><a href="#">&laquo;</a></li>
@@ -111,135 +115,134 @@
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>会员姓名：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机号码：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">车牌：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">联系人：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
-          </div>
-        </div>
-        <div class="am-form-group ">
-          <label class="umodal-label am-form-label">照片：</label>
-          <div class="umodal-normal am-form-file am-text-left">
-            <button type="button" class="am-btn am-btn-default am-btn-sm">
-              <i class="am-icon-cloud-upload"></i> 选择要上传的照片
-            </button>
-            <input type="file" id="doc-form-file">
-            <div id="file-list"></div>
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label">身份证号：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">会员卡号：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">启用密码：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck> 是
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck checked> 否
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group cispwd">
-          <label class="umodal-label am-form-label" for="">输入密码：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="password" placeholder="">
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">确认密码：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="password" placeholder="">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">性别：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="0" data-am-ucheck> 男
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="1" data-am-ucheck> 女
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="2" data-am-ucheck> 保密
-            </label>  
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">出生日期：</label>
-          <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
+      <form class="am-form">
+        <div class="uborder">
+          <span class="uborder-title">会员基本信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>会员姓名：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>性别：</label>
+              <div class="umodal-normal am-text-left">
+                <label class="am-radio-inline">
+                  <input type="radio" name="radio1" value="0" data-am-ucheck> 男
+                </label>
+                <label class="am-radio-inline">
+                  <input type="radio" name="radio1" value="1" data-am-ucheck> 女
+                </label>
+                <label class="am-radio-inline">
+                  <input type="radio" name="radio1" value="2" data-am-ucheck> 保密
+                </label> 
+              </div>
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>手机号码：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">出生日期：</label>
+              <div class="umodal-normal">
+                <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+                  <input id="date1" type="text" class="am-form-field">
+                  <span class="am-input-group-btn am-datepicker-add-on">
+                    <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+                  </span>
+                </div>
+              </div>
+              <label class="am-form-label umodal-label">启用密码：</label>
+              <div class="umodal-normal am-text-left">
+                <label class="am-radio-inline">
+                  <input class="cispwd" type="radio" name="radio2" value="0" data-am-ucheck> 是
+                </label>
+                <label class="am-radio-inline">
+                  <input class="cispwd" type="radio" name="radio2" value="1" data-am-ucheck checked> 否
+                </label>
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">输入密码：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max callow" disabled>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">到期时间：</label>
-          <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
+            <div class="am-form-file uphoto">
+              <img id="cimg" src="../img/li.jpg">
+              <a class="am-btn am-btn-gray am-btn-sm">
+                <i class="am-icon-cloud-upload"></i> 点击上传</a>
+              <input id="doc-form-file" type="file" multiple>
             </div>
-          </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">服务员：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
+            <div style="clear:both;"></div>
         </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">联系地址：</label>
-          <div class="umodal-max">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
-          </div>
+        <div class="uborder">
+          <span class="uborder-title">会员卡信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label">会员卡号：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">ID号：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <label class="am-form-label umodal-label">到期时间：</label>
+              <div class="umodal-normal">
+                <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+                  <input id="date1" type="text" class="am-form-field">
+                  <span class="am-input-group-btn am-datepicker-add-on">
+                    <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+                  </span>
+                </div>
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">微信：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+            </div>
+            <div style="clear:both;"></div>
         </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">备注：</label>
-          <div class="umodal-max">
-            <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
-          </div>
+        <div class="uborder">
+          <span class="uborder-title">更多会员信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label">身份证号：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">车牌：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <label class="am-form-label umodal-label">联系人：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">服务员：</label>
+              <div class="umodal-normal">
+                <select class="uselect uselect-max" data-am-selected>
+                  <option value="a">Apple</option>
+                  <option value="b">Banana</option>
+                  <option value="o">Orange</option>
+                  <option value="m">Mango</option>
+                  <option value="d">禁用</option>
+                </select>
+              </div>
+              <label class="am-form-label umodal-label">备注：</label>
+              <div class="umodal-max">
+               <input type="text" class="am-form-field uinput uinput-max">
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
         </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-xiangyou2"></i>
-          下一步
+          完成
         </button>
       </div>
     </div>
@@ -266,7 +269,7 @@
             <option value="d">禁用</option>
           </select>
         </div>
-        <div class="am-u-lg-4">会员折扣：<input class="am-form-field uinput" type="text" name=""></div>
+        <div class="am-u-lg-4">会员折扣：<span class="am-text-lg gtext-orange">7</span>折</div>
       </div>
       <div class="gspace15"></div>
       <div class="utitle">充值金额</div>
@@ -323,6 +326,7 @@
         <div class="am-u-lg-4">会员卡类型：打折卡</div>
         <div class="am-u-lg-4 am-u-end">会员折扣：<span class="am-text-lg gtext-orange">8</span>折</div>
       </div>
+      <div class="gspace10"></div>
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
           <li class="am-active"><a href="#tab1">添加套餐</a></li>
@@ -367,6 +371,18 @@
                 <div class="uc2b cadd"><a href="#">添加</a></div>
               </li>              
             </ul>
+          </div>
+          <div class="am-tab-panel am-fade" id="tab2" style="height:370px;">
+            <div class="gspace50"></div>
+            <div class="gspace50"></div>
+            <div>
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+              </div>           
+              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+                添加
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -520,13 +536,27 @@
         </div>
       </div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-xiangyou2"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen3up"><i class="iconfont icon-xiangyou2"></i>
           上一步
         </button>
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
+    </div>
+  </div>
+</div>
+<!-- 确认密码 -->
+<div id='upwd-alert' class="am-modal am-modal-alert" tabindex="-1">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">请输入会员卡密码</div>
+    <div class="am-modal-bd">
+      <div class="am-form-group" style="padding:10px 20px 0 20px;">
+         <input type="text" class="am-form-field uinput uinput-max">
+      </div>
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn cpwd-btn">确定</span>
     </div>
   </div>
 </div>
@@ -573,15 +603,14 @@ $(function() {
             $('#umemberm1').modal('open');
             $('#umemberm1 input').eq(0).focus();
     });
-    $('.cispwd').hide();
-    // 密码隐藏
-    $('.cchecked').on('click', function(e) {
-            if($(this).val()==0){
-              $('.cispwd').fadeIn(200);
-            }else{
-              $('.cispwd').fadeOut(200);
-            }
-    });
+    // 选填密码
+    $('.cispwd').on('click',function(){
+      if($(this).val()==0){
+        $('.callow').attr('disabled',false);
+      }else{
+        $('.callow').attr('disabled',true);
+      }
+    })
     //会员充值
     $('.cmodelopen2').on('click', function(e) {
             $('#umemberm2').modal('open');
@@ -590,8 +619,33 @@ $(function() {
     //购买套餐
     $('.cmodelopen3').on('click', function(e) {
             $('#umemberm2').modal('close');
-            $('#umemberm3').modal('open');
-            $('#umemberm2 input').eq(0).focus();
+            if(true){
+              // 有会员卡密码
+              $('#upwd-alert').modal('open');
+            }else{
+              // 无密码
+              $('#umemberm3').modal('open');
+              $('#umemberm3 input').eq(0).focus();
+            }
+            
+    });
+    // 返回上一步
+    $('.cmodelopen3up').on('click', function(e) {
+      $('#umemberm4').modal('close');
+      $('#umemberm3').modal('open');
+      $('#umemberm3 input').eq(0).focus();
+    });
+    // 确认密码
+    $('.cpwd-btn').on('click', function(e) {
+            if(true){
+              // 密码正确
+              $('#umemberm3').modal('open');
+              $('#umemberm3 input').eq(0).focus();
+            }else{
+              // 密码错误
+              return 0;
+            }
+            
     });
      //购买套餐完成
     $('.cmodelopen4').on('click', function(e) {
@@ -624,14 +678,20 @@ $(function() {
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
     });
+    $('#doc-form-file').on('change',showPreview);
     //上传文件
-    $('#doc-form-file').on('change', function() {
-      var fileNames = '';
-      $.each(this.files, function() {
-        fileNames += '<span class="am-badge">' + this.name + '</span> ';
-      });
-      $('#file-list').html(fileNames);
-    });
+    function showPreview() {  
+        var file = this.files[0];
+        console.log(file);
+        if(window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function(e) {
+              $("#cimg").attr('src',e.target.result);
+              // document.getElementById("portrait").src = e.target.result;
+            } 
+            fr.readAsDataURL(file);
+        }
+    }
     //删除
     $(document).on("click",".cdel2",function(){
         $(this).parent().remove();

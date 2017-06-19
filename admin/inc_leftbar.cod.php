@@ -1,4 +1,5 @@
 <ul id="uleftbar" class="am-nav">
+  <li class="<?php if($GLOBALS['strchannel'] == 'money') {echo 'uhighlight';} ?>"><a href="money.php"><span class="iconfont icon-question"></span> 消费</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'member') {echo 'uhighlight';} ?>"><a href="member.php"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'e-record') {echo 'uhighlight';} ?>"><a href="e-record.php"><span class="iconfont icon-question"></span> 档案</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'appoint') {echo 'uhighlight';} ?>"><a href="appoint.php"><span class="iconfont icon-clock"></span> 预约</a></li>
@@ -25,10 +26,12 @@
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'wechat') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-weixin"></span> 微信</a>
     <ul class="am-dropdown-content umenu2 umenu2-three">
-      <li><a href="#">1. 公众号设置</a></li>
+      <li><a href="wechat_publicnumber.php">1. 公众号设置</a></li>
       <li><a href="#">2. 微店设置</a></li>
       <li><a href="wechat_redpacket.php">3. 微信红包活动</a></li>
       <li><a href="wechat_redpacket_count.php">4. 微信红包发放统计</a></li>
+      <li><a href="wechat_concern_coupon.php">5. 关注优惠券设置</a></li>
+
     </ul>
   </li>
   <li class="<?php if($GLOBALS['strchannel'] == 'bill') {echo 'uhighlight';} ?>"><a href="bill_manage.php"><span class="iconfont icon-baobiao-xianxing"></span> 收支</a></li>
@@ -58,7 +61,7 @@
       <li><a href="system_card.php">6. 会员卡分类</a></li>
       <li><a href="system_convert.php">7. 积分换礼</a></li>
       <li><a href="system_roomcard.php">8. 房间手牌设置</a></li>
-      <li><a href="#">9. 打印设置（未做）</a></li>
+      <li><a href="system_print.php">9. 打印设置</a></li>
       
     </ul>
   </li>

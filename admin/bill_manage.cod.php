@@ -5,6 +5,7 @@
 <div id="ubill_manage" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
     <li class="am-active"><a href="#">收支管理</a></li>
+    <li><a href="bill_cate.php">收支分类</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -13,9 +14,28 @@
         <label for="doc-ipt-3" class="am-form-label">收支类型：</label>
         <select class="uselect uselect-auto" data-am-selected name="">
            <option value="all">全部</option>
-           <option value="2">2</option>
-           <option value="3">3</option>
+           <option value="2">支出</option>
+           <option value="3">收入</option>
         </select>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">日期：</label>
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+            </button>
+          </span>
+        </div>  
+      </div>
+      <div class="am-form-group">    
+        <label for="doc-ipt-3" class="am-form-label">至：</label>
+        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -45,9 +65,9 @@
       <tr>
         <td>收入</td>
         <td>卖衣服</td>
-        <td>实物</td>
+        <td>房租</td>
         <td>￥40</td>
-        <td>2010-5-20</td>
+        <td>2010-5-20 15:20</td>
         <td>无</td>
         <td>
           <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#ubill_managem2'}">
@@ -101,11 +121,11 @@
           <label class="umodal-label am-form-label" for="">分类：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
-              <option value="a">Apple</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
+              <option value="a">房租</option>
+              <option value="b">水费</option>
+              <option value="o">电费</option>
+              <option value="m">物业费</option>
+              <option value="d">其它</option>
             </select>
           </div>
         </div>

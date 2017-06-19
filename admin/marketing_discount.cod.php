@@ -18,6 +18,25 @@
         </select>
       </div>
       <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">日期：</label>
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+            </button>
+          </span>
+        </div>  
+      </div>
+      <div class="am-form-group">    
+        <label for="doc-ipt-3" class="am-form-label">至：</label>
+        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
           <i class="iconfont icon-search"></i>查询
         </button>
@@ -37,6 +56,7 @@
         <td>顾客类型</td>
         <td>开始时间</td>
         <td>结束时间</td>
+        <td>参加店铺</td>
         <td>备注</td>
         <td style="width:20%;">操作</td>
       </tr>
@@ -48,6 +68,7 @@
         <td>不限</td>
         <td>2017-05-04</td>
         <td>2017-05-30</td>
+        <td>全部</td>
         <td>无</td>
         <td>
           <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target:'#umarketing_discountm3'}">
@@ -133,6 +154,20 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 全部
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店1
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店2
+            </label>
+          </div>
+        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -199,6 +234,20 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
           </div>
         </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 全部
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店1
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 分店2
+            </label>
+          </div>
+        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -210,7 +259,7 @@
     </div>
   </div>
 </div>
-<div class="am-modal" tabindex="-1" id="umarketing_discountm3">
+<div class="am-modal" tabindex="-1" id="umarketing_discountm4">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">折扣商品
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
@@ -291,6 +340,137 @@
       </form>
     </div>
     <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="am-modal" tabindex="-1" id="umarketing_discountm3">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">折扣商品
+      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <ul class="am-list am-list-border ulist2">
+        <li class="uheader"><span class="uspan1">分类/名称</span><span class="uspan2">活动</span></li>
+        <li>
+          <div class="am-form-group am-g">
+            <form action="">
+              <div class="umodal-short" style="padding-left:20px;">
+                <select class="uselect uselect-max" data-am-selected>
+                  <option value="a">AAA</option>
+                  <option value="b">Banana</option>
+                  <option value="o">Orange</option>
+                  <option value="d">禁用</option>
+                </select>
+              </div>
+              <div class="umodal-text" style="padding-left:10px;">
+                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+                  <i class="iconfont icon-search"></i>
+                  查询
+                </button>
+              </div>
+              <div class="umodal-search" style="float:right;margin-right:25px;display:inline-block;">
+                <button type="button" class="am-btn ubtn-search2 ubtn-gray">
+                  保存
+                </button>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+      <ul class="am-list am-list-border ulist1">
+        <li>
+          <div class="am-form-group am-g">
+            <div class="am-u-lg-5 am-text-left utext1">服务1</div>
+            <div class="am-u-lg-5 am-text-right">
+              <label class="am-checkbox-inline">
+                <input type="checkbox"  value="" data-am-ucheck> 参与活动
+              </label>
+              <span class="utext3">&nbsp;&nbsp;&nbsp;折扣</span>
+              <input class="uinput uinput-60" type="text" name="">
+              <span class="utext3">&nbsp;&nbsp;&nbsp;优惠价</span>
+              <input class="uinput uinput-60" type="text" name=""> 
+            </div>
+            <div class="am-u-lg-2">
+              <button type="button" class="am-btn ubtn-search2 ubtn-gray">
+                批量设置
+              </button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="am-form-group am-g">
+            <div class="am-u-lg-5 am-text-left utext2">推拿（50元）</div>
+            <div class="am-u-lg-5 am-u-end am-text-right">
+              <label class="am-checkbox-inline">
+                <input type="checkbox"  value="" data-am-ucheck> 参与活动
+              </label>
+              <span class="utext3">&nbsp;&nbsp;&nbsp;折扣</span>
+              <input class="uinput uinput-60" type="text" name="">
+              <span class="utext3">&nbsp;&nbsp;&nbsp;优惠价</span>
+              <input class="uinput uinput-60" type="text" name=""> 
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="am-form-group am-g">
+            <div class="am-u-lg-5 am-text-left utext1">服务2</div>
+            <div class="am-u-lg-5 am-text-right">
+              <label class="am-checkbox-inline">
+                <input type="checkbox"  value="" data-am-ucheck> 参与活动
+              </label>
+              <span class="utext3">&nbsp;&nbsp;&nbsp;折扣</span>
+              <input class="uinput uinput-60" type="text" name="">
+              <span class="utext3">&nbsp;&nbsp;&nbsp;优惠价</span>
+              <input class="uinput uinput-60" type="text" name="">
+            </div>
+            <div class="am-u-lg-2">
+              <button type="button" class="am-btn ubtn-search2 ubtn-gray">
+                批量设置
+              </button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="am-form-group am-g">
+            <div class="am-u-lg-5 am-text-left utext2">针灸</div>
+            <div class="am-u-lg-5 am-u-end am-text-right">
+              <label class="am-checkbox-inline">
+                <input type="checkbox"  value="" data-am-ucheck> 参与活动
+              </label>
+              <span class="utext3">&nbsp;&nbsp;&nbsp;折扣</span>
+              <input class="uinput uinput-60" type="text" name="">
+              <span class="utext3">&nbsp;&nbsp;&nbsp;优惠价</span>
+              <input class="uinput uinput-60" type="text" name="">
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="am-form-group am-g">
+            <div class="am-u-lg-5 am-text-left utext2">话聊</div>
+            <div class="am-u-lg-5 am-u-end am-text-right">
+              <label class="am-checkbox-inline">
+                <input type="checkbox"  value="" data-am-ucheck> 参与活动
+              </label>
+              <span class="utext3">&nbsp;&nbsp;&nbsp;折扣</span>
+              <input class="uinput uinput-60" type="text" name="">
+              <span class="utext3">&nbsp;&nbsp;&nbsp;优惠价</span>
+              <input class="uinput uinput-60" type="text" name="">
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group ubtn-left">
+        <button type="submit" class="am-btn ubtn-sure ubtn-green cmodalopen1"><i class="iconfont icon-xiangyou2"></i>
+          上一步
+        </button>
+      </div>
       <div class="am-btn-group">
         <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成

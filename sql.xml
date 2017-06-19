@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<config prefix=""/>
+	<table name="my_manage" name2="管理员" sign="normal">
+		<field name="manage_id" name2="管理员id" type="int(10)" sign="int-unsigned-a"/><key name="manage_id" sign="primary"/>
+		<field name="user" name2="管理员" type="varchar(40)" sign="str-utf8"/>
+		<field name="password" name2="密码" type="varchar(40)" sign="str-utf8"/>
+		<field name="type" name2="权限类型" type="tint(3)" sign="tint-unsigned"/>
+		<field name="tel" name2="电话" type="str" sign="int-unsigned"/>
+		<field name="shop_id" name2="所属分店id" type="tint(3)" sign="int-unsigned"/>
+		<field name="ip" name2="ip地址" type="varchar(40)" sign="str-utf8"/>
+		<field name="manage_flag" name2="是否停用" type="tint(3)" sign="tint-unsigned" info="0表示启用，1表示停用"/>
+		<field name="lasttime" name2="最近一次登录时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="cnfly_business" name2="企业信息" sign="session">
+		<field name="business_name" name2="企业名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="paper_id" name2="证件号" type="varchar(40)" sign="str-utf8"/>
+		<field name="bind_tel" name2="绑定手机号码" type="str" sign="int-unsigned"/>
+		<field name="business_type" name2="企业类型" type="tint(3)" sign="tint-unsigned"/>
+		<field name="business_area" name2="企业地址" type="varchar(100)" sign="str-utf8"/>
+		<field name="business_address" name2="企业地址" type="varchar(100)" sign="str-utf8"/>
+		<field name="linkman" name2="联系人" type="varchar(40)" sign="str-utf8"/>
+		<field name="linkman_tel" name2="联系电话" type="int(10)" sign="int-unsigned"/>
+		<field name="wechat" name2="微信号" type="varchar(40)" sign="str-utf8"/>
+		<field name="bussiness_flag" name2="是否停用" type="tint(3)" sign="tint-unsigned" info="0表示启用，1表示停用"/>
+		<field name="number_min" name2="企业规模人数下限" type="tint(3)" sign="tint-unsigned"/>
+		<field name="number_max" name2="企业规模人数上限" type="tint(3)" sign="tint-unsigned"/>
+		<field name="starttime" name2="开通时间" type="int(10)" sign="int-unsigned"/>
+		<field name="system_version" name2="系统版本" type="varchar(20)" sign="str-utf8"/>
+	</table>
+	<table name="cnfly_base_config" name2="基本参数信息" sign="normal">
+		<field name="message_member" name2="短信剩余条数" type="int(10)" sign="int-unsigned"/>
+		<field name="message_flag" name2="是否启用短信" type="tint(3)" sign="tint-unsigned" info="0表示启用，1表示停用"/>
+	</table>
+	<table name="cnfly_shop" name2="企业分店" sign="normal">
+		<field name="shop_id" name2="分店id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="shop_name" name2="分店名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="shop_tel" name2="分店电话" type="varchar(40)" sign="str-utf8"/>
+		<field name="shop_area" name2="分店区域" type="varchar(100)" sign="str-utf8"/>
+		<field name="shop_address" name2="分店地址" type="varchar(100)" sign="str-utf8"/>
+		<field name="shop_map_point" name2="地图坐标" type="varchar(40)" sign="str-utf8"/>
+		<field name="shop_max_number" name2="分店最大用户数" type="tint(3)" sign="tint-unsigned"/>
+		<field name="endtime" name2="到期时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_card_cate" name2="会员卡分类" sign="normal">
+		<field name="card_cate_id" name2="会员卡分类id" type="int(10)" sign="int-unsigned-a"/><key name="card_cate_id" sign="primary"/>
+		<field name="card_cate_name" name2="会员卡分类名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="card_discount" name2="会员卡折扣" type="tint(3)" sign="tint-unsigned"/>
+		<field name="card_info" name2="会员卡描述信息" type="text" sign="text-utf8"/>
+	</table>
+	<table name="my_room_cate" name2="房间手牌分类" sign="normal">
+		<field name="room_cate_id" name2="房间手牌分类id" type="int(10)" sign="int-unsigned-a"/><key name="room_cate_id" sign="primary"/>
+		<field name="room_cate_name" name2="房间手牌分类名称" type="varchar(40)" sign="str-utf8"/>
+	</table>
+	<table name="my_roomcard" name2="房间手牌" sign="normal">
+		<field name="roomcard_id" name2="房间手牌id" type="int(10)" sign="int-unsigned-a"/><key name="roomcard_id" sign="primary"/>
+		<field name="room_cate_id" name2="所属分类id" type="tint(3)" sign="tint-unsigned"/>
+		<field name="roomcard_name" name2="房间手牌名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="roomcard_number" name2="房间手牌编号" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_goods_cate" name2="商品分类" sign="nomal">
+	  <field name="goods_cate_id" name2="商品分类id" type="int(10)" sign="int-unsigned-a"/><key name="goods_cate_id" sign="primary"/>
+		<field name="goods_cate_name" name2="商品分类名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="type" name2="类型" type="int(10)" sign="int-unsigned" info="0表示通用，1表示分店"/>
+		<field name="shop_id" name2="所属分店id" type="int(10)" sign="int-unsigned"  info="9999表示总店"/>
+	</table>
+	<table name="my_goods" name2="商品设置" sign="normal">
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned-a"/><key name="goods_id" sign="primary"/>
+		<field name="goods_name" name2="商品名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="goods_name_short" name2="商品名称简拼" type="varchar(20)" sign="str-utf8"/><key name="goods_name_short" sign="unique"/>
+		<field name="goods_cate_id" name2="所属分类id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_code" name2="商品编码" type="varchar(40)" sign="str-utf8"/>
+		<field name="price" name2="商品价格" type="int(10)" sign="int-unsigned"/>
+    <field name="price2" name2="会员商品价格" type="int(10)" sign="int-unsigned"/>
+		<field name="appoint_flag" name2="是否参与预约" type="tint(3)" sign="tint-unsigned" info="0表示参与，1表示不参与"/>	
+		<field name="stock_flag" name2="是否参与库存" type="tint(3)" sign="tint-unsigned" info="0表示参与，1表示不参与"/>
+		<field name="type" name2="类型" type="tint(3)" sign="tint-unsigned" info="0表示通用，1表示私有"/>
+		<field name="add_time" name2="添加时间" type="int(10)" sign="int-unsigned"/>
+		<field name="last_edit_time" name2="最后一次修改时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="goods_stock" name2="商品库存信息" sign="normal">
+		<field name="shop_id" name2="分店id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_stock_number" name2="商品库存量" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_stock_danger" name2="商品库存警戒线" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="goods_stock_detail" name2="商品库存进出单" sign="normal">
+		<field name="detail_id" name2="明细单id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="type" name2="类型" type="tint(3)" sign="tint-unsigned" info="0进库，1出库"/>
+		<field name="money" name2="进出库" type="int(10)" sign="int-signed" info="正数为进，负数为出"/>
+		<field name="edit_time" name2="操作时间" type="int(10)" sign="int-unsigned"/>
+		<field name="operator" name2="操作员" type="varchar(20)" sign="str-utf8"/>
+		<field name="remark" name2="备注" type="varchar(1000)" sign="str-utf8"/>
+	</table>
+	<table name="package" name2="商品套餐设置" sign="normal">
+		<field name="package_id" name2="商品套餐id" type="int(10)" sign="int-unsigned-a"/><key name="package_id" sign="primary"/>
+		<field name="package_name" name2="商品套餐名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="package_name_short" name2="名称简拼" type="varchar(40)" sign="str-utf8"/>
+		<field name="package_code" name2="编码" type="varchar(40)" sign="str-utf8"/>
+		<field name="price" name2="套餐价格" type="int(10)" sign="int-unsigned"/>
+    <field name="price2" name2="会员套餐价格" type="int(10)" sign="int-unsigned"/>
+		<field name="day" name2="持续天数" type="int(10)" sign="int-unsigned"/>
+		<field name="end_time" name2="截止时间" type="int(10)" sign="int-unsigned"/>
+		<field name="appoint_flag" name2="是否参与预约" type="tint(3)" sign="tint-unsigned" info="0表示参与，1表示不参与"/>
+		<field name="add_time" name2="添加时间" type="int(10)" sign="int-unsigned"/>
+		<field name="last_edit_time" name2="最后一次修改时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="package_goods" name2="套餐对应商品设置表" sign="normal">
+		<field name="package_id" name2="商品套餐id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_number" name2="商品数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_member" name2="会员信息设置" sign="normal">
+		<field name="member_id" name2="会员id" type="int(10)" sign="int-unsigned-a"/><key name="member_id" sign="primary"/>
+		<field name="member_name" name2="会员姓名" type="varchar(40)" sign="str-utf8"/>
+		<field name="member_tel" name2="会员手机号" type="varchar(20)" sign="str-utf8"/>
+		<field name="sex" name2="性别" type="tint(3)" sign="tint-unsigned" info="0表示男，1表示女，2表示保密"/>
+		<field name="photo" name2="照片" type="varchar(100)" sign="str-utf8"/>
+		<field name="birth" name2="出生日期" type="int(10)" sign="int-unsigned"/>
+		<field name="password_flag" name2="是否启用密码" type="tint(3)" sign="tint-unsigned"  info="0表示启用，1表示不启用"/>
+		<field name="password" name2="密码" type="varchar(40)" sign="str-utf8"/>
+		<field name="wechat" name2="微信号" type="varchar(40)" sign="str-utf8"/>
+		<field name="ID_card" name2="身份证" type="varchar(40)" sign="str-utf8"/>
+		<field name="car_id" name2="车牌号" type="varchar(20)" sign="str-utf8"/>
+		<field name="waiter" name2="服务员" type="varchar(20)" sign="str-utf8"/>
+		<field name="linkman" name2="联系人" type="varchar(20)" sign="str-utf8"/>
+		<field name="state" name2="状态" type="tint(3)" sign="tint-unsigned" info="0表示正常，1表示停用"/>
+		<field name="start_time" name2="开卡时间" type="int(10)" sign="int-unsigned"/>
+		<field name="end_time" name2="到期时间" type="int(10)" sign="int-unsigned"/>
+		<field name="mark" name2="备注" type="varchar(255)" sign="str-utf8"/>
+	</table>
+	<table name="recharge" name2="充值明细" sign="normal">
+		<field name="id" name2="ID" type="int(10)" sign="int-unsigned-a"/>
+		<field name="member_id" name2="会员id" type="int(10)" sign="int-unsigned"/>
+		<field name="income" name2="充值金额" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="present" name2="赠送金额" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="rel_money" name2="实际进入账户金额" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="pay_type" name2="付款方式" type="tint(3)" sign="tint-unsigned" info="0现金，1会员卡，2支付宝，3微信，4pos"/>
+		<field name="waiter" name2="服务员" type="varchar(20)" sign="str-utf8"/>
+	</table>
+	<table name="my_card" name2="会员卡" sign="normal">
+		<field name="card_id" name2="会员卡id" type="int(10)" sign="int-unsigned-a"/><key name="card_id" sign="primary"/>
+		<field name="member_id" name2="会员id" type="varchar(40)" sign="str-utf8"/>
+		<field name="card_NO" name2="会员卡号" type="varchar(40)" sign="str-utf8"/>
+		<field name="ID" name2="ID号" type="varchar(40)" sign="str-utf8"/>
+		<field name="card_cate_id" name2="所属分类id" type="int(10)" sign="int-unsigned"/>
+		<field name="money" name2="卡余额" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="score" name2="卡积分" type="int(10)" sign="int-unsigned"/>
+		<field name="sum_money" name2="累计消费" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="sum_give" name2="累计赠送" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="sum_score" name2="累计积分" type="int(10)" sign="int-unsigned"/>
+		<field name="card_dicount" name2="会员卡折扣" type="decimal(5,1)" sign="decimal-unsigned"  info="空表示不启用，按照会员卡类型折扣打折"/>
+		<field name="shop_id" name2="开卡店铺id" type="int(10)" sign="int-unsigned"/>
+		<field name="package_id" name2="套餐id" type="varchar(40)" sign="str-utf8" info="只用于查看拥有套餐种类，多个用,号隔开"/>
+	</table>
+	<table name="card_ticket" name2="会员卡奖券" sign="normal">
+		<field name="card_id" name2="会员卡id" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_id" name2="奖券id" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_name" name2="奖券名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="ticket_price" name2="奖券价值" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="ticket_number" name2="奖券数量" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_rest" name2="奖券剩余数量" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_time" name2="奖券日期" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_card_package" name2="会员卡套餐表" sign="normal">
+		<field name="card_package_id" name2="会员卡套餐id" type="int(10)" sign="int-unsigned-a"/><key name="card_package_id" sign="primary"/>
+		<field name="card_id" name2="会员卡id" type="int(10)" sign="int-unsigned"/>
+		<field name="package_id" name2="套餐id" type="int(10)" sign="int-unsigned"/>
+		<field name="package_number" name2="套餐数量" type="int(10)" sign="int-unsigned"/>
+		<field name="package_rest" name2="套餐剩余数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_card_package_goods" name2="会员卡对应套餐中商品使用情况" sign="normal">
+		<field name="card_package_id" name2="会员卡套餐id" type="int(10)" sign="int-unsigned"/>
+		<field name="package_id" name2="套餐id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_rest" name2="商品剩余数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_employee_group" name2="员工分组设置表" sign="normal">
+		<field name="employee_group_id" name2="员工分组id" type="int(10)" sign="int-unsigned-a"/><key name="employee_group_id" sign="primary"/>
+		<field name="employee_group_name" name2="员工分组名称" type="varchar(40)" sign="str-utf8"/>
+	</table>
+	<table name="my_employee" name2="员工表" sign="normal">
+		<field name="employee_id" name2="员工id" type="int(10)" sign="int-unsigned-a"/><key name="employee_id" sign="primary"/>
+		<field name="employee_name" name2="员工姓名" type="varchar(40)" sign="str-utf8"/>
+		<field name="employee_group_id" name2="员工所属分组id" type="int(10)" sign="int-unsigned"/>
+		<field name="shop_id" name2="员工所属分店id" type="int(10)" sign="int-unsigned"/>
+		<field name="employee_number" name2="员工编号" type="varchar(40)" sign="str-utf8"/>
+		<field name="sex" name2="性别" type="tint(3)" sign="tint-unsigned" info="0表示男，1表示女"/>
+		<field name="birth" name2="出生日期" type="int(10)" sign="int-unsigned"/>
+		<field name="employee_tel" name2="手机号码" type="varchar(20)" sign="str-utf8"/>
+		<field name="ID_card" name2="身份证号码" type="varchar(40)" sign="str-utf8"/>
+		<field name="level" name2="学历" type="varchar(20)" sign="str-utf8"/>
+		<field name="photo" name2="照片" type="varchar(100)" sign="str-utf8"/>
+		<field name="photo2" name2="身份证照片" type="varchar(100)" sign="str-utf8"/>
+		<field name="starttime" name2="入职时间" type="int(10)" sign="int-unsigned"/>
+		<field name="address" name2="住址" type="varchar(255)" sign="str-utf8"/>
+		<field name="base_pay" name2="基本工资" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="work_id" name2="工作内容" type="varchar(40)" sign="str-utf8" info="多个id用,号隔开"/>
+		<field name="flag" name2="是否参与预约" type="tint(3)" sign="tint-unsigned" info="0表示参与，1表示不参与"/>
+		<field name="flag2" name2="是否参与导购提成" type="tint(3)" sign="tint-unsigned"  info="0表示参与，1表示不参与"/>
+		<field name="flag3" name2="是否离职" type="tint(3)" sign="tint-unsigned"  info="0表示参与，1表示不参与"/>
+	</table>
+	<table name="my_bonus" name2="基础提成设置" sign="normal">
+		<field name="employee_group_id" name2="所属分组id" type="int(10)" sign="int-unsigned"/>
+		<field name="bonus_banka" name2="办卡提成" type="decimal(5,0)" sign="decimal-unsigned"/>
+		<field name="bonus_chongzhi" name2="充值提成" type="decimal(3,2)" sign="decimal-unsigned" info="百分比"/>
+		<field name="bonus_chongzhi2" name2="充值提成2" type="decimal(5,0)" sign="decimal-unsigned" info="固定值"/>
+		<field name="bonus_daogou" name2="导购提成" type="decimal(3,2)" sign="decimal-unsigned" info="百分比"/>
+		<field name="bonus_daogou2" name2="导购提成2" type="decimal(5,0)" sign="decimal-unsigned" info="固定值"/>
+	</table>
+	<table name="my_bonus_goods" name2="商品提成设置" sign="normal">
+		<field name="employee_group_id" name2="所属分组id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_bonus" name2="商品提成" type="decimal(3,2)" sign="decimal-unsigned" info="百分比"/>
+		<field name="goods_bonus2" name2="商品提成2" type="decimal(5,0)" sign="decimal-unsigned" info="固定值"/>
+	</table>
+	<table name="my_bill" name2="账单" sign="normal">
+		<field name="bill_id" name2="账单id" type="int(10)" sign="int-unsigned-a"/><key name="bill_id" sign="primary"/>
+		<field name="payer_id" name2="付款人id" type="int(10)" sign="int-unsigned"/>
+		<field name="payer_name" name2="付款人" type="varchar(40)" sign="str-utf8"/>
+		<field name="flag" name2="是否免单" type="tint(3)" sign="tint-unsigned" info="0表示免单，1表示不免单"/>
+		<field name="state" name2="状态" type="tint(3)" sign="tint-unsigned" info="0表示已结账，1表示未结账"/>
+		<field name="sub_money" name2="手动优惠减免价" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="yuan_money" name2="原价" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="shi_money" name2="实际价钱" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="bill_time" name2="结算时间" type="int(10)" sign="int-unsigned"/>
+		<field name="pay_type" name2="付款方式" type="tint(3)" sign="tint-unsigned" info="0现金，1会员卡，2支付宝，3微信，4pos"/>
+		<field name="waiter" name2="服务员" type="varchar(20)" sign="str-utf8"/>
+	</table>
+	<table name="my_bill_detail" name2="账单明细" sign="normal">
+		<field name="bill_detail_id" name2="明细id" type="int(10)" sign="int-unsigned-a"/><key name="bill_detail_id" sign="primary"/>
+		<field name="bill_id" name2="账单id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_name" name2="商品名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="goods_price" name2="商品价格" type="decimal(5,2)" sign="decimal-unsigned"/>
+	  <field name="goods_number" name2="商品数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_employee_bonus" name2="员工提成明细表" sign="normal">
+		<field name="employee_bonus_id" name2="员工提成id" type="int(10)" sign="int-unsigned-a"/><key name="employee_bonus_id" sign="primary"/>
+		<field name="employee_id" name2="员工id" type="int(10)" sign="int-unsigned-a"/>	
+		<field name="bonus_banka" name2="办卡提成" type="decimal(5,0)" sign="decimal-unsigned"/>
+		<field name="bonus_chongzhi" name2="充值提成" type="decimal(3,2)" sign="decimal-unsigned"/>
+		<field name="bonus_daogou" name2="导购提成" type="decimal(3,2)" sign="decimal-unsigned"/>
+		<field name="bonus_goods" name2="商品" type="decimal(5,0)" sign="decimal-unsigned"/>
+		<field name="date" name2="提成时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="my_gift" name2="礼品设置" sign="normal">
+		<field name="gift_id" name2="礼品id" type="int(10)" sign="int-unsigned-a"/><key name="gift_id" sign="primary"/>
+		<field name="gift_name" name2="礼品名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="gift_score" name2="礼品积分" type="int(10)" sign="int-unsigned"/>
+		<field name="date" name2="设置时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="gift_record" name2=" 积分兑换记录" sign="normal">
+		<field name="gift_record_id" name2="ID" type="int(10)" sign="int-unsigned-a"/><key name="gift_record_id" sign="primary"/>
+		<field name="member_id" name2="会员id" type="int(10)" sign="int-unsigned"/>
+		<field name="card_id" name2="会员卡id" type="int(10)" sign="int-unsigned"/>
+		<field name="gift_score" name2="总分数" type="int(10)" sign="int-unsigned"/>
+		<field name="gift_date" name2="兑换时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="gift_record_detail" name2=" 积分兑换记录明细" sign="normal">
+		<field name="gift_record_id" name2="积分兑换记录id" type="int(10)" sign="int-unsigned"/>
+		<field name="gift_id" name2="礼品id" type="int(10)" sign="int-unsigned"/>
+		<field name="gift_number" name2="礼品数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="ticket" name2="奖券" sign="normal">
+		<field name="ticket_id" name2="奖券id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="ticket_name" name2="奖券名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="ticket_worth" name2="奖券面值" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_type" name2="奖券类型" type="tint(3)" sign="tint-unsigned" info="0表示代金券，1表示体验券"/>
+		<field name="exp_date" name2="有效期" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_min_money" name2="最低限额" type="int(10)" sign="int-unsigned"/>
+		<field name="remark" name2="备注" type="varchar(1000)" sign="str-utf8"/>
+		<field name="ticket_atime" name2="新增奖券时间" type="int(10)" sign="int-unsigned"/>	
+	</table>
+	<table name="ticket_shop" name2="奖券店铺对应表" sign="normal">
+		<field name="ticket_id" name2="奖券id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="shop_id" name2="分店id" type="int(10)" sign="int-unsigned-a"/>
+	</table>
+	<table name="ticket_detail" name2="奖券明细" sign="normal">
+		<field name="ticket_id" name2="奖券id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_number" name2="数量" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="ticket_record" name2="奖券发放记录" sign="normal">
+		<field name="ticket_record_id" name2="发放id" type="int(10)" sign="int-unsigned-a"/>
+    <field name="member_id" name2="发放用户id" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_id" name2="发放奖券id" type="int(10)" sign="int-unsigned"/>
+		<field name="ticket_atime" name2="新增奖券时间" type="int(10)" sign="int-unsigned"/>
+	</table>
+	<table name="active" name2="活动表" sign="normal">
+		<field name="active_id" name2="活动id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="active_name" name2="活动名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="state" name2="状态" type="tint(3)" sign="tint-unsigned"/>
+		<field name="customer_type" name2="顾客类型" type="tint(3)" sign="tint-unsigned" info="0表示不限，1表示会员，2表示非会员"/>
+		<field name="active_type" name2="活动类型" type="tint(3)" sign="tint-unsigned" info="0表示限时打折，1表示满减，2表示满送，3表示赠送优惠券"/>
+		<field name="rel_money_baseline" name2="实付满" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="rel_money_sub" name2="实付减" type="decimal(5,2)" sign="decimal-unsigned"/>
+		<field name="active_atime" name2="开始时间" type="int(10)" sign="int-unsigned"/>
+		<field name="active_etime" name2="截止时间" type="int(10)" sign="int-unsigned"/>
+		<field name="active_atime" name2="活动创建时间" type="int(10)" sign="int-unsigned"/>
+		<field name="active_remark" name2="活动备注" type="varchar(1000)" sign="str-utf8"/>
+	</table>
+	<table name="discount_active_goods" name2="限时折扣活动商品信息" sign="normal">
+		<field name="active_id" name2="限时活动id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_id" name2="商品id" type="int(10)" sign="int-unsigned"/>
+		<field name="goods_name" name2="商品名称" type="varchar(40)" sign="str-utf8"/>
+		<field name="goods_discount" name2="商品折扣" type="decimal(2,2)" sign="decimal-unsigned"/>
+		<field name="cheap_price" name2="优惠价" type="decimal(5,2)" sign="decimal-unsigned"/>
+	</table>
+	<table name="active_shop" name2="活动店铺对应表" sign="normal">
+		<field name="active_id" name2="活动id" type="int(10)" sign="int-unsigned-a"/>
+		<field name="shop_id" name2="分店id" type="int(10)" sign="int-unsigned-a"/>
+	</table>
+	<table name="record" name2="各种信息记录表" sign="normal">
+		<field name="record" name2="记录id" type="int(10)" sign="int-unsigned-a"/>
+	</table>
+</document>

@@ -236,7 +236,7 @@
 #ubody .umodal .umain1 .uright .ub li{overflow:hidden; zoom:1; padding:0px; border-bottom:1px solid #dddddd;}
 #ubody .umodal .umain1 .uright .ub .ub1{float:left; padding:5px 10px; width:59%; line-height:24px; color:#666666; text-align:left;}
 #ubody .umodal .umain1 .uright .ub .ub2{float:left; width:20%; padding-top:3px;}
-#ubody .umodal .umain1 .uright .ub .ub2 input{margin:0 2px 5px 2px; height:20px; line-height:28px; width:35px; text-align:center; display:inline-block;}										
+#ubody .umodal .umain1 .uright .ub .ub2 input{margin:0 2px 5px 2px; padding:0px; height:24px; line-height:24px; width:35px; text-align:center; display:inline-block;}										
 #ubody .umodal .umain1 .uright .ub .ub3{float:left; padding:5px 0px; width:20%; line-height:24px; }
 #ubody .umodal .umain1 .uright .ub .ub3 a{text-decoration:underline; color:#2D7EF6;}
 /***********************************************************************************************************/

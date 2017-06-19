@@ -13,34 +13,33 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">搜索：</label>
-        <input type="text" class="am-form-field uinput uinput140" placeholder="卡号/手机号/姓名" name="">
+        <label class="am-form-label">搜索：</label>
+        <input class="am-form-field uinput uinput-220" type="text" name="" placeholder="会员卡号/姓名/手机号">
       </div>
       <div class="am-form-group">
-        日期：
-        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="">
-          <span class="am-input-group-btn am-datepicker-add-on">
-            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
-            </button>
-          </span>
-        </div>  
-      </div>
-      <div class="am-form-group">    
-        至： 
-        <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="">
+        <label class="am-form-label">时间：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
-        </div>   
+        </div>
       </div>
       <div class="am-form-group">
-        服务生：
-        <select class="uselect" data-am-selected name="">
+        <label class="am-form-label">至：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">服务生：</label>
+        <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">请选择</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="2">阿大</option>
+          <option value="3">阿二</option>
         </select>
       </div>
       <div class="am-form-group">
@@ -50,7 +49,7 @@
       </div>
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#uappoint_finishm1'}">
-      <i class="iconfont icon-clock"></i>
+      <i class="iconfont icon-xinzeng"></i>
       新增预约
     </button>
   </div>
@@ -98,31 +97,51 @@
   </div>  
   <div class="gspace20"></div>
 </div>
-<!-- 添加预约弹出框 -->
+
+<!-- 新增预约弹出框 -->
 <div id="uappoint_finishm1" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">新增预约
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">联系电话：</label>
+          <label class="umodal-label am-form-label" for="">搜索：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
           <div class="umodal-search">
-            <button type="submit" class="am-btn ubtn-search">
+            <button type="button" class="am-btn ubtn-search2 ubtn-green">
               <i class="iconfont icon-search"></i>查询
             </button>
           </div>
+        </div>
+        <div class="am-form-group">        
+          <label class="umodal-label am-form-label" for="">卡号：</label>
+          <div class="umodal-text">1001</div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">预约时间：</label>
+          <label class="umodal-label am-form-label" for="">手机：</label>
+          <div class="umodal-normal">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">人数：</label>
+          <div class="umodal-normal">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+          <div class="umodal-text">&nbsp;人</div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">到店时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
@@ -131,61 +150,77 @@
               </span>
             </div>
           </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">人数：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">预约内容：</label>
-          <div class="umodal-max">
-            <input id="" class="am-form-field uinput uinput-max" type="password" placeholder="">
+          <label class="umodal-label am-form-label" for="">预约项目：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 推拿
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 按摩
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 洗头
+            </label>
           </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">短信通知：</label>
-          <div class="umodal-max">
-            <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
-          </div>
-        </div>
+        </div>          
       </form>
     </div>
     <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
+      <a class="am-btn-group" href="appoint_finish.php">
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
-      </div>
+      </a>
     </div>
   </div>
 </div>
 
 <!-- 预约详细信息弹出框 -->
 <div id="uappoint_finishm2" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">修改预约
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">联系电话：</label>
+          <label class="umodal-label am-form-label" for="">搜索：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
           <div class="umodal-search">
-            <button type="submit" class="am-btn ubtn-search">
+            <button type="button" class="am-btn ubtn-search2 ubtn-green">
               <i class="iconfont icon-search"></i>查询
             </button>
           </div>
+        </div>
+        <div class="am-form-group">        
+          <label class="umodal-label am-form-label" for="">卡号：</label>
+          <div class="umodal-text">1001</div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">预约时间：</label>
+          <label class="umodal-label am-form-label" for="">手机：</label>
+          <div class="umodal-normal">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">人数：</label>
+          <div class="umodal-normal">
+            <input id="" class="uinput uinput-max" type="text" placeholder="">
+          </div>
+          <div class="umodal-text">&nbsp;人</div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">到店时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field">
@@ -194,28 +229,25 @@
               </span>
             </div>
           </div>
-          <div class="umodal-search">&nbsp;</div>
-          <label class="umodal-label am-form-label" for="">人数：</label>
-          <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
-          </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">预约内容：</label>
-          <div class="umodal-max">
-            <input id="" class="am-form-field uinput uinput-max" type="password" placeholder="">
+          <label class="umodal-label am-form-label" for="">预约项目：</label>
+          <div class="umodal-max am-text-left">
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 推拿
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 按摩
+            </label>
+            <label class="am-checkbox-inline">
+              <input type="checkbox"  value="" data-am-ucheck> 洗头
+            </label>
           </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">短信通知：</label>
-          <div class="umodal-max">
-            <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
-          </div>
-        </div>
+        </div>          
       </form>
     </div>
     <div class="am-modal-footer ufoot">
-      <div style="float:left; margin:20px 0 0 30px; display:inline;">
+      <div class="am-btn-group ubtn-left">
         <button type="button" class="am-btn ubtn-sure ubtn-blue"><i class="iconfont icon-chongzhi"></i>
           到店
         </button>

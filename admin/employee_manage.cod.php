@@ -74,7 +74,7 @@
       <td>2008-03-16</td>
       <td>2000</td>
       <td>参与</td>
-      <td>2000</td>
+      <td>参与</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#uemployee_managem2'}">
           <i class="iconfont icon-bianji"></i>
@@ -110,9 +110,9 @@
           <label class="umodal-label am-form-label" for="">分店：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
-              <option value="a">第一组</option>
-              <option value="b">大学</option>
-              <option value="o">Orange</option>
+              <option value="a">大学路分店</option>
+              <option value="b">解放路分店</option>
+              <option value="o">东风路分店</option>
               <option value="m">Mango</option>
               <option value="d">禁用</option>
             </select>
@@ -121,11 +121,8 @@
           <label class="umodal-label am-form-label" for="">员工分组：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
-              <option value="a">第一组</option>
-              <option value="b">大学</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
+              <option value="a">销售员</option>
+              <option value="b">理疗师</option>
             </select>
           </div>
         </div>
@@ -173,7 +170,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">学历：</label>
+          <label class="umodal-label am-form-label" for="">最高学历：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
               <option value="a">高中</option>
@@ -279,8 +276,8 @@
           <label class="umodal-label am-form-label" for="">分店：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
-              <option value="a">第一组</option>
-              <option value="b">大学</option>
+              <option value="a">大学路分店</option>
+              <option value="b">解放路分店</option>
               <option value="o">Orange</option>
               <option value="m">Mango</option>
               <option value="d">禁用</option>
@@ -290,8 +287,8 @@
           <label class="umodal-label am-form-label" for="">员工分组：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
-              <option value="a">第一组</option>
-              <option value="b">大学</option>
+              <option value="a">销售员</option>
+              <option value="b">理疗师</option>
               <option value="o">Orange</option>
               <option value="m">Mango</option>
               <option value="d">禁用</option>
@@ -314,7 +311,7 @@
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="male" data-am-ucheck> 男
-            </label>
+            </label>&nbsp;&nbsp;
             <label class="am-radio-inline">
               <input type="radio" name="radio1" value="female" data-am-ucheck> 女
             </label>
@@ -342,7 +339,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">学历：</label>
+          <label class="umodal-label am-form-label" for="">最高学历：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected>
               <option value="a">高中</option>
@@ -441,7 +438,7 @@
 <div id="uoffcanvas" class="am-offcanvas" >
   <div class="am-offcanvas-bar am-offcanvas-bar-flip goffcanvas" style="width: 690px;">
     <div class="am-offcanvas-content" >
-      <div class="am-modal-hd"><span class="title">员工详细信息</span>
+      <div class="am-modal-hd"><span class="utitle">员工详细信息</span>
         <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
       </div>
       <div class="gspace15"></div>
@@ -450,13 +447,13 @@
         <div class="am-u-lg-6">员工分组：<span>店员</span></div>
         <div class="am-u-lg-6">员工姓名：<span>张小明</span></div>
         <div class="am-u-lg-6">员工编号：<span>HY1001</span></div>
-        <div class="am-u-lg-6">性别：<span>男</div>
+        <div class="am-u-lg-6">　　性别：<span>男</div>
         <div class="am-u-lg-6">出生日期：<span>1990-03-11</span></div>
         <div class="am-u-lg-6">手机号码：<span>13131124545</span></div>
         <div class="am-u-lg-6">身份证号：<span>410205188203930022</span></div>
-        <div class="am-u-lg-6">学历：<span>高中</span></div>
+        <div class="am-u-lg-6">最高学历：<span>高中</span></div>
         <div class="am-u-lg-6">入职时间：<span>2008-02-01</span></div>
-        <div class="am-u-lg-6">住址：<span>郑州市人民路与XXX路交叉口</span></div>
+        <div class="am-u-lg-6">居信住址：<span>郑州市人民路与XXX路交叉口</span></div>
         <div class="am-u-lg-6">基本工资：<span>2000</span></div>
         <div class="am-u-lg-6">参与预约：<span>参与</span></div>
         <div class="am-u-lg-6">导购提成：<span>参与</span></div>

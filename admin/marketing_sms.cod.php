@@ -4,7 +4,7 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="umarketing_coupon" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="#">赠送优惠券</a></li>
+    <li class="am-active"><a href="#">短信营销</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -71,115 +71,26 @@
     <li><a href="#">&raquo;</a></li>
   </ul> 
 </div>
-<!-- 批量赠送 -->
+<!-- 批量发短信 -->
 <div class="am-modal" tabindex="-1" id="umarketing_couponm1">
   <div class="am-modal-dialog umodal umodal-simple">
-    <div class="am-modal-hd uhead">批量赠送优惠券
+    <div class="am-modal-hd uhead">批量发送短信
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">活动名称：</label>
-          <div class="umodal-normal">
-            <input class="am-form-field uinput uinput-max" type="" name="">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">赠送方式：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">开卡赠送</option>
-              <option value="b">活动赠送</option>
-              <option value="o">营销赠送</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">赠送类型：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="male" data-am-ucheck checked> 代金券
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" value="female" data-am-ucheck> 体验券
-            </label> 
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">优惠券：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">20元代金券</option>
-              <option value="b">名称2</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">开始时间：</label>
-          <div class="umodal-normal am-text-left">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input id="date1" type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">可用时限：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 到期时间
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group cispwd1">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
-          <div class="umodal-normal">
-            <input id="date2" type="text" class="am-form-field uinput uinput-max">
-          </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
-        </div>
-        <div class="am-form-group cispwd2">
-          <label class="umodal-label am-form-label" for="">到期时间：</label>
-          <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input id="date1" type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label">短信通知：</label>
+          <label class="umodal-label am-form-label">注意事项：</label>
           <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> &nbsp;
+              营销短信发送时间为8:00-18:00，其它时间发送，将影响您的发送结果~
             </label>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label">&nbsp;</label>
+          <label class="umodal-label am-form-label">短信内容：</label>
           <div class="umodal-max">
             <textarea class="am-form-field utextarea utextarea-max" row="3"></textarea>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label">微信推送：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> &nbsp;
-            </label>
           </div>
         </div>
       </form>
@@ -187,7 +98,7 @@
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green copenm3"><i class="iconfont icon-yuanxingxuanzhong"></i>
-          确认发放
+          确认发送短信
         </button>
       </div>
     </div>
@@ -295,37 +206,5 @@
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script>
-$(function() {
-  $('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
-  });
-  $('#date2').on('focusout',function(){
-    if ($('#date2').val()!='') {$('#date1').val(null)}
-  })
-  $('#date4').on('focusout',function(){
-    if ($('#date4').val()!='') {$('#date3').val(null)}
-  })
-});
-    // 时限设置隐藏
-    $('.cispwd2').hide();
-    $('.cchecked').on('click', function(e) {
-            if($(this).val()==1){
-              $('.cispwd1').fadeOut(0);
-              $('.cispwd2').fadeIn(0);
-            }else{
-              $('.cispwd2').fadeOut(0);
-              $('.cispwd1').fadeIn(0);
-            }
-    });
-</script>
 </body>
 </html>

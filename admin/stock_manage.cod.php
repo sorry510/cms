@@ -37,7 +37,7 @@
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#ustock_managem1'}">
       <i class="iconfont icon-xinzeng"></i>
-      新增单据
+      新增入库/出库
     </button>
   </div>
   <div class="gspace15"></div>
@@ -62,7 +62,7 @@
         <td>
           <button class="am-btn ubtn-table ubtn-green">
             <i class="iconfont icon-bianji"></i>
-            编辑
+            修改
           </button>&nbsp;&nbsp;
           <button class="am-btn ubtn-table ubtn-gray cdel">
             <i class="iconfont icon-shanchu"></i>
@@ -79,7 +79,7 @@
         <td>
           <button class="am-btn ubtn-table ubtn-green">
             <i class="iconfont icon-bianji"></i>
-            编辑
+            修改
           </button>&nbsp;&nbsp;
           <button class="am-btn ubtn-table ubtn-gray cdel">
             <i class="iconfont icon-shanchu"></i>
@@ -101,8 +101,8 @@
 
 <!-- 新增单据弹出框 -->
 <div id="ustock_managem1" class="am-modal" tabindex="-1">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增单据
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">新增入库/出库
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
@@ -117,16 +117,16 @@
               </span>
             </div>
           </div>
-          <div class="umodal-search">&nbsp;</div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">类型：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">店铺通用型</option>
-              <option value="b">Banana</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
-            </select>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" value="0" data-am-ucheck="" class="am-ucheck-radio"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span> 入库
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" value="1" data-am-ucheck="" class="am-ucheck-radio"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span> 出库
+            </label>  
           </div>
         </div>
         <div class="am-form-group">
@@ -134,12 +134,15 @@
           <div class="umodal-normal">
             <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
           </div>
-          <div class="umodal-search">&nbsp;</div>
+          <div class="umodal-text">&nbsp;元</div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">经办人：</label>
           <div class="umodal-normal">
             <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
+
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
           <div class="umodal-max">
@@ -159,145 +162,139 @@
   </div>
 </div>
 
-<!-- <style>
-#ubody .uselect + .am-selected .am-selected-btn.am-btn-default {height:30px;}
-#ubody .uinput {height:30px; line-height:30px;}
-#ubody .ubtn-search2 {height:30px; line-height:30px;}
-</style> -->
 <div id="ustock_managem2" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增单据
+    <div class="am-modal-hd uhead">新增入库/出库
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
-        <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
-          <li><a href="#tab2">扫码添加商品</a></li>
-        </ul>
-        <div class="am-tabs-bd">
-          <div class="am-tab-panel am-active" id="tab1">
-            <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
-            <div class="am-form-group ub">
-              <form action="">
-                <div class="umodal-normal ub1">
-                  <select class="uselect uselect-max" data-am-selected>
-                    <option value="a">店铺通用型</option>
-                    <option value="b">Banana</option>
-                    <option value="o">Orange</option>
-                    <option value="d">禁用</option>
-                  </select>
-                </div>
-                <div class="umodal-normal ub1">
-                  <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
-                </div>
-                <div class="umodal-search ub2">
-                  <button type="button" class="am-btn ubtn-search2 ubtn-green">
-                    <i class="iconfont icon-search"></i>
-                    查询
-                  </button>
-                </div>
-              </form>
+     <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+      <ul class="am-tabs-nav am-nav am-nav-tabs">
+        <li class="am-active"><a href="#tab1">可选商品</a></li>
+        <li><a href="#tab2">扫码添加商品</a></li>
+      </ul>
+      <div class="am-tabs-bd">
+        <div class="am-tab-panel am-active" id="tab1">
+          <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
+          <div class="am-form-group ub">
+            <div class="umodal-normal ub1">
+              <select class="uselect uselect-max" data-am-selected>
+                <option value="a">店铺通用型</option>
+                <option value="b">Banana</option>
+                <option value="o">Orange</option>
+                <option value="d">禁用</option>
+              </select>
             </div>
-            <ul class="uc">
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-            </ul>
-          </div>
-          <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
-            <div class="gspace50"></div>
-            <div class="gspace50"></div>
-            <div>
-              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
-              </div>           
-              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
-                添加
+            <div class="umodal-normal ub1">
+              <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+            </div>
+            <div class="umodal-search ub2">
+              <button type="button" class="am-btn ubtn-search2 ubtn-green">
+                <i class="iconfont icon-search"></i>
+                查询
               </button>
             </div>
           </div>
+          <ul class="uc">
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>              
+            <li class="uc1">茶水/毛尖</li>
+            <li class="uc2">
+              <div class="uc2a">普洱（38元）</div>
+              <div class="uc2b cadd"><a href="#">添加</a></div>
+            </li>
+          </ul>
+        </div>
+        <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
+          <div class="gspace50"></div>
+          <div class="gspace50"></div>
+          <div>
+            <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+              <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+            </div>           
+            <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+              添加
+            </button>
+          </div>
         </div>
       </div>
-      <div class="uright">
-        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
-        <ul class="ub-head">
-          <li class="ub-head1">名称</li>
-          <li class="ub-head2">数量</li>
-          <li class="ub-head2">操作</li>
-        </ul>
-        <ul class="ub">
-          <li>
-            <div class="ub1">卡布奇诺卡布奇诺卡布奇诺卡布奇诺</div>
-            <div class="ub2">
-              <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
-            </div>
-            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
-          </li>
-        </ul>
-      </div>
     </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group ubtn-left">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen2"><i class="iconfont icon-xiangyou2"></i>
-          上一步
-        </button>
-      </div>
-      <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
-          完成
-        </button>
-      </div>
+    <div class="uright">
+      <div class="ua">已选择商品</div>
+      <ul class="ub-head">
+        <li class="ub-head1">名称</li>
+        <li class="ub-head2">数量</li>
+        <li class="ub-head2">操作</li>
+      </ul>
+      <ul class="ub">
+        <li>
+          <div class="ub1">普洱（38元）</div>
+          <div class="ub2" style="padding-top:3px;">
+            <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
+            <input type="text" name="" class="uinput" value="0">
+            <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a>
+          </div>
+          <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
+        </li>
+      </ul>
+    </div>
+  </div>         
+  <div class="am-modal-footer ufoot">
+    <div class="am-btn-group ubtn-left">
+      <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen2"><i class="iconfont icon-xiangyou2"></i>
+        上一步
+      </button>
+    </div>
+    <div class="am-btn-group">
+      <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        完成
+      </button>
     </div>
   </div>
 </div>
@@ -344,13 +341,23 @@ $('.cmodelopen2').on('click', function(e) {
 });
 
 // 添加
-$(function() {
-  $('.cadd').on('click', function(){
-    var product = $(this).prev().text();
-    var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><input id="" class="am-form-field uinput uinput-max" type="text" placeholder=""></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
-    $(".uright .ub").append(addhtml);
-  });
+$('.cadd').on('click', function(){
+  var product = $(this).prev().text();
+  var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" value="0">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
+  $(".uright .ub").append(addhtml);
 });
+
+// + -
+$(document).on("click", ".cbtndec", function() {
+  var _self= $(this).siblings('input');
+  if(parseInt(_self.val())>=1)
+    _self.val(parseInt(_self.val())-1);
+});
+$(document).on("click", ".cbtnplus", function() {
+  var _self= $(this).siblings('input');
+  _self.val(parseInt(_self.val())+1);
+});
+
 
 //删除
 $(document).on("click",".cdel2",function(){

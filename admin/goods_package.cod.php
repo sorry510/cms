@@ -22,7 +22,7 @@
       </div>
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_packagem1'}">
-      <i class="iconfont icon-question"></i>
+      <i class="iconfont icon-xinzeng"></i>
       新增套餐
     </button>
   </div>
@@ -30,20 +30,26 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
+        <td>添加时间</td>
         <td>套餐名称</td>
         <td>编码</td>
         <td>价格</td>
         <td>会员价格</td>
-        <td>有效期限</td>
+        <td>有效期/到期时间</td>
+        <td>套餐内容</td>
+        <td>参与预约</td>
         <td width="12%">操作</td>
       </tr>
     </thead>
     <tr>
+      <td>2017-12-12&nbsp;&nbsp;21:36</td>
       <td>30次套餐</td>
       <td>1002158</td>
       <td class="gtext-orange">380元</td>
       <td class="gtext-orange">280元</td>
       <td class="gtext-orange">2017-12-12</td>
+      <td>剪头十次，洗头十次</td>
+      <td class="gtext-green">√</td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#ugoods_packagem2'}">
           <i class="iconfont icon-bianji"></i>
@@ -54,11 +60,6 @@
           <i class="iconfont icon-shanchu"></i>
           删除
         </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="6" class="utable-text">
-        剪头(10次)，洗头(10次) 
       </td>
     </tr>
   </table>
@@ -74,213 +75,307 @@
 
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="ugoods_packagem1">
-  <div class="am-modal-dialog umodal" style="width: 800px;">
+  <div class="am-modal-dialog umodal umodal-simple">
     <div class="am-modal-hd uhead">新增套餐
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">名称</label>
-            <div class="am-u-lg-6">
-             <input type="text" id="cgoodsname1" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
-            </div>
-            <div class="am-u-lg-3">
-              <input type="text" id="cupen1" class="am-form-field uinput uinput-max">
-            </div>
+          <label class="umodal-label am-form-label" for="">套餐名称：</label>
+          <div class="umodal-normal">
+            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
           </div>
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">编码</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
+          <div class="umodal-text" style="text-indent:2em;">简拼：</div>
+          <div class="umodal-valid">
+            <input type="text" id="cupen" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">价格</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
-          </div>
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">会员价</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
+          <label class="umodal-label am-form-label" for="">编码：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">有效期限</label>
-            <div class="am-u-lg-6">
-              <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-            </div>
-            <div class="am-u-lg-3" style="padding-top: 4px;">
-              <label class="am-checkbox-inline">
-                <input type="checkbox"  value="" data-am-ucheck> 不限
-              </label>
-            </div>
-          </div>
-          <div class="am-u-lg-6">
+          <label class="umodal-label am-form-label" for="">价格：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
-                <div class="ucontent">
-          <div class="ua">
-            <div class="ua1 am-tabs" data-am-tabs>
-              <ul class="am-tabs-nav am-nav am-nav-tabs ua1a">
-                <li class="am-active"><a href="#tab1">服务</a></li>
-                <li><a href="#tab2">商家</a></li>
-              </ul>
-              <div class="am-tabs-bd">
-                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-                  <form class="am-form-inline" role="form">
-                    <div class="am-form-group usearch">
-                      <div class="am-u-lg-4">
-                        <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="关键字">
-                      </div>
-                      <div class="am-u-lg-3">
-                        <button type="button" class="am-btn ubtn-green ubtn-search2">
-                          <i class="iconfont icon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <div class="gspace10"></div>
-                  <div class="am-form-group am-tabs  utabsnest">
-                    <ul class="am-u-lg-4 am-tabs-nav am-nav am-nav-tabs">
-                      <li class="am-active"><a href="#tab3">全部分类</a></li>
-                      <li><a href="#tab4">分类1</a></li>
-                      <li><a href="#tab5">分类2</a></li>
-                    </ul>
-                    <div class="am-tabs-bd">
-                      <div class="am-tab-panel am-fade am-in am-active" id="tab3">
-                      <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact">
-                          <thead>
-                            <tr class="utr1">
-                              <td>服务名称</td>
-                              <td>价格</td>
-                              <td>添加</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>服务一</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                            <td>服务二</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                          </tbody>
-                        </table> 
-                      </div>
-                      <div class="am-tab-panel am-fade" id="tab4">
-                        <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact">
-                          <thead>
-                            <tr class="utr1">
-                              <td>产品名称</td>
-                              <td>价格</td>
-                              <td>添加</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>服务三</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                            <tr>
-                              <td>服务四</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                            <tr>
-                              <td>服务五</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                            <tr>
-                              <td>服务六</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                          </tbody>
-                        </table> 
-                      </div>
-                      <div class="am-tab-panel am-fade" id="tab5">
-                        <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact">
-                          <thead>
-                            <tr class="utr1">
-                              <td>服务名称</td>
-                              <td>价格</td>
-                              <td>添加</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>服务七</td>
-                              <td>￥789</td>
-                              <td class="add"><a href="javascript:;">添加</a></td>
-                            </tr>
-                          </tbody>
-                        </table> 
-                      </div> 
-                    </div>
-                  </div>
-                </div>
-
-                <div class="am-tab-panel am-fade" id="tab2">
-                  暂时没有该项
-                </div>
-              </div>
-            </div>
-            <div class="ua2">
-              <i class="iconfont icon-shuangxiangjiantou"></i>
-            </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">会员价：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
           </div>
-
-          <div class="ub">
-            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" id="tb">
-              <thead>
-                <tr class="utr1">
-                  <td>服务名称</td>
-                  <td>次数</td>
-                  <td>移除</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>基础套餐</td>
-                  <td>
-                    <input type="text" class="am-form-field uinput uinput-60" placeholder="">  
-                    <label class="am-checkbox-inline ub1">
-                      <input type="checkbox"  value="" data-am-ucheck>不限
-                    </label>
-                  </td>
-                  <td><a href="javascript:;" class="am-text-primary mdel">移除</a></td>
-                </tr>
-              </tbody>
-            </table> 
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">时限设置：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期/天
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 有效期/月
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="2" data-am-ucheck> 不限
+            </label>
           </div>
-        </div> 
+        </div>
+        <div class="am-form-group cispwd1">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
+        </div>
+        <div class="am-form-group cispwd2">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;月</label>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="1" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
       </form>
     </div>         
     <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen">
+          <i class="iconfont icon-xiangyou2"></i>
+          下一步
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="am-modal" tabindex="-1" id="ugoods_packagem2">
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">新增套餐
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">套餐名称：</label>
+          <div class="umodal-normal">
+            <input type="text" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+          </div>
+          <div class="umodal-text" style="text-indent:2em;">简拼：</div>
+          <div class="umodal-valid">
+            <input type="text" id="cupen" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">编码：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">价格：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">会员价：</label>
+          <div class="umodal-normal">
+            <input type="text" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">时限设置：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期/天
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 有效期/月
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio1" class="cchecked" value="2" data-am-ucheck> 不限
+            </label>
+          </div>
+        </div>
+        <div class="am-form-group cispwd1">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
+        </div>
+        <div class="am-form-group cispwd2">
+          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <div class="umodal-normal">
+            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+          </div>
+          <label class="umodal-label am-form-label am-text-left">&nbsp;月</label>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="0" data-am-ucheck> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="radio4" value="1" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>         
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen">
+          <i class="iconfont icon-xiangyou2"></i>
+          下一步
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ugoods_packagem3" class="am-modal" tabindex="-1" style="min-height:291px;">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">新增套餐
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+        <ul class="am-tabs-nav am-nav am-nav-tabs">
+          <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
+        </ul>
+        <div class="am-tabs-bd">
+          <div class="am-tab-panel am-active" id="tab1">
+            <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
+            <div class="am-form-group ub">
+              <div class="umodal-normal ub1">
+                <select class="uselect uselect-max" data-am-selected>
+                  <option value="a">店铺通用型</option>
+                  <option value="b">Banana</option>
+                  <option value="o">Orange</option>
+                  <option value="d">禁用</option>
+                </select>
+              </div>
+              <div class="umodal-normal ub1">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+              </div>
+              <div class="umodal-search ub2">
+                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+                  <i class="iconfont icon-search"></i>
+                  查询
+                </button>
+              </div>
+            </div>
+            <ul class="uc">
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+            </ul>
+          </div>
+          <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
+            <div class="gspace50"></div>
+            <div class="gspace50"></div>
+            <div>
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+              </div>           
+              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+                添加
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uright">
+        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
+        <ul class="ub-head">
+          <li class="ub-head1">名称</li>
+          <li class="ub-head2">数量</li>
+          <li class="ub-head2">操作</li>
+        </ul>
+        <ul class="ub">
+          <li>
+            <div class="ub1">服务一（38元）</div>
+            <div class="ub2" style="padding-top:3px;">
+              <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
+              <input type="text" name="" class="uinput" value="0">
+              <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a>
+            </div>
+            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
+          </li>
+        </ul>
+      </div>
+    </div>         
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group ubtn-left">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen2"><i class="iconfont icon-xiangyou2"></i>
+          上一步
+        </button>
+      </div>
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
@@ -289,254 +384,133 @@
     </div>
   </div>
 </div>
-
-<div class="am-modal" tabindex="-1" id="ugoods_packagem2">
+<div id="ugoods_packagem4" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">新增套餐
+    <div class="am-modal-hd uhead">修改套餐
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">名称</label>
-            <div class="am-u-lg-6">
-             <input type="text" id="cgoodsname1" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
-            </div>
-            <div class="am-u-lg-3">
-              <input type="text" id="cupen1" class="am-form-field uinput uinput-max">
-            </div>
-          </div>
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">编码</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">价格</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
-          </div>
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">会员价</label>
-            <div class="am-u-lg-6">
-             <input type="text" class="am-form-field uinput uinput-max">
-            </div>
-            <div class="am-u-lg-3">
-            </div>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <div class="am-u-lg-6">
-            <label class="am-u-lg-3 am-form-label" for="">有效期限</label>
-            <div class="am-u-lg-6">
-              <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
-              <span class="am-input-group-btn am-datepicker-add-on">
-                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
-              </span>
-            </div>
-            </div>
-            <div class="am-u-lg-3" style="padding-top: 4px;">
-              <label class="am-checkbox-inline">
-                <input type="checkbox"  value="" data-am-ucheck> 不限
-              </label>
-            </div>
-          </div>
-          <div class="am-u-lg-6">
-          </div>
-        </div>
-        <div class="ucontent">
-          <div class="ua">
-            <div class="ua1">
-              <div class="am-tabs" data-am-tabs>
-                <ul class="am-tabs-nav am-nav am-nav-tabs">
-                  <li class="am-active"><a href="#tab1">服务</a></li>
-                  <li><a href="#tab2">商品</a></li>
-                </ul>
-                <div class="am-tabs-bd" style="border:none;">
-                  <div class="am-tab-panel am-fade am-in am-active" id="tab1" style="padding: 0; padding-top: 10px;">
-                    <form class="am-form-inline" role="form">
-                      <div class="am-form-group" style="margin-bottom: 10px;">
-                        <div class="am-u-lg-5">
-                          <input id="" class="am-form-field uinput uinput-max" type="text">
-                        </div>
-                        <div class="am-u-lg-3">
-                          <button type="button" class="am-btn ubtn-green ubtn-search2">
-                            <i class="iconfont icon-search"></i>
-                            查询
-                          </button>
-                        </div>
-                      </div>
-                      <div class="am-tabs am-form-group" data-am-tabs style="border:1px solid #ddd;width: 100%;margin: 0;border:none;border-top:1px solid #ddd; ">
-                        <ul class="am-u-lg-2 am-nav am-tabs-nav" style="padding-right: 0px;">
-                          <li class="am-active"><a href="#tab3">分类1</a></li>
-                          <li><a href="#tab4">分类2</a></li>
-                        </ul>
-                        <div class="am-u-lg-10 am-tabs-bd" style="border-bottom: none;border-right: none;padding-right: 0;">
-                          <div class="am-tab-panel am-fade am-in am-active" id="tab3" style="padding: 0;">
-                            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" style="width: 100%;margin-bottom: 0;border:0;">
-                              <thead>
-                                <tr class="utr1">
-                                  <td>产品名称</td>
-                                  <td>价格</td>
-                                  <td>添加</td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>基础套餐一</td>
-                                  <td>￥789</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                                <tr>
-                                  <td>基础套餐二</td>
-                                  <td>￥999</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                              </tbody>
-                            </table> 
-                          </div>
-                          <div class="am-tab-panel am-fade" id="tab4" style="padding: 0;">
-                            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" style="width: 100%;margin-bottom: 0;border:0;">
-                              <thead>
-                                <tr class="utr1">
-                                  <td>产品名称</td>
-                                  <td>价格</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>基础套餐一</td>
-                                  <td>￥789</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                                <tr>
-                                  <td>基础套餐二</td>
-                                  <td>￥999</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                              </tbody>
-                            </table> 
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="am-tab-panel am-fade" id="tab2" style="padding: 0; padding-top: 10px;">
-                    <form class="am-form-inline" role="form">
-                      <div class="am-form-group" style="margin-bottom: 10px;">
-                        <div class="am-u-lg-5">
-                          <input id="" class="am-form-field uinput uinput-max" type="text">
-                        </div>
-                        <div class="am-u-lg-3">
-                          <button type="button" class="am-btn ubtn-green ubtn-search2">
-                            <i class="iconfont icon-search"></i>
-                            查询
-                          </button>
-                        </div>
-                      </div>
-                      <div class="am-tabs am-form-group" data-am-tabs style="border:1px solid #ddd;width: 100%;margin: 0;border:none;border-top:1px solid #ddd; ">
-                        <ul class="am-u-lg-2 am-nav am-tabs-nav" style="padding-right: 0px;">
-                          <li class="am-active"><a href="#tab5">分类1</a></li>
-                          <li><a href="#tab6">分类2</a></li>
-                        </ul>
-                        <div class="am-u-lg-10 am-tabs-bd" style="border-bottom: none;border-right: none;padding-right: 0;">
-                          <div class="am-tab-panel am-fade am-in am-active" id="tab5" style="padding: 0;">
-                            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" style="width: 100%;margin-bottom: 0;border:0;">
-                              <thead>
-                                <tr class="utr1">
-                                  <td>产品名称</td>
-                                  <td>价格</td>
-                                  <td>添加</td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>基础套餐一</td>
-                                  <td>￥789</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                                <tr>
-                                  <td>基础套餐二</td>
-                                  <td>￥999</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                              </tbody>
-                            </table> 
-                          </div>
-                          <div class="am-tab-panel am-fade" id="tab6" style="padding: 0;">
-                            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" style="width: 100%;margin-bottom: 0;border:0;">
-                              <thead>
-                                <tr class="utr1">
-                                  <td>产品名称</td>
-                                  <td>价格</td>
-                                  <td>添加</td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>基础套餐一</td>
-                                  <td>￥789</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                                <tr>
-                                  <td>基础套餐二</td>
-                                  <td>￥999</td>
-                                  <td class="add"><a href="javascript:;">添加</a></td>
-                                </tr>
-                              </tbody>
-                            </table> 
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+        <ul class="am-tabs-nav am-nav am-nav-tabs">
+          <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
+        </ul>
+        <div class="am-tabs-bd">
+          <div class="am-tab-panel am-active" id="tab1">
+            <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
+            <div class="am-form-group ub">
+              <div class="umodal-normal ub1">
+                <select class="uselect uselect-max" data-am-selected>
+                  <option value="a">店铺通用型</option>
+                  <option value="b">Banana</option>
+                  <option value="o">Orange</option>
+                  <option value="d">禁用</option>
+                </select>
+              </div>
+              <div class="umodal-normal ub1">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+              </div>
+              <div class="umodal-search ub2">
+                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+                  <i class="iconfont icon-search"></i>
+                  查询
+                </button>
               </div>
             </div>
-            <div class="ua2">
-              <i class="iconfont icon-shuangxiangjiantou"></i>
+            <ul class="uc">
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>              
+              <li class="uc1">茶水/毛尖</li>
+              <li class="uc2">
+                <div class="uc2a">普洱（38元）</div>
+                <div class="uc2b cadd"><a href="#">添加</a></div>
+              </li>
+            </ul>
+          </div>
+          <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
+            <div class="gspace50"></div>
+            <div class="gspace50"></div>
+            <div>
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+              </div>           
+              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+                添加
+              </button>
             </div>
           </div>
-          <div class="ub">
-            <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact" id="tb">
-              <thead>
-                <tr class="utr1">
-                  <td>产品名称</td>
-                  <td>价格</td>
-                  <td>数量</td>
-                  <td>移除</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>基础套餐</td>
-                  <td>￥998</td>
-                  <td>
-                    <input type="text" class="am-form-field uinput uinput-60" placeholder="">
-                    <label class="am-checkbox-inline">
-                      <input type="checkbox"  value="" data-am-ucheck> 不限
-                    </label>
-                  </td>
-                  <td><a href="javascript:;" class="am-text-primary mdel">移除</a></td>
-                </tr>
-              </tbody>
-            </table> 
-          </div>
-        </div> 
-      </form>
+        </div>
+      </div>
+      <div class="uright">
+        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
+        <ul class="ub-head">
+          <li class="ub-head1">名称</li>
+          <li class="ub-head2">数量</li>
+          <li class="ub-head2">操作</li>
+        </ul>
+        <ul class="ub">
+          <li>
+            <div class="ub1">卡布奇诺卡布奇诺卡布奇诺卡布奇诺</div>
+            <div class="ub2">
+              <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+            </div>
+            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
+          </li>
+        </ul>
+      </div>
     </div>         
     <div class="am-modal-footer ufoot">
+      <div class="am-btn-group ubtn-left">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4"><i class="iconfont icon-xiangyou2"></i>
+          上一步
+        </button>
+      </div>
       <div class="am-btn-group">
         <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
@@ -561,8 +535,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pinying.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script>
-// 表格中删除功能
+<script type="text/javascript">
 $(function() {
   $('.cdel').on('click', function() {
     $('#cconfirm').modal({
@@ -576,22 +549,62 @@ $(function() {
     });
   });
 });
-// 添加功能
-$(function() {
-  $('.add').on('click', function(){
-      var product = $(this).siblings().eq(0).text();
-      var trhtml = "<tr><td>"+product+"</td><td><input type='text' class='am-form-field uinput uinput-60' placeholder=''> <label class='am-checkbox-inline ub1'><input type='checkbox'  value='' data-am-ucheck>不限</label></td><td><a href='javascript:;' class='am-text-primary mdel'>移除</a></td></tr>";
-      $("#tb").append(trhtml);
-      var height = $(".ucontent .ub").outerHeight(true);
-      $(".ucontent .ua1").css('min-height',height);
-        $("input[type='checkbox'], input[type='radio']").uCheck();
-  });
+
+//下一步
+$('.cmodelopen').on('click', function(e) {
+  $('#ugoods_packagem1').modal('close');
+  $('#ugoods_packagem3').modal('open');
 });
-// 移除功能
-$(document).on("click",".mdel",function(){
-    $(this).parent().parent().remove();
-    var height = $(".ucontent .ub").outerHeight(true);
-    $(".ucontent .ua1").css('min-height',height);
+$('.cmodelopen3').on('click', function(e) {
+  $('#ugoods_packagem2').modal('close');
+  $('#ugoods_packagem4').modal('open');
+});
+//上一步
+$('.cmodelopen2').on('click', function(e) {
+  $('#ugoods_packagem3').modal('close');
+  $('#ugoods_packagem1').modal('open');
+});
+$('.cmodelopen4').on('click', function(e) {
+  $('#ugoods_packagem4').modal('close');
+  $('#ugoods_packagem2').modal('open');
+});
+
+// 时限设置隐藏
+    $('.cispwd2').hide();
+    $('.cchecked').on('click', function(e) {
+      if($(this).val()==1){
+        $('.cispwd1').fadeOut(0);
+        $('.cispwd2').fadeIn(0);
+      }else if($(this).val()==2){
+        $('.cispwd2').fadeOut(0);
+        $('.cispwd1').fadeOut(0);
+      }else{
+        $('.cispwd2').fadeOut(0);
+        $('.cispwd1').fadeIn(0);
+      }
+    });
+// 添加
+$('.cadd').on('click', function(){
+  var product = $(this).prev().text();
+  var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" value="0">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
+  $(".uright .ub").append(addhtml);
+});
+
+// + -
+$(document).on("click", ".cbtndec", function() {
+  var _self= $(this).siblings('input');
+  if(parseInt(_self.val())>=1)
+    _self.val(parseInt(_self.val())-1);
+});
+$(document).on("click", ".cbtnplus", function() {
+  var _self= $(this).siblings('input');
+  _self.val(parseInt(_self.val())+1);
+});
+
+
+//删除
+$(document).on("click",".cdel2",function(){
+    $(this).parent().remove();
 });
 //根据文本框输入的汉字自动获取汉字拼音首字母到下拉列表中，支持多音字，需引入库pinying.js
 function query(){
@@ -610,7 +623,6 @@ function query(){
       var arrRslt = makePy(str);
       $("#cupen2").val(arrRslt);
 }
-
 </script>
 </body>
 </html>

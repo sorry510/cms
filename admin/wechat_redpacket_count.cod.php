@@ -6,13 +6,13 @@
 <!-- content -->
 <div id="umarketing_coupon" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="javascript: void(0)">优惠券发放统计</a></li>
+    <li class="am-active"><a href="javascript: void(0)">微信红包放统计</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform1">
       <div class="am-form-group">
-        <label class="am-form-label">活动类型：</label> 
+        <label class="am-form-label">红包类型：</label> 
         <select class="uselect uselect-auto" data-am-selected name="">
           <option value="all">限时打折</option>
           <option value="2">满减活动</option>
@@ -21,14 +21,6 @@
         </select>
       </div>
       <div class="am-form-group">
-        <label class="am-form-label">优惠券类型：</label> 
-        <select class="uselect uselect-auto" data-am-selected name="">
-          <option value="all">名称1</option>
-          <option value="2">名称2</option>
-          <option value="3">名称3</option>
-        </select>
-      </div>
-       <div class="am-form-group">
         <label class="am-form-label">活动时间：</label> 
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field">
@@ -54,39 +46,41 @@
     </form>
   </div>
   <div class="gspace15"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
         <td>新增时间</td>
         <td>活动名称</td>
-        <td>活动类型</td>
-        <td>优惠券类型</td>
-        <td>优惠券名称</td>
-        <td>可用开始时间</td>
-        <td>有效期</td>
-        <td>发放条件</td>
+        <td>类型</td>
+        <td>总金额(元)</td>
+        <td>总人数</td>
+        <td>红包金额</td>
+        <td>祝福语</td>
+        <td>开始时间</td>
+        <td>结束时间</td>
         <td>发放总数量</td>
         <td>已使用</td>
         <td>未使用</td>
-        <td>销售金额</td>
-    	<td>活动状态</td>
+        <td>活动状态</td>
       </tr>
     </thead>
-    <tr>
-      <td>2016-12-18 21:34</td>
-      <td>五一满50送50</td>
-      <td>批量赠送</td>
-      <td>代金券</td>
-      <td>20元代金券</td>
-      <td>2015-12-12</td>
-      <td>20天</td>
-      <td>具体发放条件</td>
-      <td>500</td>
-      <td>128</td>
-      <td>372</td>
-      <td>25189元</td>
-      <td>已结束</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>2017-04-18</td>
+        <td>端午活动</td>
+        <td>关注红包</td>
+        <td>1000</td>
+        <td>10</td>
+        <td>0.1~2</td>
+        <td>恭喜发财</td>
+        <td>2017-06-18</td>
+        <td>2017-06-19</td>
+        <td>5000</td>
+        <td>3720</td>
+        <td>1280</td>
+        <td>已结束</td>
+      </tr>
+    </tbody>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共1页 3条记录</li>

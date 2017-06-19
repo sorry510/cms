@@ -51,16 +51,22 @@
         <td>诊疗时间</td>
         <td>会员卡号</td>
         <td>会员姓名</td>
+        <td>性别</td>
+        <td>手机号码</td>
+        <td>卡类型</td>
         <td>诊疗人员</td>
         <td>服务项目</td>
         <td>顾客评价</td>
       </tr>
     </thead>
     <tr>
-    	<td><a href="javascript:void" data-am-offcanvas="{target: '#uoffcanvas'}">诊疗时间</a></td>
-      <td>会员卡号</td>
-      <td>会员姓名</td>
-      <td>诊疗人员</td>
+    	<td><a href="javascript:void" data-am-offcanvas="{target: '#uoffcanvas'}">2017-5-18 15:36</a></td>
+      <td>HY100214</td>
+      <td>男</td>
+      <td>15617771749</td>
+      <td>--</td>
+      <td>张小明</td>
+      <td>李医生</td>
       <td>服务项目</td>
       <td>顾客评价</td>
   	</tr>
@@ -178,7 +184,7 @@
 <div id="uoffcanvas" class="am-offcanvas" >
   <div class="am-offcanvas-bar am-offcanvas-bar-flip goffcanvas" style="width: 690px;">
     <div class="am-offcanvas-content" >
-      <div class="am-modal-hd"><span class="title">档案信息</span>
+      <div class="am-modal-hd"><span class="utitle">档案信息</span>
         <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
       </div>
       <div class="gspace15"></div>

@@ -10,6 +10,37 @@
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform2">
+    <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">顾客类型：</label>
+        <select class="uselect uselect-auto" data-am-selected name="">
+           <option value="all">全部</option>
+           <option value="2">2</option>
+           <option value="3">3</option>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">时间范围：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">至：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>
     </form>
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target:'#umarketing_reductionm1'}">
       <i class="iconfont icon-xinzeng"></i>
@@ -26,6 +57,7 @@
         <td>实付满--减</td>
         <td>开始时间</td>
         <td>结束时间</td>
+        <td>活动状态</td>
         <td>参加店铺</td>
         <td>备注</td>
         <td style="width:12%;">操作</td>
@@ -39,6 +71,7 @@
         <td>满100元减10元</td>
         <td>2017-4-29</td>
         <td>2017-5-2</td>
+        <td class="gtext-orange">进行中</td>
         <td>全部</td>
         <td>机会难得，赶紧来购吧</td>
         <td>
@@ -129,7 +162,7 @@
           <label class="umodal-label am-form-label" for="">参加店铺：</label>
           <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 全部
+              <input type="checkbox"  value="" data-am-ucheck> 全部分店
             </label>
             <label class="am-checkbox-inline">
               <input type="checkbox"  value="" data-am-ucheck> 分店1

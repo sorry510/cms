@@ -182,20 +182,6 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">参加活动：</label>
-          <div class="umodal-max am-text-left">
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 限时打折
-            </label>
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 满减
-            </label>
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 满送
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与预约：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
@@ -276,20 +262,6 @@
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="radio2" value="1" data-am-ucheck> 不参与
-            </label>
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">参加活动：</label>
-          <div class="umodal-max am-text-left">
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 限时打折
-            </label>
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 满减
-            </label>
-            <label class="am-checkbox-inline">
-              <input type="checkbox"  value="" data-am-ucheck> 满送
             </label>
           </div>
         </div>

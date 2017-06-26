@@ -131,8 +131,7 @@
 #ubody .uinput:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
 #ubody .uinput.uinput-max {width:100%;}
 #ubody .uinput.uinput-220 {width:220px;}
-
-#ubody .am-form-file 	> button{width: 100%;height: 36px;}
+#ubody .am-form-file > button{width:100%;height:36px;}
 
 /*工具栏日期输入框样式*/
 #ubody .udatepicker {display:inline-flex; vertical-align:middle;height:36px; border:1px solid #CCCCCC; border-radius:3px; background:#FFFFFF;}

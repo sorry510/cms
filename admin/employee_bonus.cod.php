@@ -37,7 +37,6 @@
     <li><a href="#">&raquo;</a></li>
   </ul>
 </div>
-
 <!--modal框-->
 <div class="am-modal" tabindex="-1" id="uemployee_bonusm1">
   <div class="am-modal-dialog umodal umodal-simple">
@@ -174,7 +173,7 @@
         </li>
         <li>
           <div class="am-form-group am-g">
-            <div class="am-u-lg-6 am-text-left utext2">普洱（150元）</div>
+            <div class="am-u-lg-6 am-text-left utext2">普洱（100元）</div>
             <div class="am-u-lg-4 am-u-end am-text-right">
               <input class="uinput uinput-60" type="text" name="">
               <span class="utext">&nbsp;&nbsp;%&nbsp;&nbsp;</span>

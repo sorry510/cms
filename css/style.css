@@ -103,23 +103,27 @@
 #ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
 #ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
 /******************************************************************************************************************************/
-/*赠送优惠券*/
-#umarketing_coupon .am-checkbox-inline{padding-top:20px; padding-left:15px;}
-#ubody #umarketing_couponm1 .am-u-lg-2 .am-checkbox-inline{margin-top:-24px;}
-#umarketing_couponm1 .am-radio-inline{margin-top:5px;}
-#umarketing_couponm1 .am-u-lg-2{text-align:left;}
-#umarketing_couponm1 .am-u-lg-10{padding-left:20px; text-align:left;}
-#umarketing_couponm2 .ua1{line-height:32px;}
 /*限时折扣*/
 [id*='umarketing_discountm'] .am-form-horizontal .am-radio-inline{margin-right:17px;}
-#umarketing_discountm3 .umodal{width:883px;}
+#umarketing_discountm3 .umodal .utabs{margin:0 auto; width:96%;}
+#umarketing_discountm3 .umodal .utabs .am-tabs-nav{border-bottom:0;}
 #umarketing_discountm3 .umodal .am-tabs-nav li{margin-top:0;}
-#umarketing_discountm3 .umodal .am-tabs-bd{border:none; border-left:1px solid #ddd;}
-#umarketing_discountm3 .umodal label.am-u-lg-3{text-align:left;}
-#umarketing_discountm3 .umodal [class*="am-u-lg"]{padding:0;}
-#umarketing_discountm3 .umodal .am-u-lg-9 .ua{float:left; margin-left:15px;}
-#umarketing_discountm3 .umodal .am-u-lg-9 .ua .am-form-label{padding-top:0; vertical-align:middle;}
-#umarketing_discountm3 .umodal .am-u-lg-9 > button{float:right;}
+#umarketing_discountm3 .umodal .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
+#umarketing_discountm3 .umodal .am-tabs-bd{border:none;padding:0;}
+#umarketing_discountm3 .umodal .am-tabs-bd .am-tab-panel{border:none;padding:0;}
+#ubody .umodal .umain1 .ucont{margin:0 auto; overflow:auto; height:350px; border:1px solid #DDDDDD;border-top:none; }
+#ubody .umodal .umain1 .utop{margin:0 auto; border:1px solid #DDDDDD;border-bottom:none; border-top:1px solid #E9EEF2;}
+#ubody .umodal .umain1 .am-list li{border:0; border-bottom:1px solid #DDDDDD; margin-bottom:0px; background-color: #F8F8F8; line-height:36px;}
+#ubody .umodal .umain1 .utop li.uheader{background:#E9EEF2; line-height:34px;}
+#ubody .umodal .umain1 .uspan1{display:inline-block; width:60%;}
+#ubody .umodal .umain1 .uspan2{display:inline-block;width:40%;}
+#ubody .umodal .umain1 .am-list .am-form-group{width:100%;margin:0;}
+#ubody .umodal .umain1 .am-list .am-form-group button{height:28px;line-height:28px;}
+#ubody .umodal .umain1 .am-list .am-form-group input{height:28px;line-height:28px; text-align:center;}
+#ubody .umodal .umain1 .am-list .am-form-group .utext1{padding-left:24px; color:#2D7EF6;}
+#ubody .umodal .umain1 .ucont .am-form-group .utext2{padding:5px 0;padding-left:40px;line-height:28px;}
+#ubody .umodal .umain1 .ucont [class*="am-u-lg"]{padding:0;}
+#ubody .umodal .umain1 .am-selected-list{max-height:160px;}
 /*操作员设置*/
 [id*="usystem_operatorm"] .am-form-horizontal .am-radio-inline{margin-right:17px;}
 

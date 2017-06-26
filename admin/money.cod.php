@@ -60,7 +60,7 @@
   </div>
   <div class="ub">
     <div class="am-modal-bd umain1">
-      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+      <div class="am-tabs utop" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
           <li class="am-active"><a href="#tab1">可选商品</a></li>
           <li><a href="#tab2">我的套餐</a></li>

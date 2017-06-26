@@ -274,12 +274,12 @@
       <div class="gspace15"></div>
       <div class="utitle">充值金额</div>
       <div class="am-form-group ucontent2">
-        <div class="umodal-text" style="padding-left:20px; line-height:43px;">实收金额：</div>
+        <div class="umodal-text" style="padding-left:20px; line-height:43px;">充值金额：</div>
         <div class='umodal-text'>
           <input id="" class="am-form-field umoneyinput" type="text" placeholder="请输入金额">&nbsp;&nbsp;元
         </div>
         <label class="umodal-search">&nbsp;</label>
-        <div class="umodal-text" style="line-height:43px;">赠送金额：</div>
+        <div class="umodal-text" style="line-height:43px;">实收金额：</div>
         <div class='umodal-text'>
           <input id="" class="am-form-field umoneyinput" type="text" placeholder="0.0">&nbsp;&nbsp;元
         </div>

@@ -1,9 +1,9 @@
 /*detail明细页面样式*/
-#udetailm1 .umodal .uhead{height: 40px;line-height: 40px;}
-#udetailm1 p{ margin: 0 15px; padding-left:10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; text-align: left; color: grey; font-size: 12px;}
-#udetailm1 .am-modal-dialog form .ua1{ overflow: hidden; zoom:1; margin: 0 20px;}
-#udetailm1 .am-modal-dialog form .ua1 button{ float: right; margin-left:10px;}
-#udetailm1 .am-modal-dialog form .ua1 .a2{ float: right; margin-right: 15px; display: inline; padding-top:9px; color: #656668; font-size: 13px;}
+#ubody #udetailm1 .uhead{height: 40px;line-height: 40px;}
+#ubody #udetailm1 p{ margin: 0 15px; padding-left:10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; text-align: left; color: grey; font-size: 12px;}
+#ubody #udetailm1 .am-modal-dialog form .ua1{ overflow: hidden; zoom:1; margin: 0 20px;}
+#ubody #udetailm1 .am-modal-dialog form .ua1 button{ float: right; margin-left:10px;}
+#ubody #udetailm1 .am-modal-dialog form .ua1 .a2{ float: right; margin-right: 15px; display: inline; padding-top:9px; color: #656668; font-size: 13px;}
 /*goodsinfo页面样式*/
 #ubody .ginput6 {padding: 3px; width: 60px; height:32px; border: 1px solid #cccccc; border-radius: 3px; text-align: center;}
 #ubody .ga1:hover { background-color: #f3f3f3; color: #333333; text-decoration: none; cursor: auto;}
@@ -63,45 +63,39 @@
 #ubody #ugoods_packagem1 .ucontent .ub table{border:none;}
 #ubody #ugoods_packagem1 .ucontent .ub table td{border:none; text-align:center; vertical-align:middle}
 #ubody #ugoods_packagem1 .ucontent .ub table .ub1{padding-top:0px;}
-#ubody #ugoods_packagem1 .am-form-horizontal .am-checkbox, .am-form-horizontal .am-checkbox-inline, .am-form-horizontal .am-form-label, .am-form-horizontal .am-radio, .am-form-horizontal .am-radio-inline{padding-top:0px;}
+#ubody .am-form-horizontal .am-checkbox, #ubody .am-form-horizontal .am-checkbox-inline, .am-form-horizontal .am-form-label, .am-form-horizontal .am-radio, .am-form-horizontal .am-radio-inline{padding-top:0px;}
 
 
 /********************************************************user页面************************************************************/
-#umember .ubadge1{font-weight:normal; border-radius:3px;}
+#ubody #umember .ubadge1{font-weight:normal; border-radius:3px;}
 /*添加会员*/
-#ubody #umemberm1 .umodal .uborder{position:relative; padding:5px 30px 0 30px;margin:2% 20px; min-height:100px; border:1px solid #E3E3E3;}
-#ubody #umemberm1 .umodal .uborder .uborder-title{position:relative; top:-15px; display:block; width:100px; height:15px;text-align: center; background: #F8F8F8; color:#2D7EF6; font-weight:bold;}
-#ubody #umemberm1 .umodal .am-form-group {float:left; display:inline-block; margin:0;width: 80%;}
-#ubody #umemberm1 .umodal [class*="umodal-"]{float:left; padding-right: 0px;padding-left: 0px; margin-bottom:10px;height:36px;}
-#ubody #umemberm1 .umodal .umodal-label{margin:0px; padding-right: 1rem; width:90px; text-align:right;}
-#ubody #umemberm1 .umodal .umodal-text{text-align: left;line-height: 36px;}
-#ubody #umemberm1 .umodal .umodal-max{width:490px;}
-#ubody #umemberm1 .umodal .umodal-normal{width:185px;}
-#ubody #umemberm1 .umodal .umodal-search{width:30px;}
-#ubody #umemberm1 .umodal .uphoto{position:absolute; top:3px; right:50px; width:100px;}
-#ubody #umemberm1 .umodal .uphoto img{width:100%;height:125px;}
-#ubody #umemberm1 .umodal .uphoto > a{padding:4px 0; width:100%;background-color:#B3B3B3;color:#FFFFFF;}
-#ubody #umemberm1 .umodal .am-selected-list{max-height:130px;}
-#ubody #umemberm1 .umodal .udatepicker.udatepicker-max input {width:86%;}
+#ubody #umemberm1 .utextbox{position:relative; padding:5px 30px 0 30px;margin:2% 20px; min-height:100px; border:1px solid #E3E3E3;}
+#ubody #umemberm1 .utextbox .utextbox-title{position:relative; top:-15px; display:block; width:100px; height:15px;text-align: center; background: #F8F8F8; color:#2D7EF6; font-weight:bold;}
+#ubody #umemberm1 .utextbox .am-form-group {float:left; display:inline-block; margin:0;width: 80%;}
+#ubody #umemberm1 .utextbox [class*="umodal-"]{float:left; padding-right: 0px;padding-left: 0px; margin-bottom:10px;height:36px;}
+#ubody #umemberm1 .utextbox .umodal-label{margin:0px; padding-right: 1rem; width:90px; text-align:right;}
+#ubody #umemberm1 .utextbox .umodal-text{text-align: left;line-height: 36px;}
+#ubody #umemberm1 .utextbox .umodal-max{width:490px;}
+#ubody #umemberm1 .utextbox .umodal-normal{width:185px;}
+#ubody #umemberm1 .utextbox .umodal-search{width:30px;}
+#ubody #umemberm1 .utextbox .uphoto{position:absolute; top:3px; right:50px; width:100px;}
+#ubody #umemberm1 .utextbox .uphoto img{width:100%;height:125px;}
+#ubody #umemberm1 .utextbox .uphoto > a{padding:4px 0; width:100%;background-color:#B3B3B3;color:#FFFFFF;}
+#ubody #umemberm1 .utextbox .am-selected-list{max-height:130px;}
+#ubody #umemberm1 .utextbox .udatepicker.udatepicker-max input {width:86%;}
 /*会员充值*/
-#umemberm2 .umodal .ua1{position:absolute; left:30px; bottom:40px;}
-#umemberm2 .umodal .ua2{position:absolute; left:30px; bottom:0px;}
+#ubody #umemberm2 .ua1{position:absolute; left:30px; bottom:40px;}
+#ubody #umemberm2 .uselect.uselect-auto + .am-selected {max-width:130px;}
+#ubody #umemberm2 .ua2{position:absolute; left:30px; bottom:0px;}
 /*购买套餐*/
-#umemberm3 .umodal .utext1{position:absolute; right:200px; bottom:25px;}
+#ubody #umemberm3 .utext1{position:absolute; right:200px; bottom:25px;}
 /*购买完成*/
-#umemberm4 .umodal .ufootleft{position:absolute; left:40px; bottom:25px;}
-#umemberm4 .umodal .ufootleft >div{float:left; margin-right:10px; height:36px;line-height:36px;}
-#umemberm4 .umodal .ufootleft label.am-checkbox{margin:0; line-height:36px;}
-#umemberm4 .umodal .ufootleft span.am-ucheck-icons{margin:0; line-height:36px;}
-/*moneyinput*/
-#ubody .umodal .umoneyinput{display:inline-block; width:200px; height:43px; border:1px solid #DB9C66; font-size:20px; color:#C40100; font-weight:bold;}
-#ubody .umodal .umoneyinput:focus{border: 1px solid #D89E4C; outline:none;}
-#ubody .umodal .umoneyinput::-webkit-input-placeholder {font-size:16px;}
-#ubody .umodal .umoneyinput::-moz-placeholder { font-size:16px;}
-#ubody .umodal .umoneyinput:-ms-input-placeholder { font-size:16px;} 
-/*加减数字*/
-#ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
-#ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
+#ubody #umemberm4 .am-icon-minus{color:#000000; font-size:1.6rem}
+#ubody #umemberm4 .am-icon-plus{color:#000000; font-size:1.6rem}
+#ubody #umemberm4 .ufootleft{position:absolute; left:40px; bottom:25px;}
+#ubody #umemberm4 .ufootleft >div{float:left; margin-right:10px; height:36px;line-height:36px;}
+#ubody #umemberm4 .ufootleft label.am-checkbox{margin:0; line-height:36px;}
+#ubody #umemberm4 .ufootleft span.am-ucheck-icons{margin:0; line-height:36px;}
 /******************************************************************************************************************************/
 /*限时折扣*/
 [id*='umarketing_discountm'] .am-form-horizontal .am-radio-inline{margin-right:17px;}

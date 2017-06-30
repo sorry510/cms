@@ -64,7 +64,16 @@ class cls_session {
 		}
 		return sprintf('%08x', crc32($strcrc));
 	}
-	
+	function fun_get_prefix() {
+		$arr = array();
+		$strsql = "SELECT session_login_code, session_login_cid FROM " . $this->pub_db->fun_table('session')
+		. " WHERE session_key = '" . $this->pub_db->fun_escape($this->pub_session_key) . "' LIMIT 1";
+		$hresult = $this->pub_db->fun_query($strsql);
+		$arr = $this->pub_db->fun_fetch_assoc($hresult);
+		if(!empty($arr)) {
+			return $arr['session_login_code']."_".STR_PAD($arr['session_login_cid'],4,'0',STR_PAD_LEFT)."_";
+		}
+	}
 	function fun_insert() {
 		$this->pub_db->fun_query('INSERT INTO ' . $this->pub_db->fun_table('session') . " (session_key, session_ip, session_last) VALUES ('"
 		. $this->pub_db->fun_escape($this->pub_session_key) . "', '" . $this->pub_ip . "', " . $this->pub_now . ")");
@@ -72,8 +81,8 @@ class cls_session {
 	
 	function fun_load() {
 		$arr = array();
-		$strsql = "SELECT session_login_type, session_login_id, session_login_account, session_login_code, session_login_cid, session_login_sid, session_last FROM "
-		. $this->pub_db->fun_table('session') . " WHERE session_key = '" . $this->pub_db->fun_escape($this->pub_session_key) . "' LIMIT 1";
+		$strsql = "SELECT session_login_type, session_login_id, session_login_account,session_login_code,session_login_cid,session_login_sid, session_last FROM " . $this->pub_db->fun_table('session')
+		. " WHERE session_key = '" . $this->pub_db->fun_escape($this->pub_session_key) . "' LIMIT 1";
 		$hresult = $this->pub_db->fun_query($strsql);
 		$arr = $this->pub_db->fun_fetch_assoc($hresult);
 		if(empty($arr)) {
@@ -101,9 +110,7 @@ class cls_session {
 		
 		$strsql = "UPDATE " . $this->pub_db->fun_table('session') . " SET session_login_type = " . api_value_int0($GLOBALS['_SESSION']['login_type'])
 		. ", session_login_id = " . api_value_int0($GLOBALS['_SESSION']['login_id']) . ", session_login_account = '"
-		. $this->pub_db->fun_escape($GLOBALS['_SESSION']['login_account']) . "', session_login_code = '"
-		. $this->pub_db->fun_escape($GLOBALS['_SESSION']['login_code']) . "', session_login_cid = " . api_value_int0($GLOBALS['_SESSION']['login_cid'])
-		. ", session_login_sid = " . api_value_int0($GLOBALS['_SESSION']['login_sid']) . ", session_ip = '" . $this->pub_ip . "', session_last = " . $this->pub_now
+		. $this->pub_db->fun_escape($GLOBALS['_SESSION']['login_account']) . "',session_login_code ='".$this->pub_db->fun_escape($GLOBALS['_SESSION']['login_code'])."',session_login_cid =".api_value_int0($GLOBALS['_SESSION']['login_cid']).", session_login_sid =".api_value_int0($GLOBALS['_SESSION']['login_sid']).",session_ip = '" . $this->pub_ip . "', session_last = " . $this->pub_now
 		. " WHERE session_key = '" . $this->pub_db->fun_escape($this->pub_session_key) . "' LIMIT 1";
 		$this->pub_db->fun_do($strsql);
 	}

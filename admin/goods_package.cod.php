@@ -21,7 +21,7 @@
         </button>
       </div>
     </form> 
-    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_packagem1'}">
+    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#ugoods_packagem3'}">
       <i class="iconfont icon-xinzeng"></i>
       新增套餐
     </button>
@@ -113,13 +113,10 @@
           <label class="umodal-label am-form-label" for="">时限设置：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期/天
+              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 有效期/月
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="2" data-am-ucheck> 不限
+              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 到期时间
             </label>
           </div>
         </div>
@@ -131,11 +128,15 @@
           <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
         </div>
         <div class="am-form-group cispwd2">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for="">到期时间：</label>
           <div class="umodal-normal">
-            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+              <input id="date1" type="text" class="am-form-field">
+              <span class="am-input-group-btn am-datepicker-add-on">
+                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+              </span>
+            </div>
           </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;月</label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与预约：</label>
@@ -162,7 +163,7 @@
 </div>
 <div class="am-modal" tabindex="-1" id="ugoods_packagem2">
   <div class="am-modal-dialog umodal umodal-simple">
-    <div class="am-modal-hd uhead">新增套餐
+    <div class="am-modal-hd uhead">修改套餐
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
@@ -199,13 +200,10 @@
           <label class="umodal-label am-form-label" for="">时限设置：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期/天
+              <input type="radio" name="radio1" class="cchecked" value="0" data-am-ucheck checked> 有效期
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 有效期/月
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="radio1" class="cchecked" value="2" data-am-ucheck> 不限
+              <input type="radio" name="radio1" class="cchecked" value="1" data-am-ucheck> 到期时间
             </label>
           </div>
         </div>
@@ -217,11 +215,15 @@
           <label class="umodal-label am-form-label am-text-left">&nbsp;天</label>
         </div>
         <div class="am-form-group cispwd2">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for="">到期时间：</label>
           <div class="umodal-normal">
-            <input id="date2" type="text" class="am-form-field uinput uinput-max">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+              <input id="date1" type="text" class="am-form-field">
+              <span class="am-input-group-btn am-datepicker-add-on">
+                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+              </span>
+            </div>
           </div>
-          <label class="umodal-label am-form-label am-text-left">&nbsp;月</label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与预约：</label>
@@ -252,29 +254,30 @@
     <div class="am-modal-hd uhead">新增套餐
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
           <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
           <li><a href="#tab2">扫码添加商品</a></li>
         </ul>
+
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
             <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
             <div class="am-form-group ub">
-              <div class="umodal-normal ub1">
-                <select class="uselect uselect-max" data-am-selected>
+              <div class="ub1">
+                <select class="uselect2 uselect-max" data-am-selected>
                   <option value="a">店铺通用型</option>
                   <option value="b">Banana</option>
                   <option value="o">Orange</option>
                   <option value="d">禁用</option>
                 </select>
               </div>
-              <div class="umodal-normal ub1">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+              <div class="ub1">
+                <input id="" class="am-form-field uinput2 uinput2-max" type="text" placeholder="">
               </div>
-              <div class="umodal-search ub2">
-                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+              <div class="ub2">
+                <button type="button" class="am-btn ubtn-search3 ubtn-green">
                   <i class="iconfont icon-search"></i>
                   查询
                 </button>
@@ -283,7 +286,7 @@
             <ul class="uc">
               <li class="uc1">茶水/毛尖</li>
               <li class="uc2">
-                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
+                <div class="uc2a">普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱普洱（38元）</div>
                 <div class="uc2b cadd"><a href="#">添加</a></div>
               </li>
               <li class="uc2">
@@ -351,21 +354,21 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
-        <ul class="ub-head">
-          <li class="ub-head1">名称</li>
-          <li class="ub-head2">数量</li>
-          <li class="ub-head2">操作</li>
-        </ul>
+        <div class="ua">已选择商品<span>（数量为0代表不限数量）</span></div>
         <ul class="ub">
+          <li class="ub1">名称</li>
+          <li class="ub2">数量</li>
+          <li class="ub3">操作</li>
+        </ul>
+        <ul class="uc">
           <li>
-            <div class="ub1">服务一（38元）</div>
-            <div class="ub2" style="padding-top:3px;">
-              <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput" value="0">
-              <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a>
+            <div class="uc1">服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一服务一（38元）</div>
+            <div class="uc2">
+              <a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
+              <input type="text" name="" class="uinput2 uinput-35" value="0">
+              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a>
             </div>
-            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
+            <div class="uc3 cdel2"><a href="javascript:;">移除</a></div>
           </li>
         </ul>
       </div>
@@ -489,10 +492,10 @@
       </div>
       <div class="uright">
         <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
-        <ul class="ub-head">
-          <li class="ub-head1">名称</li>
-          <li class="ub-head2">数量</li>
-          <li class="ub-head2">操作</li>
+        <ul class="ub">
+          <li class="ub1">名称</li>
+          <li class="ub2">数量</li>
+          <li class="ub2">操作</li>
         </ul>
         <ul class="ub">
           <li>
@@ -575,9 +578,6 @@ $('.cmodelopen4').on('click', function(e) {
       if($(this).val()==1){
         $('.cispwd1').fadeOut(0);
         $('.cispwd2').fadeIn(0);
-      }else if($(this).val()==2){
-        $('.cispwd2').fadeOut(0);
-        $('.cispwd1').fadeOut(0);
       }else{
         $('.cispwd2').fadeOut(0);
         $('.cispwd1').fadeIn(0);
@@ -586,8 +586,8 @@ $('.cmodelopen4').on('click', function(e) {
 // 添加
 $('.cadd').on('click', function(){
   var product = $(this).prev().text();
-  var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" value="0">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
-  $(".uright .ub").append(addhtml);
+  var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="0"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+  $(".uright .uc").append(addhtml);
 });
 
 // + -

@@ -1,15 +1,13 @@
 <ul id="uleftbar" class="am-nav">
-  <li class="<?php if($GLOBALS['strchannel'] == 'money') {echo 'uhighlight';} ?>"><a href="money.php"><span class="iconfont icon-wsmp-payuser"></span> 消费</a></li>
-  <li class="<?php if($GLOBALS['strchannel'] == 'card') {echo 'uhighlight';} ?>"><a href="card.php"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
-  <li class="<?php if($GLOBALS['strchannel'] == 'e-record') {echo 'uhighlight';} ?>"><a href="e-record.php"><span class="iconfont icon-wsmp-payuser"></span> 档案</a></li>
-  <li class="<?php if($GLOBALS['strchannel'] == 'reserve') {echo 'uhighlight';} ?>"><a href="reserve.php"><span class="iconfont icon-clock"></span> 预约</a></li>
-  <li class="<?php if($GLOBALS['strchannel'] == 'record') {echo 'uhighlight';} ?>"><a href="record.php"><span class="iconfont icon-ziliao"></span> 明细</a></li>
+  <li class="<?php if($GLOBALS['strchannel'] == 'member') {echo 'uhighlight';} ?>"><a href="member.php"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
+  <li class="<?php if($GLOBALS['strchannel'] == 'appoint') {echo 'uhighlight';} ?>"><a href="appoint.php"><span class="iconfont icon-clock"></span> 预约</a></li>
+  <li class="<?php if($GLOBALS['strchannel'] == 'detail') {echo 'uhighlight';} ?>"><a href="detail.php"><span class="iconfont icon-ziliao"></span> 明细</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'count') {echo 'uhighlight';} ?>"><a href="count.php"><span class="iconfont icon-baobiao-xianxing"></span> 统计</a></li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'goods') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-iconfont31quanbushangpin"></span> 商品</a>
     <ul class="am-dropdown-content umenu2 umenu2-four">
-      <li><a href="mgoods.php"><span class="iconfont icon-question"></span> 通用型商品</a></li>
-      <li><a href="sgoods.php"><span class="iconfont icon-question"></span> 店铺型商品</a></li>
+      <li><a href="goods_info.php"><span class="iconfont icon-question"></span> 通用型商品</a></li>
+      <li><a href="goods_diy.php"><span class="iconfont icon-question"></span> 店铺型商品</a></li>
       <li><a href="goods_stock.php"><span class="iconfont icon-question"></span> 商品库存管理</a></li>
       <li><a href="goods_package.php"><span class="iconfont icon-question"></span> 套餐管理</a></li>
     </ul>

@@ -103,7 +103,7 @@ class cls_mysql {
 	function fun_table($strtable) {
 		return '`' . $this->pub_name . '`.`' . $this->pub_prefix . $strtable . '`';
 	}
-	
+
 	function fun_table2($strtable) {
 		return '`' . $this->pub_name . '`.`' . $this->pub_prefix2 . $strtable . '`';
 	}

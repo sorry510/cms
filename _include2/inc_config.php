@@ -37,16 +37,14 @@ $gconfig['channel']['e'][1] = '配送方式';
 $gconfig['channel']['e'][2] = '配送区域';*/
 
 require(C_ROOT . '/_include/cls_mysql.php');
-// $gdb = new cls_mysql();
+
+$gdb = new cls_mysql();
 // $gdb->pub_host = 'nw132dbk.2278lan.dnstoo.com';
 // $gdb->pub_user = 'ps930i_f';
 // $gdb->pub_password = 'qaz123456';
 // $gdb->pub_name = 'ps930i';
-// $gdb->pub_prefix = 'cf_';
-// $gdb->pub_charset = 'utf8';
-// $gdb->fun_connect();
+// $gdb->pub_prefix = 'bgn_';
 
-$gdb = new cls_mysql();
 $gdb->pub_host = 'localhost';
 $gdb->pub_user = 'root';
 $gdb->pub_password = 'root';

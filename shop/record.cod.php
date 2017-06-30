@@ -3,7 +3,7 @@
 <?php echo $this->fun_fetch('inc_top', ''); ?>
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <!-- content -->
-<div id="udetail" class="gcontent">
+<div id="urecord" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
     <li class="am-active"><a href="javascript: void(0)">今日明细</a></li>
     <li><a href="javascript: void(0)">所有明细</a></li>
@@ -230,7 +230,7 @@
           <i class="iconfont icon-dayin"></i>
           打印小票
         </button>
-        <button class="am-btn ubtn-sure ubtn-red ubutton2" data-am-modal="{target: '#udetailm1', closeViaDimmer: 0, width: 320, height: 320}">
+        <button class="am-btn ubtn-sure ubtn-red ubutton2" data-am-modal="{target: '#urecordm1', closeViaDimmer: 0, width: 320, height: 320}">
           <i class="iconfont icon-huaidanbaotui"></i>
           退款
         </button>
@@ -240,16 +240,15 @@
   </div>
 </div>
 
-<div id="udetailm1" class="am-modal am-modal-no-btn" tabindex="-1" >
+<div id="urecordm1" class="am-modal am-modal-no-btn" tabindex="-1" >
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">退款
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="gspace15"></div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">授权密码</label>
+          <label class="umodal-label am-form-label utext1" for="">授权密码</label>
           <div class="umodal-small">
             <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
           </div>

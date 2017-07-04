@@ -5,7 +5,7 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'card';
-$strcard_type = api_value_get('cards_type');
+$strcard_type = api_value_get('card_type');
 $intcard_type = api_value_int0($strcard_type);
 $strsearch = api_value_get('search');
 
@@ -15,6 +15,8 @@ $intpage = api_value_int1($strpage);
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('cards_list', get_cards_list());
+$gtemplate->fun_assign('worker_list', get_worker_list());
+$gtemplate->fun_assign('mcombo_list', get_mcombo_list());
 $gtemplate->fun_assign('card_type_list', get_card_type_list());
 $gtemplate->fun_show('card');
 
@@ -39,6 +41,9 @@ function get_cards_list() {
 		$strwhere = $strwhere . " AND (card_code LIKE '%" . $GLOBALS['strsearch'] . "%'";
 		$strwhere = $strwhere . " or card_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
 		$strwhere = $strwhere . " or card_phone LIKE '%" . $GLOBALS['strsearch'] . "%')";
+	}
+	if($GLOBALS['intcard_type'] != 0){
+		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
 	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
@@ -100,6 +105,22 @@ function get_cards_list() {
 function get_card_type_list(){
 	$arr = array();
 	$strsql = "SELECT card_type_id,card_type_name,card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card_type')." order by card_type_discount asc";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+function get_worker_list(){
+	$arr = array();
+	$strsql = "SELECT worker_id,worker_name FROM ".$GLOBALS['gdb']->fun_table2('worker'). "where shop_id =".$GLOBALS['_SESSION']['login_sid']." order by worker_name asc";
+	// echo $strsql;exit;
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+function get_mcombo_list(){
+	$arr = array();
+	$strsql = "SELECT mcombo_id,mcombo_name,mcombo_price,mcombo_cprice FROM ".$GLOBALS['gdb']->fun_table2('mcombo'). "where mcombo_state =1 order by mcombo_id desc";
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

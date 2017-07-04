@@ -15,14 +15,15 @@
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">卡类型：</label>
         <select class="uselect uselect-auto" data-am-selected name="card_type">
-           <option value="all">全部</option>
-           <option value="2">2</option>
-           <option value="3">3</option>
+        <option value="0">全部</option>
+        <?php foreach($this->_data['card_type_list'] as $row) { ?>
+           <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
+        <?php }?>
         </select>
       </div>
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">搜索：</label>
-        <input type="text" class="am-form-field uinput uinput-160" placeholder="卡号/手机号/姓名" name="search">
+        <input type="text" class="am-form-field uinput uinput-160" placeholder="卡号/手机号/姓名" name="search" value="<?php echo $this->_data['request']['search'];?>">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search csearch">
@@ -99,7 +100,7 @@
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['cards_list']['pagecount']; ?>页 <?php echo $this->_data['cards_list']['allcount']; ?>条记录</li>
     <li class="am-disabled"><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagepre']); ?>">&laquo;</a></li>
-    <li><a class="am-active" href="#"><?php echo $GLOBALS['intpage'];?></a></li>
+    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
     <li><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagenext']); ?>">&raquo;</a></li>
   </ul>
 </div>
@@ -212,11 +213,9 @@
               <label class="am-form-label umodal-label">服务员：</label>
               <div class="umodal-normal">
                 <select name="card_waiter" class="uselect uselect-max" data-am-selected>
-                  <option value="a">Apple</option>
-                  <option value="b">Banana</option>
-                  <option value="o">Orange</option>
-                  <option value="m">Mango</option>
-                  <option value="d">禁用</option>
+                <?php foreach($this->_data['worker_list'] as $row) { ?>
+                  <option value="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></option>
+                <?php }?>
                 </select>
               </div>
               <label class="am-form-label umodal-label">备注：</label>
@@ -344,15 +343,8 @@
                 <input type="text" name="card_linkman" class="am-form-field uinput uinput-max">
               </div>
               <div class="umodal-search">&nbsp;</div>
-              <label class="am-form-label umodal-label">服务员：</label>
+              <label class="am-form-label umodal-label"></label>
               <div class="umodal-normal">
-                <select name="card_waiter" class="uselect uselect-max" data-am-selected>
-                  <option value="a">Apple</option>
-                  <option value="b">Banana</option>
-                  <option value="o">Orange</option>
-                  <option value="m">Mango</option>
-                  <option value="d">禁用</option>
-                </select>
               </div>
               <label class="am-form-label umodal-label">备注：</label>
               <div class="umodal-max">
@@ -362,7 +354,6 @@
             </div>
             <div style="clear:both;"></div>
         </div>
-        <input type="hidden" name="type" value="edit">
         <input type="hidden" name="card_id" value="">
       </form>
     </div>
@@ -388,9 +379,10 @@
         <div class="am-u-lg-4">手机号码：<span class="ccard_phone"></span></div>
         <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange ccard_ymoney"></span>元</div>
         <div class="am-u-lg-4">会员卡类型：
-          <select data-am-selected class="uselect uselect-auto ccard_type" name="card_type">
+          <select class="uselect uselect-auto ccard_type" name="card_type">
+          <option value="0">请选择</option>
           <?php foreach($this->_data['card_type_list'] as $row) { ?>
-            <option value="<?php echo $row['card_type_id']."_".$row['card_type_name']."_".$row['card_type_discount'];?>"><?php echo $row['card_type_name']; ?></option>
+            <option discount="<?php echo $row['card_type_discount'];?>" value="<?php echo $row['card_type_id'];?>"><?php echo $row['card_type_name']; ?></option>
           <? }?>
           </select>
         </div>
@@ -406,21 +398,21 @@
         <label class="umodal-search">&nbsp;</label>
         <div class="utext">实收金额：</div>
         <div class='umodal-text'>
-          <input name="cash" class="am-form-field umoneyinput" type="text" placeholder="0.0">&nbsp;&nbsp;元
+          <input name="cash" class="am-form-field umoneyinput" type="text" placeholder="0.00">&nbsp;&nbsp;元
         </div>
       </div>
       <div class="gspace15"></div>
       <div class="utitle">付款方式</div>
       <div class="am-btn-group ucontent3">
-         <a class="am-btn am-btn-default upay" role="button">现金</a>
-         <a class="am-btn am-btn-default upay" role="button">银行卡</a>
-         <a class="am-btn am-btn-default upay" role="button">微信支付</a>
-         <a class="am-btn am-btn-default upay upay-active" role="button">支付宝</a>
+         <a class="am-btn am-btn-default upay upay-active" payType="1">现金</a>
+         <a class="am-btn am-btn-default upay" payType="2">银行卡</a>
+         <a class="am-btn am-btn-default upay" payType="3">微信支付</a>
+         <a class="am-btn am-btn-default upay" payType="4">支付宝</a>
       </div>
       <input type="hidden" name="card_id" value="">
     </div>
     <div class="am-modal-footer ufoot">
-      <div class="ua1">充值总额：<span class="am-text-lg gtext-orange">0.00</span>元,赠送总额<span class="am-text-lg gtext-orange">0.00</span>元</div>
+      <div class="ua1">充值总额：<span class="am-text-lg gtext-orange call_money">0.00</span>元,赠送总额<span class="am-text-lg gtext-orange cgive_money">0.00</span>元</div>
       <div class="ua2">
         <label class="am-checkbox">
           <input type="checkbox" value="" data-am-ucheck> 打印充值单
@@ -445,12 +437,12 @@
     </div>
     <div class="am-modal-bd">
       <div class="am-g ucontent" style="margin:0 2%; width:95%;">
-        <div class="am-u-lg-4">会员卡号：1000125</div>
-        <div class="am-u-lg-4">会员姓名：张三</div>
-        <div class="am-u-lg-4">手机号码：3700824417</div>
-        <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange">0.00</span>元</div>
-        <div class="am-u-lg-4">会员卡类型：打折卡</div>
-        <div class="am-u-lg-4 am-u-end">会员折扣：<span class="am-text-lg gtext-orange">8</span>折</div>
+        <div class="am-u-lg-4">会员卡号：<span class="ccard_code"></span></div>
+        <div class="am-u-lg-4">会员姓名：<span class="ccard_name"></span></div>
+        <div class="am-u-lg-4">手机号码：<span class="ccard_phone"></span></div>
+        <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange ccard_ymoney"></span>元</div>
+        <div class="am-u-lg-4">会员卡类型：<span class="ccard_type"></span></div>
+        <div class="am-u-lg-4 am-u-end">会员折扣：<span class="am-text-lg gtext-orange ccard_discount"></span>折</div>
       </div>
       <div class="gspace10"></div>
       <div class="am-tabs uleft" data-am-tabs="{noSwipe:1}">
@@ -481,27 +473,12 @@
               </div>
             </div>
             <ul class="uc">
+            <?php foreach($this->_data['mcombo_list'] as $row){?>
               <li class="uc2">
-                <div class="uc2a">基础套餐（138元）基础套餐包含针灸，理疗，足疗，等各项10次</div>
+                <div class="uc2a" price="<?php echo $row['mcombo_cprice'];?>" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']."(".$row['mcombo_cprice'].")";?></div>
                 <div class="uc2b cadd"><a href="#">添加</a></div>
               </li>
-              <li class="uc2">
-                <div class="uc2a">vip至尊套餐（6638元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">中秋大礼包（888元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">端午大酬宾（666元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-
-              <li class="uc2">
-                <div class="uc2a">美丽人生（12306元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
+            <?php }?>
             </ul>
           </div>
           <div class="am-tab-panel am-fade" id="tab2" style="height:370px;">
@@ -525,29 +502,21 @@
           <li class="ub2">数量</li>
           <li class="ub3">操作</li>
         </ul>
+        <form name="mcombo">
         <ul class="uc">
-          <li>
-            <div class="uc1">基础套餐</div>
-            <div class="uc2">
-              <a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a>
-            </div>
-            <div class="uc3 cdel2"><a href="javascript:;">移除</a></div>
-          </li>
         </ul>
+        </form>
       </div>
       <div style="clear:both;"></div>
     </div>
     <div class="am-modal-footer ufoot">
-          <div class="utext1">共 2 件，共计:<span class="am-text-lg gtext-orange">126</span>元</div>
+          <div class="utext1">共 <span class="cmcombo_num"></span> 件，共计:<span class="am-text-lg gtext-orange call_money"></span>元</div>
           <div class="am-btn-group">
             <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4"><i class="iconfont icon-xiangyou2"></i>
               下一步
             </button>
           </div>  
-    </div>
-   
+    </div> 
   </div>
 </div>
 <!-- 购买完成 -->
@@ -578,60 +547,6 @@
             </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td>基础套餐</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥998</span></td>   
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>健康丽人</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥8888</span></td>
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
-              <tr>
-                  <td>套餐3</td>
-                  <td>理疗6次，颈肩理疗10次，艾灸30次，其它赠送10次</td>
-                  <td><span class="gtext-orange">￥688</span></td>
-                  <td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a>
-              <input type="text" name="" class="uinput2 uinput-35" value="0">
-              <a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td>
-                  <td><a href="javascript:;" class="am-text-primary cdel">移除</a></td>
-              </tr>
           </tbody>
         </table>
       </div>
@@ -649,10 +564,10 @@
       </div>
       <div class="utitle">付款方式</div>
       <div class="am-btn-group ucontent3">
-         <a class="am-btn am-btn-default upay" role="button">现金</a>
-         <a class="am-btn am-btn-default upay" role="button">银行卡</a>
-         <a class="am-btn am-btn-default upay" role="button">微信支付</a>
-         <a class="am-btn am-btn-default upay upay-active" role="button">支付宝</a>
+         <button class="am-btn am-btn-default upay upay-active" payType="1">现金</button>
+         <button class="am-btn am-btn-default upay" payType="2">银行卡</button>
+         <button class="am-btn am-btn-default upay" payType="3">微信支付</button>
+         <button class="am-btn am-btn-default upay" payType="4">支付宝</button>
       </div>
     </div>
     <div class="am-modal-footer ufoot">
@@ -678,16 +593,18 @@
   </div>
 </div>
 <!-- 确认密码 -->
-<div id='upwd-alert' class="am-modal am-modal-alert" tabindex="-1">
+<div id="upwd-alert" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog">
     <div class="am-modal-hd">请输入会员卡密码</div>
     <div class="am-modal-bd">
       <div class="am-form-group" style="padding:10px 20px 0 20px;">
-         <input type="text" class="am-form-field uinput uinput-max">
+         <input type="password" class="am-form-field uinput uinput-max ccard_password">
+         <input type="hidden" class="ccard_id">
       </div>
     </div>
     <div class="am-modal-footer">
-      <span class="am-modal-btn cpwd-btn">确定</span>
+      <span class="am-modal-btn" data-am-modal-close>取消</span>
+      <span class="am-modal-btn cpwd-btn" data-am-modal-confirm>确定</span>
     </div>
   </div>
 </div>
@@ -700,15 +617,15 @@
       </div>
       <div class="gspace15"></div>
       <div class="am-g">
-        <div class="am-u-lg-6">会员姓名：<span class="ccard_name">张三</span></div>
-        <div class="am-u-lg-6">手机号码：<span class="ccard_phone">3700824417</span></div>
-        <div class="am-u-lg-6">会员卡号：<span class="ccard_code">a123212</span></div>
-        <div class="am-u-lg-6">性别：<span class="ccard_sex">男</span></div>
-        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday">1992-04-20</span></div>
-        <div class="am-u-lg-6">到期时间：<span class="ccard_edate">2017-06-20</span></div>
-        <div class="am-u-lg-6">联系地址：<span class="ccard_address">无</span></div>
-        <div class="am-u-lg-6">余额：<font class="gtext-orange ccard_ymoney">0.00</font><span>元</span></div>
-        <div class="am-u-lg-12">备注：<span class="ccard_memo">无</span></div>
+        <div class="am-u-lg-6">会员姓名：<span class="ccard_name"></span></div>
+        <div class="am-u-lg-6">手机号码：<span class="ccard_phone"></span></div>
+        <div class="am-u-lg-6">会员卡号：<span class="ccard_code"></span></div>
+        <div class="am-u-lg-6">性别：<span class="ccard_sex"></span></div>
+        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday"></span></div>
+        <div class="am-u-lg-6">到期时间：<span class="ccard_edate"></span></div>
+        <div class="am-u-lg-6">联系地址：<span class="ccard_address"></span></div>
+        <div class="am-u-lg-6">余额：<font class="gtext-orange ccard_ymoney"></font><span>元</span></div>
+        <div class="am-u-lg-12">备注：<span class="ccard_memo"></span></div>
         <div class="am-u-lg-12"></div>
         <div>
           <button class="am-btn ubtn-sure ubtn-gray ubutton1 ccarddel">
@@ -733,9 +650,23 @@ $(function() {
       $('.upages li').eq(1).removeClass('am-disabled');
     }
     if(<?php echo $this->_data['cards_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-
       $('.upages li').last().addClass('am-disabled');
     }
+    //付款方式
+    $('.upay').on('click',function(){
+      $(this).addClass('upay-active').siblings().removeClass('upay-active');
+    });
+    // + -
+    $(document).on("click", ".cbtndec", function() {
+      var _self= $(this).siblings('input');
+      if(parseInt(_self.val())>=1)
+        _self.val(parseInt(_self.val())-1);
+    });
+    $(document).on("click", ".cbtnplus", function() {
+      var _self= $(this).siblings('input');
+      _self.val(parseInt(_self.val())+1);
+    });
+    /******************************************modal************************************/
     //新增会员
     $('.cmodelopen1').on('click', function(e) {
       $('#ucardm1').modal('open');
@@ -765,10 +696,9 @@ $(function() {
     });
     //会员修改
     $('.cmodelopen1-1').on('click', function(e) {
-      var url = "card_edit_do.php";
+      var url = "card_edit_ajax.php";
       // console.log($(this).val());
-      $.getJSON(url,{card_id:$(this).val(),type:"show"},function(res){
-        console.log(res);
+      $.getJSON(url,{card_id:$(this).val()},function(res){
         $("#ucardm1-1 input[name='card_name']").val(res.card_name);
         $("#ucardm1-1 input[name='card_code']").val(res.card_code);
         $("#ucardm1-1 input[name='card_phone']").val(res.card_phone);
@@ -780,7 +710,7 @@ $(function() {
         $("#ucardm1-1 input[name='card_id']").val(res.card_id);
         $("#ucardm1-1 input[name='pwd_state']").each(function(){
           if($(this).val()==res.card_password_state){
-            $(this).attr('checked',true);
+            $(this).uCheck('check');
           }
         });
         if(res.card_password_state==1){
@@ -790,14 +720,14 @@ $(function() {
         }
         $("#ucardm1-1 input[name='card_sex']").each(function(){
           if($(this).val()==res.card_sex){
-            $(this).attr('checked',true);
+            $(this).uCheck('check');
           }
         });
       });
       $('#ucardm1-1').modal('open');
       $('#ucardm1-1 input').eq(0).focus();
     });
-    // card修改提交信息
+    //card修改提交信息
     $('.ccardeditsubmit').on('click',function(){
       var url="card_edit_do.php";
       var data = $("#ccardinfoedit").serialize();
@@ -812,9 +742,8 @@ $(function() {
     });
     //会员充值
     $('.cmodelopen2').on('click', function() {
-      var url = "card_recharge_do.php";
+      var url = "card_recharge_ajax.php";
       $.getJSON(url,{card_id:$(this).val(),type:"show"},function(res){
-        console.log(res);
         $("#ucardm2 .ccard_name").text(res.card_name);
         $("#ucardm2 .ccard_code").text(res.card_code);
         $("#ucardm2 .ccard_phone").text(res.card_phone);
@@ -824,105 +753,152 @@ $(function() {
         $("#ucardm2 .ccard_ymoney").text(res.s_card_ymoney);
         $("#ucardm2 .ccard_type_discount").text(res.c_card_type_discount);
         $("#ucardm2 input[name='card_id']").val(res.card_id);
-        if(res.c_card_type_name!=''){
-          $("#ucardm2 .ccard_type").prepend("<option value='"+res.card_type_id+"_"+res.c_card_type_name+"_"+res.c_card_type_discount+"' selected>"+res.c_card_type_name+"</option>");
-        }
+        $('#ucardm2 .ccard_type').find("option").each(function(){
+          if($(this).attr('value')==res.card_type_id){
+            $(this).attr('selected',true);
+          }
+        });
+        $('#ucardm2 .ccard_type').selected();
       });
       $('#ucardm2').modal('open');
       $('#ucardm2 input').eq(0).focus();
     });
     //改变会员卡折扣
     $('#ucardm2 .ccard_type').on('change',function(){
-      var arr = $(this).val().split("_");
-      $("#ucardm2 .ccard_type_discount").text(arr[2]);
+      var discount = $(this).find("option:selected").attr('discount');
+      $("#ucardm2 .ccard_type_discount").text(discount);
     })
+    //填充金额
+    $("#ucardm2 input[name='money']").keyup(function(){
+      $("#ucardm2 .call_money").text($(this).val());
+      var relmoney = $("#ucardm2 input[name='cash']").val()==''?0:$("#ucardm2 input[name='cash']").val();
+      $("#ucardm2 .cgive_money").text($(this).val()-relmoney);
+    });
+    $("#ucardm2 input[name='cash']").keyup(function(){
+      var allmoney = $("#ucardm2 input[name='money']").val()==''?0:$("#ucardm2 input[name='money']").val();
+      $("#ucardm2 .cgive_money").text(allmoney-$(this).val());
+    });
     //会员充值提交
     $('.ccardrechargesubmit').on('click',function(){
       var url="card_recharge_do.php";
       var card_id = $("#ucardm2 input[name='card_id']").val();
       var money = $("#ucardm2 input[name='money']").val();
       var cash = $("#ucardm2 input[name='cash']").val();
-      var strtypeinfo = $("#ucardm2 .ccard_type").val();
-      var arrtypeinfo = strtypeinfo.split("_");
-      var card_type_id = arrtypeinfo[0];
-      var card_type_name = arrtypeinfo[1];
-      var card_type_discount = arrtypeinfo[2];
+      var card_type_id = $("#ucardm2 .ccard_type").val();
+      var pay_type = $("#ucardm2 .upay-active").attr('payType');
       var data = {
-            type:'edit',
             money:money,
             cash:cash,
             card_id:card_id,
             card_type_id:card_type_id,
-            card_type_name:card_type_name,
-            card_type_discount:card_type_discount
+            pay_type:pay_type
           }
       $.post(url,data,function(res){
         if(res=='0'){
           window.location.reload();
         }else{
-          alert('修改失败');
+          alert('充值失败');
           console.log(res);
         }
       });
     });
     //购买套餐
     $('.cmodelopen3').on('click', function(e) {
-            $('#ucardm2').modal('close');
-            if(true){
-              // 有会员卡密码
-              $('#upwd-alert').modal('open');
-            }else{
-              // 无密码
-              $('#ucardm3').modal('open');
-              $('#ucardm3 input').eq(0).focus();
-            }
-            
+      $('#ucardm2').modal('close');
+      var card_id = $(this).val();
+      var url = "card_password_ajax.php";
+      $.get(url,{card_id:card_id},function(res){
+        if(res=='1'){
+          $('#upwd-alert').modal({
+            closeOnConfirm: false,
+          });
+          $('#upwd-alert input').eq(0).focus();
+          $('#upwd-alert .ccard_id').val(card_id);
+        }else{
+          $.getJSON('card_edit_ajax.php',{card_id:card_id},function(res){
+            $("#ucardm3 .ccard_name").text(res.card_name);
+            $("#ucardm3 .ccard_code").text(res.card_code);
+            $("#ucardm3 .ccard_discount").text(res.c_card_type_discount);
+            $("#ucardm3 .ccard_type").text(res.c_card_type_name);
+            $("#ucardm3 .ccard_ymoney").text(res.s_card_ymoney);
+            $("#ucardm3 .ccard_phone").text(res.card_phone);
+            $("#ucardm3 input[name='card_id']").val(res.card_id);
+          });
+          $('#ucardm3').modal('open');
+          $('#ucardm3 input').eq(0).focus();
+        }
+      });
     });
-    // 返回上一步
+    //验证密码
+    $('.cpwd-btn').on('click', function(event) {
+      var card_id = $("#upwd-alert .ccard_id").val();
+      var url = "card_password_do.php";
+      var data = {
+        card_id:card_id,
+        card_password:$("#upwd-alert .ccard_password").val()
+      };
+      $.get(url,data,function(res){
+        if(res=='1'){
+          // 密码正确
+          $('#upwd-alert').modal('close');
+          $.getJSON('card_edit_ajax.php',{card_id:card_id},function(res){
+            $("#ucardm3 .ccard_name").text(res.card_name);
+            $("#ucardm3 .ccard_code").text(res.card_code);
+            $("#ucardm3 .ccard_discount").text(res.c_card_type_discount);
+            $("#ucardm3 .ccard_type").text(res.c_card_type_name);
+            $("#ucardm3 .ccard_ymoney").text(res.s_card_ymoney);
+            $("#ucardm3 .ccard_phone").text(res.card_phone);
+            $("#ucardm3 input[name='card_id']").val(res.card_id);
+          });
+          $('#ucardm3').modal('open');
+          $('#ucardm3 input').eq(0).focus();
+        }else{
+          // 密码错误
+          alert('密码错误');
+        }
+      });
+    });
+    // 添加套餐
+    $('.cadd').on('click', function(){
+      var product = $(this).prev().text();
+      var price = $(this).prev().attr('price');
+      var mcombo_id = $(this).prev().attr('mcombo_id');
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" price="'+price+'" class="uinput2 uinput-35 cmcombo_num" value="0"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
+      $(".uright .uc").append(addhtml);
+      $.ajax({
+        url:'card_mcombo_ajax.php',
+        data:{
+          mcombo_id:mcombo_id
+        },
+        type:"GET",
+        dataType:"json"
+      }).then(function(res){
+        var cont = '';
+        $.each(res,function(k,v){
+          cont +=v.mgoods_name+v.mcombo_goods_count+'次,';
+        })
+        cont = cont.substr(0,cont.length-1);
+        var addtr = '<tr><td>'+product+'</td><td>'+cont+'</td><td><span class="gtext-orange">￥998</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="0"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
+        $('#ucardm4 table tbody').append(addtr);
+      });
+    });
+    //返回上一步
     $('.cmodelopen3up').on('click', function(e) {
       $('#ucardm4').modal('close');
       $('#ucardm3').modal('open');
       $('#ucardm3 input').eq(0).focus();
     });
-    // 确认密码
-    $('.cpwd-btn').on('click', function(e) {
-            if(true){
-              // 密码正确
-              $('#ucardm3').modal('open');
-              $('#ucardm3 input').eq(0).focus();
-            }else{
-              // 密码错误
-              return 0;
-            }
-            
-    });
      //购买套餐完成
     $('.cmodelopen4').on('click', function(e) {
-            $('#ucardm3').modal('close');
-            $('#ucardm4').modal('open');
+      $('#ucardm3').modal('close');
+      $('#ucardm4').modal('open');
     });
-    // + -
-    $(document).on("click", ".cbtndec", function() {
-      var _self= $(this).siblings('input');
-      if(parseInt(_self.val())>=1)
-        _self.val(parseInt(_self.val())-1);
-    });
-    $(document).on("click", ".cbtnplus", function() {
-      var _self= $(this).siblings('input');
-      _self.val(parseInt(_self.val())+1);
-    });
-
-    // 添加
-    $('.cadd').on('click', function(){
-      var product = $(this).prev().text();
-      var addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" value="0">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel2"><a href="javascript:;">移除</a></div></li>';
-      $(".uright .ub").append(addhtml);
-    });
+  
     //侧拉打开
     $('.coffopen').on('click', function() {
-      // console.log($(this).attr('cardid'));
-      var url = "card_edit_do.php";
-      $.getJSON(url,{card_id:$(this).attr('cardid'),type:"show"},function(res){
+      var url = "card_edit_ajax.php";
+      $.getJSON(url,{card_id:$(this).attr('cardid')},function(res){
+        console.log(res);
         $("#ucardoff1 .ccard_name").text(res.card_name);
         $("#ucardoff1 .ccard_code").text(res.card_code);
         $("#ucardoff1 .ccard_phone").text(res.card_phone);
@@ -972,9 +948,11 @@ $(function() {
           type:'normal',
           card_id:$("#ucardoff1 input[name='card_id']").val()
       }
+      // console.log(data);
       $.post(url,data,function(res){
         if(res=='0'){
           window.location.reload();
+          //console.log(res);
         }else{
           alert('启用失败');
           // console.log(res);
@@ -991,9 +969,10 @@ $(function() {
       $.post(url,data,function(res){
         if(res=='0'){
           window.location.reload();
+          console.log(res);
         }else{
           alert('删除失败');
-          // console.log(res);
+          console.log(res);
         }
       });
     });
@@ -1005,9 +984,10 @@ $(function() {
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
     });
+
     $('#doc-form-file').on('change',showPreview);
     //上传文件
-    function showPreview() {  
+    function showPreview() {
         var file = this.files[0];
         console.log(file);
         if(window.FileReader) {
@@ -1015,18 +995,19 @@ $(function() {
             fr.onloadend = function(e) {
               $("#cimg").attr('src',e.target.result);
               // document.getElementById("portrait").src = e.target.result;
-            } 
+            }
             fr.readAsDataURL(file);
         }
     }
-    //删除
+    //删除套餐
     $(document).on("click",".cdel2",function(){
+        $(".cdel[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().parent().remove();
         $(this).parent().remove();
     });
     $(document).on("click",".cdel",function(){
-        $(this).parent().parent().remove();
+        $(".cdel2[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().remove();
+        $(this).parent().parent().remove(); 
     });
-   
 });
 </script>
 </body>

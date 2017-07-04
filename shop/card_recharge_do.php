@@ -4,50 +4,75 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$strtype1 = api_value_get('type');
-$strtype2 = api_value_post('type');
+$strcard_id = api_value_post('card_id');
+$intcard_id = api_value_int0($strcard_id);
+$strcard_type_id = api_value_post('card_type_id');
+$intcard_type_id = api_value_int0($strcard_type_id);
+$strmoney = api_value_post('money');
+$decmoney = api_value_decimal($strmoney, 2);
+$strcash = api_value_post('cash');
+$deccash = api_value_decimal($strcash, 2);
+$strpay_type = api_value_post('pay_type');
+$intpay_type = api_value_int0($strpay_type);
 
-if($strtype1=="show"){
-	$arr = array();
-	$strcard_id = api_value_get('card_id');
-	$intcard_id = api_value_int0($strcard_id);
-
-	$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday,card_password_state,card_password,card_identity,card_edate,card_memo,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
+$intreturn = 0;
+// 查询card分类信息
+if($intreturn == 0){
+	$strsql = "SELECT card_type_name,card_type_discount FROM ". $GLOBALS['gdb']->fun_table2('card_type') . " where card_type_id = ".$intcard_type_id." limit 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	$arr['card_birthday'] = date("Y-m-d",$arr['card_birthday']);
-	$arr['card_edate'] = date("Y-m-d",$arr['card_edate']);
-
-	// $strsql = "SELECT card_type_name,card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card_type')." order by card_type_discount asc";
-	// $hresult = $GLOBALS['gdb']->fun_query($strsql);
-	// $arr['card_type'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	echo json_encode($arr);
+	if(!empty($arr)){
+		$strcard_type_name =  $arr['card_type_name'];
+		$deccard_type_discount = $arr['card_type_discount'];
+	}else{
+		$intreturn = 4;
+	}
 }
-if($strtype2 == "edit"){
-	$strcard_id = api_value_post('card_id');
-	$intcard_id = api_value_int0($strcard_id);
-	$strcard_type_id = api_value_post('card_type_id');
-	$intcard_type_id = api_value_int0($strcard_type_id);
-	$strcard_type_name = api_value_post('card_type_name');
-	$strcard_type_dicount = api_value_post('card_type_discount');
-	$deccard_type_dicount = api_value_decimal($strcard_type_dicount, 1);
-	$strmoney = api_value_post('money');
-	$decmoney = api_value_decimal($strmoney, 2);
-	//消费记录
-	$strcash = api_value_post('cash');
-	$deccash = api_value_decimal($strcash, 2);
-
-	$intreturn = 0;
-	if($intreturn == 0) {
-		$strsql = "UPDATE ".$gdb->fun_table2('card')." SET c_card_type_name='".$gdb->fun_escape($strcard_type_name)."', card_type_id = ".$intcard_type_id.",c_card_type_discount=".$deccard_type_dicount.",s_card_ymoney=s_card_ymoney+".$decmoney.",card_ctime=".time()." where card_id=".$intcard_id." limit 1";
-		// echo $strsql;
+// 更新card,记录积分
+if($intreturn == 0) {
+	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET c_card_type_name='".$gdb->fun_escape($strcard_type_name)."', card_type_id = ".$intcard_type_id.",c_card_type_discount=".$deccard_type_discount.",s_card_ymoney=s_card_ymoney+".$decmoney.",s_card_score=s_card_score+".floor($deccash).",card_ctime=".time()." where card_id=".$intcard_id." limit 1";
+	// echo $strsql;
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
+		$intreturn = 1;
+	}
+}
+//查询card信息
+if($intreturn == 0){
+	$strsql = "SELECT card_id,card_code,card_sex, card_name,card_phone,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		$intreturn = 0;
+	}else{
+		$intreturn = 2;
+	}
+}
+// 插入消费记录
+if($intreturn == 0){
+	$card_pay = '';
+	switch($intpay_type)
+	{
+		case 1:
+			$card_pay = "card_record_xianjin";break;
+		case 2:
+			$card_pay = "card_record_yinhang";break;
+		case 3:
+			$card_pay = "card_record_weixin";break;
+		case 4:
+			$card_pay = "card_record_zhifubao";break;
+		default:
+			break;
+	}
+	// 充值code码？
+	if($decmoney>0 || $deccash>0){
+		$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name) VALUE (".$arr['card_id'].",".$GLOBALS['_SESSION']['login_sid'].",'code',1,".$decmoney.",".$deccash.",".$intpay_type.",".$deccash.",".floor($deccash).",".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."')";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
-			$intreturn = 1;
+			$intreturn = 3;
 		}
-		//插入消费记录，未做
-		//记录积分,未做
 	}
-	echo $intreturn;
 }
+echo $intreturn;
+
 ?>

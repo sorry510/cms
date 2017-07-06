@@ -31,7 +31,7 @@
         </button>
       </div>
     </form>
-    <button class="am-btn ubtn-sure ubtn-blue cmodelopen1">
+    <button class="am-btn ubtn-sure ubtn-blue cmodalopen1">
       <i class="iconfont icon-xinzeng"></i>
       新增会员
     </button>
@@ -73,15 +73,15 @@
         <td><a href="e-record.php">电子档案</a></td>
         <td><a href="#">消费明细</a></td>
         <td>
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen2" value="<?php echo $row['card_id']; ?>">
+          <button class="am-btn ubtn-table ubtn-orange cmodalopen2" value="<?php echo $row['card_id']; ?>">
             <i class="iconfont icon-chongzhi"></i>
              充值
           </button>&nbsp;
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen3" value="<?php echo $row['card_id']; ?>">
+          <button class="am-btn ubtn-table ubtn-orange cmodalopen3" value="<?php echo $row['card_id']; ?>">
             <i class="iconfont icon-liwu"></i>
             买套餐
           </button>&nbsp;
-          <button class="am-btn ubtn-table ubtn-orange cmodelopen1-1" value="<?php echo $row['card_id']; ?>">
+          <button class="am-btn ubtn-table ubtn-orange cmodalopen1-1" value="<?php echo $row['card_id']; ?>">
             <i class="iconfont icon-bianji"></i>
             修改
           </button>
@@ -419,7 +419,7 @@
         </label>
       </div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen3"><i class="iconfont icon-liwu"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodalopen3"><i class="iconfont icon-liwu"></i>
           买套餐
         </button>
         <button type="button" class="am-btn ubtn-sure ubtn-green ccardrechargesubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
@@ -504,7 +504,7 @@
     <div class="am-modal-footer ufoot">
           <div class="utext1">共 <span class="cmcombo_num">0</span> 件，共计：<span class="am-text-lg gtext-orange call_money">0</span>元</div>
           <div class="am-btn-group">
-            <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4" value=""><i class="iconfont icon-xiangyou2"></i>
+            <button type="button" class="am-btn ubtn-sure ubtn-green cmodalopen4" value=""><i class="iconfont icon-xiangyou2"></i>
               下一步
             </button>
           </div>  
@@ -574,10 +574,10 @@
         </div>
       </div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen3up"><i class="iconfont icon-xiangyou2"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodalopen3up"><i class="iconfont icon-xiangyou2"></i>
           上一步
         </button>
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodalcommit4"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -739,7 +739,7 @@ $(function() {
     }
     /******************************************modal************************************/
     //新增会员
-    $('.cmodelopen1').on('click', function(e) {
+    $('.cmodalopen1').on('click', function(e) {
       $('#ucardm1').modal('open');
       $('#ucardm1 input').eq(0).focus();
     });
@@ -767,7 +767,7 @@ $(function() {
       });
     });
     //会员修改
-    $('.cmodelopen1-1').on('click', function(e) {
+    $('.cmodalopen1-1').on('click', function(e) {
       var url = "card_edit_ajax.php";
       // console.log($(this).val());
       $.getJSON(url,{card_id:$(this).val()},function(res){
@@ -814,7 +814,7 @@ $(function() {
       });
     });
     //会员充值
-    $('.cmodelopen2').on('click', function() {
+    $('.cmodalopen2').on('click', function() {
       var url = "card_recharge_ajax.php";
       $.getJSON(url,{card_id:$(this).val()},function(res){
         $("#ucardm2 .ccard_name").text(res.card_name);
@@ -826,6 +826,7 @@ $(function() {
         $("#ucardm2 .ccard_ymoney").text(res.s_card_ymoney);
         $("#ucardm2 .ccard_type_discount").text(res.c_card_type_discount);
         $("#ucardm2 input[name='card_id']").val(res.card_id);
+        $("#ucardm2 .cmodalopen3").val(res.card_id);
         $('#ucardm2 .ccard_type').val(res.card_type_id);
         $('#ucardm2 .ccard_type').selected();
       });
@@ -875,7 +876,7 @@ $(function() {
       });
     });
     //购买套餐
-    $('.cmodelopen3').on('click', function() {
+    $('.cmodalopen3').on('click', function() {
       $('#ucardm2').modal('close');
       var card_id = $(this).val();
       var url = "card_password_ajax.php";
@@ -894,7 +895,7 @@ $(function() {
             $("#ucardm3 .ccard_type").text(res.c_card_type_name);
             $("#ucardm3 .ccard_ymoney").text(res.s_card_ymoney);
             $("#ucardm3 .ccard_phone").text(res.card_phone);
-            $("#ucardm3 .cmodelopen4").val(res.card_id);
+            $("#ucardm3 .cmodalopen4").val(res.card_id);
           });
           $('#ucardm3').modal('open');
           $('#ucardm3 input').eq(0).focus();
@@ -920,7 +921,7 @@ $(function() {
             $("#ucardm3 .ccard_type").text(res.c_card_type_name);
             $("#ucardm3 .ccard_ymoney").text(res.s_card_ymoney);
             $("#ucardm3 .ccard_phone").text(res.card_phone);
-            $("#ucardm3 .cmodelopen4").val(res.card_id);
+            $("#ucardm3 .cmodalopen4").val(res.card_id);
           });
           $('#ucardm3').modal('open');
           $('#ucardm3 input').eq(0).focus();
@@ -957,13 +958,22 @@ $(function() {
       })
     });
     //返回上一步
-    $('.cmodelopen3up').on('click', function() {
+    $('.cmodalopen3up').on('click', function() {
       $('#ucardm4').modal('close');
       $('#ucardm3').modal('open');
       $('#ucardm3 input').eq(0).focus();
     });
+    // 填充金额
+    $("#ucardm4 input[name='pay']").on("input propertychange",function(){
+      var relmoney = $(this).val()-$("#ucardm4 input[name='give']").val();
+      $("#ucardm4 .relmoney").text(relmoney);
+    });
+    $("#ucardm4 input[name='give']").keyup(function(){
+      var relmoney = $("#ucardm4 .cpay").val()-$(this).val();;
+      $("#ucardm4 .relmoney").text(relmoney);
+    });
      //购买套餐完成
-    $('.cmodelopen4').on('click', function() {
+    $('.cmodalopen4').on('click', function() {
       var card_id = $(this).val();
       $('#ucardm3').modal('close');
       $.getJSON('card_edit_ajax.php',{card_id:card_id},function(res){
@@ -978,15 +988,34 @@ $(function() {
       $('#ucardm4').modal('open');
       $('#ucardm4 input').eq(0).focus();
     });
-    // 填充金额
-    $("#ucardm4 input[name='pay']").keyup(function(){
-      var relmoney = $(this).val()-$("#ucardm4 input[name='give']").val();
-      $("#ucardm4 .relmoney").text(relmoney);
-    });
-    $("#ucardm4 input[name='give']").keyup(function(){
-      var relmoney = $("#ucardm4 .cpay").val()-$(this).val();;
-      $("#ucardm4 .relmoney").text(relmoney);
-    });
+    // 购买套餐完成提交
+    $('.cmodalcommit4').on('click', function() {
+      var url="card_mcombo_do.php";
+      var card_id=$("#ucardm4 input[name='card_id']").val();
+      var arr= [];
+      $("#ucardm4 .cnum").each(function(k,v){
+        var json = {'id':$(this).attr('mcombo_id'),'num':$(this).val()};
+        arr.push(json);
+      });
+      var money = $("#ucardm4 input[name='pay']").val();
+      var give = $("#ucardm4 input[name='give']").val();
+      var pay_type = $("#ucardm4 .upay-active").attr('payType');
+      var data = {
+            card_id:card_id,
+            money:money,
+            give:give,
+            arr:arr,
+            pay_type:pay_type
+          }
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          // alert('购买套餐失败');
+          console.log(res);
+        }
+      });
+    })
     //侧拉打开
     $('.coffopen').on('click', function() {
       var url = "card_edit_ajax.php";

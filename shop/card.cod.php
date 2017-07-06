@@ -546,12 +546,12 @@
       <div class="ucontent2">
         <div class="utext">应付金额：</div>
         <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="请输入金额">&nbsp;&nbsp;元
+          <input name="pay" class="am-form-field umoneyinput cpay" type="text" placeholder="请输入金额" value="0">&nbsp;&nbsp;元
         </div>
         <label class="umodal-search">&nbsp;</label>
         <div class="utext">手动优惠：</div>
         <div class='umodal-text'>
-          <input id="" class="am-form-field umoneyinput" type="text" placeholder="0.0">&nbsp;&nbsp;元
+          <input name="give" class="am-form-field umoneyinput" type="text" placeholder="0.0" value="0">&nbsp;&nbsp;元
         </div>
       </div>
       <div class="utitle">付款方式</div>
@@ -570,7 +570,7 @@
           </label>
         </div>
         <div class="am-text-secondary"><i class="icon iconfont icon-dayin"></i> 预打账单</div>
-        <div>合计：<span class="am-text-lg gtext-orange">126</span>元，折扣：<span class="am-text-lg gtext-orange">8</span>折，实收金额：<span class="am-text-lg gtext-orange">126</span>元
+        <div>合计：<span class="am-text-lg gtext-orange call_money">0</span>元，折扣：<span class="am-text-lg gtext-orange ccard_discount"></span>折，实收金额：<span class="am-text-lg gtext-orange relmoney">0</span>元
         </div>
       </div>
       <div class="am-btn-group">
@@ -651,12 +651,62 @@ $(function() {
     // + -
     $(document).on("click", ".cbtndec", function() {
       var _self= $(this).siblings('input');
+      var mcombo_id = _self.attr('mcombo_id');
       if(parseInt(_self.val())>=1)
-        _self.val(parseInt(_self.val())-1);
+        $("input[mcombo_id="+mcombo_id+"]").val(parseInt(_self.val())-1);
+      jisuan();
     });
     $(document).on("click", ".cbtnplus", function() {
       var _self= $(this).siblings('input');
-      _self.val(parseInt(_self.val())+1);
+      var mcombo_id = _self.attr('mcombo_id');
+      $("input[mcombo_id="+mcombo_id+"]").val(parseInt(_self.val())+1);
+      jisuan();
+    });
+    //计算合计金额
+    function jisuan(){
+      var all_money = 0;
+      var num = 0;
+      $("#ucardm3 .uright .cnum").each(function(){
+        all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('price'));
+        num = Number(num) + Number($(this).val());
+      });
+      $("#ucardm3 .call_money").text(all_money);
+      $("#ucardm4 .call_money").text(all_money);
+      $("#ucardm4 .cpay").val(all_money);
+      $("#ucardm3 .cmcombo_num").text(num);
+    }
+    //当直接填入数量时计算金额
+    function jisuan2(){
+      var id = $(this).attr('mcombo_id');
+      $("input[mcombo_id="+id+"]").val($(this).val());
+      jisuan();
+    }
+    $('#doc-form-file').on('change',showPreview);
+    //上传文件
+    function showPreview() {
+        var file = this.files[0];
+        if(window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function(e) {
+              $("#cimg").attr('src',e.target.result);
+              // document.getElementById("portrait").src = e.target.result;
+            }
+            fr.readAsDataURL(file);
+        }
+    }
+    //删除购买套餐modal套餐
+    $(document).on("click",".cdel2",function(){
+      $(".cdel[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().parent().remove();
+      $(this).parent().remove();
+      $("#ucardm3 .uleft [mcombo_id="+$(this).attr('mcombo_id')+"] + .cadd").bind('click',cadd);
+      jisuan();
+    });
+    //删除购买套餐完成modal套餐
+    $(document).on("click",".cdel",function(){
+      $(".cdel2[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().remove();
+      $(this).parent().parent().remove();
+      $("#ucardm3 .uleft [mcombo_id="+$(this).attr('mcombo_id')+"] + .cadd").bind('click',cadd);
+      jisuan();
     });
     // 添加套餐
     var cadd = function(){
@@ -664,7 +714,7 @@ $(function() {
       var product = $(this).prev().text();
       var price = $(this).prev().attr('price');
       var mcombo_id = $(this).prev().attr('mcombo_id');
-      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" price="'+price+'" class="uinput2 uinput-35 cmcombo_num" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mcombo_id="'+mcombo_id+'" price="'+price+'" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
       $(".uright .uc").append(addhtml);
       $.ajax({
         url:'card_mcombo_ajax.php',
@@ -679,15 +729,12 @@ $(function() {
           cont +=v.mgoods_name+v.mcombo_goods_count+'次,';
         })
         cont = cont.substr(0,cont.length-1);
-        var addtr = '<tr><td>'+product+'</td><td>'+cont+'</td><td><span class="gtext-orange">￥998</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
+        var addtr = '<tr><td>'+product+'</td><td>'+cont+'</td><td><span class="gtext-orange">￥'+price+'</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" mcombo_id="'+mcombo_id+'" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
         $('#ucardm4 table tbody').append(addtr);
       }).then(function(){
-        var all_money = 0;
-        $("#ucardm3 .cmcombo_num").text($("#ucardm3 .uright .uc li").length);
-        $("#ucardm3 .uright .uc .uc2 input").each(function(){
-          all_money = Number(all_money) + Number($(this).attr('price'));
-        })
-        $("#ucardm3 .call_money").text(all_money);
+        jisuan()
+        $("#ucardm3 .uright .cnum").on("input propertychange",jisuan2);
+        $("#ucardm4 .cnum").on("input propertychange",jisuan2);
       })
     }
     /******************************************modal************************************/
@@ -931,7 +978,15 @@ $(function() {
       $('#ucardm4').modal('open');
       $('#ucardm4 input').eq(0).focus();
     });
-  
+    // 填充金额
+    $("#ucardm4 input[name='pay']").keyup(function(){
+      var relmoney = $(this).val()-$("#ucardm4 input[name='give']").val();
+      $("#ucardm4 .relmoney").text(relmoney);
+    });
+    $("#ucardm4 input[name='give']").keyup(function(){
+      var relmoney = $("#ucardm4 .cpay").val()-$(this).val();;
+      $("#ucardm4 .relmoney").text(relmoney);
+    });
     //侧拉打开
     $('.coffopen').on('click', function() {
       var url = "card_edit_ajax.php";
@@ -1021,45 +1076,6 @@ $(function() {
     //侧拉去掉禁止选中
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
-    });
-
-    $('#doc-form-file').on('change',showPreview);
-    //上传文件
-    function showPreview() {
-        var file = this.files[0];
-        console.log(file);
-        if(window.FileReader) {
-            var fr = new FileReader();
-            fr.onloadend = function(e) {
-              $("#cimg").attr('src',e.target.result);
-              // document.getElementById("portrait").src = e.target.result;
-            }
-            fr.readAsDataURL(file);
-        }
-    }
-    //删除购买套餐modal套餐
-    $(document).on("click",".cdel2",function(){
-      var taocan = $(this).siblings('.uc2').find('input');
-      var dec_money = Number(taocan.val())*Number(taocan.attr('price'));
-      var old_money = Number($("#ucardm3 .call_money").text());
-      var new_money = Number(old_money)-Number(dec_money);
-      $(".cdel[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().parent().remove();
-      $(this).parent().remove();
-      $("#ucardm3 .uleft [mcombo_id="+$(this).attr('mcombo_id')+"] + .cadd").bind('click',cadd);
-      $("#ucardm3 .call_money").text(new_money);
-      $("#ucardm3 .cmcombo_num").text($("#ucardm3 .uright .uc li").length);
-    });
-    //删除购买套餐完成modal套餐
-    $(document).on("click",".cdel",function(){
-      var taocan = $(this).siblings('.uc2').find('input');
-      var dec_money = Number(taocan.val())*Number(taocan.attr('price'));
-      var old_money = Number($("#ucardm3 .call_money").text());
-      var new_money = Number(old_money)-Number(dec_money);
-      $(".cdel2[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().remove();
-      $(this).parent().parent().remove();
-      $("#ucardm3 .uleft [mcombo_id="+$(this).attr('mcombo_id')+"] + .cadd").bind('click',cadd);
-      $("#ucardm3 .call_money").text(new_money);
-      $("#ucardm3 .cmcombo_num").text($("#ucardm3 .uright .uc li").length);
     });
 });
 </script>

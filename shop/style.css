@@ -1,19 +1,19 @@
 /********************************************************user页面************************************************************/
 /*添加会员*/
-#ubody [id*="ucardm1"] .utextbox{position:relative; padding:5px 30px 0 30px;margin:2% 20px; min-height:100px; border:1px solid #E3E3E3;}
-#ubody [id*="ucardm1"] .utextbox .utextbox-title{position:relative; top:-15px; display:block; width:100px; height:15px;text-align: center; background: #F8F8F8; color:#2D7EF6; font-weight:bold;}
-#ubody [id*="ucardm1"] .utextbox .am-form-group {float:left; display:inline-block; margin:0;width: 80%;}
-#ubody [id*="ucardm1"] .utextbox [class*="umodal-"]{float:left; padding-right: 0px;padding-left: 0px; margin-bottom:10px;height:36px;}
-#ubody [id*="ucardm1"] .utextbox .umodal-label{margin:0px; padding-right: 1rem; width:90px; text-align:right;}
-#ubody [id*="ucardm1"] .utextbox .umodal-text{text-align: left;line-height: 36px;}
-#ubody [id*="ucardm1"] .utextbox .umodal-max{width:490px;}
-#ubody [id*="ucardm1"] .utextbox .umodal-normal{width:185px;}
-#ubody [id*="ucardm1"] .utextbox .umodal-search{width:30px;}
-#ubody [id*="ucardm1"] .utextbox .uphoto{position:absolute; top:3px; right:50px; width:100px;}
-#ubody [id*="ucardm1"] .utextbox .uphoto img{width:100%;height:125px;}
-#ubody [id*="ucardm1"] .utextbox .uphoto > a{padding:4px 0; width:100%;background-color:#B3B3B3;color:#FFFFFF;}
-#ubody [id*="ucardm1"] .utextbox .am-selected-list{max-height:130px;}
-#ubody [id*="ucardm1"] .utextbox .udatepicker.udatepicker-max input {width:86%;}
+#ubody #ucardm1 .utextbox{position:relative; padding:5px 30px 0 30px;margin:2% 20px; min-height:100px; border:1px solid #E3E3E3;}
+#ubody #ucardm1 .utextbox .utextbox-title{position:relative; top:-15px; display:block; width:100px; height:15px;text-align: center; background: #F8F8F8; color:#2D7EF6; font-weight:bold;}
+#ubody #ucardm1 .utextbox .am-form-group {float:left; display:inline-block; margin:0;width: 80%;}
+#ubody #ucardm1 .utextbox [class*="umodal-"]{float:left; padding-right: 0px;padding-left: 0px; margin-bottom:10px;height:36px;}
+#ubody #ucardm1 .utextbox .umodal-label{margin:0px; padding-right: 1rem; width:90px; text-align:right;}
+#ubody #ucardm1 .utextbox .umodal-text{text-align: left;line-height: 36px;}
+#ubody #ucardm1 .utextbox .umodal-max{width:490px;}
+#ubody #ucardm1 .utextbox .umodal-normal{width:185px;}
+#ubody #ucardm1 .utextbox .umodal-search{width:30px;}
+#ubody #ucardm1 .utextbox .uphoto{position:absolute; top:3px; right:50px; width:100px;}
+#ubody #ucardm1 .utextbox .uphoto img{width:100%;height:125px;}
+#ubody #ucardm1 .utextbox .uphoto > a{padding:4px 0; width:100%;background-color:#B3B3B3;color:#FFFFFF;}
+#ubody #ucardm1 .utextbox .am-selected-list{max-height:130px;}
+#ubody #ucardm1 .utextbox .udatepicker.udatepicker-max input {width:86%;}
 /*会员充值*/
 #ubody #ucardm2 .ua1{position:absolute; left:30px; bottom:40px;}
 #ubody #ucardm2 .uselect.uselect-auto + .am-selected {max-width:130px;}

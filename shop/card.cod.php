@@ -379,8 +379,8 @@
         <div class="am-u-lg-4">手机号码：<span class="ccard_phone"></span></div>
         <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange ccard_ymoney"></span>元</div>
         <div class="am-u-lg-4">会员卡类型：
-          <select class="uselect uselect-auto ccard_type" placeholder="请选择" name="card_type">
-          <option selected value=""></option>
+          <select class="uselect uselect-auto ccard_type" name="card_type">
+          <option value="">请选择</option>
           <?php foreach($this->_data['card_type_list'] as $row) { ?>
             <option discount="<?php echo $row['card_type_discount'];?>" value="<?php echo $row['card_type_id'];?>"><?php echo $row['card_type_name']; ?></option>
           <? }?>
@@ -467,7 +467,7 @@
             <ul class="uc">
             <?php foreach($this->_data['mcombo_list'] as $row){?>
               <li class="uc2">
-                <div class="uc2a" price="<?php echo $row['mcombo_cprice'];?>" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']."(".$row['mcombo_cprice'].")";?></div>
+                <div class="uc2a" price="<?php echo $row['mcombo_price'];?>" cprice="<?php echo $row['mcombo_cprice'];?>" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']."(".$row['mcombo_price'].")";?></div>
                 <div class="uc2b cadd"><a href="#">添加</a></div>
               </li>
             <?php }?>
@@ -502,9 +502,9 @@
       <div style="clear:both;"></div>
     </div>
     <div class="am-modal-footer ufoot">
-          <div class="utext1">共 <span class="cmcombo_num">0</span> 件，共计：<span class="am-text-lg gtext-orange call_money">0</span>元</div>
+          <div class="utext1">共 <span class="cmcombo_num">0</span> 件，共计：<span class="am-text-lg gtext-orange cymoney">0</span>元</div>
           <div class="am-btn-group">
-            <button type="button" class="am-btn ubtn-sure ubtn-green cmodalopen4" value=""><i class="iconfont icon-xiangyou2"></i>
+            <button type="button" class="am-btn ubtn-sure ubtn-green cmodalopen4"><i class="iconfont icon-xiangyou2"></i>
               下一步
             </button>
           </div>  
@@ -547,6 +547,7 @@
         <div class="utext">应付金额：</div>
         <div class='umodal-text'>
           <input name="pay" class="am-form-field umoneyinput cpay" type="text" placeholder="请输入金额" value="0">&nbsp;&nbsp;元
+          <input type="hidden" name="ymoney" class="cheji">
         </div>
         <label class="umodal-search">&nbsp;</label>
         <div class="utext">手动优惠：</div>
@@ -560,6 +561,7 @@
          <button class="am-btn am-btn-default upay" payType="2">银行卡</button>
          <button class="am-btn am-btn-default upay" payType="3">微信支付</button>
          <button class="am-btn am-btn-default upay" payType="4">支付宝</button>
+         <button class="am-btn am-btn-default upay" payType="5">卡扣</button>
       </div>
     </div>
     <div class="am-modal-footer ufoot">
@@ -570,7 +572,7 @@
           </label>
         </div>
         <div class="am-text-secondary"><i class="icon iconfont icon-dayin"></i> 预打账单</div>
-        <div>合计：<span class="am-text-lg gtext-orange call_money">0</span>元，折扣：<span class="am-text-lg gtext-orange ccard_discount"></span>折，实收金额：<span class="am-text-lg gtext-orange relmoney">0</span>元
+        <div>合计：<span class="am-text-lg gtext-orange cymoney">0</span>元，折扣：<span class="am-text-lg gtext-orange ccard_discount"></span>折，实收金额：<span class="am-text-lg gtext-orange relmoney">0</span>元
         </div>
       </div>
       <div class="am-btn-group">
@@ -664,15 +666,24 @@ $(function() {
     });
     //计算合计金额
     function jisuan(){
-      var all_money = 0;
+      var ymoney = 0;//原始总价
+      var all_money = 0;//应付价
       var num = 0;
+      var discount = Number($("#ucardm3 .ccard_discount").text());
       $("#ucardm3 .uright .cnum").each(function(){
-        all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('price'));
+        if($(this).attr('cprice')==0){
+          all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('price'))*discount/10;
+        }else{
+          all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('cprice'));
+        }
+        ymoney = Number(ymoney) + Number($(this).val())*Number($(this).attr('price'));
         num = Number(num) + Number($(this).val());
       });
-      $("#ucardm3 .call_money").text(all_money);
-      $("#ucardm4 .call_money").text(all_money);
+      $("#ucardm3 .cymoney").text(ymoney);
+      $("#ucardm4 .cymoney").text(ymoney);
+      $("#ucardm4 .cheji").val(ymoney);
       $("#ucardm4 .cpay").val(all_money);
+      $("#ucardm4 .relmoney").text(all_money);
       $("#ucardm3 .cmcombo_num").text(num);
     }
     //当直接填入数量时计算金额
@@ -713,8 +724,9 @@ $(function() {
       $(this).unbind("click"); //移除click
       var product = $(this).prev().text();
       var price = $(this).prev().attr('price');
+      var cprice = $(this).prev().attr('cprice');
       var mcombo_id = $(this).prev().attr('mcombo_id');
-      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mcombo_id="'+mcombo_id+'" price="'+price+'" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mcombo_id="'+mcombo_id+'" price="'+price+'" cprice="'+cprice+'" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
       $(".uright .uc").append(addhtml);
       $.ajax({
         url:'card_mcombo_ajax.php',
@@ -729,7 +741,17 @@ $(function() {
           cont +=v.mgoods_name+v.mcombo_goods_count+'次,';
         })
         cont = cont.substr(0,cont.length-1);
-        var addtr = '<tr><td>'+product+'</td><td>'+cont+'</td><td><span class="gtext-orange">￥'+price+'</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" mcombo_id="'+mcombo_id+'" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
+        if(product.length>20){
+          product1 = product.substr(0,16)+'...';
+        }else{
+          product1 = product;
+        }
+        if(cont.length>30){
+          cont1 = cont.substr(0,26)+'...';
+        }else{
+          cont1 = cont;
+        }
+        var addtr = '<tr><td title="'+product+'">'+product1+'</td><td title="'+cont+'">'+cont1+'</td><td><span class="gtext-orange">￥'+price+'</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" mcombo_id="'+mcombo_id+'" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
         $('#ucardm4 table tbody').append(addtr);
       }).then(function(){
         jisuan()
@@ -879,6 +901,7 @@ $(function() {
     $('.cmodalopen3').on('click', function() {
       $('#ucardm2').modal('close');
       var card_id = $(this).val();
+      $('#ucardm4 .cmodalcommit4').val(card_id);
       var url = "card_password_ajax.php";
       $.get(url,{card_id:card_id},function(res){
         if(res=='1'){
@@ -991,17 +1014,19 @@ $(function() {
     // 购买套餐完成提交
     $('.cmodalcommit4').on('click', function() {
       var url="card_mcombo_do.php";
-      var card_id=$("#ucardm4 input[name='card_id']").val();
+      var card_id=$(this).val();
       var arr= [];
       $("#ucardm4 .cnum").each(function(k,v){
         var json = {'id':$(this).attr('mcombo_id'),'num':$(this).val()};
         arr.push(json);
       });
+      var ymoney = $("#ucardm4 input[name='ymoney']").val();
       var money = $("#ucardm4 input[name='pay']").val();
       var give = $("#ucardm4 input[name='give']").val();
       var pay_type = $("#ucardm4 .upay-active").attr('payType');
       var data = {
             card_id:card_id,
+            ymoney:ymoney,
             money:money,
             give:give,
             arr:arr,

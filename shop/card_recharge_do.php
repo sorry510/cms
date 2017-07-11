@@ -9,9 +9,9 @@ $intcard_id = api_value_int0($strcard_id);
 $strcard_type_id = api_value_post('card_type_id');
 $intcard_type_id = api_value_int0($strcard_type_id);
 $strmoney = api_value_post('money');
-$decmoney = api_value_decimal($strmoney, 2);
+$decmoney = api_value_decimal($strmoney, 2);//充值金额
 $strcash = api_value_post('cash');
-$deccash = api_value_decimal($strcash, 2);
+$deccash = api_value_decimal($strcash, 2);//实收金额
 $strpay_type = api_value_post('pay_type');
 $intpay_type = api_value_int0($strpay_type);
 
@@ -64,9 +64,9 @@ if($intreturn == 0){
 		default:
 			break;
 	}
-	// 充值code码？
+	// 充值code码time()
 	if($decmoney>0 || $deccash>0){
-		$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name) VALUE (".$arr['card_id'].",".$GLOBALS['_SESSION']['login_sid'].",'code',1,".$decmoney.",".$deccash.",".$intpay_type.",".$deccash.",".floor($deccash).",".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."')";
+		$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".time()."',1,".$decmoney.",".$deccash.",".$arr['s_card_ymoney'].",".$intpay_type.",".$deccash.",".floor($deccash).",".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."')";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 3;

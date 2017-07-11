@@ -8,7 +8,6 @@ $strchannel = 'card';
 $strcard_type = api_value_get('card_type');
 $intcard_type = api_value_int0($strcard_type);
 $strsearch = api_value_get('search');
-
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 

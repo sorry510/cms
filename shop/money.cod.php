@@ -54,7 +54,7 @@
           <li><font>累计消费：</font><span class="ccard_cash"></span></li>
           <li><font>累计赠送：</font><span class="ccard_give"></span></li>
           <li><font>会员备注：</font><span class="ccard_memo"></span></li>
-          <input type="hidden" class="ccard_id">
+          <input type="hidden" class="ccard_id" value="">
         </ul>
       </div>
     </div>
@@ -137,8 +137,14 @@
         </ul>
       </div>
     </div>
-    <div class="am-u-lg-6 umain2">当前活动：限时打折</div> 
-    <div class="am-u-lg-6 umain3">共计<span class="cgoods_num">0</span>件，原价<span class="gtext-orange call_money">0.0</span>元，优惠后<span class="gtext-orange crel_money">0.0</span>元</div> 
+    <div class="am-u-lg-6 umain2">当前活动：| <?php foreach($this->_data['act_discount_list'] as $row){
+      echo $row['act_discount_name']." | ";
+      }?><?php foreach($this->_data['act_decrease_list'] as $row){
+      echo $row['act_decrease_name']." | ";
+      }?><?php foreach($this->_data['act_give_list'] as $row){
+      echo $row['act_give_name']." | ";
+      }?></div>
+    <div class="am-u-lg-6 umain3">共计<span class="cgoods_num">0</span>件a，原价<span class="gtext-orange call_money">0.0</span>元，优惠后<span class="gtext-orange crel_money">0.0</span>元</div> 
   </div>
   <div style="clear: both;"></div>
   <div class="uc">
@@ -189,6 +195,18 @@
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 $(function(){
+
+
+  var goods = [];
+  // <?php //foreach($this->_data['act_discount_list'] as $row){
+  //   foreach($row['arrgoods'] as $k=>$v){
+  //     echo "var json = {'mgoods_id':".$v['mgoods_id'].",'price':".$v['act_discount_goods_price'].",'discout':".$v['act_discount_goods_value']."}";
+  //     echo "goods.push(json)";
+  //   }
+  // }
+  // ?>
+  console.log(goods);
+
   $(document).keyup(function(e){
       var e = window.event || e || e.which;
       if(e.keyCode==112){
@@ -329,6 +347,7 @@ $(function(){
           card_id:$('#umoney .ua .ua2 .ccard_id').val()
       }
       $.getJSON(url,data,function(res){
+        // console.log(res);
         if(res.length>0){
           $.each(res,function(k,v){
             if(v.card_mcombo_type==1){
@@ -374,8 +393,15 @@ $(function(){
   function jisuan(){
     var all_money = 0;
     var num = 0;
+    // $("#ucardm4 .cnum").each(function(k,v){
+    //   var json = {'id':$(this).attr('mcombo_id'),'num':$(this).val()};
+    //   arr.push(json);
+    // });
     var discount = Number($("#money .ccard_discount").text());
     $("#umoney .uright .cnum").each(function(){
+      if($("#umoney .ccard_id").val().length==0){
+
+      }
       all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('price'));
       num = Number(num) + Number($(this).val());
     });
@@ -390,8 +416,6 @@ $(function(){
   $('.cgoodssubmit').on('click',searchGoods);
   // 添加商品
   $('#umoney .ub .uleft #tab1 .cadd').on('click', cadd);
-
-
   //删除
   $(document).on("click",".cdel",function(){
     var mgoods_id = $(this).attr('mgoods_id');

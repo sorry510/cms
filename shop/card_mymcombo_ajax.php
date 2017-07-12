@@ -8,8 +8,7 @@ $arr = array();
 $strcard_id = api_value_get('card_id');
 $intcard_id = api_value_int0($strcard_id );
 
-$strsql = "SELECT card_mcombo_type,mcombo_id,card_mcombo_ccount,mgoods_id,card_mcombo_gcount FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id = ".$intcard_id." order by mcombo_id desc,card_mcombo_type asc";
-
+$strsql = "SELECT card_mcombo_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,mgoods_id,card_mcombo_gcount FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id = ".$intcard_id." order by mcombo_id desc,card_mcombo_id asc";
 // echo $strsql;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -29,5 +28,4 @@ foreach($arr as &$v){
 		$v['mgoods_cprice'] = $arrgoods['mgoods_cprice'];
 	}
 }
-
 echo json_encode($arr);

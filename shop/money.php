@@ -114,7 +114,6 @@ function get_act_discount_list(){
 		if(!empty($arr)){
 			foreach($arr as &$v){
 				$strsql = "SELECT mgoods_id,act_discount_goods_price,act_discount_goods_value,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where act_discount_id = ".$v['act_discount_id'];
-				echo $strsql;
 				$hresult = $GLOBALS['gdb']->fun_query($strsql);
 				$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 				$v['arrgoods'] = $arrgoods;

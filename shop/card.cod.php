@@ -686,12 +686,6 @@ $(function() {
       $("#ucardm4 .relmoney").text(all_money);
       $("#ucardm3 .cmcombo_num").text(num);
     }
-    //当直接填入数量时计算金额
-    function jisuan2(){
-      var id = $(this).attr('mcombo_id');
-      $("input[mcombo_id="+id+"]").val($(this).val());
-      jisuan();
-    }
     $('#doc-form-file').on('change',showPreview);
     //上传文件
     function showPreview() {
@@ -755,8 +749,8 @@ $(function() {
         $('#ucardm4 table tbody').append(addtr);
       }).then(function(){
         jisuan()
-        $("#ucardm3 .uright .cnum").on("input propertychange",jisuan2);
-        $("#ucardm4 .cnum").on("input propertychange",jisuan2);
+        $("#ucardm3 .uright .cnum").on("input propertychange",jisuan);
+        $("#ucardm4 .cnum").on("input propertychange",jisuan);
       })
     }
     /******************************************modal************************************/

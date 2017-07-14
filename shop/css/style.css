@@ -96,7 +96,7 @@
 #umoney>.uc .uc2 label{margin-bottom: 10px;}
 #umoney>.uc .uc2 .uc2a span{color:#999;}
 #umoney>.uc .uc2 .uc2b{vertical-align: middle; color: #5F5F5F; font-size: 18px;font-weight: normal}
-#umoney>.uc .uc2 .uc2c{ background: #F4F4F4;border:1px solid #FF4200;padding:0 3%; font-weight: bold;font-size: 24px;}
+#umoney>.uc .uc2 .uc2c{ display:inline-block; width:100px;padding:3px 5px; background: #F4F4F4;border:1px solid #FF4200; font-weight: bold;font-size: 20px; }
 #umoney>.uc .uc2 .uc2d{ color: #5F5F5F;vertical-align: middle;font-weight: normal;}
 #umoney>.uc .uc2 .uc2e{ vertical-align: middle;}
 #umoney>.uc .uc3{height: 80px;line-height: 80px;margin:0 auto;margin-right: 1.5%;}

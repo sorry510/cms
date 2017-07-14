@@ -1,0 +1,27 @@
+2017-06-28
+写了修改了cls_session,cls_msql,inc_config和子系统的inc_config文件同时添加了login,login_do文件用于实现数据库的基本连接功能，新增了card.php,card_add_do.php,card_edit_do.php,功能有会员列表，会员添加，会员修改，列表只完成了基本显示，不包含条件搜索和分页，添加和修改使用了ajax提交
+2017-06-29
+今天写了card.php,card_add_do.php,card_edit_do.php页面，card.php展示页面完成了分页显示和条件搜索显示，默认倒序排列，card_add_do.php完成了添加会员功能，照片添加没有实现，添加完成后整个页面刷新到无任何搜索条件状态，card_edit_do.php完成会员修改功能，默认打开显示会员当前信息，修改完成后，返回当前页面保持搜索条件，会员添加和修改都是通过ajax提交数据
+2017-06-30
+今天新增了card_recharge_do.php,card_state_do.php文件，card_recharge_do.php处理会员卡充值操作，写了更改会员卡类型添加充值金额，不涉及消费记录相关逻辑，card_state_do.php处理会员卡的停用，启用和删除操作，修改了card_edit_do.php文件，完成侧拉框显示会员详细信息，同时对分页和条件搜索做了修改优化
+2017-07-03
+今天工作汇报：将card_recharge_do.php,card_state_do.php,card_edit_do.php文件分别拆分成两个页面，xxx_ajax.php和xxx_do.php用于展示和提交数据，在card_recharge_do.php文件中补充了充值记录和积分添加操作，同时对相应页面的会员卡类型的下拉框进行了重写，对card.cod.php的一些js特效进行了修改
+2017-07-04
+今天工作汇报:新增card_mcombo_ajax.php,card_mcombo_do.php,card_password_ajax.php,card_password_do.php文件，card_mcombo_xxx文件用于处理购买套餐业务逻辑，card_password_ajax.php文件用于处理会员购买套餐时是否需要密码，card_password_do.php文件用于处理需要密码时对密码的正确性验证处理，同时对会员页面相关操作中可能出现的一些bug进行了修复。
+购买套餐相关业务逻辑还没完成。
+2017-07-05
+今天工作汇报:今天新增card_mcombo_ajax2.php用于处理购买套餐查询的返回json数据，还在处理购买套餐弹出框的js相关显示和php业务逻辑，处理了一个amaze框架中select下拉框的默认选择值无法显示的bug
+2017-07-06
+今日汇报：对购买套餐中各种操作可能出现的问题进行了修复，改写了套餐查询的实现方式，对购买套餐完成的业务逻辑完成了添加到会员卡中套餐和商品的业务逻辑，购买套餐的记录相关处理还不完善。
+2017-07-07
+今日汇报：新增了money.php 和allgoods_search_ajax.php文件，分别用于消费页面的默认显示和消费页面的商品查询，之前写的购买套餐价格的业务逻辑有误，正在改写。
+2017-07-10
+今日汇报：新增了card_search_ajax.php,card_mycombo_ajax.php和card_myticket_ajax.php,分别用于查找会员卡，和找到会员卡时，查找相应的套餐和优惠券，对买套餐的逻辑做了相应的修改。
+2017-07-11
+今日汇报：重新梳理了充值，买套餐，消费的逻辑，对相应的页面展示部分做了修改，充值的业务逻辑修改完成，正在做买套餐的业务逻辑
+2017-07-12
+今日汇报：买套餐的逻辑基本完成，正在写用户消费时的计算价格的逻辑
+2017-07-12
+今日汇报：新增goods_price_ajax.php文件，用于计算消费时，商品的真正价格，消费的逻辑还未完成
+2017-07-13
+今日汇报：新增act_decrease_ajax.php,act_discount_ajax.php,act_give_ajax.php用于处理是否是会员时所能参加的活动处理，在前台处理了我的套餐和我的优惠券的添加删除和所有情况下商品价格的计算处理，还有一些未完善的地方需要处理。

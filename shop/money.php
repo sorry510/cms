@@ -111,14 +111,6 @@ function get_act_discount_list(){
 		$strsql = "SELECT act_discount_id,act_discount_name FROM " . $GLOBALS['gdb']->fun_table2('act_discount')." where act_discount_start<=".$GLOBALS['now']." and act_discount_end>=".$GLOBALS['now']." and act_discount_state=1 and act_discount_client!=2 and act_discount_id in (".$stract_discount_id.") order by act_discount_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-		if(!empty($arr)){
-			foreach($arr as &$v){
-				$strsql = "SELECT mgoods_id,act_discount_goods_price,act_discount_goods_value,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where act_discount_id = ".$v['act_discount_id'];
-				$hresult = $GLOBALS['gdb']->fun_query($strsql);
-				$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
-				$v['arrgoods'] = $arrgoods;
-			}
-		}
 		return $arr;
 	}
 }
@@ -135,7 +127,7 @@ function get_act_decrease_list(){
 	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
 	if($stract_decrease_id!=''){
 		//非会员，期限内，正常
-		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_id desc";
+		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man asc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		return $arr;
@@ -160,65 +152,4 @@ function get_act_give_list(){
 		return $arr;
 	}
 }
-// function get_acts_list(){
-// 	$arr = array();
-// 	$arracts = array();
-// 	$now = time();
-// 	$stract_discount_id = '';
-// 	$stract_decrease_id = '';
-// 	$stract_give_id = '';
-// 	//限时打折活动
-// 	$strsql = "SELECT act_discount_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 	foreach($arr as $v){
-// 		$stract_discount_id .=$v['act_discount_id'].",";
-// 	}
-// 	$stract_discount_id = substr($stract_discount_id,0,strlen($stract_discount_id)-1);
-// 	if($stract_discount_id!=''){
-// 		//非会员，期限内，正常
-// 		$strsql = "SELECT act_discount_id,act_discount_name FROM " . $GLOBALS['gdb']->fun_table2('act_discount')." where act_discount_start<=".$now." and act_discount_end>=".$now." and act_discount_state=1 and act_discount_client!=2 and act_discount_id in (".$stract_discount_id.") order by act_discount_id desc";
-// 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 		if(!empty($arr)){
-// 			$arracts = array_merge($arracts,$arr);
-// 		}
-// 	}
-// 	//满减活动
-// 	$strsql = "SELECT act_decrease_id FROM ".$GLOBALS['gdb']->fun_table2('act_decrease_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 	foreach($arr as $v){
-// 		$stract_decrease_id .=$v['act_decrease_id'].",";
-// 	}
-// 	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
-// 	if($stract_decrease_id!=''){
-// 		//非会员，期限内，正常
-// 		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$now." and act_decrease_end>=".$now." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_id desc";
-// 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 		if(!empty($arr)){
-// 			$arracts = array_merge($arracts,$arr);
-// 		}
-// 	}
-// 	//满送活动
-// 	$strsql = "SELECT act_give_id FROM ".$GLOBALS['gdb']->fun_table2('act_give_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 	foreach($arr as $v){
-// 		$stract_give_id .=$v['act_give_id'].",";
-// 	}
-// 	$stract_give_id = substr($stract_give_id,0,strlen($stract_give_id)-1);
-// 	if($stract_give_id!=''){
-// 		//非会员，期限内，正常
-// 		$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id FROM " . $GLOBALS['gdb']->fun_table2('act_give')." where act_give_start<=".$now." and act_give_end>=".$now." and act_give_state=1 and act_give_client!=2 and act_give_id in (".$stract_give_id.") order by act_give_id desc";
-// 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-// 		if(!empty($arr)){
-// 			$arracts = array_merge($arracts,$arr);
-// 		}
-// 	}
-// 	return $arracts;
-// 	// $strsql = "SELECT a.*,b.shop_id FROM (SELECT act_discount_id,act_discount_name FROM " . $GLOBALS['gdb']->fun_table2('act_discount')." where act_discount_start<=".$now." and act_discount_end>=".$now." and act_discount_state=1 order by act_discount_id desc) as a join (SELECT act_discount_id,shop_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'].") as b on a.act_discount_id = b.act_discount_id";
-// }
 ?>

@@ -121,7 +121,6 @@
           <div class="am-tab-panel am-fade" id="tab3">
             <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
             <ul class="uc" style="height: 362px;">
-              <li class="uc1">代金券</li>
             </ul>
           </div>
         </div>
@@ -137,13 +136,13 @@
         </ul>
       </div>
     </div>
-    <div class="am-u-lg-6 umain2">当前活动：| <?php foreach($this->_data['act_discount_list'] as $row){
+    <div class="am-u-lg-6 umain2">当前活动：| <span class="cact_name"><?php foreach($this->_data['act_discount_list'] as $row){
       echo $row['act_discount_name']." | ";
       }?><?php foreach($this->_data['act_decrease_list'] as $row){
       echo $row['act_decrease_name']." | ";
       }?><?php foreach($this->_data['act_give_list'] as $row){
       echo $row['act_give_name']." | ";
-      }?></div>
+      }?></span></div>
     <div class="am-u-lg-6 umain3">共计<span class="cgoods_num">0</span>件，原价<span class="gtext-orange cmoney1">0.0</span>元，优惠后<span class="gtext-orange cmoney2">0.0</span>元</div> 
   </div>
   <div style="clear: both;"></div>
@@ -160,8 +159,7 @@
         </label>
         <label class="uc2b">实收金额：
         </label>
-        <span class="gtext-orange uc2c">188.0
-        </span>　
+        <input type="text" class="am-form-field gtext-orange uc2c cmoney3">
         <label class="uc2d">元
         </label>　　
         <label class="umodal-label am-form-label uc2e" for="">支付方式：</label>
@@ -196,18 +194,16 @@
 <script type="text/javascript">
 $(function(){
 
-  var mgoods = new Array();
-  var goods = new Array();
-  var i = 0;
-  var mgoods1 = [];
-  var act_id = [];
-
-  <?php foreach($this->_data['act_discount_list'] as $k=>$row){?>
-    act_id[<?php echo $k;?>] = <?php echo $row['act_discount_id'];?>
-    // foreach($row['arrgoods'] as $k=>$v){
-    //   echo "var json = {'mgoods_id':".$v['mgoods_id'].",'price':".$v['act_discount_goods_price'].",'discout':".$v['act_discount_goods_value']."};";
-    //   echo "mgoods1.push(json);";
-    // }
+  var act_discount_id = [];//限时打折活动id
+  var act_decrease_id = [];
+  var act_give_id = [];
+  var json1 = {};
+  <?php foreach($this->_data['act_discount_list'] as $k => $v){?>
+    act_discount_id[<?php echo $k;?>] = <?php echo $v['act_discount_id'];?>;
+  <?php }?>
+  <?php foreach($this->_data['act_decrease_list'] as $k => $v){?>
+    json1 ={'act_decrease_id':'<?php echo $v['act_decrease_id'];?>','act_decrease_man':'<?php echo $v['act_decrease_man'];?>','act_decrease_jian':'<?php echo $v['act_decrease_jian'];?>'};
+    act_decrease_id.push(json1);
   <?php }?>
 
   $(document).keyup(function(e){
@@ -242,6 +238,43 @@ $(function(){
     $("#umoney .uright .cnum").on("input propertychange",jisuan);
     goodsPrice(mgoods_id,sgoods_id);
     // jisuan();
+  }
+  //套餐
+  function cadd2(){
+    $(this).unbind("click"); //移除click
+    var content = $(this).prev().text();
+    var mgoods_id = $(this).prev().attr('mgoods_id');
+    var mcombo_id = $(this).parent().attr('mcombo_id');
+    var addhtml = '';
+    addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
+    $(".uright .ub").append(addhtml);
+  }
+  //奖券
+  function cadd3(){
+    var content = $(this).prev().text();
+    var ticket_id = $(this).parent().attr('ticket_id');
+    var ticket_type = $(this).parent().attr('ticket_type');
+    var ticket_value = Number($(this).parent().attr('ticket_value'));
+    var ticket_limit = Number($(this).parent().attr('ticket_limit'));
+    var now_money = Number($('.cmoney2').text());
+    if(ticket_type==1){
+      if(now_money>=ticket_limit){
+        var addhtml = '';
+        addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_value="'+ticket_value+'" ticket_id="'+ticket_id+'" class="cnum2" type="hidden"></div><div class="ub3 cdel3" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
+        $(".uright .ub").append(addhtml);
+        now_money = parseInt(now_money-ticket_value);
+        $('.cmoney2').text(now_money);
+        $("#umoney .cmoney3").val(now_money);
+        $(this).unbind("click"); //移除click
+      }else{
+        alert("不符合条件");
+      }
+    }else{
+      var addhtml = '';
+      addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_value="'+ticket_value+'" ticket_id="'+ticket_id+'" class="cnum2" type="hidden"></div><div class="ub3 cdel3" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
+      $(".uright .ub").append(addhtml);
+      $(this).unbind("click"); //移除click
+    }
   }
   function searchGoods(){
     $("#umoney .ub .uc li").hide();
@@ -313,21 +346,61 @@ $(function(){
         $('#umoney .ua .ua2 .ccard_shop').text('');
         $('#umoney .ua .ua2 .ccard_birthday').text('');
         $('#umoney .ua .ua2 .ccard_score').text('');
+      }else{
+        $.each(res,function(key,val){
+          $('#umoney .ua .ua2 .ccard_id').val(val.card_id);
+          $('#umoney .ua .ua2 .ccard_code').text(val.card_code);
+          $('#umoney .ua .ua2 .ccard_name').text(val.card_name);
+          $('#umoney .ua .ua2 .ccard_phone').text(val.card_phone);
+          $('#umoney .ua .ua2 .ccard_type').text(val.c_card_type_name);
+          $('#umoney .ua .ua2 .ccard_discount').text(val.c_card_type_discount);
+          $('#umoney .ua .ua2 .ccard_ymoney').text(val.s_card_ymoney);
+          $('#umoney .ua .ua2 .ccard_edate').text(val.edate);
+          $('#umoney .ua .ua2 .ccard_shop').text(val.shop_name);
+          $('#umoney .ua .ua2 .ccard_birthday').text(val.birthday);
+          $('#umoney .ua .ua2 .ccard_score').text(val.s_card_score);
+        });
       }
-      $.each(res,function(key,val){
-        $('#umoney .ua .ua2 .ccard_id').val(val.card_id);
-        $('#umoney .ua .ua2 .ccard_code').text(val.card_code);
-        $('#umoney .ua .ua2 .ccard_name').text(val.card_name);
-        $('#umoney .ua .ua2 .ccard_phone').text(val.card_phone);
-        $('#umoney .ua .ua2 .ccard_type').text(val.c_card_type_name);
-        $('#umoney .ua .ua2 .ccard_discount').text(val.c_card_type_discount);
-        $('#umoney .ua .ua2 .ccard_ymoney').text(val.s_card_ymoney);
-        $('#umoney .ua .ua2 .ccard_edate').text(val.edate);
-        $('#umoney .ua .ua2 .ccard_shop').text(val.shop_name);
-        $('#umoney .ua .ua2 .ccard_birthday').text(val.birthday);
-        $('#umoney .ua .ua2 .ccard_score').text(val.s_card_score);
+    }).then(function(){
+      act_discount_id.splice(0,act_discount_id.length);//清空活动id
+      act_decrease_id.splice(0,act_decrease_id.length);//清空活动id
+      act_give_id.splice(0,act_give_id.length);//清空活动id
+      $('#umoney .cact_name').text('');//情况活动名称
+      var card_id = 0;
+      var user_type = 0;
+      if($('#umoney .ua .ua2 .ccard_id').val().length!=0){
+        card_id = $('#umoney .ua .ua2 .ccard_id').val();
+        user_type = 1;//会员
+      }
+      $.getJSON('act_discount_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+        if(res.length>0){
+          $.each(res,function(k,v){
+            act_discount_id[k] = v.act_discount_id;
+            $('#umoney .cact_name').append(v.act_discount_name+' | ');
+          });
+        }
+      });
+      $.getJSON('act_decrease_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+        if(res.length>0){
+          $.each(res,function(k,v){
+            var json = {'act_decrease_id':v.act_decrease_id,'act_decrease_man':v.act_decrease_man,'act_decrease_jian':v.act_decrease_jian};
+            act_decrease_id.push(json);
+            $('#umoney .cact_name').append(v.act_decrease_name+' | ');
+          });
+        }
+      });
+      $.getJSON('act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+        if(res.length>0){
+          $.each(res,function(k,v){
+            // act_give_id[k] = v.act_give_id;
+            $('#umoney .cact_name').append(v.act_give_name+' | ');
+          });
+        }
       });
     }).then(function(){
+      // console.log(act_discount_id);
+      // console.log(act_decrease_id);
+      // console.log(act_give_id);
       var url = "card_mymcombo_ajax.php";
       var data = {
           card_id:$('#umoney .ua .ua2 .ccard_id').val()
@@ -337,15 +410,16 @@ $(function(){
         if(res.length>0){
           $.each(res,function(k,v){
             if(v.card_mcombo_type==1){
-              var addli = '<li class="uc1">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
+              var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
             }else if(v.card_mcombo_type==2){
-              var addli = '<li class="uc2"><div class="uc2a">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2"><div class="uc2a" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
             }
             $('#umoney .ub .uleft #tab2 .uc').append(addli);
           })
         }else{
           $('#umoney .ub .uleft #tab2 .uc li').remove();
         }
+        $('#umoney .ub .uleft #tab2 .cadd2').on('click', cadd2);
       })
     }).then(function(){
       var url = "card_myticket_ajax.php";
@@ -357,32 +431,45 @@ $(function(){
         if(res.length>0){
           $.each(res,function(k,v){
             if(v.ticket_type==1){
-              var addli = '<li class="uc2"><div class="uc2a">'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd"><a href="#">添加</a></div></li>';
-              $('#umoney .ub .uleft #tab3 .uc .uc1').after(addli);
-            }else if(v.ticket_type==2){
-              // var addli = '<li class="uc2"><div class="uc2a">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'" ticket_limit="'+v.ticket_limit+'"><div class="uc2a">代金券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              $('#umoney .ub .uleft #tab3 .uc').append(addli);
+            }else{
+              var addli = '<li class="uc2" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'"><div class="uc2a">体验券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              $('#umoney .ub .uleft #tab3 .uc').append(addli);
             }
           })
         }else{
-          $('#umoney .ub .uleft #tab3 .uc li.uc2').remove();
+          $('#umoney .ub .uleft #tab3 .uc li').remove();
         }
+        $('#umoney .ub .uleft #tab3 .cadd3').on('click', cadd3);
       })
       $("#umoney .ccard_submit").attr('disabled',false);
     })
   }
   function jisuan(){
-    // console.log(mgoods1);
+    console.log(act_decrease_id);
+    console.log(act_discount_id);
     var money1 = 0;//原价
     var money2 = 0;//优惠价
     var money3 = 0;//优惠后满减价
+    var jian = 0;
     var num = 0;
     $("#umoney .uright .cnum").each(function(){
       money1 = Number(money1) + Number($(this).val())*Number($(this).attr('price'));
       money2 = Number(money2) + Number($(this).val())*Number($(this).attr('min_price'));
       num = Number(num) + Number($(this).val());
     });
+    money1 = parseInt(money1);
+    money2 = parseInt(money2);
+    $.each(act_decrease_id,function(k,v){
+      if(money2>v.act_decrease_man){
+        jian = v.act_decrease_jian;
+      }
+    })
+    money3 = parseInt(Number(money2)-Number(jian));
     $("#umoney .cmoney1").text(money1);
-    $("#umoney .cmoney2").text(money2);
+    $("#umoney .cmoney2").text(money3);
+    $("#umoney .cmoney3").val(money3);
     $("#umoney .cgoods_num").text(num);
   }
   function goodsPrice(mgoods_id,sgoods_id){
@@ -400,7 +487,7 @@ $(function(){
       var data = {
         mgoods_id:mgoods_id,
         card_id:card_id,
-        act_id:act_id
+        act_discount_id:act_discount_id
       };
     }
     if(sgoods_id!=''){
@@ -414,7 +501,6 @@ $(function(){
       data:data,
       type:"POST"
     }).then(function(res){
-      // console.log(res);
       if(mgoods_id!=''){
         $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res);
       }
@@ -429,7 +515,7 @@ $(function(){
   $('.cgoodssubmit').on('click',searchGoods);
   // 添加商品
   $('#umoney .ub .uleft #tab1 .cadd').on('click', cadd);
-  //删除
+  //删除商品
   $(document).on("click",".cdel",function(){
     var mgoods_id = $(this).attr('mgoods_id');
     var sgoods_id = $(this).attr('sgoods_id');
@@ -440,8 +526,15 @@ $(function(){
     if(sgoods_id!=null){
       $("#umoney .ub .uleft #tab1 [sgoods_id="+sgoods_id+"]").find(".cadd").bind('click',cadd);
     }
+    jisuan();
   });
-
+  //删除券
+  $(document).on("click",".cdel3",function(){
+    var ticket_id = $(this).attr('ticket_id');
+    $(this).parent().remove();
+    $("#umoney .ub .uleft #tab3 [ticket_id="+ticket_id+"]").find(".cadd3").bind('click',cadd3);
+    jisuan();
+  });
   // + -
   $(document).on("click", ".cbtndec", function() {
     var _self= $(this).siblings('input');

@@ -11,7 +11,7 @@ $strsgoods_id = api_value_post('sgoods_id');
 $intsgoods_id = api_value_int0($strsgoods_id);
 $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
-$arract_id = api_value_post('act_id');
+$arract_id = api_value_post('act_discount_id');
 if(!empty($arract_id)){
 	$stract_id = implode(',',$arract_id);
 }

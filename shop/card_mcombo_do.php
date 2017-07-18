@@ -18,6 +18,10 @@ $strpay_type = api_value_post('pay_type');
 $intpay_type = api_value_int0($strpay_type);
 $arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
 
+//购买为空时
+if(empty($arrinfo)){
+
+}
 $intreturn = 0;
 //查询card信息
 if($intreturn == 0){
@@ -51,10 +55,10 @@ if($intreturn == 0){
 		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".time()."',2,".$decymoney.",".$decmoney.",".$decgive.",".$decrel_money.",".$arr['s_card_ymoney'].",".$intpay_type.",".$decrel_money.",".floor($decrel_money).",".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 
 		$hresult = $gdb->fun_do($strsql);
-		$record_id = mysql_insert_id();
-
 		if($hresult==false){
 			$intreturn = 2;
+		}else{
+			$record_id = mysql_insert_id();
 		}
 		//更新积分
 		if($intreturn == 0) {

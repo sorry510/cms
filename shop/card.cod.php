@@ -6,8 +6,8 @@
 <div class="gcontent" id="ucard">
   <ul class="am-nav am-nav-pills ubread">
 	  <li class="am-active"><a href="javascript:void">会员管理</a></li>
-	  <li><a href="#">过期会员</a></li>
-	  <li><a href="#">回收站</a></li>
+	  <li><a href="card2.php">过期会员</a></li>
+	  <li><a href="card3.php">回收站</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -634,7 +634,31 @@
     </div>
   </div>
 </div>
-
+<!-- 警告框 -->
+<div class="am-modal am-modal-alert" tabindex="-1" id="ualert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">警 告</div>
+    <div class="am-modal-bd ctext">
+      如有问题，请联系管理员！
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+<!-- 删除框 -->
+<div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你确定要删除这个会员吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.js"></script>
 <script type="text/javascript">
@@ -720,7 +744,7 @@ $(function() {
       var price = $(this).prev().attr('price');
       var cprice = $(this).prev().attr('cprice');
       var mcombo_id = $(this).prev().attr('mcombo_id');
-      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mcombo_id="'+mcombo_id+'" price="'+price+'" cprice="'+cprice+'" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mcombo_id="'+mcombo_id+'" price="'+price+'" cprice="'+cprice+'" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2" mcombo_id="'+mcombo_id+'"><a href="javascript:;">移除</a></div></li>';
       $(".uright .uc").append(addhtml);
       $.ajax({
         url:'card_mcombo_ajax.php',
@@ -776,9 +800,15 @@ $(function() {
         if(res=='0'){
           // window.location.reload();
           window.location.href='card.php';
+        }else if(res=='1'){
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>会员姓名和手机号码不能为空</span>");
+          $('#ualert').modal('open');
+          $('.ccardaddsubmit').attr('disabled',false);
         }else{
-          alert('添加失败');
-          // console.log(res);
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>添加失败，请重新添加</span>");
+          $('#ualert').modal('open');
+          $('.ccardaddsubmit').attr('disabled',false);
+          return false;
         }
       });
     });
@@ -824,7 +854,9 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          alert('修改失败');
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>修改失败，请重新修改</span>");
+          $('#ualert').modal('open');
+          return false;
           console.log(res);
         }
       });
@@ -849,6 +881,7 @@ $(function() {
       $('#ucardm2').modal('open');
       $('#ucardm2 input').eq(0).focus();
     });
+    // 关闭弹出框时删除select
     $('#ucardm2').on('close.modal.amui', function(){
       $('#ucardm2 .ccard_type').selected('destroy');
     });
@@ -886,7 +919,9 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          alert('充值失败');
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>充值失败，请重新充值</span>");
+          $('#ualert').modal('open');
+          return false;
           console.log(res);
         }
       });
@@ -1007,6 +1042,7 @@ $(function() {
     });
     // 购买套餐完成提交
     $('.cmodalcommit4').on('click', function() {
+      $(this).attr('disabled',true);
       var url="card_mcombo_do.php";
       var card_id=$(this).val();
       var arr= [];
@@ -1030,7 +1066,9 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          // alert('购买套餐失败');
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
+          $('#ualert').modal('open');
+          return false;
           console.log(res);
         }
       });
@@ -1077,8 +1115,9 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          alert('停用失败');
-          // console.log(res);
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>停用失败，请重新尝试停用</span>");
+          $('#ualert').modal('open');
+          return false;
         }
       });
     });
@@ -1095,25 +1134,39 @@ $(function() {
           window.location.reload();
           //console.log(res);
         }else{
-          alert('启用失败');
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>启用失败，请重新操作</span>");
+          $('#ualert').modal('open');
+          return false;
           // console.log(res);
         }
       });
     });
     //侧拉删除card
-    $('.ccarddel').on('click',function(){   
-      var url = 'card_state_do.php';
-      var data ={
-          type:'del',
-          card_id:$("#ucardoff1 input[name='card_id']").val()
-      }
-      $.post(url,data,function(res){
-        if(res=='0'){
-          window.location.reload();
-          // console.log(res);
-        }else{
-          alert('删除失败');
-          // console.log(res);
+    $('.ccarddel').on('click', function() {
+      $('#cconfirm').modal({
+        onConfirm: function(options) {
+          var url = 'card_state_do.php';
+          var data ={
+              type:'del',
+              card_id:$("#ucardoff1 input[name='card_id']").val()
+          }
+          $.post(url,data,function(res){
+            if(res=='0'){
+              window.location.reload();
+            }else if(res=='3'){
+              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>删除失败，有套餐或有余额</span>");
+              $('#ualert').modal('open');
+              return false;
+              // console.log(res);
+            }else{
+              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>删除失败，请联系管理员</span>");
+              $('#ualert').modal('open');
+              return false;
+            }
+          });
+        },
+        onCancel: function() {
+          return false;
         }
       });
     });

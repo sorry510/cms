@@ -164,36 +164,45 @@
         </label>　　
         <label class="umodal-label am-form-label uc2e" for="">支付方式：</label>
         <label class="am-radio-inline">
-          <input type="radio" name="radio1" value="male" data-am-ucheck> 现金
+          <input type="radio" name="payType" value="1" data-am-ucheck checked> 现金
         </label>
         <label class="am-radio-inline">
-          <input type="radio" name="radio1" value="female" data-am-ucheck> 会员卡
+          <input type="radio" name="payType" value="2" data-am-ucheck> 银行卡
         </label>
         <label class="am-radio-inline">
-          <input type="radio" name="radio1" value="female" data-am-ucheck> 支付宝
+          <input type="radio" name="payType" value="3" data-am-ucheck> 支付宝
         </label>
         <label class="am-radio-inline">
-          <input type="radio" name="radio1" value="female" data-am-ucheck> 微信
+          <input type="radio" name="payType" value="4" data-am-ucheck> 微信
         </label>
         <label class="am-radio-inline">
-          <input type="radio" name="radio1" value="female" data-am-ucheck> POS
+          <input type="radio" name="payType" value="5" data-am-ucheck> 会员卡
         </label>
       </div>
-      <div class="am-u-lg-2 uc3" style="">
-        <button class="am-btn ubtn-pay">
+      <div class="am-u-lg-2 uc3">
+        <button class="am-btn ubtn-pay cpay">
           结账
         </button>
       </div>
     </form>
   </div>
 </div>
-
+<div class="am-modal am-modal-alert" tabindex="-1" id="ualert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">警 告</div>
+    <div class="am-modal-bd ctext">
+      如有问题，请联系管理员！
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
     
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 $(function(){
-
   var act_discount_id = [];//限时打折活动id
   var act_decrease_id = [];
   var act_give_id = [];
@@ -205,7 +214,6 @@ $(function(){
     json1 ={'act_decrease_id':'<?php echo $v['act_decrease_id'];?>','act_decrease_man':'<?php echo $v['act_decrease_man'];?>','act_decrease_jian':'<?php echo $v['act_decrease_jian'];?>'};
     act_decrease_id.push(json1);
   <?php }?>
-
   $(document).keyup(function(e){
       var e = window.event || e || e.which;
       if(e.keyCode==112){
@@ -220,12 +228,23 @@ $(function(){
   });
   //添加商品
   function cadd(){
-    $(this).unbind("click"); //移除click
     var product = $(this).prev().text();
     var price = $(this).prev().attr('price');
     var cprice = $(this).prev().attr('cprice');
     var mgoods_id = $(this).parent().attr('mgoods_id');
     var sgoods_id = $(this).parent().attr('sgoods_id');
+    var flag = true;
+    $('.cnum').each(function(){
+      if(mgoods_id != undefined && mgoods_id == $(this).attr('mgoods_id')){
+        flag = false;
+      }
+      if(sgoods_id != undefined && sgoods_id == $(this).attr('sgoods_id')){
+        flag = false;
+      }
+    });
+    if(!flag){
+      return false;//添加过了后面不在执行
+    }
     var addhtml = '';
     if(mgoods_id!=null){
       addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input price="'+price+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
@@ -241,12 +260,20 @@ $(function(){
   }
   //套餐
   function cadd2(){
-    $(this).unbind("click"); //移除click
     var content = $(this).prev().text();
     var mgoods_id = $(this).prev().attr('mgoods_id');
     var mcombo_id = $(this).parent().attr('mcombo_id');
+    var flag = true;
+    $('.cnum2').each(function(){
+      if(mcombo_id == $(this).attr('mcombo_id') && mgoods_id == $(this).attr('mgoods_id')){
+        flag = false;
+      }
+    });
+    if(!flag){
+      return false;//添加过了后面不在执行
+    }
     var addhtml = '';
-    addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
+    addhtml ='<li><div class="ub1">'+content+'(<span class="gtext-green">套餐</span>)</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum2" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
     $(".uright .ub").append(addhtml);
   }
   //奖券
@@ -254,26 +281,40 @@ $(function(){
     var content = $(this).prev().text();
     var ticket_id = $(this).parent().attr('ticket_id');
     var ticket_type = $(this).parent().attr('ticket_type');
-    var ticket_value = Number($(this).parent().attr('ticket_value'));
     var ticket_limit = Number($(this).parent().attr('ticket_limit'));
+    var ticket_value = Number($(this).parent().attr('ticket_value'));
+    var ticket_money_id = $(this).parent().attr('ticket_money_id');
+    var ticket_goods_id = $(this).parent().attr('ticket_goods_id');
+    var mgoods_id = $(this).parent().attr('mgoods_id');
     var now_money = Number($('.cmoney2').text());
+    var flag = true;
+    $('.cnum3').each(function(){
+      if(ticket_id == $(this).attr('ticket_id')){
+        flag = false;
+      }
+    })
+    if(!flag){
+      return false;//添加过了后面不在执行
+    }
     if(ticket_type==1){
+      $(".cnum3[ticket_type='1']").each(function(){
+        now_money = now_money - Number($(this).attr('ticket_limit'));
+      });
       if(now_money>=ticket_limit){
         var addhtml = '';
-        addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_value="'+ticket_value+'" ticket_id="'+ticket_id+'" class="cnum2" type="hidden"></div><div class="ub3 cdel3" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
+        addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_money_id="'+ticket_money_id+'" ticket_id="'+ticket_id+'" ticket_value="'+ticket_value+'" ticket_limit="'+ticket_limit+'" ticket_type="'+ticket_type+'" class="cnum3" type="hidden"></div><div class="ub3 cdel" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
         $(".uright .ub").append(addhtml);
-        now_money = parseInt(now_money-ticket_value);
-        $('.cmoney2').text(now_money);
-        $("#umoney .cmoney3").val(now_money);
-        $(this).unbind("click"); //移除click
+        jisuan();
       }else{
-        alert("不符合条件");
+        $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>消费金额不足，无法使用此代金券!!!</span>");
+        $('#ualert').modal('open');
+        return false;
       }
     }else{
       var addhtml = '';
-      addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_value="'+ticket_value+'" ticket_id="'+ticket_id+'" class="cnum2" type="hidden"></div><div class="ub3 cdel3" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
+      addhtml ='<li><div class="ub1">'+content+'</div><div class="ub2"><input ticket_goods_id="'+ticket_goods_id+'" ticket_id="'+ticket_id+'" ticket_type="'+ticket_type+'" mgoods_id="'+mgoods_id+'" class="cnum3" type="hidden"></div><div class="ub3 cdel" ticket_id="'+ticket_id+'"><a href="javascript:;">移除</a></div></li>';
       $(".uright .ub").append(addhtml);
-      $(this).unbind("click"); //移除click
+      jisuan();
     }
   }
   function searchGoods(){
@@ -392,7 +433,6 @@ $(function(){
       $.getJSON('act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
         if(res.length>0){
           $.each(res,function(k,v){
-            // act_give_id[k] = v.act_give_id;
             $('#umoney .cact_name').append(v.act_give_name+' | ');
           });
         }
@@ -412,7 +452,7 @@ $(function(){
             if(v.card_mcombo_type==1){
               var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
             }else if(v.card_mcombo_type==2){
-              var addli = '<li class="uc2"><div class="uc2a" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
             }
             $('#umoney .ub .uleft #tab2 .uc').append(addli);
           })
@@ -431,10 +471,10 @@ $(function(){
         if(res.length>0){
           $.each(res,function(k,v){
             if(v.ticket_type==1){
-              var addli = '<li class="uc2" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'" ticket_limit="'+v.ticket_limit+'"><div class="uc2a">代金券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              var addli = '<li class="uc2" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'" ticket_limit="'+v.ticket_limit+'"><div class="uc2a">代金券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
               $('#umoney .ub .uleft #tab3 .uc').append(addli);
             }else{
-              var addli = '<li class="uc2" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'"><div class="uc2a">体验券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              var addli = '<li class="uc2" ticket_goods_id="'+v.ticket_goods_id+'" mgoods_id="'+v.mgoods_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'"><div class="uc2a">体验券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
               $('#umoney .ub .uleft #tab3 .uc').append(addli);
             }
           })
@@ -447,8 +487,6 @@ $(function(){
     })
   }
   function jisuan(){
-    console.log(act_decrease_id);
-    console.log(act_discount_id);
     var money1 = 0;//原价
     var money2 = 0;//优惠价
     var money3 = 0;//优惠后满减价
@@ -459,8 +497,21 @@ $(function(){
       money2 = Number(money2) + Number($(this).val())*Number($(this).attr('min_price'));
       num = Number(num) + Number($(this).val());
     });
-    money1 = parseInt(money1);
-    money2 = parseInt(money2);
+    $("#umoney .uright .cnum3").each(function(){
+      var mgoods_id = $(this).attr('mgoods_id');
+      var ticket_value = $(this).attr('ticket_value');
+      if(mgoods_id != undefined){
+        $("#umoney .uright .cnum").each(function(){
+          if(mgoods_id == $(this).attr('mgoods_id')){
+            money2 = Number(money2)-Number($(this).attr('min_price'));
+          }
+        });
+      }
+      if(ticket_value != undefined){
+        money2 = Number(money2)-Number(ticket_value);
+      }
+    });
+
     $.each(act_decrease_id,function(k,v){
       if(money2>v.act_decrease_man){
         jian = v.act_decrease_jian;
@@ -515,27 +566,12 @@ $(function(){
   $('.cgoodssubmit').on('click',searchGoods);
   // 添加商品
   $('#umoney .ub .uleft #tab1 .cadd').on('click', cadd);
-  //删除商品
+  //删除商品,套餐商品,券
   $(document).on("click",".cdel",function(){
-    var mgoods_id = $(this).attr('mgoods_id');
-    var sgoods_id = $(this).attr('sgoods_id');
     $(this).parent().remove();
-    if(mgoods_id!=null){
-      $("#umoney .ub .uleft #tab1 [mgoods_id="+mgoods_id+"]").find(".cadd").bind('click',cadd);
-    }
-    if(sgoods_id!=null){
-      $("#umoney .ub .uleft #tab1 [sgoods_id="+sgoods_id+"]").find(".cadd").bind('click',cadd);
-    }
     jisuan();
   });
-  //删除券
-  $(document).on("click",".cdel3",function(){
-    var ticket_id = $(this).attr('ticket_id');
-    $(this).parent().remove();
-    $("#umoney .ub .uleft #tab3 [ticket_id="+ticket_id+"]").find(".cadd3").bind('click',cadd3);
-    jisuan();
-  });
-  // + -
+  //+ -
   $(document).on("click", ".cbtndec", function() {
     var _self= $(this).siblings('input');
     if(parseInt(_self.val())>=1)
@@ -547,6 +583,64 @@ $(function(){
     _self.val(parseInt(_self.val())+1);
     jisuan();
   });
+  //结账
+  $('.cpay').on('click',function(){
+    // $(this).attr('disabled',true);
+    var card_id = $('#umoney .ua .ua2 .ccard_id').val();
+    var money1 = Number($("#umoney .cmoney1").text());
+    var money2 = Number($("#umoney .cmoney2").text());
+    var money3 = Number($("#umoney .cmoney3").val());
+    var pay_type = $("#umoney input[name='payType']:checked").val();
+    var arr= [];//商品
+    var arr2= [];//套餐商品
+    var arr3= [];//优惠券
+    var ticket_limit = 0;
+    var url = "money_do.php";
+    $("#umoney .uright .cnum3[ticket_type='1']").each(function(){
+        ticket_limit = Number(ticket_limit)+Number($(this).attr('ticket_limit'));
+    });
+    if(ticket_limit>money2){
+      $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>代金券超出限额，请重新添加代金券!!!</span>");
+      $('#ualert').modal('open');
+      return false;
+    }
+    $('#umoney .ub .uright .cnum').each(function(){
+      if($(this).attr('mgoods_id')!=undefined){
+        var json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'price':$(this).attr('price')};
+      }
+      if($(this).attr('sgoods_id')!=undefined){
+        var json = {'sgoods_id':$(this).attr('sgoods_id'),'num':$(this).val(),'price':$(this).attr('price')};
+      }
+      arr.push(json);
+    });
+    $('#umoney .ub .uright .cnum2').each(function(){
+      var json = {'mcombo_id':$(this).attr('mcombo_id'),'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val()};
+      arr2.push(json);
+    })
+    $('#umoney .ub .uright .cnum3').each(function(){
+      var json = {'card_ticket_id':$(this).attr('ticket_id')};
+      arr3.push(json);
+    })
+    var data = {
+          money1:money1,
+          money2:money2,
+          money3:money3,
+          card_id:card_id,
+          arr:arr,
+          arr2:arr2,
+          arr3:arr3,
+          pay_type:pay_type
+        };
+    //console.log(data);
+    $.post(url,data,function(res){
+      if(res==='0'){
+        // window.location.reload();
+      }else{
+        console.log(res);
+        $('.cpay').attr('disabled',false);
+      }
+    });
+  })
 })
 </script>
 </body>

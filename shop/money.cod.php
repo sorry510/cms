@@ -388,6 +388,7 @@ $(function(){
         $('#umoney .ua .ua2 .ccard_birthday').text('');
         $('#umoney .ua .ua2 .ccard_score').text('');
       }else{
+        //目前有多个会员时显示最后一个符合
         $.each(res,function(key,val){
           $('#umoney .ua .ua2 .ccard_id').val(val.card_id);
           $('#umoney .ua .ua2 .ccard_code').text(val.card_code);
@@ -438,9 +439,6 @@ $(function(){
         }
       });
     }).then(function(){
-      // console.log(act_discount_id);
-      // console.log(act_decrease_id);
-      // console.log(act_give_id);
       var url = "card_mymcombo_ajax.php";
       var data = {
           card_id:$('#umoney .ua .ua2 .ccard_id').val()
@@ -483,6 +481,13 @@ $(function(){
         }
         $('#umoney .ub .uleft #tab3 .cadd3').on('click', cadd3);
       })
+    }).then(function(){
+      // 添加修改商品价格
+      $('#umoney .cnum').each(function(){
+        if($(this).attr('mgoods_id') != undefined){
+          // goodsPrice($(this).attr('mgoods_id'));
+        }
+      })
       $("#umoney .ccard_submit").attr('disabled',false);
     })
   }
@@ -516,12 +521,50 @@ $(function(){
       if(money2>v.act_decrease_man){
         jian = v.act_decrease_jian;
       }
-    })
-    money3 = parseInt(Number(money2)-Number(jian));
+    });
+    money3 = Number(money2)-Number(jian);
+    money3 = money3.toFixed(2);
     $("#umoney .cmoney1").text(money1);
     $("#umoney .cmoney2").text(money3);
     $("#umoney .cmoney3").val(money3);
     $("#umoney .cgoods_num").text(num);
+  }
+  function goodsPrice2(mgoods_id,sgoods_id){
+    var user_type = null;
+    var card_id = null;
+    if($("#umoney .ccard_id").val().length==0){
+      card_id = 0;
+    }else{
+      card_id = $("#umoney .ccard_id").val();
+    }
+    var mgoods_id = (mgoods_id!=undefined)?mgoods_id:'';
+    var sgoods_id = (sgoods_id!=undefined)?sgoods_id:'';
+    var url = 'goods_price_ajax.php';
+    if(mgoods_id!=''){
+      var data = {
+        mgoods_id:mgoods_id,
+        card_id:card_id,
+        act_discount_id:act_discount_id
+      };
+    }
+    if(sgoods_id!=''){
+      var data = {
+        sgoods_id:sgoods_id,
+        card_id:card_id,
+      };
+    }
+    $.ajax({
+      url:url,
+      data:data,
+      type:"POST"
+    }).then(function(res){
+      if(mgoods_id!=''){
+        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res);
+      }
+      if(sgoods_id!=''){
+        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res);
+      }
+    });
   }
   function goodsPrice(mgoods_id,sgoods_id){
     var user_type = null;

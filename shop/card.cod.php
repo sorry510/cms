@@ -66,7 +66,7 @@
         <td><?php echo date("Y-m-d",$row['card_birthday']); ?></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
-        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount']; ?></span>折</td>
+        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
         <td><?php echo date("Y-m-d",$row['card_edate']); ?></td>
         <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
         <td>解放路分店</td>
@@ -380,7 +380,7 @@
         <div class="am-u-lg-4">卡余额：<span class="am-text-lg gtext-orange ccard_ymoney"></span>元</div>
         <div class="am-u-lg-4">会员卡类型：
           <select class="uselect uselect-auto ccard_type" name="card_type">
-          <option value="">请选择</option>
+          <option value="0">请选择</option>
           <?php foreach($this->_data['card_type_list'] as $row) { ?>
             <option discount="<?php echo $row['card_type_discount'];?>" value="<?php echo $row['card_type_id'];?>"><?php echo $row['card_type_name']; ?></option>
           <? }?>
@@ -663,6 +663,20 @@
 <script src="../js/amazeui.js"></script>
 <script type="text/javascript">
 $(function() {
+    var act_discount_id = [];//限时打折活动id
+    var act_decrease_id = [];//减价升序排列
+    var act_give_id = [];
+    var json1 = {};
+    <?php foreach($this->_data['act_discount_list'] as $k => $v){?>
+      act_discount_id[<?php echo $k;?>] = <?php echo $v['act_discount_id'];?>;
+    <?php }?>
+    <?php foreach($this->_data['act_decrease_list'] as $k => $v){?>
+      json1 ={'act_decrease_id':'<?php echo $v['act_decrease_id'];?>','act_decrease_man':'<?php echo $v['act_decrease_man'];?>','act_decrease_jian':'<?php echo $v['act_decrease_jian'];?>'};
+      act_decrease_id.push(json1);
+    <?php }?>
+    <?php foreach($this->_data['act_give_list'] as $k => $v){?>
+      act_give_id[<?php echo $k;?>] = <?php echo $v['act_give_id'];?>;
+    <?php }?>
     //分页首末页不可选中
     if(<?php echo $GLOBALS['intpage'];?>>1){
       $('.upages li').eq(1).removeClass('am-disabled');
@@ -673,6 +687,7 @@ $(function() {
     //付款方式
     $('.upay').on('click',function(){
       $(this).addClass('upay-active').siblings().removeClass('upay-active');
+      jisuan();
     });
     // + -
     $(document).on("click", ".cbtndec", function() {
@@ -692,24 +707,48 @@ $(function() {
     function jisuan(){
       var ymoney = 0;//原始总价
       var all_money = 0;//应付价
+      var rel_money = 0;//应付价
       var num = 0;
-      var discount = Number($("#ucardm3 .ccard_discount").text());
+      var jian = 0;//满减
       $("#ucardm3 .uright .cnum").each(function(){
-        if($(this).attr('cprice')==0){
-          all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('price'))*discount/10;
-        }else{
-          all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('cprice'));
-        }
+        all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('min_price'));
         ymoney = Number(ymoney) + Number($(this).val())*Number($(this).attr('price'));
         num = Number(num) + Number($(this).val());
       });
+      //不是卡扣可以满减
+      if($('#ucardm4 .upay.upay-active').attr('payType')!='5'){
+        $.each(act_decrease_id,function(k,v){
+          if(all_money>v.act_decrease_man){
+            jian = v.act_decrease_jian;
+          }
+        });
+      }
+      rel_money = Number(all_money)-Number(jian);
+      rel_money = rel_money.toFixed(2);
       $("#ucardm3 .cymoney").text(ymoney);
       $("#ucardm4 .cymoney").text(ymoney);
       $("#ucardm4 .cheji").val(ymoney);
-      $("#ucardm4 .cpay").val(all_money);
-      $("#ucardm4 .relmoney").text(all_money);
+      $("#ucardm4 .cpay").val(rel_money);
+      $("#ucardm4 .relmoney").text(rel_money);
       $("#ucardm3 .cmcombo_num").text(num);
     }
+
+    function goodsPrice(mcombo_id){
+      var url = 'goods_price_ajax.php';
+      var data = {
+        mcombo_id:mcombo_id,
+        card_id:$(".cmodalopen4").val(),
+        act_discount_id:act_discount_id
+      };
+      $.ajax({
+        url:url,
+        data:data,
+        type:"POST"
+      }).then(function(res){
+          $("#ucardm3 .cnum[mcombo_id='"+mcombo_id+"']").attr('min_price',res);
+      }).then(jisuan);
+    }
+
     $('#doc-form-file').on('change',showPreview);
     //上传文件
     function showPreview() {
@@ -756,7 +795,7 @@ $(function() {
       }).then(function(res){
         var cont = '';
         $.each(res,function(k,v){
-          cont +=v.mgoods_name+v.mcombo_goods_count+'次,';
+          cont +=v.mgoods_name+v.mcombo_goods_count+'(数量),';
         })
         cont = cont.substr(0,cont.length-1);
         if(product.length>20){
@@ -772,7 +811,7 @@ $(function() {
         var addtr = '<tr><td title="'+product+'">'+product1+'</td><td title="'+cont+'">'+cont1+'</td><td><span class="gtext-orange">￥'+price+'</span></td><td><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" mcombo_id="'+mcombo_id+'" value="1"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></td><td><a href="javascript:;" class="am-text-primary cdel" mcombo_id="'+mcombo_id+'">移除</a></td></tr>'
         $('#ucardm4 table tbody').append(addtr);
       }).then(function(){
-        jisuan()
+        goodsPrice(mcombo_id);
         $("#ucardm3 .uright .cnum").on("input propertychange",jisuan);
         $("#ucardm4 .cnum").on("input propertychange",jisuan);
       })
@@ -872,7 +911,11 @@ $(function() {
         $("#ucardm2 .ccard_edate").text(res.card_edate);
         $("#ucardm2 .ccard_memo").text(res.card_memo);
         $("#ucardm2 .ccard_ymoney").text(res.s_card_ymoney);
-        $("#ucardm2 .ccard_type_discount").text(res.c_card_type_discount);
+        if(res.c_card_type_discount==0){
+          $("#ucardm2 .ccard_type_discount").text(10);
+        }else{
+          $("#ucardm2 .ccard_type_discount").text(res.c_card_type_discount);
+        }
         $("#ucardm2 input[name='card_id']").val(res.card_id);
         $("#ucardm2 .cmodalopen3").val(res.card_id);
         $('#ucardm2 .ccard_type').val(res.card_type_id);
@@ -907,22 +950,27 @@ $(function() {
       var money = $("#ucardm2 input[name='money']").val();
       var cash = $("#ucardm2 input[name='cash']").val();
       var card_type_id = $("#ucardm2 .ccard_type").val();
+      var card_type_discount = $("#ucardm2 .ccard_type_discount").text();
       var pay_type = $("#ucardm2 .upay-active").attr('payType');
       var data = {
             money:money,
             cash:cash,
             card_id:card_id,
             card_type_id:card_type_id,
+            card_type_discount:card_type_discount,
             pay_type:pay_type
           }
       $.post(url,data,function(res){
         if(res=='0'){
           window.location.reload();
-        }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>充值失败，请重新充值</span>");
+        }else if(res=='4'){
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>充值失败，没有这种卡类型</span>");
           $('#ualert').modal('open');
           return false;
-          console.log(res);
+        }else{
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>充值失败</span>");
+          $('#ualert').modal('open');
+          return false;
         }
       });
     });
@@ -1046,10 +1094,16 @@ $(function() {
       var url="card_mcombo_do.php";
       var card_id=$(this).val();
       var arr= [];
-      $("#ucardm4 .cnum").each(function(k,v){
+      $("#ucardm3 .cnum").each(function(k,v){
         var json = {'id':$(this).attr('mcombo_id'),'num':$(this).val()};
         arr.push(json);
       });
+      if(arr.length==0){
+        $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>套餐选择不能为空，请添加至少一个套餐</span>");
+        $('#ualert').modal('open');
+        $(this).attr('disabled',false);
+        return false;
+      }
       var ymoney = $("#ucardm4 input[name='ymoney']").val();
       var money = $("#ucardm4 input[name='pay']").val();
       var give = $("#ucardm4 input[name='give']").val();
@@ -1060,6 +1114,7 @@ $(function() {
             money:money,
             give:give,
             arr:arr,
+            arr_give:act_give_id,
             pay_type:pay_type
           }
       $.post(url,data,function(res){
@@ -1068,8 +1123,8 @@ $(function() {
         }else{
           $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
           $('#ualert').modal('open');
-          return false;
-          console.log(res);
+          $('.cmodalcommit4').attr('disabled',false);
+          // return false;
         }
       });
     })

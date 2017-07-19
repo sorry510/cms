@@ -8,6 +8,8 @@ $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
 $strcard_type_id = api_value_post('card_type_id');
 $intcard_type_id = api_value_int0($strcard_type_id);
+$strcard_type_discount = api_value_post('card_type_discount');
+$deccard_type_discount = api_value_decimal($strcard_type_discount,1);
 $strmoney = api_value_post('money');
 $decmoney = api_value_decimal($strmoney, 2);//充值金额
 $strcash = api_value_post('cash');
@@ -23,7 +25,7 @@ if($intreturn == 0){
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
 		$strcard_type_name =  $arr['card_type_name'];
-		$deccard_type_discount = $arr['card_type_discount'];
+		// $deccard_type_discount = $arr['card_type_discount'];
 	}else{
 		$intreturn = 4;
 	}

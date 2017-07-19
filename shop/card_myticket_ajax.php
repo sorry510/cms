@@ -21,8 +21,7 @@ foreach($arr as &$v){
 		$v['ticket_name'] = $arrmoney['ticket_money_name'];
 		$v['ticket_value'] = $arrmoney['ticket_money_value'];
 		$v['ticket_limit'] = $arrmoney['ticket_money_limit'];
-	}
-	else if($v['ticket_type']==2){
+	}else if($v['ticket_type']==2){
 		$strsql = "SELECT ticket_goods_name,ticket_goods_value,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('ticket_goods')." where ticket_goods_id = ".$v['ticket_goods_id']." limit 1";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrgoods = $GLOBALS['gdb']->fun_fetch_assoc($hresult);

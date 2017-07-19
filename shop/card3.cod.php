@@ -43,13 +43,14 @@
         <td>性别</td>
         <td>生日</td>
         <td>开卡时间</td>
-      <td>卡类型</td>
-      <td>折扣</td>
+        <td>卡类型</td>
+        <td>折扣</td>
         <td>到期时间</td>
         <td>卡状态</td>
         <td>开卡店铺</td>
         <td>电子档案</td>
         <td>消费明细</td>
+        <td>操作</td>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +68,12 @@
         <td>解放路分店</td>
         <td><a href="e-record.php">电子档案</a></td>
         <td><a href="#">消费明细</a></td>
+        <td>
+          <button class="am-btn ubtn-table ubtn-orange crestore" value="<?php echo $row['card_id']; ?>">
+            <i class="iconfont icon-question"></i>
+            还原
+          </button>
+        </td>
       </tr>
       <tr>
         <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_score']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
@@ -227,24 +234,45 @@ $(function() {
     $('.ccarddel').on('click', function() {
       $('#cconfirm').modal({
         onConfirm: function(options) {
-          var url = 'card_state_do.php';
+          var url = 'card_delete_do.php';
           var data ={
-              type:'del',
               card_id:$("#ucardoff1 input[name='card_id']").val()
           }
           $.post(url,data,function(res){
             if(res=='0'){
               window.location.reload();
-            }else{
-              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>删除失败，不能删除</span>");
+            }else if(res='1'){
+              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>此用户不存在</span>");
               $('#ualert').modal('open');
               return false;
               // console.log(res);
+            }else{
+              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>删除失败</span>");
+              $('#ualert').modal('open');
+              return false;
             }
           });
         },
         onCancel: function() {
           return false;
+        }
+      });
+    });
+    //还原
+    $(".crestore").on("click",function(){
+      var url = 'card_state_do.php';
+      var data ={
+          type:'restore',
+          card_id:$(this).val()
+      }
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>还原失败，请重新尝试还原</span>");
+          $('#ualert').modal('open');
+          return false;
+          // console.log(res);
         }
       });
     });

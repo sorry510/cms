@@ -9,6 +9,8 @@ $strmgoods_id = api_value_post('mgoods_id');
 $intmgoods_id = api_value_int0($strmgoods_id);
 $strsgoods_id = api_value_post('sgoods_id');
 $intsgoods_id = api_value_int0($strsgoods_id);
+$strmcombo_id = api_value_post('mcombo_id');
+$intmcombo_id = api_value_int0($strmcombo_id);
 $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
 $arract_id = api_value_post('act_discount_id');
@@ -18,23 +20,35 @@ if(!empty($arract_id)){
 // echo $intcard_id;
 
 $act_mgoods_price = 0;
-$act_mgoods_discount = 0;
+$act_mcombo_price = 0;
 $card_discount = 0;
 $mgoods_price = 0;
 $mgoods_cprice = 0;
 $sgoods_price = 0;
 $sgoods_cprice = 0;
-//活动价格
+$mcombo_price = 0;
+$mcombo_cprice = 0;
+//多店通用商品活动价格
 if($intmgoods_id!=0&&!empty($stract_id)){
-	$strsql = "SELECT mgoods_id,act_discount_goods_price,act_discount_goods_value,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
+	$strsql = "SELECT mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	if(!empty($arr)){
 		$act_mgoods_price = $arr[0]['act_discount_goods_price'];
-		$act_mgoods_discount = $arr[0]['act_discount_goods_value'];
 		foreach($arr as $v){
 			$act_mgoods_price= $act_mgoods_price>=$v['act_discount_goods_price']?$v['act_discount_goods_price']:$act_mgoods_price;
-			$act_mgoods_discount= $act_mgoods_discount>=$v['act_discount_goods_value']?$v['act_discount_goods_value']:$act_mgoods_value;
+		}
+	}
+}
+//套餐活动价格
+if($intmcombo_id!=0&&!empty($stract_id)){
+	$strsql = "SELECT mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	if(!empty($arr)){
+		$act_mcombo_price = $arr[0]['act_discount_goods_price'];
+		foreach($arr as $v){
+			$act_mcombo_price= $act_mcombo_price>=$v['act_discount_goods_price']?$v['act_discount_goods_price']:$act_mcombo_price;
 		}
 	}
 }
@@ -65,22 +79,36 @@ if($intsgoods_id!=0){
 		$sgoods_cprice = $arr['sgoods_cprice'];
 	}
 }
+//套餐价格和会员价
+if($intmcombo_id!=0){
+	$strsql = "SELECT mcombo_price,mcombo_cprice FROM ".$GLOBALS['gdb']->fun_table2('mcombo')." where mcombo_id=".$intmcombo_id." limit 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$mcombo_price = $arr['mcombo_price'];
+	if($intcard_id!=0){
+		$mcombo_cprice = $arr['mcombo_cprice'];
+	}
+}
 $arrprice = array();
 if($act_mgoods_price!=0){
 	$arrprice[] = $act_mgoods_price;
 	// echo $act_mgoods_price."/1/ ";
 }
-if($act_mgoods_discount!=0){
-	$arrprice[] = $mgoods_price*$act_mgoods_discount/10;
-	// echo $mgoods_price*$act_mgoods_discount/10 ."/2/ ";
+if($act_mcombo_price!=0){
+	$arrprice[] = $act_mcombo_price;
+	// echo $act_mgoods_price."/1/ ";
 }
-if($card_discount!=0&&$card_discount<=9.9999&&$intmgoods_id!=0){
+if($card_discount!=0&&$card_discount<10&&$intmgoods_id!=0){
 	$arrprice[] = $mgoods_price*$card_discount/10;
 	// echo $mgoods_price*$card_discount/10 ."/3/ ";
 }
-if($card_discount!=0&&$card_discount<=9.9999&&$intsgoods_id!=0){
+if($card_discount!=0&&$card_discount<10&&$intsgoods_id!=0){
 	$arrprice[] = $sgoods_price*$card_discount/10;
 	// echo $sgoods_price*$card_discount/10 ."/4/ ";
+}
+if($card_discount!=0&&$card_discount<10&&$intmcombo_id!=0){
+	$arrprice[] = $mcombo_price*$card_discount/10;
+	// echo $mgoods_price*$card_discount/10 ."/5/ ";
 }
 if($mgoods_price!=0){
 	$arrprice[] = $mgoods_price;
@@ -96,7 +124,12 @@ if($sgoods_price!=0){
 }
 if($sgoods_cprice!=0){
 	$arrprice[] = $sgoods_cprice;
-	// echo $sgoods_cprice."/8/ ";
+}
+if($mcombo_price!=0){
+	$arrprice[] = $mcombo_price;
+}
+if($mcombo_cprice!=0){
+	$arrprice[] = $mcombo_cprice;
 }
 echo min($arrprice);
 

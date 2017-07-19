@@ -5,6 +5,7 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'card';
+$now = time();
 $strcard_type = api_value_get('card_type');
 $intcard_type = api_value_int0($strcard_type);
 $strsearch = api_value_get('search');
@@ -17,6 +18,9 @@ $gtemplate->fun_assign('cards_list', get_cards_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_assign('mcombo_list', get_mcombo_list());
 $gtemplate->fun_assign('card_type_list', get_card_type_list());
+$gtemplate->fun_assign('act_discount_list', get_act_discount_list());
+$gtemplate->fun_assign('act_decrease_list', get_act_decrease_list());
+$gtemplate->fun_assign('act_give_list', get_act_give_list());
 $gtemplate->fun_show('card');
 
 function get_request() {
@@ -124,5 +128,62 @@ function get_mcombo_list(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
+}
+function get_act_discount_list(){
+	$arr = array();
+	$stract_discount_id = '';
+	//限时打折活动
+	$strsql = "SELECT act_discount_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arr as $v){
+		$stract_discount_id .=$v['act_discount_id'].",";
+	}
+	$stract_discount_id = substr($stract_discount_id,0,strlen($stract_discount_id)-1);
+	if($stract_discount_id!=''){
+		//会员，期限内，正常
+		$strsql = "SELECT act_discount_id,act_discount_name FROM " . $GLOBALS['gdb']->fun_table2('act_discount')." where act_discount_start<=".$GLOBALS['now']." and act_discount_end>=".$GLOBALS['now']." and act_discount_state=1 and act_discount_client!=3 and act_discount_id in (".$stract_discount_id.") order by act_discount_id desc";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		return $arr;
+	}
+}
+function get_act_decrease_list(){
+	$arr = array();
+	$stract_decrease_id = '';
+	//满减活动
+	$strsql = "SELECT act_decrease_id FROM ".$GLOBALS['gdb']->fun_table2('act_decrease_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arr as $v){
+		$stract_decrease_id .=$v['act_decrease_id'].",";
+	}
+	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
+	if($stract_decrease_id!=''){
+		//会员，期限内，正常，按减的价格升序
+		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=3 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man asc";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		return $arr;
+	}
+}
+function get_act_give_list(){
+	$arr = array();
+	$stract_give_id = '';
+	//满送活动
+	$strsql = "SELECT act_give_id FROM ".$GLOBALS['gdb']->fun_table2('act_give_shop')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arr as $v){
+		$stract_give_id .=$v['act_give_id'].",";
+	}
+	$stract_give_id = substr($stract_give_id,0,strlen($stract_give_id)-1);
+	if($stract_give_id!=''){
+		//会员，期限内，正常
+		$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id FROM " . $GLOBALS['gdb']->fun_table2('act_give')." where act_give_start<=".$GLOBALS['now']." and act_give_end>=".$GLOBALS['now']." and act_give_state=1 and act_give_client!=3 and act_give_id in (".$stract_give_id.") order by act_give_id desc";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		return $arr;
+	}
 }
 ?>

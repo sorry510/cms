@@ -17,20 +17,27 @@ $decrel_money = $decmoney - $decgive;
 $strpay_type = api_value_post('pay_type');
 $intpay_type = api_value_int0($strpay_type);
 $arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
+$arract_give = api_value_post('arr_give');
 
+$now = time();
+
+$stract_give_id = 0;
+if(!empty($arract_give)){
+	$stract_give_id = implode(",",$arract_give);
+}
+// echo $stract_give_id;
+
+$intreturn = 0;
 //购买为空时
 if(empty($arrinfo)){
-
+	$intreturn = 10;
 }
-$intreturn = 0;
 //查询card信息
 if($intreturn == 0){
 	$strsql = "SELECT card_id,card_code,card_sex, card_name,card_phone,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	if(!empty($arr)){
-		$intreturn = 0;
-	}else{
+	if(empty($arr)){
 		$intreturn = 1;
 	}
 }
@@ -66,6 +73,34 @@ if($intreturn == 0){
 			// echo $strsql;
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
+				$intreturn = 3;
+			}
+		}
+		//赠送优惠券,暂时没有添加总活动ID
+		if($intreturn == 0 && $stract_give_id != '0'){
+			$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id,act_give_tdays,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name FROM ".$GLOBALS['gdb']->fun_table2('act_give')." where act_give_id in (".$stract_give_id.")";
+			$hresult = $gdb->fun_query($strsql);
+			$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+			if(!empty($arr)){
+				foreach($arr as $v){
+					if($decrel_money >= $v['act_give_man']){
+						$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket'). " (card_id,act_type,act_give_id,ticket_type,ticket_money_id,ticket_goods_id,mgoods_id,card_ticket_state,card_ticket_atime,card_ticket_edate,c_mgoods_name) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",".$v['c_mgoods_id'].",1,".$now.",".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['c_mgoods_name']."')";
+						// echo $strsql;
+						$hresult = $gdb->fun_do($strsql);
+						if($hresult == FALSE) {
+							$intreturn = 13;
+						}else{
+							$give_record_id = mysql_insert_id();
+						}
+
+						$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket_record'). " (card_id,card_ticket_record_atype,act_give_id,card_ticket_record_ttype,ticket_money_id,ticket_goods_id,card_ticket_record_utype,card_ticket_id,card_record_id,card_ticket_record_atime,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name,c_ticket_edate,c_act_name) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",1,".$give_record_id.",".$record_id.",".$now.",'".$v['c_ticket_name']."',".$v['c_ticket_value'].",".$v['c_ticket_limit'].",".$v['c_mgoods_id'].",'".$v['c_mgoods_name']."',".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['act_give_name']."')";
+						$hresult = $gdb->fun_do($strsql);
+						if($hresult == FALSE) {
+							$intreturn = 14;
+						}
+					}
+				}
+			}else{
 				$intreturn = 3;
 			}
 		}
@@ -161,7 +196,7 @@ if($intreturn == 0){
 		}
 	}
 }
-//记录recrord_ygoods,没有管到期时间
+//记录recrord2_ygoods,没有管到期时间
 if($intreturn == 0){
 	$strsql = "SELECT a.*,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT SUM(card_mcombo_gcount)as sum,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by mgoods_id)as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);

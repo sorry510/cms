@@ -53,6 +53,13 @@ if($intreturn == 0){
 			}
 		}
 	}
+	if($strtype == "restore"){
+		$strsql = "UPDATE" . $GLOBALS['gdb']->fun_table2('card') . "SET card_state=1 where card_id = ".$intcard_id." limit 1";
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 3;
+		}
+	}
 }
 /*if($strtype == "del"){
 	$strsql = "DELETE FROM" . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ".$intcard_id." limit 1";

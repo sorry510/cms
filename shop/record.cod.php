@@ -78,22 +78,23 @@
         <td width="12%;">操作</td>
       </tr>
     </thead>
+    <?php foreach($this->_data['card_records_list']['list'] as $row){ ?>
     <tr>
-      <td>2015-06-18&nbsp;12:21</td>
-      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
-      <td>HY1001</td>
-      <td>刘艳秋</td>
-      <td>男</td>
-      <td>13176684759</td>
-      <td>会员卡</td>
-      <td>消费</td>
+      <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
+      <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
+      <td><?php echo $row['c_card_code'];?></td>
+      <td><?php echo $row['c_card_name'];?></td>
+      <td><?php echo $row['c_card_sex'] == '3' ? '保密' : ($row['c_card_sex'] == '1' ? '男':'女'); ?></td>
+      <td><?php echo $row['c_card_phone'];?></td>
+      <td><?php echo $row['c_card_type_name'];?></td>
+      <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
       <td class="gtext-orange">￥368</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td class="gtext-orange">￥200</td>
       <td class="gtext-orange">￥200</td>
-      <td>解放路分店</td>
+      <td><?php echo $row['shop_name'];?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-orange">
           <i class="iconfont icon-dayin"></i>
@@ -101,52 +102,7 @@
         </button>
       </td>
     </tr>
-    <tr>
-      <td>2015-06-18&nbsp;12:21</td>
-      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
-      <td>HY1001</td>
-      <td>刘艳秋</td>
-      <td>男</td>
-      <td>13176684759</td>
-      <td>会员卡</td>
-      <td>消费</td>
-      <td class="gtext-orange">￥368</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td class="gtext-orange">￥200</td>
-      <td class="gtext-orange">￥200</td>
-      <td>解放路分店</td>
-      <td>
-        <button class="am-btn ubtn-table ubtn-orange">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td>2015-06-18&nbsp;12:21</td>
-      <td><a href="javascript:void"  data-am-offcanvas="{target: '#uoffcanvas'}">2017030412456</a></td>
-      <td>HY1001</td>
-      <td>刘艳秋</td>
-      <td>男</td>
-      <td>13176684759</td>
-      <td>会员卡</td>
-      <td>消费</td>
-      <td class="gtext-orange">￥368</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td class="gtext-orange">￥200</td>
-      <td class="gtext-orange">￥200</td>
-      <td>解放路分店</td>
-      <td>
-        <button class="am-btn ubtn-table ubtn-orange">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-      </td>
-    </tr>
+    <?php } ?>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共1页 3条记录</li>
@@ -285,6 +241,34 @@
     $('.doc-oc-js').on('click', function() {
       $myOc.offCanvas($(this).data('rel'));
     });
+
+    //侧拉打开
+    $('.coffopen').on('click',function() {
+      var url = "card_record_detail_ajax.php";
+      $.getJSON(url,{card_record_id:$(this).attr('card_record_id')},function(res){
+        console.log(res);
+        $("#ucardoff1 .ccard_name").text(res.card_name);
+        $("#ucardoff1 .ccard_code").text(res.card_code);
+        $("#ucardoff1 .ccard_phone").text(res.card_phone);
+        $("#ucardoff1 .ccard_birthday").text(res.card_birthday);
+        $("#ucardoff1 .ccard_edate").text(res.card_edate);
+        $("#ucardoff1 .ccard_memo").text(res.card_memo);
+        $("#ucardoff1 input[name='card_id']").val(res.card_id);
+        switch(res.c_card_sex)
+        {
+          case '1':
+            $("#ucardoff1 .ccard_sex").text('男');
+            break;
+          case '2':
+            $("#ucardoff1 .ccard_sex").text('女');
+            break;
+          default :
+            $("#ucardoff1 .ccard_sex").text('保密');
+        }
+      });
+      $('#uoffcanvas').offCanvas('open');
+    });
+
     $('.cdel').on('click', function() {
       $('#cconfirm').modal({
         relatedTarget: this,

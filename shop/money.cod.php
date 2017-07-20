@@ -136,14 +136,14 @@
         </ul>
       </div>
     </div>
-    <div class="am-u-lg-6 umain2">当前活动：| <span class="cact_name"><?php foreach($this->_data['act_discount_list'] as $row){
+    <div class="am-u-lg-7 umain2">当前活动：| <span class="cact_name"><?php foreach($this->_data['act_discount_list'] as $row){
       echo $row['act_discount_name']." | ";
       }?><?php foreach($this->_data['act_decrease_list'] as $row){
       echo $row['act_decrease_name']." | ";
       }?><?php foreach($this->_data['act_give_list'] as $row){
       echo $row['act_give_name']." | ";
       }?></span></div>
-    <div class="am-u-lg-6 umain3">共计<span class="cgoods_num">0</span>件，原价<span class="gtext-orange cmoney1">0.0</span>元，优惠后<span class="gtext-orange cmoney2">0.0</span>元</div> 
+    <div class="am-u-lg-5 umain3">共计<span class="cgoods_num">0</span>件，原价<span class="gtext-orange cmoney1">0.0</span>元，优惠后<span class="gtext-orange cmoney2">0.0</span>元</div> 
   </div>
   <div style="clear: both;"></div>
   <div class="uc">
@@ -214,6 +214,9 @@ $(function(){
     json1 ={'act_decrease_id':'<?php echo $v['act_decrease_id'];?>','act_decrease_man':'<?php echo $v['act_decrease_man'];?>','act_decrease_jian':'<?php echo $v['act_decrease_jian'];?>'};
     act_decrease_id.push(json1);
   <?php }?>
+  <?php foreach($this->_data['act_give_list'] as $k => $v){?>
+    act_give_id[<?php echo $k;?>] = <?php echo $v['act_give_id'];?>;
+  <?php }?>
   $(document).keyup(function(e){
       var e = window.event || e || e.which;
       if(e.keyCode==112){
@@ -246,10 +249,10 @@ $(function(){
       return false;//添加过了后面不在执行
     }
     var addhtml = '';
-    if(mgoods_id!=null){
+    if(mgoods_id != undefined){
       addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input price="'+price+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
     }
-    if(sgoods_id!=null){
+    if(sgoods_id != undefined){
       addhtml ='<li><div class="ub1">'+product+'</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input price="'+price+'" sgoods_id="'+sgoods_id+'" class="am-form-field uinput uinput-max cnum" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" sgoods_id="'+sgoods_id+'"><a href="javascript:;">移除</a></div></li>';
     }
     $(".uright .ub").append(addhtml);
@@ -262,6 +265,7 @@ $(function(){
   function cadd2(){
     var content = $(this).prev().text();
     var mgoods_id = $(this).prev().attr('mgoods_id');
+    var card_mcombo_id = $(this).prev().attr('card_mcombo_id');
     var mcombo_id = $(this).parent().attr('mcombo_id');
     var flag = true;
     $('.cnum2').each(function(){
@@ -273,7 +277,7 @@ $(function(){
       return false;//添加过了后面不在执行
     }
     var addhtml = '';
-    addhtml ='<li><div class="ub1">'+content+'(<span class="gtext-green">套餐</span>)</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum2" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
+    addhtml ='<li><div class="ub1">'+content+'(<span class="gtext-green">套餐</span>)</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input card_mcombo_id="'+card_mcombo_id+'" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum2" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
     $(".uright .ub").append(addhtml);
   }
   //奖券
@@ -366,6 +370,7 @@ $(function(){
   function searchCard(){
     $('#umoney .ub .uleft #tab2 .uc li').remove();
     $('#umoney .ub .uleft #tab3 .uc li.uc2').remove();
+    var flag = false;
     if($(".ccard_search").val()!=''){
       $(this).attr('disabled',true);
     }
@@ -434,6 +439,7 @@ $(function(){
       $.getJSON('act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
         if(res.length>0){
           $.each(res,function(k,v){
+            act_give_id[k] = v.act_give_id;
             $('#umoney .cact_name').append(v.act_give_name+' | ');
           });
         }
@@ -450,7 +456,7 @@ $(function(){
             if(v.card_mcombo_type==1){
               var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
             }else if(v.card_mcombo_type==2){
-              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
             }
             $('#umoney .ub .uleft #tab2 .uc').append(addli);
           })
@@ -485,9 +491,15 @@ $(function(){
       // 添加修改商品价格
       $('#umoney .cnum').each(function(){
         if($(this).attr('mgoods_id') != undefined){
-          // goodsPrice($(this).attr('mgoods_id'));
+          goodsPrice2($(this).attr('mgoods_id'),1);
         }
-      })
+        if($(this).attr('sgoods_id') != undefined){
+          goodsPrice2($(this).attr('sgoods_id'),2);
+        }
+      });
+    }).then(function(){
+      // console.log('jisuan');
+      // jisuan();
       $("#umoney .ccard_submit").attr('disabled',false);
     })
   }
@@ -529,17 +541,20 @@ $(function(){
     $("#umoney .cmoney3").val(money3);
     $("#umoney .cgoods_num").text(num);
   }
-  function goodsPrice2(mgoods_id,sgoods_id){
-    var user_type = null;
-    var card_id = null;
+  function goodsPrice2(goods_id,goods_type){
+    var mgoods_id = '';
+    var sgoods_id = '';
+    var card_id = 0;
     if($("#umoney .ccard_id").val().length==0){
       card_id = 0;
     }else{
       card_id = $("#umoney .ccard_id").val();
     }
-    var mgoods_id = (mgoods_id!=undefined)?mgoods_id:'';
-    var sgoods_id = (sgoods_id!=undefined)?sgoods_id:'';
-    var url = 'goods_price_ajax.php';
+    if(goods_type == 1){
+      mgoods_id = goods_id;
+    }else if(goods_type == 2){
+      sgoods_id = goods_id;
+    }
     if(mgoods_id!=''){
       var data = {
         mgoods_id:mgoods_id,
@@ -553,6 +568,7 @@ $(function(){
         card_id:card_id,
       };
     }
+    var url = 'goods_price_ajax.php';
     $.ajax({
       url:url,
       data:data,
@@ -564,11 +580,10 @@ $(function(){
       if(sgoods_id!=''){
         $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res);
       }
-    });
+    }).then(jisuan);
   }
   function goodsPrice(mgoods_id,sgoods_id){
-    var user_type = null;
-    var card_id = null;
+    var card_id = 0;
     if($("#umoney .ccard_id").val().length==0){
       card_id = 0;
     }else{
@@ -657,7 +672,7 @@ $(function(){
       arr.push(json);
     });
     $('#umoney .ub .uright .cnum2').each(function(){
-      var json = {'mcombo_id':$(this).attr('mcombo_id'),'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val()};
+      var json = {'card_mcombo_id':$(this).attr('card_mcombo_id'),'num':$(this).val()};
       arr2.push(json);
     })
     $('#umoney .ub .uright .cnum3').each(function(){
@@ -672,18 +687,21 @@ $(function(){
           arr:arr,
           arr2:arr2,
           arr3:arr3,
+          arr_give:act_give_id,
           pay_type:pay_type
         };
-    //console.log(data);
+    // console.log(data);
     $.post(url,data,function(res){
-      if(res==='0'){
-        // window.location.reload();
+      // $('.cpay').attr('disabled',false);
+      // console.log(res);
+      // return;
+      if(res=='0'){
+        window.location.reload();
       }else{
-        console.log(res);
         $('.cpay').attr('disabled',false);
       }
     });
-  })
+  });
 })
 </script>
 </body>

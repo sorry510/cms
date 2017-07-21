@@ -654,10 +654,13 @@ $(function(){
     var arr3= [];//优惠券
     var ticket_limit = 0;
     var url = "money_do.php";
-    $("#umoney .uright .cnum3[ticket_type='1']").each(function(){
+    var max_give_value = 0;
+    $("#umoney .uright .cnum3[ticket_type='1']").each(function(k,v){
         ticket_limit = Number(ticket_limit)+Number($(this).attr('ticket_limit'));
+        max_give_value = $(this).attr('ticket_value')>max_give_value?$(this).attr('ticket_value'):max_give_value;
     });
-    if(ticket_limit>money2){
+    var limit_money = Number(money2) + Number(max_give_value);
+    if(ticket_limit>limit_money){
       $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>代金券超出限额，请重新添加代金券!!!</span>");
       $('#ualert').modal('open');
       return false;

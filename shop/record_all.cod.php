@@ -5,58 +5,58 @@
 <!-- content -->
 <div id="urecord" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="#">今日明细</a></li>
-    <li><a href="record_all.php">所有明细</a></li>
+    <li><a href="record.php">今日明细</a></li>
+    <li class="am-active"><a href="#">所有明细</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform1">
-        <div class="am-form-group">
-           <label class="am-form-label">会员卡号：</label> 
-           <input class="am-form-field uinput uinput-160" type="text" name="card_code" value="<?php echo $this->_data['request']['card_code'];?>">
-         </div>
-         <div class="am-form-group">
-           <label class="am-form-label">消费店铺：</label> 
-           <select class="uselect uselect-auto" data-am-selected name="shop_id">
-            <option value="0">全部</option>
-            <?php foreach($this->_data['shop_list'] as $row) { ?>
-               <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo "selected";?> ><?php echo $row['shop_name'];?></option>
-            <?php }?>
-           </select>
-         </div>
-         <div class="am-form-group">
-           <label class="am-form-label">卡类型：</label> 
-           <select class="uselect uselect-auto" data-am-selected name="card_type_id">
-             <option value="0">全部</option>
-             <?php foreach($this->_data['card_type_list'] as $row) { ?>
-                <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
-             <?php }?>
-           </select>
-         </div>
-         <div class="am-form-group">
-           <label class="am-form-label">时间：</label> 
-           <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-             <input type="text" class="am-form-field" name="stime" value="<?php echo $this->_data['request']['stime'];?>">
-             <span class="am-input-group-btn am-datepicker-add-on">
-               <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-             </span>
-           </div>
-         </div>
-         <div class="am-form-group">
-           <label class="am-form-label">至：</label> 
-           <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-             <input type="text" class="am-form-field" name="etime" value="<?php echo $this->_data['request']['etime'];?>">
-             <span class="am-input-group-btn am-datepicker-add-on">
-               <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-             </span>
-           </div>
-         </div>
-         <div class="am-form-group">
-           <button type="submit" class="am-btn ubtn-search">
-             <i class="iconfont icon-search"></i>查询
-           </button>
-         </div>       
-       </form>
+  	  <div class="am-form-group">
+        <label class="am-form-label">会员卡号：</label> 
+        <input class="am-form-field uinput uinput-160" type="text" name="card_code" value="<?php echo $this->_data['request']['card_code'];?>">
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">消费店铺：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="shop_id">
+         <option value="0">全部</option>
+         <?php foreach($this->_data['shop_list'] as $row) { ?>
+            <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo "selected";?> ><?php echo $row['shop_name'];?></option>
+         <?php }?>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">卡类型：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="card_type_id">
+          <option value="0">全部</option>
+          <?php foreach($this->_data['card_type_list'] as $row) { ?>
+             <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
+          <?php }?>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">时间：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="stime" value="<?php echo $this->_data['request']['stime'];?>">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label class="am-form-label">至：</label> 
+        <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+          <input type="text" class="am-form-field" name="etime" value="<?php echo $this->_data['request']['etime'];?>">
+          <span class="am-input-group-btn am-datepicker-add-on">
+            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+          </span>
+        </div>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>       
+    </form> 
   </div> 
   <div class="gspace15"></div>   
    <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
@@ -81,37 +81,37 @@
       </tr>
     </thead>
     <?php foreach($this->_data['card_records_list']['list'] as $row){ ?>
-       <tr>
-         <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
-         <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
-         <td><?php echo $row['c_card_code'];?></td>
-         <td><?php echo $row['c_card_name'];?></td>
-         <td><?php echo $row['c_card_sex'] == '3' ? '保密' : ($row['c_card_sex'] == '1' ? '男':'女'); ?></td>
-         <td><?php echo $row['c_card_phone'];?></td>
-         <td><?php echo $row['c_card_type_name'];?></td>
-         <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
-         <td class="gtext-orange"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '0.00';?></td>
-         <td class="gtext-orange"><?php echo $row['card_record_xianjin'];?></td>
-         <td class="gtext-orange"><?php echo $row['card_record_yinhang'];?></td>
-         <td class="gtext-orange">0.00</td>
-         <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
-         <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
-         <td><?php echo $row['shop_name'];?></td>
-         <td>
-           <button class="am-btn ubtn-table ubtn-orange">
-             <i class="iconfont icon-dayin"></i>
-             打印小票
-           </button>
-         </td>
-       </tr>
-       <?php } ?>
+    <tr>
+      <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
+      <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
+      <td><?php echo $row['c_card_code'];?></td>
+      <td><?php echo $row['c_card_name'];?></td>
+      <td><?php echo $row['c_card_sex'] == '3' ? '保密' : ($row['c_card_sex'] == '1' ? '男':'女'); ?></td>
+      <td><?php echo $row['c_card_phone'];?></td>
+      <td><?php echo $row['c_card_type_name'];?></td>
+      <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
+      <td class="gtext-orange"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '0.00';?></td>
+      <td class="gtext-orange"><?php echo $row['card_record_xianjin'];?></td>
+      <td class="gtext-orange"><?php echo $row['card_record_yinhang'];?></td>
+      <td class="gtext-orange">0.00</td>
+      <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
+      <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
+      <td><?php echo $row['shop_name'];?></td>
+      <td>
+        <button class="am-btn ubtn-table ubtn-orange">
+          <i class="iconfont icon-dayin"></i>
+          打印小票
+        </button>
+      </td>
+    </tr>
+    <?php } ?>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
-     <li class="upage-info">共<?php echo $this->_data['card_records_list']['pagecount']; ?>页 <?php echo $this->_data['card_records_list']['allcount']; ?>条记录</li>
-     <li class="am-disabled"><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagepre']); ?>">&laquo;</a></li>
-     <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-     <li><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagenext']); ?>">&raquo;</a></li>
-   </ul>
+    <li class="upage-info">共<?php echo $this->_data['card_records_list']['pagecount']; ?>页 <?php echo $this->_data['card_records_list']['allcount']; ?>条记录</li>
+    <li class="am-disabled"><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagepre']); ?>">&laquo;</a></li>
+    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
+    <li><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagenext']); ?>">&raquo;</a></li>
+  </ul>
 </div>
 <!-- 侧拉框 -->
 <div id="uoffcanvas" class="am-offcanvas">
@@ -190,7 +190,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
- $(function() {
+  $(function() {
     var id = '#uoffcanvas';
     var $myOc = $(id);
 

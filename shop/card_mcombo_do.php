@@ -182,8 +182,9 @@ if($intreturn == 0){
 					if($hresult == FALSE) {
 						$intreturn = 9;
 					}
+					$card_mcombo_id = mysql_insert_id();
 
-					// 插入record2表套餐商品
+					// 插入record2表套餐商品，应该记录card_mcombo_id(现没有)
 					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_mcombo')."(card_record_id,card_id,shop_id,card_record2_mcombo_type,mcombo_id,mgoods_id,card_record2_mcombo_gcount,card_record2_mcombo_cedate,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
 					$hresult = $GLOBALS['gdb']->fun_do($strsql);
 					if($hresult == FALSE) {
@@ -196,7 +197,7 @@ if($intreturn == 0){
 		}
 	}
 }
-//记录recrord2_ygoods,没有管到期时间
+//记录recrord2_ygoods,record3_ygoods,没有管到期时间
 if($intreturn == 0){
 	$strsql = "SELECT a.*,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT SUM(card_mcombo_gcount)as sum,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by mgoods_id)as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -207,8 +208,17 @@ if($intreturn == 0){
 	}else{
 		$intreturn = 12;
 	}
+	// record2
 	foreach($arr as $v){
 		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record2_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
+		$hresult = $GLOBALS['gdb']->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 13;
+		}
+	}
+	//record3
+	foreach($arr as $v){
+		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
 		$hresult = $GLOBALS['gdb']->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 13;

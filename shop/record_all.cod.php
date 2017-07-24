@@ -77,6 +77,7 @@
         <td>微信</td>
         <td>支付宝</td>
         <td>消费店铺</td>
+        <td>状态</td>
         <td width="12%;">操作</td>
       </tr>
     </thead>
@@ -97,6 +98,7 @@
       <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
       <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
       <td><?php echo $row['shop_name'];?></td>
+      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['c_card_sex'] == '2' ? '挂单':($row['c_card_sex'] == '3' ? '退款' : '免单')); ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-orange">
           <i class="iconfont icon-dayin"></i>
@@ -142,7 +144,7 @@
           <i class="iconfont icon-dayin"></i>
           打印小票
         </button>
-        <button class="am-btn ubtn-sure ubtn-red ubutton2" data-am-modal="{target: '#urecordm1', closeViaDimmer: 0, width: 320, height: 320}">
+        <button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen" data-am-modal="{target: '#urecordm1', closeViaDimmer: 0, width: 320, height: 320}">
           <i class="iconfont icon-huaidanbaotui"></i>
           退款
         </button>
@@ -162,7 +164,8 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label utext1" for="">授权密码</label>
           <div class="umodal-small">
-            <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
+            <input class="am-form-field uinput uinput-max cpassword" type="password" name="password" placeholder="请输入授权密码">
+            <input class="crecord_id" type="hidden" name="record_id">
           </div>
         </div>
         <div class="am-form-group">
@@ -175,7 +178,7 @@
         <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
         <div class="gspace15"></div>
         <div class="ua1">
-          <button class="am-btn ubtn-sure ubtn-red" type="submit">
+          <button class="am-btn ubtn-sure ubtn-red crefunddo" type="button">
             <i class="iconfont icon-huaidanbaotui"></i>
             退款
           </button>
@@ -208,8 +211,10 @@
 
     //侧拉打开
     $('.coffopen').on('click',function() {
+      var card_record_id = $(this).attr('card_record_id');
+      $('.crefundopen').val(card_record_id);
       var url = "card_record_detail_ajax.php";
-      $.getJSON(url,{card_record_id:$(this).attr('card_record_id')},function(res){
+      $.getJSON(url,{card_record_id:card_record_id},function(res){
         // console.log(res);
         $("#uoffcanvas .ccard_record_atime").text(res.card_record_atime);
         $("#uoffcanvas .ccard_record_code").text(res.card_record_code);
@@ -293,6 +298,32 @@
     //侧拉关闭删除商品信息
     $myOc.on('close.offcanvas.amui', function() {
       $myOc.find('.cjs').remove();
+    })
+    //退款打开
+    $('.crefundopen').on('click',function(){
+      var card_record_id = $(this).val();
+      $('.crecord_id').val(card_record_id);
+    })
+    //退款提交
+    $('.crefunddo').on('click',function(){
+      var card_record_id = $('.crecord_id').val();
+      var password = $('.password').val();
+      var url = 'refund_do.php';
+
+      $.post(url,{card_record_id:card_record_id,password:password},function(res){
+        console.log(res);
+        return false;
+       /* if(res=='0'){
+          // window.location.reload();
+        }else if(res=='1'){
+          //密码错误
+          $('.cpay').attr('disabled',false);
+          return false;
+        }else{
+          $('.cpay').attr('disabled',false);
+          return false;
+        }*/
+      });
     })
     //删除
     /*$('.cdel').on('click', function() {

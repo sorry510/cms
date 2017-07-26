@@ -69,22 +69,35 @@ if($intreturn == 0){
 		}
 		//更新积分
 		if($intreturn == 0) {
-			$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_score=s_card_score+".floor($decrel_money).",card_ctime=".time()." where card_id=".$intcard_id." limit 1";
+			$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_score=s_card_score+".floor($decrel_money).",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
 			// echo $strsql;
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
 				$intreturn = 3;
 			}
 		}
-		//赠送优惠券,暂时没有添加总活动ID
+		//赠送优惠券,从最高先送起
 		if($intreturn == 0 && $stract_give_id != '0'){
-			$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id,act_give_tdays,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name FROM ".$GLOBALS['gdb']->fun_table2('act_give')." where act_give_id in (".$stract_give_id.")";
+			$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id,act_give_tdays,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name FROM ".$GLOBALS['gdb']->fun_table2('act_give')." where act_give_id in (".$stract_give_id.") order by act_give_man desc";
 			$hresult = $gdb->fun_query($strsql);
 			$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+			$decmoney_now = $decrel_money;
 			if(!empty($arr)){
 				foreach($arr as $v){
-					if($decrel_money >= $v['act_give_man']){
-						$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket'). " (card_id,act_type,act_give_id,ticket_type,ticket_money_id,ticket_goods_id,mgoods_id,card_ticket_state,card_ticket_atime,card_ticket_edate,c_mgoods_name) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",".$v['c_mgoods_id'].",1,".$now.",".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['c_mgoods_name']."')";
+					if($decmoney_now >= $v['act_give_man']){
+						$decmoney_now = $decmoney_now - $v['act_give_man'];
+						$arract = array();
+						$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_give_id=".$v['act_give_id']." and act_type=3";
+						$hresult = $gdb->fun_query($strsql);
+						$arract = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+						if(!empty($arract)){
+							$intact_id = $arract['act_id'];
+						}else{
+							$intact_id = 0;
+							$intreturn = 22;
+						}
+
+						$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket'). " (card_id,act_type,act_give_id,ticket_type,ticket_money_id,ticket_goods_id,mgoods_id,card_ticket_state,card_ticket_atime,card_ticket_edate,c_mgoods_name,act_id) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",".$v['c_mgoods_id'].",1,".$now.",".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['c_mgoods_name']."',".$intact_id.")";
 						// echo $strsql;
 						$hresult = $gdb->fun_do($strsql);
 						if($hresult == FALSE) {
@@ -92,11 +105,20 @@ if($intreturn == 0){
 						}else{
 							$give_record_id = mysql_insert_id();
 						}
-
-						$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket_record'). " (card_id,card_ticket_record_atype,act_give_id,card_ticket_record_ttype,ticket_money_id,ticket_goods_id,card_ticket_record_utype,card_ticket_id,card_record_id,card_ticket_record_atime,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name,c_ticket_edate,c_act_name) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",1,".$give_record_id.",".$record_id.",".$now.",'".$v['c_ticket_name']."',".$v['c_ticket_value'].",".$v['c_ticket_limit'].",".$v['c_mgoods_id'].",'".$v['c_mgoods_name']."',".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['act_give_name']."')";
-						$hresult = $gdb->fun_do($strsql);
-						if($hresult == FALSE) {
-							$intreturn = 14;
+						if($intreturn == 0){
+							$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket_record'). " (card_id,card_ticket_record_atype,act_give_id,card_ticket_record_ttype,ticket_money_id,ticket_goods_id,card_ticket_record_utype,card_ticket_id,card_record_id,card_ticket_record_atime,c_ticket_name,c_ticket_value,c_ticket_limit,c_mgoods_id,c_mgoods_name,c_ticket_edate,c_act_name,act_id) VALUES (".$intcard_id.",3,".$v['act_give_id'].",".$v['act_give_ttype'].",".$v['ticket_money_id'].",".$v['ticket_goods_id'].",1,".$give_record_id.",".$record_id.",".$now.",'".$v['c_ticket_name']."',".$v['c_ticket_value'].",".$v['c_ticket_limit'].",".$v['c_mgoods_id'].",'".$v['c_mgoods_name']."',".strtotime("+".$v['act_give_tdays']." day",$now).",'".$v['act_give_name']."',".$intact_id.")";
+							$hresult = $gdb->fun_do($strsql);
+							if($hresult == FALSE) {
+								$intreturn = 14;
+							}
+						}
+						if($intreturn == 0){
+							//记录act总表记录
+							$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_aticket=act_relate_aticket+1 where act_id=".$intact_id;
+							$hresult = $gdb->fun_do($strsql);
+							if($hresult == FALSE) {
+								$intreturn = 23;
+							}
 						}
 					}
 				}
@@ -107,11 +129,18 @@ if($intreturn == 0){
 	}else{
 		//用卡扣
 		$card_ymoney = $arr['s_card_ymoney']-$decrel_money;
-		$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_ymoney=".$card_ymoney.",card_ctime=".time()." where card_id=".$intcard_id." limit 1";
-		$hresult = $gdb->fun_do($strsql);
-		if($hresult == FALSE) {
-			$intreturn = 4;
+		if($card_ymoney<0){
+			$intreturn = 15;
 		}
+
+		if($intreturn == 0){
+			$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_ymoney=".$card_ymoney.",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
+			$hresult = $gdb->fun_do($strsql);
+			if($hresult == FALSE) {
+				$intreturn = 4;
+			}
+		}
+		
 		if($intreturn == 0){
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".time()."',2,".$decymoney.",".$decmoney.",".$decgive.",0,".$card_ymoney.",".$intpay_type.",0,".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 
@@ -216,14 +245,14 @@ if($intreturn == 0){
 			$intreturn = 13;
 		}
 	}
-	//record3
+	/*//record3
 	foreach($arr as $v){
 		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
 		$hresult = $GLOBALS['gdb']->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 13;
 		}
-	}
+	}*/
 }
 echo $intreturn;
 ?>

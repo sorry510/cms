@@ -44,7 +44,7 @@ if($strcard_name=='' || $strcard_phone== ''){
 	$intreturn = 1;
 }
 if($intreturn == 0){
-	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone, card_birthday, card_birthday2, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo,card_state) VALUES (".$GLOBALS['_SESSION']['login_sid'].",'" . $gdb->fun_escape($strcard_name) . "'," .$intcard_sex. ", '" . $gdb->fun_escape($strcard_phone) . "', " . $intcard_birthday . ", " . $intcard_birthday2 . ", ".$intcard_passsword_state.", '".$gdb->fun_escape($strcard_password)."','".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_ikey)."', ".strtotime('now').",".$intcard_edate.", '".$gdb->fun_escape($strcard_identity)."','".$gdb->fun_escape($strcard_memo)."',1)";
+	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone, card_birthday, card_birthday2, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo,card_state,card_ltime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",'" . $gdb->fun_escape($strcard_name) . "'," .$intcard_sex. ", '" . $gdb->fun_escape($strcard_phone) . "', " . $intcard_birthday . ", " . $intcard_birthday2 . ", ".$intcard_passsword_state.", '".$gdb->fun_escape($strcard_password)."','".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_ikey)."', ".time().",".$intcard_edate.", '".$gdb->fun_escape($strcard_identity)."','".$gdb->fun_escape($strcard_memo)."',1,".time().")";
 	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {

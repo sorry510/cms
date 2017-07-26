@@ -77,6 +77,7 @@
         <td>微信</td>
         <td>支付宝</td>
         <td>消费店铺</td>
+        <td>状态</td>
         <td width="12%;">操作</td>
       </tr>
     </thead>
@@ -86,7 +87,7 @@
          <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
          <td><?php echo $row['c_card_code'];?></td>
          <td><?php echo $row['c_card_name'];?></td>
-         <td><?php echo $row['c_card_sex'] == '3' ? '保密' : ($row['c_card_sex'] == '1' ? '男':'女'); ?></td>
+         <td><?php echo $row['c_card_sex'] == '0' ? '' : ($row['c_card_sex'] == '1' ? '男':($row['c_card_sex'] == '2' ? '女':'保密')); ?></td>
          <td><?php echo $row['c_card_phone'];?></td>
          <td><?php echo $row['c_card_type_name'];?></td>
          <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
@@ -97,6 +98,7 @@
          <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
          <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
          <td><?php echo $row['shop_name'];?></td>
+         <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '退款' : '免单')); ?></td>
          <td>
            <button class="am-btn ubtn-table ubtn-orange">
              <i class="iconfont icon-dayin"></i>
@@ -108,9 +110,9 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
      <li class="upage-info">共<?php echo $this->_data['card_records_list']['pagecount']; ?>页 <?php echo $this->_data['card_records_list']['allcount']; ?>条记录</li>
-     <li class="am-disabled"><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagepre']); ?>">&laquo;</a></li>
+     <li class="am-disabled"><a href="record.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagepre']); ?>">&laquo;</a></li>
      <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-     <li><a href="record_all.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagenext']); ?>">&raquo;</a></li>
+     <li><a href="record.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_records_list']['pagenext']); ?>">&raquo;</a></li>
    </ul>
 </div>
 <!-- 侧拉框 -->
@@ -175,7 +177,7 @@
         <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
         <div class="gspace15"></div>
         <div class="ua1">
-          <button class="am-btn ubtn-sure ubtn-red" type="submit">
+          <button class="am-btn ubtn-sure ubtn-red" type="button">
             <i class="iconfont icon-huaidanbaotui"></i>
             退款
           </button>
@@ -210,7 +212,7 @@
     $('.coffopen').on('click',function() {
       var url = "card_record_detail_ajax.php";
       $.getJSON(url,{card_record_id:$(this).attr('card_record_id')},function(res){
-        // console.log(res);
+        console.log(res);
         $("#uoffcanvas .ccard_record_atime").text(res.card_record_atime);
         $("#uoffcanvas .ccard_record_code").text(res.card_record_code);
         $("#uoffcanvas .ccard_type_name").text(res.c_card_type_name);

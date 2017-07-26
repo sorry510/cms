@@ -96,7 +96,12 @@ function get_cards_list() {
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-		//var_dump($arrlist);exit;
+	foreach($arrlist as &$v){
+		$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$v['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time().") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$v['mcombo'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	}
+	//var_dump($arrlist);exit;
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;

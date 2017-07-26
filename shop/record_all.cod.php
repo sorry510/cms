@@ -87,7 +87,7 @@
       <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
       <td><?php echo $row['c_card_code'];?></td>
       <td><?php echo $row['c_card_name'];?></td>
-      <td><?php echo $row['c_card_sex'] == '3' ? '保密' : ($row['c_card_sex'] == '1' ? '男':'女'); ?></td>
+      <td><?php echo $row['c_card_sex'] == '0' ? '' : ($row['c_card_sex'] == '1' ? '男':($row['c_card_sex'] == '2' ? '女':'保密')); ?></td>
       <td><?php echo $row['c_card_phone'];?></td>
       <td><?php echo $row['c_card_type_name'];?></td>
       <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
@@ -98,7 +98,7 @@
       <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
       <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
       <td><?php echo $row['shop_name'];?></td>
-      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['c_card_sex'] == '2' ? '挂单':($row['c_card_sex'] == '3' ? '退款' : '免单')); ?></td>
+      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '退款' : '免单')); ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-orange">
           <i class="iconfont icon-dayin"></i>
@@ -215,7 +215,7 @@
       $('.crefundopen').val(card_record_id);
       var url = "card_record_detail_ajax.php";
       $.getJSON(url,{card_record_id:card_record_id},function(res){
-        // console.log(res);
+        console.log(res);
         $("#uoffcanvas .ccard_record_atime").text(res.card_record_atime);
         $("#uoffcanvas .ccard_record_code").text(res.card_record_code);
         $("#uoffcanvas .ccard_type_name").text(res.c_card_type_name);
@@ -267,7 +267,7 @@
           default :
             $("#uoffcanvas .ccard_record_state").text('--');
         }
-        if(res.goods_list != undefined){
+        if(res.goods_list != undefined && res.goods_list.length != 0){
           var goods_head = '<p class="cjs"><strong>商品消费清单</strong></p>';
           var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>单价</td><td>数量</td><td>金额</td><td>折后价</td></tr></thead>';
           var table_body = '';
@@ -282,12 +282,22 @@
           var table_bottom = '</table>';
           $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
         }
-        if(res.mcombo_goods_list != undefined){
-          var goods_head = '<p class="cjs"><strong>套餐商品清单</strong></p>';
+        if(res.mcombo_goods_list != undefined && res.mcombo_goods_list != 0){
+          var goods_head = '<p class="cjs"><strong>买套餐商品清单</strong></p>';
           var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>单价</td><td>数量</td><td>金额</td><td>折后价</td></tr></thead>';
           var table_body = '';
           $.each(res.mcombo_goods_list,function(k,v){
               table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record2_mcombo_gcount+'</td><td>'+v.c_mgoods_price*v.card_record2_mcombo_gcount+'</td><td>'+v.c_mgoods_cprice+'</td></tr>';
+          });
+          var table_bottom = '</table>';
+          $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
+        }
+        if(res.mcombo_goods_list2 != undefined && res.mcombo_goods_list2 != 0){
+          var goods_head = '<p class="cjs"><strong>消费套餐商品清单</strong></p>';
+          var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>单价</td><td>数量</td><td>金额</td><td>折后价</td></tr></thead>';
+          var table_body = '';
+          $.each(res.mcombo_goods_list2,function(k,v){
+              table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record3_mgoods_count+'</td><td>'+v.c_mgoods_price*v.card_record3_mgoods_count+'</td><td>'+v.c_mgoods_cprice+'</td></tr>';
           });
           var table_bottom = '</table>';
           $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);

@@ -71,7 +71,7 @@
         <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
         <td>解放路分店</td>
         <td><a href="e-record.php">电子档案</a></td>
-        <td><a href="#">消费明细</a></td>
+        <td><a href="record_all.php?card_code=<?php echo $row['card_code']?>">消费明细</a></td>
         <td>
           <button class="am-btn ubtn-table ubtn-orange cmodalopen2" value="<?php echo $row['card_id']; ?>">
             <i class="iconfont icon-chongzhi"></i>
@@ -88,7 +88,14 @@
         </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_score']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_score']; ?></span>，套餐余：【
+          <?php foreach($row['mcombo'] as $row2){
+          echo $row2['mgoods_name'];
+          echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>),';
+          echo '到期时间：';
+          echo date('Y-m-d',$row2['card_mcombo_cedate']);
+          echo ';';
+          }?></td>
       </tr>
       <tr>
         <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">10331</span>元，累计赠送：<span class="gtext-orange">568.8</span>元，累计积分：<span class="gtext-orange">89634</span>元</td>
@@ -1108,6 +1115,13 @@ $(function() {
       var money = $("#ucardm4 input[name='pay']").val();
       var give = $("#ucardm4 input[name='give']").val();
       var pay_type = $("#ucardm4 .upay-active").attr('payType');
+      var card_ymoney = $("#ucardm4 .ccard_ymoney").text();
+      if(Number(money)-Number(give) > Number(card_ymoney) && pay_type == '5'){
+        $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>卡里余额不足，请充值或用其它方式付款</span>");
+        $('#ualert').modal('open');
+        $(this).attr('disabled',false);
+        return false;
+      }
       var data = {
             card_id:card_id,
             ymoney:ymoney,
@@ -1121,8 +1135,9 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
-          $('#ualert').modal('open');
+          console.log(res);
+         /* $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
+          $('#ualert').modal('open');*/
           $('.cmodalcommit4').attr('disabled',false);
           // return false;
         }

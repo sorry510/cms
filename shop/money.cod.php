@@ -160,6 +160,8 @@
         <label class="uc2b">实收金额：
         </label>
         <input type="text" class="am-form-field gtext-orange uc2c cmoney3">
+        <input type="hidden" class="cmoney2-2">
+        <input type="hidden" class="cact_decrease_id">
         <label class="uc2d">元
         </label>　　
         <label class="umodal-label am-form-label uc2e" for="">支付方式：</label>
@@ -180,7 +182,7 @@
         </label>
       </div>
       <div class="am-u-lg-2 uc3">
-        <button class="am-btn ubtn-pay cpay">
+        <button type="button" class="am-btn ubtn-pay cpay">
           结账
         </button>
       </div>
@@ -204,8 +206,8 @@
 <script type="text/javascript">
 $(function(){
   var act_discount_id = [];//限时打折活动id
-  var act_decrease_id = [];
-  var act_give_id = [];
+  var act_decrease_id = [];//满减
+  var act_give_id = [];//满送活动
   var json1 = {};
   <?php foreach($this->_data['act_discount_list'] as $k => $v){?>
     act_discount_id[<?php echo $k;?>] = <?php echo $v['act_discount_id'];?>;
@@ -257,7 +259,6 @@ $(function(){
     }
     $(".uright .ub").append(addhtml);
     $("#umoney .uright .cnum").on("input propertychange",jisuan);
-    $("#umoney .uright .cnum").on("input propertychange",jisuan);
     goodsPrice(mgoods_id,sgoods_id);
     // jisuan();
   }
@@ -265,6 +266,7 @@ $(function(){
   function cadd2(){
     var content = $(this).prev().text();
     var mgoods_id = $(this).prev().attr('mgoods_id');
+    var mgoods_count = $(this).prev().attr('mgoods_count');
     var card_mcombo_id = $(this).prev().attr('card_mcombo_id');
     var mcombo_id = $(this).parent().attr('mcombo_id');
     var flag = true;
@@ -277,8 +279,17 @@ $(function(){
       return false;//添加过了后面不在执行
     }
     var addhtml = '';
-    addhtml ='<li><div class="ub1">'+content+'(<span class="gtext-green">套餐</span>)</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input card_mcombo_id="'+card_mcombo_id+'" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum2" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
+    addhtml ='<li><div class="ub1">'+content+'(<span class="gtext-green">套餐</span>)</div><div class="ub2"><a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>&nbsp;<input card_mcombo_id="'+card_mcombo_id+'" mcombo_id="'+mcombo_id+'" mgoods_count="'+mgoods_count+'" mgoods_id="'+mgoods_id+'" class="am-form-field uinput uinput-max cnum2" type="text" placeholder="" value="1">&nbsp;<a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus"></i></a></div><div class="ub3 cdel" mcombo_id="'+mcombo_id+'" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
     $(".uright .ub").append(addhtml);
+    //限制数量不超标和非数字
+    $("#umoney .uright .cnum2").on("input propertychange",function(){
+        if(isNaN($(this).val())){
+          $(this).val(0);
+        }
+        if(parseInt($(this).val())>parseInt($(this).attr('mgoods_count'))){
+          $(this).val(parseInt($(this).attr('mgoods_count')));
+        }
+    });
   }
   //奖券
   function cadd3(){
@@ -456,7 +467,7 @@ $(function(){
             if(v.card_mcombo_type==1){
               var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
             }else if(v.card_mcombo_type==2){
-              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'">'+v.mgoods_name+'('+v.mgoods_price+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'" mgoods_count="'+v.card_mcombo_gcount+'">'+v.mgoods_name+'('+v.mgoods_price+')('+v.card_mcombo_gcount+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
             }
             $('#umoney .ub .uleft #tab2 .uc').append(addli);
           })
@@ -507,9 +518,13 @@ $(function(){
     var money1 = 0;//原价
     var money2 = 0;//优惠价
     var money3 = 0;//优惠后满减价
+    var decrease_id = 0;
     var jian = 0;
     var num = 0;
     $("#umoney .uright .cnum").each(function(){
+      if(isNaN($(this).val())){
+        $(this).val(0);
+      }
       money1 = Number(money1) + Number($(this).val())*Number($(this).attr('price'));
       money2 = Number(money2) + Number($(this).val())*Number($(this).attr('min_price'));
       num = Number(num) + Number($(this).val());
@@ -528,16 +543,21 @@ $(function(){
         money2 = Number(money2)-Number(ticket_value);
       }
     });
-
-    $.each(act_decrease_id,function(k,v){
-      if(money2>v.act_decrease_man){
-        jian = v.act_decrease_jian;
-      }
-    });
+    if(act_decrease_id.length!=0){
+      //满减活动只能选一个最大的
+      $.each(act_decrease_id,function(k,v){
+        if(money2>v.act_decrease_man){
+          jian = v.act_decrease_jian;
+          decrease_id = v.act_decrease_id;
+        }
+      });
+    }
     money3 = Number(money2)-Number(jian);
     money3 = money3.toFixed(2);
     $("#umoney .cmoney1").text(money1);
     $("#umoney .cmoney2").text(money3);
+    $("#umoney .cmoney2-2").val(money2);
+    $("#umoney .cact_decrease_id").val(decrease_id);
     $("#umoney .cmoney3").val(money3);
     $("#umoney .cgoods_num").text(num);
   }
@@ -619,10 +639,10 @@ $(function(){
     }).then(jisuan);
   }
   //会员查询
-  $('.ccard_submit').on('click',searchCard);
+  $('.ccard_submit').on('click', searchCard);
   //商品查询
-  $('.cgoodssubmit').on('click',searchGoods);
-  // 添加商品
+  $('.cgoodssubmit').on('click', searchGoods);
+  //添加商品
   $('#umoney .ub .uleft #tab1 .cadd').on('click', cadd);
   //删除商品,套餐商品,券
   $(document).on("click",".cdel",function(){
@@ -638,7 +658,14 @@ $(function(){
   });
   $(document).on("click", ".cbtnplus", function() {
     var _self= $(this).siblings('input');
-    _self.val(parseInt(_self.val())+1);
+    var mgoods_count = _self.attr('mgoods_count');
+    if(mgoods_count != undefined){
+      if(parseInt(_self.val())<parseInt(mgoods_count)){
+        _self.val(parseInt(_self.val())+1);
+      }
+    }else{
+      _self.val(parseInt(_self.val())+1);
+    }
     jisuan();
   });
   //结账
@@ -667,10 +694,10 @@ $(function(){
     }
     $('#umoney .ub .uright .cnum').each(function(){
       if($(this).attr('mgoods_id')!=undefined){
-        var json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'price':$(this).attr('price')};
+        var json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price')};
       }
       if($(this).attr('sgoods_id')!=undefined){
-        var json = {'sgoods_id':$(this).attr('sgoods_id'),'num':$(this).val(),'price':$(this).attr('price')};
+        var json = {'sgoods_id':$(this).attr('sgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price')};
       }
       arr.push(json);
     });
@@ -682,6 +709,11 @@ $(function(){
       var json = {'card_ticket_id':$(this).attr('ticket_id')};
       arr3.push(json);
     })
+    if(arr.length==0 && arr2.length==0 && arr3.length == 0){
+      $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>请添加至少一个商品!!!</span>");
+      $('#ualert').modal('open');
+      return false;
+    }
     var data = {
           money1:money1,
           money2:money2,
@@ -695,14 +727,15 @@ $(function(){
         };
     // console.log(data);
     $.post(url,data,function(res){
-      // $('.cpay').attr('disabled',false);
-      // console.log(res);
-      // return;
-      if(res=='0'){
+      $('.cpay').attr('disabled',false);
+      console.log(res);
+      return false;
+     /* if(res=='0'){
         window.location.reload();
       }else{
+        alert("出错了,请联系管理员");
         $('.cpay').attr('disabled',false);
-      }
+      }*/
     });
   });
 })

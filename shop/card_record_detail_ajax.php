@@ -17,6 +17,11 @@ if($arr['card_record_type']==3){
 	$hresult = $gdb->fun_query($strsql);
 	$arrlist = $gdb->fun_fetch_all($hresult);
 	$arr['goods_list'] = $arrlist;
+
+	$strsql = "SELECT mgoods_id,card_record3_mgoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM " .$gdb->fun_table2('card_record3_mcombo'). "where card_record_id=".$arr['card_record_id'];
+	$hresult = $gdb->fun_query($strsql);
+	$arrlist2 = $gdb->fun_fetch_all($hresult);
+	$arr['mcombo_goods_list2'] = $arrlist2;
 }
 
 if($arr['card_record_type']==2){

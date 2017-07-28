@@ -15,7 +15,8 @@
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">卡类型：</label>
         <select class="uselect uselect-auto" data-am-selected name="card_type">
-        <option value="0">全部</option>
+        <option value="all" <?php if($this->_data['request']['card_type']=='all') echo "selected";?>>全部</option>
+        <option value="0" <?php if($this->_data['request']['card_type']=='0') echo "selected";?>>未设置</option>
         <?php foreach($this->_data['card_type_list'] as $row) { ?>
            <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
         <?php }?>
@@ -59,10 +60,10 @@
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_name']; ?></a></td>
         <td><?php echo $row['card_phone']; ?></td>
         <td><?php echo $row['card_sex'] == '3' ? '保密' : ($row['card_sex'] == '1' ? '男':'女'); ?></td>
-        <td><?php echo date("Y-m-d",$row['card_birthday']); ?></td>
+        <td><?php echo date("Y-m-d",$row['card_birthday_date']); ?></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
-        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount']; ?></span>折</td>
+        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
         <td><?php echo date("Y-m-d",$row['card_edate']); ?></td>
         <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
         <td>解放路分店</td>
@@ -76,10 +77,10 @@
         </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_score']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">10331</span>元，累计赠送：<span class="gtext-orange">568.8</span>元，累计积分：<span class="gtext-orange">89634</span>元</td>
+        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>
     </tbody>
   </table>

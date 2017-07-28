@@ -22,27 +22,29 @@ $strcard_ikey = api_value_post('card_ikey');
 $strcard_edate = api_value_post('card_edate');
 $strcard_identity = api_value_post('card_identity');
 $strcard_memo = api_value_post('card_memo');
+$strcard_carcode= api_value_post('card_carcode');
 
 
 $intreturn = 0;
-$intcard_birthday = 0;
-if($intreturn == 0) {
-	if(!empty($strcard_birthday)) {
-		$int = strtotime($strcard_birthday);
-		if($int > 0) {
-			$intcard_birthday = $int;
-		}
-	}
+
+if($strcard_birthday!=''){
+	$intcard_birthday_date = strtotime($strcard_birthday)!=false?strtotime($strcard_birthday):0;
+}else{
+	$intcard_birthday_date = 0;
 }
-$intcard_birthday2 = 0;
-if($intreturn == 0) {
-	if(!empty($strcard_birthday)) {
-		$arrcard_birthday = explode("-", $strcard_birthday);
-		if(isset($arrcard_birthday[1])&&isset($arrcard_birthday[2])){
-			$intcard_birthday2 = mktime(0, 0, 0, $arrcard_birthday[1], $arrcard_birthday[2]); 
-		}
-	}
+
+$arrcard_birthday = explode("-", $strcard_birthday);
+if(isset($arrcard_birthday[1])){
+	$intcard_birthday_month = api_value_int0($arrcard_birthday[1]);
+}else{
+	$intcard_birthday_month = 0;
 }
+if(isset($arrcard_birthday[2])){
+	$intcard_birthday_day = api_value_int0($arrcard_birthday[2]);
+}else{
+	$intcard_birthday_day = 0;
+}
+
 $intcard_edate = 0;
 if($intreturn == 0) {
 	if(!empty($strcard_edate)) {
@@ -53,13 +55,13 @@ if($intreturn == 0) {
 	}
 }
 if($intreturn == 0) {
-	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET card_code='".$gdb->fun_escape($strcard_code)."', card_name = '".$gdb->fun_escape($strcard_name)."',card_phone='".$gdb->fun_escape($strcard_phone)."',card_sex=".$intcard_sex.",card_birthday=".$intcard_birthday.",card_birthday2=".$intcard_birthday2.",card_password_state=".$intcard_passsword_state.",card_password='".$gdb->fun_escape($strcard_password)."',card_ikey='".$gdb->fun_escape($strcard_ikey)."',card_identity='".$gdb->fun_escape($strcard_identity)."',card_memo='".$gdb->fun_escape($strcard_memo)."',card_edate=".$intcard_edate.",card_ctime=".time()." where card_id=".$intcard_id." limit 1";
-	// echo $strsql;
+	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET card_code='".$gdb->fun_escape($strcard_code)."', card_name = '".$gdb->fun_escape($strcard_name)."',card_phone='".$gdb->fun_escape($strcard_phone)."',card_sex=".$intcard_sex.",card_birthday_date=".$intcard_birthday_date.",card_birthday_month=".$intcard_birthday_month.",card_birthday_day=".$intcard_birthday_day.",card_password_state=".$intcard_passsword_state.",card_password='".$gdb->fun_escape($strcard_password)."',card_ikey='".$gdb->fun_escape($strcard_ikey)."',card_identity='".$gdb->fun_escape($strcard_identity)."',card_memo='".$gdb->fun_escape($strcard_memo)."',card_edate=".$intcard_edate.",card_ctime=".time().",card_carcode='".$strcard_carcode."' where card_id=".$intcard_id." limit 1";
+	//echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 1;
 	}
 }
-echo $intreturn;
 
+echo $intreturn;
 ?>

@@ -15,7 +15,7 @@ $strwhere = $strwhere . " or card_phone = '" . $GLOBALS['strsearch'] . "')";
 
 $strwhere .= " and card_state = 1 and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
-$strsql = "SELECT shop_id,card_id,card_code, card_name,card_phone,card_sex,card_birthday,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_score FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1".$strwhere." ORDER BY card_id DESC LIMIT 1";
+$strsql = "SELECT shop_id,card_id,card_code, card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1".$strwhere." ORDER BY card_id DESC LIMIT 1";
 // echo $strsql;exit;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 
@@ -27,7 +27,7 @@ foreach ($arr as &$v){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr1 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$v['shop_name'] = $arr1['shop_name'];
-	$v['birthday'] = date('Y-m-d',$v['card_birthday']);
+	$v['birthday'] = date('Y-m-d',$v['card_birthday_date']);
 	$v['edate'] = date('Y-m-d',$v['card_edate']);
 }
 echo json_encode($arr);

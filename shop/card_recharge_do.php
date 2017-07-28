@@ -32,7 +32,7 @@ if($intreturn == 0){
 }
 // 更新card,记录积分
 if($intreturn == 0) {
-	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET c_card_type_name='".$gdb->fun_escape($strcard_type_name)."', card_type_id = ".$intcard_type_id.",c_card_type_discount=".$deccard_type_discount.",s_card_ymoney=s_card_ymoney+".$decmoney.",s_card_score=s_card_score+".floor($deccash).",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
+	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET c_card_type_name='".$gdb->fun_escape($strcard_type_name)."', card_type_id = ".$intcard_type_id.",c_card_type_discount=".$deccard_type_discount.",s_card_smoney=s_card_smoney+".$deccash.",s_card_ymoney=s_card_ymoney+".$decmoney.",s_card_sscore=s_card_sscore+".floor($deccash).",s_card_yscore=s_card_yscore+".floor($deccash).",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
 	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
@@ -50,7 +50,7 @@ if($intreturn == 0){
 		$intreturn = 2;
 	}
 }
-// 插入消费记录
+//插入消费记录
 if($intreturn == 0){
 	$card_pay = '';
 	switch($intpay_type)

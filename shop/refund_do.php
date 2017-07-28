@@ -104,7 +104,22 @@ if($intreturn == 0 && $card_id != 0){
 		}
 	}
 }
-//退还总活动记录
+//退还消费时总活动记录
+if($intreturn == 0 && $card_id != 0){
+	$strsql = "SELECT act_id FROM ".$gdb->fun_table2('card_ticket_record')." where card_record_id=".$intcard_record_id." and card_ticket_record_utype=2";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	if(!empty($arr)){
+		foreach($arr as $v){
+			$strsql = "UPDATE ".$gdb->fun_table2('act_id')." SET act_relate_uticket=act_relate_uticket+1 where act_id=".$v['act_id'];
+			$hresult = $gdb->fun_do($strsql);
+			if($hresult == FALSE) {
+				$intreturn = 10;
+			}
+		}
+	}
+}
+//退还赠送时总活动记录
 if($intreturn == 0 && $card_id != 0){
 	$strsql = "SELECT act_id FROM ".$gdb->fun_table2('card_ticket_record')." where card_record_id=".$intcard_record_id." and card_ticket_record_utype=1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -114,7 +129,7 @@ if($intreturn == 0 && $card_id != 0){
 			$strsql = "UPDATE ".$gdb->fun_table2('act_id')." SET act_relate_aticket=act_relate_aticket-1 where act_id=".$v['act_id'];
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
-				$intreturn = 9;
+				$intreturn = 11;
 			}
 		}
 	}

@@ -17,7 +17,7 @@ $arract_id = api_value_post('act_discount_id');
 if(!empty($arract_id)){
 	$stract_id = implode(',',$arract_id);
 }
-// echo $intcard_id;
+
 
 $act_mgoods_price = 0;
 $act_mcombo_price = 0;
@@ -28,27 +28,38 @@ $sgoods_price = 0;
 $sgoods_cprice = 0;
 $mcombo_price = 0;
 $mcombo_cprice = 0;
+$act_discount_id = 0;
 //多店通用商品活动价格
 if($intmgoods_id!=0&&!empty($stract_id)){
-	$strsql = "SELECT mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
+	$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
+
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	if(!empty($arr)){
 		$act_mgoods_price = $arr[0]['act_discount_goods_price'];
 		foreach($arr as $v){
-			$act_mgoods_price= $act_mgoods_price>=$v['act_discount_goods_price']?$v['act_discount_goods_price']:$act_mgoods_price;
+			if($act_mgoods_price>=$v['act_discount_goods_price']){
+				$act_mgoods_price=$v['act_discount_goods_price'];
+				$act_discount_id = $v['act_disount_id'];
+			}
 		}
 	}
 }
 //套餐活动价格
 if($intmcombo_id!=0&&!empty($stract_id)){
-	$strsql = "SELECT mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
+
+	$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
+	// echo $strsql;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	if(!empty($arr)){
 		$act_mcombo_price = $arr[0]['act_discount_goods_price'];
+		// echo $act_mcombo_price;
 		foreach($arr as $v){
-			$act_mcombo_price= $act_mcombo_price>=$v['act_discount_goods_price']?$v['act_discount_goods_price']:$act_mcombo_price;
+			if($act_mcombo_price>=$v['act_discount_goods_price']){
+				$act_mcombo_price=$v['act_discount_goods_price'];
+				$act_discount_id=$v['act_discount_id'];
+			}
 		}
 	}
 }
@@ -131,7 +142,12 @@ if($mcombo_price!=0){
 if($mcombo_cprice!=0){
 	$arrprice[] = $mcombo_cprice;
 }
-echo min($arrprice);
+
+$arr = array();
+$arr['min_price'] = min($arrprice);
+$arr['act_discount_id'] = $act_discount_id;
+
+echo json_encode($arr);
 
 
 

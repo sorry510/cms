@@ -45,7 +45,7 @@ function get_cards_list() {
 		$strwhere = $strwhere . " or card_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
 		$strwhere = $strwhere . " or card_phone LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
-	if($GLOBALS['intcard_type'] != 0){
+	if($GLOBALS['strcard_type'] != 'all' && $GLOBALS['strcard_type'] != ''){
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
 	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
@@ -68,7 +68,7 @@ function get_cards_list() {
 		return $arrpackage;
 	}
 	
-	$intpagesize = 5;
+	$intpagesize = 20;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -91,8 +91,8 @@ function get_cards_list() {
 	
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_score FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
-	// echo $strsql;exit;
+	$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_sscore,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	//echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -166,7 +166,7 @@ function get_act_decrease_list(){
 	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
 	if($stract_decrease_id!=''){
 		//会员，期限内，正常，按减的价格升序
-		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=3 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man asc";
+		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=3 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		return $arr;

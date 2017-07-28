@@ -65,7 +65,7 @@ if($intreturn == 0){
 		if($card_pay!=''){
 			//不是卡扣
 			//插入card_record表
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".time()."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$arr['s_card_ymoney'].",".$intpay_type.",".$decmoney3.",".floor($decmoney3).",".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$now."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$arr['s_card_ymoney'].",".$intpay_type.",".$decmoney3.",".floor($decmoney3).",".$now.",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
 
@@ -74,7 +74,7 @@ if($intreturn == 0){
 			}
 			//更新积分
 			if($intreturn == 0 && $intcard_id != 0) {
-				$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_score=s_card_score+".floor($decmoney3).",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
+				$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_score=s_card_score+".floor($decmoney3).",card_ctime=".$now.",card_ltime=".$now." where card_id=".$intcard_id." limit 1";
 				// echo $strsql;
 				$hresult = $gdb->fun_do($strsql);
 				if($hresult == FALSE) {
@@ -132,13 +132,13 @@ if($intreturn == 0){
 		}else{
 			//用卡扣
 			$card_ymoney = $arr['s_card_ymoney']-$decmoney3;
-			$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_ymoney=".$card_ymoney.",card_ctime=".time().",card_ltime=".time()." where card_id=".$intcard_id." limit 1";
+			$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_ymoney=".$card_ymoney.",card_ctime=".$now.",card_ltime=".$now." where card_id=".$intcard_id." limit 1";
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
 				$intreturn = 4;
 			}
 			if($intreturn == 0){
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".time()."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$card_ymoney.",".$intpay_type.",0,".time().",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$now."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$card_ymoney.",".$intpay_type.",0,".$now.",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 
 				$hresult = $gdb->fun_do($strsql);
 				$record_id = mysql_insert_id();
@@ -151,7 +151,7 @@ if($intreturn == 0){
 		//没有会员卡
 		if($card_pay!=''){
 			//插入card_record表
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_atime,c_user_id,c_user_name,card_record_state) VALUE (".$GLOBALS['_SESSION']['login_sid'].",'".time()."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$intpay_type.",".$decmoney3.",".time().",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_atime,c_user_id,c_user_name,card_record_state) VALUE (".$GLOBALS['_SESSION']['login_sid'].",'".$now."',3,".$decmoney1.",".$decmoney2.",".$decgive.",".$decmoney3.",".$intpay_type.",".$decmoney3.",".$now.",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
@@ -164,7 +164,16 @@ if($intreturn == 0){
 		}
 	}
 }
-//消费商品遍历,记录card_record3_goods
+//记录出库总表,商品只有服务型怎么办
+if($intreturn == 0){
+	$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('store')." (shop_id,store_type,store_money,store_operator,store_state,store_atime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",2,".$decmoney3.",'".$GLOBALS['_SESSION']['login_account']."',1,".$now.")";
+	$hresult = $gdb->fun_do($strsql);
+	$store_id = mysql_insert_id();
+	if($hresult==false){
+		$intreturn = 15;
+	}
+}
+//消费商品遍历,记录card_record3_goods,记录库存出库
 if($intreturn == 0 && !empty($arrinfo)){
 	foreach($arrinfo as $v){
 		$intmgoods_id = 0;
@@ -182,29 +191,63 @@ if($intreturn == 0 && !empty($arrinfo)){
 			continue;
 		}
 		if($intmgoods_id != 0){
-			$strsql = "SELECT mgoods_id,mgoods_code,mgoods_name,mgoods_price,mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('mgoods'). " where mgoods_id=".$intmgoods_id;
+			$strsql = "SELECT mgoods_type,mgoods_id,mgoods_code,mgoods_name,mgoods_price,mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('mgoods'). " where mgoods_id=".$intmgoods_id;
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(empty($arr)){
 				$intreturn = 8;
 			}else{
+				//记录card_record3_goods
 				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_goods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mgoods_code,c_mgoods_rprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intmgoods_id.",".$intnum.",'".$arr['mgoods_name']."',".$arr['mgoods_price'].",".$arr['mgoods_cprice'].",'".$arr['mgoods_code']."',".$price.")";
+				$hresult = $gdb->fun_do($strsql);
+				if($hresult==false){
+					$intreturn = 10;
+				}
+				// 记录库存,没有直接今日库存
+				if($intreturn==0 && $arr['mgoods_type']==2){
+					$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,mgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$store_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intmgoods_id.",".$intnum.",".$now.",'".$arr['mgoods_name']."')";
+					$hresult = $gdb->fun_do($strsql);
+					if($hresult==false){
+						$intreturn = 11;
+					}
+				}
+				//第二种不做记录，直接修改库存
+				/*if($intrturn==0 && $arr['mgoods_type']==2){
+					$strsql = "SELECT store_info_id FROM ".$GLOBALS['gdb']->fun_table2('store_info')." where mgoods_id=".$arr['mgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+					$hresult = $gdb->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+					if(!empty($arr)){
+						$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('store_info')." SET store_info_count=store_info_count-".$intnum." and store_info_ctime=".$now;
+						$hresult = $gdb->fun_do($strsql);
+						if($hresult==false){
+							$intreturn = 12;
+						}
+					}
+				}*/
 			}
 		}
 		if($intsgoods_id != 0){
-			$strsql = "SELECT sgoods_id,sgoods_code,sgoods_name,sgoods_price,sgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('sgoods'). " where sgoods_id=".$intsgoods_id;
+			$strsql = "SELECT sgoods_type,sgoods_id,sgoods_code,sgoods_name,sgoods_price,sgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('sgoods'). " where sgoods_id=".$intsgoods_id;
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(empty($arr)){
 				$intreturn = 9;
 			}else{
+				// 记录card_record3_goods
 				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,sgoods_id,card_record3_goods_count,c_sgoods_name,c_sgoods_price,c_sgoods_cprice,c_sgoods_code,c_sgoods_rprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_id.",".$intnum.",'".$arr['sgoods_name']."',".$arr['sgoods_price'].",".$arr['sgoods_cprice'].",'".$arr['sgoods_code']."',".$price.")";
+				$hresult = $gdb->fun_do($strsql);
+				if($hresult==false){
+					$intreturn = 10;
+				}
+				// 记录库存,没有直接今日库存
+				if($intreturn==0 && $arr['sgoods_type']==2){
+					$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,sgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$store_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_id.",".$intnum.",".$now.",'".$arr['sgoods_name']."')";
+					$hresult = $gdb->fun_do($strsql);
+					if($hresult==false){
+						$intreturn = 11;
+					}
+				}
 			}
-		}
-		// echo $strsql;
-		$hresult = $gdb->fun_do($strsql);
-		if($hresult==false){
-			$intreturn = 10;
 		}
 	}
 }
@@ -319,19 +362,17 @@ if($intreturn == 0 && !empty($arrinfo3)){
 //记录recrord3_ygoods,没有管到期时间
 if($intreturn == 0 && $intcard_id!=0){
 	$strsql = "SELECT a.*,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT SUM(card_mcombo_gcount)as sum,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by mgoods_id)as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id ";
+	// echo $strsql;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	// echo json_encode($arr);
 	if(!empty($arr)){
-		$intreturn = 0;
-	}else{
-		$intreturn = 12;
-	}
-	foreach($arr as $v){
-		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
-		$hresult = $GLOBALS['gdb']->fun_do($strsql);
-		if($hresult == FALSE) {
-			$intreturn = 13;
+		foreach($arr as $v){
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
+			$hresult = $GLOBALS['gdb']->fun_do($strsql);
+			if($hresult == FALSE) {
+				$intreturn = 13;
+			}
 		}
 	}
 }

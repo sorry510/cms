@@ -15,9 +15,10 @@ $strext = strtolower(strrchr($_FILES['card_photo']['name'], '.'));
 $intlength = $_FILES['card_photo']['size'];
 if($strext == '.jpg' || $strext == '.gif') {
 	if($intlength < 1024000) {
-		$hresult = move_uploaded_file($_FILES['card_photo']['tmp_name'], $gconfig['path']['pic'] . '/'. $intnow . $strext);
+		$hresult = move_uploaded_file($_FILES['card_photo']['tmp_name'], $gconfig['path']['photo'] . '/'. $intnow . $strext);
 		if($hresult) {
 			$strsql = "UPDATE " . $gdb->fun_table2('card') . " SET card_photo_file = '".$intnow.$strext."' WHERE card_id = " . $intcard_id . " LIMIT 1";
+			// echo $strsql;
 			$hresult = $gdb->fun_do($strsql);
 			if(!$hresult) {
 				$intreturn = 1;

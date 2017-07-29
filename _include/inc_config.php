@@ -4,8 +4,8 @@ if(!defined('C_CNFLY')) {
 }
 
 $gconfig = array();
-$gconfig['path']['pic'] = C_ROOT.'/photo';
-
+$gconfig['path']['photo'] = C_ROOT.'/photo';
+$gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo';
 
 require(C_ROOT . '/_include/cls_mysql.php');
 // $gdb = new cls_mysql();

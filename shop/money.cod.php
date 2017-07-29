@@ -18,7 +18,7 @@
     <div class="ua2">
       <span class="ua2a">会员基本信息</span>
       <div class="am-form-file ua2b">
-        <img src="../img/li.jpg">
+        <img src="../img/li.jpg" class="cphoto">
         <ul style="padding-left: 0;margin-left: 6%;">
           <li><font>卡号：</font><a href="javascript:void" class="ccard_code"></a></li>
           <li><font>姓名：</font><span class="ccard_name"></span></li>
@@ -48,7 +48,7 @@
         <ul style="padding-left: 0px;">
           <li><font>到期时间：</font><span class="ccard_edate"></span></li>
           <li><font>开卡店铺：</font><span class="ccard_shop"></span></li>
-          <li><font>车牌号码：</font><span class="ccard_carid"></span></li>
+          <li><font>车牌号码：</font><span class="ccard_carcode"></span></li>
           <li><font>生　　日：</font><span class="ccard_birthday"></span></li>
           <li><font>积分剩余：</font><span class="ccard_score"></span></li>
           <li><font>累计消费：</font><span class="ccard_cash"></span></li>
@@ -208,6 +208,7 @@ $(function(){
   var act_discount_id = [];//限时打折活动id
   var act_decrease_id = [];//满减
   var act_give_id = [];//满送活动
+  var use_act_decrease_id = [];
   var json1 = {};
   <?php foreach($this->_data['act_discount_list'] as $k => $v){?>
     act_discount_id[<?php echo $k;?>] = <?php echo $v['act_discount_id'];?>;
@@ -219,6 +220,8 @@ $(function(){
   <?php foreach($this->_data['act_give_list'] as $k => $v){?>
     act_give_id[<?php echo $k;?>] = <?php echo $v['act_give_id'];?>;
   <?php }?>
+
+  // f11,f12
   $(document).keyup(function(e){
       var e = window.event || e || e.which;
       if(e.keyCode==112){
@@ -231,6 +234,7 @@ $(function(){
       }
       // console.log(e.keyCode);
   });
+
   //添加商品
   function cadd(){
     var product = $(this).prev().text();
@@ -332,6 +336,7 @@ $(function(){
       jisuan();
     }
   }
+
   function searchGoods(){
     $("#umoney .ub .uc li").hide();
     $.ajax({
@@ -378,6 +383,7 @@ $(function(){
       $('.cgoodssubmit').attr('disabled',false);
     })
   }
+
   function searchCard(){
     $('#umoney .ub .uleft #tab2 .uc li').remove();
     $('#umoney .ub .uleft #tab3 .uc li.uc2').remove();
@@ -394,6 +400,7 @@ $(function(){
       if(res.length===0){
         $('#umoney .ua .ua2 .ccard_id').val('');
         $('#umoney .ua .ua2 .ccard_code').text('');
+        $('#umoney .ua .ua2 .ccard_carcode').text('');
         $('#umoney .ua .ua2 .ccard_name').text('');
         $('#umoney .ua .ua2 .ccard_phone').text('');
         $('#umoney .ua .ua2 .ccard_type').text('');
@@ -403,11 +410,13 @@ $(function(){
         $('#umoney .ua .ua2 .ccard_shop').text('');
         $('#umoney .ua .ua2 .ccard_birthday').text('');
         $('#umoney .ua .ua2 .ccard_score').text('');
+        $('#umoney .ua .ua2 .cphoto').attr('src','../img/li.jpg');
       }else{
         //目前有多个会员时显示最后一个符合
         $.each(res,function(key,val){
           $('#umoney .ua .ua2 .ccard_id').val(val.card_id);
           $('#umoney .ua .ua2 .ccard_code').text(val.card_code);
+          $('#umoney .ua .ua2 .ccard_carcode').text(val.card_carcode);
           $('#umoney .ua .ua2 .ccard_name').text(val.card_name);
           $('#umoney .ua .ua2 .ccard_phone').text(val.card_phone);
           $('#umoney .ua .ua2 .ccard_type').text(val.c_card_type_name);
@@ -417,6 +426,7 @@ $(function(){
           $('#umoney .ua .ua2 .ccard_shop').text(val.shop_name);
           $('#umoney .ua .ua2 .ccard_birthday').text(val.birthday);
           $('#umoney .ua .ua2 .ccard_score').text(val.s_card_score);
+          $('#umoney .ua .ua2 .cphoto').attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_show"];?>/'+val.card_photo_file);
         });
       }
     }).then(function(){
@@ -464,10 +474,11 @@ $(function(){
         // console.log(res);
         if(res.length>0){
           $.each(res,function(k,v){
+            //没有做套餐用完时怎么显示
             if(v.card_mcombo_type==1){
-              var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.mcombo_name+'('+v.card_mcombo_ccount+')</li>';
+              var addli = '<li class="uc1" mcombo_id="'+v.mcombo_id+'">'+v.c_mcombo_name+'('+v.card_mcombo_ccount+')</li>';
             }else if(v.card_mcombo_type==2){
-              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'" mgoods_count="'+v.card_mcombo_gcount+'">'+v.mgoods_name+'('+v.mgoods_price+')('+v.card_mcombo_gcount+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
+              var addli = '<li class="uc2" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'" mgoods_count="'+v.card_mcombo_gcount+'">'+v.c_mgoods_name+'('+v.c_mgoods_price+')('+v.card_mcombo_gcount+')</div><div class="uc2b cadd2"><a href="#">添加</a></div></li>'
             }
             $('#umoney .ub .uleft #tab2 .uc').append(addli);
           })
@@ -486,10 +497,10 @@ $(function(){
         if(res.length>0){
           $.each(res,function(k,v){
             if(v.ticket_type==1){
-              var addli = '<li class="uc2" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.ticket_value+'" ticket_limit="'+v.ticket_limit+'"><div class="uc2a">代金券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              var addli = '<li class="uc2" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.c_ticket_value+'" ticket_limit="'+v.c_ticket_limit+'"><div class="uc2a">代金券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
               $('#umoney .ub .uleft #tab3 .uc').append(addli);
             }else{
-              var addli = '<li class="uc2" ticket_goods_id="'+v.ticket_goods_id+'" mgoods_id="'+v.mgoods_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'"><div class="uc2a">体验券：'+v.ticket_name+'('+v.ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
+              var addli = '<li class="uc2" ticket_goods_id="'+v.ticket_goods_id+'" mgoods_id="'+v.c_mgoods_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'"><div class="uc2a">体验券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
               $('#umoney .ub .uleft #tab3 .uc').append(addli);
             }
           })
@@ -514,6 +525,7 @@ $(function(){
       $("#umoney .ccard_submit").attr('disabled',false);
     })
   }
+
   function jisuan(){
     var money1 = 0;//原价
     var money2 = 0;//优惠价
@@ -521,6 +533,8 @@ $(function(){
     var decrease_id = 0;
     var jian = 0;
     var num = 0;
+    var limit_money = 0;//满减活动用于计算的money
+    use_act_decrease_id.splice(0,use_act_decrease_id.length);//清空使用的满减活动
     $("#umoney .uright .cnum").each(function(){
       if(isNaN($(this).val())){
         $(this).val(0);
@@ -543,14 +557,24 @@ $(function(){
         money2 = Number(money2)-Number(ticket_value);
       }
     });
+    limit_money = money2;
     if(act_decrease_id.length!=0){
+      for(var i=0;i<act_decrease_id.length;){
+        if(limit_money>act_decrease_id[i].act_decrease_man){
+          jian = Number(jian) + Number(act_decrease_id[i].act_decrease_jian);
+          limit_money = Number(limit_money) - Number(act_decrease_id[i].act_decrease_man);
+          use_act_decrease_id.push(act_decrease_id[i].act_decrease_id);//新的满减活动
+        }else{
+          i++;
+        }
+      }
       //满减活动只能选一个最大的
-      $.each(act_decrease_id,function(k,v){
+      /*$.each(act_decrease_id,function(k,v){
         if(money2>v.act_decrease_man){
           jian = v.act_decrease_jian;
           decrease_id = v.act_decrease_id;
         }
-      });
+      });*/
     }
     money3 = Number(money2)-Number(jian);
     money3 = money3.toFixed(2);
@@ -561,6 +585,7 @@ $(function(){
     $("#umoney .cmoney3").val(money3);
     $("#umoney .cgoods_num").text(num);
   }
+
   function goodsPrice2(goods_id,goods_type){
     var mgoods_id = '';
     var sgoods_id = '';
@@ -595,13 +620,16 @@ $(function(){
       type:"POST"
     }).then(function(res){
       if(mgoods_id!=''){
-        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res);
+        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res.min_price);
+        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('act_discount_id',res.act_discount_id);
       }
       if(sgoods_id!=''){
-        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res);
+        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res.min_price);
+        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('act_discount_id',res.act_discount_id);
       }
     }).then(jisuan);
   }
+
   function goodsPrice(mgoods_id,sgoods_id){
     var card_id = 0;
     if($("#umoney .ccard_id").val().length==0){
@@ -628,13 +656,16 @@ $(function(){
     $.ajax({
       url:url,
       data:data,
-      type:"POST"
+      type:"POST",
+      dataType:"json"
     }).then(function(res){
       if(mgoods_id!=''){
-        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res);
+        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('min_price',res.min_price);
+        $("#umoney .uright .cnum[mgoods_id='"+mgoods_id+"']").attr('act_discount_id',res.act_discount_id);
       }
       if(sgoods_id!=''){
-        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res);
+        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('min_price',res.min_price);
+        $("#umoney .uright .cnum[sgoods_id='"+sgoods_id+"']").attr('act_discount_id',res.act_discount_id);
       }
     }).then(jisuan);
   }
@@ -668,6 +699,7 @@ $(function(){
     }
     jisuan();
   });
+
   //结账
   $('.cpay').on('click',function(){
     // $(this).attr('disabled',true);
@@ -694,10 +726,10 @@ $(function(){
     }
     $('#umoney .ub .uright .cnum').each(function(){
       if($(this).attr('mgoods_id')!=undefined){
-        var json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price')};
+        var json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price'),'act_discount_id':$(this).attr('act_discount_id')};
       }
       if($(this).attr('sgoods_id')!=undefined){
-        var json = {'sgoods_id':$(this).attr('sgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price')};
+        var json = {'sgoods_id':$(this).attr('sgoods_id'),'num':$(this).val(),'price':$(this).attr('min_price'),'act_discount_id':$(this).attr('act_discount_id')};
       }
       arr.push(json);
     });
@@ -723,9 +755,10 @@ $(function(){
           arr2:arr2,
           arr3:arr3,
           arr_give:act_give_id,
+          act_decrease:use_act_decrease_id,
           pay_type:pay_type
         };
-    // console.log(data);
+    console.log(data);
     $.post(url,data,function(res){
       $('.cpay').attr('disabled',false);
       console.log(res);

@@ -170,10 +170,10 @@
               </div>
             </div>
             <div class="am-form-file uphoto">
-              <img id="cimg" src="../img/li.jpg">
+              <img id="cimg1" src="../img/li.jpg">
               <a class="am-btn am-btn-gray am-btn-sm">
                 <i class="am-icon-cloud-upload"></i> 点击上传</a>
-              <input name="card_photo" id="doc-form-file" type="file" multiple>
+              <input name="card_photo" id="doc-form-file1" class="cphoto" type="file" multiple>
             </div>
             <div style="clear:both;"></div>
         </div>
@@ -277,7 +277,7 @@
               <label class="am-form-label umodal-label">出生日期：</label>
               <div class="umodal-normal">
                 <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-                  <input type="text" class="am-form-field" name="card_birthday">
+                  <input type="text" class="am-form-field" name="card_birthday_date">
                   <span class="am-input-group-btn am-datepicker-add-on">
                     <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
                   </span>
@@ -299,10 +299,10 @@
               </div>
             </div>
             <div class="am-form-file uphoto">
-              <img id="cimg" src="../img/li.jpg">
+              <img id="cimg2" src="../img/li.jpg">
               <a class="am-btn am-btn-gray am-btn-sm">
                 <i class="am-icon-cloud-upload"></i> 点击上传</a>
-              <input name="card_photo" id="doc-form-file" type="file" multiple>
+              <input name="card_photo" id="doc-form-file2" class="cphoto" type="file" multiple>
             </div>
             <div style="clear:both;"></div>
         </div>
@@ -705,24 +705,37 @@ $(function() {
     function jisuan(){
       var ymoney = 0;//原始总价
       var all_money = 0;//应付价
-      var rel_money = 0;//应付价
+      var rel_money = 0;//真实价
       var num = 0;
       var jian = 0;//满减
-      use_act_decrease_id.splice(0,use_act_decrease_id);//清空使用的满减活动
+      var limit_money = 0;//满减活动用于计算的money
+      use_act_decrease_id.splice(0,use_act_decrease_id.length);//清空使用的满减活动
       $("#ucardm3 .uright .cnum").each(function(){
         all_money = Number(all_money) + Number($(this).val())*Number($(this).attr('min_price'));
         ymoney = Number(ymoney) + Number($(this).val())*Number($(this).attr('price'));
         num = Number(num) + Number($(this).val());
       });
-      //不是卡扣可以满减,满减只算一次
+      
+      limit_money = all_money;
+      //不是卡扣可以满减,满减算多次
       if($('#ucardm4 .upay.upay-active').attr('payType')!='5'){
-        $.each(act_decrease_id,function(k,v){
-          if(all_money>v.act_decrease_man){
-            jian = v.act_decrease_jian;
-            use_act_decrease_id.push(v.act_decrease_id);//新的满减活动
-            return false;
+        for(var i=0;i<act_decrease_id.length;){
+          if(limit_money>act_decrease_id[i].act_decrease_man){
+            jian = Number(jian) + Number(act_decrease_id[i].act_decrease_jian);
+            limit_money = Number(limit_money) - Number(act_decrease_id[i].act_decrease_man);
+            use_act_decrease_id.push(act_decrease_id[i].act_decrease_id);//新的满减活动
+          }else{
+            i++;
           }
-        });
+        }
+      //算一次
+      /*$.each(act_decrease_id,function(k,v){
+        if(all_money>v.act_decrease_man){
+          jian = v.act_decrease_jian;
+          use_act_decrease_id.push(v.act_decrease_id);//新的满减活动
+          return false;
+        }
+      });*/
       }
       rel_money = Number(all_money)-Number(jian);
       rel_money = rel_money.toFixed(2);
@@ -753,20 +766,20 @@ $(function() {
           $("#ucardm3 .cnum[mcombo_id='"+mcombo_id+"']").attr('act_discount_id',res.act_discount_id);
       }).then(jisuan);
     }
-
-    $('#doc-form-file').on('change',showPreview);
     //上传文件
-    function showPreview() {
-        var file = this.files[0];
-        if(window.FileReader) {
-            var fr = new FileReader();
-            fr.onloadend = function(e) {
-              $("#cimg").attr('src',e.target.result);
-              // document.getElementById("portrait").src = e.target.result;
-            }
-            fr.readAsDataURL(file);
-        }
-    }
+    $(".cphoto").on('change',function(){
+      var img = $(this).siblings('img');
+      var file = this.files[0];
+      if(window.FileReader) {
+          var fr = new FileReader();
+          fr.onloadend = function(e) {
+            img.attr('src',e.target.result);
+            // document.getElementById("portrait").src = e.target.result;
+          }
+          fr.readAsDataURL(file);
+      }
+    });
+    
     //删除购买套餐modal套餐
     $(document).on("click",".cdel2",function(){
       $(".cdel[mcombo_id="+$(this).attr('mcombo_id')+"]").parent().parent().remove();
@@ -905,7 +918,7 @@ $(function() {
     });
     //card新增提交信息
     $('.ccardaddsubmit').on('click',function(){
-      // $(this).attr('disabled',true);
+      $(this).attr('disabled',true);
       var url="card_add_do.php";
       var data = $("#ccardinfoadd").serialize();
       $.ajax({
@@ -913,55 +926,46 @@ $(function() {
         data:data,
         type:"POST",
       }).then(function(res){
+        // console.log(res);
         if(res!='0'){
           $.ajaxFileUpload ({
             url:'upload_do.php', //你处理上传文件的服务端
             secureuri:false, //与页面处理代码中file相对应的ID值
-            fileElementId:'doc-form-file',
+            fileElementId:'doc-form-file1',
             data:{card_id:res},
             dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
             success: function (data) {
-              console.log(data);
+              // console.log(data);
               $('.ccardaddsubmit').attr('disabled',false);
-              // window.location.href='card.php';
+              if(data == '0'){
+                window.location.href='card.php';
+              }else{
+                $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+                $('#ualert').modal('open');
+                $('.ccardrechargesubmit').attr('disabled',false);
+                return false;
+              }
             }
           });
-        }
-        /*else if(res=='1'){
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>会员姓名和手机号码不能为空</span>");
+        }else if(res=='error'){
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
           $('#ualert').modal('open');
-          $('.ccardaddsubmit').attr('disabled',false);
-        }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>添加失败，请重新添加</span>");
-          $('#ualert').modal('open');
-          $('.ccardaddsubmit').attr('disabled',false);
+          $('.ccardrechargesubmit').attr('disabled',false);
           return false;
-        }*/
+        }else{
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>新增会员失败</span>");
+          $('#ualert').modal('open');
+          $('.ccardrechargesubmit').attr('disabled',false);
+          return false;
+        }
       });
-/*      $.post(url,data,function(res){
-        console.log(res);
-        $('.ccardaddsubmit').attr('disabled',false);
-        if(res=='0'){
-          // window.location.reload();
-          window.location.href='card.php';
-        }else if(res=='1'){
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>会员姓名和手机号码不能为空</span>");
-          $('#ualert').modal('open');
-          $('.ccardaddsubmit').attr('disabled',false);
-        }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>添加失败，请重新添加</span>");
-          $('#ualert').modal('open');
-          $('.ccardaddsubmit').attr('disabled',false);
-          return false;
-        }
-      });*/
     });
     //会员修改
     $('.cmodalopen1-1').on('click', function(e) {
       var url = "card_edit_ajax.php";
       // console.log($(this).val());
       $.getJSON(url,{card_id:$(this).val()},function(res){
-        console.log(res);
+        // console.log(res);
         $("#ucardm1-1 input[name='card_name']").val(res.card_name);
         $("#ucardm1-1 input[name='card_code']").val(res.card_code);
         $("#ucardm1-1 input[name='card_phone']").val(res.card_phone);
@@ -992,6 +996,9 @@ $(function() {
             $(this).uCheck('check');
           }
         });
+        if(res.card_photo_file.length!=0){
+          $("#ucardm1-1 #cimg2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_show"];?>/'+res.card_photo_file);
+        }
       });
       $('#ucardm1-1').modal('open');
       $('#ucardm1-1 input').eq(0).focus();
@@ -1001,14 +1008,38 @@ $(function() {
       $(this).attr('disabled',true);
       var url="card_edit_do.php";
       var data = $("#ccardinfoedit").serialize();
-      $.post(url,data,function(res){
+      var card_id = $("#ucardm1-1 input[name='card_id']").val();
+      $.ajax({
+        url:url,
+        data:data,
+        type:"POST",
+      }).then(function(res){
+        // console.log(res);
         if(res=='0'){
-          window.location.reload();
+          $.ajaxFileUpload ({
+            url:'upload_do.php', //你处理上传文件的服务端
+            secureuri:false, //与页面处理代码中file相对应的ID值
+            fileElementId:'doc-form-file2',
+            data:{card_id:card_id},
+            dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+            success: function (data) {
+              // console.log(data);
+              // $('.ccardaddsubmit').attr('disabled',false);
+              /*if(data == '0'){
+                window.location.href='card.php';
+              }else{
+                $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+                $('#ualert').modal('open');
+                $('.ccardrechargesubmit').attr('disabled',false);
+                return false;
+              }*/
+            }
+          });
+          window.location.href='card.php';
         }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>修改失败，请重新修改</span>");
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>修改会员失败</span>");
           $('#ualert').modal('open');
-          $('.ccardeditsubmit').attr('disabled',false);
-          console.log(res);
+          $('.ccardrechargesubmit').attr('disabled',false);
           return false;
         }
       });
@@ -1230,7 +1261,7 @@ $(function() {
     });
     // 购买套餐完成提交
     $('.cmodalcommit4').on('click', function() {
-      $(this).attr('disabled',true);
+      // $(this).attr('disabled',true);
       var url="card_mcombo_do.php";
       var card_id=$(this).val();
       var arr= [];
@@ -1265,13 +1296,16 @@ $(function() {
             act_decrease:use_act_decrease_id,
             pay_type:pay_type
           }
+      // console.log(data);
       $.post(url,data,function(res){
+        $('.cmodalcommit4').attr('disabled',false);
+        // console.log(res);
         if(res=='0'){
           window.location.reload();
         }else{
           console.log(res);
-         /* $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
-          $('#ualert').modal('open');*/
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
+          $('#ualert').modal('open');
           $('.cmodalcommit4').attr('disabled',false);
           // return false;
         }

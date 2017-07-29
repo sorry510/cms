@@ -40,7 +40,7 @@ if($intmgoods_id!=0&&!empty($stract_id)){
 		foreach($arr as $v){
 			if($act_mgoods_price>=$v['act_discount_goods_price']){
 				$act_mgoods_price=$v['act_discount_goods_price'];
-				$act_discount_id = $v['act_disount_id'];
+				$act_discount_id = $v['act_discount_id'];
 			}
 		}
 	}

@@ -127,7 +127,7 @@ function get_act_decrease_list(){
 	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
 	if($stract_decrease_id!=''){
 		//非会员，期限内，正常
-		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man asc";
+		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		return $arr;

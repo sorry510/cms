@@ -88,9 +88,9 @@
   <?php }?>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['cards_list']['pagecount']; ?>页 <?php echo $this->_data['cards_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagepre']); ?>">&laquo;</a></li>
+    <li class="am-disabled"><a href="card3.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagepre']); ?>">&laquo;</a></li>
     <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagenext']); ?>">&raquo;</a></li>
+    <li><a href="card3.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagenext']); ?>">&raquo;</a></li>
   </ul>
 </div>
 <!-- 侧拉框 -->

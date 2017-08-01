@@ -441,7 +441,7 @@ $(function(){
         user_type = 1;//会员
       }
       $.getJSON('act_discount_ajax.php',{card_id:card_id,user_type:user_type},function(res){
-        if(res.length>0){
+        if(res){
           $.each(res,function(k,v){
             act_discount_id[k] = v.act_discount_id;
             $('#umoney .cact_name').append(v.act_discount_name+' | ');
@@ -449,7 +449,7 @@ $(function(){
         }
       });
       $.getJSON('act_decrease_ajax.php',{card_id:card_id,user_type:user_type},function(res){
-        if(res.length>0){
+        if(res){
           $.each(res,function(k,v){
             var json = {'act_decrease_id':v.act_decrease_id,'act_decrease_man':v.act_decrease_man,'act_decrease_jian':v.act_decrease_jian};
             act_decrease_id.push(json);
@@ -458,7 +458,7 @@ $(function(){
         }
       });
       $.getJSON('act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
-        if(res.length>0){
+        if(res){
           $.each(res,function(k,v){
             act_give_id[k] = v.act_give_id;
             $('#umoney .cact_name').append(v.act_give_name+' | ');
@@ -472,7 +472,7 @@ $(function(){
       }
       $.getJSON(url,data,function(res){
         // console.log(res);
-        if(res.length>0){
+        if(res){
           $.each(res,function(k,v){
             //没有做套餐用完时怎么显示
             if(v.card_mcombo_type==1){
@@ -493,17 +493,16 @@ $(function(){
           card_id:$('#umoney .ua .ua2 .ccard_id').val()
       }
       $.getJSON(url,data,function(res){
-        // console.log(res);
-        if(res.length>0){
-          $.each(res,function(k,v){
-            if(v.ticket_type==1){
+        if(res){
+          $.each(res, function(k, v){
+            if(v.ticket_type=='1'){
               var addli = '<li class="uc2" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.c_ticket_value+'" ticket_limit="'+v.c_ticket_limit+'"><div class="uc2a">代金券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
-              $('#umoney .ub .uleft #tab3 .uc').append(addli);
+              $('#tab3 .uc').append(addli);
             }else{
               var addli = '<li class="uc2" ticket_goods_id="'+v.ticket_goods_id+'" mgoods_id="'+v.c_mgoods_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'"><div class="uc2a">体验券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b cadd3"><a href="#">添加</a></div></li>';
-              $('#umoney .ub .uleft #tab3 .uc').append(addli);
+              $('#tab3 .uc').append(addli);
             }
-          })
+          });
         }else{
           $('#umoney .ub .uleft #tab3 .uc li').remove();
         }
@@ -758,17 +757,16 @@ $(function(){
           act_decrease:use_act_decrease_id,
           pay_type:pay_type
         };
-    console.log(data);
     $.post(url,data,function(res){
-      $('.cpay').attr('disabled',false);
+     /* $('.cpay').attr('disabled',false);
       console.log(res);
-      return false;
-     /* if(res=='0'){
+      return false;*/
+      if(res=='0'){
         window.location.reload();
       }else{
         alert("出错了,请联系管理员");
-        $('.cpay').attr('disabled',false);
-      }*/
+        //$('.cpay').attr('disabled',false);
+      }
     });
   });
 })

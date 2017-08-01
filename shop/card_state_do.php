@@ -38,9 +38,17 @@ if($intreturn == 0){
 			$intreturn = 3;
 		}
 		if($intreturn == 0){
-			$strsql = "SELECT * FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo'). "where card_id=".$intcard_id." and card_mcombo_gcount!=0";
+			// 有套餐
+			$strsql = "SELECT card_mcombo_id FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo'). "where card_id=".$intcard_id." and card_mcombo_gcount!=0";
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+			if(!empty($arr)){
+				$intreturn = 3;
+			}
+			// 有余额
+			$strsql = "SELECT card_id FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = " .$intcard_id." and s_card_ymoney!=0";
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arr)){
 				$intreturn = 3;
 			}

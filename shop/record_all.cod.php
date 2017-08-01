@@ -98,7 +98,7 @@
       <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
       <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
       <td><?php echo $row['shop_name'];?></td>
-      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '退款' : '免单')); ?></td>
+      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-orange">
           <i class="iconfont icon-dayin"></i>
@@ -211,11 +211,10 @@
 
     //侧拉打开
     $('.coffopen').on('click',function() {
-      var card_record_id = $(this).attr('card_record_id');
-      $('.crefundopen').val(card_record_id);
       var url = "card_record_detail_ajax.php";
-      $.getJSON(url,{card_record_id:card_record_id},function(res){
-        console.log(res);
+      $('#uoffcanvas .crefundopen').val($(this).attr('card_record_id'));
+      $.getJSON(url,{card_record_id:$(this).attr('card_record_id')},function(res){
+        // console.log(res);
         $("#uoffcanvas .ccard_record_atime").text(res.card_record_atime);
         $("#uoffcanvas .ccard_record_code").text(res.card_record_code);
         $("#uoffcanvas .ccard_type_name").text(res.c_card_type_name);
@@ -273,18 +272,19 @@
           var table_body = '';
           $.each(res.goods_list,function(k,v){
             if(v.mgoods_id!=0){
-              table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record3_goods_count+'</td><td>'+v.c_mgoods_price*v.card_record3_goods_count+'</td><td>'+v.c_mgoods_cprice+'</td></tr>';
+              table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record3_goods_count+'</td><td>'+v.c_mgoods_rprice*v.card_record3_goods_count+'</td><td>'+v.c_mgoods_rprice+'</td></tr>';
             }
             if(v.sgoods_id!=0){
-              table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_sgoods_name+'</td><td>'+v.c_sgoods_price+'元</td><td>'+v.card_record3_goods_count+'</td><td>'+v.c_sgoods_price*v.card_record3_goods_count+'</td><td>'+v.c_sgoods_cprice+'</td></tr>';
+              table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_sgoods_name+'</td><td>'+v.c_sgoods_price+'元</td><td>'+v.card_record3_goods_count+'</td><td>'+v.c_sgoods_rprice*v.card_record3_goods_count+'</td><td>'+v.c_sgoods_rprice+'</td></tr>';
             }
           });
           var table_bottom = '</table>';
           $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
         }
-        if(res.mcombo_goods_list != undefined && res.mcombo_goods_list != 0){
-          var goods_head = '<p class="cjs"><strong>买套餐商品清单</strong></p>';
-          var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>单价</td><td>数量</td><td>金额</td><td>折后价</td></tr></thead>';
+        // 买套餐商品
+        if(res.mcombo_goods_list != undefined && res.mcombo_goods_list.length != 0){
+          var goods_head = '<p class="cjs"><strong>套餐商品清单</strong></p>';
+          var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>原单价</td><td>数量</td><td>总金额</td><td>折后价</td></tr></thead>';
           var table_body = '';
           $.each(res.mcombo_goods_list,function(k,v){
               table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record2_mcombo_gcount+'</td><td>'+v.c_mgoods_price*v.card_record2_mcombo_gcount+'</td><td>'+v.c_mgoods_cprice+'</td></tr>';
@@ -292,9 +292,10 @@
           var table_bottom = '</table>';
           $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
         }
-        if(res.mcombo_goods_list2 != undefined && res.mcombo_goods_list2 != 0){
+        // 消费套餐商品
+        if(res.mcombo_goods_list2 != undefined && res.mcombo_goods_list2.length != 0){
           var goods_head = '<p class="cjs"><strong>消费套餐商品清单</strong></p>';
-          var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>单价</td><td>数量</td><td>金额</td><td>折后价</td></tr></thead>';
+          var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>编号</td><td>名称</td><td>原单价</td><td>数量</td><td>金额</td><td>会员价</td></tr></thead>';
           var table_body = '';
           $.each(res.mcombo_goods_list2,function(k,v){
               table_body = table_body+'<tr><td>'+k+'</td><td>'+v.c_mgoods_name+'</td><td>'+v.c_mgoods_price+'元</td><td>'+v.card_record3_mgoods_count+'</td><td>'+v.c_mgoods_price*v.card_record3_mgoods_count+'</td><td>'+v.c_mgoods_cprice+'</td></tr>';

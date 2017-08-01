@@ -936,7 +936,7 @@ $(function() {
             dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
             success: function (data) {
               // console.log(data);
-              $('.ccardaddsubmit').attr('disabled',false);
+              /*$('.ccardaddsubmit').attr('disabled',false);
               if(data == '0'){
                 window.location.href='card.php';
               }else{
@@ -944,9 +944,10 @@ $(function() {
                 $('#ualert').modal('open');
                 $('.ccardrechargesubmit').attr('disabled',false);
                 return false;
-              }
+              }*/
             }
           });
+          window.location.href='card.php';
         }else if(res=='error'){
           $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
           $('#ualert').modal('open');
@@ -1300,6 +1301,7 @@ $(function() {
       $.post(url,data,function(res){
         $('.cmodalcommit4').attr('disabled',false);
         // console.log(res);
+        // return false;
         if(res=='0'){
           window.location.reload();
         }else{

@@ -27,7 +27,6 @@ $gtemplate->fun_show('money');
 function get_cards_list() {
 
 	$arr = array();
-
 	$strwhere = '';
 	if($GLOBALS['strsearch'] != '') {
 		$strwhere = $strwhere . " AND (card_code = '" . $GLOBALS['strsearch'] . "'";

@@ -39,6 +39,20 @@ if($intreturn == 0) {
 	$GLOBALS['_SESSION']['login_sid'] = $arr['shop_id'];
 }
 if($intreturn == 0) {
+	switch($arr['user_type'])
+	{
+		case '1':
+			echo '<script language="javascript">window.location="manager/card.php";</script>';
+			break;
+		case '2':
+			echo '<script language="javascript">window.location="shop/card.php";</script>';
+			break;
+		case '3':
+			echo '<script language="javascript">window.location="cashier/card.php";</script>';
+			break;
+		default:
+			echo '<script language="javascript">alert("没有此类型用户！"); history.back();</script>';
+	}
 	echo '<script language="javascript">window.location="shop/card.php";</script>';
 } else if($intreturn == 1) {
 	echo '<script language="javascript">alert("操作异常！"); history.back();</script>';

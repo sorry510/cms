@@ -5,21 +5,23 @@ require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'worker';
 
-$strshop_id = api_value_get('shop_id');
-$intshop_id = api_value_int0($strshop_id);
-$strworker_group_id = api_value_get('worker_group_id');
-$intworker_group_id = api_value_int0($strworker_group_id);
-$strsearch = api_value_get('strsearch');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
+$strshop_id = api_value_get('shop_id');
+$intshop_id = api_value_int0($strshop_id);
+$strdate_from = api_value_get('date_from');
+$intdate_from = api_value_int0($strdate_from);
+$strdate_to = api_value_get('date_to');
+$intdate_to = api_value_int0($strdate_to);
+$strworker_name = api_value_get('worker_name');
 
 $gtemplate->fun_assign('shop_id', $intshop_id);
-$gtemplate->fun_assign('worker_group_id', $intworker_group_id);
-$gtemplate->fun_assign('strsearch', $strsearch);
+$gtemplate->fun_assign('date_from', $intdate_from);
+$gtemplate->fun_assign('date_to', $intdate_to);
+$gtemplate->fun_assign('worker_name', $strworker_name);
 $gtemplate->fun_assign('shop_list', get_shop_list());
-$gtemplate->fun_assign('worker_group_list', get_worker_group_list());
-$gtemplate->fun_assign('worker_list', get_worker_list());
-$gtemplate->fun_show('worker_manage');
+$gtemplate->fun_assign('worker_reward_detail_list', get_worker_reward_detail_list());//exit;
+$gtemplate->fun_show('worker_reward_detail');
 
 function get_shop_list() {
 	$arr = array();
@@ -29,15 +31,7 @@ function get_shop_list() {
 	return $arr;
 }
 
-function get_worker_group_list() {
-	$arr = array();
-	$strsql = "SELECT worker_group_id,worker_group_name FROM " . $GLOBALS['gdb']->fun_table2('worker_group')." order by worker_group_id";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	return $arr;
-}
-
-function get_worker_list() {
+function get_worker_reward_detail_list() {
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
@@ -51,15 +45,18 @@ function get_worker_list() {
 	if($GLOBALS['intshop_id'] != 0){
 		$strwhere .= " AND shop_id=".$GLOBALS['intshop_id'];
 	}
-	if($GLOBALS['intworker_group_id'] != 0){
-		$strwhere .= " AND worker_group_id=".$GLOBALS['intworker_group_id'];
+	if($GLOBALS['intdate_from'] != 0){
+		$strwhere .= " AND worker_reward_atime > ".$GLOBALS['intdate_from'];
 	}
-	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	if($GLOBALS['intdate_to'] != 0){
+		$strwhere .= " AND worker_reward_atime < ".$GLOBALS['intdate_to'];
+	}
+	if($GLOBALS['strworker_name'] != '') {
+	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strworker_name'] . "%'";
 	}
 
 	$arr = array();
-	$strsql = "SELECT count(worker_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker')  . " WHERE 1 = 1 " . $strwhere;
+	$strsql = "SELECT count(worker_reward_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE 1 = 1 " . $strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
@@ -96,9 +93,20 @@ function get_worker_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT a.*, b.shop_name, c.worker_group_name FROM (SELECT shop_id, worker_id, worker_group_id, worker_name, worker_code, worker_sex, worker_birthday_date, worker_phone, worker_education, worker_join, worker_wage, worker_config_guide, worker_config_reserve FROM " . $GLOBALS['gdb']->fun_table2('worker') . " where 1=1 ".$strwhere." ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a ," . $GLOBALS['gdb']->fun_table('shop') . " AS b," . $GLOBALS['gdb']->fun_table2('worker_group') . " AS c WHERE a.shop_id = b.shop_id AND a.worker_group_id = c.worker_group_id ";
+	$strsql = "SELECT a.*, b.shop_name FROM ( SELECT worker_reward_id, shop_id, worker_reward_type, worker_reward_money, worker_reward_atime, c_worker_name, c_card_code, c_card_name, c_card_phone, c_card_reocord_code FROM " . $GLOBALS['gdb']->fun_table2('worker_reward') . " where 1=1 ".$strwhere." ORDER BY worker_reward_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a ," . $GLOBALS['gdb']->fun_table('shop') . " AS b WHERE a.shop_id = b.shop_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arrlist as $k=>$v){
+		if($v['worker_reward_type'] == 1){
+			$arrlist[$k]['worker_reward_type1'] = '开卡';
+		}else if($v['worker_reward_type'] == 2){
+			$arrlist[$k]['worker_reward_type1'] = '充值';
+		}else if($v['worker_reward_type'] == 3){
+			$arrlist[$k]['worker_reward_type1'] = '商品';
+		}else if($v['worker_reward_type'] == 4){
+			$arrlist[$k]['worker_reward_type1'] = '导购';
+		}
+	}
 
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
@@ -106,8 +114,8 @@ function get_worker_list() {
 	$arrpackage['pagepre'] = $intpagepre;
 	$arrpackage['pagenext'] = $intpagenext;
 	$arrpackage['list'] = $arrlist;
+
+	//echo '<pre>'; var_dump($arrlist); echo '</pre>';
 	return $arrpackage;
 }
-
-
 ?>

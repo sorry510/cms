@@ -4,15 +4,23 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'goods';
+
 $strmcombo_number_name = api_value_get('mcombo_number_name');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());//exit;
 $gtemplate->fun_assign('mcombo_number_list', get_mcombo_number_list());
-$gtemplate->fun_assign('strmcombo_number_name', $strmcombo_number_name);
 $gtemplate->fun_show('mcombo_number');
+
+
+function get_request() {
+	$arr = array();
+	$arr['mcombo_number_name'] = $GLOBALS['strmcombo_number_name'];
+	return $arr;
+}
 
 function get_mgoods_catalog_list() {
 	$arr = array();
@@ -30,7 +38,7 @@ function get_mgoods_list() {
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	//return $arr;
 	foreach($arr as $k=>$v){
-		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id";
+		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$arr[$k]['mgoods'] = $arrmgoods;
@@ -47,8 +55,8 @@ function get_mcombo_number_list(){
 	$arrlist = array();
 	$arrpackage = array();
 	$strwhere = '';
-	if($GLOBALS['strmcombo_time_name'] != ""){
-		$strwhere = $strwhere . " AND (mcombo_name LIKE '%" . $GLOBALS['strmcombo_time_name'] . "%')";
+	if($GLOBALS['strmcombo_number_name'] != ""){
+		$strwhere = $strwhere . " AND (mcombo_name LIKE '%" . $GLOBALS['strmcombo_number_name'] . "%')";
 	}
 	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$arr = array();
@@ -65,7 +73,7 @@ function get_mcombo_number_list(){
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-	$intpagesize = 5;
+	$intpagesize = 50;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -86,10 +94,16 @@ function get_mcombo_number_list(){
 		$intpagenext = $intpagecount;
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
-	$strsql = "SELECT mcombo_id, mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice, mcombo_limit_type, mcombo_limit_days, mcombo_limit_months, mcombo_act, mcombo_state, mcombo_atime FROM " . $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_type = 1 ".$strwhere." ORDER BY mcombo_id LIMIT ". $intoffset . ", " . $intpagesize; 	
+	$strsql = "SELECT mcombo_id, mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice, mcombo_limit_type, mcombo_limit_days, mcombo_limit_months, mcombo_act, mcombo_state, mcombo_atime FROM " . $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_type = 1 ".$strwhere." ORDER BY mcombo_id desc LIMIT ". $intoffset . ", " . $intpagesize; 	
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	
+	foreach($arrlist as &$v){
+		if(mb_strlen($v['mcombo_name'])>10){
+			$v['mcombo_name2'] = mb_substr($v['mcombo_name'],0,10)."...";
+		}else{
+			$v['mcombo_name2'] = $v['mcombo_name'];
+		}
+	}
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;
@@ -98,5 +112,4 @@ function get_mcombo_number_list(){
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
-
 ?>

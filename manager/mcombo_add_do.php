@@ -15,7 +15,7 @@ $strmcombo_cprice = api_value_post('mcombo_cprice');
 $decmcombo_cprice = api_value_decimal($strmcombo_cprice,2);
 $strmcombo_limit_cont = api_value_post('mcombo_limit_cont');//有效期
 $intmcombo_limit_cont  = api_value_int0($strmcombo_limit_cont);
-$strmcombo_limit_type = api_value_post('mcombo_limit_type');//1：天，2：月
+$strmcombo_limit_type = api_value_post('mcombo_limit_type');//1不限制，2：天，3：月
 $intmcombo_limit_type  = api_value_int0($strmcombo_limit_type);
 $strmcombo_act = api_value_post('mcombo_act');
 $intmcombo_act  = api_value_int0($strmcombo_act);
@@ -34,9 +34,9 @@ if($sqlmcombo_name == '' || $decmcombo_price == 0){
 //写入mcombo
 if($intreturn == 0) {
 	$mcombo_limit = "";
-	if($intmcombo_limit_type == 1){
+	if($intmcombo_limit_type == 2){
 		$mcombo_limit = "mcombo_limit_days" ;
-	}else if($intmcombo_limit_type == 2){
+	}else if($intmcombo_limit_type == 3){
 		$mcombo_limit = "mcombo_limit_months" ;
 	}else{
 		$mcombo_limit = "mcombo_limit_months" ;
@@ -58,14 +58,9 @@ if($intreturn == 0) {
 		$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo_goods') . " (mgoods_id, mcombo_goods_count, mcombo_id, mcombo_goods_atime ) VALUES ( ".$v['mgoods_id']." , ". $v['number'] .", ".$mcmobo_id.", $atime)";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
-			$intreturn = 1;
+			$intreturn = 3;
 		}
 	}
 }
-
-if($intreturn == 0){
-	echo 'y';
-}else{
-	echo 'n';
-}
+echo $intreturn;
 ?>

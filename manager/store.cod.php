@@ -13,7 +13,7 @@
       <div class="am-form-group">
         查询范围：从
         <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="">
+          <input type="text" class="am-form-field" name="from">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
             </button>
@@ -23,7 +23,7 @@
       <div class="am-form-group">    
         至
         <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="">
+          <input type="text" class="am-form-field" name="to">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
@@ -54,8 +54,9 @@
       </tr>
     </thead>
     <tbody>
+    <?php foreach($this->_data['store_list']['list'] as $row) { ?>
       <tr>
-        <td>2017-5-22</td>
+        <td><?php echo date('Y-m-d H:i:s',$row['store_atime']);?></td>
         <td>店铺通用型</td>
         <td>888</td>
         <td>张三</td>
@@ -77,26 +78,7 @@
           </button>
         </td>
       </tr>
-      <tr>
-        <td>2017-5-22</td>
-        <td>店铺通用型</td>
-        <td>888</td>
-        <td>张三</td>
-        <td class="gtext-green">已确认</td>
-        <td>账目未清点</td>
-        <td>
-          <button class="am-btn ubtn-table ubtn-green">
-            <i class="iconfont icon-bianji"></i>
-            修改
-          </button>&nbsp;&nbsp;
-          <button class="am-btn ubtn-table ubtn-gray cdel">
-            <i class="iconfont icon-shanchu"></i>
-            删除
-          </button> 
-          &nbsp;
-          <div style="display:inline-block; width:52px;">&nbsp;</div>
-        </td>
-      </tr>
+    <?php } ?>
     </tbody>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
@@ -152,7 +134,6 @@
             <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
-
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">备注：</label>
           <div class="umodal-max">

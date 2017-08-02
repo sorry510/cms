@@ -14,14 +14,14 @@
       <li><a href="goods_package.php"><span class="iconfont icon-question"></span> 套餐管理</a></li>
     </ul>
   </li>
-  <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'employee') {echo 'uhighlight';} ?>" data-am-dropdown>
+  <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'worker') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-baobiao-xianxing"></span> 员工</a>
     <ul class="am-dropdown-content umenu2 umenu2-five">
-      <li><a href="employee_manage.php"><span class="iconfont icon-question"></span> 员工管理</a></li>
-      <li><a href="employee_group.php"><span class="iconfont icon-question"></span> 分组管理</a></li>
-      <li><a href="employee_bonus.php"><span class="iconfont icon-question"></span> 员工提成</a></li>
-      <li><a href="employee_bonus_detail.php"><span class="iconfont icon-question"></span> 员工提成明细</a></li>
-      <li><a href="employee_bonus_count.php"><span class="iconfont icon-question"></span> 员工提成统计</a></li>
+      <li><a href="worker_manage.php"><span class="iconfont icon-question"></span> 员工管理</a></li>
+      <li><a href="worker_group.php"><span class="iconfont icon-question"></span> 分组管理</a></li>
+      <li><a href="worker_reward.php"><span class="iconfont icon-question"></span> 员工提成</a></li>
+      <li><a href="worker_reward_detail.php"><span class="iconfont icon-question"></span> 员工提成明细</a></li>
+      <li><a href="worker_reward_count.php"><span class="iconfont icon-question"></span> 员工提成统计</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'wechat') {echo 'uhighlight';} ?>" data-am-dropdown>

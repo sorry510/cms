@@ -11,13 +11,18 @@ $strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());
-$gtemplate->fun_assign('mgoods_catalog_id', $intmgoods_catalog_id);
-$gtemplate->fun_assign('strsearch', $strsearch);
 $gtemplate->fun_show('mgoods');
 
 
+function get_request() {
+	$arr = array();
+	$arr['mgoods_catalog_id'] = $GLOBALS['intmgoods_catalog_id'];
+	$arr['search'] = $GLOBALS['strsearch'];
+	return $arr;
+}
 function get_mgoods_catalog_list() {
 	$arr = array();
 	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id";

@@ -9,11 +9,18 @@ $strmcombo_time_name = api_value_get('mcombo_time_name');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());//exit;
 $gtemplate->fun_assign('mcombo_time_list', get_mcombo_time_list());
-$gtemplate->fun_assign('strmcombo_time_name', $strmcombo_time_name);
 $gtemplate->fun_show('mcombo_time');
+
+
+function get_request() {
+	$arr = array();
+	$arr['mcombo_time_name'] = $GLOBALS['strmcombo_time_name'];
+	return $arr;
+}
 
 function get_mgoods_catalog_list() {
 	$arr = array();
@@ -66,7 +73,7 @@ function get_mcombo_time_list(){
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-	$intpagesize = 5;
+	$intpagesize = 50;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -87,7 +94,7 @@ function get_mcombo_time_list(){
 		$intpagenext = $intpagecount;
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
-	$strsql = "SELECT mcombo_id, mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice, mcombo_limit_type, mcombo_limit_days, mcombo_limit_months, mcombo_act, mcombo_state, mcombo_atime FROM " . $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_type = 2 ".$strwhere." ORDER BY mcombo_id LIMIT ". $intoffset . ", " . $intpagesize; 	
+	$strsql = "SELECT mcombo_id, mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice, mcombo_limit_type, mcombo_limit_days, mcombo_limit_months, mcombo_act, mcombo_state, mcombo_atime FROM " . $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_type = 2 ".$strwhere." ORDER BY mcombo_id desc LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arrlist as &$v){
@@ -105,8 +112,4 @@ function get_mcombo_time_list(){
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
-
-
-
-
 ?>

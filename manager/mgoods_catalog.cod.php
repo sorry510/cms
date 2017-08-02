@@ -121,33 +121,33 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function() {
-  $('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $.post('mgoods_catalog_delete_do.php',{'mgoods_catalog_id':$(this.relatedTarget).val()},function(res){
-          if(res=='0'){
-            window.location.reload();
-          }else if(res=='1'){
-            alert("分类下面有商品，不能删除！");
-            $('.cadd-form1').attr('disabled',false);
-          }else{
-            alert("删除失败");
-          }
-        });
-      },
-      onCancel: function() {
-        return false;
-      }
-    });
+
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('mgoods_catalog_delete_do.php',{'mgoods_catalog_id':$(this.relatedTarget).val()},function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert("分类下面有商品，不能删除！");
+          $('.cadd-form1').attr('disabled',false);
+        }else{
+          alert("删除失败");
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
   });
 });
+
 
 //添加分类提交按钮
 $('.cadd-form1').on('click',function(){
   $(this).attr('disabled',true);
-  var url="mgoods_catalog_do.php";
+  var url="mgoods_catalog_add_do.php";
   var data = $("#form1").serialize();
   $.post(url,data,function(res){
     if(res=='0'){

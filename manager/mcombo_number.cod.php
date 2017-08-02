@@ -13,7 +13,7 @@
     <form class="am-form-inline uform2">
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">名称：</label>
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="" value="<?php echo $this->_data['strmcombo_number_name']?>" name="mcombo_number_name">
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="" value="<?php echo $this->_data['request']['mcombo_number_name']?>" name="mcombo_number_name">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -44,11 +44,11 @@
     <?php foreach($this->_data['mcombo_number_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo date("Y-m-d h:i",$row['mcombo_atime']); ?></td>
-      <td><?php echo $row['mcombo_name']; ?></td>
+      <td title="<?php echo $row['mcombo_name']; ?>"><?php echo $row['mcombo_name2']; ?></td>
       <td><?php echo $row['mcombo_code']; ?></td>
       <td class="gtext-orange"><?php echo $row['mcombo_price']; ?>元</td>
       <td class="gtext-orange"><?php echo $row['mcombo_cprice']; ?>元</td>
-      <td class="gtext-green"><?php echo $row['mcombo_limit_type'] == '1'?'不限制':$row['mcombo_limit_type'] == '2'?$row['mcombo_limit_days'].'天':$row['mcombo_limit_months'].'月'; ?></td>
+      <td class="gtext-green"><?php echo $row['mcombo_limit_type'] == '2'?$row['mcombo_limit_days'].'天':($row['mcombo_limit_type'] == '3'?$row['mcombo_limit_months'].'月':'不限期') ?></td>
       <td class="<?php echo $row['mcombo_act']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mcombo_act']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mcombo_state']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mcombo_state']=='1'?'正常':'停用';?></td>
       <td>
@@ -81,9 +81,9 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['mcombo_number_list']['pagecount']; ?>页 <?php echo $this->_data['mcombo_number_list']['allcount']; ?>条记录</li>
-    <li><a href="mcombo_number.php?page=<?php echo $this->_data['mcombo_number_list']['pagepre']; ?>">&laquo;</a></li>
+    <li class="am-disabled"><a href="mcombo_number.php?<?php echo api_value_query($this->_data['request'], $this->_data['mcombo_number_list']['pagepre']); ?>">&laquo;</a></li>
     <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="mcombo_number.php?page=<?php echo  $this->_data['mcombo_number_list']['pagenext']; ?>">&raquo;</a></li>
+    <li><a href="mcombo_number.php?<?php echo api_value_query($this->_data['request'], $this->_data['mcombo_number_list']['pagenext']); ?>">&raquo;</a></li>
   </ul>
 </div>
 
@@ -96,7 +96,7 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">套餐名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>套餐名称：</label>
           <div class="umodal-normal">
             <input type="text" name="mcombo_name" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
           </div>
@@ -112,7 +112,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">价格：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>价格：</label>
           <div class="umodal-normal">
             <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max">
           </div>
@@ -125,19 +125,18 @@
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">有效期：</label>
-          <div class="umodal-max am-text-left">
-            <div class="umodal-valid">
-              <input type="text" name="mcombo_limit_cont" class="am-form-field uinput uinput-max">
-            </div>
-            &nbsp;
+          <div class="umodal-label">
+            <input type="text" name="mcombo_limit_cont" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="mcombo_limit_type" value="1" data-am-ucheck checked> 不限制
+            </label>
             <label class="am-radio-inline">
               <input type="radio" name="mcombo_limit_type" value="2" data-am-ucheck> 天
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="mcombo_limit_type" value="3" data-am-ucheck> 月
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="mcombo_limit_type" value="1" data-am-ucheck> 不限制
             </label>
           </div>
         </div>
@@ -145,7 +144,7 @@
           <label class="umodal-label am-form-label" for="">参与预约：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="mcombo_act" value="1" data-am-ucheck> 参与
+              <input type="radio" name="mcombo_act" value="1" data-am-ucheck checked> 参与
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="mcombo_act" value="2" data-am-ucheck> 不参与
@@ -174,13 +173,13 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">套餐名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>套餐名称：</label>
           <div class="umodal-normal">
-            <input type="text" id="cgoodsname" name="mcombo_name" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+            <input type="text" id="cgoodsname2" name="mcombo_name" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
-            <input type="text" id="cupen" name="mcombo_jianpin" class="am-form-field uinput uinput-max">
+            <input type="text" id="cupen2" name="mcombo_jianpin" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -190,7 +189,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">价格：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>价格：</label>
           <div class="umodal-normal">
             <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max">
           </div>
@@ -203,19 +202,18 @@
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">有效期：</label>
-          <div class="umodal-max am-text-left">
-            <div class="umodal-valid">
-              <input type="text" name="mcombo_limit_cont" class="am-form-field uinput uinput-max">
-            </div>
-            &nbsp;
+          <div class="umodal-label">
+            <input type="text" name="mcombo_limit_cont" class="am-form-field uinput uinput-max">
+          </div>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="mcombo_limit_type" value="1" data-am-ucheck checked> 不限制
+            </label>
             <label class="am-radio-inline">
               <input type="radio" name="mcombo_limit_type" value="2" data-am-ucheck> 天
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="mcombo_limit_type" value="3" data-am-ucheck> 月
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="mcombo_limit_type" value="1" data-am-ucheck> 不限制
             </label>
           </div>
         </div>
@@ -287,7 +285,7 @@
               <?php foreach($row['mgoods'] as $cont){ ?>
               <li class="uc2" mgoods_id = "<?php echo $cont['mgoods_id'];?>">
                 <div class="uc2a"><?php echo $cont['mgoods_name'];?>（<?php echo $cont['mgoods_price'];?>元）</div>
-                <div class="uc2b cadd" mgoods_id="<?php echo $cont['mgoods_id']; ?>"><a href="#">添加</a></div>
+                <div class="uc2b cadd" ctype="add" mgoods_id="<?php echo $cont['mgoods_id']; ?>"><a href="#">添加</a></div>
               </li>
               <?php } ?>
             <?php } ?>
@@ -298,9 +296,9 @@
             <div class="gspace50"></div>
             <div>
               <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+                <input id="" class="am-form-field uinput uinput-max cmgoods_code" type="text" placeholder="条码枪扫码或手动输入">
               </div>           
-              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+              <button type="button" ctype="add" class="am-btn ubtn-search2 ubtn-green usearch cmcombo_goods_add" style="width:80px;">
                 添加
               </button>
             </div>
@@ -308,7 +306,7 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择商品<span>（数量为0代表不限数量）</span></div>
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
         <ul class="ub">
           <li class="ub1">名称</li>
           <li class="ub2">数量</li>
@@ -377,7 +375,7 @@
               <?php foreach($row['mgoods'] as $cont){ ?>
               <li class="uc2" mgoods_id = "<?php echo $cont['mgoods_id'];?>">
                 <div class="uc2a"><?php echo $cont['mgoods_name'];?>（<?php echo $cont['mgoods_price'];?>元）</div>
-                <div class="uc2b cadd" mgoods_id="<?php echo $cont['mgoods_id']; ?>"><a href="#">添加</a></div>
+                <div class="uc2b cadd" ctype="edit" mgoods_id="<?php echo $cont['mgoods_id']; ?>"><a href="#">添加</a></div>
               </li>
               <?php } ?>
             <?php } ?>
@@ -388,9 +386,9 @@
             <div class="gspace50"></div>
             <div>
               <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+                <input id="" class="am-form-field uinput uinput-max cmgoods_code" type="text" placeholder="条码枪扫码或手动输入">
               </div>           
-              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+              <button type="button" ctype="edit" class="am-btn ubtn-search2 ubtn-green usearch cmcombo_goods_add" style="width:80px;">
                 添加
               </button>
             </div>
@@ -398,7 +396,7 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择商品<span>（数量为0代表不限数量）</span></div>
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
         <ul class="ub">
           <li class="ub1">名称</li>
           <li class="ub2">数量</li>
@@ -440,35 +438,32 @@
 <script src="../js/pinying.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
+//分页首末页不可选中
+if(<?php echo $GLOBALS['intpage'];?>>1){
+  $('.upages li').eq(1).removeClass('am-disabled');
+}
+if(<?php echo $this->_data['mcombo_number_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+  $('.upages li').last().addClass('am-disabled');
+}
 //删除
-$(function() {
-  $('.cdel').on('click', function() {
-    var mcombo_id = $(this).val();
-    var content = $(this).parent().parent();
-    //console.log(mcombo_id);
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $.ajax({
-          type: "GET",
-          url: "mcombo_delete_do.php",
-          data: {mcombo_id:mcombo_id}, 
-          success: function(msg){
-            if(msg = 'y'){
-              content.remove();
-            }else{
-              alert('删除失败'); 
-            }
-          }
-        });
-      },
-      onCancel: function() {
-        return;
-      }
-    });
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('mcombo_delete_do.php',{'mcombo_id':$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          alert("删除失败");
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
   });
 });
-
 //下一步
 $('.cmodelopen').on('click', function(e) {
   $('#umcombo_numberm1').modal('close');
@@ -487,16 +482,6 @@ $('.cmodelopen4').on('click', function(e) {
   $('#umcombo_numberm4').modal('close');
   $('#umcombo_numberm2').modal('open');
 });
-
-// 添加
-$('.cadd').on('click', function(){
-  $(this).unbind("click"); //移除click
-  var product = $(this).prev().text();
-  var mgoods_id = $(this).attr('mgoods_id');
-  var addhtml ='<li><div class="uc1" mgoods_id="' +mgoods_id +'">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="0"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
-  $(".uright .uc").append(addhtml);
-});
-
 // + -
 $(document).on("click", ".cbtndec", function() {
   var _self= $(this).siblings('input');
@@ -538,7 +523,7 @@ $('.cadd-form3').on('click',function(){
   $("#umcombo_numberm3 .uleft .uc li").hide();
   $.ajax({
     type: "GET",
-    url: "mcombo_add_ajax.php",
+    url: "mcombo_ajax.php",
     data: {mgoods_catalog_id:mgoods_catalog_id,mgoods_search:mgoods_search}, 
     dataType:"json",
   }).then(function(res){   
@@ -559,26 +544,97 @@ $('.cadd-form3').on('click',function(){
   });
 });
 
-//添加套餐中的删除
-$(document).on("click",".cdel2",function(){
-  $("#umcombo_numberm3 .uleft .uc2 .cadd[mgoods_id="+$(this).prev().prev().attr('mgoods_id')+"]").bind('click',cadd);
-  $(this).parent().remove();
-});
-
-var cadd = function(){
-  $(this).unbind("click"); //移除click
+// 添加套餐商品
+function add(){
   var product = $(this).prev().text();
   var mgoods_id = $(this).attr('mgoods_id');
-  var addhtml ='<li><div class="uc1" mgoods_id="' +mgoods_id +'">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="0"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
-  $(".uright .uc").append(addhtml);
+  var type = $(this).attr('ctype');
+  var flag = true;
+  if(type=="add"){
+    $('#umcombo_numberm3 .cnum').each(function(){
+      if(mgoods_id== $(this).attr('mgoods_id')){
+        flag = false;
+      }
+    });
+  }else{
+    $('#umcombo_numberm4 .cnum').each(function(){
+      if(mgoods_id== $(this).attr('mgoods_id')){
+        flag = false;
+      }
+    });
+  }
+  if(!flag){
+    return false;//添加过了后面不在执行
+  }
+  var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" value="1" mgoods_id="' +mgoods_id +'"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+  if(type=="add"){
+    $("#umcombo_numberm3 .uright .uc").append(addhtml);
+  }else{
+    $("#umcombo_numberm4 .uright .uc").append(addhtml);
+  }
 }
+// 扫码添加套餐商品
+function add2(){
+  var mgoods_code = $(this).siblings().find('.cmgoods_code').val();
+  var type = $(this).attr('ctype');
+  var mgoods_id = 0;
+  var mgoods_price = 0;
+  var mgoods_name = '';
+  var product = ''
+  var flag = true;
+  $.ajax({
+    url:'mcombo_goods_add_ajax.php',
+    data:{
+      mgoods_code:mgoods_code
+    },
+    type:"GET",
+    dataType:"json"
+  }).then(function(res){
+    // console.log(res);
+    if(res){
+      mgoods_id = res.mgoods_id;
+      mgoods_price = res.mgoods_price;
+      mgoods_name = res.mgoods_name;
+      product = mgoods_name+'('+res.mgoods_price+'元)';
+      if(type=="add"){
+        $('#umcombo_numberm3 .cnum').each(function(){
+          if(mgoods_id == $(this).attr('mgoods_id')){
+            flag = false;
+          }
+        });
+      }else{
+        $('#umcombo_numberm4 .cnum').each(function(){
+          if(mgoods_id == $(this).attr('mgoods_id')){
+            flag = false;
+          }
+        });
+      }
+      if(!flag){
+        return false;//添加过了后面不在执行
+      }
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" class="uinput2 uinput-35 cnum" value="1" mgoods_id="' +mgoods_id +'"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+      if(type=="add"){
+        $("#umcombo_numberm3 .uright .uc").append(addhtml);
+      }else{
+        $("#umcombo_numberm4 .uright .uc").append(addhtml);
+      }
+    }
+  });
+}
+$('.cadd').on('click',add);
+//扫码添加商品
+$('.cmcombo_goods_add').on('click',add2);
+//添加套餐中的删除
+$(document).on("click",".cdel2",function(){
+  $(this).parent().remove();
+});
 
 //新增套餐提交按钮
 $('.cadd-mcombo').on('click',function(){
   var url="mcombo_add_do.php";
   var arr= [];
-  $("#umcombo_numberm3 .uright .uc li").each(function(k,v){
-    var json = {'mgoods_id':$(this).children('div').eq(0).attr('mgoods_id'),'number':$(this).children('div').eq(1).children('input').val()};
+  $("#umcombo_numberm3 .uright .cnum").each(function(k,v){
+    var json = {'mgoods_id':$(this).attr('mgoods_id'),'number':$(this).val()};
     arr.push(json);
   });
   var mcombo_name = $("#umcombo_numberm1 input[name='mcombo_name']").val();
@@ -587,8 +643,8 @@ $('.cadd-mcombo').on('click',function(){
   var mcombo_price = $("#umcombo_numberm1 input[name='mcombo_price']").val();
   var mcombo_cprice = $("#umcombo_numberm1 input[name='mcombo_cprice']").val();
   var mcombo_limit_cont = $("#umcombo_numberm1 input[name='mcombo_limit_cont']").val();
-  var mcombo_limit_type = $("#umcombo_numberm1 input[name='mcombo_limit_type']").val();
-  var mcombo_act = $("#umcombo_numberm1 input[name='mcombo_act']").val();
+  var mcombo_limit_type = $("#umcombo_numberm1 input[name='mcombo_limit_type']:checked").val();
+  var mcombo_act = $("#umcombo_numberm1 input[name='mcombo_act']:checked").val();
   var data = {
         arr:arr,
         mcombo_name:mcombo_name,
@@ -602,8 +658,11 @@ $('.cadd-mcombo').on('click',function(){
         mcombo_type:1
       }
   $.post(url,data,function(res){
-    if(res=='y'){
+    // console.log(res);
+    if(res=='0'){
       window.location.reload();
+    }else if(res=='1'){
+      alert('套餐价格和名称不能为空');
     }else{
       alert('添加套餐失败');
       //console.log(res);
@@ -614,64 +673,59 @@ $('.cadd-mcombo').on('click',function(){
 //修改套餐
 $('.cupdate').on('click', function(e) {
   var mcombo_id = $(this).val();
-  //console.log(mcombo_id);
+  $("#umcombo_numberm4 .uright .uc li").remove();/*删除之前可能存在的套餐商品*/
   $.ajax({
     type: "GET",
-    url: "mcombo_editor_ajax.php",
+    url: "mcombo_edit_ajax.php",
     data: {mcombo_id:mcombo_id}, 
     dataType:'json',
     success: function(msg){
-     //console.log(msg);
-      $("#umcombo_numberm2 input[name='mcombo_name']").val(msg.mcombo_name);
-      $("#umcombo_numberm2 input[name='mcombo_jianpin']").val(msg.mcombo_jianpin);
-      $("#umcombo_numberm2 input[name='mcombo_code']").val(msg.mcombo_code);
-      $("#umcombo_numberm2 input[name='mcombo_price']").val(msg.mcombo_price);
-      $("#umcombo_numberm2 input[name='mcombo_cprice']").val(msg.mcombo_cprice);
-      $("#umcombo_numberm2 input[name='mcombo_id']").val(msg.mcombo_id);
-      if(msg.mcombo_limit_type == 1){
-        $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(0);
-      }else if(msg.mcombo_limit_type == 2){
-        $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(msg.mcombo_limit_days);
-      }else{
-        $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(msg.mcombo_limit_months);
+      if(msg){
+        $("#umcombo_numberm2 input[name='mcombo_name']").val(msg.mcombo_name);
+        $("#umcombo_numberm2 input[name='mcombo_jianpin']").val(msg.mcombo_jianpin);
+        $("#umcombo_numberm2 input[name='mcombo_code']").val(msg.mcombo_code);
+        $("#umcombo_numberm2 input[name='mcombo_price']").val(msg.mcombo_price);
+        $("#umcombo_numberm2 input[name='mcombo_cprice']").val(msg.mcombo_cprice);
+        $("#umcombo_numberm2 input[name='mcombo_id']").val(msg.mcombo_id);
+        if(msg.mcombo_limit_type == 1){
+          $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(0);
+        }else if(msg.mcombo_limit_type == 2){
+          $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(msg.mcombo_limit_days);
+        }else{
+          $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(msg.mcombo_limit_months);
+        }
+        $("#umcombo_numberm2 input[name='mcombo_limit_type']").each(function(){
+          if($(this).val() == msg.mcombo_limit_type){
+            $(this).uCheck('check');
+          }
+        });
+        $("#umcombo_numberm2 input[name='mcombo_act']").each(function(){
+          if($(this).val() == msg.mcombo_act){
+            $(this).uCheck('check');
+          }
+        });
+        $.each(msg.mgoods, function (index,value) {
+          var addhtml ='<li><div class="uc1">'+value.mgoods_name+'（'+value.mgoods_price+'元）</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" mgoods_id="' +value.mgoods_id +'" class="uinput2 uinput-35 cnum" value="'+ value.mcombo_goods_count+'"><a href="javascript:;" class="uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+          $("#umcombo_numberm4 .uright .uc").append(addhtml);
+        });
       }
-      $("#umcombo_numberm2 input[name='mcombo_limit_type']").each(function(){
-        if($(this).val() == msg.mcombo_limit_type){
-          $(this).uCheck('check');
-        }else{
-          $(this).uCheck('uncheck')
-        }
-      });
-      $("#umcombo_numberm2 input[name='mcombo_act']").each(function(){
-        if($(this).val() == msg.mcombo_act){
-          $(this).uCheck('check');
-        }else{
-          $(this).uCheck('uncheck')
-        }
-      });
-      $.each(msg.mgoods, function (index,value) {
-        var addhtml ='<li><div class="uc1" mgoods_id="' +value.mgoods_id +'">'+value.mgoods_name+'（'+value.mgoods_price+'元）</div><div class="uc2"><a href="javascript:;" class="uc2a cbtndec"><i class="am-icon-minus"></i></a><input type="text" name="" class="uinput2 uinput-35" value="'+ value.mcombo_goods_count+'"><a href="javascript:;" class=" uc2b cbtnplus"><i class="am-icon-plus"></i></a></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
-        $(".uright .uc").append(addhtml);
-        $("#umcombo_numberm4 .uleft .uc2 .cadd[mgoods_id=" +value.mgoods_id+"]").unbind("click");
-      });
     }
   });
 });
 
-//修改套餐弹出框中的查询按钮
+
+//修改套餐弹出框中的查询
 $('.cadd-form4').on('click',function(){
   var mgoods_catalog_id = $("#umcombo_numberm4 .cmgoods_catalog").val();
   var mgoods_search = $("#umcombo_numberm4 .cmgoods_search").val();
   $("#umcombo_numberm4 .uleft .uc li").hide();
   $.ajax({
     type: "GET",
-    url: "mcombo_add_ajax.php",
+    url: "mcombo_ajax.php",
     data: {mgoods_catalog_id:mgoods_catalog_id,mgoods_search:mgoods_search}, 
     dataType:"json",
   }).then(function(res){
-    console.log(res);      
     for(var i=0; i<res.length; i++){
-      console.log(res[i]['mgoods_catalog_id']);
       $("#umcombo_numberm4 .uleft .uc .uc1").each(function(){
         if($(this).attr('mgoods_catalog_id')  == res[i]['mgoods_catalog_id']){
           $(this).show();
@@ -689,18 +743,12 @@ $('.cadd-form4').on('click',function(){
   });
 });
 
-//修改套餐中的删除
-$(document).on("click",".cdel2",function(){
-  $("#umcombo_numberm4 .uleft .uc2 .cadd[mgoods_id="+$(this).prev().prev().attr('mgoods_id')+"]").bind('click',cadd);
-  $(this).parent().remove();
-});
-
 //修改套餐提交按钮
 $('.ceditor-mcombo').on('click',function(){
-  var url="mcombo_editor_do.php";
+  var url="mcombo_edit_do.php";
   var arr= [];
-  $("#umcombo_numberm4 .uright .uc li").each(function(k,v){
-    var json = {'mgoods_id':$(this).children('div').eq(0).attr('mgoods_id'),'number':$(this).children('div').eq(1).children('input').val()};
+  $("#umcombo_numberm4 .uright .cnum").each(function(k,v){
+    var json = {'mgoods_id':$(this).attr('mgoods_id'),'number':$(this).val()};
     arr.push(json);
   });
   var mcombo_name = $("#umcombo_numberm2 input[name='mcombo_name']").val();
@@ -709,8 +757,8 @@ $('.ceditor-mcombo').on('click',function(){
   var mcombo_price = $("#umcombo_numberm2 input[name='mcombo_price']").val();
   var mcombo_cprice = $("#umcombo_numberm2 input[name='mcombo_cprice']").val();
   var mcombo_limit_cont = $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val();
-  var mcombo_limit_type = $("#umcombo_numberm2 input[name='mcombo_limit_type']").val();
-  var mcombo_act = $("#umcombo_numberm2 input[name='mcombo_act']").val();
+  var mcombo_limit_type = $("#umcombo_numberm2 input[name='mcombo_limit_type']:checked").val();
+  var mcombo_act = $("#umcombo_numberm2 input[name='mcombo_act']:checked").val();
   var mcombo_id = $("#umcombo_numberm2 input[name='mcombo_id']").val();
   var data = {
         arr:arr,
@@ -725,13 +773,15 @@ $('.ceditor-mcombo').on('click',function(){
         mcombo_id:mcombo_id,
         mcombo_type:1
       }
+      // console.log(data);
+      // return false;
       $.post(url,data,function(res){
-        console.log(res);
-        if(res=='y'){
+        // console.log(res);
+        if(res=='0'){
           window.location.reload();
         }else{
           alert('修改套餐失败');
-          //console.log(res);
+          console.log(res);
         }
       });
 });

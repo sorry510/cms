@@ -66,7 +66,7 @@
       <td><a data-am-offcanvas="{target: '#uoffcanvas'}" href="#" class="cworker_info" value="1"><?php echo $row['worker_name']; ?></a><input type="hidden" name="worker_id" value="<?php echo $row['worker_id']; ?>"></td>
       <td><?php echo $row['worker_code']; ?></td>
       <td><?php echo $row['worker_sex']=='3'?'保密':($row['worker_sex']=='1'?'男':'女');?></td>
-      <td><?php echo date('Y年m月d日', $row['worker_birthday']); ?></td>
+      <td><?php echo date('Y-m-d', $row['worker_birthday_date']); ?></td>
       <td><?php echo $row['worker_phone']; ?></td>
       <td><?php echo $row['worker_education']; ?></td>
       <td><?php echo date('Y年m月d日', $row['worker_join']); ?></td>

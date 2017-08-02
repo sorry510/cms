@@ -15,13 +15,13 @@
         <select class="uselect uselect-auto" data-am-selected name="mgoods_catalog_id">
           <option value="0">全部</option>
           <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-          <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
+          <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['request']['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">搜索：</label>
-        <input class="am-form-field uinput uinput-220" type="text" name="search" value="<?php echo $this->_data['strsearch'];?>" placeholder="商品名称/简拼/编码">
+        <input class="am-form-field uinput uinput-220" type="text" name="search" value="<?php echo $this->_data['request']['search'];?>" placeholder="商品名称/简拼/编码">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search uadd-form1">
@@ -91,9 +91,9 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['mgoods_list']['pagecount']; ?>页 <?php echo $this->_data['mgoods_list']['allcount']; ?>条记录</li>
-    <li><a href="mgoods.php?page=<?php echo $this->_data['mgoods_list']['pagepre']; ?>">&laquo;</a></li>
+    <li class="am-disabled"><a href="mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['mgoods_list']['pagepre']); ?>">&laquo;</a></li>
     <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="mgoods.php?page=<?php echo  $this->_data['mgoods_list']['pagenext']; ?>">&raquo;</a></li>
+    <li><a href="mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['mgoods_list']['pagenext']); ?>">&raquo;</a></li>
   </ul>
 </div>
 
@@ -301,6 +301,13 @@
 <script src="../js/pinying.js"></script>
 <script>
 
+//分页首末页不可选中
+if(<?php echo $GLOBALS['intpage'];?>>1){
+  $('.upages li').eq(1).removeClass('am-disabled');
+}
+if(<?php echo $this->_data['mgoods_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+  $('.upages li').last().addClass('am-disabled');
+}
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,

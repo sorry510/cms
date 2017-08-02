@@ -1,0 +1,686 @@
+CREATE TABLE IF NOT EXISTS fw_0001_user (
+`user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`user_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`user_account` varchar(20) NOT NULL DEFAULT '',
+`user_password` varchar(20) NOT NULL DEFAULT '',
+`user_name` int(10) unsigned NOT NULL DEFAULT '0',
+`user_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`user_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_worker_group (
+`worker_group_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_group_name` varchar(20) NOT NULL DEFAULT '',
+`worker_group_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_group_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`worker_group_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_worker (
+`worker_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`worker_group_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_code` varchar(20) NOT NULL DEFAULT '',
+`worker_name` varchar(20) NOT NULL DEFAULT '',
+`worker_sex` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_birthday_date` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_birthday_month` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_birthday_day` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_phone` varchar(20) NOT NULL DEFAULT '',
+`worker_photo_file` varchar(50) NOT NULL DEFAULT '',
+`worker_identity` varchar(20) NOT NULL DEFAULT '',
+`worker_identity_file` varchar(50) NOT NULL DEFAULT '',
+`worker_education` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_join` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_address` varchar(100) NOT NULL DEFAULT '',
+`worker_wage` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`worker_config_guide` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_config_reserve` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`worker_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_worker_goods (
+`worker_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`worker_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`worker_goods_id`),
+KEY `worker_id` (`worker_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_group_reward (
+`group_reward_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`worker_group_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward_create` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`group_reward_fill` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`group_reward_pfill` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward_guide` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`group_reward_pguide` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`group_reward_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_group_reward2 (
+`group_reward2_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`worker_group_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward2_money` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`group_reward2_percent` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward2_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`group_reward2_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`group_reward2_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_worker_reward (
+`worker_reward_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`worker_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`worker_reward_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_reward_money` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`worker_reward_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`worker_reward_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_worker_group_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_worker_group_name` varchar(20) NOT NULL DEFAULT '',
+`c_worker_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_type_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_type_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_code` varchar(50) NOT NULL DEFAULT '',
+`c_card_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_phone` varchar(20) NOT NULL DEFAULT '',
+`c_mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_goods_name` varchar(50) NOT NULL DEFAULT '',
+`c_card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_reocord_code` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`worker_reward_id`),
+KEY `shop_id` (`shop_id`),
+KEY `worker_reward_atime` (`worker_reward_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_room_catalog (
+`room_catalog_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`room_catalog_name` varchar(50) NOT NULL DEFAULT '',
+`room_catalog_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`room_catalog_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`room_catalog_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_room (
+`room_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`room_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`room_name` varchar(50) NOT NULL DEFAULT '',
+`room_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`room_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`room_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_mgoods_catalog (
+`mgoods_catalog_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`mgoods_catalog_name` varchar(50) NOT NULL DEFAULT '',
+`mgoods_catalog_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_catalog_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`mgoods_catalog_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_mgoods (
+`mgoods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`mgoods_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mgoods_code` varchar(50) NOT NULL DEFAULT '',
+`mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`mgoods_jianpin` varchar(50) NOT NULL DEFAULT '',
+`mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`mgoods_act` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mgoods_reserve` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mgoods_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mgoods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`mgoods_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_sgoods_catalog (
+`sgoods_catalog_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_catalog_name` varchar(50) NOT NULL DEFAULT '',
+`sgoods_catalog_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_catalog_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`sgoods_catalog_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_sgoods (
+`sgoods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`sgoods_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`sgoods_code` varchar(50) NOT NULL DEFAULT '',
+`sgoods_name` varchar(50) NOT NULL DEFAULT '',
+`sgoods_jianpin` varchar(50) NOT NULL DEFAULT '',
+`sgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`sgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`sgoods_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`sgoods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`sgoods_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_mcombo (
+`mcombo_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`mcombo_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_code` varchar(50) NOT NULL DEFAULT '',
+`mcombo_name` varchar(50) NOT NULL DEFAULT '',
+`mcombo_jianpin` varchar(50) NOT NULL DEFAULT '',
+`mcombo_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`mcombo_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`mcombo_limit_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_limit_days` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_limit_months` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_act` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`mcombo_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_mcombo_goods (
+`mcombo_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_goods_count` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_goods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_goods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`mcombo_goods_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_store (
+`store_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`store_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`store_money` decimal(10,2) NOT NULL DEFAULT '0',
+`store_operator` varchar(50) NOT NULL DEFAULT '',
+`store_memo` varchar(100) NOT NULL DEFAULT '',
+`store_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`store_time` int(10) unsigned NOT NULL DEFAULT '0',
+`store_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`store_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`store_id`),
+KEY `shop_id` (`shop_id`),
+KEY `store_time` (`store_time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_store_goods (
+`store_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`store_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`store_goods_count` int(10) NOT NULL DEFAULT '0',
+`store_goods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`store_goods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_goods_name` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`store_goods_id`),
+KEY `store_id` (`store_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_store_info (
+`store_info_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`store_info_count` int(10) NOT NULL DEFAULT '0',
+`store_info_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`store_info_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`store_info_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_ticket_money (
+`ticket_money_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`ticket_money_name` varchar(50) NOT NULL DEFAULT '',
+`ticket_money_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`ticket_money_limit` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`ticket_money_days` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_money_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`ticket_money_memo` varchar(100) NOT NULL DEFAULT '',
+`ticket_money_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_money_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`ticket_money_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_ticket_goods (
+`ticket_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`ticket_goods_name` varchar(50) NOT NULL DEFAULT '',
+`ticket_goods_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_days` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_memo` varchar(100) NOT NULL DEFAULT '',
+`ticket_goods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`ticket_goods_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act (
+`act_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_discount_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_decrease_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_relate_aticket` int(10) unsigned NOT NULL DEFAULT '0',
+`act_relate_uticket` int(10) unsigned NOT NULL DEFAULT '0',
+`act_relate_hmoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_relate_smoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_id`),
+KEY `act_atime` (`act_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_discount (
+`act_discount_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_discount_name` varchar(50) NOT NULL DEFAULT '',
+`act_discount_shop` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_discount_client` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_discount_start` int(10) unsigned NOT NULL DEFAULT '0',
+`act_discount_end` int(10) unsigned NOT NULL DEFAULT '0',
+`act_discount_memo` varchar(100) NOT NULL DEFAULT '',
+`act_discount_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_discount_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`act_discount_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_discount_id`),
+KEY `act_discount_atime` (`act_discount_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_discount_shop (
+`act_discount_shop_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_discount_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_discount_shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_discount_goods (
+`act_discount_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_discount_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_catalog_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_discount_goods_value` decimal(2,1) unsigned NOT NULL DEFAULT '0',
+`act_discount_goods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_discount_goods_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`act_discount_goods_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_catalog_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_name` varchar(50) NOT NULL DEFAULT '',
+`c_mcombo_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_discount_goods_id`),
+KEY `act_discount_id` (`act_discount_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_decrease (
+`act_decrease_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_decrease_name` varchar(50) NOT NULL DEFAULT '',
+`act_decrease_shop` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_decrease_client` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_decrease_man` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_decrease_jian` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_decrease_start` int(10) unsigned NOT NULL DEFAULT '0',
+`act_decrease_end` int(10) unsigned NOT NULL DEFAULT '0',
+`act_decrease_memo` varchar(100) NOT NULL DEFAULT '',
+`act_decrease_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_decrease_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`act_decrease_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_decrease_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_decrease_shop (
+`act_decrease_shop_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_decrease_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_decrease_shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_give (
+`act_give_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_give_name` varchar(50) NOT NULL DEFAULT '',
+`act_give_shop` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_give_client` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_give_man` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`act_give_ttype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`ticket_money_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_start` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_end` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_memo` varchar(100) NOT NULL DEFAULT '',
+`act_give_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_give_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_name` varchar(50) NOT NULL DEFAULT '',
+`c_ticket_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_limit` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_days` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`act_give_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_give_shop (
+`act_give_shop_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_give_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`act_give_shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_act_ticket (
+`act_ticket_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`act_ticket_name` varchar(50) NOT NULL DEFAULT '',
+`act_ticket_search_card` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_sex` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_fcreate` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_tcreate` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_fexpire` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_texpire` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_fbirthday` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_tbirthday` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_search_days` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_atype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_ticket_ttype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`ticket_money_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_sms` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_ticket_info` varchar(1000) NOT NULL DEFAULT '',
+`act_ticket_weixin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_ticket_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_name` varchar(50) NOT NULL DEFAULT '',
+`c_ticket_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_limit` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_days` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`act_ticket_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_weixin (
+`weixin_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`weixin_okey` varchar(50) NOT NULL DEFAULT '',
+`weixin_nicheng` varchar(50) NOT NULL DEFAULT '',
+`weixin_atime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`weixin_id`),
+KEY `weixin_atime` (`weixin_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_type (
+`card_type_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_type_name` varchar(20) NOT NULL DEFAULT '',
+`card_type_discount` decimal(2,1) unsigned NOT NULL DEFAULT '0',
+`card_type_info` varchar(100) NOT NULL DEFAULT '',
+`card_type_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_type_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_type_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card (
+`card_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_type_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_okey` varchar(50) NOT NULL DEFAULT '',
+`card_ikey` varchar(50) NOT NULL DEFAULT '',
+`card_code` varchar(50) NOT NULL DEFAULT '',
+`card_password` varchar(20) NOT NULL DEFAULT '',
+`card_password_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_name` varchar(20) NOT NULL DEFAULT '',
+`card_photo_file` varchar(50) NOT NULL DEFAULT '',
+`card_phone` varchar(20) NOT NULL DEFAULT '',
+`card_identity` varchar(20) NOT NULL DEFAULT '',
+`card_carcode` varchar(20) NOT NULL DEFAULT '',
+`card_sex` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_birthday_date` int(10) unsigned NOT NULL DEFAULT '0',
+`card_birthday_month` int(10) unsigned NOT NULL DEFAULT '0',
+`card_birthday_day` int(10) unsigned NOT NULL DEFAULT '0',
+`card_memo` varchar(100) NOT NULL DEFAULT '',
+`worker_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ltime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_edate` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_type_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_type_discount` decimal(2,1) unsigned NOT NULL DEFAULT '0',
+`s_card_smoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`s_card_ymoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`s_card_sscore` int(10) unsigned NOT NULL DEFAULT '0',
+`s_card_yscore` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_ticket (
+`card_ticket_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`ticket_money_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_ticket_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_edate` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_name` varchar(50) NOT NULL DEFAULT '',
+`c_ticket_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_limit` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_days` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`card_ticket_id`),
+KEY `card_id` (`card_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_ticket_record (
+`card_ticket_record_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_record_atype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`act_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_give_id` int(10) unsigned NOT NULL DEFAULT '0',
+`act_ticket_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_record_ttype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`ticket_money_id` int(10) unsigned NOT NULL DEFAULT '0',
+`ticket_goods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_record_utype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_ticket_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_ticket_record_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_name` varchar(50) NOT NULL DEFAULT '',
+`c_ticket_value` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_limit` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_ticket_days` int(10) unsigned NOT NULL DEFAULT '0',
+`c_ticket_begin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_ticket_edate` int(10) unsigned NOT NULL DEFAULT '0',
+`c_act_name` varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (`card_ticket_record_id`),
+KEY `card_id` (`card_id`),
+KEY `card_ticket_record_atime` (`card_ticket_record_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_mcombo (
+`card_mcombo_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_ccount` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_cedate` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_gcount` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_mcombo_id`),
+KEY `card_id` (`card_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record (
+`card_record_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record_code` varchar(50) NOT NULL DEFAULT '',
+`card_record_type` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record_cmoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_hmoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_ymoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_jmoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_smoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_emoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_pay` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_record_xianjin` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_yinhang` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_weixin` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_zhifubao` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_kakou` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`card_record_score` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`card_record_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_type_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_card_type_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_type_discount` decimal(2,1) unsigned NOT NULL DEFAULT '0',
+`c_card_code` varchar(20) NOT NULL DEFAULT '',
+`c_card_name` varchar(20) NOT NULL DEFAULT '',
+`c_card_phone` varchar(20) NOT NULL DEFAULT '',
+`c_card_sex` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`c_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+`c_user_name` varchar(20) NOT NULL DEFAULT '',
+PRIMARY KEY (`card_record_id`),
+KEY `shop_id` (`shop_id`),
+KEY `card_record_atime` (`card_record_atime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record2_mcombo (
+`card_record2_mcombo_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record2_mcombo_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record2_mcombo_ccount` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record2_mcombo_cedate` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record2_mcombo_gcount` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_name` varchar(50) NOT NULL DEFAULT '',
+`c_mcombo_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_record2_mcombo_id`),
+KEY `card_record_id` (`card_record_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record2_ygoods (
+`card_record2_ygoods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record2_ygoods_count` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_sgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_record2_ygoods_id`),
+KEY `card_record_id` (`card_record_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record3_goods (
+`card_record3_goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record3_goods_count` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_rprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_sgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_rprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_record3_goods_id`),
+KEY `card_record_id` (`card_record_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record3_mcombo (
+`card_record3_mcombo_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mcombo_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record3_mgoods_count` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mcombo_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_record3_mcombo_id`),
+KEY `card_record_id` (`card_record_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS fw_0001_card_record3_ygoods (
+`card_record3_ygoods_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_id` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`mgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`sgoods_id` int(10) unsigned NOT NULL DEFAULT '0',
+`card_record3_ygoods_count` int(10) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_mgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_mgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_name` varchar(50) NOT NULL DEFAULT '',
+`c_sgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+`c_sgoods_cprice` decimal(10,2) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`card_record3_ygoods_id`),
+KEY `card_record_id` (`card_record_id`),
+KEY `shop_id` (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

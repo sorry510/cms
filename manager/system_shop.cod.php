@@ -31,14 +31,15 @@
         <td style="width: 8%;">操作</td>
       </tr>
     </thead>
+    <?php foreach($this->_data['shop_info'] as $row) { ?>
     <tr>
-      <td>解放路分店</td>
-      <td>0371-55912313</td>
-      <td>河南省郑州市金水区解放路38号</td>
+      <td><?php echo $row['shop_name']; ?></td>
+      <td><?php echo $row['shop_phone']; ?></td>
+      <td><?php echo $row['province'].$row['city'].$row['shop_area_address']; ?></td>
       <td><a href="javascript:void" class="iconfont icon-question"></a>
         地图</td>
-      <td>5</td>
-      <td>2020-3-2</td>
+      <td><?php echo $row['shop_limit_user']; ?></td>
+      <td><?php echo date('Y-m-d',$row['shop_edate']); ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_shopmanagem1'}">
           <i class="iconfont icon-bianji"></i>
@@ -46,6 +47,7 @@
         </button>
       </td>
     </tr>
+    <?php }?>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共1页 3条记录</li>
@@ -64,34 +66,37 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="form1"  method="method" action="system_shop_do.php">
+      <form class="am-form am-form-horizontal" id="form1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">店铺名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
+            <input name="name" type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">电话：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
+            <input name="phone" type="text" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">区域：</label>
           <div class="umodal-short" style="margin-right: 20px;">
-            <select name="province1" class="uselect uselect-max cmap" data-am-selected>
+            <select name="province" class="uselect uselect-max cmap cprovince" data-am-selected>
+            <?php foreach($this->_data['province'] as $row){?>
+            <option value="<?php echo $row['region_id'];?>"><?php echo $row['region_name'];?></option>
+            <? }?>
             </select>
           </div>
           <div class="umodal-short">
-            <select name="city1" class="uselect uselect-max cmap" data-am-selected>
+            <select name="city" class="uselect uselect-max cmap ccity" data-am-selected>
             </select>
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">联系地址：</label>
           <div class="umodal-max">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="联系地址">
+            <input name="address" class="am-form-field uinput uinput-max" type="text" placeholder="联系地址">
           </div>
         </div>
         <div class="am-form-group">
@@ -115,24 +120,22 @@
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script type='text/javascript' src="../js/PCASClass.js"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=m3VYcozyFtYtL0i0Y1zvFG5HS7XPNfan" type="text/javascript"></script>
 <script type="text/javascript">
 
-new PCAS("province1","city1");
-
+getCity();
+$('.cprovince').on('change', getCity);
 var map = new BMap.Map("allmap");
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
 map.enableScrollWheelZoom(true);
 $('.cmap').on('change',function(){
-  var xy = $(this).val();
-  console.log(xy);
-    var local = new BMap.LocalSearch(map, {
+  var xy = $(this).find('option:selected').text();
+  var local = new BMap.LocalSearch(map, {
     renderOptions:{map: map}
   });
     local.search(xy);
 })
-var map2 = new BMap.Map("allmap2");
+/*var map2 = new BMap.Map("allmap2");
 map2.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
 map2.enableScrollWheelZoom(true);
 $('.cmap').on('change',function(){
@@ -142,7 +145,28 @@ $('.cmap').on('change',function(){
     renderOptions:{map: map2}
   });
     local.search(xy);
-})
+})*/
+
+function getCity(){
+  $('.ccity').find('option').remove();
+  $.ajax({
+    url:'city_ajax.php',
+    data:{
+      province_id:$('.cprovince').val()
+    },
+    type:"get",
+    dataType:"json"
+  }).then(function(res){
+    // console.log(res);
+    var items = '';
+    if(res){
+      $.each(res, function(k,v){
+        items = '<option value="'+v.region_id+'">'+v.region_name+'</option>';
+        $('.ccity').append(items);
+      })
+    }
+  });
+}
 </script>
 </body>
 </html>

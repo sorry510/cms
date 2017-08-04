@@ -11,16 +11,23 @@ $strshop_id = api_value_get('shop_id');
 $intshop_id = api_value_int0($strshop_id);
 $strsgoods_catalog_id = api_value_get('sgoods_catalog_id');
 $intsgoods_catalog_id = api_value_int0($strsgoods_catalog_id);
-$strsearch = api_value_get('strsearch');
+$strsearch = api_value_get('search');
 
 
-$gtemplate->fun_assign('shop_id', $intshop_id);
-$gtemplate->fun_assign('sgoods_catalog_id', $intsgoods_catalog_id);
-$gtemplate->fun_assign('strsearch', $strsearch);
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
 $gtemplate->fun_assign('store_info_sgoods_list', get_store_info_sgoods_list());
 $gtemplate->fun_show('store_info_sgoods');
+
+
+function get_request(){
+	$arr = array();
+	$arr['shop_id'] = $GLOBALS['strshop_id'];
+	$arr['sgoods_catalog_id'] = $GLOBALS['intsgoods_catalog_id'];
+	$arr['search'] = $GLOBALS['strsearch'];
+	return $arr;
+}
 
 function get_sgoods_catalog_list() {
 	$arr = array();
@@ -47,33 +54,28 @@ function get_store_info_sgoods_list() {
 	$arrlist = array();
 	$arrpackage = array();
 
-	$strwherea = '';
-	$strwhereb = '';
-	$strwherec = '';
-	$strwhered = '';
+	$strwhere1 = '';
+	$strwhere2 = '';
+	$strwhere3 = '';
+	$strwhere4 = '';
 
 	if($GLOBALS['intshop_id'] != 0){
-		$strwhereb .= " AND shop_id=".$GLOBALS['intshop_id'];
+		$strwhere1 .= " AND shop_id=".$GLOBALS['intshop_id'];
 	}
 	if($GLOBALS['intsgoods_catalog_id'] != 0){
-		$strwhered .= " AND sgoods_catalog_id=".$GLOBALS['intsgoods_catalog_id'];
+		$strwhere2 .= " AND sgoods_catalog_id=".$GLOBALS['intsgoods_catalog_id'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwherec = $strwherec . " AND (sgoods_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
-	  $strwherec = $strwherec . " OR sgoods_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%'";
-	  $strwherec = $strwherec . " OR sgoods_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
+	  $strwhere2 .= " AND (sgoods_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere2 .= " OR sgoods_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere2 .= " OR sgoods_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 
+	$strwhere1 .=" AND sgoods_id!=0";
+
 	$arr = array();
-	$strsql = "SELECT count(c.sgoods_id) as mycount FROM 
-(SELECT store_info_id, sgoods_id, shop_id, store_info_count FROM " . $GLOBALS['gdb']->fun_table2('store_info') . " where 1=1 ".$strwherea." ORDER BY store_info_id DESC ) AS a, 
-
-(SELECT shop_name ,shop_id FROM " . $GLOBALS['gdb']->fun_table('shop') . " where 1=1 ".$strwhereb.") AS b,
-
-(SELECT sgoods_id, sgoods_name, sgoods_catalog_id, sgoods_code, sgoods_price, sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwherec.") AS c,
-
-(SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " where 1=1 ".$strwhered.") AS d 
-WHERE a.shop_id = b.shop_id AND a.sgoods_id = c.sgoods_id AND c.sgoods_catalog_id = d.sgoods_catalog_id ";
+	$strsql = "SELECT count(a.store_info_id) as mycount FROM (SELECT store_info_id, sgoods_id, shop_id, store_info_count FROM " . $GLOBALS['gdb']->fun_table2('store_info') . " where 1=1 ".$strwhere1." ORDER BY sgoods_id asc) AS a join (SELECT sgoods_id, sgoods_name, sgoods_catalog_id, sgoods_code, sgoods_price, sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwhere2.") AS b on a.sgoods_id = b.sgoods_id";
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
@@ -111,18 +113,11 @@ WHERE a.shop_id = b.shop_id AND a.sgoods_id = c.sgoods_id AND c.sgoods_catalog_i
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT  a.store_info_id, a. sgoods_id, a.shop_id, a.store_info_count, b.shop_name, c.sgoods_name, c.sgoods_catalog_id, c.sgoods_code, c.sgoods_price, c.sgoods_cprice, d.sgoods_catalog_name FROM 
-(SELECT store_info_id, sgoods_id, shop_id, store_info_count FROM " . $GLOBALS['gdb']->fun_table2('store_info') . " where 1=1 ".$strwherea." ORDER BY store_info_id DESC ) AS a, 
+	$strsql1 = "SELECT a.store_info_id,a.shop_id,a.store_info_count,b.sgoods_id,b.sgoods_name,b.sgoods_catalog_id,b.sgoods_code,b.sgoods_price,b.sgoods_cprice FROM (SELECT store_info_id, sgoods_id, shop_id, store_info_count FROM " . $GLOBALS['gdb']->fun_table2('store_info') . " where 1=1 ".$strwhere1." ORDER BY store_info_id desc) AS a join (SELECT sgoods_id, sgoods_name, sgoods_catalog_id, sgoods_code, sgoods_price, sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwhere2.") AS b on a.sgoods_id = b.sgoods_id";
 
-(SELECT shop_name ,shop_id FROM " . $GLOBALS['gdb']->fun_table('shop') . " where 1=1 ".$strwhereb.") AS b,
+	$strsql = "SELECT c.*,d.shop_name,e.sgoods_catalog_name FROM (".$strsql1." LIMIT ". $intoffset . ", " . $intpagesize.") as c left join ".$GLOBALS['gdb']->fun_table('shop')." as d on c.shop_id=d.shop_id left join ".$GLOBALS['gdb']->fun_table2('sgoods_catalog')." as e on c.sgoods_catalog_id=e.sgoods_catalog_id";
 
-(SELECT sgoods_id, sgoods_name, sgoods_catalog_id, sgoods_code, sgoods_price, sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwherec.") AS c,
-
-(SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " where 1=1 ".$strwhered.") AS d 
-WHERE a.shop_id = b.shop_id AND a.sgoods_id = c.sgoods_id AND c.sgoods_catalog_id = d.sgoods_catalog_id 
-LIMIT ". $intoffset . ", " . $intpagesize ;
-
-	//echo $strsql;
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	//var_dump($arrlist);exit;
@@ -136,7 +131,5 @@ LIMIT ". $intoffset . ", " . $intpagesize ;
 	//var_dump($arrlist);exit;
 	return $arrpackage;
 }
-
-
 
 ?>

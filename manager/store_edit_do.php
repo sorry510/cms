@@ -3,6 +3,8 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
+$strstore_id = api_value_post('store_id');
+$intstore_id = api_value_int0($strstore_id);
 $strstore_time = api_value_post('store_time');
 $intstore_time = strtotime($strstore_time)==false?'0':strtotime($strstore_time);
 $strstore_type = api_value_post('store_type');
@@ -26,15 +28,21 @@ if(empty($arrinfo)){
 }
 
 if($intreturn == 0){
-	$strsql = "INSERT INTO ".$gdb->fun_table2('store')." (shop_id,store_type,store_money,store_operator,store_memo,store_state,store_time,store_atime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",".$intstore_type.",".$decstore_money.",'".$sqlstore_operator."','".$sqlstore_memo."',1,".$intstore_time.",".$intnow.")";
+	$strsql = "UPDATE ".$gdb->fun_table2('store')." SET store_type=".$intstore_type.",store_money=".$decstore_money.",store_operator='".$sqlstore_operator."',store_memo='".$sqlstore_memo."',store_time=".$intstore_time.",store_ctime=".$intnow." where store_id=".$intstore_id;
+	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 2;
-	}else{
-		$store_id = mysql_insert_id();
 	}
 }
 
+if($intreturn == 0){
+	$strsql = "DELETE FROM ".$gdb->fun_table2('store_goods')." where store_id=".$intstore_id;
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
+		$intreturn = 3;
+	}
+}
 if($intreturn == 0){
 	foreach($arrinfo as $v){
 		$intmgoods_id = 0;
@@ -55,29 +63,15 @@ if($intreturn == 0){
 		}
 		if($intmgoods_id != 0){
 			// 记录库存日志,没有直接入库存
-			$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,mgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$store_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intmgoods_id.",".$intnum.",".$intnow.",'".$strmgoods_name."')";
+			$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,mgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$intstore_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intmgoods_id.",".$intnum.",".$intnow.",'".$strmgoods_name."')";
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult==false){
-				$intreturn = 3;
+				$intreturn = 4;
 			}
-			
-			/*//第二种不做记录，直接修改库存
-			if($intreturn==0 && $arr['mgoods_type']==2){
-				$strsql = "SELECT store_info_id FROM ".$GLOBALS['gdb']->fun_table2('store_info')." where mgoods_id=".$arr['mgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
-				$hresult = $gdb->fun_query($strsql);
-				$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-				if(!empty($arr)){
-					$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('store_info')." SET store_info_count=store_info_count-".$intnum.",store_info_ctime=".$now." where store_info_id=".$arr['store_info_id'];
-					$hresult = $gdb->fun_do($strsql);
-					if($hresult==false){
-						$intreturn = 12;
-					}
-				}
-			}*/
 		}
 		if($intsgoods_id != 0){
 			// 记录库存日志,没有直接入库存
-			$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,sgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$store_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_id.",".$intnum.",".$intnow.",'".$strsgoods_name."')";
+			$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('store_goods'). "(store_id,shop_id,sgoods_id,store_goods_count,store_goods_atime,c_goods_name) VALUES (".$intstore_id.",".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_id.",".$intnum.",".$intnow.",'".$strsgoods_name."')";
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult==false){
 				$intreturn = 4;

@@ -10,13 +10,13 @@
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-    <form class="am-form-inline uform" id="form1" action="store_info_mgoods.php" method="get">
+    <form class="am-form-inline uform" id="form1" method="get">
       <div class="am-form-group">
         分店：
         <select class="uselect uselect-auto" data-am-selected name="shop_id">
           <option value="0">所有分店</option>
           <?php foreach($this->_data['shop_list'] as $row) { ?>
-          <option value="<?php echo $row['shop_id'] ?>" <?php if($row['shop_id'] == $this->_data['shop_id']){echo "selected";} ?> ><?php echo $row['shop_name'] ?></option>
+          <option value="<?php echo $row['shop_id'] ?>" <?php if($row['shop_id'] == $this->_data['request']['shop_id']){echo "selected";} ?> ><?php echo $row['shop_name'] ?></option>
           <?php } ?>
         </select>
       </div>
@@ -25,13 +25,13 @@
         <select class="uselect uselect-auto" data-am-selected name="mgoods_catalog_id">
           <option value="0">所有分类</option>
           <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-          <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
+          <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['request']['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">搜索：</label>
-        <input type="text" class="am-form-field uinput uinput-220" name="strsearch" value="<?php echo $this->_data['strsearch'];?>" placeholder="商品名称/简拼/编码" name="">
+        <input type="text" class="am-form-field uinput uinput-220" name="search" value="<?php echo $this->_data['request']['search'];?>" placeholder="商品名称/简拼/编码">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search csearch-form1">
@@ -69,18 +69,23 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['store_info_mgoods_list']['pagecount']; ?>页 <?php echo $this->_data['store_info_mgoods_list']['allcount']; ?>条记录</li>
-    <li><a href="store_info_mgoods.php?page=<?php echo $this->_data['store_info_mgoods_list']['pagepre']; ?>">&laquo;</a></li>
+    <li class="am-disabled"><a href="store_info_mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['store_info_mgoods_list']['pagepre']); ?>">&laquo;</a></li>
     <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="store_info_mgoods.php?page=<?php echo  $this->_data['store_info_mgoods_list']['pagenext']; ?>">&raquo;</a></li>
+    <li><a href="store_info_mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['store_info_mgoods_list']['pagenext']); ?>">&raquo;</a></li>
   </ul>
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-//工具栏搜索按钮
-$('.csearch-form1').on('click',function(){
-  $("#form1").submit();
-});
-<script>
+//分页首末页不可选中
+$(function(){
+  if(<?php echo $GLOBALS['intpage'];?>>1){
+    $('.upages li').eq(1).removeClass('am-disabled');
+  }
+  if(<?php echo $this->_data['store_info_mgoods_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+    $('.upages li').last().addClass('am-disabled');
+  }
+})
+</script>
 </body>
 </html>

@@ -66,7 +66,7 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="form1">
+      <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">店铺名称：</label>
           <div class="umodal-normal">
@@ -110,7 +110,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green caddsubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -124,6 +124,18 @@
 <script type="text/javascript">
 
 getCity();
+
+
+$('.caddsubmit').on('click', function(){
+  var url = 'system_shop_do.php';
+  var data = $('#cform1').serialize();
+  $.post(url, data, function(res){
+
+  });
+});
+
+
+
 $('.cprovince').on('change', getCity);
 var map = new BMap.Map("allmap");
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);

@@ -10,8 +10,14 @@ $intpage = api_value_int1($strpage);
 
 
 $gtemplate->fun_assign('card_type_list', get_card_type_list());//exit;
+$gtemplate->fun_assign('request', get_request());//exit;
 $gtemplate->fun_show('system_card_type');
 
+function get_request(){
+	$arr = array();
+	$arr['no'] = 1;
+	return $arr;
+}
 
 function get_card_type_list(){
 	$intallcount = 0;
@@ -76,6 +82,4 @@ function get_card_type_list(){
 	// var_dump($arrpackage); 
 	// echo '</pre>';
 }
-
-
 ?>

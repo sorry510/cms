@@ -8,18 +8,18 @@
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-    <form class="am-form-inline uform2"  id="form2"  method="post" action="system_user.php">
+    <form class="am-form-inline uform2">
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">分店：</label>
         <select class="uselect uselect-auto" data-am-selected name="shop_id">
-          <option value="all">全部</option>
+          <option value="0">全部</option>
           <?php foreach($this->_data['shop_list'] as $row) { ?>
-          <option value="<?php echo $row['shop_id'] ?>" <?php if($row['shop_id'] == $this->_data['shop_id']){echo "selected";}?>> <?php echo $row['shop_name'] ?></option>
+          <option value="<?php echo $row['shop_id'] ?>" <?php if($row['shop_id'] == $this->_data['request']['shop_id']){echo "selected";}?>> <?php echo $row['shop_name'] ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="am-form-group">
-        <button type="submit" class="am-btn ubtn-search cadd_form2">
+        <button type="submit" class="am-btn ubtn-search">
           <i class="iconfont icon-search"></i>查询
         </button>
       </div>
@@ -43,7 +43,7 @@
     <?php foreach($this->_data['user_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['user_power'] ?></td>
-      <td><?php echo $row['shop_name']; ?></td>
+      <td><?php echo empty($row['shop_name'])?'总店':$row['shop_name']; ?></td>
       <td><?php echo $row['user_account']; ?></td>
       <td><?php echo $row['user_name']; ?></td>
       <td>
@@ -62,10 +62,10 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['user_list']['pagecount']; ?>页 <?php echo $this->_data['user_list']['allcount']; ?>条记录</li>
-    <li><a href="system_user.php?page=<?php echo $this->_data['user_list']['pagepre']; ?>">&laquo;</a></li>
-    <li><a class="am-active" href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="system_user.php?page=<?php echo $this->_data['user_list']['pagenext']; ?>">&raquo;</a></li>
-  </ul> 
+    <li class="am-disabled"><a href="system_user.php?<?php echo api_value_query($this->_data['request'], $this->_data['user_list']['pagepre']); ?>">&laquo;</a></li>
+    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
+    <li><a href="system_user.php?<?php echo api_value_query($this->_data['request'], $this->_data['user_list']['pagenext']); ?>">&raquo;</a></li>
+  </ul>
 </div>
 
 <!--添加操作员-->
@@ -80,13 +80,13 @@
           <label class="umodal-label am-form-label" for="">身份：</label>
           <div class="umodal-normal" style="text-align:left;">
             <label class="am-radio-inline">
-              <input type="radio" name="type" class="cid" value="0" data-am-ucheck> 管理员
+              <input type="radio" name="type" class="cid" value="1" data-am-ucheck> 管理员
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="type"  class="cid" value="1" data-am-ucheck> 店长
+              <input type="radio" name="type"  class="cid" value="2" data-am-ucheck> 店长
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="type"  class="cid" value="2" data-am-ucheck> 收银员
+              <input type="radio" name="type"  class="cid" value="3" data-am-ucheck checked> 收银员
             </label>  
           </div>
         </div>
@@ -113,6 +113,12 @@
           </div>
         </div>
         <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">确认密码：</label>
+          <div class="umodal-normal">
+            <input type="password"  name="password2" class="am-form-field uinput uinput-max">
+          </div>
+        </div>
+        <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
           <div class="umodal-normal">
             <input type="text" name="name" class="am-form-field uinput uinput-max">
@@ -122,7 +128,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form cadd-form1"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form1"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -137,51 +143,47 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="form3"  method="post" action="system_user_editor_do.php">
+      <form class="am-form am-form-horizontal" id="form3">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">身份：</label>
-          <div class="umodal-normal" style="text-align:left;">
-            <label class="am-radio-inline">
-              <input type="radio" name="user_type"  value="1" data-am-ucheck> 管理员
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="user_type" value="2" data-am-ucheck> 店长
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="user_type" value="3" data-am-ucheck> 收银员
-            </label>  
-          </div>
+          <label class="umodal-label am-form-label am-text-left cuser_type"></label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">所属分店：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max cshop" name="shop_id">
-              <?php foreach($this->_data['shop_list'] as $row) { ?>
-              <option value="<?php echo $row['shop_id'] ?>" > <?php echo $row['shop_name'] ?></option>
-              <?php } ?>
-              <option value="4">5</option>
-            </select>
-          </div>
+          <label class="umodal-normal am-form-label am-text-left cuser_shop"></label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">帐号：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max"  name="user_account">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">密码：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max"  name="user_password">
+            <input type="text" class="am-form-field uinput uinput-max cuser_account"  name="user_account">
+            <input type="hidden" class="am-form-field uinput uinput-max cuser_account_old"  name="user_account_old">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max"  name="user_name">
+            <input type="text" class="am-form-field uinput uinput-max cuser_name"  name="user_name">
           </div>
         </div>
-        <input type="hidden"  name="user_id">
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">旧密码：</label>
+          <div class="umodal-normal">
+            <input type="password" class="am-form-field uinput uinput-max"  name="user_password_old">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">新密码：</label>
+          <div class="umodal-normal">
+            <input type="password" class="am-form-field uinput uinput-max"  name="user_password">
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">确认密码：</label>
+          <div class="umodal-normal">
+            <input type="password" class="am-form-field uinput uinput-max"  name="user_password2">
+          </div>
+        </div>
+        <input type="hidden" class="cuser_id" name="user_id">
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -209,84 +211,102 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function() {
-  $('.cdel').on('click', function() {
-    var content = $(this).parent().parent();
-    var user_id = $(this).val();
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-      $.ajax({
-        type: "GET",
-        url: "system_user_delete.php",
-        data: {user_id:user_id}, 
-        success: function(msg){
-          if(msg = 'y'){
-            content.remove();
-          }else{
-            alert('删除失败'); 
-          }
+
+$('.cdel').on('click', function() {
+  var content = $(this).parent().parent();
+  var user_id = $(this).val();
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+    $.ajax({
+      type: "POST",
+      url: "system_user_delete_do.php",
+      data: {user_id:$(this.relatedTarget).val()},
+      success: function(res){
+        if(res == '0'){
+          window.location.reload();
+        }else{
+          alert('删除失败'); 
         }
-      });
-    },
-    onCancel: function() {
-        return;
-    }
+      }
     });
+  },
+  onCancel: function() {
+      return;
+  }
   });
 });
+
+
+//分页首末页不可选中
+if(<?php echo $GLOBALS['intpage'];?>>1){
+  $('.upages li').eq(1).removeClass('am-disabled');
+}
+if(<?php echo $this->_data['user_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+  $('.upages li').last().addClass('am-disabled');
+}
 
 // 所属分店变灰
 $('.cid').on('click', function() {
   var val = $(this).val();
-  if(val == 0){
+  if(val == 1){
     $('.am-selected-btn').attr('disabled','disabled');
   }else{
-    $('.am-selected-btn').removeAttr('disabled','disabled');
-  }
-});
-
-//修改按钮
-$('.cid-update').on('click', function() {
-  var val = $(this).val();
-  if(val == 0){
-    $('.am-selected-btn').attr('disabled','disabled');
-  }else{
-    $('.am-selected-btn').removeAttr('disabled','disabled');
+    $('.am-selected-btn').removeAttr('disabled');
   }
 });
 
 //添加操作员提交按钮
 $('.cadd-form1').on('click',function(){
-  $("#form1").submit();
-});
-
-$('.cadd-form2').on('click',function(){
-  $("#form2").submit();
-});
-
-//修改操作员提交按钮
-$('.cupdate').on('click', function(e) {
-  var url = "system_user_editor_ajax.php";
-   $.getJSON(url,{user_id:$(this).val()},function(res){
-    $("#usystem_userm2 input[name='user_id']").val(res.user_id);
-    $("#usystem_userm2 input[name='user_name']").val(res.user_name);
-    $("#usystem_userm2 input[name='user_account']").val(res.user_account);
-    $("#usystem_userm2 input[name='user_password']").val(res.user_password);
-    $("#usystem_userm2 input[name='user_type']").each(function(){
-      if($(this).val() == res.user_type){
-        $(this).attr('checked',true);
-      }
-    });
-    $("#usystem_userm2 .cshop").find('option').each(function(){
-      if($(this).val() == res.shop_id){
-        $(this).attr('selected',true);
-      }
-    });
+  $.post('system_user_add_do.php', $("#form1").serialize(), function(res){
+    if(res=='0'){
+      window.location.reload();
+    }else if(res=='1'){
+      alert('密码不一致');
+    }else if(res=='2'){
+      alert('用户名已存在，请重新输入');
+    }else if(res=='3'){
+      alert('密码不能为空');
+    }else{
+      alert('添加失败');
+    }
   });
 });
+
+//修改操作员show
+$('.cupdate').on('click', function(e) {
+  var url = "system_user_edit_ajax.php";
+   $.getJSON(url,{user_id:$(this).val()},function(res){
+    // console.log(res);
+    $("#usystem_userm2 .cuser_type").text(res.type);
+    if(res.shop_name){
+      $("#usystem_userm2 .cuser_shop").text(res.shop_name);
+    }else{
+      $("#usystem_userm2 .cuser_shop").text('总店');
+    }
+    $("#usystem_userm2 .cuser_account").val(res.user_account);
+    $("#usystem_userm2 .cuser_account_old").val(res.user_account);
+    $("#usystem_userm2 .cuser_name").val(res.user_name);
+    $("#usystem_userm2 .cuser_name").val(res.user_name);
+    $("#usystem_userm2 .cuser_id").val(res.user_id);
+  });
+});
+// edit-submit
 $('.cupdate_form3').on('click',function(){
-  $("#form3").submit();
+  $.post('system_user_edit_do.php', $("#form3").serialize(), function(res){
+    console.log(res);
+    if(res=='0'){
+      window.location.reload();
+    }else if(res=='1'){
+      alert('密码不一致');
+    }else if(res=='2'){
+      alert('用户名已存在，请重新输入');
+    }else if(res=='3'){
+      alert('密码错误，修改失败');
+    }else{
+      alert('修改失败');
+    }
+  })
 });
 
 </script>

@@ -47,11 +47,11 @@
     </tbody>
   </table>
   <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['card_type_list']['pagecount']; ?>页 <?php echo $this->_data['card_type_list']['allcount']; ?>条记录</li>
-    <li><a href="system_card_type.php?page=<?php echo $this->_data['card_type_list']['pagepre']; ?>">&laquo;</a></li>
-    <li><a class="am-active" href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="system_card_type.php?page=<?php echo $this->_data['card_type_list']['pagenext']; ?>">&raquo;</a></li>
-  </ul> 
+      <li class="upage-info">共<?php echo $this->_data['card_type_list']['pagecount']; ?>页 <?php echo $this->_data['card_type_list']['allcount']; ?>条记录</li>
+      <li class="am-disabled"><a href="system_card_type.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_type_list']['pagepre']); ?>">&laquo;</a></li>
+      <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
+      <li><a href="system_card_type.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_type_list']['pagenext']); ?>">&raquo;</a></li>
+    </ul> 
 </div>
 <!-- 添加会员卡分类 -->
 <div id="usystem_card_typem1" class="am-modal" tabindex="-1">
@@ -60,7 +60,7 @@
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="form1"  method="post" action="system_card_type_add_do.php">
+      <form class="am-form am-form-horizontal" id="form1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
@@ -70,7 +70,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">卡折扣：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" value="10" name="card_type_discount">
+            <input id="" class="uinput uinput-max cfilter" type="text" placeholder="" value="10" name="card_type_discount">
           </div>
           <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
           </div>
@@ -104,7 +104,8 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
+            <input class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
+            <input class="uinput uinput-max" type="hidden" placeholder="" name="card_type_name_old">
           </div>
         </div>
         <div class="am-form-group">
@@ -151,62 +152,97 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-$(function() {
-  $('.cdel').on('click', function() {
-    var content = $(this).parent().parent();
-    var card_type_id = $(this).val();
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
 
-      $.ajax({
-        type: "GET",
-        url: "system_card_type_delete_do.php",
-        data: {card_type_id:card_type_id}, 
-        success: function(msg){
-          if(msg = 'y'){
-            content.remove();
-          }else{
-            alert('修改失败'); 
-          }
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+    $.ajax({
+      type: "POST",
+      url: "system_card_type_delete_do.php",
+      data: {card_type_id:$(this.relatedTarget).val()},
+      success: function(res){
+        if(res = '0'){
+          window.location.reload();
+        }else{
+          alert('删除失败');
         }
-      });
-    },
-    
-    onCancel: function() {
-        return;
-    }
+      }
     });
+  },
+  
+  onCancel: function() {
+      return;
+  }
   });
 });
 
-//添加会员卡分类提交按钮
+
+//分页首末页不可选中
+if(<?php echo $GLOBALS['intpage'];?>>1){
+  $('.upages li').eq(1).removeClass('am-disabled');
+}
+if(<?php echo $this->_data['card_type_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+  $('.upages li').last().addClass('am-disabled');
+}
+// 折扣js
+$('.cfilter').on('input propertychange',function(){
+  var discount = Number($(this).val());
+  if(isNaN(discount)){
+    $(this).val(10);
+  }
+  if(discount>10){
+    $(this).val(10);
+  }
+  if(discount<0){
+    $(this).val(10);
+  }
+})
+//添加会员卡add-submit
 $('.cadd-form1').on('click',function(){
-  $("#form1").submit();
+  $.post('system_card_type_add_do.php', $("#form1").serialize(), function(res){
+    if(res=='0'){
+      window.location.reload();
+    }else if(res=='1'){
+      alert('会员卡类型名已存在，请重新输入');
+    }else{
+      alert('添加失败');
+    }
+  });
 });
 
-//修改会员卡分类
+//修改会员卡edit-show
 $('.cupdate').on('click', function(e) {
   var card_type_id = $(this).val();
   //console.log(card_type_id);
   $.ajax({
     type: "GET",
-    url: "system_card_type_editor_ajax.php",
+    url: "system_card_type_edit_ajax.php",
     data: {card_type_id:card_type_id}, 
     dataType:"json",
     success: function(msg){
-    console.log(msg);
+    // console.log(msg);
     $("#usystem_card_typem2 input[name='card_type_id']").val(msg.card_type_id);
     $("#usystem_card_typem2 input[name='card_type_name']").val(msg.card_type_name);
+    $("#usystem_card_typem2 input[name='card_type_name_old']").val(msg.card_type_name);
     $("#usystem_card_typem2 input[name='card_type_discount']").val(msg.card_type_discount);
     $("#usystem_card_typem2 textarea[name='card_type_info']").val(msg.card_type_info);
     }
   });
 });
 
-//修改会员卡分类提交按钮
+//修改会员卡分类edit-submit
 $('.cadd-form2').on('click',function(){
-  $("#form2").submit();
+  $.post('system_card_type_edit_do.php', $("#form2").serialize(), function(res){
+    console.log(res);
+    if(res=='0'){
+      window.location.reload();
+    }else if(res=='1'){
+      alert('会员卡类型名已存在，请重新输入');
+    }else{
+      alert('修改失败');
+    }
+  });
 });
 </script>
 </body>

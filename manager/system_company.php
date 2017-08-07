@@ -11,8 +11,6 @@ $gtemplate->fun_assign('company_info', get_company_info());
 $gtemplate->fun_assign('province', get_province());
 $gtemplate->fun_show('system_company');
 
-
-
 function get_company_info() {
 	$arr = array();
 	$strsql = "SELECT company_id,company_code, company_name, company_phone, company_identity_info, company_area_sheng,company_area_shi,company_area_address,company_info_xingzhi, company_info_guimo, company_link_name, company_link_weixin,company_atime FROM " . $GLOBALS['gdb']->fun_table('company')." where company_id=".$GLOBALS['_SESSION']['login_cid']." and company_state = 1 limit 1";

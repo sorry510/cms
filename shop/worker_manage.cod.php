@@ -14,23 +14,25 @@
     <form class="am-form-inline uform2">
       <div class="am-form-group">
         <label class="am-form-label">分店：</label> 
-        <select class="uselect uselect-auto" data-am-selected name="">
-          <option value="all">全部</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+        <select class="uselect uselect-auto" data-am-selected name="shop_id">
+        <option value="0">全部</option>
+        <?php foreach($this->_data['shop_list'] as $row){?>
+          <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo 'selected'?>><?php echo $row['shop_name'];?></option>
+        <? }?>
         </select>
       </div>
       <div class="am-form-group">
         <label class="am-form-label">员工分组：</label> 
-        <select class="uselect uselect-auto" data-am-selected name="">
-          <option value="all">全部</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+        <select class="uselect uselect-auto" data-am-selected name="worker_group_id">
+          <option value="0">全部</option>
+          <?php foreach($this->_data['worker_group_list'] as $row){?>
+            <option value="<?php echo $row['worker_group_id'];?>" <?php if($row['worker_group_id']==$this->_data['request']['worker_group_id']) echo 'selected'?>><?php echo $row['worker_group_name'];?></option>
+          <? }?>
         </select>
       </div>
       <div class="am-form-group">
         <label class="am-form-label">姓名：</label>
-        <input class="am-form-field uinput uinput-220" type="text" name="">
+        <input class="am-form-field uinput uinput-220" type="text" name="search" value="<?php echo $this->_data['request']['search'];?>">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -408,94 +410,62 @@
     </div>
   </div>
 </div>
-
 <div id="uemployee_managem3" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">工作内容
+    <div class="am-modal-hd uhead">新增入库/出库
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选工作内容</a></li>
+          <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
           <li><a href="#tab2">扫码添加商品</a></li>
         </ul>
+
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
             <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
             <div class="am-form-group ub">
-              <div class="umodal-normal ub1">
-                <select class="uselect uselect-max" data-am-selected>
-                  <option value="a">店铺通用型</option>
-                  <option value="b">Banana</option>
-                  <option value="o">Orange</option>
-                  <option value="d">禁用</option>
+              <div class="ub1">
+                <select name="type" class="uselect2 uselect-max cgoods_type" data-am-selected>
+                  <option value="0">全部</option>
+                  <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                  <?php }?>
+                  <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo 's-'.$row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
+                <?php }?>
                 </select>
               </div>
-              <div class="umodal-normal ub1">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+              <div class="ub1">
+                <input class="am-form-field uinput2 uinput2-max cgoods_name" type="text" placeholder="">
               </div>
-              <div class="umodal-search ub2">
-                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+              <div class="ub2">
+                <button type="button" ctype="add" class="am-btn ubtn-search3 ubtn-green cgoods_search">
                   <i class="iconfont icon-search"></i>
                   查询
                 </button>
               </div>
             </div>
             <ul class="uc">
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
+              <?php foreach($this->_data['mgoods_list'] as $row) { ?>
+                <li class="uc1" mgoods_type="<?php echo $row['mgoods_catalog_id'];?>"><?php echo $row['mgoods_catalog_name'];?></li>
+                <?php foreach($row['mgoods'] as $row2){ ?>
+                  <li class="uc2" mgoods_id="<?php echo $row2['mgoods_id'];?>">
+                    <div class="uc2a" mgoods_name="<?php echo $row2['mgoods_name'];?>"><?php echo $row2['mgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="add"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
+              <?php foreach($this->_data['sgoods_list'] as $row) { ?>
+                <li class="uc1" sgoods_type="<?php echo $row['sgoods_catalog_id'];?>"><?php echo $row['sgoods_catalog_name'];?></li>
+                <?php foreach($row['sgoods'] as $row2){ ?>
+                  <li class="uc2" sgoods_id="<?php echo $row2['sgoods_id'];?>">
+                    <div class="uc2a" sgoods_name="<?php echo $row2['sgoods_name'];?>"><?php echo $row2['sgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="add"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
             </ul>
           </div>
           <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
@@ -505,7 +475,7 @@
               <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
                 <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
               </div>           
-              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+              <button type="button" ctype="add" class="am-btn ubtn-search2 ubtn-green usearch cgoodsadd" style="width:80px;">
                 添加
               </button>
             </div>
@@ -513,18 +483,17 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
-        <ul class="ub-head">
-          <li class="ub-head3">名称</li>
-          <li class="ub-head2">操作</li>
-        </ul>
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
         <ul class="ub">
-          <li>
-            <div class="ub4">服务一（38元）</div>
-            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
-          </li>
+          <li class="ub1">名称</li>
+          <li class="ub2">数量</li>
+          <li class="ub3">操作</li>
+        </ul>
+        <ul class="uc">
+          
         </ul>
       </div>
+      <div style="clear:both;"></div>
     </div>         
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group ubtn-left">
@@ -533,100 +502,69 @@
         </button>
       </div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cstoreadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
     </div>
   </div>
 </div>
-<div id="uemployee_managem4" class="am-modal" tabindex="-1" style="min-height:291px;">
+<div id="uemployee_managem3" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">工作内容
+    <div class="am-modal-hd uhead">新增入库/出库
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
-    <div class="am-modal-bd umain1">
+    <div class="am-modal-bd">
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选工作内容</a></li>
+          <li class="am-active"><a href="#tab1">可选套餐商品</a></li>
           <li><a href="#tab2">扫码添加商品</a></li>
         </ul>
+
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
             <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
             <div class="am-form-group ub">
-              <div class="umodal-normal ub1">
-                <select class="uselect uselect-max" data-am-selected>
-                  <option value="a">店铺通用型</option>
-                  <option value="b">Banana</option>
-                  <option value="o">Orange</option>
-                  <option value="d">禁用</option>
+              <div class="ub1">
+                <select name="type" class="uselect2 uselect-max cgoods_type" data-am-selected>
+                  <option value="0">全部</option>
+                  <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                  <?php }?>
+                  <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo 's-'.$row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
+                <?php }?>
                 </select>
               </div>
-              <div class="umodal-normal ub1">
-                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+              <div class="ub1">
+                <input class="am-form-field uinput2 uinput2-max cgoods_name" type="text" placeholder="">
               </div>
-              <div class="umodal-search ub2">
-                <button type="button" class="am-btn ubtn-search2 ubtn-green">
+              <div class="ub2">
+                <button type="button" ctype="add" class="am-btn ubtn-search3 ubtn-green cgoods_search">
                   <i class="iconfont icon-search"></i>
                   查询
                 </button>
               </div>
             </div>
             <ul class="uc">
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普普洱普洱普洱普洱普洱普</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>              
-              <li class="uc1">茶水/毛尖</li>
-              <li class="uc2">
-                <div class="uc2a">普洱（38元）</div>
-                <div class="uc2b cadd"><a href="#">添加</a></div>
-              </li>
+              <?php foreach($this->_data['mgoods_list'] as $row) { ?>
+                <li class="uc1" mgoods_type="<?php echo $row['mgoods_catalog_id'];?>"><?php echo $row['mgoods_catalog_name'];?></li>
+                <?php foreach($row['mgoods'] as $row2){ ?>
+                  <li class="uc2" mgoods_id="<?php echo $row2['mgoods_id'];?>">
+                    <div class="uc2a" mgoods_name="<?php echo $row2['mgoods_name'];?>"><?php echo $row2['mgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="add"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
+              <?php foreach($this->_data['sgoods_list'] as $row) { ?>
+                <li class="uc1" sgoods_type="<?php echo $row['sgoods_catalog_id'];?>"><?php echo $row['sgoods_catalog_name'];?></li>
+                <?php foreach($row['sgoods'] as $row2){ ?>
+                  <li class="uc2" sgoods_id="<?php echo $row2['sgoods_id'];?>">
+                    <div class="uc2a" sgoods_name="<?php echo $row2['sgoods_name'];?>"><?php echo $row2['sgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="add"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
             </ul>
           </div>
           <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
@@ -636,7 +574,7 @@
               <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
                 <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
               </div>           
-              <button type="button" class="am-btn ubtn-search2 ubtn-green usearch" style="width:80px;">
+              <button type="button" ctype="add" class="am-btn ubtn-search2 ubtn-green usearch cgoodsadd" style="width:80px;">
                 添加
               </button>
             </div>
@@ -644,27 +582,26 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择商品<span style="float:right;">（数量为0代表不限数量）</span></div>
-        <ul class="ub-head">
-          <li class="ub-head3">名称</li>
-          <li class="ub-head2">操作</li>
-        </ul>
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
         <ul class="ub">
-          <li>
-            <div class="ub4">服务一（38元）</div>
-            <div class="ub3 cdel2"><a href="javascript:;">移除</a></div>
-          </li>
+          <li class="ub1">名称</li>
+          <li class="ub2">数量</li>
+          <li class="ub3">操作</li>
+        </ul>
+        <ul class="uc">
+          
         </ul>
       </div>
+      <div style="clear:both;"></div>
     </div>         
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group ubtn-left">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4"><i class="iconfont icon-xiangyou2"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen2"><i class="iconfont icon-xiangyou2"></i>
           上一步
         </button>
       </div>
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cstoreadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -739,19 +676,19 @@ $('.cmodelopen4').on('click', function(e) {
   $('#uemployee_managem2').modal('open');
 });
 
-$(function() {
-  $('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
+
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $(this.relatedTarget).parent('td').parent('tr').remove();
+    },
+    onCancel: function() {
+      return;
+    }
   });
 });
+
 /*右侧弹出框关闭按钮JS*/
 $(function() {
   var id = '#uoffcanvas';

@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$struser_id = api_value_get('user_id');
+$struser_id = api_value_post('user_id');
 $intuser_id = api_value_int0($struser_id);
 
 $intreturn = 0;
@@ -14,11 +14,5 @@ if($intreturn == 0) {
 		$intreturn = 1;
 	}
 }
-
-if($intreturn == 0) {
-	echo 'y';
-} else if($intreturn == 1) {
-	echo 'n';
-}
-
+echo $intreturn;
 ?>

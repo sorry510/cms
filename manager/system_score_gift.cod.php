@@ -12,7 +12,7 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="礼品名称" name="">
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="礼品名称" name="gift_name" value="<?php echo $this->_data['request']['gift_name']?>">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -35,9 +35,10 @@
       </tr>
     </thead>
     <tbody>
+    <?php foreach($this->_data['gift_list']['list'] as $row){?>
       <tr>
-        <td>礼品一</td>
-        <td>888积分</td>
+        <td><?php echo $row['gift_name'];?></td>
+        <td><?php echo $row['gift_score'];?></td>
         <td>
           <button class="am-btn ubtn-table ubtn-green"  data-am-modal="{target:'#usystem_score_giftm2'}">
             <i class="iconfont icon-bianji"></i>
@@ -49,8 +50,15 @@
           </button> 
         </td>
       </tr>
+    <?php }?>
     </tbody>
   </table>
+  <ul class="am-pagination am-pagination-centered upages">
+    <li class="upage-info">共<?php echo $this->_data['gift_list']['pagecount']; ?>页 <?php echo $this->_data['gift_list']['allcount']; ?>条记录</li>
+    <li class="am-disabled"><a href="system_score_gift.php?<?php echo api_value_query($this->_data['request'], $this->_data['gift_list']['pagepre']); ?>">&laquo;</a></li>
+    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
+    <li><a href="system_score_gift.php?<?php echo api_value_query($this->_data['request'], $this->_data['gift_list']['pagenext']); ?>">&raquo;</a></li>
+  </ul>
 </div>
 <!-- 增加礼品弹出框 -->
 <div id="usystem_score_giftm1" class="am-modal" tabindex="-1">
@@ -59,17 +67,17 @@
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal">
+      <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">名称：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
+            <input name="name" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">积分：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="">
+            <input name="score" class="uinput uinput-max" type="text" placeholder="">
           </div>
           <div class="umodal-text gtext-green">
             &nbsp;分
@@ -79,7 +87,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green caddsubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -138,6 +146,14 @@
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 $(function() {
+  //分页首末页不可选中
+  if(<?php echo $GLOBALS['intpage'];?>>1){
+    $('.upages li').eq(1).removeClass('am-disabled');
+  }
+  if(<?php echo $this->_data['gift_list']['pagecount']-$GLOBALS['intpage']; ?><1){
+    $('.upages li').last().addClass('am-disabled');
+  }
+
   $('.cdel').on('click', function() {
     $('#cconfirm').modal({
       relatedTarget: this,
@@ -149,6 +165,18 @@ $(function() {
       }
     });
   });
+
+  $('.caddsubmit').on('click', function(){
+    $.post('system_score_gift_add_do.php' ,$('#cform1').serialize() ,function(res){
+      if(res=='0'){
+        window.location.reload();
+      }else if(res=='1'){
+        alert('名字不能重复');
+      }else{
+        alert('添加失败');
+      }
+    })
+  })
 });
 </script>
 </body>

@@ -12,4 +12,5 @@ $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 $arr['card_birthday_date'] = date("Y-m-d",$arr['card_birthday_date']);
 $arr['card_edate'] = date("Y-m-d",$arr['card_edate']);
+
 echo json_encode($arr);

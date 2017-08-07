@@ -9,16 +9,31 @@ $strshop_id = api_value_get('shop_id');
 $intshop_id = api_value_int0($strshop_id);
 $strworker_group_id = api_value_get('worker_group_id');
 $intworker_group_id = api_value_int0($strworker_group_id);
-$strsearch = api_value_get('strsearch');
+$strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
-$gtemplate->fun_assign('shop_id', $intshop_id);
-$gtemplate->fun_assign('worker_group_id', $intworker_group_id);
-$gtemplate->fun_assign('strsearch', $strsearch);
+$gtemplate->fun_assign('request', get_request());
+$gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('worker_group_list', get_worker_group_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_show('worker_manage');
+
+function get_request(){
+	$arr = array();
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
+	$arr['worker_group_id'] = $GLOBALS['intworker_group_id'];
+	$arr['search'] = $GLOBALS['strsearch'];
+	return $arr;
+}
+
+function get_shop_list() {
+	$arr = array();
+	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." order by shop_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
 
 function get_worker_group_list() {
 	$arr = array();

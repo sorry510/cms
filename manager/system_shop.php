@@ -11,21 +11,25 @@ $gtemplate->fun_show('system_shop');
 
 function get_shop_info() {
 	$arr = array();
-	$strsql = "SELECT company_id,shop_name,shop_phone, shop_area_sheng, shop_area_shi,shop_area_address,shop_limit_user,shop_edate FROM " . $GLOBALS['gdb']->fun_table('shop')." where company_id=".$GLOBALS['_SESSION']['login_cid']." and shop_state = 1";
+	$strsql = "SELECT shop_id,company_id,shop_name,shop_phone, shop_area_sheng, shop_area_shi,shop_area_address,shop_limit_user,shop_edate FROM " . $GLOBALS['gdb']->fun_table('shop')." where company_id=".$GLOBALS['_SESSION']['login_cid']." and shop_state = 1 order by shop_id desc";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	if(!empty($arr)){
 		foreach($arr as &$val){
-			$strsql = "SELECT region_name FROM ".$GLOBALS['gdb']->fun_table('region')." where region_id =".$arr['shop_area_sheng'];
+			$strsql = "SELECT region_name FROM ".$GLOBALS['gdb']->fun_table('region')." where region_id =".$val['shop_area_sheng'];
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$val['province'] = $GLOBALS['gdb']->fun_fetch_assoc($hresult)['region_name'];
 
-			$strsql = "SELECT region_name FROM ".$GLOBALS['gdb']->fun_table('region')." where region_id =".$arr['shop_area_shi'];
+			$strsql = "SELECT region_name FROM ".$GLOBALS['gdb']->fun_table('region')." where region_id =".$val['shop_area_shi'];
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$val['city'] = $GLOBALS['gdb']->fun_fetch_assoc($hresult)['region_name'];
 		}
 	}
+	/*echo "<pre>";
+	var_dump($arr);
+	echo "</pre>";
+	exit;*/
 	return $arr;
 }
 

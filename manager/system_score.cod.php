@@ -101,10 +101,10 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">搜索：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="卡号/姓名/手机号">
+            <input class="am-form-field uinput uinput-max csearch" type="text" placeholder="卡号/姓名/手机号">
           </div>
           <div class="umodal-search">
-              <button type="button" class="am-btn ubtn-search2 ubtn-green">
+              <button type="button" class="am-btn ubtn-search2 ubtn-green ccard_search">
                 <i class="iconfont icon-search"></i>
                 查询
               </button>
@@ -115,15 +115,15 @@
         </div>
         <div class="am-form-group" style="margin-bottom:0px;">
           <label class="umodal-label am-form-label" for="">会员卡号：</label>
-          <div class="umodal-text" style="width:200px;">1001</div>
+          <div class="umodal-text ccard_code" style="width:200px;">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">会员姓名：</label>
-          <div class="umodal-text">张晓明</div>
+          <div class="umodal-text ccard_name">&nbsp;</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">手机号码：</label>
-          <div class="umodal-text" style="width:200px;">15690859087</div>
+          <div class="umodal-text ccard_phone" style="width:200px;">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">积分：</label>
-          <div class="umodal-text">2180</div>
+          <div class="umodal-text ccard_yscore">&nbsp;</div>
         </div>
         <div class="am-scrollable-vertical uscroll-table">
           <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" style="width:100%;">
@@ -136,145 +136,22 @@
               </tr>
             </thead>
             <tbody>
+            <?php foreach($this->_data['gift_list'] as $row){?>
               <tr>
                 <td>        
                   <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
+                    <input type="checkbox" id="ajoin1" value="1" data-am-ucheck>&nbsp;
                   </label>
                 </td>
-                <td>香皂</td>
-                <td>800</td>
+                <td><?php echo $row['gift_name'];?></td>
+                <td><?php echo $row['gift_score'];?></td>
                 <td>
                   <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
                   <input type="text" name="adcd" class="uinputmin1" value="1">
                   <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>      
-              <tr>
-                <td>
-                  <label class="am-checkbox-inline" style="margin:0px;">
-                    <input type="checkbox" id="ajoin1" value="" data-am-ucheck>&nbsp;
-                  </label>
-                </td>
-                <td>洗衣粉</td>
-                <td>1200</td>
-                <td>
-                  <a href="javascript:;" class="ufont1 cbtndec"><i class="am-icon-minus"></i></a>
-                  <input type="text" name="adcd" class="uinputmin1" value="1">
-                  <a href="javascript:;" class="ufont1 cbtnplus"><i class="am-icon-plus" aria-hidden="true"></i></a>
-                </td>
-              </tr>
+            <?php }?>
             </tbody>
           </table>
         </div>
@@ -320,18 +197,36 @@ $(function() {
       }
     });
   });
+
+  $('.ccard_search').on('click' ,function(){
+    var search = $('#usystem_scorem1 .csearch').val();
+    $.getJSON('card_search_ajax.php' ,{search:search} ,function(res){
+      //可能会有多个，暂时只处理第一个
+      res = res[0];
+      $('#usystem_scorem1 .ccard_code').text(res.card_code);
+      $('#usystem_scorem1 .ccard_name').text(res.card_name);
+      $('#usystem_scorem1 .ccard_phone').text(res.card_phone);
+      $('#usystem_scorem1 .ccard_yscore').text(res.s_card_yscore);
+      
+      // $('#usystem_scorem1 .ccard_code').text(res.card_code);
+      // $('#usystem_scorem1 .ccard_code').text(res.card_code);
+    })
+  })
+
+
+  // + -
+  $(document).on("click", ".cbtndec", function() {
+    var _self= $(this).siblings('input');
+    if(parseInt(_self.val())>=1)
+      _self.val(parseInt(_self.val())-1);
+  });
+  $(document).on("click", ".cbtnplus", function() {
+    var _self= $(this).siblings('input');
+    _self.val(parseInt(_self.val())+1);
+});
 });
 
-// + -
-$(document).on("click", ".cbtndec", function() {
-  var _self= $(this).siblings('input');
-  if(parseInt(_self.val())>=1)
-    _self.val(parseInt(_self.val())-1);
-});
-$(document).on("click", ".cbtnplus", function() {
-  var _self= $(this).siblings('input');
-  _self.val(parseInt(_self.val())+1);
-});
+
 </script>
 </body>
 </html>

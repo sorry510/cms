@@ -1,10 +1,8 @@
 <?php
 define('C_CNFLY', true);
-<<<<<<< HEAD
-error_reporting(0); 
-=======
 
->>>>>>> af4f340007da4a42dfe9cb28add6d51b4bbf5878
+error_reporting(0); 
+
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 

@@ -5,6 +5,7 @@ if(!defined('C_CNFLY')) {
 
 $gconfig = array();
 $gconfig['path']['photo'] = C_ROOT.'/photo';
+$gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo';
 $gconfig['system']['guimo'][1] = '0-10人';
 $gconfig['system']['guimo'][2] = '10-30人';
 $gconfig['system']['guimo'][3] = '30-100人';

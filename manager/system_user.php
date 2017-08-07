@@ -5,16 +5,21 @@ require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'system';
 
-$strshop_id = api_value_post('shop_id');
+$strshop_id = api_value_get('shop_id');
 $intshop_id = api_value_int0($strshop_id);
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('user_list', get_user_list());
 $gtemplate->fun_assign('shop_list', get_shop_list());
-$gtemplate->fun_assign('shop_id', $intshop_id);
 $gtemplate->fun_show('system_user');
 
+function get_request(){
+	$arr = array();
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
+	return $arr;
+}
 
 function get_user_list(){
 	$intallcount = 0;
@@ -68,7 +73,7 @@ function get_user_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT a.user_type, a.user_id, a.shop_id, a.user_account , a.user_name , a.shop_id ,b.shop_name FROM (SELECT * FROM ". $GLOBALS['gdb']->fun_table2('user')." WHERE 1=1 ". $strwhere. " ORDER BY user_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") AS a, ". $GLOBALS['gdb']->fun_table('shop') . " AS b WHERE a.shop_id = b.shop_id ";
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT user_id,shop_id,user_type,user_account,user_name FROM ". $GLOBALS['gdb']->fun_table2('user')." WHERE 1=1 ". $strwhere. " ORDER BY user_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
@@ -93,13 +98,10 @@ function get_user_list(){
 
 function get_shop_list(){
 	$arr = array();
-	$strsql = "SELECT shop_name ,shop_id FROM ". $GLOBALS['gdb']->fun_table('shop')." WHERE company_id = 1 ORDER BY shop_id";
+	$strsql = "SELECT shop_name ,shop_id FROM ". $GLOBALS['gdb']->fun_table('shop')." WHERE company_id = ".$GLOBALS['_SESSION']['login_cid']." ORDER BY shop_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
-
-
-
 
 ?>

@@ -13,13 +13,18 @@ $strsearch = api_value_get('strsearch');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
-$gtemplate->fun_assign('shop_id', $intshop_id);
-$gtemplate->fun_assign('worker_group_id', $intworker_group_id);
-$gtemplate->fun_assign('strsearch', $strsearch);
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('worker_group_list', get_worker_group_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_show('worker_manage');
+
+function get_request(){
+	$arr = array();
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
+	$arr['worker_group_id'] = $GLOBALS['intworker_group_id'];
+	$arr['search'] = $GLOBALS['strsearch'];
+}
 
 function get_shop_list() {
 	$arr = array();
@@ -108,6 +113,4 @@ function get_worker_list() {
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
-
-
 ?>

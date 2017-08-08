@@ -199,6 +199,7 @@ $('.caddsubmit').on('click', function(){
 $('.cedit').on('click', function(){
   var shop_id = $(this).val();
   $('#usystem_shopm2 input[name="shop_id"]').val(shop_id);
+  $('#usystem_shopm2 .ccity').find('option').remove();
   var city_id = 0;
   $.ajax({
     url:'system_shop_edit_ajax.php',
@@ -244,6 +245,7 @@ $('.cedit').on('click', function(){
 //关闭修改框删除select
 $('#usystem_shopm2').on('close.modal.amui', function(){
     $('#usystem_shopm2 .cprovince').selected('destroy');
+    $('#usystem_shopm2 .ccity').selected('destroy');
 });
 // edit-submit
 $('.ceditsubmit').on('click', function(){

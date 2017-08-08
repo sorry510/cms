@@ -500,7 +500,7 @@ $('.cmodelopen4').on('click', function(e) {
   $('#ustorem3').modal('open');
 });
 
-// 添加商品打开
+// 添加商品
 $('.cadd').on('click', cadd);
 
 //弹出框中的查询

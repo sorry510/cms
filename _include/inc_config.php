@@ -13,6 +13,13 @@ $gconfig['system']['guimo'][4] = '100人以上';
 $gconfig['system']['xingzhi'][1] = '服务业';
 $gconfig['system']['xingzhi'][2] = '汽车业';
 $gconfig['system']['xingzhi'][3] = '餐饮业';
+$gconfig['worker']['education'][1] = '小学';
+$gconfig['worker']['education'][2] = '初中';
+$gconfig['worker']['education'][3] = '高中';
+$gconfig['worker']['education'][4] = '专科';
+$gconfig['worker']['education'][5] = '本科';
+$gconfig['worker']['education'][6] = '研究生';
+$gconfig['worker']['education'][7] = '博士';
 
 
 require(C_ROOT . '/_include/cls_mysql.php');

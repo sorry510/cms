@@ -38,7 +38,7 @@ switch($strflag){
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		
 		foreach($arr as $k=>$v){
-			$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE 1=1 ". $strwheremgoods . " AND mgoods_catalog_id = ". $v['mgoods_catalog_id'] ." and mgoods_type=2 ORDER BY mgoods_id";
+			$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE 1=1 ". $strwheremgoods . " AND mgoods_catalog_id = ". $v['mgoods_catalog_id'] ." and mgoods_type=2 and mgoods_state=1 ORDER BY mgoods_id";
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 			$arr[$k]['mgoods'] = $arrmgoods;
@@ -57,7 +57,7 @@ switch($strflag){
 		$arr2 = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
 		foreach($arr2 as $k=>$v){
-			$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE 1=1 ". $strwheresgoods . " AND sgoods_catalog_id = ". $v['sgoods_catalog_id'] ." and sgoods_type=2 ORDER BY sgoods_id";
+			$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE 1=1 ". $strwheresgoods . " AND sgoods_catalog_id = ". $v['sgoods_catalog_id'] ." and sgoods_type=2 and sgoods_state=1 ORDER BY sgoods_id";
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arrsgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 			$arr2[$k]['sgoods'] = $arrsgoods;
@@ -84,7 +84,7 @@ switch($strflag){
 		
 		
 		foreach($arr as $k=>$v){
-			$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE 1=1 ". $strwheremgoods . " AND mgoods_catalog_id = ". $v['mgoods_catalog_id'] ." AND mgoods_type=2 ORDER BY mgoods_id";
+			$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE 1=1 ". $strwheremgoods . " AND mgoods_catalog_id = ". $v['mgoods_catalog_id'] ." AND mgoods_type=2 and mgoods_state=1 ORDER BY mgoods_id";
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 			$arr[$k]['mgoods'] = $arrmgoods;
@@ -111,7 +111,7 @@ switch($strflag){
 		
 		
 		foreach($arr as $k=>$v){
-			$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE 1=1 ". $strwheremgoods . " AND sgoods_catalog_id = ". $v['sgoods_catalog_id'] ." AND sgoods_type=2 ORDER BY sgoods_id";
+			$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE 1=1 ". $strwheremgoods . " AND sgoods_catalog_id = ". $v['sgoods_catalog_id'] ." AND sgoods_type=2 and sgoods_state=1 ORDER BY sgoods_id";
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arrsgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 			$arr[$k]['sgoods'] = $arrsgoods;

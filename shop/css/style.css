@@ -125,7 +125,7 @@
 
 /*积分换礼页面*/
 #ubody .uinput2 .uinput-35{margin-bottom:2px;}
-#ubody table a{color:#000000;}
+/*#ubody table a{color:#000000;}*/
 /*打印设置*/
 #system_print .uform1 .ua{margin-bottom:5px;line-height:36px;}
 #system_print .uform1 .ua .ua1{padding-right: 0px;padding-left:0px; font-weight: normal; text-align: right;}
@@ -146,3 +146,5 @@
 #ubody .umodal .umain1 .ulist2 .ua1{padding-left:20px; margin-bottom:2px;}
 #ubody .umodal .umain1 .ulist2 .ua2{padding-left:10px; margin-bottom:2px;}
 #ubody .umodal .umain1 .ulist2 .ua3{float:right; margin-right:25px; margin-bottom:2px; display:inline-block;}
+/*员工管理页面*/
+#uworkeroff1 .uphoto{width:200px; height:300px;}

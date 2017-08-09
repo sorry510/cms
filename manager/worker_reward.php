@@ -10,11 +10,12 @@ $gtemplate->fun_assign('sgoods_list', get_sgoods_list());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
 $gtemplate->fun_assign('group_reward_list', get_group_reward_list());
+$gtemplate->fun_assign('mcombo', get_mcombo());
 $gtemplate->fun_show('worker_reward');
 
 function get_mgoods_catalog_list(){
 	$arr = array();
-	$strsql = "SELECT mgoods_catalog_id, mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." ORDER BY mgoods_catalog_id";
+	$strsql = "SELECT mgoods_catalog_id, mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." ORDER BY mgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
@@ -22,7 +23,7 @@ function get_mgoods_catalog_list(){
 }
 function get_sgoods_catalog_list(){
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." ORDER BY sgoods_catalog_id";
+	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." ORDER BY sgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
@@ -32,7 +33,7 @@ function get_sgoods_catalog_list(){
 function get_mgoods_list() {
 	$arr = array();
 	$arrmgoods = array();
-	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id";
+	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	
@@ -55,22 +56,31 @@ function get_sgoods_list() {
 	foreach($arr as $k=>$v){
 		$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE sgoods_catalog_id = ".$v['sgoods_catalog_id']." ORDER BY sgoods_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
-		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		$arrsgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$arr[$k]['sgoods'] = $arrsgoods;
 	}
+	// echo "<pre>";
+	// echo var_dump($arr);
+	// echo "</pre>";
+	// exit;
 	return $arr;
 } 
 
 function get_group_reward_list(){
 	$arr = array();
-	$strsql = "SELECT a.worker_group_id, a.worker_group_name, b.worker_group_id, b.group_reward_ctime FROM " . $GLOBALS['gdb']->fun_table2('worker_group')."  AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('group_reward') . " AS b ON a.worker_group_id = b.worker_group_id ORDER BY a.worker_group_id";
+	$strsql = "SELECT a.*,b.group_reward_ctime FROM (SELECT worker_group_id, worker_group_name FROM " . $GLOBALS['gdb']->fun_table2('worker_group')." ORDER BY worker_group_id desc)  AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('group_reward') . " AS b ON a.worker_group_id = b.worker_group_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
 	return $arr;
 }
 
-
+function get_mcombo(){
+	$arr = array();
+	$strsql = 'SELECT mcombo_id,mcombo_price, mcombo_name FROM ' . $GLOBALS['gdb']->fun_table2('mcombo') . ' WHERE mcombo_state = 1 order by mcombo_id desc';
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
 
 
 ?>

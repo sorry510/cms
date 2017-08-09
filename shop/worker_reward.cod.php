@@ -98,10 +98,10 @@
                 <select class="uselect uselect-max cgoods_catalog" name="goods_catalog" data-am-selected>
                   <option value="0">全部</option>
                   <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-                  <option value="m<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                  <option value="m-<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
                   <?php } ?>
                   <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-                  <option value="s<?php echo $row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
+                  <option value="s-<?php echo $row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -204,18 +204,18 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function(){
-  $('.cmodalopen1').on('click', function(e) {
-    $('#uworker_rewardm2').modal('close');
-    $('#uworker_rewardm1').modal('open');
-    $('#uworker_rewardm1 input').eq(0).focus();
-  });
-  $('.cmodalopen2').on('click', function(e) {
-    $('#uworker_rewardm1').modal('close');
-    $('#uworker_rewardm2').modal('open');
-    $('#uworker_rewardm2 input').eq(0).focus();
-  });
-})
+
+$('.cmodalopen1').on('click', function(e) {
+  $('#uworker_rewardm2').modal('close');
+  $('#uworker_rewardm1').modal('open');
+  $('#uworker_rewardm1 input').eq(0).focus();
+});
+$('.cmodalopen2').on('click', function(e) {
+  $('#uworker_rewardm1').modal('close');
+  $('#uworker_rewardm2').modal('open');
+  $('#uworker_rewardm2 input').eq(0).focus();
+});
+
 $(document).on('click','.abat',function(){
   $("[id*='abfb']").val($("#abfball").val());
   $("[id*='agdz']").val($("#agdzall").val());
@@ -230,8 +230,8 @@ $('.cupdate').on('click',function(){
     type: "GET",
     dataType:"json",
     url: "worker_reward_ajax.php",
-    data: {worker_group_id:worker_group_id}, 
-    success: function(msg){
+    data: {worker_group_id:worker_group_id}
+  }).then(function(msg){
       console.log(msg.group_reward_pfill);
       $("#uworker_rewardm1 input[name='group_reward_create']").val(msg.group_reward_create);
       if(msg.group_reward_pfill == 0){
@@ -253,7 +253,6 @@ $('.cupdate').on('click',function(){
         $('#uworker_rewardm1 .cworker_group_dg').selected();
         $("#uworker_rewardm1 input[name='cworker_group_dg1']").val(msg.group_reward_pguide);
       }
-    }
   });
 });
 
@@ -291,15 +290,6 @@ $('.csearch-form1').on('click',function(){
     }
   });
 });
-
-
-
-
-
-
-
-
-
 
 </script>
 </body>

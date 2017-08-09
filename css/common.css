@@ -118,11 +118,13 @@
 #ubody .uinput.uinput-max {width:100%;}
 #ubody .uinput.uinput-220 {width:220px;}
 #ubody .uinput.uinput-160 {width:160px;}
+#ubody .uinput.uinput-60 {width:60px;}
 /*小输入框样式*/
 #ubody .uinput2 {display:inline-block; height:28px; line-height:28px; border:1px solid #CCCCCC; border-radius:3px; font-size:1.4rem;}
 #ubody .uinput2:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
 #ubody .uinput2.uinput-max {width:100%;}
 #ubody .uinput2.uinput-35 {width:35px; height:24px; line-height:24px; text-align:center;}
+#ubody .uinput2.uinput-60 {width:60px;}
 
 /*文件上传样式*/
 #ubody .am-form-file > button {width:100%; height:36px;}

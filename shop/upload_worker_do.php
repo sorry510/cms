@@ -11,8 +11,9 @@ $sqlworker_photo_name = $gdb->fun_escape($strworker_photo_name);
 $straddress = api_value_post('address');
 $sqladdress = $gdb->fun_escape($straddress);
 
-$intnow = time();
+$intnow = time().rand(1,5000)*rand(1,5000);//多次执行可能时间相同导致图片被覆盖
 
+// echo $intnow;
 $intreturn = 0;
 $strext = strtolower(strrchr($_FILES[$sqlworker_photo_name]['name'], '.'));
 $intlength = $_FILES[$sqlworker_photo_name]['size'];

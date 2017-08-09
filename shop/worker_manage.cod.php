@@ -94,9 +94,10 @@
   </table>
   <ul class="am-pagination am-pagination-centered upages">
     <li class="upage-info">共<?php echo $this->_data['worker_list']['pagecount']; ?>页 <?php echo $this->_data['worker_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagenext']); ?>">&raquo;</a></li>
+    <li class="cfirst am-disabled"><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagepre']); ?>">&laquo;</a></li>
+    <li class="am-active"><a href="#"><?php echo $this->_data['worker_list']['pagenow'];?></a></li>
+    <li class="clast"><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagenext']); ?>">&raquo;</a></li>
+    <li>，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:50px;height: 26px;line-height:26px;vertical-align:bottom;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>
   </ul>
 </div>
 
@@ -196,7 +197,8 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的照片
             </button>
-            <input name="worker_photo1" type="file" id="cworker_photo1">
+            <input id="cworker_photo1" class="cfile" name="worker_photo1" type="file">
+            <div class="file-list"></div>
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label">身份证照：</label>
@@ -204,7 +206,8 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的照片
             </button>
-            <input name="worker_photo2" type="file" id="cworker_photo2">
+            <input id="cworker_photo2" class="cfile" name="worker_photo2" type="file">
+            <div class="file-list"></div>
           </div>
         </div>
         <div class="am-form-group">
@@ -346,7 +349,8 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的照片
             </button>
-            <input type="file" name="cworker_photo3" id="cworker_photo3">
+            <input id="cworker_photo3" class="cfile" name="worker_photo3" type="file">
+            <div class="file-list"></div>
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label">身份证照：</label>
@@ -354,7 +358,8 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的照片
             </button>
-            <input type="file" name="cworker_photo4" id="cworker_photo4">
+            <input id="cworker_photo4" class="cfile" name="worker_photo4" type="file">
+            <div class="file-list"></div>
           </div>
         </div>
         <div class="am-form-group">
@@ -584,7 +589,7 @@
       </div>
       <div class="gspace15"></div>
       <div class="am-g ucontent">
-        <div class="am-u-lg-6">分店：<span class="cshop_name">&nbsp;</span></div>
+        <div class="am-u-lg-6">分店名称：<span class="cshop_name">&nbsp;</span></div>
         <div class="am-u-lg-6">员工分组：<span class="cworker_group_name">&nbsp;</span></div>
         <div class="am-u-lg-6">员工姓名：<span class="cworker_name">&nbsp;</span></div>
         <div class="am-u-lg-6">员工编号：<span class="cworker_code">&nbsp;</span></div>
@@ -626,12 +631,22 @@
 <script src="../js/ajaxfileupload.js"></script>
 <script>
 //分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
+if(<?php echo $this->_data['worker_list']['pagenow'];?>>1){
+  $('.upages li.cfirst').removeClass('am-disabled');
 }
-if(<?php echo $this->_data['worker_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
+if(<?php echo $this->_data['worker_list']['pagecount']-$this->_data['worker_list']['pagenow']; ?><1){
+  $('.upages li.clast').addClass('am-disabled');
 }
+
+function page_do() {
+  var intpage = parseInt(document.getElementById("idpagego").value);
+  if(isNaN(intpage)) {
+    alert("请输入正确的页码！");
+  } else {
+    window.location = "worker_manage.php?<?php echo api_value_query($this->_data['request']); ?>&page=" + intpage;
+  }
+}
+
 //下一步
 $('.cmodelopen').on('click', function(e) {
   $('#uworker_managem1').modal('close');
@@ -651,6 +666,14 @@ $('.cmodelopen4').on('click', function(e) {
   $('#uworker_managem2').modal('open');
 });
 
+//文件上传
+$('.cfile').on('change', function() {
+  var fileNames = '';
+  $.each(this.files, function() {
+    fileNames += '<span class="am-badge">' + this.name + '</span> ';
+  });
+  $(this).siblings('.file-list').html(fileNames);
+});
 //弹出框中的查询
 $('.cgoods_search').on('click',searchGoods);
 // 添加商品
@@ -662,8 +685,10 @@ $('.cgoodsadd').on('click',add2);
 $('.cworkeradd').on('click', function(){
   // $(this).attr('disabled',true);
   var url="worker_manage_add_do.php";
+  var count=0;
   var arr= [];
   var json = {};
+  var worker_id = 0;
   $("#uworker_managem3 .cnum").each(function(k,v){
     if($(this).attr('mgoods_id')){
       json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'mgoods_name':$(this).attr('mgoods_name')};
@@ -693,58 +718,66 @@ $('.cworkeradd').on('click', function(){
     data:data,
     type:'POST'
   }).then(function(res){
-    // console.log(res);
     if(res!='error'){
-      $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
-        secureuri:false,
-        fileElementId:'cworker_photo1',//与页面处理代码中file相对应的ID值
-        data:{worker_id:res,worker_photo_name:'worker_photo1',address:'worker_photo_file'},
-        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-        success: function (data) {
-          //console.log(data);
-          // $('.ccardaddsubmit').attr('disabled',false);
-          // if(data == '0'){
-          //   window.location.href='card.php';
-          // }else{
-          //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-          //   $('#ualert').modal('open');
-          //   $('.ccardrechargesubmit').attr('disabled',false);
-          //   return false;
-          // }
-        }
-      });
-      $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
-        secureuri:false,
-        fileElementId:'cworker_photo2',//与页面处理代码中file相对应的ID值
-        data:{worker_id:res,worker_photo_name:'worker_photo2',address:'worker_identity_file'},
-        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-        success: function (data) {
-          //console.log(data);
-          /*$('.ccardaddsubmit').attr('disabled',false);
-          if(data == '0'){
-            window.location.href='card.php';
-          }else{
-            $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-            $('#ualert').modal('open');
-            $('.ccardrechargesubmit').attr('disabled',false);
-            return false;
-          }*/
-        }
-      });
+      worker_id = res;
     }else{
       alert('添加失败');
       console.log(res);
     }
   }).then(function(){
-    window.location.href='worker_manage.php';
+    $.ajaxFileUpload ({
+      url:'upload_worker_do.php', //你处理上传文件的服务端
+      secureuri:false,
+      fileElementId:'cworker_photo1',//与页面处理代码中file相对应的ID值
+      data:{worker_id:worker_id,worker_photo_name:'worker_photo1',address:'worker_photo_file'},
+      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+      success: function (data) {
+        count++;
+        // console.log(data);
+        // $('.ccardaddsubmit').attr('disabled',false);
+        // if(data == '0'){
+        //   window.location.href='card.php';
+        // }else{
+        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+        //   $('#ualert').modal('open');
+        //   $('.ccardrechargesubmit').attr('disabled',false);
+        //   return false;
+        // }
+      }
+    });
+  }).then(function(){
+    $.ajaxFileUpload ({
+      url:'upload_worker_do.php', //你处理上传文件的服务端
+      secureuri:false,
+      fileElementId:'cworker_photo2',//与页面处理代码中file相对应的ID值
+      data:{worker_id:worker_id,worker_photo_name:'worker_photo2',address:'worker_identity_file'},
+      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+      success: function (data) {
+        count++;
+        // console.log(data);
+        // $('.ccardaddsubmit').attr('disabled',false);
+        // if(data == '0'){
+        //   window.location.href='card.php';
+        // }else{
+        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+        //   $('#ualert').modal('open');
+        //   $('.ccardrechargesubmit').attr('disabled',false);
+        //   return false;
+        // }
+      }
+    });
+  }).then(function(){
+    setInterval(function(){
+      if(count===2)
+        window.location.href='worker_manage.php';
+    }, 200)
   });
 });
 
 //修改打开
 $('.cedit').on('click', function(){
   var worker_id = $(this).val();
+  $("#uworker_managem4 .uright .uc li").remove();/*删除之前可能存在的商品*/
   $("#uworker_managem2 .cworker_id").val(worker_id);
   $.ajax({
     type: "GET",
@@ -752,7 +785,7 @@ $('.cedit').on('click', function(){
     data: {worker_id:worker_id}, 
     dataType:'json',
     success: function(res){
-      console.log(res);
+      // console.log(res);
       if(res){
         $("#uworker_managem2 .cshop_id").val(res.shop_id);
         $("#uworker_managem2 .cshop_id").selected();
@@ -798,12 +831,10 @@ $('#uworker_managem2').on('close.modal.amui', function(){
   $('#uworker_managem2 .cworker_group_id').selected('destroy');
   $('#uworker_managem2 .cworker_education').selected('destroy');
 });
-// 关闭修改弹出框时删除商品
-$('#uworker_managem4').on('close.modal.amui', function(){
-  $("#uworker_managem4 .uright .uc li").remove();
-});
+
 // 修改提交
 $('.cworkeredit').on('click', function(){
+  var count = 0;
   var url="worker_manage_edit_do.php";
   var worker_id = $('#uworker_managem2 .cworker_id').val();
   var arr= [];
@@ -838,52 +869,58 @@ $('.cworkeredit').on('click', function(){
     data:data,
     type:'POST'
   }).then(function(res){
-    // console.log(res);
-    if(res=='0'){
-      $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
-        secureuri:false,
-        fileElementId:'cworker_photo3',//与页面处理代码中file相对应的ID值
-        data:{worker_id:worker_id,worker_photo_name:'worker_photo3',address:'worker_photo_file'},
-        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-        success: function (data) {
-          //console.log(data);
-          // $('.ccardaddsubmit').attr('disabled',false);
-          // if(data == '0'){
-          //   window.location.href='card.php';
-          // }else{
-          //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-          //   $('#ualert').modal('open');
-          //   $('.ccardrechargesubmit').attr('disabled',false);
-          //   return false;
-          // }
-        }
-      });
-      $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
-        secureuri:false,
-        fileElementId:'cworker_photo4',//与页面处理代码中file相对应的ID值
-        data:{worker_id:worker_id,worker_photo_name:'worker_photo4',address:'worker_identity_file'},
-        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-        success: function (data) {
-          //console.log(data);
-          /*$('.ccardaddsubmit').attr('disabled',false);
-          if(data == '0'){
-            window.location.href='card.php';
-          }else{
-            $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-            $('#ualert').modal('open');
-            $('.ccardrechargesubmit').attr('disabled',false);
-            return false;
-          }*/
-        }
-      });
-    }else{
+    if(res!='0'){
       alert('修改失败');
+      count=10;
       console.log(res);
     }
   }).then(function(){
-    window.location.href='worker_manage.php';
+    $.ajaxFileUpload ({
+      url:'upload_worker_do.php', //你处理上传文件的服务端
+      secureuri:false,
+      fileElementId:'cworker_photo3',//与页面处理代码中file相对应的ID值
+      data:{worker_id:worker_id,worker_photo_name:'worker_photo3',address:'worker_photo_file'},
+      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+      success: function (data) {
+        count++;
+        console.log(data);
+        // $('.ccardaddsubmit').attr('disabled',false);
+        // if(data == '0'){
+        //   window.location.href='card.php';
+        // }else{
+        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+        //   $('#ualert').modal('open');
+        //   $('.ccardrechargesubmit').attr('disabled',false);
+        //   return false;
+        // }
+      }
+    });
+  }).then(function(){
+    $.ajaxFileUpload ({
+      url:'upload_worker_do.php', //你处理上传文件的服务端
+      secureuri:false,
+      fileElementId:'cworker_photo4',//与页面处理代码中file相对应的ID值
+      data:{worker_id:worker_id,worker_photo_name:'worker_photo4',address:'worker_identity_file'},
+      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+      success: function (data) {
+        count++;
+        // console.log(data);
+        // $('.ccardaddsubmit').attr('disabled',false);
+        // if(data == '0'){
+        //   window.location.href='card.php';
+        // }else{
+        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+        //   $('#ualert').modal('open');
+        //   $('.ccardrechargesubmit').attr('disabled',false);
+        //   return false;
+        // }
+      }
+    });
+  }).then(function(){
+    setInterval(function(){
+      if(count===2)
+        window.location.reload();
+    }, 200)
   });
 })
 
@@ -892,7 +929,13 @@ $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,
     onConfirm: function(options) {
-      $(this.relatedTarget).parent('td').parent('tr').remove();
+      $.post('worker_manage_delete_do.php', {worker_id:$(this.relatedTarget).val()}, function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          alert('删除失败');
+        }
+      })
     },
     onCancel: function() {
       return;
@@ -949,18 +992,6 @@ $('.coffcanvasopen').on('click', function(){
 /*右侧弹出框关闭按钮JS*/
 $('.doc-oc-js').on('click', function() {
   $('#uworkeroff1').offCanvas($(this).data('rel'));
-});
-
-$('.cdel').on('click', function() {
-  $('#cconfirm').modal({
-    relatedTarget: this,
-    onConfirm: function(options) {
-      $(this.relatedTarget).parent('td').parent('tr').remove();
-    },
-    onCancel: function() {
-      return;
-    }
-  });
 });
 
 

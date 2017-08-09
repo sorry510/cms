@@ -927,7 +927,17 @@ $(function() {
         type:"POST",
       }).then(function(res){
         // console.log(res);
-        if(res!='0'){
+        if(res=='error'){
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
+          $('#ualert').modal('open');
+          $('.ccardrechargesubmit').attr('disabled',false);
+          return false;
+        }else if(res=='error2'){
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
+          $('#ualert').modal('open');
+          $('.ccardrechargesubmit').attr('disabled',false);
+          return false;
+        }else{
           $.ajaxFileUpload ({
             url:'upload_do.php', //你处理上传文件的服务端
             secureuri:false, //与页面处理代码中file相对应的ID值
@@ -948,16 +958,6 @@ $(function() {
             }
           });
           window.location.href='card.php';
-        }else if(res=='error'){
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
-          $('#ualert').modal('open');
-          $('.ccardrechargesubmit').attr('disabled',false);
-          return false;
-        }else{
-          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>新增会员失败</span>");
-          $('#ualert').modal('open');
-          $('.ccardrechargesubmit').attr('disabled',false);
-          return false;
         }
       });
     });

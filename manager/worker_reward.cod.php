@@ -262,7 +262,7 @@
         </button>
       </div>
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green csubmitadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="submit" class="am-btn ubtn-sure ubtn-green csubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -285,47 +285,105 @@ $(function(){
   });
 })
 
-// //edit-show
-// $('.cupdate').on('click',function(){
-//   var worker_group_id = $(this).val();
-//   $('#uworker_rewardm1 .cworker_group_id').val(worker_group_id);
-// });
-// //关闭弹出框同时删除select
-// $('#uworker_rewardm1').on('close.modal.amui', function(){
-//   $('#uworker_rewardm1 .cworker_group_cz').selected('destroy');
-//   $('#uworker_rewardm1 .cworker_group_dg').selected('destroy');
-// });
-// //edit-submit
-// $('.csubmit').on('click',function(){
-//   var url = 'worker_reward_add_do.php';
-//   var arr = [];
-//   var json = {};
-//   $("#uworker_rewardm2 .cprice2").each(function(){
-//     if($(this).val() != ''){
-//       if($(this).attr('mgoods_id')){
-//         json = {'mgoods_catalog_id':$(this).attr('mgoods_catalog_id'),'mgoods_id':$(this).attr('mgoods_id'),'money':$(this).val(),'percent':$(this).siblings('input').val()};
-//       }
-//       if($(this).attr('sgoods_id')){
-//         json = {'sgoods_catalog_id':$(this).attr('sgoods_catalog_id'),'sgoods_id':$(this).attr('sgoods_id'),'money':$(this).val(),'percent':$(this).siblings('input').val()};
-//       }
-//       arr.push(json);
-//     }
-//   });
+//edit-show
+$('.cupdate').on('click',function(){
+  var worker_group_id = $(this).val();
+  $('#uworker_rewardm1 .cworker_group_id').val(worker_group_id);
+  $.getJSON('worker_reward_edit_ajax.php', {worker_group_id:worker_group_id}, function(res){
+    // console.log(res);
+    if(res){
+      $('#uworker_rewardm1 .creward_create').val(res.group_reward_create);
+      if(res.group_reward_fill != 0){
+        $('#uworker_rewardm1 .cfill_type').val(2);
+        $('#uworker_rewardm1 .creward_fill').val(res.group_reward_fill);
+      }
+      if(res.group_reward_pfill != 0){
+        $('#uworker_rewardm1 .cfill_type').val(1);
+        $('#uworker_rewardm1 .creward_fill').val(res.group_reward_pfill);
+      }
+      if(res.group_reward_fill == 0 && res.group_reward_pfill == 0){
+        $('#uworker_rewardm1 .cfill_type').val(1);
+        $('#uworker_rewardm1 .creward_fill').val(0);
+      }
+      if(res.group_reward_guide != 0){
+        $('#uworker_rewardm1 .cguide_type').val(2);
+        $('#uworker_rewardm1 .creward_guide').val(res.group_reward_guide);
+      }
+      if(res.group_reward_pguide != 0){
+        $('#uworker_rewardm1 .cguide_type').val(1);
+        $('#uworker_rewardm1 .creward_guide').val(res.group_reward_pguide);
+      }
+      if(res.group_reward_guide == 0 && res.group_reward_pguide == 0){
+        $('#uworker_rewardm1 .cguide_type').val(1);
+        $('#uworker_rewardm1 .creward_guide').val(0);
+      }
+      if(res.goods){
+        $.each(res.goods, function(k,v){
+          if(v.mgoods_id){
+            $("#uworker_rewardm2 .cprice2[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_money);
+            $("#uworker_rewardm2 .cprice1[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_percent);
+          }
+          if(v.sgoods_id){
+            $("#uworker_rewardm2 .cprice2[sgoods_id='"+v.sgoods_id+"']").val(v.group_reward2_money);
+            $("#uworker_rewardm2 .cprice1[sgoods_id='"+v.sgoods_id+"']").val(v.group_reward2_percent);
+          }
+          if(v.mcombo_id){
+            $("#uworker_rewardm2 .cprice2[mcombo_id='"+v.mcombo_id+"']").val(v.group_reward2_money);
+            $("#uworker_rewardm2 .cprice1[mcombo_id='"+v.mcombo_id+"']").val(v.group_reward2_percent);
+          }
+        });
+      }
+    }
+    $('#uworker_rewardm1 .cfill_type').selected();
+    $('#uworker_rewardm1 .cguide_type').selected();
+  })
+});
+//关闭弹出框同时删除select
+$('#uworker_rewardm1').on('close.modal.amui', function(){
+  $('#uworker_rewardm1 .cfill_type').selected('destroy');
+  $('#uworker_rewardm1 .cguide_type').selected('destroy');
+});
+$('#uworker_rewardm2').on('close.modal.amui', function(){
+  $('#uworker_rewardm2 .cprice1').val('');
+  $('#uworker_rewardm2 .cprice2').val('');
+});
+//edit-submit
+$('.csubmit').on('click',function(){
+  var url = 'worker_reward_add_do.php';
+  var arr = [];
+  var json = {};
+  $("#uworker_rewardm2 .cprice2").each(function(){
+    if($(this).val() != ''){
+      if($(this).attr('mgoods_id')){
+        json = {'mgoods_catalog_id':$(this).attr('mgoods_catalog_id'),'mgoods_id':$(this).attr('mgoods_id'),'money':$(this).val(),'percent':$(this).siblings('input').val()};
+      }
+      if($(this).attr('sgoods_id')){
+        json = {'sgoods_catalog_id':$(this).attr('sgoods_catalog_id'),'sgoods_id':$(this).attr('sgoods_id'),'money':$(this).val(),'percent':$(this).siblings('input').val()};
+      }
+      if($(this).attr('mcombo_id')){
+        json = {'mcombo_id':$(this).attr('mcombo_id'),'money':$(this).val(),'percent':$(this).siblings('input').val()};
+      }
+      arr.push(json);
+    }
+  });
   
-//   var data = {
-//     arr:arr,
-//     reward_create:$("#uworker_rewardm1 .creward_create").val(),
-//     reward_fill:$("#uworker_rewardm1 .creward_fill").val(),
-//     fill_type:$("#uworker_rewardm1 .cfill_type").val(),
-//     reward_guide:$("#uworker_rewardm1 .creward_guide").val(),
-//     guide_type:$("#uworker_rewardm1 .cguide_type").val()
-//     worker_group_id:$("#uworker_rewardm1 .cworker_group_id").val()
-//   };
-
-//   $.post(url, data, function(res){
-
-//   });
-// });
+  var data = {
+    arr:arr,
+    reward_create:$("#uworker_rewardm1 .creward_create").val(),
+    reward_fill:$("#uworker_rewardm1 .creward_fill").val(),
+    fill_type:$("#uworker_rewardm1 .cfill_type").val(),
+    reward_guide:$("#uworker_rewardm1 .creward_guide").val(),
+    guide_type:$("#uworker_rewardm1 .cguide_type").val(),
+    worker_group_id:$("#uworker_rewardm1 .cworker_group_id").val()
+  };
+  // console.log(data);
+  $.post(url, data, function(res){
+    // console.log(res);
+    if(res=='0'){
+      window.location.reload();
+    }
+  });
+});
 
 
 //弹出框中的商品查询

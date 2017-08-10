@@ -68,7 +68,7 @@ function get_sgoods_list() {
 
 function get_group_reward_list(){
 	$arr = array();
-	$strsql = "SELECT a.*,b.group_reward_ctime FROM (SELECT worker_group_id, worker_group_name FROM " . $GLOBALS['gdb']->fun_table2('worker_group')." ORDER BY worker_group_id desc)  AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('group_reward') . " AS b ON a.worker_group_id = b.worker_group_id ";
+	$strsql = "SELECT a.worker_group_id,a.worker_group_name,b.group_reward_ctime FROM ". $GLOBALS['gdb']->fun_table2('worker_group')." AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('group_reward') . " AS b ON a.worker_group_id = b.worker_group_id order by a.worker_group_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

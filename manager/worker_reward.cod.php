@@ -50,7 +50,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">充值提成：</label>
           <div class="umodal-short" style="margin-right:10px">
-            <select class="uselect uselect-max cfill_type">
+            <select class="uselect uselect-max cfill_type" data-am-selected>
               <option value="1">百分比</option>
               <option value="2">固定值</option>
             </select>
@@ -62,7 +62,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label cdgtc" for="">导购提成：</label>
           <div class="umodal-short" style="margin-right:10px">
-            <select class="uselect uselect-max cguide_type">
+            <select class="uselect uselect-max cguide_type" data-am-selected>
               <option value="1">百分比</option>
               <option value="2">固定值</option>
             </select>
@@ -287,6 +287,11 @@ $(function(){
 
 //edit-show
 $('.cupdate').on('click',function(){
+  //进入弹出框首先删除，遗留下来的数据
+  $('#uworker_rewardm2 .cprice1').val('');
+  $('#uworker_rewardm2 .cprice2').val('');
+  $('#uworker_rewardm1 .cfill_type').selected('destroy');
+  $('#uworker_rewardm1 .cguide_type').selected('destroy');
   var worker_group_id = $(this).val();
   $('#uworker_rewardm1 .cworker_group_id').val(worker_group_id);
   $.getJSON('worker_reward_edit_ajax.php', {worker_group_id:worker_group_id}, function(res){
@@ -334,18 +339,10 @@ $('.cupdate').on('click',function(){
         });
       }
     }
+    //第一次时添加，没有数据
     $('#uworker_rewardm1 .cfill_type').selected();
     $('#uworker_rewardm1 .cguide_type').selected();
   })
-});
-//关闭弹出框同时删除select
-$('#uworker_rewardm1').on('close.modal.amui', function(){
-  $('#uworker_rewardm1 .cfill_type').selected('destroy');
-  $('#uworker_rewardm1 .cguide_type').selected('destroy');
-});
-$('#uworker_rewardm2').on('close.modal.amui', function(){
-  $('#uworker_rewardm2 .cprice1').val('');
-  $('#uworker_rewardm2 .cprice2').val('');
 });
 //edit-submit
 $('.csubmit').on('click',function(){
@@ -381,6 +378,12 @@ $('.csubmit').on('click',function(){
     // console.log(res);
     if(res=='0'){
       window.location.reload();
+    }else if(res=='1'){
+      alert('添加失败');
+    }else if(res=='2'){
+      alert('更新失败');
+    }else{
+      alert('更新商品失败');
     }
   });
 });

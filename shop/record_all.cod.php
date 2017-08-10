@@ -194,8 +194,7 @@
 <script src="../js/amazeui.min.js"></script>
 <script>
   $(function() {
-    var id = '#uoffcanvas';
-    var $myOc = $(id);
+   
 
     //分页首末页不可选中
     if(<?php echo $GLOBALS['intpage'];?>>1){
@@ -204,6 +203,9 @@
     if(<?php echo $this->_data['card_records_list']['pagecount']-$GLOBALS['intpage']; ?><1){
       $('.upages li').last().addClass('am-disabled');
     }
+
+    var id = '#uoffcanvas';
+    var $myOc = $(id);
     //关闭侧拉
     $('.doc-oc-js').on('click', function() {
       $myOc.offCanvas($(this).data('rel'));
@@ -309,7 +311,7 @@
     //侧拉关闭删除商品信息
     $myOc.on('close.offcanvas.amui', function() {
       $myOc.find('.cjs').remove();
-    })
+    });
     //退款打开
     $('.crefundopen').on('click',function(){
       var card_record_id = $(this).val();

@@ -11,7 +11,7 @@ $gtemplate->fun_show('system_shop');
 
 function get_shop_info() {
 	$arr = array();
-	$strsql = "SELECT shop_id,company_id,shop_name,shop_phone, shop_area_sheng, shop_area_shi,shop_area_address,shop_limit_user,shop_edate FROM " . $GLOBALS['gdb']->fun_table('shop')." where company_id=".$GLOBALS['_SESSION']['login_cid']." and shop_state = 1 order by shop_id desc";
+	$strsql = "SELECT shop_id,company_id,shop_name,shop_phone, shop_area_sheng, shop_area_shi,shop_area_jing,shop_area_wei,shop_area_address,shop_limit_user,shop_edate FROM " . $GLOBALS['gdb']->fun_table('shop')." where company_id=".$GLOBALS['_SESSION']['login_cid']." and shop_state = 1 order by shop_id desc";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

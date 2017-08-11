@@ -8,7 +8,7 @@ $sqlcard_type_name = $gdb->fun_escape($strcard_type_name);
 $strcard_type_name_old = api_value_post('card_type_name_old');
 $sqlcard_type_name_old = $gdb->fun_escape($strcard_type_name_old);
 $strcard_type_discount = api_value_post('card_type_discount');
-$intcard_type_discount = api_value_int0($strcard_type_discount);
+$deccard_type_discount = api_value_decimal($strcard_type_discount,1);
 $strcard_type_info = api_value_post('card_type_info');
 $sqlcard_type_info = $gdb->fun_escape($strcard_type_info);
 $strcard_type_id = api_value_post('card_type_id');
@@ -28,7 +28,7 @@ if($sqlcard_type_name != $sqlcard_type_name_old){
 }
 
 if($intreturn == 0) {
-	$strsql = "UPDATE " . $gdb->fun_table2('card_type') . " SET card_type_name = '". $sqlcard_type_name ."' , card_type_discount = ".$intcard_type_discount.", card_type_info = '".$sqlcard_type_info."',card_type_ctime = ".$ctime." WHERE card_type_id = " . $intcard_type_id . " LIMIT 1" ;
+	$strsql = "UPDATE " . $gdb->fun_table2('card_type') . " SET card_type_name = '". $sqlcard_type_name ."' , card_type_discount = ".$deccard_type_discount.", card_type_info = '".$sqlcard_type_info."',card_type_ctime = ".$ctime." WHERE card_type_id = " . $intcard_type_id . " LIMIT 1" ;
 	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {

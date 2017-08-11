@@ -21,6 +21,8 @@ $strmgoods_type = api_value_post('mgoods_type');
 $intmgoods_type = api_value_int0($strmgoods_type);
 $strmgoods_act = api_value_post('mgoods_act');
 $intmgoods_act = api_value_int0($strmgoods_act);
+$strmgoods_reserve = api_value_post('mgoods_reserve');
+$intmgoods_reserve = api_value_int0($strmgoods_reserve);
 
 $intreturn = 0;
 $atime = time();
@@ -39,7 +41,7 @@ if($intreturn == 0){
 }
 
 if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('mgoods') . "( mgoods_catalog_id, mgoods_name, mgoods_jianpin, mgoods_code, mgoods_price, mgoods_cprice, mgoods_type, mgoods_act, mgoods_state) VALUES ( $intmgoods_catalog_id  , '$sqlmgoods_name', '$sqlmgoods_jianpin', '$sqlmgoods_code', $decmgoods_price, $decmgoods_cprice, $intmgoods_type, $intmgoods_act, 1)";
+	$strsql = "INSERT INTO " . $gdb->fun_table2('mgoods') . "( mgoods_catalog_id, mgoods_name, mgoods_jianpin, mgoods_code, mgoods_price, mgoods_cprice, mgoods_type, mgoods_act,mgoods_reserve,mgoods_state) VALUES ( $intmgoods_catalog_id  , '$sqlmgoods_name', '$sqlmgoods_jianpin', '$sqlmgoods_code', $decmgoods_price, $decmgoods_cprice, $intmgoods_type, $intmgoods_act,$intmgoods_reserve,1)";
 	  $hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 2;

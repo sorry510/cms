@@ -40,14 +40,15 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'marketing') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-iconfont31quanbushangpin"></span> 营销</a>
-    <ul class="am-dropdown-content umenu2 umenu2-seven">
-      <li><a href="marketing_discount.php"><span class="iconfont icon-question"></span> 即时打折</a></li>
-      <li><a href="marketing_voucher.php"><span class="iconfont icon-question"></span> 代金券</a></li>
-      <li><a href="marketing_experience.php"><span class="iconfont icon-question"></span> 体验券</a></li>
-      <li><a href="marketing_coupon.php"><span class="iconfont icon-question"></span> 赠送优惠券</a></li>
-      <li><a href="marketing_reduction.php"><span class="iconfont icon-question"></span> 满减</a></li>
-      <li><a href="marketing_gift.php"><span class="iconfont icon-question"></span> 满送</a></li>
+    <ul class="am-dropdown-content umenu2 umenu2-eight">
+      <li><a href="act_discount.php"><span class="iconfont icon-question"></span> 即时打折</a></li>
+      <li><a href="ticket_money.php"><span class="iconfont icon-question"></span> 代金券</a></li>
+      <li><a href="ticket_goods.php"><span class="iconfont icon-question"></span> 体验券</a></li>
+      <li><a href="act_ticket.php"><span class="iconfont icon-question"></span> 赠送优惠券</a></li>
+      <li><a href="act_decrease.php"><span class="iconfont icon-question"></span> 满减</a></li>
+      <li><a href="act_give.php"><span class="iconfont icon-question"></span> 满送</a></li>
       <li><a href="marketing_coupon_count.php"><span class="iconfont icon-question"></span> 优惠券发放统计</a></li>
+      <li><a href="marketing_sms.php"><span class="iconfont icon-question"></span> 短信营销</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'stock') {echo 'uhighlight';} ?>" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-kucun"></span> 库存</a>

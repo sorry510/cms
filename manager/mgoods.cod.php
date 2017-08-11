@@ -147,10 +147,10 @@
           <label class="umodal-label am-form-label" for="">参与库存：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="2" data-am-ucheck> 参与
+              <input type="radio" name="mgoods_type" value="1" data-am-ucheck> 参与
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="1" data-am-ucheck checked> 不参与
+              <input type="radio" name="mgoods_type" value="2" data-am-ucheck checked> 不参与
             </label>
           </div>
         </div>
@@ -241,10 +241,10 @@
           <label class="umodal-label am-form-label" for="">参与库存：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="2"  data-am-ucheck> 参与
+              <input type="radio" name="mgoods_type" value="1"  data-am-ucheck> 参与
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="1"  data-am-ucheck checked> 不参与
+              <input type="radio" name="mgoods_type" value="2"  data-am-ucheck checked> 不参与
             </label>
           </div>
         </div>

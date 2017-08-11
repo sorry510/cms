@@ -665,7 +665,7 @@ $(function() {
     var act_give_id = [];
     var use_act_decrease_id = [];
     var json1 = {};
-    <?php foreach($this->_data['act_discount_list'] as $k => $v){?>
+    <?php if(!empty($this->_data['act_discount_list']))foreach($this->_data['act_discount_list'] as $k => $v){?>
       act_discount_id[<?php echo $k;?>] = <?php echo $v['act_discount_id'];?>;
     <?php }?>
     <?php foreach($this->_data['act_decrease_list'] as $k => $v){?>

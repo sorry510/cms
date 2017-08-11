@@ -39,7 +39,7 @@
     </div>
   </div>
 </div>
-修改手机号弹出框
+<!-- 修改手机号弹出框 -->
 <div id="usystem_companym1" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">修改绑定手机号
@@ -92,7 +92,7 @@
     </div>
   </div>
 </div>
-完善资料弹出框
+<!-- 完善资料弹出框 -->
 <div id="usystem_companym2" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">完善资料

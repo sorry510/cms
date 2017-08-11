@@ -1,5 +1,5 @@
 <?php
-define('C_CNFLY', true);
+/*define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
@@ -39,4 +39,4 @@ if($hresult)
 $strsql = "delete from fw_0001_card_ticket_record";
 $hresult = $gdb->fun_do($strsql);
 if($hresult)
-	echo "9ok</br>";
+	echo "9ok</br>";*/

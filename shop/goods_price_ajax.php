@@ -29,40 +29,45 @@ $sgoods_cprice = 0;
 $mcombo_price = 0;
 $mcombo_cprice = 0;
 $act_discount_id = 0;
-//多店通用商品活动价格
-if($intmgoods_id!=0&&!empty($stract_id)){
-	$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
+//多店通用商品活动价格,
+if(1){
+	// 如果商品突然不参与活动了，不用取这个价格
+	if($intmgoods_id!=0&&!empty($stract_id)){
+		$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
 
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	if(!empty($arr)){
-		$act_mgoods_price = $arr[0]['act_discount_goods_price'];
-		foreach($arr as $v){
-			if($act_mgoods_price>=$v['act_discount_goods_price']){
-				$act_mgoods_price=$v['act_discount_goods_price'];
-				$act_discount_id = $v['act_discount_id'];
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		if(!empty($arr)){
+			$act_mgoods_price = $arr[0]['act_discount_goods_price'];
+			foreach($arr as $v){
+				if($act_mgoods_price>=$v['act_discount_goods_price']){
+					$act_mgoods_price=$v['act_discount_goods_price'];
+					$act_discount_id = $v['act_discount_id'];
+				}
 			}
 		}
 	}
 }
 //套餐活动价格
-if($intmcombo_id!=0&&!empty($stract_id)){
-
-	$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
-	// echo $strsql;
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	if(!empty($arr)){
-		$act_mcombo_price = $arr[0]['act_discount_goods_price'];
-		// echo $act_mcombo_price;
-		foreach($arr as $v){
-			if($act_mcombo_price>=$v['act_discount_goods_price']){
-				$act_mcombo_price=$v['act_discount_goods_price'];
-				$act_discount_id=$v['act_discount_id'];
+if(1){
+	if($intmcombo_id!=0&&!empty($stract_id)){
+		$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
+		// echo $strsql;
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		if(!empty($arr)){
+			$act_mcombo_price = $arr[0]['act_discount_goods_price'];
+			// echo $act_mcombo_price;
+			foreach($arr as $v){
+				if($act_mcombo_price>=$v['act_discount_goods_price']){
+					$act_mcombo_price=$v['act_discount_goods_price'];
+					$act_discount_id=$v['act_discount_id'];
+				}
 			}
 		}
 	}
 }
+
 //会员折扣
 if($intcard_id!=0){
 	$strsql = "SELECT c_card_type_discount FROM ".$GLOBALS['gdb']->fun_table2('card')." where card_id=".$intcard_id." limit 1";

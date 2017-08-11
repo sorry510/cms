@@ -82,13 +82,7 @@
       <?php } ?>
     </tbody>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['worker_reward_detail_list']['pagecount']; ?>页 <?php echo $this->_data['worker_reward_detail_list']['allcount']; ?>条记录</li>
-    <li class="cfirst am-disabled"><a href="worker_reward_detail.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_reward_detail_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active"><a href="#"><?php echo $this->_data['worker_reward_detail_list']['pagenow'];?></a></li>
-    <li class="clast"><a href="worker_reward_detail.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_reward_detail_list']['pagenext']); ?>">&raquo;</a></li>
-    <li>，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:50px;height: 26px;line-height:26px;vertical-align:bottom;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>
-  </ul>
+  <?php pageHtml($this->_data['worker_reward_detail_list'],$this->_data['request'],'worker_reward_detail.php'); ?>
 </div>
 
 <!-- 侧拉框 -->
@@ -120,21 +114,8 @@
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 //分页首末页不可选中
-if(<?php echo $this->_data['worker_reward_detail_list']['pagenow'];?>>1){
-  $('.upages li.cfirst').removeClass('am-disabled');
-}
-if(<?php echo $this->_data['worker_reward_detail_list']['pagecount']-$this->_data['worker_reward_detail_list']['pagenow']; ?><1){
-  $('.upages li.clast').addClass('am-disabled');
-}
+<?php pageJs($this->_data['worker_reward_detail_list'],$this->_data['request'],'worker_reward_detail.php'); ?>
 
-function page_do() {
-  var intpage = parseInt(document.getElementById("idpagego").value);
-  if(isNaN(intpage)) {
-    alert("请输入正确的页码！");
-  } else {
-    window.location = "worker_reward_detail.php?<?php echo api_value_query($this->_data['request']); ?>&page=" + intpage;
-  }
-}
 
 //关闭侧拉
 $('.doc-oc-js').on('click', function() {

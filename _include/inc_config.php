@@ -24,10 +24,10 @@ $gconfig['worker']['education'][7] = '博士';
 
 require(C_ROOT . '/_include/cls_mysql.php');
 // $gdb = new cls_mysql();
-// $gdb->pub_host = 'nw132dbk.2278lan.dnstoo.com';
-// $gdb->pub_user = 'ps930i_f';
-// $gdb->pub_password = 'qaz123456';
-// $gdb->pub_name = 'ps930i';
+// $gdb->pub_host = '5lh35n8y.2292lan.dnstoo.com:3306';
+// $gdb->pub_user = 've709d_f';
+// $gdb->pub_password = 'lkyky30u';
+// $gdb->pub_name = 've709d';
 // $gdb->pub_prefix = 'cf_';
 // $gdb->pub_charset = 'utf8';
 // $gdb->fun_connect();

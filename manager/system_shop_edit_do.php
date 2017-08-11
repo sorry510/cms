@@ -17,6 +17,10 @@ $strcity = api_value_post('city');
 $intcity = api_value_int0($strcity);
 $straddress = api_value_post('address');
 $sqladdress = $gdb->fun_escape($straddress);
+$strjing = api_value_post('jing');
+$decjing = api_value_decimal($strjing,12);
+$strwei = api_value_post('wei');
+$decwei = api_value_decimal($strwei,12);
 
 $intreturn = 0;
 $arr = array();
@@ -41,7 +45,7 @@ if($intreturn == 0){
 }
 
 if($intreturn == 0){
-	$strsql = "UPDATE ".$gdb->fun_table('shop')." SET shop_name='".$sqlshop_name."',shop_phone='".$sqlshop_phone."',shop_area_sheng=".$intprovince.",shop_area_shi=".$intcity.",shop_area_address='".$sqladdress."',shop_ctime=".time()." where shop_id=".$intshop_id;
+	$strsql = "UPDATE ".$gdb->fun_table('shop')." SET shop_name='".$sqlshop_name."',shop_phone='".$sqlshop_phone."',shop_area_sheng=".$intprovince.",shop_area_shi=".$intcity.",shop_area_address='".$sqladdress."',shop_ctime=".time().",shop_area_jing=".$decjing.",shop_area_wei=".$decwei." where shop_id=".$intshop_id;
 	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == false){

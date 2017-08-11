@@ -36,8 +36,7 @@
       <td><?php echo $row['shop_name']; ?></td>
       <td><?php echo $row['shop_phone']; ?></td>
       <td><?php echo $row['province'].$row['city'].$row['shop_area_address']; ?></td>
-      <td><a href="javascript:void" class="iconfont icon-question"></a>
-        地图</td>
+      <td><a href="#" class="iconfont icon-question cmapshow" jing="<?php echo $row['shop_area_jing']; ?>" wei="<?php echo $row['shop_area_wei'];?>" shop_name="<?php echo $row['shop_phone']; ?>" data-am-modal="{target: '#usystem_shopm3'}"></a>地图</td>
       <td><?php echo $row['shop_limit_user']; ?></td>
       <td><?php echo date('Y-m-d',$row['shop_edate']); ?></td>
       <td>
@@ -62,7 +61,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">店铺名称：</label>
           <div class="umodal-normal">
-            <input name="shop_name" type="text" class="am-form-field uinput uinput-max">
+            <input name="shop_name" type="text" class="am-form-field uinput uinput-max cshop_name">
           </div>
         </div>
         <div class="am-form-group">
@@ -98,6 +97,8 @@
 	        </div>
           </div>
         </div>
+        <input type="hidden" name="jing" class="cjing">
+        <input type="hidden" name="wei" class="cwei">
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -158,6 +159,8 @@
           </div>
         </div>
         <input type="hidden" name="shop_id">
+        <input type="hidden" name="jing" class="cjing">
+        <input type="hidden" name="wei" class="cwei">
       </form>
     </div>
     <div class="am-modal-footer ufoot">
@@ -169,17 +172,31 @@
     </div>
   </div>
 </div>
-
+<div class="am-modal" tabindex="-1" id="usystem_shopm3">
+  <div class="am-modal-dialog umodal umodal-simple">
+    <div class="am-modal-hd uhead">地图
+      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd">
+       <div id="allmap3" style="height: 400px;">
+       </div>
+       <input type="hidden" name="jing" class="cjing">
+       <input type="hidden" name="wei" class="cwei">
+       <input type="hidden" name="shop_name" class="cshop_name">
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<script src="http://api.map.baidu.com/api?v=2.0&ak=m3VYcozyFtYtL0i0Y1zvFG5HS7XPNfan" type="text/javascript"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=LxI9Y9IBOKmglxZlF5128gcb51Pnz0WL" type="text/javascript"></script>
 <script type="text/javascript">
+
 
 getCity();
 
 // add
 $('.caddsubmit').on('click', function(){
-  var url = "system_shop_do.php";
+  var url = "system_shop_add_do.php";
   var data = $('#cform1').serialize();
   // console.log(data);
   $.post(url, data, function(res){
@@ -198,6 +215,8 @@ $('.caddsubmit').on('click', function(){
 // edit-show
 $('.cedit').on('click', function(){
   var shop_id = $(this).val();
+  var jing = 116.404;
+  var wei = 39.915;
   $('#usystem_shopm2 input[name="shop_id"]').val(shop_id);
   $('#usystem_shopm2 .ccity').find('option').remove();
   var city_id = 0;
@@ -209,16 +228,91 @@ $('.cedit').on('click', function(){
     type:'GET',
     dataType:'json'
   }).then(function(res){
-    // console.log(res);
+    // console.log(res.shop_area_jing);
+    if(res.shop_area_jing!=0){
+      jing = res.shop_area_jing;
+    }
+    if(res.shop_area_wei!=0){
+      wei = res.shop_area_wei;
+    }
+    city_id = res.shop_area_shi;
     $('#usystem_shopm2 input[name="shop_name"]').val(res.shop_name);
     $('#usystem_shopm2 input[name="shop_name_old"]').val(res.shop_name);
     $('#usystem_shopm2 input[name="shop_phone"]').val(res.shop_phone);
     $('#usystem_shopm2 input[name="address"]').val(res.shop_area_address);
+    $('#usystem_shopm2 .cjing').val(res.shop_area_jing);
+    $('#usystem_shopm2 .cwei').val(res.shop_area_wei);
 
     $('#usystem_shopm2 .cprovince').val(res.shop_area_sheng);
     $('#usystem_shopm2 .cprovince').selected();
     // console.log($('#usystem_shopm2 .cprovince').val());
-    city_id = res.shop_area_shi;
+    var map2 = new BMap.Map("allmap2");
+    map2.centerAndZoom(new BMap.Point(jing, wei), 15);
+    map2.enableScrollWheelZoom(true);
+    var point = new BMap.Point(jing, wei);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map2.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    var opts = {
+        position : point,    // 指定文本标注所在的地理位置
+        offset   : new BMap.Size(-20, 0)    //设置文本偏移量
+      }
+    var label = new BMap.Label(res.shop_name, opts);  // 创建文本标注对象
+      label.setStyle({
+        color : "#000000",
+        fontSize : "13px",
+        height : "20px",
+        lineHeight : "20px",
+        fontFamily:"微软雅黑",
+        border:'none',
+        boxShadow:'4px 4px 4px #888888',
+        padding:'1px 5px',
+        borderRadius:'5px'
+       });
+    map2.addOverlay(label);
+    map2.addEventListener("click",function(e){
+        map2.clearOverlays();//清空原来的标注
+        var shop_name = $('#usystem_shopm2 .cshop_name').val();
+        if(!shop_name){
+          shop_name = "店铺名称";
+        }
+        var jing = e.point.lng ;
+        var wei =  e.point.lat;
+        $('#usystem_shopm2 .cjing').val(jing);
+        $('#usystem_shopm2 .cwei').val(wei);
+        var point = new BMap.Point(jing,wei);
+        var marker = new BMap.Marker(point);  // 创建标注
+        map2.addOverlay(marker);               // 将标注添加到地图中
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+        var opts = {
+            position : point,    // 指定文本标注所在的地理位置
+            offset   : new BMap.Size(-20, 0)    //设置文本偏移量
+          }
+        var label = new BMap.Label(shop_name, opts);  // 创建文本标注对象
+          label.setStyle({
+            color : "#000000",
+            fontSize : "13px",
+            height : "20px",
+            lineHeight : "20px",
+            fontFamily:"微软雅黑",
+            border:'none',
+            boxShadow:'4px 4px 4px #888888',
+            padding:'1px 5px',
+            borderRadius:'5px'
+           });
+        map2.addOverlay(label); 
+        // console.log(e.point.lng + "," + e.point.lat);
+    });
+
+    $('#usystem_shopm2 .cmap2').on('change',function(){
+      var xy = $(this).find('option:selected').text();
+      // console.log(xy);
+        var local = new BMap.LocalSearch(map2, {
+        renderOptions:{map: map2}
+      });
+        local.search(xy);
+    });
   }).then(function(res){
     $.ajax({
       url:'city_ajax.php',
@@ -242,6 +336,66 @@ $('.cedit').on('click', function(){
     });
   })
 })
+$('#usystem_shopm3').on('opened.modal.amui', function(){
+  var jing = $('#usystem_shopm3 .cjing').val();
+  var wei = $('#usystem_shopm3 .cwei').val();
+  var shop_name = $('#usystem_shopm3 .cshop_name').val();
+  var map3 = new BMap.Map("allmap3");
+  map3.centerAndZoom(new BMap.Point(jing, wei), 15);
+  var point = new BMap.Point(jing, wei);
+  var marker = new BMap.Marker(point);  // 创建标注
+  map3.addOverlay(marker);               // 将标注添加到地图中
+  marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+  var opts = {
+      position : point,    // 指定文本标注所在的地理位置
+      offset   : new BMap.Size(-20, 0)    //设置文本偏移量
+    }
+  var label = new BMap.Label(shop_name, opts);  // 创建文本标注对象
+    label.setStyle({
+      color : "#000000",
+      fontSize : "13px",
+      height : "20px",
+      lineHeight : "20px",
+      fontFamily:"微软雅黑",
+      border:'none',
+      boxShadow:'4px 4px 4px #888888',
+      padding:'1px 5px',
+      borderRadius:'5px'
+     });
+  map3.addOverlay(label);
+});
+$('.cmapshow').on('click', function(){
+  var jing = $(this).attr('jing');
+  var wei = $(this).attr('wei');
+  var shop_name = $(this).attr('shop_name');
+  $('#usystem_shopm3 .cjing').val(jing);
+  $('#usystem_shopm3 .cwei').val(wei);
+  $('#usystem_shopm3 .cshop_name').val(shop_name);
+  // var map3 = new BMap.Map("allmap3");
+  // map3.centerAndZoom(new BMap.Point(jing, wei), 15);
+  // var point = new BMap.Point(jing, wei);
+  // var marker = new BMap.Marker(point);  // 创建标注
+  // map3.addOverlay(marker);               // 将标注添加到地图中
+  // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+  // var opts = {
+  //     position : point,    // 指定文本标注所在的地理位置
+  //     offset   : new BMap.Size(-20, 0)    //设置文本偏移量
+  //   }
+  // var label = new BMap.Label('hhh', opts);  // 创建文本标注对象
+  //   label.setStyle({
+  //     color : "#000000",
+  //     fontSize : "13px",
+  //     height : "20px",
+  //     lineHeight : "20px",
+  //     fontFamily:"微软雅黑",
+  //     border:'none',
+  //     boxShadow:'4px 4px 4px #888888',
+  //     padding:'1px 5px',
+  //     borderRadius:'5px'
+  //    });
+  // map3.addOverlay(label);
+});
+
 //关闭修改框删除select
 $('#usystem_shopm2').on('close.modal.amui', function(){
     $('#usystem_shopm2 .cprovince').selected('destroy');
@@ -266,14 +420,48 @@ $('.ceditsubmit').on('click', function(){
   });
 })
 
-
-
 $('#usystem_shopm1 .cprovince').on('change', getCity);
 $('#usystem_shopm2 .cprovince').on('change', getCity2);
 
 var map = new BMap.Map("allmap");
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
 map.enableScrollWheelZoom(true);
+//单击获取点击的经纬度
+map.addEventListener("click",function(e){
+    map.clearOverlays();//清空原来的标注
+    var shop_name = $('#usystem_shopm1 .cshop_name').val();
+    if(!shop_name){
+      shop_name = "店铺名称";
+    }
+    var jing = e.point.lng ;
+    var wei =  e.point.lat;
+    $('#usystem_shopm1 .cjing').val(jing);
+    $('#usystem_shopm1 .cwei').val(wei);
+    var point = new BMap.Point(jing,wei);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+    var opts = {
+        position : point,    // 指定文本标注所在的地理位置
+        offset   : new BMap.Size(-20, 0)    //设置文本偏移量
+      }
+    var label = new BMap.Label(shop_name, opts);  // 创建文本标注对象
+      label.setStyle({
+        color : "#000000",
+        fontSize : "13px",
+        height : "20px",
+        lineHeight : "20px",
+        fontFamily:"微软雅黑",
+        border:'none',
+        boxShadow:'4px 4px 4px #888888',
+        padding:'1px 5px',
+        borderRadius:'5px'
+       });
+    map.addOverlay(label); 
+    // console.log(e.point.lng + "," + e.point.lat);
+});
+
 $('#usystem_shopm1 .cmap').on('change',function(){
   var xy = $(this).find('option:selected').text();
   var local = new BMap.LocalSearch(map, {
@@ -282,17 +470,7 @@ $('#usystem_shopm1 .cmap').on('change',function(){
     local.search(xy);
 })
 
-var map2 = new BMap.Map("allmap2");
-map2.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
-map2.enableScrollWheelZoom(true);
-$('#usystem_shopm2 .cmap2').on('change',function(){
-  var xy = $(this).find('option:selected').text();
-  // console.log(xy);
-    var local = new BMap.LocalSearch(map2, {
-    renderOptions:{map: map2}
-  });
-    local.search(xy);
-})
+
 
 function getCity(){
   $('#usystem_shopm1 .ccity').find('option').remove();

@@ -81,7 +81,7 @@ function get_worker_reward_count_list() {
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-	$intpagesize = 1;
+	$intpagesize = 5;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;

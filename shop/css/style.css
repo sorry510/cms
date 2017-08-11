@@ -141,6 +141,14 @@
 #uworker_rewardm2 .umodal .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
 #uworker_rewardm2 .umodal .am-tabs-bd{border:none;padding:0;}
 #uworker_rewardm2 .umodal .am-tabs-bd .am-tab-panel{border:none;padding:0;}
+/*限时折扣*/
+[id*='uact_discountm'] .umodal .utabs{margin:0 auto; width:96%;}
+[id*='uact_discountm'] .umodal .utabs .am-tabs-nav{border-bottom:0;}
+[id*='uact_discountm'] .umodal .am-tabs-nav li{margin-top:0;}
+[id*='uact_discountm'] .umodal .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
+[id*='uact_discountm'] .umodal .am-tabs-bd{border:none;padding:0;}
+[id*='uact_discountm'] .umodal .am-tabs-bd .am-tab-panel{border:none;padding:0;}
+/*带批量的弹出框样式*/
 #ubody .umodal .umain1 .ucont{margin:0 auto; overflow:auto; height:350px; border:1px solid #DDDDDD;border-top:none; }
 #ubody .umodal .umain1 .utop{margin:0 auto; border:1px solid #DDDDDD;border-bottom:none; border-top:1px solid #E9EEF2;}
 #ubody .umodal .umain1 .am-list li{border:0; border-bottom:1px solid #DDDDDD; margin-bottom:0px; background-color: #F8F8F8; line-height:36px;}

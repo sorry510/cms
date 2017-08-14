@@ -126,8 +126,9 @@
           <div class="umodal-normal">
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width:100%;">
               <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+            <input type="file" name="photo" id="cfile" multiple>
+            <div class="cfilename"></div>
           </div>
-          <input type="file" name="photo" id="cfile" multiple>
           <div class="umodal-text gtext-green">
             （营业执照/身份证照片，提交完成后不能修改，请正确填写）
           </div>
@@ -216,20 +217,17 @@ $(function(){
           fileElementId:'cfile',
           data:{id:company_id},
           dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-          success: function (data) {
+          success: function (res) {
             // console.log(data);
-            /*$('.ccardaddsubmit').attr('disabled',false);
-            if(data == '0'){
-              window.location.href='card.php';
+            $('.ccommit').attr('disabled',false);
+            if(res == '0'){
+              window.location.reload();
             }else{
-              $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-              $('#ualert').modal('open');
-              $('.ccardrechargesubmit').attr('disabled',false);
+             alert('上传失败')
               return false;
-            }*/
+            }
           }
         });
-        window.location.reload();
       }else{
         alert("修改失败");
         $('.ccommit').attr('disabled',false);
@@ -260,6 +258,14 @@ $(function(){
       $('.ccity').selected();
     })
   }
+  // 上传文件
+  $('#cfile').on('change', function() {
+    var fileNames = '';
+    $.each(this.files, function() {
+      fileNames += '<span class="am-badge">' + this.name + '</span> ';
+    });
+    $('.cfilename').html(fileNames);
+  });
 });
 </script>
 </body>

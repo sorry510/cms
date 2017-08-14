@@ -52,20 +52,17 @@
           修改
         </button>
         &nbsp;
+        <?php if($row['user_id']!=$GLOBALS['_SESSION']['login_id']){?>
         <button class="am-btn ubtn-table ubtn-gray cdel" value="<?php echo $row['user_id'];?>">
           <i class="iconfont icon-shanchu"></i>
           删除
         </button>
+        <?php }?>
       </td>
     </tr>
     <?php } ?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['user_list']['pagecount']; ?>页 <?php echo $this->_data['user_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="system_user.php?<?php echo api_value_query($this->_data['request'], $this->_data['user_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="system_user.php?<?php echo api_value_query($this->_data['request'], $this->_data['user_list']['pagenext']); ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['user_list'],$this->_data['request'],'system_user.php');?>
 </div>
 
 <!--添加操作员-->
@@ -94,6 +91,7 @@
           <label class="umodal-label am-form-label" for="">所属分店：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max cshop" name="shop" data-am-selected>
+              <option value="0">请选择</option>
               <?php foreach($this->_data['shop_list'] as $row) { ?>
               <option value="<?php echo $row['shop_id'] ?>" > <?php echo $row['shop_name'] ?></option>
               <?php } ?>
@@ -154,16 +152,11 @@
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">帐号：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max cuser_account"  name="user_account">
-            <input type="hidden" class="am-form-field uinput uinput-max cuser_account_old"  name="user_account_old">
-          </div>
+          <label class="umodal-normal am-form-label am-text-left cuser_account"></label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
-          <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max cuser_name"  name="user_name">
-          </div>
+          <label class="umodal-normal am-form-label am-text-left cuser_name"></label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">旧密码：</label>
@@ -212,6 +205,8 @@
 <script src="../js/amazeui.min.js"></script>
 <script>
 
+<?php pageJs($this->_data['user_list'],$this->_data['request'],'system_user.php');?>
+
 $('.cdel').on('click', function() {
   var content = $(this).parent().parent();
   var user_id = $(this).val();
@@ -226,7 +221,7 @@ $('.cdel').on('click', function() {
         if(res == '0'){
           window.location.reload();
         }else{
-          alert('删除失败'); 
+          alert('删除失败');
         }
       }
     });
@@ -250,9 +245,9 @@ if(<?php echo $this->_data['user_list']['pagecount']-$GLOBALS['intpage']; ?><1){
 $('.cid').on('click', function() {
   var val = $(this).val();
   if(val == 1){
-    $('.am-selected-btn').attr('disabled','disabled');
+    $('#usystem_userm1 .am-selected-btn').attr('disabled','disabled');
   }else{
-    $('.am-selected-btn').removeAttr('disabled');
+    $('#usystem_userm1 .am-selected-btn').removeAttr('disabled');
   }
 });
 
@@ -284,10 +279,8 @@ $('.cupdate').on('click', function(e) {
     }else{
       $("#usystem_userm2 .cuser_shop").text('总店');
     }
-    $("#usystem_userm2 .cuser_account").val(res.user_account);
-    $("#usystem_userm2 .cuser_account_old").val(res.user_account);
-    $("#usystem_userm2 .cuser_name").val(res.user_name);
-    $("#usystem_userm2 .cuser_name").val(res.user_name);
+    $("#usystem_userm2 .cuser_account").text(res.user_account);
+    $("#usystem_userm2 .cuser_name").text(res.user_name);
     $("#usystem_userm2 .cuser_id").val(res.user_id);
   });
 });
@@ -300,8 +293,6 @@ $('.cupdate_form3').on('click',function(){
     }else if(res=='1'){
       alert('密码不一致');
     }else if(res=='2'){
-      alert('用户名已存在，请重新输入');
-    }else if(res=='3'){
       alert('密码错误，修改失败');
     }else{
       alert('修改失败');

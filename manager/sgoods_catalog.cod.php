@@ -4,7 +4,7 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="usgoods_catalog" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li><a href="sgoods.php">单店通用商品</a></li>
+    <li><a href="sgoods.php">单店销售商品</a></li>
     <li class="am-active"><a href="#">商品分类</a></li>
   </ul>
   <div class="gspace15"></div>
@@ -13,8 +13,9 @@
     <div class="am-form-group">
       <label for="doc-ipt-3" class="am-form-label">分店：</label>
       <select class="uselect uselect-auto" data-am-selected name="shop_id">
+        <option value="0">全部</option>
         <?php foreach($this->_data['shop_list'] as $row) { ?>
-          <option value="<?php echo $row['shop_id']; ?>" <?php if($row['shop_id'] == $this->_data['shop_id']){
+          <option value="<?php echo $row['shop_id']; ?>" <?php if($row['shop_id'] == $this->_data['request']['shop_id']){
           echo "selected" ;}?> ><?php echo $row['shop_name']; ?></option>
         <?php } ?>
       </select>

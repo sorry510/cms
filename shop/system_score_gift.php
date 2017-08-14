@@ -5,23 +5,20 @@ require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'system';
 
-$strshop_id = api_value_get('shop_id');
-$intshop_id = api_value_int0($strshop_id);
+$strgift_name = api_value_get('gift_name');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
 $gtemplate->fun_assign('request', get_request());
-$gtemplate->fun_assign('user_list', get_user_list());
-$gtemplate->fun_assign('shop_list', get_shop_list());
-$gtemplate->fun_show('system_user');
+$gtemplate->fun_assign('gift_list', get_gift_list());
+$gtemplate->fun_show('system_score_gift');
 
 function get_request(){
 	$arr = array();
-	$arr['shop_id'] = $GLOBALS['intshop_id'];
+	$arr['gift_name'] = $GLOBALS['strgift_name'];
 	return $arr;
 }
-
-function get_user_list(){
+function get_gift_list(){
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
@@ -31,14 +28,13 @@ function get_user_list(){
 	$arrpackage = array();
 	$arr = array();
 	$strwhere = '';
-	if($GLOBALS['intshop_id'] > 0) {
-		$strwhere = $strwhere . " AND shop_id = " . $GLOBALS['intshop_id'];
+	if($GLOBALS['strgift_name'] != ''){
+		$strwhere .= " AND gift_name like '%".$GLOBALS['strgift_name']."%'";
 	}
-	$strwhere .= " AND user_id!=1";//超管不能被查询和修改
-
-	// $strwhere .= " AND user_id!=".$GLOBALS['_SESSION']['login_id'];
-
-	$strsql = "SELECT count(user_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('user')  . " WHERE 1 = 1 ".$strwhere;
+	
+	$strwhere .= " AND shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	
+	$strsql = "SELECT count(gift_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('gift')  . " WHERE 1 = 1 ".$strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
@@ -76,19 +72,9 @@ function get_user_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT a.*,b.shop_name FROM (SELECT user_id,shop_id,user_type,user_account,user_name FROM ". $GLOBALS['gdb']->fun_table2('user')." WHERE 1=1 ". $strwhere. " ORDER BY user_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id ";
+	$strsql = "SELECT gift_id,gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." WHERE 1=1 ". $strwhere. " ORDER BY gift_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
-	foreach($arrlist as $k=>$v){
-		if($v['user_type'] == 1){
-			$arrlist[$k]['user_power'] = '管理员';
-		}else if($v['user_type'] == 2){
-			$arrlist[$k]['user_power'] = '店长';
-		}else{
-			$arrlist[$k]['user_power'] = '收银员';
-		}
-	}
 
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
@@ -98,13 +84,4 @@ function get_user_list(){
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
-
-function get_shop_list(){
-	$arr = array();
-	$strsql = "SELECT shop_name ,shop_id FROM ". $GLOBALS['gdb']->fun_table('shop')." WHERE company_id = ".$GLOBALS['_SESSION']['login_cid']." ORDER BY shop_id desc";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	return $arr;
-}
-
 ?>

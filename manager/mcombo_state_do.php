@@ -8,6 +8,7 @@ $intmcombo_id = api_value_int0($strmcombo_id);
 $strmcombo_state = api_value_post('mcombo_state');
 $intmcombo_state = api_value_int0($strmcombo_state);
 
+
 $intreturn = 0;
 $intmcombo_state_update = 0;
 

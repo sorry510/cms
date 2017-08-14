@@ -56,7 +56,7 @@
       <td><?php echo $row['mgoods_name']; ?></td>
       <td><?php echo $row['mgoods_code']; ?></td>
       <td><?php echo $row['mgoods_price']; ?></td>
-      <td><?php echo $row['mgoods_cprice']; ?></td>
+      <td><?php echo $row['mgoods_cprice']==0?'--':$row['mgoods_cprice']; ?></td>
       <td class="<?php echo $row['mgoods_type']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_type']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mgoods_act']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_act']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mgoods_reserve']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_reserve']=='1'?'√':'x';?></td>
@@ -73,28 +73,23 @@
         </button>
         &nbsp;
         <?php if($row['mgoods_state'] == 1){
-                echo '<button class="am-btn ubtn-table ubtn-orange cmgoods_state" value="'.$row["mgoods_id"].'">
+                echo '<button class="am-btn ubtn-table ubtn-orange cmgoods_state" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <i class="iconfont icon-tingyong"></i>
                         停用
                       </button>';
               }else if($row['mgoods_state'] == 2){
-                echo '<button class="am-btn ubtn-table ubtn-blue cmgoods_state" value="'.$row["mgoods_id"].'">
+                echo '<button class="am-btn ubtn-table ubtn-blue cmgoods_state" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <i class="iconfont icon-question"></i>
                         启用
                       </button>';
               }
         ?>
-        <input type="hidden" name="mgoods_state" value="<?php echo $row['mgoods_state']; ?>">
+        <input type="hidden" class="cstate" name="mgoods_state" value="<?php echo $row['mgoods_state']; ?>">
       </td>
     </tr>
     <?php } ?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['mgoods_list']['pagecount']; ?>页 <?php echo $this->_data['mgoods_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['mgoods_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="mgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['mgoods_list']['pagenext']); ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['mgoods_list'],$this->_data['request'],'mgoods.php');?>
 </div>
 
 <!--添加商品-->
@@ -295,19 +290,29 @@
       <span class="am-modal-btn" data-am-modal-confirm>确定</span>
     </div>
   </div>
-</div>  
+</div>
+
+<!-- 停用启用框 -->
+<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你，确定要这样做吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/pinying.js"></script>
 <script>
 
-//分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
-}
-if(<?php echo $this->_data['mgoods_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
-}
+<?php pageJs($this->_data['mgoods_list'],$this->_data['request'],'mgoods.php');?>
+
+// 商品删除
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,
@@ -323,6 +328,7 @@ $('.cdel').on('click', function() {
           $('.cadd-form1').attr('disabled',false);
         }else{
           alert("删除失败");
+          $('.cadd-form1').attr('disabled',false);
         }
       });
     },
@@ -331,7 +337,25 @@ $('.cdel').on('click', function() {
     }
   });
 });
-
+//商品状态转换
+$('.cmgoods_state').on('click',function(){
+  $('#cconfirm2').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.get('mgoods_state_do.php',{'mgoods_id':$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('修改失败');
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
+});
 //根据文本框输入的汉字自动获取汉字拼音首字母到下拉列表中，支持多音字，需引入库pinying.js
 function query(){
   $("#cupen").val(null);
@@ -375,24 +399,7 @@ $('.cadd-form2').on('click',function(){
   });
 });
 
-//商品状态转换
-$('.cmgoods_state').on('click',function(){
-  var mgoods_id = $(this).val();
-  var mgoods_state = $(this).next().val();
-  $.ajax({
-    type: "GET",
-    url: "mgoods_state_do.php",
-    data: {mgoods_id:mgoods_id,mgoods_state:mgoods_state}, 
-    success: function(msg){
-      if(msg=='0'){
-        window.location.reload();
-      }else{
-        alert('修改失败');
-        //console.log(msg);
-      }
-    }
-  });
-});
+
 
 
 //修改商品
@@ -409,6 +416,9 @@ $('.cupdate').on('click', function(e) {
       $("#umgoodsm2 input[name='mgoods_jianpin']").val(msg.mgoods_jianpin);
       $("#umgoodsm2 input[name='mgoods_code']").val(msg.mgoods_code);
       $("#umgoodsm2 input[name='mgoods_price']").val(msg.mgoods_price);
+      if(msg.mgoods_cprice==0){
+        msg.mgoods_cprice = '';
+      }
       $("#umgoodsm2 input[name='mgoods_cprice']").val(msg.mgoods_cprice);
       $("#umgoodsm2 input[name='mgoods_id']").val(msg.mgoods_id);
       $("#umgoodsm2 select[name='mgoods_catalog_id']").val(msg.mgoods_catalog_id);

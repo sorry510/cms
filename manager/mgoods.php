@@ -67,7 +67,7 @@ function get_mgoods_list() {
 		return $arrpackage;
 	}
 	
-	$intpagesize = 50;
+	$intpagesize = 5;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;

@@ -5,7 +5,8 @@ require(C_ROOT . '/_include/inc_init.php');
  
 $strchannel = 'system';
 
-$intyear = date('Y',time());
+$inttime1 = time();
+$stryear1 = date('Y',$inttime1);
 
 $gtemplate->fun_assign('company_info', get_company_info());
 $gtemplate->fun_assign('province', get_province());
@@ -17,8 +18,19 @@ function get_company_info() {
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
-		$arr['years'] = (int)date('Y',$arr['company_atime'])-(int)$GLOBALS['intyear']+1;
-
+		$stryear2 = date('Y',$arr['company_atime']);//启用年
+		$strmd = date('-m-d',$arr['company_atime']);//启用年的月日
+		$strdate2 = $GLOBALS['stryear1'].$strmd;//今年的启用年日期
+		$inttime2 = strtotime($strdate2);//
+		if($GLOBALS['stryear1'] == $stryear2){
+			$arr['years'] = 1;
+		}else{
+			if($GLOBALS['inttime1']-$inttime2>0){
+				$arr['years'] = $GLOBALS['stryear1']-$stryear2+1;
+			}else{
+				$arr['years'] = $GLOBALS['stryear1']-$stryear2;
+			}
+		}
 		$arr['company_info_xingzhi'] = $GLOBALS['gconfig']['system']['xingzhi'][$arr['company_info_xingzhi']];
 		$arr['guimo'] = $GLOBALS['gconfig']['system']['guimo'][$arr['company_info_guimo']];
 

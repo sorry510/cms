@@ -69,7 +69,7 @@ function get_gift_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." WHERE 1=1 ". $strwhere. " ORDER BY gift_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	$strsql = "SELECT gift_id,gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." WHERE 1=1 ". $strwhere. " ORDER BY gift_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 

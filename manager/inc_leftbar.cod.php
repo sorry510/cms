@@ -59,7 +59,7 @@
       <li><a href="system_shop.php">4. 分店管理</a></li>
       <li><a href="system_user.php">5. 操作员管理</a></li>
       <li><a href="system_card_type.php">6. 会员卡分类</a></li>
-      <li><a href="system_score.php">7. 积分换礼</a></li>
+      <li><a href="system_roomcard.php">7. 房间手牌设置</a></li>
     </ul>
   </li>
 </ul>

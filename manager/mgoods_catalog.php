@@ -9,7 +9,13 @@ $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_show('mgoods_catalog');
+
+function get_request(){
+	$arr = array();
+	return $arr;
+}
 
 function get_mgoods_catalog_list(){
 	$intallcount = 0;

@@ -42,12 +42,7 @@
     </tr> 
     <?php } ?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['mgoods_catalog_list']['pagecount']; ?>页 <?php echo $this->_data['mgoods_catalog_list']['allcount']; ?>条记录</li>
-    <li><a href="mgoods_catalog.php?page=<?php echo  $this->_data['mgoods_catalog_list']['pagepre']; ?>">&laquo;</a></li>
-    <li class="am-active" ><a href="#"><?php echo $this->_data['mgoods_catalog_list']['pagenow']; ?></a></li>
-    <li><a href="mgoods_catalog.php?page=<?php echo  $this->_data['mgoods_catalog_list']['pagenext']; ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['mgoods_catalog_list'],$this->_data['request'],'mgoods_catalog.php');?>
 </div>
 
 
@@ -122,6 +117,7 @@
 <script src="../js/amazeui.min.js"></script>
 <script>
 
+<?php pageJs($this->_data['mgoods_catalog_list'],$this->_data['request'],'mgoods_catalog.php');?>
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,

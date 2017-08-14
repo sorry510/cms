@@ -28,12 +28,20 @@ $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(!empty($arr)){
 	$intreturn = 3;
 }
+//卡的优惠券
+$strsql = "SELECT card_id FROM ".$GLOBALS['gdb']->fun_table2('card_ticket'). " where c_mgoods_id=".$intmgoods_id." and card_ticket_edate>".time();
+$hresult = $GLOBALS['gdb']->fun_query($strsql);
+$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+if(!empty($arr)){
+	$intreturn = 4;
+}
+
 
 if($intreturn == 0) {
 	$strsql = "DELETE FROM " . $gdb->fun_table2('mgoods') . " WHERE mgoods_id = " . $intmgoods_id . " LIMIT 1";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 4;
+		$intreturn = 5;
 	}
 }
 

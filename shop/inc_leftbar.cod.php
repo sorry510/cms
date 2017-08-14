@@ -64,7 +64,7 @@
       <li><a href="system_shopmanage.php"><span class="iconfont icon-question"></span> 分店管理</a></li>
       <li><a href="system_operator.php"><span class="am-icon-user am-icon-fw"></span> 操作员</a></li>
       <li><a href="system_card.php"><span class="iconfont icon-question"></span> 会员卡</a></li>
-      <li><a href="system_roomcard.php"><span class="iconfont icon-question"></span> 房间手牌设置</a></li>
+      <li><a href="system_score.php"><span class="iconfont icon-question"></span> 积分换礼</a></li>
       <li><a href="#"><span class="iconfont icon-question"></span> 支付设置</a></li>
     </ul>
   </li>

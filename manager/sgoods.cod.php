@@ -4,7 +4,7 @@
 <?php echo $this->fun_fetch('inc_leftbar', ''); ?>
 <div id="usgoods" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="#">单店通用商品</a></li>
+    <li class="am-active"><a href="#">单店销售商品</a></li>
     <li><a href="sgoods_catalog.php">商品分类</a></li>
   </ul>
   <div class="gspace15"></div>

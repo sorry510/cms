@@ -125,6 +125,9 @@
 
 /*积分换礼页面*/
 #ubody .uinput2 .uinput-35{margin-bottom:2px;}
+/*加减数字*/
+#ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
+#ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
 /*#ubody table a{color:#000000;}*/
 /*打印设置*/
 #system_print .uform1 .ua{margin-bottom:5px;line-height:36px;}

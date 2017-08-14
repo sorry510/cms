@@ -36,14 +36,16 @@
       <td><?php echo $row['shop_name']; ?></td>
       <td><?php echo $row['shop_phone']; ?></td>
       <td><?php echo $row['province'].$row['city'].$row['shop_area_address']; ?></td>
-      <td><a href="#" class="iconfont icon-question cmapshow" jing="<?php echo $row['shop_area_jing']; ?>" wei="<?php echo $row['shop_area_wei'];?>" shop_name="<?php echo $row['shop_phone']; ?>" data-am-modal="{target: '#usystem_shopm3'}"></a>地图</td>
+      <td><a href="#" class="iconfont icon-question cmapshow" jing="<?php echo $row['shop_area_jing']; ?>" wei="<?php echo $row['shop_area_wei'];?>" shop_name="<?php echo $row['shop_name']; ?>" data-am-modal="{target: '#usystem_shopm3'}"></a>地图</td>
       <td><?php echo $row['shop_limit_user']; ?></td>
-      <td><?php echo date('Y-m-d',$row['shop_edate']); ?></td>
+      <td class="<?php if($row['shop_edate']<time()) echo 'gtext-orange'; ?>"><?php echo date('Y-m-d',$row['shop_edate']); ?></td>
       <td>
+      <?php if($row['shop_edate']>time()){?>
         <button class="am-btn ubtn-table ubtn-green cedit" data-am-modal="{target: '#usystem_shopm2'}" value="<?php echo $row['shop_id']; ?>">
           <i class="iconfont icon-bianji"></i>
           修改
         </button>
+      <?php }?>
       </td>
     </tr>
     <?php }?>

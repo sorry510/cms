@@ -28,8 +28,6 @@ if($strext == '.jpg' || $strext == '.gif') {
 	}else{
 		$intreturn = 3;
 	}
-}else{
-	$intreturn = 4;
 }
 echo $intreturn;
 

@@ -49,10 +49,11 @@ switch($strflag){
 			$strwheresgoods .= " or sgoods_name LIKE '%" . $strsearch . "%'";
 			$strwheresgoods .= " or sgoods_jianpin LIKE '%" . $strsearch . "%')";
 		}
+		$strwheresgoods .=" and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 		$arr2 = array();
 		$arrsgoods = array();
-		$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." ORDER BY sgoods_catalog_id";
+		$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." WHERE shop_id=".$GLOBALS['_SESSION']['login_sid']." ORDER BY sgoods_catalog_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr2 = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
@@ -97,10 +98,12 @@ switch($strflag){
 			$strwheresgoods .= " or sgoods_name LIKE '%" . $strsearch . "%'";
 			$strwheresgoods .= " or sgoods_jianpin LIKE '%" . $strsearch . "%')";
 		}
-		 
+		$strwheresgoods .=" and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+
 		if($intgoods_catalog_id != 0) {
 			$strwheres .= " AND sgoods_catalog_id=".$intgoods_catalog_id;
 		}
+		$strwheres .=" and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 		$arr = array();
 		$arrsgoods = array();

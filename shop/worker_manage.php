@@ -63,7 +63,8 @@ function get_worker_list() {
 		$strwhere .= " AND worker_group_id=".$GLOBALS['intworker_group_id'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " AND (worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or worker_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 
 	$arr = array();

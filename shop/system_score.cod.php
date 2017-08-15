@@ -52,7 +52,7 @@
       <tr>
         <td>日期</td>
         <td>会员卡号</td>
-        <td>名称</td>
+        <td>卡类型</td>
         <td>兑换内容</td>
         <td>兑换积分</td>
       </tr>
@@ -60,7 +60,7 @@
     <tbody>
     <?php foreach($this->_data['gift_record_list']['list'] as $row){?>
       <tr>
-        <td><?php echo $row['gift_record_atime'];?></td>
+        <td><?php echo date("Y-m-d H:i",$row['gift_record_atime']);?></td>
         <td><?php echo $row['c_card_code'];?></td>
         <td><?php echo $row['c_card_type_name'];?></td>
         <td><?php echo $row['gift_goods'];?></td>

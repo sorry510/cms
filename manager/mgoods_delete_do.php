@@ -22,14 +22,14 @@ if(!empty($arr)){
 	$intreturn = 2;
 }
 // 库存商品,没有缓存价格有时用到
-$strsql = "SELECT store_goods_id FROM ".$GLOBALS['gdb']->fun_table2('store_info'). " where mgoods_id=".$intmgoods_id;
+$strsql = "SELECT store_info_id FROM ".$GLOBALS['gdb']->fun_table2('store_info'). " where mgoods_id=".$intmgoods_id;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(!empty($arr)){
 	$intreturn = 3;
 }
 //卡的优惠券
-$strsql = "SELECT card_id FROM ".$GLOBALS['gdb']->fun_table2('card_ticket'). " where c_mgoods_id=".$intmgoods_id." and card_ticket_edate>".time();
+$strsql = "SELECT card_ticket_id FROM ".$GLOBALS['gdb']->fun_table2('card_ticket'). " where c_mgoods_id=".$intmgoods_id." and card_ticket_edate>".time();
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(!empty($arr)){

@@ -94,9 +94,9 @@ function api_value_post($strvalue) {
 }
 
 function api_value_query($arrquery, $strpage = '') {
-	if(empty($arrquery)) {
-		return '';
-	}
+	// if(empty($arrquery)) {
+	// 	return '';
+	// }
 	$str = http_build_query($arrquery);
 	if(!empty($strpage)) {
 		$str = $str . '&page=' . $strpage;

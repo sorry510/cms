@@ -3,21 +3,32 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$strchannel = 'goods';
-
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
+$strshop_id = api_value_get('shop_id');
+$intshop_id = api_value_int0($strshop_id);
 
-$gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('request', get_request());
-$gtemplate->fun_show('mgoods_catalog');
+$gtemplate->fun_assign('shop_list', get_shop_list());
+$gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());//exit;
+$gtemplate->fun_show('sgoods_catalog');
+
 
 function get_request(){
 	$arr = array();
 	return $arr;
 }
 
-function get_mgoods_catalog_list(){
+function get_shop_list(){
+	$arr = array();
+	$strsql = "SELECT shop_id, shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." ORDER BY shop_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+
+	return $arr;
+}
+
+function get_sgoods_catalog_list(){
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
@@ -26,12 +37,15 @@ function get_mgoods_catalog_list(){
 	$arr = array();
 	$arrlist = array();
 	$arrpackage = array();
-
  	$strwhere = "";
-	$strsql = "SELECT count(mgoods_catalog_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')  . " WHERE 1 = 1 " . $strwhere;
+ 	if($GLOBALS['intshop_id'] != 0){
+ 		$strwhere .= " AND shop_id = ". $GLOBALS['intshop_id'];
+ 	}
+
+	$strsql = "SELECT count(sgoods_catalog_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')  . " WHERE 1 = 1 " . $strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-
+//  echo $strsql;exit;
 	$intallcount = $arr['mycount'];
 	if($intallcount == 0) {
 		$arrpackage['allcount'] = 0;
@@ -43,7 +57,7 @@ function get_mgoods_catalog_list(){
 		return $arrpackage;
 	}
 
-	$intpagesize = 2;
+	$intpagesize = 5;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -66,7 +80,8 @@ function get_mgoods_catalog_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT mgoods_catalog_id, mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." ORDER BY mgoods_catalog_id LIMIT ". $intoffset . ", " . $intpagesize;
+	$strsql = "SELECT a.*, b.shop_name FROM(SELECT sgoods_catalog_id, sgoods_catalog_name, shop_id FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')."  WHERE 1=1 ".$strwhere." ORDER BY sgoods_catalog_id desc LIMIT ". $intoffset . ", " . $intpagesize .") AS a LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." AS b on a.shop_id = b.shop_id order by a.sgoods_catalog_id desc";
+
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	
@@ -79,5 +94,17 @@ function get_mgoods_catalog_list(){
 
 	return $arrpackage;
 }
-
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+

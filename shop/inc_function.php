@@ -26,4 +26,14 @@ function pageJs($datalist,$request,$url){
 	echo '&page="+intpage';
 	echo '}}';
 }
-?>
+
+function userName(){
+	$arr = array();
+	
+	$strsql = "SELECT user_name FROM ".$GLOBALS['gdb']->fun_table2('user'). " WHERE user_id=".$GLOBALS['_SESSION']['login_id'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$user_name = $arr['user_name'];
+
+	return $user_name;
+}

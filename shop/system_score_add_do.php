@@ -16,11 +16,7 @@ $arr = array();
 $inttime = time();
 $intreturn = 0;
 
-
-$strsql = "SELECT user_name FROM ".$gdb->fun_table2('user'). " WHERE user_id=".$GLOBALS['_SESSION']['login_id'];
-$hresult = $gdb->fun_query($strsql);
-$arr = $gdb->fun_fetch_assoc($hresult);
-$user_name = $arr['user_name'];
+$user_name = userName();
 
 $strsql = "SELECT card_id,card_code,card_name,card_phone,c_card_type_name,s_card_yscore FROM ".$gdb->fun_table2('card')." WHERE card_id=".$intcard_id." limit 1";
 $hresult = $gdb->fun_query($strsql);

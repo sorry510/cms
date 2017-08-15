@@ -10,6 +10,7 @@
 .gtext-orange {color:#FF4200;}
 .gtext-green {color:#2AA672;}
 .gtext-blue {color:#3D76C7;}
+.gtext-overflow {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 
 /*公共样式*/
 /*header*/
@@ -101,7 +102,7 @@
 #ubody .utools > button {float:right;}
 
 /*表格样式*/
-#ubody .utable1 {margin:0 auto; width:95%; font-size:1.4rem; text-align:center;}
+#ubody .utable1 {margin:0 auto; width:95%; font-size:1.4rem; text-align:center; table-layout:fixed;}
 #ubody .utable1 thead tr{background:#E9EEF2; height:37px;}
 #ubody .utable1 tbody tr {background:#FFFFFF; height:37px;}
 #ubody .utable1 td {vertical-align:middle;}

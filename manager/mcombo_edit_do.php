@@ -13,6 +13,8 @@ $strmcombo_jianpin = api_value_post('mcombo_jianpin');
 $sqlmcombo_jianpin = $gdb->fun_escape($strmcombo_jianpin);
 $strmcombo_code = api_value_post('mcombo_code');
 $sqlmcombo_code = $gdb->fun_escape($strmcombo_code);
+$strmcombo_code_old = api_value_post('mcombo_code_old');
+$sqlmcombo_code_old = $gdb->fun_escape($strmcombo_code_old);
 $strmcombo_price = api_value_post('mcombo_price');
 $decmcombo_price = api_value_decimal($strmcombo_price,2);
 $strmcombo_cprice = api_value_post('mcombo_cprice');
@@ -29,8 +31,21 @@ $arrmgoods = api_value_post('arr');
 
 $intreturn = 0;
 $ctime = time();
-$atime = time();
 $arr = array();
+
+//编码不能相同
+if($intreturn == 0){
+	if($sqlmcombo_code != $sqlmcombo_code_old && !empty($sqlmcombo_code)){
+		$strsql = "SELECT mcombo_id FROM ".$gdb->fun_table2('mcombo')." WHERE mcombo_code='".$sqlmcombo_code."'";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$intreturn = 1;
+		}
+	}
+}
+
+
 if($intreturn == 0) {
 	$intmcombo_limit = "";
 
@@ -45,7 +60,7 @@ if($intreturn == 0) {
 	$strsql = "UPDATE " . $gdb->fun_table2('mcombo') . "SET mcombo_type = '$intmcombo_type', mcombo_code = '$strmcombo_code', mcombo_name = '$strmcombo_name', mcombo_jianpin = '$strmcombo_jianpin', mcombo_price = $decmcombo_price, mcombo_cprice =  $decmcombo_cprice, ".$intmcombo_limit." mcombo_act = $intmcombo_act, mcombo_ctime = $ctime WHERE mcombo_id = $intmcombo_id";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 1;
+		$intreturn = 2;
 	}	
 }
 
@@ -53,17 +68,17 @@ if($intreturn == 0) {
 	$strsql = "DELETE FROM " . $gdb->fun_table2('mcombo_goods') . " WHERE mcombo_id = $intmcombo_id";
 	$hresult = $GLOBALS['gdb']->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 2;
+		$intreturn = 3;
 	}
 }
 
 if($intreturn == 0) {
 	foreach($arrmgoods as $v){
-		$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo_goods') . " (mgoods_id, mcombo_goods_count, mcombo_id, mcombo_goods_atime ) VALUES ( ".$v['mgoods_id']." , ". $v['number'] .", ".$intmcombo_id.", $atime)";
+		$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo_goods') . " (mgoods_id, mcombo_goods_count, mcombo_id, mcombo_goods_atime ) VALUES ( ".$v['mgoods_id']." , ". $v['number'] .", ".$intmcombo_id.", $ctime)";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
-			$intreturn = 3;
-		}	
+			$intreturn = 4;
+		}
 	}
 }
 

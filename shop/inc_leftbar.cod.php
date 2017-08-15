@@ -8,10 +8,10 @@
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'goods') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-iconfont31quanbushangpin"></span> 商品</a>
     <ul class="am-dropdown-content umenu2 umenu2-four">
-      <li><a href="mgoods.php"><span class="iconfont icon-question"></span> 通用型商品</a></li>
-      <li><a href="sgoods.php"><span class="iconfont icon-question"></span> 店铺型商品</a></li>
-      <li><a href="goods_stock.php"><span class="iconfont icon-question"></span> 商品库存管理</a></li>
-      <li><a href="goods_package.php"><span class="iconfont icon-question"></span> 套餐管理</a></li>
+      <li><a href="mgoods.php">1. 多店通用商品</a></li>
+      <li><a href="sgoods.php">2. 单店销售商品</a></li>
+      <li><a href="mcombo_time.php">3. 计时卡套餐</a></li>
+      <li><a href="mcombo_number.php">4. 计次卡套餐</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'worker') {echo 'uhighlight';} ?>" data-am-dropdown>

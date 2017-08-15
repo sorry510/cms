@@ -57,7 +57,7 @@
       <td><?php echo $row['mgoods_code']; ?></td>
       <td><?php echo $row['mgoods_price']; ?></td>
       <td><?php echo $row['mgoods_cprice']==0?'--':$row['mgoods_cprice']; ?></td>
-      <td class="<?php echo $row['mgoods_type']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_type']=='1'?'√':'x';?></td>
+      <td class="<?php echo $row['mgoods_type']==2?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_type']==2?'√':'x';?></td>
       <td class="<?php echo $row['mgoods_act']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_act']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mgoods_reserve']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_reserve']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mgoods_state']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mgoods_state']=='1'?'正常':'停用';?></td>
@@ -78,7 +78,7 @@
                         停用
                       </button>';
               }else if($row['mgoods_state'] == 2){
-                echo '<button class="am-btn ubtn-table ubtn-blue cmgoods_state" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
+                echo '<button class="am-btn ubtn-table ubtn-blue cmgoods_state2" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <i class="iconfont icon-question"></i>
                         启用
                       </button>';
@@ -104,6 +104,7 @@
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" data-am-selected name="mgoods_catalog_id">
+              <option value="0">请选择</option>
               <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
               <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
               <?php } ?>
@@ -142,10 +143,10 @@
           <label class="umodal-label am-form-label" for="">参与库存：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="1" data-am-ucheck> 参与
+              <input type="radio" name="mgoods_type" value="2" data-am-ucheck> 参与
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="2" data-am-ucheck checked> 不参与
+              <input type="radio" name="mgoods_type" value="1" data-am-ucheck checked> 不参与
             </label>
           </div>
         </div>
@@ -197,6 +198,7 @@
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" name="mgoods_catalog_id">
+            <option value="0">请选择</option>
             <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
             <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
             <?php } ?>
@@ -218,6 +220,7 @@
           <label class="umodal-label am-form-label" for="">商品编码：</label>
           <div class="umodal-normal">
             <input type="text" name="mgoods_code" class="am-form-field uinput uinput-max">
+            <input type="hidden" name="mgoods_code_old" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -236,10 +239,10 @@
           <label class="umodal-label am-form-label" for="">参与库存：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="1"  data-am-ucheck> 参与
+              <input type="radio" name="mgoods_type" value="2"  data-am-ucheck> 参与
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="2"  data-am-ucheck checked> 不参与
+              <input type="radio" name="mgoods_type" value="1"  data-am-ucheck checked> 不参与
             </label>
           </div>
         </div>
@@ -283,7 +286,7 @@
   <div class="am-modal-dialog uconfirm">
     <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
-      你，确定要删除这条记录吗？
+      你确定要删除这条记录吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -291,13 +294,25 @@
     </div>
   </div>
 </div>
-
-<!-- 停用启用框 -->
+<!-- 停用框 -->
 <div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">
     <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
-      你，确定要这样做吗？
+      你确定要停用吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+<!-- 启用框 -->
+<div id="cconfirm3" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你确定要重新启用吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -322,13 +337,10 @@ $('.cdel').on('click', function() {
           window.location.reload();
         }else if(res=='1'){
           alert("套餐中含有此商品，不能删除！");
-          $('.cadd-form1').attr('disabled',false);
         }else if(res=='2'){
           alert("优惠券中含有此商品，不能删除！");
-          $('.cadd-form1').attr('disabled',false);
         }else{
           alert("删除失败");
-          $('.cadd-form1').attr('disabled',false);
         }
       });
     },
@@ -337,7 +349,7 @@ $('.cdel').on('click', function() {
     }
   });
 });
-//商品状态转换
+//商品停用
 $('.cmgoods_state').on('click',function(){
   $('#cconfirm2').modal({
     relatedTarget: this,
@@ -356,30 +368,26 @@ $('.cmgoods_state').on('click',function(){
     }
   });
 });
-//根据文本框输入的汉字自动获取汉字拼音首字母到下拉列表中，支持多音字，需引入库pinying.js
-function query(){
-  $("#cupen").val(null);
-  var str = $("#cgoodsname").val().trim();
-  if(str == "") return;
-  // console.log(str);
-  var arrRslt = makePy(str);
-  $("#cupen").val(arrRslt);
-}
-function query2(){
-      $("#cupen2").val(null);
-      var str = $("#cgoodsname2").val().trim();
-      if(str == "") return;
-      // console.log(str);
-      var arrRslt = makePy(str);
-      $("#cupen2").val(arrRslt);
-}
-
-//工具栏搜索按钮
-$('.cadd-form1').on('click',function(){
-  $("#form1").submit();
+//商品启用
+$('.cmgoods_state2').on('click',function(){
+  $('#cconfirm3').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.get('mgoods_state_do.php',{'mgoods_id':$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('修改失败');
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
 });
-
-//添加商品完成按钮
+//添加商品submit
 $('.cadd-form2').on('click',function(){
   $(this).attr('disabled',true);
   var url="mgoods_add_do.php";
@@ -388,21 +396,17 @@ $('.cadd-form2').on('click',function(){
     if(res=='0'){
       window.location.href='mgoods.php';
     }else if(res=='1'){
-      alert("名字不能重复");
-      $('.cadd-form2').attr('disabled',false);
-    }else if(res=='3'){
       alert("缺少必填项");
+      $('.cadd-form2').attr('disabled',false);
+    }else if(res=='2'){
+      alert("商品编码不能重复");
       $('.cadd-form2').attr('disabled',false);
     }else{
       alert("添加失败");
     }
   });
 });
-
-
-
-
-//修改商品
+//修改商品show
 $('.cupdate').on('click', function(e) {
   var mgoods_id = $(this).val();
   $.ajax({
@@ -415,6 +419,7 @@ $('.cupdate').on('click', function(e) {
       $("#umgoodsm2 input[name='mgoods_name_old']").val(msg.mgoods_name);
       $("#umgoodsm2 input[name='mgoods_jianpin']").val(msg.mgoods_jianpin);
       $("#umgoodsm2 input[name='mgoods_code']").val(msg.mgoods_code);
+      $("#umgoodsm2 input[name='mgoods_code_old']").val(msg.mgoods_code);
       $("#umgoodsm2 input[name='mgoods_price']").val(msg.mgoods_price);
       if(msg.mgoods_cprice==0){
         msg.mgoods_cprice = '';
@@ -447,24 +452,43 @@ $('.cupdate').on('click', function(e) {
 $('#umgoodsm2').on('close.modal.amui', function(){
   $("#umgoodsm2 select[name='mgoods_catalog_id']").selected('destroy');
 });
-//修改商品完成按钮
+//修改商品submit
 $('.cadd-form3').on('click',function(){
   $(this).attr('disabled',true);
   var data = $("#form3").serialize();
   var url = "mgoods_edit_do.php";
   $.post(url,data,function(msg){
-    console.log(msg)
     if(msg=='0'){
       window.location.reload();
-    }else if(msg=='1'){
-      alert('商品名字不能重复');
-      $('.cadd-form3').attr('disabled',false);
+    }else if(res=='1'){
+      alert("缺少必填项");
+      $('.cadd-form2').attr('disabled',false);
+    }else if(res=='2'){
+      alert("商品编码不能重复");
+      $('.cadd-form2').attr('disabled',false);
     }else{
-      alert('修改失败');
+      alert("修改失败");
     }
   });
 });
 
+//根据文本框输入的汉字自动获取汉字拼音首字母到下拉列表中，支持多音字，需引入库pinying.js
+function query(){
+  $("#cupen").val(null);
+  var str = $("#cgoodsname").val().trim();
+  if(str == "") return;
+  // console.log(str);
+  var arrRslt = makePy(str);
+  $("#cupen").val(arrRslt);
+}
+function query2(){
+      $("#cupen2").val(null);
+      var str = $("#cgoodsname2").val().trim();
+      if(str == "") return;
+      // console.log(str);
+      var arrRslt = makePy(str);
+      $("#cupen2").val(arrRslt);
+}
 </script>
 </body>
 </html>

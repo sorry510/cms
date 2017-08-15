@@ -30,8 +30,7 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
-        <td>添加时间</td>
-        <td>套餐名称</td>
+        <td width="15%">套餐名称</td>
         <td>编码</td>
         <td>价格</td>
         <td>会员价格</td>
@@ -43,12 +42,11 @@
     </thead>
     <?php foreach($this->_data['mcombo_number_list']['list'] as $row) { ?>
     <tr>
-      <td><?php echo date("Y-m-d h:i",$row['mcombo_atime']); ?></td>
-      <td title="<?php echo $row['mcombo_name']; ?>"><?php echo $row['mcombo_name2']; ?></td>
+      <td class="gtext-overflow" title="<?php echo $row['mcombo_name']; ?>"><?php echo $row['mcombo_name']; ?></td>
       <td><?php echo $row['mcombo_code']; ?></td>
-      <td class="gtext-orange"><?php echo $row['mcombo_price']; ?>元</td>
-      <td class="gtext-orange"><?php echo $row['mcombo_cprice']; ?>元</td>
-      <td class="gtext-green"><?php echo $row['mcombo_limit_type'] == '2'?$row['mcombo_limit_days'].'天':($row['mcombo_limit_type'] == '3'?$row['mcombo_limit_months'].'月':'不限期') ?></td>
+      <td class="gtext-orange"><?php echo $row['mcombo_price']; ?></td>
+      <td class="gtext-orange"><?php echo $row['mcombo_cprice']==0?'--':$row['mcombo_cprice']; ?></td>
+      <td class="gtext-green"><?php echo $row['mcombo_limit_type'] == '2'?$row['mcombo_limit_days'].'天':($row['mcombo_limit_type'] == '3'?$row['mcombo_limit_months'].'个月':'不限期') ?></td>
       <td class="<?php echo $row['mcombo_act']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mcombo_act']=='1'?'√':'x';?></td>
       <td class="<?php echo $row['mcombo_state']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['mcombo_state']=='1'?'正常':'停用';?></td>
       <td>
@@ -68,7 +66,7 @@
                       停用
                     </button>';
             }else if($row['mcombo_state'] == 2){
-              echo '<button class="am-btn ubtn-table ubtn-blue cmcombo_state" value="'.$row["mcombo_id"].'">
+              echo '<button class="am-btn ubtn-table ubtn-blue cmcombo_state2" value="'.$row["mcombo_id"].'">
                       <i class="iconfont icon-question"></i>
                       启用
                     </button>';
@@ -79,12 +77,7 @@
     </tr>
     <?php } ?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['mcombo_number_list']['pagecount']; ?>页 <?php echo $this->_data['mcombo_number_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="mcombo_number.php?<?php echo api_value_query($this->_data['request'], $this->_data['mcombo_number_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="mcombo_number.php?<?php echo api_value_query($this->_data['request'], $this->_data['mcombo_number_list']['pagenext']); ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['mcombo_number_list'],$this->_data['request'],'mcombo_number.php');?>
 </div>
 
 <!--新增套餐-->
@@ -186,6 +179,7 @@
           <label class="umodal-label am-form-label" for="">编码：</label>
           <div class="umodal-normal">
             <input type="text" name="mcombo_code" class="am-form-field uinput uinput-max">
+            <input type="hidden" name="mcombo_code_old" class="am-form-field uinput uinput-max">
           </div>
         </div>
         <div class="am-form-group">
@@ -433,18 +427,38 @@
       <span class="am-modal-btn" data-am-modal-confirm>确定</span>
     </div>
   </div>
-</div> 
+</div>
+<!-- 停用框 -->
+<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你确定要停用吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+<!-- 启用框 -->
+<div id="cconfirm3" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你确定要重新启用吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pinying.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-//分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
-}
-if(<?php echo $this->_data['mcombo_number_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
-}
+<?php pageJs($this->_data['mcombo_number_list'],$this->_data['request'],'mcombo_number.php');?>
 //删除
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
@@ -464,14 +478,62 @@ $('.cdel').on('click', function() {
     }
   });
 });
+//停用
+$('.cmcombo_state').on('click',function(){
+  $('#cconfirm2').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('mcombo_state_do.php',{'mcombo_id':$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('修改失败');
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
+});
+//启用
+$('.cmcombo_state2').on('click',function(){
+  $('#cconfirm3').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('mcombo_state_do.php',{'mcombo_id':$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('修改失败');
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
+});
 //下一步
 $('.cmodelopen').on('click', function(e) {
-  $('#umcombo_numberm1').modal('close');
-  $('#umcombo_numberm3').modal('open');
+  if($("#umcombo_numberm1 input[name='mcombo_name']").val() && $("#umcombo_numberm1 input[name='mcombo_price']").val()){
+    $('#umcombo_numberm1').modal('close');
+    $('#umcombo_numberm3').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
 });
 $('.cmodelopen3').on('click', function(e) {
-  $('#umcombo_numberm2').modal('close');
-  $('#umcombo_numberm4').modal('open');
+  if($("#umcombo_numberm2 input[name='mcombo_name']").val() && $("#umcombo_numberm2 input[name='mcombo_price']").val()){
+    $('#umcombo_numberm2').modal('close');
+    $('#umcombo_numberm4').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
 });
 //上一步
 $('.cmodelopen2').on('click', function(e) {
@@ -684,8 +746,13 @@ $('.cupdate').on('click', function(e) {
         $("#umcombo_numberm2 input[name='mcombo_name']").val(msg.mcombo_name);
         $("#umcombo_numberm2 input[name='mcombo_jianpin']").val(msg.mcombo_jianpin);
         $("#umcombo_numberm2 input[name='mcombo_code']").val(msg.mcombo_code);
+        $("#umcombo_numberm2 input[name='mcombo_code_old']").val(msg.mcombo_code);
         $("#umcombo_numberm2 input[name='mcombo_price']").val(msg.mcombo_price);
-        $("#umcombo_numberm2 input[name='mcombo_cprice']").val(msg.mcombo_cprice);
+        if(msg.mcombo_cprice!=0){
+          $("#umcombo_numberm2 input[name='mcombo_cprice']").val(msg.mcombo_cprice);
+        }else{
+          $("#umcombo_numberm2 input[name='mcombo_cprice']").val('');
+        }
         $("#umcombo_numberm2 input[name='mcombo_id']").val(msg.mcombo_id);
         if(msg.mcombo_limit_type == 1){
           $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val(0);
@@ -754,6 +821,7 @@ $('.ceditor-mcombo').on('click',function(){
   var mcombo_name = $("#umcombo_numberm2 input[name='mcombo_name']").val();
   var mcombo_jianpin = $("#umcombo_numberm2 input[name='mcombo_jianpin']").val();
   var mcombo_code = $("#umcombo_numberm2 input[name='mcombo_code']").val();
+  var mcombo_code_old = $("#umcombo_numberm2 input[name='mcombo_code_old']").val();
   var mcombo_price = $("#umcombo_numberm2 input[name='mcombo_price']").val();
   var mcombo_cprice = $("#umcombo_numberm2 input[name='mcombo_cprice']").val();
   var mcombo_limit_cont = $("#umcombo_numberm2 input[name='mcombo_limit_cont']").val();
@@ -765,6 +833,7 @@ $('.ceditor-mcombo').on('click',function(){
         mcombo_name:mcombo_name,
         mcombo_jianpin:mcombo_jianpin,
         mcombo_code:mcombo_code,
+        mcombo_code_old:mcombo_code_old,
         mcombo_price:mcombo_price,
         mcombo_cprice:mcombo_cprice,
         mcombo_limit_cont:mcombo_limit_cont,
@@ -779,6 +848,8 @@ $('.ceditor-mcombo').on('click',function(){
         // console.log(res);
         if(res=='0'){
           window.location.reload();
+        }else if(res==1){
+          alert('编码不能相同');
         }else{
           alert('修改套餐失败');
           console.log(res);
@@ -786,23 +857,6 @@ $('.ceditor-mcombo').on('click',function(){
       });
 });
 
-//套餐状态转换
-$('.cmcombo_state').on('click',function(){
-  var mcombo_id = $(this).val();
-  var mcombo_state = $(this).next().val();
-  $.ajax({
-    type: "GET",
-    url: "mcombo_state_do.php",
-    data: {mcombo_id:mcombo_id,mcombo_state:mcombo_state}, 
-    success: function(msg){
-      if(msg=='y'){
-        window.location.reload();
-      }else{
-        alert('修改失败');
-      }
-    }
-  });
-});
 </script>
 </body>
 </html>

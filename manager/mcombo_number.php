@@ -97,13 +97,13 @@ function get_mcombo_number_list(){
 	$strsql = "SELECT mcombo_id, mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice, mcombo_limit_type, mcombo_limit_days, mcombo_limit_months, mcombo_act, mcombo_state, mcombo_atime FROM " . $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_type = 1 ".$strwhere." ORDER BY mcombo_id desc LIMIT ". $intoffset . ", " . $intpagesize; 	
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	foreach($arrlist as &$v){
+	/*foreach($arrlist as &$v){
 		if(mb_strlen($v['mcombo_name'])>10){
 			$v['mcombo_name2'] = mb_substr($v['mcombo_name'],0,10)."...";
 		}else{
 			$v['mcombo_name2'] = $v['mcombo_name'];
 		}
-	}
+	}*/
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;

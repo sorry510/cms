@@ -27,16 +27,29 @@ $intmgoods_reserve = api_value_int0($strmgoods_reserve);
 $intreturn = 0;
 $atime = time();
 
-if($decmgoods_price == 0 || $sqlmgoods_name==''){
-	$intreturn = 3;
+if($decmgoods_price == 0 || $sqlmgoods_name=='' || $intmgoods_catalog_id == 0){
+	$intreturn = 1;
 }
 
 if($intreturn == 0){
-	$strsql = "SELECT mgoods_id FROM ".$gdb->fun_table2('mgoods'). "where mgoods_name='".$sqlmgoods_name."' and mgoods_catalog_id=".$intmgoods_catalog_id;
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	if(!empty($arr)){
-		$intreturn = 1;
+	if($sqlmgoods_code != ''){
+		$strsql = "SELECT mgoods_id FROM ".$gdb->fun_table2('mgoods'). " where mgoods_code='".$sqlmgoods_code."'";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$intreturn = 2;
+		}
+	}
+}
+
+if($intreturn == 0){
+	if($sqlmgoods_code != ''){
+		$strsql = "SELECT sgoods_id FROM ".$gdb->fun_table2('sgoods'). " where sgoods_code='".$sqlmgoods_code."'";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$intreturn = 2;
+		}
 	}
 }
 
@@ -44,7 +57,7 @@ if($intreturn == 0) {
 	$strsql = "INSERT INTO " . $gdb->fun_table2('mgoods') . "( mgoods_catalog_id, mgoods_name, mgoods_jianpin, mgoods_code, mgoods_price, mgoods_cprice, mgoods_type, mgoods_act,mgoods_reserve,mgoods_state) VALUES ( $intmgoods_catalog_id  , '$sqlmgoods_name', '$sqlmgoods_jianpin', '$sqlmgoods_code', $decmgoods_price, $decmgoods_cprice, $intmgoods_type, $intmgoods_act,$intmgoods_reserve,1)";
 	  $hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 2;
+		$intreturn = 3;
 	}
 }
 

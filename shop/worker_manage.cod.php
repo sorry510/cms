@@ -31,8 +31,8 @@
         </select>
       </div>
       <div class="am-form-group">
-        <label class="am-form-label">姓名：</label>
-        <input class="am-form-field uinput uinput-220" type="text" name="search" value="<?php echo $this->_data['request']['search'];?>">
+        <label class="am-form-label">搜索：</label>
+        <input class="am-form-field uinput uinput-220" type="text" name="search" value="<?php echo $this->_data['request']['search'];?>" placeholder="姓名/编号">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -71,10 +71,10 @@
       <td><a class="coffcanvasopen" data-am-offcanvas="{target: '#uworkeroff1'}" href="#" worker_id="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></a></td>
       <td><?php echo $row['worker_code'];?></td>
       <td><?php echo $row['worker_sex']=='2'?'女':'男';?></td>
-      <td><?php echo date('Y-m-d H:i:s',$row['worker_birthday_date']);?></td>
+      <td><?php echo date('Y-m-d',$row['worker_birthday_date']);?></td>
       <td><?php echo $row['worker_phone'];?></td>
       <td><?php echo $row['education_name'];?></td>
-      <td><?php echo date('Y-m-d H:i:s',$row['worker_join']);?></td>
+      <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
       <td><?php echo $row['worker_wage'];?></td>
       <td><?php echo $row['worker_config_reserve']=='1'?'参与':'不参与';?></td>
       <td><?php echo $row['worker_config_guide']=='1'?'参与':'不参与';?></td>

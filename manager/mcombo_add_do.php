@@ -30,6 +30,17 @@ $arr = array();
 if($sqlmcombo_name == '' || $decmcombo_price == 0){
 	$intreturn = 1;
 }
+// 编码不能相同
+if($intreturn == 0){
+	if(!empty($sqlmcombo_code)){
+		$strsql = "SELECT mcombo_id FROM ".$gdb->fun_table2('mcombo')." WHERE mcombo_code='".$sqlmcombo_code."'";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$intreturn = 2;
+		}
+	}
+}
 
 //写入mcombo
 if($intreturn == 0) {
@@ -46,7 +57,7 @@ if($intreturn == 0) {
 	$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo') . "(mcombo_type, mcombo_code, mcombo_name, mcombo_jianpin, mcombo_price, mcombo_cprice,mcombo_limit_type, ".$mcombo_limit.", mcombo_act, mcombo_state, mcombo_atime ) VALUES ( $intmcombo_type, '$strmcombo_code', '$strmcombo_name','$strmcombo_jianpin', $decmcombo_price, $decmcombo_cprice,  $intmcombo_limit_type, $intmcombo_limit_cont , $intmcombo_act, 1, $atime)";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 2;
+		$intreturn = 3;
 	}else{
 		$mcmobo_id = mysql_insert_id();
 	}
@@ -58,7 +69,7 @@ if($intreturn == 0) {
 		$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo_goods') . " (mgoods_id, mcombo_goods_count, mcombo_id, mcombo_goods_atime ) VALUES ( ".$v['mgoods_id']." , ". $v['number'] .", ".$mcmobo_id.", $atime)";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
-			$intreturn = 3;
+			$intreturn = 4;
 		}
 	}
 }

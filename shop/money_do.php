@@ -48,7 +48,7 @@ if($intreturn == 0 && $intcard_id != 0){
 		$intreturn = 1;
 	}
 }
-//记录card_record
+//记录card_record，赠送优惠券
 if($intreturn == 0){
 	$card_pay = '';
 	switch($intpay_type)
@@ -276,6 +276,7 @@ if($intreturn == 0 && !empty($arrinfo)){
 //记录套餐使用情况,验证商品数量是否超标,记录库存
 if($intreturn == 0 && !empty($arrinfo2)){
 	foreach($arrinfo2 as $v){
+		// 记次套餐使用情况，计时套餐还未做
 		$intcard_mcombo_id = api_value_int0($v['card_mcombo_id']);
 		$intnum = api_value_int0($v['num']);
 
@@ -350,7 +351,7 @@ if($intreturn == 0 && !empty($arrinfo3)){
 				$intreturn = 23;
 			}
 		}
-		//记录act总表记录,没有记录金额方面的东西
+		//记录act总表记录,没有记录金额方面的东西(用券记录消费金额)
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_uticket=act_relate_uticket+1 where act_id=".$arr['act_id'];
 			$hresult = $gdb->fun_do($strsql);
@@ -413,4 +414,6 @@ if($intreturn == 0){
 		}
 	}
 }
+// 满送记录消费金额
+// 用券记录消费金额
 echo $intreturn;

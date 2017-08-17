@@ -67,25 +67,12 @@
     <?php } ?>
     </tbody>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['store_info_sgoods_list']['pagecount']; ?>页 <?php echo $this->_data['store_info_sgoods_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="store_info_sgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['store_info_sgoods_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active" ><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="store_info_sgoods.php?<?php echo api_value_query($this->_data['request'], $this->_data['store_info_sgoods_list']['pagenext']); ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['store_info_sgoods_list'],$this->_data['request'],'store_info_sgoods.php');?>
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-//分页首末页不可选中
-$(function(){
-  if(<?php echo $GLOBALS['intpage'];?>>1){
-    $('.upages li').eq(1).removeClass('am-disabled');
-  }
-  if(<?php echo $this->_data['store_info_sgoods_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-    $('.upages li').last().addClass('am-disabled');
-  }
-})
+<?php pageJs($this->_data['store_info_sgoods_list'],$this->_data['request'],'store_info_sgoods.php');?>
 </script>
 </body>
 </html>

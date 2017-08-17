@@ -46,16 +46,16 @@
         <td>姓名</td>
         <td>手机</td>
         <td>性别</td>
-        <td>生日</td>
-        <td>开卡时间</td>
-    	<td>卡类型</td>
-    	<td>折扣</td>
+        <td width="8%">生日</td>
+        <td width="8%">开卡时间</td>
+    	  <td>卡类型</td>
+    	  <td>折扣</td>
         <td>到期时间</td>
         <td>卡状态</td>
-        <td>开卡店铺</td>
+        <td width="10%">开卡店铺</td>
         <td>电子档案</td>
         <td>消费明细</td>
-        <td>操作</td>
+        <td width="18%">操作</td>
       </tr>
     </thead>
     <tbody>
@@ -89,7 +89,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【
+        <td colspan="14" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【
           <?php foreach($row['mcombo'] as $row2){
           echo $row2['mgoods_name'];
           echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>),';
@@ -99,18 +99,13 @@
           }?>】</td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
+        <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>
     </tbody>
   </table>
   <div class="gspace15"></div>
   <?php }?>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['cards_list']['pagecount']; ?>页 <?php echo $this->_data['cards_list']['allcount']; ?>条记录</li>
-    <li class="am-disabled"><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-    <li><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['cards_list']['pagenext']); ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['cards_list'],$this->_data['request'],'card.php');?>
 </div>
 <!-- 新增会员 -->
 <div id="ucardm1" class="am-modal" tabindex="-1">
@@ -170,7 +165,7 @@
               </div>
             </div>
             <div class="am-form-file uphoto">
-              <img id="cimg1" src="../img/li.jpg">
+              <img id="cimg1" src="../img/wu.jpg">
               <a class="am-btn am-btn-gray am-btn-sm">
                 <i class="am-icon-cloud-upload"></i> 点击上传</a>
               <input name="card_photo" id="doc-form-file1" class="cphoto" type="file" multiple>
@@ -299,7 +294,7 @@
               </div>
             </div>
             <div class="am-form-file uphoto">
-              <img id="cimg2" src="../img/li.jpg">
+              <img id="cimg2" src="../img/wu.jpg">
               <a class="am-btn am-btn-gray am-btn-sm">
                 <i class="am-icon-cloud-upload"></i> 点击上传</a>
               <input name="card_photo" id="doc-form-file2" class="cphoto" type="file" multiple>
@@ -659,6 +654,7 @@
 <script src="../js/ajaxfileupload.js"></script>
 <script src="../js/amazeui.js"></script>
 <script type="text/javascript">
+<?php pageJs($this->_data['cards_list'],$this->_data['request'],'card.php');?>
 $(function() {
     var act_discount_id = [];//限时打折活动id
     var act_decrease_id = [];//减价降序排列
@@ -675,13 +671,7 @@ $(function() {
     <?php foreach($this->_data['act_give_list'] as $k => $v){?>
       act_give_id[<?php echo $k;?>] = <?php echo $v['act_give_id'];?>;
     <?php }?>
-    //分页首末页不可选中
-    if(<?php echo $GLOBALS['intpage'];?>>1){
-      $('.upages li').eq(1).removeClass('am-disabled');
-    }
-    if(<?php echo $this->_data['cards_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-      $('.upages li').last().addClass('am-disabled');
-    }
+   
     //付款方式
     $('.upay').on('click',function(){
       $(this).addClass('upay-active').siblings().removeClass('upay-active');
@@ -919,6 +909,7 @@ $(function() {
     //card新增提交信息
     $('.ccardaddsubmit').on('click',function(){
       $(this).attr('disabled',true);
+      var count=0;
       var url="card_add_do.php";
       var data = $("#ccardinfoadd").serialize();
       $.ajax({
@@ -945,6 +936,7 @@ $(function() {
             data:{card_id:res},
             dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
             success: function (data) {
+              count++;
               // console.log(data);
               /*$('.ccardaddsubmit').attr('disabled',false);
               if(data == '0'){
@@ -957,7 +949,10 @@ $(function() {
               }*/
             }
           });
-          window.location.href='card.php';
+          setInterval(function(){
+            if(count===1)
+              window.location.href='card.php';
+          }, 200);
         }
       });
     });
@@ -1007,6 +1002,7 @@ $(function() {
     //card修改提交信息
     $('.ccardeditsubmit').on('click',function(){
       $(this).attr('disabled',true);
+      var count=0;
       var url="card_edit_do.php";
       var data = $("#ccardinfoedit").serialize();
       var card_id = $("#ucardm1-1 input[name='card_id']").val();
@@ -1024,6 +1020,7 @@ $(function() {
             data:{card_id:card_id},
             dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
             success: function (data) {
+            count++;
               // console.log(data);
               // $('.ccardaddsubmit').attr('disabled',false);
               /*if(data == '0'){
@@ -1036,7 +1033,10 @@ $(function() {
               }*/
             }
           });
-          window.location.href='card.php';
+          setInterval(function(){
+            if(count===1)
+              window.location.href='card.php';
+          }, 200);
         }else{
           $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>修改会员失败</span>");
           $('#ualert').modal('open');

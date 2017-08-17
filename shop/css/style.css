@@ -100,35 +100,12 @@
 #umoney>.uc .uc2 .uc2d{ color: #5F5F5F;vertical-align: middle;font-weight: normal;}
 #umoney>.uc .uc2 .uc2e{ vertical-align: middle;}
 #umoney>.uc .uc3{height: 80px;line-height: 80px;margin:0 auto;margin-right: 1.5%;}
-/*count页面样式*/
-#ucount{font-size:1.4rem;}
-#ucount .ua{overflow:hidden; zoom:1; margin:0px auto; width:95%;}
-#ucount .ua .ua1{float:left; margin-left:1%; display:inline; color:#fff; font-size:2.4rem; text-align:center; }
-#ucount .ua .ua1-1{padding:40px 0px; width:10%; line-height:30px; background:#6bb0ef;}
-#ucount .ua .ua1-2{padding:30px 0px; width:10%; line-height:40px; background:#91c14f;}
-#ucount .ua .ua1-3{padding:30px 0px; width:10%; line-height:40px; background:#ed8323;}
-#ucount .ua .ua1-4{padding:40px 0px; width:10%; line-height:30px; background:#68c0bf;}
-#ucount .ua .ua2{float:left; padding-top:10px; width:20%; text-align:center;}
-#ucount .ua .ua2 .ua2a span{font-size:3rem; font-weight:bold; color:#cc0000;}
-#ucount .ua .ua2 .ua2c{color:#418f02;}
-#ucount .ua .ua3{float:left; margin:0px; padding:5px 0px 5px 4%; width:60%; text-align:left;  border-left:3px solid #cccccc;}
-#ucount .ua .ua3 li{height:25px; line-height:25px;}
-#ucount .ua .ua3 span{color:#cc0000; font-weight:bold;}
-/*appoint_finish页面样式*/
- #uappoint_finish .ua{margin:0px auto; height:40px; line-height:40px; width:95%; font-size:1.6rem;}
- #uappoint_finish .ub{overflow:hidden; zoom:1; margin:0px auto; width:95%;}
- #uappoint_finish .ub ul{float:left; overflow:hidden; zoom:1; margin:0px; margin-right:1.5%; padding:0px; width:18%; background:#fff; font-size:1.4rem; border-radius:5px;}
- #uappoint_finish .ub .ub1c1{padding-left:15px; height:40px; line-height:40px; color:#353537; background:#D89E4C;}
- #uappoint_finish .ub .ub1c2{margin:0 8%; height:40px; line-height:40px; color:#353537;background:#fff; border-bottom:1px solid #EEEEEE; text-align:center; }
- #uappoint_finish .ub .ub1c3{height:30px; line-height:30px; color:#717171;background:#fff; text-align:center; font-size:1.2rem;}
- #uappoint_finish .ub .ub1c4{padding-left:15px; height:40px; line-height:40px; color:#fff;background:#2AA672;}
 
-/*积分换礼页面*/
-#ubody .uinput2 .uinput-35{margin-bottom:2px;}
+
 /*加减数字*/
 #ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
 #ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
-/*#ubody table a{color:#000000;}*/
+
 /*打印设置*/
 #system_print .uform1 .ua{margin-bottom:5px;line-height:36px;}
 #system_print .uform1 .ua .ua1{padding-right: 0px;padding-left:0px; font-weight: normal; text-align: right;}

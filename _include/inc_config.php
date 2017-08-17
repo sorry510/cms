@@ -6,6 +6,7 @@ if(!defined('C_CNFLY')) {
 $gconfig = array();
 $gconfig['path']['photo'] = C_ROOT.'/photo';
 $gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo';
+// $gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/photo';
 $gconfig['system']['guimo'][1] = '0-10人';
 $gconfig['system']['guimo'][2] = '10-30人';
 $gconfig['system']['guimo'][3] = '30-100人';
@@ -23,7 +24,7 @@ $gconfig['worker']['education'][7] = '博士';
 
 
 require(C_ROOT . '/_include/cls_mysql.php');
-// $gdb = new cls_mysql();
+$gdb = new cls_mysql();
 // $gdb->pub_host = '5lh35n8y.2292lan.dnstoo.com:3306';
 // $gdb->pub_user = 've709d_f';
 // $gdb->pub_password = 'lkyky30u';

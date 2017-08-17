@@ -28,5 +28,5 @@
       </ul>
     </li>
   </ul>
-  <a href="#" class="am-topbar-right uad">视频教程</a>
+  <a href="#" class="am-topbar-right uhelp">视频教程</a>
 </header>

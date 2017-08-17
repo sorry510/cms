@@ -27,7 +27,7 @@
     </button>
   </div>
   <div class="gspace15"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1 utable1-fixed" id="doc-modal-list">
     <thead>
       <tr>
         <td width="15%">套餐名称</td>
@@ -642,7 +642,7 @@ function add(){
   if(!flag){
     return false;//添加过了后面不在执行
   }
-  var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><input type="hidden" class="uinput2 uinput-35 cnum" value="0" mgoods_id="' +mgoods_id +'"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+  var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><input type="hidden" class="uinput2 uinput-35 cnum" value="1" mgoods_id="' +mgoods_id +'"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
   if(type=="add"){
     $("#umcombo_timem3 .uright .uc").append(addhtml);
   }else{
@@ -688,7 +688,7 @@ function add2(){
       if(!flag){
         return false;//添加过了后面不在执行
       }
-      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><input type="hidden" class="uinput2 uinput-35 cnum" value="0" mgoods_id="' +mgoods_id +'"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+      var addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><input type="hidden" class="uinput2 uinput-35 cnum" value="1" mgoods_id="' +mgoods_id +'"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
       if(type=="add"){
         $("#umcombo_timem3 .uright .uc").append(addhtml);
       }else{

@@ -92,25 +92,25 @@ function get_card_list() {
 
 	$strwhere = '';
 	if ($GLOBALS['strtype'] == '') {
-		$strwhere = $strwhere . ' AND WHERE 1>2 ';
+		$strwhere = $strwhere . ' AND 1>2 ';
 	}
 	if($GLOBALS['intatime'] > 0) {
 		$strwhere = $strwhere . ' AND card_atime >= ' . $GLOBALS['intatime'];
 	}
 	if($GLOBALS['intlatime'] > 0) {
-		$strwhere = $strwhere . ' AND card_atime <= ' . ($GLOBALS['intlatime']+86400);
+		$strwhere = $strwhere . ' AND card_atime <= ' . ($GLOBALS['intlatime']+86399);
 	}
 	if($GLOBALS['intedate'] > 0) {
 		$strwhere = $strwhere . ' AND card_edate >= ' . $GLOBALS['intedate'];
 	}
 	if($GLOBALS['intledate'] > 0) {
-		$strwhere = $strwhere . ' AND card_edate <= ' . ($GLOBALS['intledate']+86400);
+		$strwhere = $strwhere . ' AND card_edate <= ' . ($GLOBALS['intledate']+86399);
 	}
 	if($GLOBALS['intbirthday'] > 0) {
 		$strwhere = $strwhere . ' AND card_birthday >= ' . $GLOBALS['intbirthday'];
 	}
 	if($GLOBALS['intlbirthday'] > 0) {
-		$strwhere = $strwhere . ' AND card_birthday <= ' . ($GLOBALS['intlbirthday']+86400);
+		$strwhere = $strwhere . ' AND card_birthday <= ' . ($GLOBALS['intlbirthday']+86399);
 	}
 	if($GLOBALS['inttype'] !='') {
 		if ($GLOBALS['inttype'] != 0) {

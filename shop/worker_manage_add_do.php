@@ -3,8 +3,6 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$strshop_id = api_value_post('shop_id');
-$intshop_id = api_value_int0($strshop_id);
 $strworker_group_id = api_value_post('worker_group_id');
 $intworker_group_id = api_value_int0($strworker_group_id);
 $strworker_name = api_value_post('worker_name');
@@ -45,6 +43,8 @@ $strworker_reserve = api_value_post('worker_reserve');
 $intworker_reserve = api_value_int0($strworker_reserve);
 $strworker_guide = api_value_post('worker_guide');
 $intworker_guide = api_value_int0($strworker_guide);
+
+$intshop_id = $GLOBALS['_SESSION']['login_sid'];
 
 $arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
 

@@ -13,14 +13,13 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'store') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-baobiao-xianxing"></span> 库存</a>
-    <ul class="am-dropdown-content umenu2 umenu2-five">
-      <li><a href="store.php">1. 出库和入库</a></li>
-      <li><a href="store_info_mgoods.php">2. 商品库存查询</a></li>
+    <ul class="am-dropdown-content umenu2 umenu2-one">
+      <li><a href="store_info_mgoods.php">1. 商品库存查询</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'worker') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-baobiao-xianxing"></span> 员工</a>
-    <ul class="am-dropdown-content umenu2 umenu2-five">
+    <ul class="am-dropdown-content umenu2 umenu2-four">
       <li><a href="worker_manage.php">1. 员工管理</a></li>
       <li><a href="worker_reward.php">2. 员工提成方案</a></li>
       <li><a href="worker_reward_detail.php">3. 员工提成明细</a></li>
@@ -29,7 +28,7 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'wechat') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-weixin"></span> 微信</a>
-    <ul class="am-dropdown-content umenu2 umenu2-three">
+    <ul class="am-dropdown-content umenu2 umenu2-five">
       <li><a href="wechat_publicnumber.php">1. 公众号设置</a></li>
       <li><a href="#">2. 微店设置</a></li>
       <li><a href="wechat_redpacket.php">3. 微信红包活动</a></li>
@@ -39,7 +38,7 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'marketing') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-iconfont31quanbushangpin"></span> 营销</a>
-    <ul class="am-dropdown-content umenu2 umenu2-seven">   
+    <ul class="am-dropdown-content umenu2 umenu2-eight">   
       <li><a href="ticket_money.php">1. 代金券管理</a></li>
       <li><a href="ticket_goods.php">2. 体验券管理</a></li>
       <li><a href="act_discount.php">3. 限时打折</a></li>

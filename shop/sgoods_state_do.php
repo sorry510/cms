@@ -15,6 +15,5 @@ if($intreturn == 0) {
 		$intreturn = 1;
 	}
 }
-
 echo $intreturn;
 ?>

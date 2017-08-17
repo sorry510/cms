@@ -29,8 +29,21 @@ $sgoods_cprice = 0;
 $mcombo_price = 0;
 $mcombo_cprice = 0;
 $act_discount_id = 0;
+
+// 判断商品是否参加活动
+$arrmgoods = array();
+$strsql = "SELECT mgoods_id FROM ".$gdb->fun_table2('mgoods')." WHERE mgoods_id=".$intmgoods_id." and mgoods_act=1";
+$hresult = $gdb->fun_query($strsql);
+$arrmgoods = $gdb->fun_fetch_assoc($hresult);
+
+// 判断套餐是否参加活动
+$arrmcombo = array();
+$strsql = " SELECT mcombo_id FROM ".$gdb->fun_table2('mcombo')." WHERE mcombo_id=".$intmcombo_id." and 	mcombo_act=1";
+$hresult = $gdb->fun_query($strsql);
+$arrmcombo = $gdb->fun_fetch_assoc($hresult);
+
 //多店通用商品活动价格,
-if(1){
+if(!empty($arrmgoods)){
 	// 如果商品突然不参与活动了，不用取这个价格
 	if($intmgoods_id!=0&&!empty($stract_id)){
 		$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price,c_mgoods_name,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$intmgoods_id." && act_discount_id in (".$stract_id.")";
@@ -49,7 +62,7 @@ if(1){
 	}
 }
 //套餐活动价格
-if(1){
+if(!empty($arrmcombo)){
 	if($intmcombo_id!=0&&!empty($stract_id)){
 		$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$intmcombo_id." && act_discount_id in (".$stract_id.")";
 		// echo $strsql;

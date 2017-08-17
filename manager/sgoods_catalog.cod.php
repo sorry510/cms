@@ -9,28 +9,23 @@
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
-  <form class="am-form-inline uform2" id="form1" method="get" action="sgoods_catalog.php">
-    <div class="am-form-group">
-      <label for="doc-ipt-3" class="am-form-label">分店：</label>
-      <select class="uselect uselect-auto" data-am-selected name="shop_id">
-        <option value="0">全部</option>
-        <?php foreach($this->_data['shop_list'] as $row) { ?>
-          <option value="<?php echo $row['shop_id']; ?>" <?php if($row['shop_id'] == $this->_data['request']['shop_id']){
-          echo "selected" ;}?> ><?php echo $row['shop_name']; ?></option>
-        <?php } ?>
-      </select>
-    </div>
-    <div class="am-form-group">
-      <button type="submit" class="am-btn ubtn-search cbtn-form1">
-        <i class="iconfont icon-search"></i>查询
-      </button>
-    </div>
-  </form>
-  <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usgoods_catalogm1'}">
-  <i class="iconfont icon-xinzeng"></i>
-    添加分类
-  </button>
-  <div style="clear: both;"></div>
+    <form class="am-form-inline uform2" if="form1">
+      <div class="am-form-group">
+        <label for="doc-ipt-3" class="am-form-label">分店：</label>
+        <select class="uselect uselect-auto" data-am-selected name="shop_id">
+          <option value="0">全部</option>
+          <?php foreach($this->_data['shop_list'] as $row) { ?>
+            <option value="<?php echo $row['shop_id']; ?>" <?php if($row['shop_id'] == $this->_data['request']['shop_id']){
+            echo "selected" ;}?> ><?php echo $row['shop_name']; ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
+          <i class="iconfont icon-search"></i>查询
+        </button>
+      </div>
+    </form>
   </div>
   <div class="gspace15"></div>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
@@ -38,34 +33,16 @@
       <tr>
       <td>分类名称</td>
       <td>分店</td>
-      <td style="width: 12%;">操作</td>
     </tr>
     </thead>
     <?php foreach($this->_data['sgoods_catalog_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['sgoods_catalog_name']; ?></td>
       <td><?php echo $row['shop_name']; ?></td>
-      <td>
-        <button class="am-btn ubtn-table ubtn-green cid-update" value="<?php echo $row['sgoods_catalog_id'];?>" data-am-modal="{target: '#usgoods_catalogm2'}">
-          <i class="iconfont icon-bianji"></i>
-          修改
-        </button>
-        <input type="hidden" value="<?php echo $row['shop_id'];?>">
-        &nbsp;
-        <button class="am-btn ubtn-table ubtn-gray cdel" value="<?php echo $row['sgoods_catalog_id'];?>" >
-          <i class="iconfont icon-shanchu"></i>
-          删除
-        </button>
-      </td>
     </tr> 
     <?php } ?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['sgoods_catalog_list']['pagecount']; ?>页 <?php echo $this->_data['sgoods_catalog_list']['allcount']; ?>条记录</li>
-    <li><a href="sgoods_catalog.php?page=<?php echo  $this->_data['sgoods_catalog_list']['pagepre']; ?>">&laquo;</a></li>
-    <li class="am-active" ><a href="#"><?php echo $this->_data['sgoods_catalog_list']['pagenow']; ?></a></li>
-    <li><a href="sgoods_catalog.php?page=<?php echo  $this->_data['sgoods_catalog_list']['pagenext']; ?>">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['sgoods_catalog_list'],$this->_data['request'],'sgoods_catalog.php');?>
 </div>
 
 
@@ -76,28 +53,18 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal"  id="form2" method="post" action="sgoods_catalog_add_do.php">
+      <form class="am-form am-form-horizontal"  id="cform1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
             <input type="text" name="sgoods_catalog_name" class="am-form-field uinput uinput-max">
           </div>
         </div> 
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分店：</label>
-          <div class="umodal-normal">
-            <select class="uselect uselect-max" name="shop_id" data-am-selected>
-            <?php foreach($this->_data['shop_list'] as $row) { ?>
-              <option value="<?php echo $row['shop_id']; ?>"><?php echo $row['shop_name']; ?></option>
-            <?php } ?>
-            </select>
-          </div>
-        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green cadd-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="submit" class="am-btn ubtn-sure ubtn-green cadd-form1"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -111,29 +78,20 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal">
+      <form class="am-form am-form-horizontal" id="cform2">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="sgoods_catalog_name">
+            <input type="text" class="am-form-field uinput uinput-max ccatalog_name" name="sgoods_catalog_name">
+            <input type="hidden" class="am-form-field uinput uinput-max ccatalog_name_old" name="sgoods_catalog_name_old">
           </div>
         </div> 
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分店：</label>
-          <div class="umodal-normal">
-            <select name="shop_id" class="uselect uselect-max cshop_id" data-am-selected>
-              <?php foreach($this->_data['shop_list'] as $row) { ?>
-              <option value="<?php echo $row['shop_id']; ?>"><?php echo $row['shop_name']; ?></option>
-              <?php } ?>
-            </select>
-          </div>
-        </div>
-        <input type="hidden" name="sgoods_catalog_id">
+        <input type="hidden" class="ccatalog_id" name="sgoods_catalog_id">
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green ceditor-sgoods-catalog"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -158,77 +116,77 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function() {
-  $('.cdel').on('click', function() {
-    var content = $(this).parent().parent();
-    var sgoods_catalog_id = $(this).val();
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-      $.ajax({
-        type: "GET",
-        url: "sgoods_catalog_delete.php",
-        data: {sgoods_catalog_id:sgoods_catalog_id}, 
-        success: function(msg){
-          if(msg = 'y'){
-            content.remove();
-          }else{
-            alert('删除失败'); 
-          }
+<?php pageJs($this->_data['sgoods_catalog_list'],$this->_data['request'],'sgoods_catalog.php');?>
+
+
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('sgoods_catalog_delete_do.php',{'sgoods_catalog_id':$(this.relatedTarget).val()},function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert("分类下面有商品，不能删除！");
+        }else{
+          alert("删除失败");
         }
       });
     },
-      onCancel: function() {
-        return;
-      }
-    });
+    onCancel: function() {
+      return false;
+    }
   });
 });
 
-//搜索提交按钮
-$('.cbtn-form1').on('click',function(){
-  $("#form1").submit();
-});
 //添加分类提交按钮
-$('.cadd-form2').on('click',function(){
-  $("#form2").submit();
+$('.cadd-form1').on('click',function(){
+  $(this).attr('disabled',true);
+  var url="sgoods_catalog_add_do.php";
+  var data = $("#cform1").serialize();
+  $.post(url,data,function(res){
+    if(res=='0'){
+      window.location.href='sgoods_catalog.php';
+    }else if(res=='1'){
+      alert("名字不能重复");
+      $('.cadd-form1').attr('disabled',false);
+    }else{
+      alert("添加失败");
+    }
+  });
 });
+
 
 //修改按钮
 $('.cid-update').on('click', function() {
   var sgoods_catalog_id = $(this).val();
-  var shop_id = $(this).next().val();
   var sgoods_catalog_name = $(this).parent().siblings().eq(0).text();
-  //console.log(shop_id);
-  $("#usgoods_catalogm2 input[name='sgoods_catalog_name']").val(sgoods_catalog_name);
-  $("#usgoods_catalogm2 input[name='sgoods_catalog_id']").val(sgoods_catalog_id);
-  $('#usgoods_catalogm2 .cshop_id').val(shop_id);
-  $('#usgoods_catalogm2 .cshop_id').selected();
+  // console.log(sgoods_catalog_name);
+  $("#usgoods_catalogm2 .ccatalog_name").val(sgoods_catalog_name);
+  $("#usgoods_catalogm2 .ccatalog_name_old").val(sgoods_catalog_name);
+  $("#usgoods_catalogm2 .ccatalog_id").val(sgoods_catalog_id);
 });
-$('#usgoods_catalogm2').on('close.modal.amui', function(){
-  $('#usgoods_catalogm2 .cshop_id').selected('destroy');
-});
-//修改提交按钮
-$('.ceditor-sgoods-catalog').on('click',function(){
-  var url="sgoods_catalog_editor_do.php";
-  var sgoods_catalog_name = $("#usgoods_catalogm2 input[name='sgoods_catalog_name']").val();
-  var sgoods_catalog_id = $("#usgoods_catalogm2 input[name='sgoods_catalog_id']").val();
-  var shop_id = $("#usgoods_catalogm2 select[name='shop_id']").find("option:selected").val();
-  console.log(shop_id);
-  var data = {
-        sgoods_catalog_name:sgoods_catalog_name,
-        sgoods_catalog_id:sgoods_catalog_id,
-        shop_id:shop_id,
-      }
-      $.post(url,data,function(res){
-        console.log(res);
-        if(res=='y'){
-          window.location.reload();
-        }else{
-          alert('修改单店商品分类失败');
-          console.log(res);
-        }
-      });
+
+//修改分类提交按钮
+$('.cadd-form2').on('click',function(){
+  if($("#usgoods_catalogm2 .ccatalog_name_old").val()==$("#usgoods_catalogm2 .ccatalog_name").val()){
+    $("#usgoods_catalogm2").modal('close');
+    return false;
+  }
+  $(this).attr('disabled',true);
+  var url="sgoods_catalog_edit_do.php";
+  var data = $("#cform2").serialize();
+  // console.log(data);
+  $.post(url,data,function(res){
+    if(res=='0'){
+      window.location.reload();
+    }else if(res=='1'){
+      alert("名字不能重复");
+      $('.cadd-form2').attr('disabled',false);
+    }else{
+      alert("修改失败");
+    }
+  });
 });
 </script>
 </body>

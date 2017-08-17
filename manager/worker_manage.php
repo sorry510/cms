@@ -9,7 +9,7 @@ $strshop_id = api_value_get('shop_id');
 $intshop_id = api_value_int0($strshop_id);
 $strworker_group_id = api_value_get('worker_group_id');
 $intworker_group_id = api_value_int0($strworker_group_id);
-$strsearch = api_value_get('strsearch');
+$strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
@@ -24,6 +24,7 @@ function get_request(){
 	$arr['shop_id'] = $GLOBALS['intshop_id'];
 	$arr['worker_group_id'] = $GLOBALS['intworker_group_id'];
 	$arr['search'] = $GLOBALS['strsearch'];
+	return $arr;
 }
 
 function get_shop_list() {
@@ -60,7 +61,8 @@ function get_worker_list() {
 		$strwhere .= " AND worker_group_id=".$GLOBALS['intworker_group_id'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " AND (worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or worker_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 
 	$arr = array();
@@ -101,10 +103,33 @@ function get_worker_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT a.*, b.shop_name, c.worker_group_name FROM (SELECT shop_id, worker_id, worker_group_id, worker_name, worker_code, worker_sex, worker_birthday_date, worker_phone, worker_education, worker_join, worker_wage, worker_config_guide, worker_config_reserve FROM " . $GLOBALS['gdb']->fun_table2('worker') . " where 1=1 ".$strwhere." ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a ," . $GLOBALS['gdb']->fun_table('shop') . " AS b," . $GLOBALS['gdb']->fun_table2('worker_group') . " AS c WHERE a.shop_id = b.shop_id AND a.worker_group_id = c.worker_group_id ";
+	$strsql = "SELECT a.*, b.shop_name, c.worker_group_name FROM (SELECT shop_id, worker_id, worker_group_id, worker_name, worker_code, worker_sex, worker_birthday_date, worker_phone, worker_education, worker_join, worker_wage, worker_config_guide, worker_config_reserve FROM " . $GLOBALS['gdb']->fun_table2('worker') . " where 1=1 ".$strwhere." ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker_group') . " AS c on a.worker_group_id = c.worker_group_id ";
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
+	if(!empty($arrlist)){
+		foreach($arrlist as &$row){
+			switch($row['worker_education'])
+			{
+				case '1':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][1];break;
+				case '2':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][2];break;
+				case '3':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][3];break;
+				case '4':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][4];break;
+				case '5':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][5];break;
+				case '6':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][6];break;
+				case '7':
+					$row['education_name'] = $GLOBALS['gconfig']['worker']['education'][7];break;
+				default:
+					$row['education_name'] = '保密';break;
+			}
+		}
+	}
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;
@@ -113,4 +138,5 @@ function get_worker_list() {
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
+
 ?>

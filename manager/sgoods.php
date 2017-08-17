@@ -5,63 +5,69 @@ require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'goods';
 
-$strpage = api_value_get('page');
-$intpage = api_value_int1($strpage);
-$strshop_id = api_value_get('shop_id');
-$intshop_id = api_value_int0($strshop_id);
 $strsgoods_catalog_id = api_value_get('sgoods_catalog_id');
 $intsgoods_catalog_id = api_value_int0($strsgoods_catalog_id);
-$strsgoods_search = api_value_get('sgoods_search');
+$strshop_id = api_value_get('shop_id');
+$intshop_id = api_value_int0($strshop_id);
+$strsearch = api_value_get('search');
+$strpage = api_value_get('page');
+$intpage = api_value_int1($strpage);
 
-$gtemplate->fun_assign('sgoods_catalog_id', $intsgoods_catalog_id);
-$gtemplate->fun_assign('shop_id', $intshop_id);
-$gtemplate->fun_assign('sgoods_search', $strsgoods_search);
-$gtemplate->fun_assign('shop_list', get_shop_list());
+$gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
+$gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('sgoods_list', get_sgoods_list());
 $gtemplate->fun_show('sgoods');
 
-function get_shop_list(){
-	$arr = array();
-	$strsql = "SELECT shop_id, shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." ORDER BY shop_id";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
+function get_request() {
+	$arr = array();
+	$arr['sgoods_catalog_id'] = $GLOBALS['intsgoods_catalog_id'];
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
+	$arr['search'] = $GLOBALS['strsearch'];
 	return $arr;
 }
 
-function get_sgoods_catalog_list(){
+function get_shop_list() {
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name, shop_id FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." ORDER BY sgoods_catalog_id";
+	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." order by shop_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
 	return $arr;
 }
 
-function get_sgoods_list(){
+function get_sgoods_catalog_list() {
+	$arr = array();
+	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id desc";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+
+function get_sgoods_list() {
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
 	$intpagepre = 0;
 	$intpagenext = 0;
-	$arr = array();
 	$arrlist = array();
 	$arrpackage = array();
 
- 	$strwhere = "";
-	if($GLOBALS['intshop_id'] != 0){
-		$strwhere .= " AND shop_id=".$GLOBALS['intshop_id'];
+	$strwhere = '';
+	if($GLOBALS['strsearch'] != '') {
+	  $strwhere = $strwhere . " AND (sgoods_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or sgoods_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or sgoods_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 	if($GLOBALS['intsgoods_catalog_id'] != 0){
-		$strwhere .= " AND sgoods_catalog_id=".$GLOBALS['intsgoods_catalog_id'];
+		$strwhere .= " and sgoods_catalog_id=".$GLOBALS['intsgoods_catalog_id'];
 	}
-	if($GLOBALS['strsgoods_search'] != '') {
-	  $strwhere = $strwhere . " AND (sgoods_name LIKE '%" . $GLOBALS['strsgoods_search'] . "%'";
-	  $strwhere = $strwhere . " OR sgoods_jianpin LIKE '%" . $GLOBALS['strsgoods_search'] . "%'";
-	  $strwhere = $strwhere . " OR sgoods_code LIKE '%" . $GLOBALS['strsgoods_search'] . "%')";
+	if($GLOBALS['intshop_id'] != 0){
+		$strwhere .= " and shop_id=".$GLOBALS['intshop_id'];
 	}
-
+	
+	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$arr = array();
 	$strsql = "SELECT count(sgoods_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('sgoods')  . " WHERE 1 = 1 " . $strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -76,13 +82,15 @@ function get_sgoods_list(){
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-
+	
 	$intpagesize = 5;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
 	}
 	$intpagenow = $GLOBALS['intpage'];
+
+	//echo $GLOBALS['intpage'];exit;
 	if($intpagenow < 1) {
 		$intpagenow = 1;
 	}
@@ -98,33 +106,19 @@ function get_sgoods_list(){
 		$intpagenext = $intpagecount;
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
-
-	$strsql = " SELECT a.*, b.sgoods_catalog_name, c.shop_name FROM( SELECT sgoods_catalog_id, sgoods_id, sgoods_name, sgoods_code, sgoods_price, sgoods_cprice, sgoods_type, shop_id, sgoods_state FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE 1=1 ".$strwhere." ORDER BY sgoods_id LIMIT ". $intoffset . ", " . $intpagesize .") AS a, " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." AS b, " . $GLOBALS['gdb']->fun_table('shop')." AS c WHERE a.sgoods_catalog_id = b.sgoods_catalog_id AND a.shop_id = c.shop_id ";
+	
+	$strsql = "SELECT a.*, b.sgoods_catalog_id, b.sgoods_catalog_name,c.shop_name FROM ( SELECT shop_id, sgoods_id, sgoods_catalog_id, sgoods_type, sgoods_code, sgoods_name, sgoods_jianpin, sgoods_price, sgoods_cprice, sgoods_state FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwhere." ORDER BY sgoods_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " AS b on a.sgoods_catalog_id=b.sgoods_catalog_id LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." as c on a.shop_id=c.shop_id"; 
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	
+	// var_dump($arrlist);exit;
+
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;
 	$arrpackage['pagepre'] = $intpagepre;
 	$arrpackage['pagenext'] = $intpagenext;
 	$arrpackage['list'] = $arrlist;
-
 	return $arrpackage;
 }
 ?>
-<!-- echo '<pre>';
-var_dump($arrpackage);
-echo '</pre>'; -->
-
-
-
-
-
-
-
-
-
-
-
-

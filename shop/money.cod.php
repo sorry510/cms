@@ -440,7 +440,7 @@ $(function(){
         card_id = $('#umoney .ua .ua2 .ccard_id').val();
         user_type = 1;//会员
       }
-      $.getJSON('act_discount_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+      $.getJSON('card_act_discount_ajax.php',{card_id:card_id,user_type:user_type},function(res){
         if(res){
           $.each(res,function(k,v){
             act_discount_id[k] = v.act_discount_id;
@@ -448,16 +448,16 @@ $(function(){
           });
         }
       });
-      $.getJSON('act_decrease_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+      $.getJSON('card_act_decrease_ajax.php',{card_id:card_id,user_type:user_type},function(res){
         if(res){
           $.each(res,function(k,v){
-            var json = {'act_decrease_id':v.act_decrease_id,'act_decrease_man':v.act_decrease_man,'act_decrease_jian':v.act_decrease_jian};
+            var json = {'act_decrease_id':v.act_decrease_id,'act_decrease_man':v.act_decrease_man,'card_act_decrease_jian':v.act_decrease_jian};
             act_decrease_id.push(json);
             $('#umoney .cact_name').append(v.act_decrease_name+' | ');
           });
         }
       });
-      $.getJSON('act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
+      $.getJSON('card_act_give_ajax.php',{card_id:card_id,user_type:user_type},function(res){
         if(res){
           $.each(res,function(k,v){
             act_give_id[k] = v.act_give_id;
@@ -529,19 +529,25 @@ $(function(){
     var money1 = 0;//原价
     var money2 = 0;//优惠价
     var money3 = 0;//优惠后满减价
+    var money_act = 0;//参加活动的总价
     var decrease_id = 0;
     var jian = 0;
     var num = 0;
     var limit_money = 0;//满减活动用于计算的money
     use_act_decrease_id.splice(0,use_act_decrease_id.length);//清空使用的满减活动
+    //计算所有商品总价
     $("#umoney .uright .cnum").each(function(){
       if(isNaN($(this).val())){
         $(this).val(0);
       }
       money1 = Number(money1) + Number($(this).val())*Number($(this).attr('price'));
       money2 = Number(money2) + Number($(this).val())*Number($(this).attr('min_price'));
+      if($(this).attr('act_discount_id')!=0){
+        money_act = Number(money_act) + Number($(this).val())*Number($(this).attr('min_price'));
+      }
       num = Number(num) + Number($(this).val());
     });
+    // 扣除券中对应商品价格或直接券的价值
     $("#umoney .uright .cnum3").each(function(){
       var mgoods_id = $(this).attr('mgoods_id');
       var ticket_value = $(this).attr('ticket_value');
@@ -549,14 +555,17 @@ $(function(){
         $("#umoney .uright .cnum").each(function(){
           if(mgoods_id == $(this).attr('mgoods_id')){
             money2 = Number(money2)-Number($(this).attr('min_price'));
+            money_act = Number(money_act)-Number($(this).attr('min_price'));
           }
         });
       }
       if(ticket_value != undefined){
         money2 = Number(money2)-Number(ticket_value);
+        money_act = Number(money_act)-Number(ticket_value);
       }
     });
-    limit_money = money2;
+    // 扣除满减活动价格
+    limit_money = money_act;
     if(act_decrease_id.length!=0){
       for(var i=0;i<act_decrease_id.length;){
         if(limit_money>act_decrease_id[i].act_decrease_man){

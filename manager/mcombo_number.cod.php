@@ -27,7 +27,7 @@
     </button>
   </div>
   <div class="gspace15"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1 utable1-fixed" id="doc-modal-list">
     <thead>
       <tr>
         <td width="15%">套餐名称</td>

@@ -13,18 +13,22 @@
     <thead>
       <tr>
         <td>分组</td>
-        <td>修改时间</td>
-        <td style="width: 12%;">操作</td>
+
+        <td style="width: 20%;">操作</td>
       </tr>
     </thead>
     <?php foreach($this->_data['group_reward_list'] as $row) { ?>
     <tr>
       <td><?php echo $row['worker_group_name']; ?></td>
-      <td><?php echo $row['group_reward_ctime'] == ''?'': date('Y-m-d H:i', $row['group_reward_ctime']); ?></td>
       <td> 
         <button class="am-btn ubtn-table ubtn-green cupdate" value="<?php echo $row['worker_group_id']; ?>" data-am-modal="{target: '#uworker_rewardm1'}">
           <i class="iconfont icon-bianji"></i>
-          提成方案
+          本店提成方案
+        </button>
+        &nbsp;&nbsp;
+        <button class="am-btn ubtn-table ubtn-green cupdate" value="<?php echo $row['worker_group_id']; ?>" data-am-modal="{target: '#uworker_rewardm2'}">
+          <i class="iconfont icon-bianji"></i>
+          总店提成方案
         </button>
       </td>
     </tr>
@@ -92,8 +96,8 @@
     <div class="am-modal-bd umain1">
       <div class="am-tabs utabs" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选商品</a></li>
-          <li><a href="#tab2">可选套餐</a></li>
+          <li class="am-active"><a href="#tab1">商品提成</a></li>
+          <li><a href="#tab2">套餐提成</a></li>
         </ul>
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
@@ -120,9 +124,6 @@
                       </button>
                     </div>
                     <div class="umodal-search" style="float:right;margin-right:25px;display:inline-block;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-gray">
-                        保存
-                      </button>
                     </div>
                   </form>
                 </div>
@@ -136,8 +137,8 @@
                     <?php echo $row['mgoods_catalog_name'] ;?>
                   </div>
                   <div class="am-u-lg-5 am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
                     <input class="uinput uinput-60 cprice1" type="text" name="allgoods_value<?php echo $row['mgoods_catalog_id'] ;?>">
+                    <span class="utext3">%</span>
                   </div>
                   <div class="am-u-lg-2">
                     <button type="button" class="am-btn ubtn-search2 ubtn-gray callset1" ctype="m" value="<?php echo $row['mgoods_catalog_id'] ;?>">批量设置</button>
@@ -149,10 +150,12 @@
                 <div class="am-form-group am-g">
                   <div class="am-u-lg-5 am-text-left utext2"><?php echo $row2['mgoods_name']."(".$row2['mgoods_price']."元)" ;?></div>
                   <div class="am-u-lg-5 am-u-end am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
+                    
                     <input mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>" mgoods_id="<?php echo $row2['mgoods_id'] ;?>" price="<?php echo $row2['mgoods_price'] ;?>" class="uinput uinput-60 cprice1" type="text">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;元</span>
+                    <span class="utext3">%</span>&nbsp;&nbsp;
+                    
                     <input mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>" price="<?php echo $row2['mgoods_price'] ;?>" mgoods_id="<?php echo $row2['mgoods_id'] ;?>" class="uinput uinput-60 cprice2" type="text">
+                    <span class="utext3">元</span>
                   </div>
                 </div>
               </li>
@@ -165,8 +168,8 @@
                     <?php echo $row['sgoods_catalog_name'] ;?>
                   </div>
                   <div class="am-u-lg-5 am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
                     <input class="uinput uinput-60 cprice1" type="text" name="allgoods_value<?php echo $row['sgoods_catalog_id'] ;?>">
+                    <span class="utext3">%</span>
                   </div>
                   <div class="am-u-lg-2">
                     <button type="button" class="am-btn ubtn-search2 ubtn-gray callset1" ctype="s" value="<?php echo $row['sgoods_catalog_id'] ;?>">批量设置</button>
@@ -178,10 +181,10 @@
                 <div class="am-form-group am-g">
                   <div class="am-u-lg-5 am-text-left utext2"><?php echo $row2['sgoods_name']."(".$row2['sgoods_price']."元)" ;?></div>
                   <div class="am-u-lg-5 am-u-end am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
                     <input sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>" sgoods_id="<?php echo $row2['sgoods_id'] ;?>" price="<?php echo $row2['sgoods_price'] ;?>" class="uinput uinput-60 cprice1" type="text">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;元</span>
+                    <span class="utext3">%</span>&nbsp;&nbsp;
                     <input sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>" price="<?php echo $row2['sgoods_price'] ;?>" sgoods_id="<?php echo $row2['sgoods_id'] ;?>" class="uinput uinput-60 cprice2" type="text">
+                    <span class="utext3">元</span>
                   </div>
                 </div>
               </li>
@@ -210,9 +213,6 @@
                       </button>
                     </div>
                     <div class="umodal-search" style="float:right;margin-right:25px;display:inline-block;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-gray">
-                        保存
-                      </button>
                     </div>
                   </form>
                 </div>
@@ -225,8 +225,8 @@
                     套餐名称
                   </div>
                   <div class="am-u-lg-5 am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
                     <input class="uinput uinput-60 cprice1" type="text">
+                    <span class="utext3">%</span>
                   </div>
                   <div class="am-u-lg-2">
                     <button type="button" class="am-btn ubtn-search2 ubtn-gray callset2">批量设置</button>
@@ -238,10 +238,10 @@
                 <div class="am-form-group am-g">
                   <div class="am-u-lg-5 am-text-left utext2"><?php echo $row['mcombo_name']."(".$row['mcombo_price']."元)" ;?></div>
                   <div class="am-u-lg-5 am-text-right">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;百分比</span>
                     <input class="uinput uinput-60 cprice1" price="<?php echo $row['mcombo_price'] ;?>"  mcombo_id="<?php echo $row['mcombo_id'] ;?>" type="text">
-                    <span class="utext3">&nbsp;&nbsp;&nbsp;元</span>
+                    <span class="utext3">%</span>&nbsp;&nbsp;
                     <input class="uinput uinput-60 cprice2" price="<?php echo $row['mcombo_price'] ;?>"  mcombo_id="<?php echo $row['mcombo_id'] ;?>" type="text">
+                    <span class="utext3">元</span>
                   </div>
                   <div class="am-u-lg-2">
 
@@ -453,27 +453,37 @@ $("#uworker_rewardm2 .cprice2").on("input propertychange",translate2);
 //转换%=>元
 function translate1(){
   if(isNaN($(this).val())){
-    $(this).val(0);
-  }
-  var discount = $(this).val();
-  var yprice = Number($(this).attr('price'));
-  if(discount >= 0){ 
-    var nprice = yprice * discount / 100;
-    nprice = nprice.toFixed(2);
-    $(this).siblings('input').val(nprice);
+    $(this).val('');
+    $(this).siblings('input').val('');
+  }else{
+    var discount = $(this).val();
+    var yprice = Number($(this).attr('price'));
+    if(discount > 0){
+      var nprice = yprice * discount / 100;
+      nprice = nprice.toFixed(2);
+      $(this).siblings('input').val(nprice);
+    }else{
+      $(this).val('');
+      $(this).siblings('input').val('');
+    }
   }
 }
 //转换元=>%
 function translate2(){
   if(isNaN($(this).val())){
-    $(this).val(0);
-  }
-  var nprice = $(this).val();
-  var yprice = Number($(this).attr('price'));
-  if(nprice >= 0){ 
-    var discount = nprice / yprice*100;
-    discount = discount.toFixed(2);
-    $(this).siblings('input').val(discount);
+    $(this).val('');
+    $(this).siblings('input').val('');
+  }else{
+    var nprice = $(this).val();
+    var yprice = Number($(this).attr('price'));
+    if(nprice > 0){
+      var discount = nprice / yprice*100;
+      discount = discount.toFixed(2);
+      $(this).siblings('input').val(discount);
+    }else{
+      $(this).val('');
+      $(this).siblings('input').val('');
+    }
   }
 }
 </script>

@@ -70,7 +70,7 @@
     <li class="cfirst am-disabled"><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_list']['pagepre']); ?>">&laquo;</a></li>
     <li class="am-active"><a href="#"><?php echo $this->_data['card_list']['pagenow'];?></a></li>
     <li class="clast"><a href="card.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_list']['pagenext']); ?>">&raquo;</a></li>
-    <li>，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:45px;height: 26px;vertical-align:bottom;line-height: 26px;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>
+    <li class="upage-info">，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:45px;height: 26px;vertical-align:bottom;line-height: 26px;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>
   </ul>
 </div>
 <!-- 批量赠送 -->

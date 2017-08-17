@@ -13,15 +13,6 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        <label class="am-form-label">分店：</label> 
-        <select class="uselect uselect-auto" data-am-selected name="shop_id">
-        <option value="0">全部</option>
-        <?php foreach($this->_data['shop_list'] as $row){?>
-          <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo 'selected'?>><?php echo $row['shop_name'];?></option>
-        <? }?>
-        </select>
-      </div>
-      <div class="am-form-group">
         <label class="am-form-label">员工分组：</label> 
         <select class="uselect uselect-auto" data-am-selected name="worker_group_id">
           <option value="0">全部</option>
@@ -92,13 +83,7 @@
     </tr>
     <?php }?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共<?php echo $this->_data['worker_list']['pagecount']; ?>页 <?php echo $this->_data['worker_list']['allcount']; ?>条记录</li>
-    <li class="cfirst am-disabled"><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagepre']); ?>">&laquo;</a></li>
-    <li class="am-active"><a href="#"><?php echo $this->_data['worker_list']['pagenow'];?></a></li>
-    <li class="clast"><a href="worker_manage.php?<?php echo api_value_query($this->_data['request'], $this->_data['worker_list']['pagenext']); ?>">&raquo;</a></li>
-    <li>，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:50px;height: 26px;line-height:26px;vertical-align:bottom;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>
-  </ul>
+  <?php pageHtml($this->_data['worker_list'],$this->_data['request'],'worker_manage.php');?>
 </div>
 
 <!--modal框-->
@@ -113,9 +98,7 @@
           <label class="umodal-label am-form-label" for="">分店：</label>
           <div class="umodal-normal">
             <select name="shop_id" class="uselect uselect-max cshop_id" data-am-selected disabled>
-              <?php foreach($this->_data['shop_list'] as $row){?>
-                <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$GLOBALS['_SESSION']['login_sid'])echo "selected";?>><?php echo $row['shop_name'];?></option>
-              <?php }?>
+              <option>当前店铺</option>
             </select>
           </div>
           <div class="umodal-search">&nbsp;</div>
@@ -630,23 +613,7 @@
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
 <script>
-//分页首末页不可选中
-if(<?php echo $this->_data['worker_list']['pagenow'];?>>1){
-  $('.upages li.cfirst').removeClass('am-disabled');
-}
-if(<?php echo $this->_data['worker_list']['pagecount']-$this->_data['worker_list']['pagenow']; ?><1){
-  $('.upages li.clast').addClass('am-disabled');
-}
-
-function page_do() {
-  var intpage = parseInt(document.getElementById("idpagego").value);
-  if(isNaN(intpage)) {
-    alert("请输入正确的页码！");
-  } else {
-    window.location = "worker_manage.php?<?php echo api_value_query($this->_data['request']); ?>&page=" + intpage;
-  }
-}
-
+<?php pageJs($this->_data['worker_list'],$this->_data['request'],'worker_manage.php');?>
 //下一步
 $('.cmodelopen').on('click', function(e) {
   $('#uworker_managem1').modal('close');

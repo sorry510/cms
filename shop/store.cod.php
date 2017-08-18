@@ -420,7 +420,20 @@
   <div class="am-modal-dialog uconfirm">
     <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
-      你，确定要删除这条记录吗？
+      你确定要删除这条记录吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+<!-- 确认按钮弹出框 -->
+<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
+  <div class="am-modal-dialog uconfirm">
+    <div class="am-modal-hd uhead"><b>提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-bd">
+      你已经确定了这条记录吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -453,17 +466,26 @@ $('.cdel').on('click', function() {
   });
 });
 // 确认库存
-$('.ccheck').on('click', function(){
-  var store_id = $(this).val();
-  var url = 'store_state_do.php';
-  $.post(url,{store_id:store_id},function(res){
-    if(res=='0'){
-      window.location.reload();
-    }else{
-      alert('确认失败');
+$('.ccheck').on('click', function() {
+  $('#cconfirm2').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('store_state_do.php',{store_id:$(this.relatedTarget).val()},function(res){
+        // console.log(res);
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          alert('确认失败');
+          console.log(res);
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
     }
   });
 });
+
 //下一步
 $('.cmodelopen').on('click', function(e) {
   $('#ustorem1').modal('close');

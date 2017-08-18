@@ -52,7 +52,7 @@ if($intreturn == 0){
 			$intreturn = 1;
 		}
 	}else{
-		$strsql = "UPDATE ".$gdb->fun_table2('group_reward')." SET group_reward_create=".$decreward_create.",group_reward_fill=".$decgroup_reward_fill.",group_reward_pfill=".$decgroup_reward_pfill.",group_reward_guide=".$decgroup_reward_guide.",group_reward_pguide=".$decgroup_reward_pguide.",group_reward_ctime=".$intnow." where group_reward_id=".$group_reward_id." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+		$strsql = "UPDATE ".$gdb->fun_table2('group_reward')." SET group_reward_create=".$decreward_create.",group_reward_fill=".$decgroup_reward_fill.",group_reward_pfill=".$decgroup_reward_pfill.",group_reward_guide=".$decgroup_reward_guide.",group_reward_pguide=".$decgroup_reward_pguide.",group_reward_ctime=".$intnow." where group_reward_id=".$group_reward_id." limit 1";;
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == false){
 			$intreturn = 2;

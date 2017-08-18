@@ -240,7 +240,7 @@
   <div class="am-modal-dialog uconfirm">
     <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
-      你确定要删除这条记录吗？
+      你确定要删除吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -251,7 +251,7 @@
 <!-- 停用框 -->
 <div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-hd uhead"><b>停&nbsp;&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
       你确定要停用吗？
     </div>
@@ -264,9 +264,9 @@
 <!-- 启用框 -->
 <div id="cconfirm3" class="am-modal am-modal-confirm" tabindex="-1">
   <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
+    <div class="am-modal-hd uhead"><b>启&nbsp;&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
     <div class="am-modal-bd">
-      你，确定要启用吗？
+      你确定要启用吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -285,6 +285,7 @@ $('.cdel').on('click', function() {
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('sgoods_delete_do.php',{'sgoods_id':$(this.relatedTarget).val()},function(res){
+        console.log(res);
         if(res=='0'){
           window.location.reload();
         }else if(res=='1'){

@@ -50,6 +50,8 @@ $strreturn = '';
 if($strcard_name=='' || $strcard_phone== ''){
 	$strreturn = 'error';
 }
+
+
 if($strreturn == 0){
 	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone,card_carcode,card_birthday_date, card_birthday_month,card_birthday_day, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo, worker_id, card_state,card_ltime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",'" . $gdb->fun_escape($strcard_name) . "'," .$intcard_sex. ", '" . $gdb->fun_escape($strcard_phone) . "','".$gdb->fun_escape($strcard_carcode)."'," . $intcard_birthday_date . ", " . $intcard_birthday_month . ", ".$intcard_birthday_day.", ".$intcard_passsword_state.", '".$gdb->fun_escape($strcard_password)."','".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_ikey)."', ".$intnow.",".$intcard_edate.", '".$gdb->fun_escape($strcard_identity)."','".$gdb->fun_escape($strcard_memo)."',".$intcard_worker_id.",1,".$intnow.")";
 	// echo $strsql;

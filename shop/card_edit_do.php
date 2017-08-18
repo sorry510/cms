@@ -27,6 +27,10 @@ $strcard_carcode= api_value_post('card_carcode');
 
 $intreturn = 0;
 
+if($strcard_name=='' || $strcard_phone== ''){
+	$intreturn = 1;
+}
+
 if($strcard_birthday!=''){
 	$intcard_birthday_date = strtotime($strcard_birthday)!=false?strtotime($strcard_birthday):0;
 }else{
@@ -59,7 +63,7 @@ if($intreturn == 0) {
 	//echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 1;
+		$intreturn = 2;
 	}
 }
 

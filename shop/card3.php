@@ -36,14 +36,20 @@ function get_cards_list() {
 
 	$strwhere = '';
 	if($GLOBALS['strsearch'] != '') {
-		$strwhere = $strwhere . " AND (card_code LIKE '%" . $GLOBALS['strsearch'] . "%'";
+		/*$strwhere = $strwhere . " AND (card_code LIKE '%" . $GLOBALS['strsearch'] . "%'";
 		$strwhere = $strwhere . " or card_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
-		$strwhere = $strwhere . " or card_phone LIKE '%" . $GLOBALS['strsearch'] . "%')";
+		$strwhere = $strwhere . " or card_phone LIKE '%" . $GLOBALS['strsearch'] . "%')";*/
+		$strwhere = $strwhere . " AND (card_code='" . $GLOBALS['strsearch'] . "'";
+		$strwhere = $strwhere . " or card_name='" . $GLOBALS['strsearch'] . "'";
+		$strwhere = $strwhere . " or card_phone='" . $GLOBALS['strsearch'] . "')";
 	}
 	if($GLOBALS['intcard_type'] != 'all'){
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
-	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	//当搜索不为空时，全店铺搜索
+	if($GLOBALS['strsearch'] == ''){
+		$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	}
 	$strwhere .= " and card_state=3";
 
 	$arr = array();

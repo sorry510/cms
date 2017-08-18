@@ -13,7 +13,7 @@ $intnow = time();
 $intreturn = 0;
 $strext = strtolower(strrchr($_FILES['card_photo']['name'], '.'));
 $intlength = $_FILES['card_photo']['size'];
-if($strext == '.jpg' || $strext == '.gif') {
+if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
 	if($intlength < 1024000) {
 		$hresult = move_uploaded_file($_FILES['card_photo']['tmp_name'], $gconfig['path']['photo'] . '/'. $intnow . $strext);
 		if($hresult) {

@@ -107,9 +107,6 @@
                         <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
                           <option value="m-<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
                         <?php } ?>
-                        <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-                          <option value="s-<?php echo $row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
-                        <?php } ?>
                       </select>
                     </div>
                     <div class="umodal-text" style="padding-left:10px;">
@@ -150,35 +147,6 @@
                     <span class="utext3">%</span>&nbsp;&nbsp;
                     
                     <input mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>" price="<?php echo $row2['mgoods_price'] ;?>" mgoods_id="<?php echo $row2['mgoods_id'] ;?>" class="uinput uinput-60 cprice2" type="text">
-                    <span class="utext3">元</span>
-                  </div>
-                </div>
-              </li>
-              <?php } ?>
-            <?php }?>
-            <?php foreach($this->_data['sgoods_list'] as $row) { ?>
-              <li sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>">
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-text-left utext1">
-                    <?php echo $row['sgoods_catalog_name'] ;?>
-                  </div>
-                  <div class="am-u-lg-5 am-text-right">
-                    <input class="uinput uinput-60 cprice1" type="text" name="allgoods_value<?php echo $row['sgoods_catalog_id'] ;?>">
-                    <span class="utext3">%</span>
-                  </div>
-                  <div class="am-u-lg-2">
-                    <button type="button" class="am-btn ubtn-search2 ubtn-gray callset1" ctype="s" value="<?php echo $row['sgoods_catalog_id'] ;?>">批量设置</button>
-                  </div>
-                </div>
-              </li>
-              <?php foreach($row['sgoods'] as $row2) {?>
-              <li sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>">
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-text-left utext2"><?php echo $row2['sgoods_name']."(".$row2['sgoods_price']."元)" ;?></div>
-                  <div class="am-u-lg-5 am-u-end am-text-right">
-                    <input sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>" sgoods_id="<?php echo $row2['sgoods_id'] ;?>" price="<?php echo $row2['sgoods_price'] ;?>" class="uinput uinput-60 cprice1" type="text">
-                    <span class="utext3">%</span>&nbsp;&nbsp;
-                    <input sgoods_catalog_id="<?php echo $row['sgoods_catalog_id'] ;?>" price="<?php echo $row2['sgoods_price'] ;?>" sgoods_id="<?php echo $row2['sgoods_id'] ;?>" class="uinput uinput-60 cprice2" type="text">
                     <span class="utext3">元</span>
                   </div>
                 </div>
@@ -322,10 +290,6 @@ $('.cupdate').on('click',function(){
           if(v.mgoods_id){
             $("#uworker_rewardm2 .cprice2[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_money);
             $("#uworker_rewardm2 .cprice1[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_percent);
-          }
-          if(v.sgoods_id){
-            $("#uworker_rewardm2 .cprice2[sgoods_id='"+v.sgoods_id+"']").val(v.group_reward2_money);
-            $("#uworker_rewardm2 .cprice1[sgoods_id='"+v.sgoods_id+"']").val(v.group_reward2_percent);
           }
           if(v.mcombo_id){
             $("#uworker_rewardm2 .cprice2[mcombo_id='"+v.mcombo_id+"']").val(v.group_reward2_money);

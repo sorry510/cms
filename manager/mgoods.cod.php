@@ -393,6 +393,7 @@ $('.cadd-form2').on('click',function(){
   var url="mgoods_add_do.php";
   var data = $("#form2").serialize();
   $.post(url,data,function(res){
+    console.log(res);
     if(res=='0'){
       window.location.href='mgoods.php';
     }else if(res=='1'){

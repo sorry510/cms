@@ -1,16 +1,18 @@
 /*全局样式*/
-.gcontent {position:fixed; top:61px; bottom:0; left:101px; right:0; overflow:auto; background:#F6F6F6;}
-.gspace5 {height:5px; line-height:5px; font-size:5px;}
-.gspace10 {height:10px; line-height:10px; font-size:10px;}
-.gspace15 {height:15px;}
-.gspace20 {height:20px;}
-.gspace25 {height: 25px;}
-.gspace30 {height:30px;}
-.gspace50 {height:50px;}
-.gtext-orange {color:#FF4200;}
-.gtext-green {color:#2AA672;}
-.gtext-blue {color:#3D76C7;}
-.gtext-overflow {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+#ubody .gcontent {position:fixed; top:61px; bottom:0; left:101px; right:0; overflow:auto; background:#F6F6F6;}
+#ubody .gspace5 {height:5px; line-height:5px; font-size:5px;}
+#ubody .gspace10 {height:10px; line-height:10px; font-size:10px;}
+#ubody .gspace15 {height:15px;}
+#ubody .gspace20 {height:20px;}
+#ubody .gspace25 {height: 25px;}
+#ubody .gspace30 {height:30px;}
+#ubody .gspace50 {height:50px;}
+#ubody .gtext-orange {color:#FF4200;}
+#ubody .gtext-green {color:#2AA672;}
+#ubody .gtext-blue {color:#3D76C7;}
+#ubody .gtext-overflow {overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+/*yd新增*/
+table a{color:#2D7EF6; text-decoration:underline;}
 
 /*公共样式*/
 /*header*/
@@ -281,5 +283,4 @@
 #ubody .utools label.am-form-label {padding-top:0px;}
 #ubody .am-selected-list {max-height: 200px;overflow:auto;}
 #ubody .am-form-horizontal .am-checkbox, #ubody .am-form-horizontal .am-checkbox-inline, #ubody .am-form-horizontal .am-form-label, #ubody .am-form-horizontal .am-radio, #ubody .am-form-horizontal .am-radio-inline{padding-top:0px;}
-/*yd新增*/
-table a{color:#2D7EF6; text-decoration:underline;}
+

@@ -54,12 +54,25 @@ $intreturn = 0;
 $intnow = time();
 $intworker_id = 0;
 
+//姓名手机必填
+if(empty($sqlworker_name) || empty($sqlworker_phone)){
+	$intreturn = 4;
+}
+// 员工编码唯一
+if(!empty($sqlworker_code)){
+	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code=".$sqlworker_code." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $gdb->fun_query($strsql);
+	$arr = $gdb->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		$intreturn = 1;
+	}
+}
 
 if($intreturn == 0){
 	$strsql = "INSERT INTO ".$gdb->fun_table2('worker')." (worker_group_id,shop_id,worker_code,worker_name,worker_sex,worker_birthday_date,worker_birthday_month,worker_birthday_day,worker_phone,worker_identity,worker_education,worker_join,worker_address,worker_wage,worker_config_guide,worker_config_reserve,worker_atime) VALUES (".$intworker_group_id.",".$intshop_id.",'".$sqlworker_code."','".$sqlworker_name."',".$intworker_sex.",".$intworker_birthday_date.",".$intworker_birthday_date_month.",".$intworker_birthday_date_day.",'".$sqlworker_phone."','".$sqlworker_identity."',".$intworker_education.",".$intworker_join.",'".$sqlworker_address."',".$decworker_wage.",".$intworker_guide.",".$intworker_reserve.",".$intnow.")";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 1;
+		$intreturn = 2;
 	}else{
 		$intworker_id = mysql_insert_id();
 	}
@@ -78,7 +91,7 @@ if($intreturn == 0){
 				$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('worker_goods'). "(worker_id,shop_id,mgoods_id) VALUES (".$intworker_id.",".$intshop_id.",".$intmgoods_id.")";
 				$hresult = $gdb->fun_do($strsql);
 				if($hresult==false){
-					$intreturn = 2;
+					$intreturn = 3;
 				}
 			}
 		}

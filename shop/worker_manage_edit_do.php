@@ -53,7 +53,19 @@ $arr = array();
 $intreturn = 0;
 $intnow = time();
 
-
+//姓名手机必填
+if(empty($sqlworker_name) || empty($sqlworker_phone)){
+	$intreturn = 5;
+}
+// 员工编码唯一
+if(!empty($sqlworker_code)){
+	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code=".$sqlworker_code." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $gdb->fun_query($strsql);
+	$arr = $gdb->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		$intreturn = 4;
+	}
+}
 if($intreturn == 0){
 	$strsql = "UPDATE ".$gdb->fun_table2('worker')." SET shop_id=".$intshop_id.",worker_group_id=".$intworker_group_id.",worker_name='".$sqlworker_name."',worker_code='".$sqlworker_code."',worker_sex=".$intworker_sex.",worker_birthday_date=".$intworker_birthday_date.",worker_birthday_day=".$intworker_birthday_date_day.",worker_birthday_month=".$intworker_birthday_date_month.",worker_phone='".$sqlworker_phone."',worker_identity='".$sqlworker_identity."',worker_education=".$intworker_education.",worker_join=".$intworker_join.",worker_address='".$sqlworker_address."',worker_wage=".$decworker_wage.",worker_config_reserve=".$intworker_reserve.",worker_config_guide=".$intworker_guide." where worker_id=".$intworker_id;
 	// echo $strsql;exit;
@@ -62,8 +74,6 @@ if($intreturn == 0){
 		$intreturn = 1;
 	}
 }
-
-
 if($intreturn == 0){
 	if($intworker_id != 0){
 		$strsql = 'DELETE FROM '.$GLOBALS['gdb']->fun_table2('worker_goods')." where worker_id=".$intworker_id;

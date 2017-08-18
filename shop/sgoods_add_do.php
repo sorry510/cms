@@ -20,7 +20,7 @@ $intsgoods_type = api_value_int0($strsgoods_type);
 
 
 $intreturn = 0;
-$atime = time();
+$intatime = time();
 
 if($decsgoods_price == 0 || $sqlsgoods_name=='' || $intsgoods_catalog_id == 0){
 	$intreturn = 1;
@@ -49,12 +49,24 @@ if($intreturn == 0){
 }
 
 if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('sgoods') . "( shop_id,sgoods_catalog_id, sgoods_name, sgoods_jianpin, sgoods_code, sgoods_price, sgoods_cprice, sgoods_type,sgoods_state) VALUES ( ".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_catalog_id.",'".$sqlsgoods_name."','".$sqlsgoods_jianpin."','".$sqlsgoods_code."',".$decsgoods_price.",".$decsgoods_cprice.",".$intsgoods_type.",1)";
-	  $hresult = $gdb->fun_do($strsql);
-	if($hresult == FALSE) {
+	$strsql = "INSERT INTO " . $gdb->fun_table2('sgoods') . "( shop_id,sgoods_catalog_id, sgoods_name, sgoods_jianpin, sgoods_code, sgoods_price, sgoods_cprice, sgoods_type,sgoods_state,sgoods_atime) VALUES ( ".$GLOBALS['_SESSION']['login_sid'].",".$intsgoods_catalog_id.",'".$sqlsgoods_name."','".$sqlsgoods_jianpin."','".$sqlsgoods_code."',".$decsgoods_price.",".$decsgoods_cprice.",".$intsgoods_type.",1,".$intatime.")";
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult === FALSE) {
 		$intreturn = 3;
+	}else{
+		$intsgoods_id = mysql_insert_id();
 	}
 }
 
+// 实物型商品添加一条库存信息记录
+if($intreturn == 0){
+	if($intsgoods_type==2){
+		$strsql = "INSERT INTO ".$gdb->fun_table2('store_info')."(sgoods_id,shop_id,store_info_count,store_info_atime) VALUES (".$intsgoods_id.",".$GLOBALS['_SESSION']['login_sid'].",0,".$intatime.")";
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult === FALSE) {
+			$intreturn = 4;
+		}
+	}
+}
 echo $intreturn;
 ?>

@@ -112,7 +112,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">员工姓名：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>员工姓名：</label>
           <div class="umodal-normal">
             <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name">
           </div>
@@ -144,7 +144,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">手机号码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机号码：</label>
           <div class="umodal-normal">
             <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone">
           </div>
@@ -264,7 +264,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">员工姓名：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>员工姓名：</label>
           <div class="umodal-normal">
             <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name">
           </div>
@@ -296,7 +296,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">手机号码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机号码：</label>
           <div class="umodal-normal">
             <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone">
           </div>
@@ -650,7 +650,7 @@ $('.cgoodsadd').on('click',add2);
 
 // 添加提交
 $('.cworkeradd').on('click', function(){
-  // $(this).attr('disabled',true);
+  $(this).attr('disabled',true);
   var url="worker_manage_add_do.php";
   var count=0;
   var arr= [];
@@ -688,51 +688,37 @@ $('.cworkeradd').on('click', function(){
     if(res!='error'){
       worker_id = res;
     }else{
+      count = 10;
       alert('添加失败');
+      $('.cworkeradd').attr('disabled',false);
       console.log(res);
     }
   }).then(function(){
-    $.ajaxFileUpload ({
-      url:'upload_worker_do.php', //你处理上传文件的服务端
-      secureuri:false,
-      fileElementId:'cworker_photo1',//与页面处理代码中file相对应的ID值
-      data:{worker_id:worker_id,worker_photo_name:'worker_photo1',address:'worker_photo_file'},
-      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-      success: function (data) {
-        count++;
-        // console.log(data);
-        // $('.ccardaddsubmit').attr('disabled',false);
-        // if(data == '0'){
-        //   window.location.href='card.php';
-        // }else{
-        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-        //   $('#ualert').modal('open');
-        //   $('.ccardrechargesubmit').attr('disabled',false);
-        //   return false;
-        // }
-      }
-    });
+    if(count!=10){
+      $.ajaxFileUpload ({
+        url:'upload_worker_do.php', //你处理上传文件的服务端
+        secureuri:false,
+        fileElementId:'cworker_photo1',//与页面处理代码中file相对应的ID值
+        data:{worker_id:worker_id,worker_photo_name:'worker_photo1',address:'worker_photo_file'},
+        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+        success: function (data) {
+          count++;
+        }
+      });
+    }
   }).then(function(){
-    $.ajaxFileUpload ({
-      url:'upload_worker_do.php', //你处理上传文件的服务端
-      secureuri:false,
-      fileElementId:'cworker_photo2',//与页面处理代码中file相对应的ID值
-      data:{worker_id:worker_id,worker_photo_name:'worker_photo2',address:'worker_identity_file'},
-      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-      success: function (data) {
-        count++;
-        // console.log(data);
-        // $('.ccardaddsubmit').attr('disabled',false);
-        // if(data == '0'){
-        //   window.location.href='card.php';
-        // }else{
-        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-        //   $('#ualert').modal('open');
-        //   $('.ccardrechargesubmit').attr('disabled',false);
-        //   return false;
-        // }
-      }
-    });
+    if(count!=10){
+      $.ajaxFileUpload ({
+        url:'upload_worker_do.php', //你处理上传文件的服务端
+        secureuri:false,
+        fileElementId:'cworker_photo2',//与页面处理代码中file相对应的ID值
+        data:{worker_id:worker_id,worker_photo_name:'worker_photo2',address:'worker_identity_file'},
+        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+        success: function (data) {
+          count++;
+        }
+      });
+    }
   }).then(function(){
     setInterval(function(){
       if(count===2)
@@ -842,47 +828,32 @@ $('.cworkeredit').on('click', function(){
       console.log(res);
     }
   }).then(function(){
-    $.ajaxFileUpload ({
-      url:'upload_worker_do.php', //你处理上传文件的服务端
-      secureuri:false,
-      fileElementId:'cworker_photo3',//与页面处理代码中file相对应的ID值
-      data:{worker_id:worker_id,worker_photo_name:'worker_photo3',address:'worker_photo_file'},
-      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-      success: function (data) {
-        count++;
-        console.log(data);
-        // $('.ccardaddsubmit').attr('disabled',false);
-        // if(data == '0'){
-        //   window.location.href='card.php';
-        // }else{
-        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-        //   $('#ualert').modal('open');
-        //   $('.ccardrechargesubmit').attr('disabled',false);
-        //   return false;
-        // }
-      }
-    });
+    if(count!=10){
+      $.ajaxFileUpload ({
+        url:'upload_worker_do.php', //你处理上传文件的服务端
+        secureuri:false,
+        fileElementId:'cworker_photo3',//与页面处理代码中file相对应的ID值
+        data:{worker_id:worker_id,worker_photo_name:'worker_photo3',address:'worker_photo_file'},
+        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+        success: function (data) {
+          count++;
+          console.log(data);
+        }
+      });
+    }
   }).then(function(){
-    $.ajaxFileUpload ({
-      url:'upload_worker_do.php', //你处理上传文件的服务端
-      secureuri:false,
-      fileElementId:'cworker_photo4',//与页面处理代码中file相对应的ID值
-      data:{worker_id:worker_id,worker_photo_name:'worker_photo4',address:'worker_identity_file'},
-      dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
-      success: function (data) {
-        count++;
-        // console.log(data);
-        // $('.ccardaddsubmit').attr('disabled',false);
-        // if(data == '0'){
-        //   window.location.href='card.php';
-        // }else{
-        //   $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
-        //   $('#ualert').modal('open');
-        //   $('.ccardrechargesubmit').attr('disabled',false);
-        //   return false;
-        // }
-      }
-    });
+    if(count!=10){
+      $.ajaxFileUpload ({
+        url:'upload_worker_do.php', //你处理上传文件的服务端
+        secureuri:false,
+        fileElementId:'cworker_photo4',//与页面处理代码中file相对应的ID值
+        data:{worker_id:worker_id,worker_photo_name:'worker_photo4',address:'worker_identity_file'},
+        dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+        success: function (data) {
+          count++;
+        }
+      });
+    }
   }).then(function(){
     setInterval(function(){
       if(count===2)

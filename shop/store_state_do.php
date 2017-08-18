@@ -6,6 +6,8 @@ require(C_ROOT . '/_include/inc_init.php');
 $strstore_id = api_value_post('store_id');
 $intstore_id = api_value_int0($strstore_id);
 
+$intctime = time();
+
 $intreturn = 0;
 $arr = array();
 
@@ -21,14 +23,15 @@ $arr = $gdb->fun_fetch_all($hresult);
 if(!empty($arr)){
 	foreach($arr as $row){
 		if($row['mgoods_id'] != 0){
-			$strsql = "UPDATE ".$gdb->fun_table2('store_info')." SET store_info_count=store_info_count+(".$row['store_goods_count'].") where mgoods_id=".$row['mgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+			$strsql = "UPDATE ".$gdb->fun_table2('store_info')." SET store_info_count=store_info_count+(".$row['store_goods_count']."),store_info_ctime=".$intctime." where mgoods_id=".$row['mgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
 				$intreturn = 2;
 			}
 		}
 		if($row['sgoods_id'] != 0){
-			$strsql = "UPDATE ".$gdb->fun_table2('store_info')." SET store_info_count=store_info_count+(".$row['store_goods_count'].") where sgoods_id=".$row['sgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+			$strsql = "UPDATE ".$gdb->fun_table2('store_info')." SET store_info_count=store_info_count+(".$row['store_goods_count']."),store_info_ctime=".$intctime." where sgoods_id=".$row['sgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+			// echo $strsql;
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == FALSE) {
 				$intreturn = 3;

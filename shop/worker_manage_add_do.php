@@ -60,7 +60,7 @@ if(empty($sqlworker_name) || empty($sqlworker_phone)){
 }
 // 员工编码唯一
 if(!empty($sqlworker_code)){
-	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code=".$sqlworker_code." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code='".$sqlworker_code."' and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$hresult = $gdb->fun_query($strsql);
 	$arr = $gdb->fun_fetch_assoc($hresult);
 	if(!empty($arr)){

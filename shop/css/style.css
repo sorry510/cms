@@ -15,9 +15,9 @@
 #ubody [id*="ucardm1"] .utextbox .am-selected-list{max-height:130px;}
 #ubody [id*="ucardm1"] .utextbox .udatepicker.udatepicker-max input {width:86%;}
 /*会员充值*/
-#ubody #ucardm2 .ua1{position:absolute; left:30px; bottom:40px;}
+#ubody #ucardm2 .ua1{margin:18px 0 0 30px;}
+#ubody #ucardm2 .ua2{margin:23px 0 0 20px;}
 #ubody #ucardm2 .uselect.uselect-auto + .am-selected {max-width:130px;}
-#ubody #ucardm2 .ua2{position:absolute; left:30px; bottom:0px;}
 /*购买套餐*/
 #ubody #ucardm3 .utext1{position:absolute; right:200px; bottom:25px;}
 /*购买完成*/

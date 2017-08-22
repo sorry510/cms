@@ -213,6 +213,8 @@ table a{color:#2D7EF6; text-decoration:underline;}
 #ubody .umodal .ucontent3 {margin:0 4%; width:92%;}
 #ubody .umodal .ucontent3 .upay {margin:0 10px 10px 0; border:1px solid #CFCFCF;}
 #ubody .umodal .ucontent3 .upay.upay-active {background-color:#FFFFFF;background:url("../img/icon-right.jpg") no-repeat bottom right; border:2px solid #A5C95A}
+#ubody .umodal .ucontent4 {margin:0 4%; width:92%; text-align:left;}
+#ubody .umodal .ucontent4 .uticket-show {margin:0 10px 10px 0; border:1px solid #CFCFCF;}
 #ubody .umodal .ucontent > [class*="am-u-"] {margin:5px 0; padding:0; text-align:left; font-size:14px; font-weight:normal;}
 
 /*左右选项卡*/

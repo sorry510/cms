@@ -32,7 +32,7 @@ function get_cards_list() {
 	$intpagenext = 0;
 	$arrlist = array();
 	$arrpackage = array();
-	$now = time();
+	$intnow = time();
 
 	$strwhere = '';
 	if($GLOBALS['strsearch'] != '') {
@@ -50,7 +50,8 @@ function get_cards_list() {
 	if($GLOBALS['strsearch'] == ''){
 		$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	}
-	$strwhere .= " and card_edate=<".$now;
+
+	$strwhere .= " and card_edate<=".$intnow." and card_edate!=0";
 	$strwhere .= " and card_state!=3";
 
 	$arr = array();

@@ -18,7 +18,7 @@
     <div class="ua2">
       <span class="ua2a">会员基本信息</span>
       <div class="am-form-file ua2b">
-        <img src="../img/li.jpg" class="cphoto">
+        <img src="../img/wu.jpg" class="cphoto">
         <ul style="padding-left: 0;margin-left: 6%;">
           <li><font>卡号：</font><a href="javascript:void" class="ccard_code"></a></li>
           <li><font>姓名：</font><span class="ccard_name"></span></li>
@@ -410,7 +410,7 @@ $(function(){
         $('#umoney .ua .ua2 .ccard_shop').text('');
         $('#umoney .ua .ua2 .ccard_birthday').text('');
         $('#umoney .ua .ua2 .ccard_score').text('');
-        $('#umoney .ua .ua2 .cphoto').attr('src','../img/li.jpg');
+        $('#umoney .ua .ua2 .cphoto').attr('src','../img/wu.jpg');
       }else{
         //目前有多个会员时显示最后一个符合
         $.each(res,function(key,val){
@@ -564,7 +564,7 @@ $(function(){
         money_act = Number(money_act)-Number(ticket_value);
       }
     });
-    // 扣除满减活动价格
+    // 扣除满减活动价格,减法
     limit_money = money_act;
     if(act_decrease_id.length!=0){
       for(var i=0;i<act_decrease_id.length;){
@@ -584,6 +584,19 @@ $(function(){
         }
       });*/
     }
+    // 扣除满减活动价格,除法
+    /*if(act_decrease_id.length!=0){
+      for(var i=0;i<act_decrease_id.length;){
+        if(limit_money>act_decrease_id[i].act_decrease_man){
+          limit_number = parseInt(Number(limit_money)/Number(act_decrease_id[i].act_decrease_man));//减了几次
+          limit_money = Number(limit_money)%Number(act_decrease_id[i].act_decrease_man);//减过之后剩余价格
+          jian = Number(jian) + Number(act_decrease_id[i].act_decrease_jian)*Number(limit_number);//总共减了多少钱
+          use_act_decrease_id.push(act_decrease_id[i].act_decrease_id);//新的满减活动
+        }else{
+          i++;
+        }
+      }
+    }*/
     money3 = Number(money2)-Number(jian);
     money3 = money3.toFixed(2);
     $("#umoney .cmoney1").text(money1);

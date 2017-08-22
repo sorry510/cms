@@ -11,6 +11,8 @@ $strworker_name = api_value_post('worker_name');
 $sqlworker_name = $gdb->fun_escape($strworker_name);
 $strworker_code = api_value_post('worker_code');
 $sqlworker_code = $gdb->fun_escape($strworker_code);
+$strworker_code_old = api_value_post('worker_code_old');
+$sqlworker_code_old = $gdb->fun_escape($strworker_code_old);
 $strworker_sex = api_value_post('worker_sex');
 $intworker_sex = api_value_int0($strworker_sex);
 $strworker_birthday_date = api_value_post('worker_birthday_date');
@@ -58,8 +60,8 @@ if(empty($sqlworker_name) || empty($sqlworker_phone)){
 	$intreturn = 5;
 }
 // 员工编码唯一
-if(!empty($sqlworker_code)){
-	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code=".$sqlworker_code." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+if(!empty($sqlworker_code) && $sqlworker_code != $sqlworker_code_old){
+	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code='".$sqlworker_code."' and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$hresult = $gdb->fun_query($strsql);
 	$arr = $gdb->fun_fetch_assoc($hresult);
 	if(!empty($arr)){

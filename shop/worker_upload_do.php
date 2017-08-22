@@ -17,7 +17,7 @@ $intnow = time().rand(1,5000)*rand(1,5000);//多次执行可能时间相同导�
 $intreturn = 0;
 $strext = strtolower(strrchr($_FILES[$sqlworker_photo_name]['name'], '.'));
 $intlength = $_FILES[$sqlworker_photo_name]['size'];
-if($strext == '.jpg' || $strext == '.gif') {
+if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
 	if($intlength < 1024000) {
 		$hresult = move_uploaded_file($_FILES[$sqlworker_photo_name]['tmp_name'], $gconfig['path']['photo'] . '/'. $intnow . $strext);
 		if($hresult) {

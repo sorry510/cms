@@ -64,7 +64,7 @@ function get_cards_list() {
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
 	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
-	$strwhere .= " and card_edate=<".$now;
+	$strwhere .= " and card_edate<=".$intnow." and card_edate!=0";
 	$strwhere .= " and card_state!=3";
 
 	$arr = array();

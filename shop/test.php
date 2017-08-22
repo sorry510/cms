@@ -25,18 +25,22 @@ echo $now3;
 echo "<br/>";
 echo $now3-$now2;*/
 
-
-// $date = date('Y-m-d',time());
+// $time = -88882;
+// $date = date('Y-m-d',$time);
 // echo $date;
 // echo "</br>";
-// echo strtotime($date);
+// $strworker_birthday_date = '';
+// echo strtotime($strworker_birthday_date)==false?'0':strtotime($strworker_birthday_date);
 
-$intmgoods_id = 4;
-// 判断商品是否参加活动
-$arrmgoods = array();
-$strsql = "SELECT mgoods_id FROM ".$gdb->fun_table2('mgoods')." WHERE mgoods_id=".$intmgoods_id." and mgoods_act=2";
-echo $strsql;
-$hresult = $gdb->fun_query($strsql);
-$arrmgoods = $gdb->fun_fetch_assoc($hresult);
+$strvalue = '09';
+echo intval($strvalue);
 
-var_dump($arrmgoods);
+// $intmgoods_id = 4;
+// // 判断商品是否参加活动
+// $arrmgoods = array();
+// $strsql = "SELECT mgoods_id FROM ".$gdb->fun_table2('mgoods')." WHERE mgoods_id=".$intmgoods_id." and mgoods_act=2";
+// echo $strsql;
+// $hresult = $gdb->fun_query($strsql);
+// $arrmgoods = $gdb->fun_fetch_assoc($hresult);
+
+// var_dump($arrmgoods);

@@ -75,7 +75,7 @@
         <td><?php echo date('Y-m-d',$row['reserve_atime']); ?></td>
         <td><?php echo $row['state'] ;?></td>
         <td>
-          <button class="am-btn ubtn-table ubtn-green chere" value="<?php echo $row['reserve_id']; ?>" <?php if ($row['reserve_here']) {
+          <button class="am-btn ubtn-table ubtn-green chere" value="<?php echo $row['reserve_id']; ?>" <?php if ($row['reserve_here']==1) {
             echo "style='display:none;'";
           } ;?>>
             <i class="iconfont icon-bianji"></i>

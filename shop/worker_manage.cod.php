@@ -62,7 +62,7 @@
       <td><a class="coffcanvasopen" data-am-offcanvas="{target: '#uworkeroff1'}" href="#" worker_id="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></a></td>
       <td><?php echo $row['worker_code'];?></td>
       <td><?php echo $row['worker_sex']=='2'?'女':'男';?></td>
-      <td><?php echo date('Y-m-d',$row['worker_birthday_date']);?></td>
+      <td><?php echo $row['worker_birthday_date']=='0'?'--':date('Y-m-d',$row['worker_birthday_date']);?></td>
       <td><?php echo $row['worker_phone'];?></td>
       <td><?php echo $row['education_name'];?></td>
       <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
@@ -272,6 +272,7 @@
           <label class="umodal-label am-form-label" for="">员工编号：</label>
           <div class="umodal-normal">
             <input name="worker_code" type="text" class="am-form-field uinput uinput-max cworker_code">
+            <input name="worker_code_old" type="hidden" class="am-form-field uinput uinput-max cworker_code_old">
           </div>
         </div>
         <div class="am-form-group">
@@ -392,14 +393,14 @@
 </div>
 <div id="uworker_managem3" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">选择服务
+    <div class="am-modal-hd uhead">选择商品
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选服务</a></li>
-          <li><a href="#tab2">扫码添加服务</a></li>
+          <li class="am-active"><a href="#tab1">可选商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
         </ul>
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active" id="tab1">
@@ -450,7 +451,7 @@
         </div>
       </div>
       <div class="uright">
-        <div class="ua">已选择服务<!-- <span>（数量为0代表不限数量）</span> --></div>
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
         <ul class="ub">
           <li class="ub1">名称</li>
           <li class="ub2">&nbsp;</li>
@@ -478,14 +479,14 @@
 </div>
 <div id="uworker_managem4" class="am-modal" tabindex="-1" style="min-height:291px;">
   <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">修改服务
+    <div class="am-modal-hd uhead">修改商品
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
       <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
         <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">可选服务</a></li>
-          <li><a href="#tab2">扫码添加服务</a></li>
+          <li class="am-active"><a href="#tab1">可选商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
         </ul>
 
         <div class="am-tabs-bd">
@@ -616,12 +617,22 @@
 <?php pageJs($this->_data['worker_list'],$this->_data['request'],'worker_manage.php');?>
 //下一步
 $('.cmodelopen').on('click', function(e) {
-  $('#uworker_managem1').modal('close');
-  $('#uworker_managem3').modal('open');
+  if($('#uworker_managem1 .cworker_name').val() || $('#uworker_managem1 .cworker_phone').val()){
+    $('#uworker_managem1').modal('close');
+    $('#uworker_managem3').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
 });
 $('.cmodelopen3').on('click', function(e) {
-  $('#uworker_managem2').modal('close');
-  $('#uworker_managem4').modal('open');
+  if($('#uworker_managem2 .cworker_name').val() || $('#uworker_managem2 .cworker_phone').val()){
+    $('#uworker_managem2').modal('close');
+    $('#uworker_managem4').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
 });
 //上一步
 $('.cmodelopen2').on('click', function(e) {
@@ -696,7 +707,7 @@ $('.cworkeradd').on('click', function(){
   }).then(function(){
     if(count!=10){
       $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
+        url:'worker_upload_do.php', //你处理上传文件的服务端
         secureuri:false,
         fileElementId:'cworker_photo1',//与页面处理代码中file相对应的ID值
         data:{worker_id:worker_id,worker_photo_name:'worker_photo1',address:'worker_photo_file'},
@@ -709,7 +720,7 @@ $('.cworkeradd').on('click', function(){
   }).then(function(){
     if(count!=10){
       $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
+        url:'worker_upload_do.php', //你处理上传文件的服务端
         secureuri:false,
         fileElementId:'cworker_photo2',//与页面处理代码中file相对应的ID值
         data:{worker_id:worker_id,worker_photo_name:'worker_photo2',address:'worker_identity_file'},
@@ -746,6 +757,7 @@ $('.cedit').on('click', function(){
         $("#uworker_managem2 .cworker_group_id").selected();
         $("#uworker_managem2 .cworker_name").val(res.worker_name);
         $("#uworker_managem2 .cworker_code").val(res.worker_code);
+        $("#uworker_managem2 .cworker_code_old").val(res.worker_code);
         $("#uworker_managem2 input[name='worker_sex2']").each(function(){
           if($(this).val() == res.worker_sex){
             $(this).uCheck('check');
@@ -805,6 +817,7 @@ $('.cworkeredit').on('click', function(){
     worker_group_id:$('#uworker_managem2 .cworker_group_id').val(),
     worker_name:$('#uworker_managem2 .cworker_name').val(),
     worker_code:$('#uworker_managem2 .cworker_code').val(),
+    worker_code_old:$('#uworker_managem2 .cworker_code_old').val(),
     worker_sex:$("#uworker_managem2 input[name='worker_sex2']:checked").val(),
     worker_birthday_date:$('#uworker_managem2 .cworker_birthday_date').val(),
     worker_phone:$('#uworker_managem2 .cworker_phone').val(),
@@ -830,7 +843,7 @@ $('.cworkeredit').on('click', function(){
   }).then(function(){
     if(count!=10){
       $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
+        url:'worker_upload_do.php', //你处理上传文件的服务端
         secureuri:false,
         fileElementId:'cworker_photo3',//与页面处理代码中file相对应的ID值
         data:{worker_id:worker_id,worker_photo_name:'worker_photo3',address:'worker_photo_file'},
@@ -844,7 +857,7 @@ $('.cworkeredit').on('click', function(){
   }).then(function(){
     if(count!=10){
       $.ajaxFileUpload ({
-        url:'upload_worker_do.php', //你处理上传文件的服务端
+        url:'worker_upload_do.php', //你处理上传文件的服务端
         secureuri:false,
         fileElementId:'cworker_photo4',//与页面处理代码中file相对应的ID值
         data:{worker_id:worker_id,worker_photo_name:'worker_photo4',address:'worker_identity_file'},
@@ -855,7 +868,9 @@ $('.cworkeredit').on('click', function(){
       });
     }
   }).then(function(){
+    // console.log(count);
     setInterval(function(){
+      // console.log(count);
       if(count===2)
         window.location.reload();
     }, 200)

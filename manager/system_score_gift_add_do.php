@@ -19,7 +19,7 @@ if(!empty($arr)){
 }
 
 if($intreturn == 0){
-	$strsql = "INSERT INTO ".$gdb->fun_table2('gift')." (gift_name,gift_score,shop_id,gift_atime) VALUES ('".$sqlgift_name."',".$intgift_score.",".$GLOBALS['_SESSION']['login_sid'].",".time().")";
+	$strsql = "INSERT INTO ".$gdb->fun_table2('gift')." (gift_name,gift_score,gift_atime) VALUES ('".$sqlgift_name."',".$intgift_score.",".time().")";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == false){
 		$intreturn = 2;

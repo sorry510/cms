@@ -27,28 +27,23 @@
         <td style="width: 12%;">操作</td>
       </tr>
     </thead>
+    <?php foreach($this->_data['roomcate_list']['list'] as $row){?>
     <tr>
-      <td>一楼大厅</td>
+      <td><?php echo $row['room_catalog_name'];?></td>
       <td>
-        <button class="am-btn ubtn-table ubtn-green" data-am-modal="{target: '#usystem_roomcatem2'}">
+        <button class="am-btn ubtn-table ubtn-green cmodal2open" data-am-modal="{target: '#usystem_roomcatem2'}" value="<?php echo $row['room_catalog_id'];?>">
           <i class="iconfont icon-bianji"></i>
           修改
         </button>
-        <button class="am-btn ubtn-table ubtn-gray cdel">
+        <button class="am-btn ubtn-table ubtn-gray cdel" value="<?php echo $row['room_catalog_id'];?>">
           <i class="iconfont icon-shanchu"></i>
           删除
         </button>
       </td>
-    </tr> 
+    </tr>
+    <?php }?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共1页 3条记录</li>
-    <li class="am-disabled"><a href="#">&laquo;</a></li>
-    <li class="am-active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">&raquo;</a></li>
-  </ul> 
+  <?php pageHtml($this->_data['roomcate_list'],$this->_data['request'],'system_roomcate.php');?>
 </div>
 
 <!--modal框-->
@@ -58,11 +53,11 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
+      <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
+            <input type="text" class="am-form-field uinput uinput-max" name="name">
           </div>
           <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
         </div> 
@@ -70,7 +65,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="submit" class="am-btn ubtn-sure ubtn-green cadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -84,11 +79,12 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
+      <form class="am-form am-form-horizontal" id="cform2">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max">
+            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="hidden" class="am-form-field uinput uinput-max" name="id">
           </div>
           <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
         </div> 
@@ -96,7 +92,7 @@
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green ceditsubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -119,17 +115,59 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function() {
-  $('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
+<?php pageJs($this->_data['roomcate_list'],$this->_data['request'],'system_roomcate.php');?>
+
+$('.cdel').on('click', function() {
+  $('#cconfirm').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('system_roomcate_delete_do.php', {'id':$(this.relatedTarget).val()}, function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='2'){
+          alert('类目下面有房间');
+        }else{
+          alert('删除失败');
+        }
+      })
+    },
+    onCancel: function() {
+      return;
+    }
+  });
+});
+
+$('.cadd').on('click', function() {
+  var ele = $(this);
+  ele.attr('disable',true);
+  $.post('system_roomcate_add_do.php' ,$('#cform1').serialize() ,function(res){
+    if(res=='0'){
+      window.location.href="system_roomcate.php";
+    }else{
+      alert('添加失败');
+      ele.attr('disable',false);
+    }
+  })
+});
+
+$('.cmodal2open').on('click', function() {
+  var id = $(this).val();
+  var name = $(this).parent().siblings().text();
+  $("#usystem_roomcatem2 input[name='id']").val(id);
+  $("#usystem_roomcatem2 input[name='name']").val(name);
+});
+
+$('.ceditsubmit').on('click',function(){
+  var target = $(this);
+  target.attr('disabled',true);
+  $.post('system_roomcate_edit_do.php', $("#cform2").serialize(), function(res){
+    console.log(res);
+    if(res=='0'){
+      window.location.reload();
+    }else{
+      target.attr('disabled',false);
+      alert('修改失败');
+    }
   });
 });
 </script>

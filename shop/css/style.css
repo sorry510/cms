@@ -29,12 +29,8 @@
 #ubody #ucardm4 .ufootleft span.am-ucheck-icons{margin:0; line-height:36px;}
 /******************************************************************************************************************************/
 /*detail明细页面样式*/
-#urecordm1 .umodal .uhead{height: 40px;line-height: 40px;}
-#urecordm1 p{ margin: 0 15px; padding-left:10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; text-align: left; color: grey; font-size: 12px;}
-#urecordm1 .umodal .utext1{padding-top:0;}
-#urecordm1 .umodal .ua1{ overflow: hidden; zoom:1; margin: 0 20px;}
-#urecordm1 .umodal .ua1 button{ float:right; margin-left:10px;}
-#urecordm1 .umodal .ua1 .a2{ float: right; margin-right: 15px; display: inline; padding-top:9px; color: #656668; font-size: 13px;}
+#urecordm1 .umodal {width:480px;}
+#urecordm1 p{margin: 0 15px; padding-left:10px; padding-top: 10px; text-align: left; color: grey; font-size: 14px;}
 /*收银页面*/
 #umoney .gtext-yellow{color: #FFF000}
 #umoney .ubtn-deepbule{height: 25px; background: #254A98;padding:5px 3%;color: #F1C759;}
@@ -114,21 +110,14 @@
 
 /*员工管理页面*/
 #uworkeroff1 .uphoto{width:200px; height:300px;}
-/*员工提成方案*/
-#uworker_rewardm2 .umodal .utabs{margin:0 auto; width:96%;}
-#uworker_rewardm2 .umodal .utabs .am-tabs-nav{border-bottom:0;}
-#uworker_rewardm2 .umodal .am-tabs-nav li{margin-top:0;}
-#uworker_rewardm2 .umodal .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
-#uworker_rewardm2 .umodal .am-tabs-bd{border:none;padding:0;}
-#uworker_rewardm2 .umodal .am-tabs-bd .am-tab-panel{border:none;padding:0;}
-/*限时折扣*/
-[id*='uact_discountm'] .umodal .utabs{margin:0 auto; width:96%;}
-[id*='uact_discountm'] .umodal .utabs .am-tabs-nav{border-bottom:0;}
-[id*='uact_discountm'] .umodal .am-tabs-nav li{margin-top:0;}
-[id*='uact_discountm'] .umodal .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
-[id*='uact_discountm'] .umodal .am-tabs-bd{border:none;padding:0;}
-[id*='uact_discountm'] .umodal .am-tabs-bd .am-tab-panel{border:none;padding:0;}
-/*带批量的弹出框样式*/
+
+/*带批量的弹出框样式(写的方式有点问题选项卡，可能会被覆盖)*/
+#ubody .umodal .umain1 .utabs{margin:0 auto; width:96%;}
+#ubody .umodal .umain1 .utabs .am-tabs-nav{border-bottom:0;}
+#ubody .umodal .umain1 .am-tabs-nav li{margin-top:0;}
+#ubody .umodal .umain1 .am-tabs-nav li.am-active > a{background-color:#E9EEF2;}
+#ubody .umodal .umain1 .am-tabs-bd{border:none;padding:0;}
+#ubody .umodal .umain1 .am-tabs-bd .am-tab-panel{border:none;padding:0;}
 #ubody .umodal .umain1 .ucont{margin:0 auto; overflow:auto; height:350px; border:1px solid #DDDDDD;border-top:none; }
 #ubody .umodal .umain1 .utop{margin:0 auto; border:1px solid #DDDDDD;border-bottom:none; border-top:1px solid #E9EEF2;}
 #ubody .umodal .umain1 .am-list li{border:0; border-bottom:1px solid #DDDDDD; margin-bottom:0px; background-color: #F8F8F8; line-height:36px;}

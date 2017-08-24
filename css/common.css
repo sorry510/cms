@@ -285,4 +285,5 @@ table a{color:#2D7EF6; text-decoration:underline;}
 #ubody .utools label.am-form-label {padding-top:0px;}
 #ubody .am-selected-list {max-height: 200px;overflow:auto;}
 #ubody .am-form-horizontal .am-checkbox, #ubody .am-form-horizontal .am-checkbox-inline, #ubody .am-form-horizontal .am-form-label, #ubody .am-form-horizontal .am-radio, #ubody .am-form-horizontal .am-radio-inline{padding-top:0px;}
-
+/*验证*/
+#ubody .am-form-success .uselect + .am-selected .am-selected-btn.am-btn-default{border-color:#2AA672;}

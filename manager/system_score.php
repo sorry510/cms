@@ -10,11 +10,14 @@ $strto = api_value_get('to');
 $intto = strtotime($strto)==false?0:strtotime($strto);
 $strfrom = api_value_get('from');
 $intfrom = strtotime($strfrom)==false?0:strtotime($strfrom);
+$strshop_id = api_value_get('shop_id');
+$intshop_id = api_value_int0($strshop_id);
 $strsearch = api_value_get('search');
 $sqlsearch = $gdb->fun_escape($strsearch);
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('gift_list', get_gift_list());
+$gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('gift_record_list', get_gift_record_list());
 $gtemplate->fun_show('system_score');
 
@@ -22,7 +25,24 @@ function get_request(){
 	$arr = array();
 	$arr['from'] = $GLOBALS['strfrom'];
 	$arr['to'] = $GLOBALS['strto'];
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
 	$arr['search'] = $GLOBALS['strsearch'];
+	return $arr;
+}
+
+function get_shop_list() {
+	$arr = array();
+	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." order by shop_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+
+function get_gift_list(){
+	$arr = array();
+	$strsql = "SELECT gift_id,gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." ORDER BY gift_id DESC ";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
 
@@ -36,10 +56,9 @@ function get_gift_record_list(){
 	$arrpackage = array();
 	$arr = array();
 	$strwhere = '';
-	if($GLOBALS['strsearch'] != ''){
-		$strwhere .= " AND (c_card_code like '%".$GLOBALS['strsearch']."%'";
-		$strwhere .= " OR c_card_phone like '%".$GLOBALS['strsearch']."%'";
-		$strwhere .= " OR c_card_name like '%".$GLOBALS['strsearch']."%')";
+	
+	if($GLOBALS['intshop_id'] != 0){
+		$strwhere .= " AND shop_id=".$GLOBALS['intshop_id'];
 	}
 	if($GLOBALS['intfrom'] != 0){
 		$strwhere .= " AND gift_record_atime>=".$GLOBALS['intfrom'];
@@ -47,10 +66,14 @@ function get_gift_record_list(){
 	if($GLOBALS['intto'] != 0){
 		$strwhere .= " AND gift_record_atime<=".$GLOBALS['intto'];
 	}
-
-	$strwhere .= " AND shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	if($GLOBALS['strsearch'] != ''){
+		$strwhere .= " AND (c_card_code like '%".$GLOBALS['strsearch']."%'";
+		$strwhere .= " OR c_card_phone like '%".$GLOBALS['strsearch']."%'";
+		$strwhere .= " OR c_card_name like '%".$GLOBALS['strsearch']."%')";
+	}
+	// $strwhere .= " AND shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	
-	$strsql = "SELECT count(gift_record_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('gift_record')  . " WHERE 1 = 1 ".$strwhere;
+	$strsql = "SELECT count(gift_record_id) as mycount FROM ". $GLOBALS['gdb']->fun_table2('gift_record') ." WHERE 1 = 1 ".$strwhere;
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -118,11 +141,4 @@ function get_gift_record_list(){
 	return $arrpackage;
 }
 
-function get_gift_list(){
-	$arr = array();
-	$strsql = "SELECT gift_id,gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." ORDER BY gift_id DESC ";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	return $arr;
-}
 ?>

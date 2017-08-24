@@ -573,7 +573,7 @@
       <div class="ufootleft am-text-left">
         <div>
           <label class="am-checkbox">
-            <input type="checkbox" value="" data-am-ucheck> 免单
+            <input class="cfree" type="checkbox" value="4" data-am-ucheck> 免单
           </label>
         </div>
         <div>合计：<span class="am-text-lg gtext-orange cymoney">0</span>元，实收金额：<span class="am-text-lg gtext-orange relmoney">0</span>元
@@ -750,9 +750,10 @@ $(function() {
           if(res){
             $.each(res, function(k,v){
               // console.log(k);//活动id
+              var act_id = k;
               // console.log(v);
               $.each(v, function(k,v){
-                ele = '<span class="am-badge am-badge-success am-radius am-text-default uticket-show cgive_ticket">'+k+'*'+v+'</span>';
+                ele = '<span class="am-badge am-badge-success am-radius am-text-default uticket-show cgive_ticket" act_id="'+act_id+'" num="'+v+'">'+k+'*'+v+'</span>';
                 $('#ucardm4 .ucontent4').append(ele);
               })
             });
@@ -1297,10 +1298,12 @@ $(function() {
     $('.cmodalcommit4').on('click', function() {
       // $(this).attr('disabled',true);
       var url="card_mcombo_do.php";
-      var card_id=$(this).val();
-      var arr= [];
+      var card_id = $(this).val();
+      var arr = [];
+      var arr2 = [];
+      var json = {};
       $("#ucardm3 .cnum").each(function(k,v){
-        var json = {'id':$(this).attr('mcombo_id'),'num':$(this).val(),'act_discount_id':$(this).attr('act_discount_id')};
+        json = {'id':$(this).attr('mcombo_id'),'num':$(this).val(),'act_discount_id':$(this).attr('act_discount_id')};
         arr.push(json);
       });
       if(arr.length==0){
@@ -1309,28 +1312,40 @@ $(function() {
         $(this).attr('disabled',false);
         return false;
       }
+      $("#ucardm4 .cgive_ticket").each(function(k,v){
+        json = {'id':$(this).attr('act_id'),'num':$(this).attr('num')};
+        arr2.push(json);
+      });
       var ymoney = $("#ucardm4 input[name='ymoney']").val();
       var money = $("#ucardm4 input[name='pay']").val();
       var give = $("#ucardm4 input[name='give']").val();
       var pay_type = $("#ucardm4 .upay-active").attr('payType');
       var card_ymoney = $("#ucardm4 .ccard_ymoney").text();
+      var state = 1;
+      if($("#ucardm4 .cfree").prop('checked')){
+        state = $("#ucardm4 .cfree").val();
+      }
       if(Number(money)-Number(give) > Number(card_ymoney) && pay_type == '5'){
         $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>卡里余额不足，请充值或用其它方式付款</span>");
         $('#ualert').modal('open');
         $(this).attr('disabled',false);
         return false;
       }
+
       var data = {
             card_id:card_id,
             ymoney:ymoney,
             money:money,
             give:give,
             arr:arr,
+            arr2:arr2,
             arr_give:act_give_id,
             act_decrease:use_act_decrease_id,
-            pay_type:pay_type
+            pay_type:pay_type,
+            state:state
           }
       // console.log(data);
+      // return false;
       $.post(url,data,function(res){
         $('.cmodalcommit4').attr('disabled',false);
         // console.log(res);
@@ -1338,7 +1353,7 @@ $(function() {
         if(res=='0'){
           window.location.reload();
         }else{
-          console.log(res);
+          // console.log(res);
           $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>购买套餐失败，请重新购买</span>");
           $('#ualert').modal('open');
           $('.cmodalcommit4').attr('disabled',false);

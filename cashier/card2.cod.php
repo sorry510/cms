@@ -44,42 +44,190 @@
         <td>性别</td>
         <td>生日</td>
         <td>开卡时间</td>
-      <td>卡类型</td>
-      <td>折扣</td>
+        <td>卡类型</td>
+        <td>折扣</td>
         <td>到期时间</td>
         <td>卡状态</td>
         <td>开卡店铺</td>
         <td>电子档案</td>
         <td>消费明细</td>
+        <td>操作</td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?></a></td>
+         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?><?php if(!empty($row['card_okey'])){?><span class="gtext-green">(WX)</span><?php }?></a></td>
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_name']; ?></a></td>
         <td><?php echo $row['card_phone']; ?></td>
         <td><?php echo $row['card_sex'] == '3' ? '保密' : ($row['card_sex'] == '1' ? '男':'女'); ?></td>
-        <td><?php echo date("Y-m-d",$row['card_birthday_date']); ?></td>
+        <td><span class="<?php if(date("m-d",$row['card_birthday_date'])==date("m-d",time())) echo 'gtext-orange';?>"><?php echo $row['card_birthday_date'] == 0 ? '--' : date("Y-m-d",$row['card_birthday_date']); ?></span></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
         <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
-        <td><?php echo date("Y-m-d",$row['card_edate']); ?></td>
-        <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
-        <td>解放路分店</td>
+        <td class="<?php if($row['card_edate'] < time() && $row['card_edate'] != 0) echo 'gtext-orange';?>"><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
+        <td><span class="<?php if($row['card_state']=='2') echo 'gtext-orange';?>"><?php echo $row['card_state']=='1'?'正常':'停用';; ?></span></td>
+        <td><?php echo $row['shop_name']?></td>
         <td><a href="e-record.php">电子档案</a></td>
-        <td><a href="#">消费明细</a></td>
+        <td><a href="record_all.php?card_code=<?php echo $row['card_code']?>">消费明细</a></td>
+        <td>
+          <button class="am-btn ubtn-table ubtn-orange cmodalopen1" value="<?php echo $row['card_id']; ?>">
+            <i class="iconfont icon-bianji"></i>
+            修改
+          </button>
+        </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+        <td colspan="14" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>
+        <?php if(!empty($row['mcombo'])){?>，套餐余：【
+          <?php foreach($row['mcombo'] as $row2){
+          echo $row2['mgoods_name'];
+          if($row2['c_mcombo_type']==1){
+            echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>)';
+          }
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_mcombo_cedate']);
+          echo '；';
+          }?>】<?php }?>
+        <?php if(!empty($row['ticket'])){?>,卡券余：【
+          <?php foreach($row['ticket'] as $row2){
+          echo $row2['c_ticket_name'];
+          echo '(<span class="gtext-orange">'.$row2['c_ticket_value'].'</span>)';
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_ticket_edate']);
+          echo '；';
+          }?>】
+        <?php }?>
+        </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
+        <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>
     </tbody>
   </table>
   <div class="gspace15"></div>
   <?php }?>
   <?php pageHtml($this->_data['cards_list'],$this->_data['request'],'card2.php');?>
+</div>
+<!-- 修改会员 -->
+<div id="ucardm1-1" class="am-modal" tabindex="-1">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">修改会员
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd">
+      <form class="am-form" id="ccardinfoedit" enctype="multipart/form-data">
+        <div class="utextbox">
+          <span class="utextbox-title">会员基本信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>会员姓名：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max" name="card_name" value="">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>性别：</label>
+              <div class="umodal-normal am-text-left">
+                <label class="am-radio-inline">
+                  <input type="radio" name="card_sex" value="1" data-am-ucheck> 男
+                </label>
+                <label class="am-radio-inline">
+                  <input type="radio" name="card_sex" value="2" data-am-ucheck> 女
+                </label>
+                <label class="am-radio-inline">
+                  <input type="radio" name="card_sex" value="3" data-am-ucheck> 保密
+                </label> 
+              </div>
+              <label class="am-form-label umodal-label"><span class="gtext-orange">*</span>手机号码：</label>
+              <div class="umodal-normal">
+                <input type="text" class="am-form-field uinput uinput-max" name="card_phone">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">出生日期：</label>
+              <div class="umodal-normal">
+                <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+                  <input type="text" class="am-form-field" name="card_birthday_date">
+                  <span class="am-input-group-btn am-datepicker-add-on">
+                    <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+                  </span>
+                </div>
+              </div>
+              <label class="am-form-label umodal-label">启用密码：</label>
+              <div class="umodal-normal am-text-left">
+                <label class="am-radio-inline">
+                  <input class="cispwd" type="radio" name="pwd_state" value="1" data-am-ucheck> 是
+                </label>
+                <label class="am-radio-inline">
+                  <input class="cispwd" type="radio" name="pwd_state" value="2" data-am-ucheck> 否
+                </label>
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">输入密码：</label>
+              <div class="umodal-normal">
+                <input type="password" name="card_password" class="am-form-field uinput uinput-max callow" disabled>
+              </div>
+            </div>
+            <div class="am-form-file uphoto">
+              <img id="cimg2" src="../img/wu.jpg">
+              <a class="am-btn am-btn-gray am-btn-sm">
+                <i class="am-icon-cloud-upload"></i> 点击上传</a>
+              <input name="card_photo" id="doc-form-file2" class="cphoto" type="file" multiple>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="utextbox">
+          <span class="utextbox-title">会员卡信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label">会员卡号：</label>
+              <div class="umodal-normal">
+                <input type="text" name="card_code" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">ID号：</label>
+              <div class="umodal-normal">
+                <input type="text" name="card_ikey" class="am-form-field uinput uinput-max">
+              </div>
+              <label class="am-form-label umodal-label">到期时间：</label>
+              <div class="umodal-normal">
+                <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+                  <input id="date1" type="text" name="card_edate" class="am-form-field">
+                  <span class="am-input-group-btn am-datepicker-add-on">
+                    <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="utextbox">
+          <span class="utextbox-title">更多会员信息</span>
+            <div class="am-form-group">
+              <label class="am-form-label umodal-label">身份证号：</label>
+              <div class="umodal-normal">
+                <input type="text" name="card_identity" class="am-form-field uinput uinput-max">
+              </div>
+              <div class="umodal-search">&nbsp;</div>
+              <label class="am-form-label umodal-label">车牌：</label>
+              <div class="umodal-normal">
+                <input type="text" name="card_carcode" class="am-form-field uinput uinput-max">
+              </div>
+              <label class="am-form-label umodal-label">备注：</label>
+              <div class="umodal-max">
+               <input type="text" name="card_memo" class="am-form-field uinput uinput-max">
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <input type="hidden" name="card_id" value="">
+      </form>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green ccardeditsubmit"><i class="iconfont icon-xiangyou2"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- 侧拉框 -->
 <div id="ucardoff1" class="am-offcanvas">
@@ -94,7 +242,7 @@
         <div class="am-u-lg-6">手机号码：<span class="ccard_phone"></span></div>
         <div class="am-u-lg-6">会员卡号：<span class="ccard_code"></span></div>
         <div class="am-u-lg-6">性别：<span class="ccard_sex"></span></div>
-        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday"></span></div>
+        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday_date"></span></div>
         <div class="am-u-lg-6">到期时间：<span class="ccard_edate"></span></div>
         <div class="am-u-lg-6">联系地址：<span class="ccard_address"></span></div>
         <div class="am-u-lg-6">余额：<font class="gtext-orange ccard_ymoney"></font><span>元</span></div>
@@ -139,11 +287,105 @@
   </div>
 </div>
 <script src="../js/jquery.min.js"></script>
+<script src="../js/ajaxfileupload.js"></script>
 <script src="../js/amazeui.js"></script>
 <script type="text/javascript">
 <?php pageJs($this->_data['cards_list'],$this->_data['request'],'card.php');?>
 $(function() {
     /******************************************modal************************************/
+    //会员修改
+    $('.cmodalopen1').on('click', function(e) {
+      var url = "card_edit_ajax.php";
+      // console.log($(this).val());
+      $.getJSON(url,{card_id:$(this).val()},function(res){
+        console.log(res);
+        $("#ucardm1-1 input[name='card_name']").val(res.card_name);
+        $("#ucardm1-1 input[name='card_code']").val(res.card_code);
+        $("#ucardm1-1 input[name='card_phone']").val(res.card_phone);
+        $("#ucardm1-1 input[name='card_carcode']").val(res.card_carcode);
+        $("#ucardm1-1 input[name='card_ikey']").val(res.card_ikey);
+        if(res.card_birthday_date=='1970-01-01'){
+          $("#ucardm1-1 input[name='card_birthday_date']").val();
+        }else{
+          $("#ucardm1-1 input[name='card_birthday_date']").val(res.card_birthday_date);
+        }
+        $("#ucardm1-1 input[name='card_password']").val(res.card_password);
+        if(res.card_edate=='1970-01-01'){
+          $("#ucardm1-1 input[name='card_edate']").val('');
+        }else{
+          $("#ucardm1-1 input[name='card_edate']").val(res.card_edate);
+        }
+        $("#ucardm1-1 input[name='card_identity']").val(res.card_identity);
+        $("#ucardm1-1 input[name='card_memo']").val(res.card_memo);
+        $("#ucardm1-1 input[name='card_id']").val(res.card_id);
+        $("#ucardm1-1 input[name='pwd_state']").each(function(){
+          if($(this).val()==res.card_password_state){
+            $(this).uCheck('check');
+          }
+        });
+        if(res.card_password_state==1){
+          $('.callow').attr('disabled',false);
+        }else{
+          $('.callow').attr('disabled',true);
+        }
+        $("#ucardm1-1 input[name='card_sex']").each(function(){
+          if($(this).val()==res.card_sex){
+            $(this).uCheck('check');
+          }
+        });
+        if(res.card_photo_file.length!=0){
+          $("#ucardm1-1 #cimg2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_show"];?>/'+res.card_photo_file);
+        }
+      });
+      $('#ucardm1-1').modal('open');
+      $('#ucardm1-1 input').eq(0).focus();
+    });
+    //card修改提交信息
+    $('.ccardeditsubmit').on('click',function(){
+      // $(this).attr('disabled',true);
+      var count=0;
+      var url="card_edit_do.php";
+      var data = $("#ccardinfoedit").serialize();
+      var card_id = $("#ucardm1-1 input[name='card_id']").val();
+      $.ajax({
+        url:url,
+        data:data,
+        type:"POST",
+      }).then(function(res){
+        console.log(res);
+        if(res=='0'){
+          $.ajaxFileUpload ({
+            url:'upload_do.php', //你处理上传文件的服务端
+            secureuri:false, //与页面处理代码中file相对应的ID值
+            fileElementId:'doc-form-file2',
+            data:{card_id:card_id},
+            dataType: 'text', //返回数据类型:text，xml，json，html,scritp,jsonp五种
+            success: function (data) {
+            count++;
+              // console.log(data);
+              // $('.ccardaddsubmit').attr('disabled',false);
+              /*if(data == '0'){
+                window.location.href='card.php';
+              }else{
+                $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>上传图片失败</span>");
+                $('#ualert').modal('open');
+                $('.ccardrechargesubmit').attr('disabled',false);
+                return false;
+              }*/
+            }
+          });
+          setInterval(function(){
+            if(count===1)
+              window.location.href='card2.php';
+          }, 200);
+        }else{
+          $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>修改会员失败</span>");
+          $('#ualert').modal('open');
+          $('.ccardrechargesubmit').attr('disabled',false);
+          return false;
+        }
+      });
+    });
     //侧拉打开
     $('.coffopen').on('click', function() {
       var url = "card_edit_ajax.php";
@@ -152,8 +394,16 @@ $(function() {
         $("#ucardoff1 .ccard_name").text(res.card_name);
         $("#ucardoff1 .ccard_code").text(res.card_code);
         $("#ucardoff1 .ccard_phone").text(res.card_phone);
-        $("#ucardoff1 .ccard_birthday").text(res.card_birthday);
-        $("#ucardoff1 .ccard_edate").text(res.card_edate);
+        if(res.card_birthday_date=='1970-01-01'){
+          $("#ucardoff1 .ccard_birthday_date").text('--');
+        }else{
+          $("#ucardoff1 .ccard_birthday_date").text(res.card_birthday_date);
+        }
+        if(res.card_birthday_date=='1970-01-01'){
+          $("#ucardoff1 .ccard_edate").text('--');
+        }else{
+          $("#ucardoff1 .ccard_edate").text(res.card_edate);
+        }
         $("#ucardoff1 .ccard_memo").text(res.card_memo);
         $("#ucardoff1 input[name='card_id']").val(res.card_id);
         switch(res.card_sex)
@@ -245,6 +495,20 @@ $(function() {
     //侧拉去掉禁止选中
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
+    });
+
+    //上传文件
+    $(".cphoto").on('change',function(){
+      var img = $(this).siblings('img');
+      var file = this.files[0];
+      if(window.FileReader) {
+          var fr = new FileReader();
+          fr.onloadend = function(e) {
+            img.attr('src',e.target.result);
+            // document.getElementById("portrait").src = e.target.result;
+          }
+          fr.readAsDataURL(file);
+      }
     });
 });
 </script>

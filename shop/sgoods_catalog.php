@@ -69,7 +69,7 @@ function get_sgoods_catalog_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT a.*, b.shop_name FROM(SELECT sgoods_catalog_id, sgoods_catalog_name, shop_id FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')."  WHERE 1=1 ".$strwhere." ORDER BY sgoods_catalog_id desc LIMIT ". $intoffset . ", " . $intpagesize .") AS a LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." AS b on a.shop_id = b.shop_id order by a.sgoods_catalog_id desc";
+	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name, shop_id FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')."  WHERE 1=1 ".$strwhere." ORDER BY sgoods_catalog_id desc LIMIT ". $intoffset . ", " . $intpagesize;
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);

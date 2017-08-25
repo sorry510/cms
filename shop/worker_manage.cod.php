@@ -40,7 +40,6 @@
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" id="doc-modal-list">
     <thead>
       <tr>
-        <td>分店</td>
         <td>员工分组</td>
         <td>员工姓名</td>
         <td>员工编号</td>
@@ -57,7 +56,6 @@
     </thead>
     <?php foreach($this->_data['worker_list']['list'] as $row){?>
     <tr>
-      <td><?php echo $row['shop_name'];?></td>
       <td><?php echo $row['worker_group_name'];?></td>
       <td><a class="coffcanvasopen" data-am-offcanvas="{target: '#uworkeroff1'}" href="#" worker_id="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></a></td>
       <td><?php echo $row['worker_code'];?></td>
@@ -95,13 +93,6 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分店：</label>
-          <div class="umodal-normal">
-            <select name="shop_id" class="uselect uselect-max cshop_id" data-am-selected disabled>
-              <option>当前店铺</option>
-            </select>
-          </div>
-          <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">员工分组：</label>
           <div class="umodal-normal">
             <select name="worker_group_id" class="uselect uselect-max cworker_group_id" data-am-selected>
@@ -109,6 +100,11 @@
               <option value="<?php echo $row['worker_group_id'];?>"><?php echo $row['worker_group_name'];?></option>
             <?php }?>
             </select>
+          </div>
+          <div class="umodal-search">&nbsp;</div>
+          <label class="umodal-label am-form-label" for="">&nbsp;</label>
+          <div class="umodal-normal">
+            &nbsp;
           </div>
         </div>
         <div class="am-form-group">

@@ -25,6 +25,7 @@ function get_request(){
 	$arr['search'] = $GLOBALS['strsearch'];
 	return $arr;
 }
+
 function get_gift_record_list(){
 	$intallcount = 0;
 	$intpagecount = 0;
@@ -116,6 +117,7 @@ function get_gift_record_list(){
 	$arrpackage['list'] = $arrlist;
 	return $arrpackage;
 }
+
 function get_gift_list(){
 	$arr = array();
 	$strsql = "SELECT gift_id,gift_name,gift_score FROM ". $GLOBALS['gdb']->fun_table2('gift')." ORDER BY gift_id DESC ";

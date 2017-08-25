@@ -12,6 +12,15 @@
   <div class="utools">
     <form class="am-form-inline uform1">
       <div class="am-form-group">
+        <label class="am-form-label">分店：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="shop_id">
+          <option value="0">全部</option>
+          <?php foreach($this->_data['shop_list'] as $row) { ?>
+            <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo "selected";?>><?php echo $row['shop_name'];?></option>
+          <?php }?>
+        </select>
+      </div>
+      <div class="am-form-group">
         <label class="am-form-label">卡类型：</label> 
         <select class="uselect uselect-auto" data-am-selected name="card_type_id">
           <option value="0">全部</option>
@@ -124,51 +133,10 @@
         <div class="am-u-lg-6">是否免单：<span class="ccard_record_state"></span></div>
       </div>
       <div class="gspace20"></div>
-      <div class="ub">
-        <button class="am-btn ubtn-sure ubtn-blue ubutton1">
-          <i class="iconfont icon-dayin"></i>打印小票
-        </button>
-      </div>
     </div>
   </div>
 </div>
 
-<div id="urecordm1" class="am-modal" tabindex="-1" >
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">退款
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd">
-     <form class="am-form am-form-horizontal">
-       <div class="am-form-group">
-         <label class="umodal-label am-form-label utext1" for="">授权密码：</label>
-         <div class="umodal-normal">
-           <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
-           <input class="crecord_id" type="hidden" name="record_id">
-         </div>
-       </div>
-       <div class="am-form-group">
-         <label class="umodal-label am-form-label" for="">备注：</label>
-         <div class="umodal-normal">
-           <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
-         </div>
-       </div>
-       <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
-     </form>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
-        <button class="am-btn ubtn-sure ubtn-red crefunddo" type="button">
-          <i class="iconfont icon-huaidanbaotui"></i>
-           退款
-        </button>
-        <button class="am-btn ubtn-sure ubtn-red ccancel" type="submit">
-           取消
-        </button>
-      </div>
-    </div>
-  </div>
-</div> 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
@@ -275,10 +243,6 @@ $(function() {
         var table_bottom = '</table>';
         $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
       }
-      if(res.card_record_type==3){
-        var refund = '<button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen cjs"><i class="iconfont icon-huaidanbaotui"></i>退款</button>';
-        $(".am-offcanvas-content .ub").append(refund);
-      }
     });
     $('#uoffcanvas').offCanvas('open');
   });
@@ -286,45 +250,6 @@ $(function() {
   $myOc.on('close.offcanvas.amui', function() {
     $myOc.find('.cjs').remove();
   });
-  //退款打开
-  $(document).on("click",".crefundopen", function(){
-    var card_record_id = $(this).val();
-    $('.crecord_id').val(card_record_id);
-    $('#urecordm1').modal('open');
-  })
-  //退款提交
-  $('.crefunddo').on('click',function(){
-    var card_record_id = $('.crecord_id').val();
-    var password = $('.password').val();
-    var url = 'refund_do.php';
-
-    $.post(url,{card_record_id:card_record_id,password:password},function(res){
-      console.log(res);
-      // return false;
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        //密码错误
-        $('.cpay').attr('disabled',false);
-        return false;
-      }else{
-        $('.cpay').attr('disabled',false);
-        return false;
-      }
-    });
-  })
-  //删除
-  /*$('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
-  });*/
 });
 </script>
 </body>

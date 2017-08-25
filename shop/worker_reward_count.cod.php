@@ -50,7 +50,7 @@
     </form>
   </div>
   <div class="gspace15"></div>
-    <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
         <td rowspan="2">序号</td>
@@ -101,9 +101,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-//分页首末页不可选中
 <?php pageJs($this->_data['worker_reward_count_list'],$this->_data['request'],'worker_reward_count.php'); ?>
-
 </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 
 require('inc_path.php');
+require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'card';
@@ -40,23 +41,18 @@ function get_cards_list() {
 	$arrpackage = array();
 
 	$strwhere = '';
-	if($GLOBALS['strsearch'] != '') {
-		$strwhere = $strwhere . " AND (card_code ='" . $GLOBALS['strsearch'] . "'";
-		$strwhere = $strwhere . " or card_name ='" . $GLOBALS['strsearch'] . "'";
-		$strwhere = $strwhere . " or card_phone ='" . $GLOBALS['strsearch'] . "')";
-	}else{
-		$arrpackage['allcount'] = 0;
-		$arrpackage['pagecount'] = 0;
-		$arrpackage['pagenow'] = 0;
-		$arrpackage['pagepre'] = 0;
-		$arrpackage['pagenext'] = 0;
-		$arrpackage['list'] = array();
-		return $arrpackage;
-	}
+
+	$strwhere = $strwhere . " AND (card_code='" . $GLOBALS['strsearch'] . "'";
+	$strwhere = $strwhere . " or card_name='" . $GLOBALS['strsearch'] . "'";
+	$strwhere = $strwhere . " or card_phone='" . $GLOBALS['strsearch'] . "')";
+
 	if($GLOBALS['strcard_type'] != 'all' && $GLOBALS['strcard_type'] != ''){
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
-	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	//当搜索不为空时，全店铺搜索
+	if($GLOBALS['strsearch'] == ''){
+		$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	}
 	$strwhere .= " and card_state!=3";
 
 	$arr = array();
@@ -99,17 +95,24 @@ function get_cards_list() {
 	
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_sscore,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
-	//echo $strsql;exit;
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_id,card_code,card_okey,card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_sscore,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") as a LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." as b on a.shop_id=b.shop_id";
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	// card_mcombo
 	foreach($arrlist as &$v){
-		$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$v['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time().") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
+		$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$v['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time().") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$v['mcombo'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	}
-	//var_dump($arrlist);exit;
+	// card_ticket
+	foreach($arrlist as &$v){
+		$strsql = "SELECT ticket_type,c_ticket_name,c_ticket_value,card_ticket_edate FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id=".$v['card_id']." and card_ticket_state=1 and card_ticket_edate>".time();
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$v['ticket'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	}
+	// var_dump($arrlist);exit;
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;

@@ -45,7 +45,6 @@
         <td>商品价格</td>
         <td>会员价格</td>
         <td>参与库存</td>
-        <td>分店</td>
         <td>状态</td>
         <td style="width: 18%;">操作</td>
       </tr>
@@ -58,7 +57,6 @@
       <td><?php echo $row['sgoods_price']; ?>元</td>
       <td><?php echo $row['sgoods_cprice']==0?'--':$row['sgoods_cprice']; ?></td>
       <td class="<?php echo $row['sgoods_type']=='2'?'gtext-green':'gtext-orange';?>"><?php echo $row['sgoods_type']=='2'?'√':'x';?></td>
-      <td><?php echo $row['shop_name']; ?></td>
       <td class="<?php echo $row['sgoods_state']=='1'?'gtext-green':'gtext-orange';?>"><?php echo $row['sgoods_state']=='1'?'正常':'停用';?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-green cupdate" data-am-modal="{target: '#usgoodsm2'}" value="<?php echo $row['sgoods_id'] ?>">
@@ -211,7 +209,7 @@
             <input type="text" name="sgoods_cprice" class="am-form-field uinput uinput-max">
           </div>
         </div>
-        <div class="am-form-group">
+        <!-- <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与库存：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
@@ -221,7 +219,7 @@
               <input type="radio" name="sgoods_type" value="1" data-am-ucheck> 不参与
             </label>
           </div>
-        </div>
+        </div> -->
         <input type="hidden" name="sgoods_id">
       </form>
     </div>
@@ -236,44 +234,9 @@
 </div>
 
 <!-- 删除框 -->
-<div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要删除吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
-<!-- 停用框 -->
-<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>停&nbsp;&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要停用吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
-<!-- 启用框 -->
-<div id="cconfirm3" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>启&nbsp;&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要启用吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
+<?php confirmHtml(1)?>
+<?php confirmHtml(2)?>
+<?php confirmHtml(3)?>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/pinying.js"></script>
@@ -281,7 +244,7 @@
 <?php pageJs($this->_data['sgoods_list'],$this->_data['request'],'sgoods.php');?>
 // 商品删除
 $('.cdel').on('click', function() {
-  $('#cconfirm').modal({
+  $('#cconfirm1').modal({
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('sgoods_delete_do.php',{'sgoods_id':$(this.relatedTarget).val()},function(res){
@@ -376,11 +339,11 @@ $('.cupdate').on('click', function(e) {
       $("#usgoodsm2 input[name='sgoods_price']").val(msg.sgoods_price);
       $("#usgoodsm2 input[name='sgoods_cprice']").val(msg.sgoods_cprice);
       $("#usgoodsm2 input[name='sgoods_id']").val(msg.sgoods_id);
-      $("#usgoodsm2 input[name='sgoods_type']").each(function(){
+     /* $("#usgoodsm2 input[name='sgoods_type']").each(function(){
         if($(this).val() == msg.sgoods_type){
           $(this).uCheck('check');
         }
-      });
+      });*/
       $('#usgoodsm2 .csgoods_catalog').val(msg.sgoods_catalog_id);
       $('#usgoodsm2 .csgoods_catalog').selected();
     }

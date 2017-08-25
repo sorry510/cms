@@ -5,7 +5,7 @@
 <!-- content -->
 <div class="gcontent" id="ucard">
   <ul class="am-nav am-nav-pills ubread">
-	  <li class="am-active"><a href="javascript:void">会员管理</a></li>
+	  <li class="am-active"><a href="#">会员管理</a></li>
 	  <li><a href="card2.php">过期会员</a></li>
 	  <li><a href="card3.php">回收站</a></li>
   </ul>
@@ -64,32 +64,45 @@
     </thead>
     <tbody>
       <tr>
-        <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?></a></td>
+        <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?><?php if(!empty($row['card_okey'])){?><span class="gtext-green">(WX)</span><?php }?></a></td>
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_name']; ?></a></td>
         <td><?php echo $row['card_phone']; ?></td>
         <td><?php echo $row['card_sex'] == '3' ? '保密' : ($row['card_sex'] == '1' ? '男':'女'); ?></td>
-        <td><?php echo $row['card_birthday_date'] == 0 ? '-' : date("Y-m-d",$row['card_birthday_date']); ?></td>
+        <td><span class="<?php if(date("m-d",$row['card_birthday_date'])==date("m-d",time())) echo 'gtext-orange';?>"><?php echo $row['card_birthday_date'] == 0 ? '--' : date("Y-m-d",$row['card_birthday_date']); ?></span></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
         <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
-        <td><?php echo $row['card_edate'] == 0 ? '-' : date("Y-m-d",$row['card_edate']); ?></td>
-        <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
-        <td>解放路分店</td>
+        <td class="<?php if($row['card_edate'] < time() && $row['card_edate'] != 0) echo 'gtext-orange';?>"><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
+        <td><span class="<?php if($row['card_state']=='2') echo 'gtext-orange';?>"><?php echo $row['card_state']=='1'?'正常':'停用';; ?></span></td>
+        <td><?php echo $row['shop_name']?></td>
         <td><a href="e-record.php">电子档案</a></td>
         <td><a href="record_all.php?card_code=<?php echo $row['card_code']?>">消费明细</a></td>
       </tr>
       <tr>
-        <td colspan="13" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【
+        <td colspan="14" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>
+        <?php if(!empty($row['mcombo'])){?>，套餐余：【
           <?php foreach($row['mcombo'] as $row2){
           echo $row2['mgoods_name'];
-          echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>),';
-          echo '到期时间：';
+          if($row2['c_mcombo_type']==1){
+            echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>)';
+          }
+          echo '，到期时间:';
           echo date('Y-m-d',$row2['card_mcombo_cedate']);
-          echo ';';
-          }?>】</td>
+          echo '；';
+          }?>】<?php }?>
+        <?php if(!empty($row['ticket'])){?>,卡券余：【
+          <?php foreach($row['ticket'] as $row2){
+          echo $row2['c_ticket_name'];
+          echo '(<span class="gtext-orange">'.$row2['c_ticket_value'].'</span>)';
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_ticket_edate']);
+          echo '；';
+          }?>】
+        <?php }?>
+        </td>
       </tr>
       <tr>
-        <td colspan="13" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
+        <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>
     </tbody>
   </table>
@@ -124,41 +137,49 @@
 <script type="text/javascript">
 <?php pageJs($this->_data['cards_list'],$this->_data['request'],'card.php');?>
 $(function() {
-    //侧拉打开
-    $('.coffopen').on('click', function() {
-      var url = "card_edit_ajax.php";
-      $.getJSON(url,{card_id:$(this).attr('cardid')},function(res){
-        // console.log(res);
-        $("#ucardoff1 .ccard_name").text(res.card_name);
-        $("#ucardoff1 .ccard_code").text(res.card_code);
-        $("#ucardoff1 .ccard_phone").text(res.card_phone);
+  //侧拉打开
+  $('.coffopen').on('click', function() {
+    var url = "card_edit_ajax.php";
+    $.getJSON(url,{card_id:$(this).attr('cardid')},function(res){
+      // console.log(res);
+      $("#ucardoff1 .ccard_name").text(res.card_name);
+      $("#ucardoff1 .ccard_code").text(res.card_code);
+      $("#ucardoff1 .ccard_phone").text(res.card_phone);
+      if(res.card_birthday_date=='1970-01-01'){
+        $("#ucardoff1 .ccard_birthday_date").text('--');
+      }else{
         $("#ucardoff1 .ccard_birthday_date").text(res.card_birthday_date);
+      }
+      if(res.card_birthday_date=='1970-01-01'){
+        $("#ucardoff1 .ccard_edate").text('--');
+      }else{
         $("#ucardoff1 .ccard_edate").text(res.card_edate);
-        $("#ucardoff1 .ccard_memo").text(res.card_memo);
-        $("#ucardoff1 .ccard_ymoney").text(res.s_card_ymoney);
-        $("#ucardoff1 input[name='card_id']").val(res.card_id);
-        switch(res.card_sex)
-        {
-          case '1':
-            $("#ucardoff1 .ccard_sex").text('男');
-            break;
-          case '2':
-            $("#ucardoff1 .ccard_sex").text('女');
-            break;
-          default :
-            $("#ucardoff1 .ccard_sex").text('保密');
-        }
-      });
-      $('#ucardoff1').offCanvas('open');
+      }
+      $("#ucardoff1 .ccard_memo").text(res.card_memo);
+      $("#ucardoff1 .ccard_ymoney").text(res.s_card_ymoney);
+      $("#ucardoff1 input[name='card_id']").val(res.card_id);
+      switch(res.card_sex)
+      {
+        case '1':
+          $("#ucardoff1 .ccard_sex").text('男');
+          break;
+        case '2':
+          $("#ucardoff1 .ccard_sex").text('女');
+          break;
+        default :
+          $("#ucardoff1 .ccard_sex").text('保密');
+      }
     });
-    //侧拉关闭
-    $('.coffcanvas1').on('click', function() {
-      $('#ucardoff1').offCanvas('close');
-    });
-    //侧拉去掉禁止选中
-    $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
-      $(this).css('user-select','');
-    });
+    $('#ucardoff1').offCanvas('open');
+  });
+  //侧拉关闭
+  $('.coffcanvas1').on('click', function() {
+    $('#ucardoff1').offCanvas('close');
+  });
+  //侧拉去掉禁止选中
+  $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
+    $(this).css('user-select','');
+  });
 });
 </script>
 </body>

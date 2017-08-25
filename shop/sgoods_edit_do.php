@@ -17,8 +17,8 @@ $strsgoods_price = api_value_post('sgoods_price');
 $decsgoods_price = api_value_decimal($strsgoods_price,2);
 $strsgoods_cprice = api_value_post('sgoods_cprice');
 $decsgoods_cprice = api_value_decimal($strsgoods_cprice,2);
-$strsgoods_type = api_value_post('sgoods_type');
-$intsgoods_type = api_value_int0($strsgoods_type);
+// $strsgoods_type = api_value_post('sgoods_type');
+// $intsgoods_type = api_value_int0($strsgoods_type);
 $strsgoods_id = api_value_post('sgoods_id');
 $intsgoods_id = api_value_int0($strsgoods_id);
 
@@ -52,7 +52,7 @@ if($intreturn == 0){
 }
 
 if($intreturn == 0) {
-	$strsql = "UPDATE " . $gdb->fun_table2('sgoods') . " SET sgoods_catalog_id = " . $intsgoods_catalog_id . ", sgoods_name = '".$strsgoods_name."',  sgoods_jianpin = '".$strsgoods_jianpin."', sgoods_code = '".$strsgoods_code."', sgoods_price = ".$decsgoods_price.", sgoods_cprice = ".$decsgoods_cprice.", sgoods_type = ".$intsgoods_type.", sgoods_ctime = ".$ctime." WHERE sgoods_id = " . $intsgoods_id . " LIMIT 1" ;
+	$strsql = "UPDATE " . $gdb->fun_table2('sgoods') . " SET sgoods_catalog_id = " . $intsgoods_catalog_id . ", sgoods_name = '".$strsgoods_name."',  sgoods_jianpin = '".$strsgoods_jianpin."', sgoods_code = '".$strsgoods_code."', sgoods_price = ".$decsgoods_price.", sgoods_cprice = ".$decsgoods_cprice.", sgoods_ctime = ".$ctime." WHERE sgoods_id = " . $intsgoods_id . " LIMIT 1" ;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;

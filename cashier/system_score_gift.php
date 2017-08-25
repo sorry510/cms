@@ -32,8 +32,6 @@ function get_gift_list(){
 		$strwhere .= " AND gift_name like '%".$GLOBALS['strgift_name']."%'";
 	}
 	
-	$strwhere .= " AND shop_id=".$GLOBALS['_SESSION']['login_sid'];
-	
 	$strsql = "SELECT count(gift_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('gift')  . " WHERE 1 = 1 ".$strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);

@@ -235,17 +235,17 @@
             <input type="text" name="mgoods_cprice" class="am-form-field uinput uinput-max">
           </div>
         </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">参与库存：</label>
-          <div class="umodal-normal am-text-left">
-            <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="2"  data-am-ucheck> 参与
-            </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="mgoods_type" value="1"  data-am-ucheck checked> 不参与
-            </label>
-          </div>
-        </div>
+       <!--  <div class="am-form-group">
+         <label class="umodal-label am-form-label" for="">参与库存：</label>
+         <div class="umodal-normal am-text-left">
+           <label class="am-radio-inline">
+             <input type="radio" name="mgoods_type" value="2"  data-am-ucheck> 参与
+           </label>
+           <label class="am-radio-inline">
+             <input type="radio" name="mgoods_type" value="1"  data-am-ucheck checked> 不参与
+           </label>
+         </div>
+       </div> -->
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与活动：</label>
           <div class="umodal-normal am-text-left">
@@ -281,45 +281,10 @@
   </div>
 </div>
 
-<!-- 删除框 -->
-<div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要删除这条记录吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
-<!-- 停用框 -->
-<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要停用吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
-<!-- 启用框 -->
-<div id="cconfirm3" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要重新启用吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
+<?php confirmHtml(1);?>
+<?php confirmHtml(2);?>
+<?php confirmHtml(3);?>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/pinying.js"></script>
@@ -329,7 +294,7 @@
 
 // 商品删除
 $('.cdel').on('click', function() {
-  $('#cconfirm').modal({
+  $('#cconfirm1').modal({
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('mgoods_delete_do.php',{'mgoods_id':$(this.relatedTarget).val()},function(res){
@@ -429,13 +394,11 @@ $('.cupdate').on('click', function(e) {
       $("#umgoodsm2 input[name='mgoods_id']").val(msg.mgoods_id);
       $("#umgoodsm2 select[name='mgoods_catalog_id']").val(msg.mgoods_catalog_id);
       $("#umgoodsm2 select[name='mgoods_catalog_id']").selected();
-      $("#umgoodsm2 input[name='mgoods_type']").each(function(){
+     /* $("#umgoodsm2 input[name='mgoods_type']").each(function(){
         if($(this).val() == msg.mgoods_type){
           $(this).uCheck('check');
-        }else{
-          $(this).uCheck('uncheck')
         }
-      });
+      });*/
       $("#umgoodsm2 input[name='mgoods_act']").each(function(){
         if($(this).val() == msg.mgoods_act){
           $(this).uCheck('check');

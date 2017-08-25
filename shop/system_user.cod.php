@@ -20,7 +20,6 @@
     <thead>
       <tr>
         <td>身份</td>
-        <td>所属分店</td>
         <td>帐号</td>
         <td>姓名</td>
         <td width="12%">操作</td>
@@ -29,7 +28,6 @@
     <?php foreach($this->_data['user_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['user_power'] ?></td>
-      <td><?php echo empty($row['shop_name'])?'总店':$row['shop_name']; ?></td>
       <td><?php echo $row['user_account']; ?></td>
       <td><?php echo $row['user_name']; ?></td>
       <td>
@@ -117,10 +115,6 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">身份：</label>
           <label class="umodal-label am-form-label am-text-left cuser_type"></label>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">所属分店：</label>
-          <label class="umodal-normal am-form-label am-text-left cuser_shop"></label>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">帐号：</label>
@@ -246,11 +240,6 @@ $('.cupdate').on('click', function(e) {
    $.getJSON(url,{user_id:$(this).val()},function(res){
     // console.log(res);
     $("#usystem_userm2 .cuser_type").text(res.type);
-    if(res.shop_name){
-      $("#usystem_userm2 .cuser_shop").text(res.shop_name);
-    }else{
-      $("#usystem_userm2 .cuser_shop").text('总店');
-    }
     $("#usystem_userm2 .cuser_account").text(res.user_account);
     $("#usystem_userm2 .cuser_name").text(res.user_name);
     $("#usystem_userm2 .cuser_id").val(res.user_id);

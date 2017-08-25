@@ -43,7 +43,7 @@ if($intreturn == 0) {
 		$intreturn = 5;
 	}
 }
-// 删除对应各个店铺的mgoods
+// 删除库存,对应各个店铺的mgoods
 if($intreturn == 0){
 	$strsql = "DELETE FROM " . $gdb->fun_table2('store_info') . " WHERE mgoods_id = " . $intmgoods_id;
 	$hresult = $gdb->fun_do($strsql);

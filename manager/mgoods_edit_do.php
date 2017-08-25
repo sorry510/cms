@@ -19,8 +19,8 @@ $strmgoods_price = api_value_post('mgoods_price');
 $decmgoods_price = api_value_decimal($strmgoods_price,2);
 $strmgoods_cprice = api_value_post('mgoods_cprice');
 $decmgoods_cprice = api_value_decimal($strmgoods_cprice,2);
-$strmgoods_type = api_value_post('mgoods_type');
-$intmgoods_type = api_value_int0($strmgoods_type);
+// $strmgoods_type = api_value_post('mgoods_type');
+// $intmgoods_type = api_value_int0($strmgoods_type);
 $strmgoods_act = api_value_post('mgoods_act');
 $intmgoods_act = api_value_int0($strmgoods_act);
 $strmgoods_reserve = api_value_post('mgoods_reserve');
@@ -53,7 +53,7 @@ if($sqlmgoods_code != $sqlmgoods_code_old && !empty($sqlmgoods_code)){
 }
 
 if($intreturn == 0) {
-	$strsql = "UPDATE " . $gdb->fun_table2('mgoods') . " SET mgoods_catalog_id = " . $intmgoods_catalog_id . ", mgoods_name = '".$sqlmgoods_name."',  mgoods_jianpin = '".$sqlmgoods_jianpin."', mgoods_code = '".$sqlmgoods_code."', mgoods_price = ".$decmgoods_price.", mgoods_cprice = ".$decmgoods_cprice.", mgoods_type = ".$intmgoods_type.", mgoods_act = ".$intmgoods_act.", mgoods_reserve = ".$intmgoods_reserve.", mgoods_ctime = ".$ctime." WHERE mgoods_id = " . $intmgoods_id . " LIMIT 1" ;
+	$strsql = "UPDATE " . $gdb->fun_table2('mgoods') . " SET mgoods_catalog_id = " . $intmgoods_catalog_id . ", mgoods_name = '".$sqlmgoods_name."',  mgoods_jianpin = '".$sqlmgoods_jianpin."', mgoods_code = '".$sqlmgoods_code."', mgoods_price = ".$decmgoods_price.", mgoods_cprice = ".$decmgoods_cprice.", mgoods_act = ".$intmgoods_act.", mgoods_reserve = ".$intmgoods_reserve.", mgoods_ctime = ".$ctime." WHERE mgoods_id = " . $intmgoods_id . " LIMIT 1" ;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;

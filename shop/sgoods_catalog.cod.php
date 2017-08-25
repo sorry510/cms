@@ -20,14 +20,12 @@
     <thead>
       <tr>
       <td>分类名称</td>
-      <td>分店</td>
       <td style="width: 12%;">操作</td>
     </tr>
     </thead>
     <?php foreach($this->_data['sgoods_catalog_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['sgoods_catalog_name']; ?></td>
-      <td><?php echo $row['shop_name']; ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-green cid-update" value="<?php echo $row['sgoods_catalog_id'];?>" data-am-modal="{target: '#usgoods_catalogm2'}">
           <i class="iconfont icon-bianji"></i>
@@ -99,29 +97,16 @@
     </div>
   </div>
 </div>
-
-
 <!-- 删除框 -->
-<div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你，确定要删除这条记录吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>   
+<?php confirmHtml(1);?>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
 <?php pageJs($this->_data['sgoods_catalog_list'],$this->_data['request'],'sgoods_catalog.php');?>
 
-
 $('.cdel').on('click', function() {
-  $('#cconfirm').modal({
+  $('#cconfirm1').modal({
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('sgoods_catalog_delete_do.php',{'sgoods_catalog_id':$(this.relatedTarget).val()},function(res){

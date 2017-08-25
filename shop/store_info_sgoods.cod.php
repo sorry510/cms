@@ -41,7 +41,6 @@
         <td>价格</td>
         <td>会员价</td>
         <td>库存</td>
-        <td>分店</td>
       </tr>
     </thead>
     <tbody>
@@ -53,7 +52,6 @@
         <td><?php echo $row['sgoods_price']; ?>元</td>
         <td><?php echo $row['sgoods_cprice']; ?>元</td>
         <td><?php echo $row['store_info_count']; ?>件</td>
-        <td><?php echo $row['shop_name']; ?></td>
       </tr>
     <?php } ?>
     </tbody>

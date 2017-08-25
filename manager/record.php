@@ -9,13 +9,14 @@ $strchannel = 'record';
 $strcard_code = api_value_get('card_code');
 $strcard_type_id = api_value_get('card_type_id');
 $intcard_type_id = api_value_int0($strcard_type_id);
+$strshop_id = api_value_get('shop_id');
+$intshop_id = api_value_int0($strshop_id);
 $strstime = api_value_get('stime');
 $stretime = api_value_get('etime');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
 $now = time();
-
 
 $intstime = 0;
 
@@ -24,7 +25,7 @@ if($strstime!=''){
 }
 
 if($intstime == 0){
-	$strstime = date('Y-m-d', $now)." 00:00:00";
+	$strstime = date('Y-m-d', $now)." 00:00:00";//今天0点
 	$intstime = strtotime($strstime);
 }
 
@@ -41,12 +42,14 @@ if($intetime == 0){
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('card_records_list', get_card_records_list());
 $gtemplate->fun_assign('card_type_list', get_card_type_list());
+$gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_show('record');
 
 function get_request() {
 	$arr = array();
 	$arr['card_code'] = $GLOBALS['strcard_code'];
 	$arr['card_type_id'] = $GLOBALS['intcard_type_id'];
+	$arr['shop_id'] = $GLOBALS['intshop_id'];
 	$arr['stime'] = $GLOBALS['strstime'];
 	$arr['etime'] = $GLOBALS['stretime'];
 	return $arr;
@@ -68,10 +71,14 @@ function get_card_records_list() {
 	if($GLOBALS['intcard_type_id'] != 0){
 		$strwhere .= " and c_card_type_id=".$GLOBALS['intcard_type_id'];
 	}
+	if($GLOBALS['intshop_id'] != 0){
+		$strwhere .= " and shop_id=".$GLOBALS['intshop_id'];
+	}
+
 	$strwhere .= " and card_record_atime>=".$GLOBALS['intstime'];
 	$strwhere .= " and card_record_atime<=".$GLOBALS['intetime'];
 	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
-	// $strwhere .= " and card_record_state=1";
+
 	$arr = array();
 	$strsql = "SELECT count(card_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('card_record')  . " WHERE 1 = 1 " . $strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);

@@ -56,19 +56,19 @@
     </thead>
     <tbody>
       <tr>
-        <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?></a></td>
+         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?><?php if(!empty($row['card_okey'])){?><span class="gtext-green">(WX)</span><?php }?></a></td>
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_name']; ?></a></td>
         <td><?php echo $row['card_phone']; ?></td>
         <td><?php echo $row['card_sex'] == '3' ? '保密' : ($row['card_sex'] == '1' ? '男':'女'); ?></td>
-        <td><?php echo date("Y-m-d",$row['card_birthday_date']); ?></td>
+        <td><span class="<?php if(date("m-d",$row['card_birthday_date'])==date("m-d",time())) echo 'gtext-orange';?>"><?php echo $row['card_birthday_date'] == 0 ? '--' : date("Y-m-d",$row['card_birthday_date']); ?></span></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
         <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
-        <td><?php echo date("Y-m-d",$row['card_edate']); ?></td>
-        <td><?php echo $row['card_state']=='1'?'正常':'停用';; ?></td>
-        <td>解放路分店</td>
+        <td class="<?php if($row['card_edate'] < time() && $row['card_edate'] != 0) echo 'gtext-orange';?>"><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
+        <td><span class="<?php if($row['card_state']=='2') echo 'gtext-orange';?>"><?php echo $row['card_state']=='1'?'正常':'停用';; ?></span></td>
+        <td><?php echo $row['shop_name']?></td>
         <td><a href="e-record.php">电子档案</a></td>
-        <td><a href="#">消费明细</a></td>
+        <td><a href="record_all.php?card_code=<?php echo $row['card_code']?>">消费明细</a></td>
         <td>
           <button class="am-btn ubtn-table ubtn-orange cmodalopen1" value="<?php echo $row['card_id']; ?>">
             <i class="iconfont icon-bianji"></i>
@@ -77,10 +77,30 @@
         </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>，套餐余：【中医问诊(<span class="gtext-orange">5</span>次)，经络疏通-专家(<span class="gtext-orange">6</span>次)，艾灸(<span class="gtext-orange">6</span>次) ，到期时间：2017-12-15】</td>
+        <td colspan="14" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>
+        <?php if(!empty($row['mcombo'])){?>，套餐余：【
+          <?php foreach($row['mcombo'] as $row2){
+          echo $row2['mgoods_name'];
+          if($row2['c_mcombo_type']==1){
+            echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>)';
+          }
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_mcombo_cedate']);
+          echo '；';
+          }?>】<?php }?>
+        <?php if(!empty($row['ticket'])){?>,卡券余：【
+          <?php foreach($row['ticket'] as $row2){
+          echo $row2['c_ticket_name'];
+          echo '(<span class="gtext-orange">'.$row2['c_ticket_value'].'</span>)';
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_ticket_edate']);
+          echo '；';
+          }?>】
+        <?php }?>
+        </td>
       </tr>
       <tr>
-        <td colspan="15" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
+        <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>
     </tbody>
   </table>
@@ -222,7 +242,7 @@
         <div class="am-u-lg-6">手机号码：<span class="ccard_phone"></span></div>
         <div class="am-u-lg-6">会员卡号：<span class="ccard_code"></span></div>
         <div class="am-u-lg-6">性别：<span class="ccard_sex"></span></div>
-        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday"></span></div>
+        <div class="am-u-lg-6">出生日期：<span class="ccard_birthday_date"></span></div>
         <div class="am-u-lg-6">到期时间：<span class="ccard_edate"></span></div>
         <div class="am-u-lg-6">联系地址：<span class="ccard_address"></span></div>
         <div class="am-u-lg-6">余额：<font class="gtext-orange ccard_ymoney"></font><span>元</span></div>
@@ -374,8 +394,16 @@ $(function() {
         $("#ucardoff1 .ccard_name").text(res.card_name);
         $("#ucardoff1 .ccard_code").text(res.card_code);
         $("#ucardoff1 .ccard_phone").text(res.card_phone);
-        $("#ucardoff1 .ccard_birthday").text(res.card_birthday);
-        $("#ucardoff1 .ccard_edate").text(res.card_edate);
+        if(res.card_birthday_date=='1970-01-01'){
+          $("#ucardoff1 .ccard_birthday_date").text('--');
+        }else{
+          $("#ucardoff1 .ccard_birthday_date").text(res.card_birthday_date);
+        }
+        if(res.card_birthday_date=='1970-01-01'){
+          $("#ucardoff1 .ccard_edate").text('--');
+        }else{
+          $("#ucardoff1 .ccard_edate").text(res.card_edate);
+        }
         $("#ucardoff1 .ccard_memo").text(res.card_memo);
         $("#ucardoff1 input[name='card_id']").val(res.card_id);
         switch(res.card_sex)
@@ -467,6 +495,20 @@ $(function() {
     //侧拉去掉禁止选中
     $('.goffcanvas').parent().on('open.offcanvas.amui', function() {
       $(this).css('user-select','');
+    });
+
+    //上传文件
+    $(".cphoto").on('change',function(){
+      var img = $(this).siblings('img');
+      var file = this.files[0];
+      if(window.FileReader) {
+          var fr = new FileReader();
+          fr.onloadend = function(e) {
+            img.attr('src',e.target.result);
+            // document.getElementById("portrait").src = e.target.result;
+          }
+          fr.readAsDataURL(file);
+      }
     });
 });
 </script>

@@ -5,18 +5,27 @@
 <!-- content -->
 <div id="urecord" class="gcontent">
   <ul class="am-nav am-nav-pills ubread">
-    <li><a href="record.php">今日明细</a></li>
-    <li class="am-active"><a href="#">所有明细</a></li>
+    <li class="am-active"><a href="#">今日明细</a></li>
+    <li><a href="record_all.php">所有明细</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
     <form class="am-form-inline uform1">
       <div class="am-form-group">
+        <label class="am-form-label">分店：</label> 
+        <select class="uselect uselect-auto" data-am-selected name="shop_id">
+          <option value="0">全部</option>
+          <?php foreach($this->_data['shop_list'] as $row) { ?>
+            <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop_id']) echo "selected";?>><?php echo $row['shop_name'];?></option>
+          <?php }?>
+        </select>
+      </div>
+      <div class="am-form-group">
         <label class="am-form-label">卡类型：</label> 
         <select class="uselect uselect-auto" data-am-selected name="card_type_id">
           <option value="0">全部</option>
           <?php foreach($this->_data['card_type_list'] as $row) { ?>
-             <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
+            <option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
           <?php }?>
         </select>
       </div>
@@ -34,7 +43,7 @@
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="etime" value="<?php echo $this->_data['request']['etime'];?>">
           <span class="am-input-group-btn am-datepicker-add-on">
-            <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+           <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
         </div>
       </div>
@@ -46,8 +55,8 @@
         <button type="submit" class="am-btn ubtn-search">
           <i class="iconfont icon-search"></i>查询
         </button>
-      </div>       
-    </form> 
+      </div>
+    </form>
   </div> 
   <div class="gspace15"></div>   
    <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
@@ -73,33 +82,33 @@
       </tr>
     </thead>
     <?php foreach($this->_data['card_records_list']['list'] as $row){ ?>
-    <tr>
-      <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
-      <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
-      <td><?php echo $row['c_card_code'];?></td>
-      <td><?php echo $row['c_card_name'];?></td>
-      <td><?php echo $row['c_card_sex'] == '0' ? '' : ($row['c_card_sex'] == '1' ? '男':($row['c_card_sex'] == '2' ? '女':'保密')); ?></td>
-      <td><?php echo $row['c_card_phone'];?></td>
-      <td><?php echo $row['c_card_type_name'];?></td>
-      <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
-      <td class="gtext-orange"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '0.00';?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_xianjin'];?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_yinhang'];?></td>
-      <td class="gtext-orange">0.00</td>
-      <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
-      <td><?php echo $row['shop_name'];?></td>
-      <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
-      <td>
-        <button class="am-btn ubtn-table ubtn-orange">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-      </td>
-    </tr>
-    <?php } ?>
+       <tr>
+         <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
+         <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
+         <td><?php echo $row['c_card_code'];?></td>
+         <td><?php echo $row['c_card_name'];?></td>
+         <td><?php echo $row['c_card_sex'] == '0' ? '' : ($row['c_card_sex'] == '1' ? '男':($row['c_card_sex'] == '2' ? '女':'保密')); ?></td>
+         <td><?php echo $row['c_card_phone'];?></td>
+         <td><?php echo $row['c_card_type_name'];?></td>
+         <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
+         <td class="gtext-orange"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '0.00';?></td>
+         <td class="gtext-orange"><?php echo $row['card_record_xianjin'];?></td>
+         <td class="gtext-orange"><?php echo $row['card_record_yinhang'];?></td>
+         <td class="gtext-orange">0.00</td>
+         <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
+         <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
+         <td><?php echo $row['shop_name'];?></td>
+         <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
+         <td>
+           <button class="am-btn ubtn-table ubtn-orange">
+             <i class="iconfont icon-dayin"></i>
+             打印小票
+           </button>
+         </td>
+       </tr>
+       <?php } ?>
   </table>
-  <?php pageHtml($this->_data['card_records_list'],$this->_data['request'],'record_all.php');?>
+  <?php pageHtml($this->_data['card_records_list'],$this->_data['request'],'record.php');?>
 </div>
 <!-- 侧拉框 -->
 <div id="uoffcanvas" class="am-offcanvas">
@@ -123,56 +132,14 @@
         <div class="am-u-lg-6">操作人员：<span class="cuser_name"></span></div>
         <div class="am-u-lg-6">是否免单：<span class="ccard_record_state"></span></div>
       </div>
-      <div class="gspace20"></div>
-      <div class="ub">
-        <button class="am-btn ubtn-sure ubtn-blue ubutton1">
-          <i class="iconfont icon-dayin"></i>打印小票
-        </button>
-      </div>
     </div>
   </div>
 </div>
 
-<div id="urecordm1" class="am-modal" tabindex="-1" >
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">退款
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd">
-     <form class="am-form am-form-horizontal">
-       <div class="am-form-group">
-         <label class="umodal-label am-form-label utext1" for="">授权密码：</label>
-         <div class="umodal-normal">
-           <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
-           <input class="crecord_id" type="hidden" name="record_id">
-         </div>
-       </div>
-       <div class="am-form-group">
-         <label class="umodal-label am-form-label" for="">备注：</label>
-         <div class="umodal-normal">
-           <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
-         </div>
-       </div>
-       <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
-     </form>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
-        <button class="am-btn ubtn-sure ubtn-red crefunddo" type="button">
-          <i class="iconfont icon-huaidanbaotui"></i>
-           退款
-        </button>
-        <button class="am-btn ubtn-sure ubtn-red ccancel" type="submit">
-           取消
-        </button>
-      </div>
-    </div>
-  </div>
-</div> 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-<?php pageJs($this->_data['card_records_list'],$this->_data['request'],'record_all.php');?>
+<?php pageJs($this->_data['card_records_list'],$this->_data['request'],'record.php');?>
 $(function() {
   var id = '#uoffcanvas';
   var $myOc = $(id);
@@ -180,7 +147,6 @@ $(function() {
   $('.doc-oc-js').on('click', function() {
     $myOc.offCanvas($(this).data('rel'));
   });
-
   //侧拉打开
   $('.coffopen').on('click',function() {
     var url = "card_record_detail_ajax.php";
@@ -275,10 +241,6 @@ $(function() {
         var table_bottom = '</table>';
         $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
       }
-      if(res.card_record_type==3){
-        var refund = '<button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen cjs"><i class="iconfont icon-huaidanbaotui"></i>退款</button>';
-        $(".am-offcanvas-content .ub").append(refund);
-      }
     });
     $('#uoffcanvas').offCanvas('open');
   });
@@ -286,45 +248,6 @@ $(function() {
   $myOc.on('close.offcanvas.amui', function() {
     $myOc.find('.cjs').remove();
   });
-  //退款打开
-  $(document).on("click",".crefundopen", function(){
-    var card_record_id = $(this).val();
-    $('.crecord_id').val(card_record_id);
-    $('#urecordm1').modal('open');
-  })
-  //退款提交
-  $('.crefunddo').on('click',function(){
-    var card_record_id = $('.crecord_id').val();
-    var password = $('.password').val();
-    var url = 'refund_do.php';
-
-    $.post(url,{card_record_id:card_record_id,password:password},function(res){
-      console.log(res);
-      // return false;
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        //密码错误
-        $('.cpay').attr('disabled',false);
-        return false;
-      }else{
-        $('.cpay').attr('disabled',false);
-        return false;
-      }
-    });
-  })
-  //删除
-  /*$('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
-  });*/
 });
 </script>
 </body>

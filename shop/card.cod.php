@@ -68,9 +68,9 @@
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
         <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
-        <td><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
+        <td class="<?php if($row['card_edate'] < time() && $row['card_edate'] != 0) echo 'gtext-orange';?>"><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
         <td><span class="<?php if($row['card_state']=='2') echo 'gtext-orange';?>"><?php echo $row['card_state']=='1'?'正常':'停用';; ?></span></td>
-        <td>解放路分店</td>
+        <td><?php echo $row['shop_name']?></td>
         <td><a href="e-record.php">电子档案</a></td>
         <td><a href="record_all.php?card_code=<?php echo $row['card_code']?>">消费明细</a></td>
         <td>
@@ -110,7 +110,7 @@
           }?>】
         <?php }?>
         </td>
-      </tr
+      </tr>
       <tr>
         <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
       </tr>

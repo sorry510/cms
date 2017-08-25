@@ -91,7 +91,7 @@ function get_sgoods_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT a.*, b.sgoods_catalog_id, b.sgoods_catalog_name,c.shop_name FROM ( SELECT shop_id, sgoods_id, sgoods_catalog_id, sgoods_type, sgoods_code, sgoods_name, sgoods_jianpin, sgoods_price, sgoods_cprice, sgoods_state FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwhere." ORDER BY sgoods_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " AS b on a.sgoods_catalog_id=b.sgoods_catalog_id LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." as c on a.shop_id=c.shop_id"; 
+	$strsql = "SELECT a.*, b.sgoods_catalog_id, b.sgoods_catalog_name FROM ( SELECT shop_id, sgoods_id, sgoods_catalog_id, sgoods_type, sgoods_code, sgoods_name, sgoods_jianpin, sgoods_price, sgoods_cprice, sgoods_state FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where 1=1 ".$strwhere." ORDER BY sgoods_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " AS b on a.sgoods_catalog_id=b.sgoods_catalog_id"; 
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);

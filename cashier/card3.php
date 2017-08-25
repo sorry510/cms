@@ -35,15 +35,18 @@ function get_cards_list() {
 	$now = time();
 
 	$strwhere = '';
-	if($GLOBALS['strsearch'] != '') {
-		$strwhere = $strwhere . " AND (card_code LIKE '%" . $GLOBALS['strsearch'] . "%'";
-		$strwhere = $strwhere . " or card_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
-		$strwhere = $strwhere . " or card_phone LIKE '%" . $GLOBALS['strsearch'] . "%')";
-	}
+
+	$strwhere = $strwhere . " AND (card_code='" . $GLOBALS['strsearch'] . "'";
+	$strwhere = $strwhere . " or card_name='" . $GLOBALS['strsearch'] . "'";
+	$strwhere = $strwhere . " or card_phone='" . $GLOBALS['strsearch'] . "')";
+
 	if($GLOBALS['intcard_type'] != 'all'){
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}
-	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	//当搜索不为空时，全店铺搜索
+	if($GLOBALS['strsearch'] == ''){
+		$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	}
 	$strwhere .= " and card_state=3";
 
 	$arr = array();
@@ -86,7 +89,7 @@ function get_cards_list() {
 	
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_sscore,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_id,card_code,card_okey,card_name,card_phone,card_sex,card_birthday_date,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_sscore,s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") as a LEFT JOIN ".$GLOBALS['gdb']->fun_table('shop')." as b on a.shop_id=b.shop_id";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 

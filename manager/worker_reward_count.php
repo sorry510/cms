@@ -18,7 +18,7 @@ $strsearch = api_value_get('search');
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('shop_list', get_shop_list());
-$gtemplate->fun_assign('worker_reward_detail_list', get_worker_reward_detail_list());//exit;
+$gtemplate->fun_assign('worker_reward_count_list', get_worker_reward_count_list());//exit;
 $gtemplate->fun_show('worker_reward_count');
 
 function get_request(){
@@ -38,7 +38,7 @@ function get_shop_list() {
 	return $arr;
 }
 
-function get_worker_reward_detail_list() {
+function get_worker_reward_count_list() {
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
@@ -64,11 +64,14 @@ function get_worker_reward_detail_list() {
 	//$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 	$arr = array();
-	$strsql = "SELECT count(worker_reward_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE 1 = 1 " . $strwhere;
+	$strsql = "SELECT worker_reward_id as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE 1 = 1 " . $strwhere." group by worker_id";
+	//echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
-	$intallcount = $arr['mycount'];
+
+
+	$intallcount = count($arr);
 	if($intallcount == 0) {
 		$arrpackage['allcount'] = 0;
 		$arrpackage['pagecount'] = 0;
@@ -101,20 +104,17 @@ function get_worker_reward_detail_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT a.*, b.shop_name FROM ( SELECT worker_reward_id, shop_id, worker_reward_type, worker_reward_money, worker_reward_atime, c_worker_name, c_card_code, c_card_name, c_card_phone, c_card_record_id,c_card_record_code FROM " . $GLOBALS['gdb']->fun_table2('worker_reward') . " where 1=1 ".$strwhere." ORDER BY worker_reward_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id ";
+	//主表分类分组查询提成金额
+	$strsql1 = "SELECT SUM(case when worker_reward_type=1 then worker_reward_money else 0 end)as tc_kk,SUM(case when worker_reward_type=2 then worker_reward_money else 0 end)as tc_cz,SUM(case when worker_reward_type=3&&c_goods_type=1 then worker_reward_money else 0 end)as tc_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then worker_reward_money else 0 end)as tc_sw,SUM(case when worker_reward_type=4 then worker_reward_money else 0 end)as tc_dg,SUM(case when worker_reward_type=1 then 1 else 0 end)as num_kk,SUM(case when worker_reward_type=3&&c_goods_type=1 then 1 else 0 end)as num_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then 1 else 0 end)as num_sw,SUM(case when worker_reward_type=4 then 1 else 0 end)as num_dg,SUM(case when worker_reward_type=3&&c_goods_type=1 then c_goods_price*c_goods_count else 0 end)as je_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then c_goods_price*c_goods_count else 0 end)as je_sw,SUM(case when worker_reward_type=4 then c_goods_price*c_goods_count else 0 end)as je_dg,shop_id,worker_id,c_worker_name,c_worker_group_name,c_card_record_id,worker_reward_type,c_goods_name FROM ".$GLOBALS['gdb']->fun_table2('worker_reward')." where 1=1 ".$strwhere." group by worker_id";
+        // ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	// echo $strsql1;exit;
+	//合并3个表为一表
+	$strsql2 = "SELECT a.*, b.shop_name,c.worker_wage FROM (".$strsql1.") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker') . " AS c ON a.worker_id = c.worker_id";
+	//求实际工资，并排序
+	$strsql ="select SUM(d.tc_kk+d.tc_cz+d.tc_fw+d.tc_sw+d.tc_dg+d.worker_wage)as sz_wage,d.* FROM (".$strsql2.") as d group by d.worker_id order by sz_wage DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	foreach($arrlist as $k=>$v){
-		if($v['worker_reward_type'] == 1){
-			$arrlist[$k]['worker_reward_type1'] = '开卡';
-		}else if($v['worker_reward_type'] == 2){
-			$arrlist[$k]['worker_reward_type1'] = '充值';
-		}else if($v['worker_reward_type'] == 3){
-			$arrlist[$k]['worker_reward_type1'] = '商品';
-		}else if($v['worker_reward_type'] == 4){
-			$arrlist[$k]['worker_reward_type1'] = '导购';
-		}
-	}
 
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
@@ -123,7 +123,8 @@ function get_worker_reward_detail_list() {
 	$arrpackage['pagenext'] = $intpagenext;
 	$arrpackage['list'] = $arrlist;
 
-	//echo '<pre>'; var_dump($arrlist); echo '</pre>';
+	// echo '<pre>'; var_dump($arr); echo '</pre>';
+	// exit;
 	return $arrpackage;
 }
 ?>

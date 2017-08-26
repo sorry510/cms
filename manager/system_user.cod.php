@@ -74,7 +74,7 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="form1"  method="post" action="system_user_add_do.php">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">身份：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>身份：</label>
           <div class="umodal-normal" style="text-align:left;">
             <label class="am-radio-inline">
               <input type="radio" name="type" class="cid" value="1" data-am-ucheck> 管理员
@@ -99,7 +99,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">帐号：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>帐号：</label>
           <div class="umodal-normal">
             <input type="text" name="account" class="am-form-field uinput uinput-max">
           </div>
@@ -117,7 +117,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">姓名：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>姓名：</label>
           <div class="umodal-normal">
             <input type="text" name="name" class="am-form-field uinput uinput-max">
           </div>
@@ -233,14 +233,6 @@ $('.cdel').on('click', function() {
 });
 
 
-//分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
-}
-if(<?php echo $this->_data['user_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
-}
-
 // 所属分店变灰
 $('.cid').on('click', function() {
   var val = $(this).val();
@@ -259,9 +251,9 @@ $('.cadd-form1').on('click',function(){
     }else if(res=='1'){
       alert('密码不一致');
     }else if(res=='2'){
-      alert('用户名已存在，请重新输入');
+      alert('必须选一个店铺');
     }else if(res=='3'){
-      alert('密码不能为空');
+      alert('用户名已存在，请重新输入');
     }else{
       alert('添加失败');
     }

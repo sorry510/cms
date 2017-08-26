@@ -24,11 +24,9 @@ $strledate = api_value_get('ledate');
 $strledate2 = $gdb->fun_escape($strledate);
 $intledate = strtotime($strledate2);
 $strbirthday = api_value_get('birthday');
-$strbirthday2 = $gdb->fun_escape($strbirthday);
-$intbirthday = strtotime($strbirthday2);
+$sqlbirthday = $gdb->fun_escape($strbirthday);
 $strlbirthday = api_value_get('lbirthday');
-$strlbirthday2 = $gdb->fun_escape($strlbirthday);
-$intlbirthday = strtotime($strlbirthday2);
+$sqllbirthday = $gdb->fun_escape($strlbirthday);
 $strldays =  api_value_get('ldays');
 $intldays = api_value_int0($strldays);
 $strpage = api_value_get('page');
@@ -87,9 +85,7 @@ function get_card_list() {
 	$intpagenext = 0;
 	$arrlist = array();
 	$arrpackage = array();
-
 	
-
 	$strwhere = '';
 	if ($GLOBALS['strtype'] == '') {
 		$strwhere = $strwhere . ' AND 1>2 ';
@@ -106,11 +102,32 @@ function get_card_list() {
 	if($GLOBALS['intledate'] > 0) {
 		$strwhere = $strwhere . ' AND card_edate < ' . ($GLOBALS['intledate']+86400);
 	}
-	if($GLOBALS['intbirthday'] > 0) {
-		$strwhere = $strwhere . ' AND card_birthday >= ' . $GLOBALS['intbirthday'];
+	if($GLOBALS['sqlbirthday'] != '') {
+
+		$arrbirthday = explode('-', $GLOBALS['sqlbirthday']);
+		if (!empty($arrbirthday[0])) {
+			$intmonth = api_value_int0($arrbirthday[0]);
+		}else{$intmonth = 0 ;}
+		
+		if (!empty($arrbirthday[1])) {
+			$intday = api_value_int0($arrbirthday[1]);
+		}else{$intday = 0 ;}
+		
+
+		$strwhere = $strwhere . ' AND (card_birthday_month > ' . $intmonth . ' OR (card_birthday_month= ' . $intmonth . ' and card_birthday_day>=(case when card_birthday_month=' . $intmonth . ' then '. $intday .' end)))';
 	}
-	if($GLOBALS['intlbirthday'] > 0) {
-		$strwhere = $strwhere . ' AND card_birthday < ' . ($GLOBALS['intlbirthday']+86400);
+	if($GLOBALS['sqllbirthday'] != '') {
+
+		$arrbirthday2 = explode('-', $GLOBALS['sqllbirthday']);
+		if (!empty($arrbirthday2[0])) {
+			$intmonth2 = api_value_int1($arrbirthday2[0]);
+		}
+
+		if (!empty($arrbirthday2[1])) {
+			$intday2 = api_value_int1($arrbirthday2[1]);
+		}	
+
+		$strwhere = $strwhere . ' AND (card_birthday_month < ' . $intmonth2 . ' OR (card_birthday_month= ' . $intmonth2 . ' and card_birthday_day<=(case when card_birthday_month=' . $intmonth2 . ' then '. $intday2 .' end)))';
 	}
 	if($GLOBALS['inttype'] !='') {
 		if ($GLOBALS['inttype'] != 0) {
@@ -170,7 +187,7 @@ function get_card_list() {
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = 'SELECT card_id,card_name,card_code,card_sex,card_atime,card_ltime,card_phone,card_birthday,card_edate,c_card_type_name FROM' . $GLOBALS['gdb']->fun_table2('card') . ' WHERE card_state = 1 ' . $strwhere .' ORDER BY card_id DESC'.' LIMIT ' . $intoffset . ' , ' . $intpagesize;
+	$strsql = 'SELECT card_id,card_name,card_code,card_sex,card_atime,card_ltime,card_phone,card_birthday_date,card_edate,c_card_type_name FROM' . $GLOBALS['gdb']->fun_table2('card') . ' WHERE card_state = 1 ' . $strwhere .' ORDER BY card_id DESC'.' LIMIT ' . $intoffset . ' , ' . $intpagesize;
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

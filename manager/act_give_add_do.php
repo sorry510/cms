@@ -39,6 +39,13 @@ if ($intttype == 1) {
 	$intticket_money_id = 0;
 }
 
+if ($intreturn == 0) {
+	if ($intticket_goods_id == 0 && $intticket_money_id == 0) {
+		$intreturn = 1;
+	}
+}
+
+
 if ($strshop == 'all') {
 	$intshop = 1;
 }else{
@@ -59,9 +66,9 @@ $intend = 0;
 if($intreturn == 0) {
 	if(!empty($strend2)) {
 		$int = strtotime($strend2);
-		if($int > 0) {
+		if($int > time()) {
 			$intend = $int;
-		}
+		}else{$intreturn = 100;}
 	}else{$intreturn = 1;}
 }
 
@@ -83,7 +90,6 @@ if ($intttype == 1) {
 		$intreturn = 2;
 	}
 }elseif ($intttype == 2) {
-	/*$strsql = 'SELECT a.ticket_goods_name,a.ticket_goods_value,b.mgoods_id,b.mgoods_name FROM' . $GLOBALS['gdb']->fun_table2('ticket_goods') .'as a LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('mgoods') . "as b ON a.mgoods_id = b.mgoods_id WHERE a.ticket_goods_id = " . $intticket_goods_id;*/
 	$strsql = 'SELECT a.ticket_goods_name,a.ticket_goods_value,a.ticket_goods_days,a.ticket_goods_begin,b.mgoods_id,b.mgoods_name FROM (SELECT ticket_goods_name,ticket_goods_value,mgoods_id,ticket_goods_days,ticket_goods_begin FROM ' . $GLOBALS['gdb']->fun_table2('ticket_goods') .' WHERE ticket_goods_id = '.$intticket_goods_id.') as a LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('mgoods') . " as b ON a.mgoods_id = b.mgoods_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr =  $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -129,4 +135,5 @@ if($intreturn == 0) {
 }
 
 echo $intreturn;
+
 ?>

@@ -57,7 +57,7 @@
         <td><?php echo $row['sex']; ?></td>
         <td><?php echo $row['card_code']; ?></td>
         <td><?php echo $row['card_phone']; ?></td>
-        <td><?php echo date('Y-m-d',$row['card_birthday']); ?></td>
+        <td><?php echo date('Y-m-d',$row['card_birthday_date']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
         <td><?php echo date('Y-m-d H:i:s',$row['card_ltime']); ?></td>
         <td><?php echo date('Y-m-d',$row['card_atime']); ?></td>
@@ -112,6 +112,7 @@
           <label class="umodal-label am-form-label" for="">代金券：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" name="ticket_money_id" data-am-selected>
+              <option value="0">请选择</option>
               <?php foreach($this->_data['money'] as $row) { ?>
                 <option value="<?php echo $row['ticket_money_id']; ?>"><?php echo $row['ticket_money_name']; ?></option>
               <?php } ?> 
@@ -122,6 +123,7 @@
           <label class="umodal-label am-form-label" for="">体验券：</label>
           <div class="umodal-normal">
             <select class="uselect uselect-max" name="ticket_goods_id" data-am-selected>
+              <option value="0">请选择</option>
               <?php foreach($this->_data['goods'] as $row) { ?>
                 <option value="<?php echo $row['ticket_goods_id']; ?>"><?php echo $row['ticket_goods_name']; ?></option>
               <?php } ?> 
@@ -173,13 +175,19 @@
           <label class="umodal-label am-form-label">性别：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="sex" value="0" data-am-ucheck checked> 不限
+              <input type="radio" name="sex" value="0" data-am-ucheck checked <?php if ($this->_data['request']['sex'] == '0') {
+                echo "checked";
+              }?>> 不限
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="sex" value="1" data-am-ucheck> 男
+              <input type="radio" name="sex" value="1" data-am-ucheck <?php if ($this->_data['request']['sex'] == '1') {
+                echo "checked";
+              }?>> 男
             </label>
             <label class="am-radio-inline">
-              <input type="radio" name="sex" value="2" data-am-ucheck> 女
+              <input type="radio" name="sex" value="2" data-am-ucheck <?php if ($this->_data['request']['sex'] == '2') {
+                echo "checked";
+              }?>> 女
             </label>
           </div>
         </div>
@@ -187,7 +195,7 @@
           <label class="umodal-label am-form-label" for="">开卡时段：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="atime">
+              <input type="text" class="am-form-field" name="atime" value="<?php echo htmlspecialchars($this->_data['request']['atime']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -196,7 +204,7 @@
           <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="latime">
+              <input type="text" class="am-form-field" name="latime" value="<?php echo htmlspecialchars($this->_data['request']['latime']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -207,7 +215,7 @@
           <label class="umodal-label am-form-label" for="">到期时段：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="edate">
+              <input type="text" class="am-form-field" name="edate" value="<?php echo htmlspecialchars($this->_data['request']['edate']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -216,7 +224,7 @@
           <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="ledate">
+              <input type="text" class="am-form-field" name="ledate" value="<?php echo htmlspecialchars($this->_data['request']['ledate']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -226,8 +234,8 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">生日时段：</label>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="birthday">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'mm-dd'}">
+              <input type="text" class="am-form-field" name="birthday" value="<?php echo htmlspecialchars($this->_data['request']['birthday']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -235,8 +243,8 @@
           </div>
           <div class="umodal-text">&nbsp;&nbsp;~&nbsp;&nbsp;</div>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field" name="lbirthday">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'mm-dd'}">
+              <input type="text" class="am-form-field" name="lbirthday" value="<?php echo htmlspecialchars($this->_data['request']['lbirthday']); ?>">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -246,8 +254,8 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">未到天数：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="ldays">
-            <input id="" class="uinput uinput-max" type="hidden" placeholder="" name="type">
+            <input id="" class="uinput uinput-max" type="text" placeholder="" name="ldays" value="<?php echo htmlspecialchars($this->_data['request']['ldays']); ?>">
+            <input id="" class="uinput uinput-max" type="hidden" placeholder="" name="type" value="<?php echo htmlspecialchars($this->_data['request']['type']); ?>">
           </div>
           <div class="umodal-text">&nbsp;天</div>
         </div>
@@ -357,7 +365,8 @@ $('.csubmitadd').on('click',function(){
     console.log(data);
     $.post(url,data,function(res){
       if(res=='0'){
-        window.location.reload();
+        $('#ucardm1').modal('close');
+        alert('发送成功！');
       }else if(res=='100'){
         alert('没有发送对象');
         $('.csubmitadd').attr("disabled",false);

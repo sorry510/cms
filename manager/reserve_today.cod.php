@@ -6,8 +6,9 @@
 <div class="gcontent" id="ureserve">
   <ul class="am-nav am-nav-pills ubread">
     <li class="am-active"><a href="javascript: void(0);">今日预约</a></li>
-    <li><a href="javascript:void(0)">明日预约</a></li>
-    <li><a href="javascript:void(0)">更多预约</a></li>
+    <li><a href="reserve_tomrrow.php">明日预约</a></li>
+    <li><a href="reserve_more.php">更多预约</a></li>
+    <li><a href="reserve_expire.php">过期预约</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">
@@ -58,6 +59,7 @@
         <td>预约内容</td>
         <td>预约方式</td>
         <td>预约添加时间</td>
+        <td>到店</td>
         <td>状态</td>
         <td>备注</td>
         <td style="width:16%">操作</td>
@@ -74,6 +76,7 @@
         <td><?php echo $row['mgoods']; ?></td>
         <td><?php echo $row['type']; ?></td>
         <td><?php echo date('Y-m-d',$row['reserve_atime']); ?></td>
+        <td><?php echo $row['here'] ;?></td>
         <td><?php echo $row['state'] ;?></td>
         <td><?php echo $row['reserve_memo'] ;?></td>
         <td>
@@ -119,7 +122,7 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cinfoadd">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">到店时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>到店时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="dtime">
@@ -146,13 +149,13 @@
           <div class="umodal-text caddtext"></div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">姓名：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>姓名：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="" name="name">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">手机：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="请输入手机号" name="phone">
           </div>
@@ -192,7 +195,7 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal cinfoedit">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">到店时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>到店时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="dtime">
@@ -219,14 +222,14 @@
           <div class="umodal-text cedittext"></div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">姓名：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>姓名：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="" name="name">
             <input id="" class="uinput uinput-max" type="hidden" placeholder="" name="id">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">手机：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="请输入手机号" name="phone">
           </div>

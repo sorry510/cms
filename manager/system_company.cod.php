@@ -103,7 +103,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">所属行业：</label>
           <div class="umodal-text">
-            <?php echo $this->_data['company_info']['company_phone']; ?>
+            <?php echo $this->_data['company_info']['company_info_xingzhi']; ?>
           </div>
         </div>
         <div class="am-form-group">

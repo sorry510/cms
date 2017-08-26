@@ -45,7 +45,6 @@
   <?php pageHtml($this->_data['mgoods_catalog_list'],$this->_data['request'],'mgoods_catalog.php');?>
 </div>
 
-
 <!--添加分类-->
 <div class="am-modal" tabindex="-1" id="umgoods_catalogm1">
   <div class="am-modal-dialog umodal umodal-simple">
@@ -55,7 +54,7 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="form1">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max" name="mgoods_catalog_name">
           </div>
@@ -80,9 +79,9 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="form2" method="post" action="mgoods_catalog_edit_do.php">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max ccatalog_name" name="mgoods_catalog_name" value=''>
+            <input type="text" class="am-form-field uinput uinput-max ccatalog_name" name="mgoods_catalog_name">
             <input type="hidden" class="ccatalog_name_old" name="mgoods_catalog_name_old">
           </div>
         </div> 
@@ -98,7 +97,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- 删除框 -->
 <div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">

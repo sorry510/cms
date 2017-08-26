@@ -50,13 +50,14 @@ $intend = 0;
 if($intreturn == 0) {
 	if(!empty($strend2)) {
 		$int = strtotime($strend2);
-		if($int > 0) {
+		if($int > time()) {
 			$intend = $int;
-		}
+		}else{$intreturn = 100;}
 	}else{$intreturn = 1;}
 }
 
 $intstate = 1;
+
 
 if($intreturn == 0) {
 	$strsql = "INSERT INTO " . $gdb->fun_table2('act_decrease') . " (act_decrease_atime, act_decrease_name, act_decrease_client, act_decrease_man, act_decrease_jian, act_decrease_start,  act_decrease_end,  act_decrease_state,  act_decrease_memo,  act_decrease_shop) VALUES ("

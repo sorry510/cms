@@ -49,7 +49,8 @@
         <td>状态</td>
         <td style="width: 18%;">操作</td>
       </tr>
-    </thead>  
+    </thead>
+    <tbody class="ctbody">
     <?php foreach($this->_data['mgoods_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['mgoods_catalog_name']; ?></td>
@@ -88,6 +89,7 @@
       </td>
     </tr>
     <?php } ?>
+    </tbody>
   </table>
   <?php pageHtml($this->_data['mgoods_list'],$this->_data['request'],'mgoods.php');?>
 </div>
@@ -172,11 +174,12 @@
             </label>
           </div>
         </div>
+        <button type="reset" style="display:none;"></button> 
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadds-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成并继续添加
         </button>
         <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
@@ -358,7 +361,7 @@ $('.cadd-form2').on('click',function(){
   var url="mgoods_add_do.php";
   var data = $("#form2").serialize();
   $.post(url,data,function(res){
-    console.log(res);
+    // console.log(res);
     if(res=='0'){
       window.location.href='mgoods.php';
     }else if(res=='1'){
@@ -367,6 +370,30 @@ $('.cadd-form2').on('click',function(){
     }else if(res=='2'){
       alert("商品编码不能重复");
       $('.cadd-form2').attr('disabled',false);
+    }else{
+      alert("添加失败");
+    }
+  });
+});
+//添加多个商品submit
+$('.cadds-form2').on('click',function(){
+  $(this).attr('disabled',true);
+  var url="mgoods_add_do.php";
+  var data = $("#form2").serialize();
+  $.post(url,data,function(res){
+    if(res=='0'){
+      // window.location.href='mgoods.php';
+      $("#umgoodsm1 select[name='mgoods_catalog_id']").selected('destroy');
+      $("#umgoodsm1 button[type='reset']").trigger("click");
+      $("#umgoodsm1 select[name='mgoods_catalog_id']").val('0');
+      $("#umgoodsm1 select[name='mgoods_catalog_id']").selected();
+      $('.cadds-form2').attr('disabled',false);
+    }else if(res=='1'){
+      alert("缺少必填项");
+      $('.cadds-form2').attr('disabled',false);
+    }else if(res=='2'){
+      alert("商品编码不能重复");
+      $('.cadds-form2').attr('disabled',false);
     }else{
       alert("添加失败");
     }

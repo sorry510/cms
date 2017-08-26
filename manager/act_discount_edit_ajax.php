@@ -18,8 +18,6 @@ foreach ($arr as $key => $value) {
 	$arr[$key]['act_discount_end'] = date('Y-m-d',$arr[$key]['act_discount_end'] );
 }
 
-
-
 echo json_encode($arr);
 
 ?>

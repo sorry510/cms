@@ -23,7 +23,7 @@ $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('reserve_list', get_reserve_list());
-$gtemplate->fun_show('reserve');
+$gtemplate->fun_show('reserve_tomrrow');
 
 function get_request(){
 	$arr = array();

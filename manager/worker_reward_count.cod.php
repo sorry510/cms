@@ -84,25 +84,25 @@
     <tbody>
     <?php foreach($this->_data['worker_reward_count_list']['list'] as $key=>$row) { ?>
       <tr>
-        <td>1</td>
-        <td>李四</td>
-        <td>理疗师</td>
-        <td>25</td>
-        <td>250元</td>
-        <td>10000元</td>
-        <td>1025元</td>
-        <td>10250元</td>
-        <td>30</td>
-        <td>1025元</td>
-        <td>1025元</td>
-        <td>50</td>
-        <td>500元</td>
-        <td>1025元</td>
-        <td>5</td>
-        <td>350元</td>
-        <td>1200元</td>
-        <td><span class="gtext-orange">4500</span>元</td>
-        <td>南大街11号当铺</td>
+        <td><?php echo $key+1;?></td>
+        <td><?php echo $row['c_worker_name'];?></td>
+        <td><?php echo $row['c_worker_group_name'];?></td>
+        <td><?php echo $row['num_kk'];?></td>
+        <td><span class="gtext-orange"><?php echo $row['tc_kk'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['je_cz'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['tc_cz'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['je_fw'];?></span></td>
+        <td><span><?php echo $row['num_fw'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['tc_fw'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['je_sw'];?></span></td>
+        <td><span><?php echo $row['num_fw'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['tc_fw'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['je_dg'];?></span></td>
+        <td><span><?php echo $row['num_dg'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['tc_dg'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['worker_wage'];?></span></td>
+        <td><span class="gtext-orange"><?php echo $row['sz_wage'];?></span>元</td>
+        <td><?php echo $row['shop_name'];?></td>
       </tr>
     <?php }?>
     </tbody>

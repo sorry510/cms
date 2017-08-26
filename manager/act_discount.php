@@ -9,8 +9,6 @@ $strchannel = 'marketing';
 
 $stract_name = api_value_get('act_name');
 $sqlact_name = $gdb->fun_escape($stract_name);
-/*$strclient = api_value_get('client');
-$intclient = api_value_int0($strclient);*/
 $strfrom = api_value_get('from');
 $strfrom2 = $gdb->fun_escape($strfrom);
 $intfrom = strtotime($strfrom2);

@@ -5,7 +5,13 @@ if(!defined('C_CNFLY')) {
 
 $gconfig = array();
 $gconfig['path']['photo'] = C_ROOT.'/photo';
+$gconfig['path']['card_photo'] = C_ROOT.'/photo/card';//会员照片
+$gconfig['path']['worker_photo'] = C_ROOT.'/photo/worker';//员工照片
+$gconfig['path']['company_photo'] = C_ROOT.'/photo/company';//公司照片
 $gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo';
+$gconfig['path']['photo_card_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo/card';
+$gconfig['path']['photo_worker_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo/worker';
+$gconfig['path']['photo_company_show'] = $_SERVER['HTTP_HOST'].'/cnflycms/photo/company';
 // $gconfig['path']['photo_show'] = $_SERVER['HTTP_HOST'].'/photo';
 $gconfig['system']['guimo'][1] = '0-10人';
 $gconfig['system']['guimo'][2] = '10-30人';
@@ -37,7 +43,8 @@ $gdb = new cls_mysql();
 $gdb->pub_host = 'localhost';
 $gdb->pub_user = 'root';
 $gdb->pub_password = 'root';
-$gdb->pub_name = 'cf_cms';
+// $gdb->pub_name = 'cf_cms';
+$gdb->pub_name = 'cf2_cms';
 $gdb->pub_prefix = 'cf_';
 $gdb->pub_charset = 'utf8';
 $gdb->fun_connect();

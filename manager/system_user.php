@@ -76,7 +76,7 @@ function get_user_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 
-	$strsql = "SELECT a.*,b.shop_name FROM (SELECT user_id,shop_id,user_type,user_account,user_name FROM ". $GLOBALS['gdb']->fun_table2('user')." WHERE 1=1 ". $strwhere. " ORDER BY user_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id ";
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT user_id,shop_id,user_type,user_account,user_name FROM ". $GLOBALS['gdb']->fun_table2('user')." WHERE 1=1 ". $strwhere. " ORDER BY user_type asc,user_id DESC LIMIT ". $intoffset . ", " . $intpagesize.") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id ";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 

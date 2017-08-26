@@ -11,6 +11,10 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
+          <label for="doc-ipt-3" class="am-form-label">体验券名称：</label>
+          <input type="text" value="<?php echo htmlspecialchars($this->_data['request']['ticket_name']); ?>" class="am-form-field uinput uinput-220" placeholder="" name="ticket_name">
+      </div>
+      <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">日期：</label>
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="from" value="<?php echo htmlspecialchars($this->_data['request']['from']); ?>">
@@ -49,7 +53,7 @@
         <td>面值</td>
         <td>体验商品</td>
         <td>有效期</td>
-        <td>启用方式</td>
+        <td>可用时间</td>
         <td>备注</td>
         <td style="width:12%">操作</td>
       </tr>
@@ -61,7 +65,7 @@
         <td><?php echo $row['ticket_goods_name']; ?></td>
         <td><?php echo $row['ticket_goods_value']; ?></td>
         <td><?php echo $row['mgoods_name']; ?></td>
-        <td><?php echo $row['ticket_goods_days']; ?></td>
+        <td><?php echo $row['ticket_goods_days']; ?>天</td>
         <td><?php echo $row['begin']; ?></td>
         <td><?php echo $row['ticket_goods_memo']; ?></td>
         <td>
@@ -94,25 +98,25 @@
     <div class="am-modal-hd uhead">新增体验券
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
+    <form class="am-form am-form-horizontal" id="cinfoadd">
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="cinfoadd">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="name">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="name" required>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">面值：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>面值：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="value">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="value" required>
           </div>
           <div class="umodal-text">&nbsp;元</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">商品搜索：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="goods">
+            <input id="" class="uinput uinput-max" type="text" placeholder="" name="goods" >
           </div>
           <div class="umodal-search">
             <button type="button" class="am-btn ubtn-search2 ubtn-green caddsearch">
@@ -121,25 +125,25 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">体验商品：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>体验商品：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected name="goods_id">
-
+            <select class="uselect uselect-max" data-am-selected name="goods_id" required>
+              
             </select>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>有效期：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="days">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="days" required>
           </div>
           <div class="umodal-text">&nbsp;天</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">可用时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>可用时间：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="begin" value="1" data-am-ucheck checked> 当天开始
+              <input type="radio" name="begin" value="1" data-am-ucheck checked required> 当天开始
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="begin" value="2" data-am-ucheck> 第二天开始
@@ -152,15 +156,15 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3" name="memo"></textarea>
           </div>
         </div>
-      </form>
     </div>         
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green csubmitadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="submit" class="am-btn ubtn-sure ubtn-green csubmitadd"><i class="iconfont icon-yuanxingxuanzhong"></i>
         完成
         </button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 <div id="uticket_goodsm2" class="am-modal" tabindex="-1">
@@ -168,26 +172,26 @@
     <div class="am-modal-hd uhead">修改体验券
       <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
+    <form class="am-form am-form-horizontal" id="cinfoedit">
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal" id="cinfoedit">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
             <input type="hidden" class="am-form-field uinput uinput-max" name="id">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="name">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="name" required>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">面值：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>面值：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="value">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="value" required>
           </div>
           <div class="umodal-text">&nbsp;元</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">商品搜索：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="goods">
+            <input id="" class="uinput uinput-max" type="text" placeholder="" name="goods" >
           </div>
           <div class="umodal-search">
             <button type="button" class="am-btn ubtn-search2 ubtn-green ceditsearch">
@@ -196,25 +200,25 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">体验商品：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>体验商品：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected name="goods_id">
+            <select class="uselect uselect-max" name="goods_id" required data-am-selected>
               
             </select>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>有效期：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="days">
+            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="" name="days" required>
           </div>
           <div class="umodal-text">&nbsp;天</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">可用时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>可用时间：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="begin" value="1" data-am-ucheck checked> 当天开始
+              <input type="radio" name="begin" value="1" data-am-ucheck checked  required> 当天开始
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="begin" value="2" data-am-ucheck> 第二天开始
@@ -227,15 +231,16 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3" name="memo"></textarea>
           </div>
         </div>
-      </form>
+      
     </div>         
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green csubmitedit"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="submit" class="am-btn ubtn-sure ubtn-green csubmitedit"><i class="iconfont icon-yuanxingxuanzhong"></i>
         完成
         </button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 
@@ -253,8 +258,9 @@
   </div>
 </div>
 <script src="../js/jquery.min.js"></script>
-<script src="../js/amazeui.min.js"></script>
+<script src="../js/amazeui.js"></script>
 <script type="text/javascript">
+
 //分页首末页不可选中
 if(<?php echo $this->_data['ticket_goods_list']['pagenow'];?>>1){
   $('.upages li.cfirst').removeClass('am-disabled');
@@ -285,14 +291,6 @@ $(function() {
             alert('删除失败');
             console.log(res);
           }
-          /*if(res == '100'){
-            alert('活动开始前才可删除');
-            console.log(res);
-          }
-          if (res != '0' &&  res != '100') {
-            alert('删除失败');
-            console.log(res);
-          }*/
         });
       },
       onCancel: function() {
@@ -302,92 +300,98 @@ $(function() {
   });
 });
 $('.csubmitadd').on('click',function(){
-    $('.csubmitadd').attr("disabled",true);
-    var url="ticket_goods_add_do.php";
-    var data = $("#cinfoadd").serialize();
-    console.log(data);
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        alert('请完善数据');
-        $('.csubmitadd').attr("disabled",false);
-      }else if(res=='100'){
-        alert('有效期不能超过一年');
-        $('.csubmitedit').attr("disabled",false);
-      }else{
-        alert('添加失败');
-        $('.csubmitadd').attr("disabled",false);
-        console.log(res);
-      }
-    });
+  console.log(1);
+      $('.csubmitadd').attr("disabled",true);
+      var url = "ticket_goods_add_do.php";
+      var data = $("#cinfoadd").serialize();
+      console.log(data);
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('请完善数据');
+          $('.csubmitadd').attr("disabled",false);
+        }else if(res=='100'){
+          alert('有效期不能超过一年');
+          $('.csubmitadd').attr("disabled",false);
+        }else{
+          alert('添加失败');
+          $('.csubmitadd').attr("disabled",false);
+          console.log(res);
+        }
+      });
   });
 $('.cedit').on('click',function(){
     var url="ticket_goods_edit_ajax.php";
     var data = $(this).val();
-    console.log(data);
-    $.getJSON(url,{id:data},function(res){
-      console.log(res);
-      console.log(res.ticket_goods_id);
-      $("#uticket_goodsm2 input[name='id']").val(res.ticket_goods_id);
-      $("#uticket_goodsm2 input[name='days']").val(res.ticket_goods_days);
-      $("#uticket_goodsm2 input[name='name']").val(res.ticket_goods_name);
-      $("#uticket_goodsm2 input[name='value']").val(res.ticket_goods_value);
-      $("#uticket_goodsm2 input[name='goods']").val(res.mgoods_name);
-      $("#uticket_goodsm2 select[name='goods_id'] option").remove();
-      $("#uticket_goodsm2 select[name='goods_id']").append("<option value='"+res.mgoods_id+"'>"+res.mgoods_name+"</option>");
-      $("#uticket_goodsm2 input[name='begin']").each(function(){
-          if($(this).val()==res.ticket_goods_begin){
-            $(this).uCheck('check');
-          }
-        });
-      $("#uticket_goodsm2 textarea[name='memo']").val(res.ticket_goods_memo);
-    });
-  });
-$('.csubmitedit').on('click',function(){
-    $('.csubmitedit').attr("disabled",true);
-    var url="ticket_goods_edit_do.php";
-    var data = $("#cinfoedit").serialize();
-    console.log(data);
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        alert('请完善数据');
-        $('.csubmitedit').attr("disabled",false);
-      }else if(res=='100'){
-        alert('有效期不能超过一年');
-        $('.csubmitedit').attr("disabled",false);
-      }else{
-        alert('修改失败');
-        $('.csubmitedit').attr("disabled",false);
+    $('#cinfoedit').validator('destroy');
+    $.when(
+      $.getJSON(url,{id:data},function(res){
         console.log(res);
-      }
-    });
+        $("#uticket_goodsm2 input[name='id']").val(res.ticket_goods_id);
+        $("#uticket_goodsm2 input[name='days']").val(res.ticket_goods_days);
+        $("#uticket_goodsm2 input[name='name']").val(res.ticket_goods_name);
+        $("#uticket_goodsm2 input[name='value']").val(res.ticket_goods_value);
+        $("#uticket_goodsm2 input[name='goods']").val(res.mgoods_name);
+        $("#uticket_goodsm2 select[name='goods_id'] option").remove();
+        $("#uticket_goodsm2 select[name='goods_id']").append("<option value='"+res.mgoods_id+"'>"+res.mgoods_name+"</option>");
+        $("#uticket_goodsm2 input[name='begin']").each(function(){
+            if($(this).val()==res.ticket_goods_begin){
+              $(this).uCheck('check');
+            }
+          });
+        $("#uticket_goodsm2 textarea[name='memo']").val(res.ticket_goods_memo);
+      })
+    ).then(
+        function () {
+          setTimeout("$('#cinfoedit').validator()",0);
+        }
+    )
+  });
+$('#cinfoedit').on('submit',function(){
+    var formValidity = $('#cinfoedit').validator('isFormValid');
+    if (formValidity) {
+      $('.csubmitedit').attr("disabled",true);
+      var url="ticket_goods_edit_do.php";
+      var data = $("#cinfoedit").serialize();
+      console.log(data);
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('请完善数据');
+          $('.csubmitedit').attr("disabled",false);
+        }else if(res=='100'){
+          alert('有效期不能超过一年');
+          $('.csubmitedit').attr("disabled",false);
+        }else{
+          alert('修改失败');
+          $('.csubmitedit').attr("disabled",false);
+          console.log(res);
+        }
+      });
+    }
+    return false;
   });
 $('.caddsearch').on('click',function(){
-    $('.caddsearch').attr("disabled",true);
-    $("#uticket_goodsm1 select").find("option").remove();
     var url="ticket_goods_search_ajax.php";
     var data = $("#uticket_goodsm1 input[name='goods']").val();
     $.getJSON(url,{goods:data},function(res){
+      $("#uticket_goodsm1 select").find("option").remove();
       for (var i = 0; i < res.length; i++) {
         $("#uticket_goodsm1 select").append("<option value='"+res[i].mgoods_id+"'>"+res[i].mgoods_name+"</option>")
       }
     });
-    setTimeout("$('.caddsearch').attr('disabled',false)",1000);
   });
 $('.ceditsearch').on('click',function(){
-    $('.ceditsearch').attr("disabled",true);
-    $("#uticket_goodsm2 select").find("option").remove();
     var url="ticket_goods_search_ajax.php";
     var data = $("#uticket_goodsm2 input[name='goods']").val();
     $.getJSON(url,{goods:data},function(res){
+      $("#uticket_goodsm2 select").find("option").remove();
       for (var i = 0; i < res.length; i++) {
           $("#uticket_goodsm2 select").append("<option value='"+res[i].mgoods_id+"'>"+res[i].mgoods_name+"</option>")
       }
     });
-    setTimeout("$('.ceditsearch').attr('disabled',false)",1000);
   });
 </script>
 </body>

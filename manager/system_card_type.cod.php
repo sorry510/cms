@@ -46,12 +46,7 @@
     <?php } ?>
     </tbody>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-      <li class="upage-info">共<?php echo $this->_data['card_type_list']['pagecount']; ?>页 <?php echo $this->_data['card_type_list']['allcount']; ?>条记录</li>
-      <li class="am-disabled"><a href="system_card_type.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_type_list']['pagepre']); ?>">&laquo;</a></li>
-      <li class="am-active"><a href="#"><?php echo $GLOBALS['intpage'];?></a></li>
-      <li><a href="system_card_type.php?<?php echo api_value_query($this->_data['request'], $this->_data['card_type_list']['pagenext']); ?>">&raquo;</a></li>
-    </ul> 
+  <?php pageHtml($this->_data['card_type_list'],$this->_data['request'],'system_card_type.php');?>
 </div>
 <!-- 添加会员卡分类 -->
 <div id="usystem_card_typem1" class="am-modal" tabindex="-1">
@@ -62,15 +57,15 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="form1">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
             <input id="" class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">卡折扣：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>卡折扣：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max cfilter" type="text" placeholder="" value="10" name="card_type_discount">
+            <input class="uinput uinput-max cfilter" type="text" value="10" name="card_type_discount">
           </div>
           <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
           </div>
@@ -102,16 +97,16 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal"  id="form2"  method="post" action="system_card_type_editor_do.php">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分类名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
             <input class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
             <input class="uinput uinput-max" type="hidden" placeholder="" name="card_type_name_old">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">卡折扣：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>卡折扣：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="card_type_discount">
+            <input class="uinput uinput-max cfilter" type="text" name="card_type_discount">
           </div>
           <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
 
@@ -152,7 +147,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-
+<?php pageJs($this->_data['card_type_list'],$this->_data['request'],'system_card_type.php');?>
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,
@@ -177,24 +172,17 @@ $('.cdel').on('click', function() {
   });
 });
 
-
-//分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
-}
-if(<?php echo $this->_data['card_type_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
-}
 // 折扣js
 $('.cfilter').on('input propertychange',function(){
   var discount = Number($(this).val());
+  // console.log(discount);
   if(isNaN(discount)){
     $(this).val(10);
   }
   if(discount>10){
     $(this).val(10);
   }
-  if(discount<0){
+  if(discount<=0){
     $(this).val(10);
   }
 })

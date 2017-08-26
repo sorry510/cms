@@ -18,10 +18,9 @@ $stredate2 = $gdb->fun_escape($stredate);
 $strledate = api_value_post('ledate');
 $strledate2 = $gdb->fun_escape($strledate);
 $strbirthday = api_value_post('birthday');
-$strbirthday2 = $gdb->fun_escape($strbirthday);
+$sqlbirthday = $gdb->fun_escape($strbirthday);
 $strlbirthday = api_value_post('lbirthday');
-$strlbirthday2 = $gdb->fun_escape($strlbirthday);
-$intlbirthday = strtotime($strlbirthday2);
+$sqllbirthday = $gdb->fun_escape($strlbirthday);
 $strldays =  api_value_post('ldays');
 $intldays = api_value_int0($strldays);
 $stract_name = api_value_post('act_name');
@@ -98,25 +97,19 @@ if($intreturn == 0) {
 	}
 }
 
-$intbirthday = 0;
-if($intreturn == 0) {
-	if(!empty($strbirthday2)) {
-		$int = strtotime($strbirthday2);
-		if($int > 0) {
-			$intbirthday = $int;
-		}
-	}
+if (!empty($sqlbirthday)) {
+	$arrbirthday = explode('-', $sqlbirthday);
+	$intmonth = api_value_int1($arrbirthday[0]);
+	$intday = api_value_int1($arrbirthday[1]);
 }
 
-$intlbirthday = 0;
-if($intreturn == 0) {
-	if(!empty($strlbirthday2)) {
-		$int = strtotime($strlbirthday2);
-		if($int > 0) {
-			$intlbirthday = $int;
-		}
-	}
+if (!empty($sqllbirthday)) {
+	$arrbirthday2 = explode('-', $sqllbirthday);
+	$intmonth2 = api_value_int1($arrbirthday2[0]);
+	$intday2 = api_value_int1($arrbirthday2[1]);
 }
+
+
 
 if ($intttype == 1) {
 	$intticket_goods_id = 0;
@@ -129,8 +122,6 @@ if ($intreturn == 0) {
 		$intreturn == 9;
 	}
 }
-
-$intstate = 1;
 
 $decc_ticket_limit = 0;
 $intc_mgoods_id = 0;
@@ -175,8 +166,8 @@ if ($intc_ticket_begin == 1) {
 
 
 if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('act_ticket') . " (act_ticket_atime, act_ticket_name, act_ticket_search_card, act_ticket_search_sex, act_ticket_search_fcreate, act_ticket_search_tcreate, act_ticket_search_fexpire ,act_ticket_search_texpire , act_ticket_search_fbirthday, 	act_ticket_search_tbirthday, act_ticket_search_days,act_ticket_atype, act_ticket_ttype, ticket_money_id, ticket_goods_id,act_ticket_sms, act_ticket_info, act_ticket_weixin, act_ticket_state, c_ticket_name , c_ticket_value, c_ticket_limit, c_mgoods_id, c_mgoods_name,c_ticket_days,c_ticket_begin) VALUES ("
-	.$time . ", '" . $sqlact_name . "', " . $inttype ." , " . $intsex ." , ". $intatime ." , ".$intlatime." , " . $intedate . " , ". $intledate ." , ".$intbirthday." , ". $intlbirthday ." , " . $intldays . ", 4 , ". $intttype." , ".$intticket_money_id." , ".$intticket_goods_id. " , ". $intsms ." , '". $sqlinfo ." ', " .$intweixin. " , ".$intstate ." , '".$sqlc_ticket_name."',".$decc_ticket_value.",".$decc_ticket_limit.",".$intc_mgoods_id.",'".$sqlc_mgoods_name ."',".$intc_ticket_days.",".$intc_ticket_begin.")";
+	$strsql = "INSERT INTO " . $gdb->fun_table2('act_ticket') . " (act_ticket_atime, act_ticket_name, act_ticket_search_card, act_ticket_search_sex, act_ticket_search_fcreate, act_ticket_search_tcreate, act_ticket_search_fexpire ,act_ticket_search_texpire , act_ticket_search_fbirthday, 	act_ticket_search_tbirthday, act_ticket_search_days,act_ticket_atype, act_ticket_ttype, ticket_money_id, ticket_goods_id,act_ticket_sms, act_ticket_info, act_ticket_weixin, c_ticket_name , c_ticket_value, c_ticket_limit, c_mgoods_id, c_mgoods_name,c_ticket_days,c_ticket_begin) VALUES ("
+	.$time . ", '" . $sqlact_name . "', " . $inttype ." , " . $intsex ." , ". $intatime ." , ".$intlatime." , " . $intedate . " , ". $intledate ." , ".$sqlbirthday." , ". $sqllbirthday ." , " . $intldays . ", 4 , ". $intttype." , ".$intticket_money_id." , ".$intticket_goods_id. " , ". $intsms ." , '". $sqlinfo ." ', " .$intweixin ." , '".$sqlc_ticket_name."',".$decc_ticket_value.",".$decc_ticket_limit.",".$intc_mgoods_id.",'".$sqlc_mgoods_name ."',".$intc_ticket_days.",".$intc_ticket_begin.")";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 12;
@@ -213,11 +204,32 @@ if ($intreturn == 0) {
 	if($GLOBALS['intledate'] > 0) {
 		$strwhere = $strwhere . ' AND card_edate <= ' . ($GLOBALS['intledate']+86400);
 	}
-	if($GLOBALS['intbirthday'] > 0) {
-		$strwhere = $strwhere . ' AND card_birthday >= ' . $GLOBALS['intbirthday'];
+	if($GLOBALS['sqlbirthday'] != '') {
+
+		$arrbirthday = explode('-', $GLOBALS['sqlbirthday']);
+		if (!empty($arrbirthday[0])) {
+			$intmonth = api_value_int0($arrbirthday[0]);
+		}else{$intmonth = 0 ;}
+		
+		if (!empty($arrbirthday[1])) {
+			$intday = api_value_int0($arrbirthday[1]);
+		}else{$intday = 0 ;}
+		
+
+		$strwhere = $strwhere . ' AND (card_birthday_month > ' . $intmonth . ' OR (card_birthday_month= ' . $intmonth . ' and card_birthday_day>=(case when card_birthday_month=' . $intmonth . ' then '. $intday .' end)))';
 	}
-	if($GLOBALS['intlbirthday'] > 0) {
-		$strwhere = $strwhere . ' AND card_birthday <= ' . ($GLOBALS['intlbirthday']+86400);
+	if($GLOBALS['sqllbirthday'] != '') {
+
+		$arrbirthday2 = explode('-', $GLOBALS['sqllbirthday']);
+		if (!empty($arrbirthday2[0])) {
+			$intmonth2 = api_value_int1($arrbirthday2[0]);
+		}
+
+		if (!empty($arrbirthday2[1])) {
+			$intday2 = api_value_int1($arrbirthday2[1]);
+		}	
+
+		$strwhere = $strwhere . ' AND (card_birthday_month < ' . $intmonth2 . ' OR (card_birthday_month= ' . $intmonth2 . ' and card_birthday_day<=(case when card_birthday_month=' . $intmonth2 . ' then '. $intday2 .' end)))';
 	}
 	if($GLOBALS['inttype'] !='') {
 		if ($GLOBALS['inttype'] != 0) {

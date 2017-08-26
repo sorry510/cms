@@ -16,7 +16,7 @@ $intuser_id = api_value_int0($struser_id);
 $intreturn = 0;
 
 // 验证2次输入密码
-if($sqluser_password!=$sqluser_password2){
+if($sqluser_password != $sqluser_password2){
 	$intreturn = 1;
 }
 
@@ -29,6 +29,7 @@ if($intreturn == 0){
 	  $intreturn = 2;
 	}
 }
+
 if($intreturn == 0) {
 	$strsql = "UPDATE " . $gdb->fun_table2('user') . " SET user_password = '".$sqluser_password."',user_ctime = ".time()." WHERE user_id = " . $intuser_id . " LIMIT 1" ;
 	$hresult = $gdb->fun_do($strsql);

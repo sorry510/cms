@@ -18,12 +18,14 @@ $intto = strtotime($strto2);
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 $time = time();
+$strtoday = date('Y-m-d',$time);
+$inttoday = strtotime($strtoday);
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('reserve_list', get_reserve_list());
-$gtemplate->fun_show('reserve');
+// $gtemplate->fun_show('reserve_today');
 
 function get_request(){
 	$arr = array();
@@ -75,10 +77,14 @@ function get_reserve_list() {
 	if($GLOBALS['sqlsearch'] != '') {
 	$strwhere2 =  " AND (card_code LIKE '%" . $GLOBALS['sqlsearch'] . "%' OR reserve_phone LIKE '%" . $GLOBALS['sqlsearch'] . "%' OR reserve_name LIKE '%" . $GLOBALS['sqlsearch'] . "%')";
 	}
+	$strwhere3 = '';
+	if (empty($GLOBALS['intfrom']) && empty($GLOBALS['intto']) && empty($GLOBALS['sqlsearch'])) {
+		$strwhere3 = " AND reserve_dtime >".$GLOBALS['inttoday']." AND reserve_dtime <".($GLOBALS['inttoday']+86400);
+	}
 
 	$arr = array();
-	$strsql = 'SELECT count(reserve_id) as datcount FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' as a LEFT JOIN '. $GLOBALS['gdb']->fun_table2('card') .' as b ON a.card_id = b.card_id WHERE 1 = 1 ' . $strwhere . $strwhere2;
-	
+	$strsql = 'SELECT count(reserve_id) as datcount FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' as a LEFT JOIN '. $GLOBALS['gdb']->fun_table2('card') .' as b ON a.card_id = b.card_id WHERE 1 = 1 ' . $strwhere . $strwhere2 . $strwhere3;
+
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -93,7 +99,7 @@ function get_reserve_list() {
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-	
+
 	$intpagesize = 25;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
@@ -117,9 +123,10 @@ function get_reserve_list() {
 	
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = 'SELECT a.reserve_id,a.card_id,a.reserve_name,a.reserve_phone,a.reserve_count,a.reserve_state,a.reserve_atime,a.reserve_dtime,a.reserve_here,a.reserve_type,a.reserve_memo,b.card_code FROM (SELECT reserve_id,card_id,reserve_name,reserve_here,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_type,reserve_memo FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' WHERE 1 = 1 ' . $strwhere .' ORDER BY reserve_dtime LIMIT ' . $intoffset . ', ' . $intpagesize . ') as a LEFT JOIN (SELECT card_code,card_id FROM ' . $GLOBALS['gdb']->fun_table2('card') .' WHERE card_state =1 AND card_edate >'. time() .' ) as b on a.card_id = b.card_id WHERE 1=1 ' . $strwhere2;
 
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$strsql = 'SELECT a.reserve_id,a.card_id,a.reserve_name,a.reserve_phone,a.reserve_count,a.reserve_state,a.reserve_atime,a.reserve_dtime,a.reserve_here,a.reserve_type,a.reserve_memo,b.card_code FROM (SELECT reserve_id,card_id,reserve_name,reserve_here,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_type,reserve_memo FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' WHERE 1 = 1 ' . $strwhere . $strwhere3 .' ORDER BY reserve_dtime LIMIT ' . $intoffset . ', ' . $intpagesize . ') as a LEFT JOIN (SELECT card_code,card_id FROM ' . $GLOBALS['gdb']->fun_table2('card') .' WHERE card_state =1 AND card_edate >'. time() .' ) as b on a.card_id = b.card_id WHERE 1=1 ' . $strwhere2;
+
+	/*$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
 	foreach($arr as $key => $row) {
@@ -128,6 +135,15 @@ function get_reserve_list() {
 			$arr[$key]['state'] = '正常';
 		} else if($row['reserve_state'] == 2) {
 			$arr[$key]['state'] = '取消';
+		}
+	}
+
+	foreach($arr as $key => $row) {
+		$arr[$key]['here'] = '';
+		if($row['reserve_here'] == 1) {
+			$arr[$key]['here'] = '到店';
+		} else if($row['reserve_here'] == 2) {
+			$arr[$key]['here'] = '未到店';
 		}
 	}
 
@@ -165,7 +181,10 @@ function get_reserve_list() {
 	$arrpackage['pagenow'] = $intpagenow;
 	$arrpackage['pagepre'] = $intpagepre;
 	$arrpackage['pagenext'] = $intpagenext;
-	$arrpackage['list'] = $arr;
-	return $arrpackage;
+	$arrpackage['list'] = $arr;*/
+	//return $arrpackage;
+	echo "11";
+	echo $strsql;
+	exit();
 }
 ?>

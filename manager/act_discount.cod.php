@@ -13,15 +13,6 @@
           <label for="doc-ipt-3" class="am-form-label">活动名称：</label>
           <input type="text" value="<?php echo htmlspecialchars($this->_data['request']['act_name']); ?>" class="am-form-field uinput uinput-220" placeholder="" name="act_name">
       </div>
-      <!-- <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">顾客类型：</label>
-        <select class="uselect uselect-auto" data-am-selected name="client">
-          <option value="0">全部</option>
-          <option value="1" <?php if($this->_data['request']['client']=='1'){echo "selected='selected'";}  ;?> >不限</option>
-          <option value="2" <?php if($this->_data['request']['client']=='2'){echo "selected='selected'";} ;?>>会员</option>
-          <option value="3" <?php if($this->_data['request']['client']=='3'){echo "selected='selected'";} ;?>>非会员</option>
-        </select>
-      </div> -->
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">日期：</label>
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
@@ -140,13 +131,13 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="cinfoadd">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">活动名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>活动名称：</label>
           <div class="umodal-normal">
             <input type="text" class="am-form-field uinput uinput-max" name="name">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">顾客类型：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>顾客类型：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="client" value="1" data-am-ucheck checked> 不限
@@ -160,7 +151,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">开始时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>开始时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="start">
@@ -171,7 +162,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">结束时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>结束时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="end">
@@ -188,7 +179,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>参加店铺：</label>
           <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
               <input type="checkbox" name="shop" value="all" data-am-ucheck> 全部
@@ -219,14 +210,14 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="cinfoedit">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">活动名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>活动名称：</label>
           <div class="umodal-normal">
             <input type="hidden" class="am-form-field uinput uinput-max" name="id">
             <input type="text" class="am-form-field uinput uinput-max" name="name">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">顾客类型：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>顾客类型：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="client" value="1" data-am-ucheck> 不限
@@ -240,7 +231,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">开始时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>开始时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="start">
@@ -251,7 +242,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">结束时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>结束时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="end">
@@ -268,7 +259,7 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">参加店铺：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>参加店铺：</label>
           <div class="umodal-max am-text-left">
             <label class="am-checkbox-inline">
               <input type="checkbox" name="shop" value="all" data-am-ucheck> 全部
@@ -708,7 +699,9 @@ $('.csubmitadd').on('click',function(){
     var start = $("#uact_discountm1 input[name='start']").val();
     var end = $("#uact_discountm1 input[name='end']").val();
     var memo = $("#uact_discountm1 textarea[name='memo']").val();
+    var shop = $("#uact_discountm1 input[name='shop']:checked").val();
     var data = {
+        shop:shop,
         name:name,
         client:client,
         start:start,
@@ -722,6 +715,9 @@ $('.csubmitadd').on('click',function(){
     $.post(url,data,function(res){
       if(res=='0'){
         window.location.reload();
+      }else if(res=='100'){
+        alert('活动结束时间必须大于当前时间');
+        $('.csubmitadd').attr("disabled",false);
       }else if(res=='1'){
         alert('请完善数据');
         $('.csubmitadd').attr("disabled",false);
@@ -834,9 +830,11 @@ $('.csubmitedit').on('click',function(){
     var start = $("#uact_discountm2 input[name='start']").val();
     var end = $("#uact_discountm2 input[name='end']").val();
     var memo = $("#uact_discountm2 textarea[name='memo']").val();
+    var shop = $("#uact_discountm2 input[name='shop']:checked").val();
     var id = $("#uact_discountm2 input[name='id']").val();
     var data = {
         id:id,
+        shop:shop,
         name:name,
         client:client,
         start:start,
@@ -852,8 +850,12 @@ $('.csubmitedit').on('click',function(){
     $.post(url,data,function(res){
       if(res=='0'){
         window.location.reload();
+      }else if(res=='100'){
+        alert('活动结束时间必须大于当前时间');
+        $('.csubmitedit').attr("disabled",false);
       }else if(res=='101'){
-        alert('活动已经结束')
+        alert('活动已经结束');
+        $('.csubmitedit').attr("disabled",false);
       }else if(res=='1'){
         alert('请完善数据');
         $('.csubmitedit').attr("disabled",false);

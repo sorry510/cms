@@ -7,6 +7,8 @@ require(C_ROOT . '/_include/inc_init.php');
 
 $strchannel = 'marketing';
 
+$strticket_name = api_value_get('ticket_name');
+$sqlticket_name = $gdb->fun_escape($strticket_name);
 $strfrom = api_value_get('from');
 $strfrom2 = $gdb->fun_escape($strfrom);
 $intfrom = strtotime($strfrom2);
@@ -22,6 +24,7 @@ $gtemplate->fun_show('ticket_goods');
 
 function get_request(){
 	$arr = array();
+	$arr['ticket_name'] = $GLOBALS['strticket_name'];
 	$arr['from'] = $GLOBALS['strfrom'];
 	$arr['to'] = $GLOBALS['strto'];
 	return $arr;
@@ -37,6 +40,9 @@ function get_ticket_goods_list() {
 	$arrpackage = array();
 
 	$strwhere = '';
+	if ($GLOBALS['sqlticket_name'] != '') {
+		$strwhere = $strwhere . " AND ticket_goods_name LIKE '%" . $GLOBALS['sqlticket_name'] . "%' ";
+	}
 	if($GLOBALS['intfrom'] > 0) {
 		$strwhere = $strwhere . ' AND ticket_goods_atime >= ' . $GLOBALS['intfrom'];
 	}

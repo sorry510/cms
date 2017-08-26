@@ -5,9 +5,10 @@
 <!-- content -->
 <div class="gcontent" id="ureserve">
   <ul class="am-nav am-nav-pills ubread">
-    <li class="am-active"><a href="javascript: void(0);">今日预约</a></li>
-    <li><a href="javascript:void(0)">明日预约</a></li>
-    <li><a href="javascript:void(0)">更多预约</a></li>
+    <li><a href="reserve_today.php">今日预约</a></li>
+    <li><a href="reserve_tomrrow.php">明日预约</a></li>
+    <li><a href="reserve_more.php">更多预约</a></li>
+    <li class="am-active"><a href="javascript:void(0)">过期预约</a></li>
   </ul>
   <div class="gspace15"></div>
   <div class="utools">

@@ -67,9 +67,9 @@ $intend = 0;
 if($intreturn == 0) {
 	if(!empty($strend2)) {
 		$int = strtotime($strend2);
-		if($int > 0) {
+		if($int > time()) {
 			$intend = $int;
-		}
+		}else{$intreturn = 100;}
 	}else{$intreturn = 4;}
 }
 

@@ -145,7 +145,7 @@ $('.doc-oc-js').on('click', function() {
 //侧拉关闭删除商品信息
 $('#uoffcanvas').on('close.offcanvas.amui', function() {
   $('#uoffcanvas').find('.cjs').remove();
-})
+});
 </script>
 </body>
 </html>

@@ -12,6 +12,10 @@
   <div class="utools">
     <form class="am-form-inline uform2" method="get">
       <div class="am-form-group">
+          <label for="doc-ipt-3" class="am-form-label">代金券名称：</label>
+          <input type="text" value="<?php echo htmlspecialchars($this->_data['request']['ticket_name']); ?>" class="am-form-field uinput uinput-220" placeholder="" name="ticket_name">
+      </div>
+      <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">日期：</label>
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="from" value="<?php echo htmlspecialchars($this->_data['request']['from']); ?>">
@@ -50,7 +54,7 @@
         <td>面值</td>
         <td>消费限额</td>
         <td>有效期</td>
-        <td>启用方式</td>
+        <td>可用时间</td>
         <td>备注</td>
         <td width="12%">操作</td>
       </tr>
@@ -93,37 +97,38 @@
     <div class="am-modal-hd uhead">新增代金券
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
+    <form class="am-form am-form-horizontal" id="cinfoadd" data-am-validator>
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal" id="cinfoadd">
+      
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max" name="name" required>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">面值：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>面值：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="value">
+            <input type="text" class="am-form-field uinput uinput-max" name="value" required>
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="" >消费限额：</label>
+          <label class="umodal-label am-form-label" for="" ><span class="gtext-orange">*</span>消费限额：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="limit">
+            <input type="text" class="am-form-field uinput uinput-max" name="limit" required>
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>有效期：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="days">
+            <input type="text" class="am-form-field uinput uinput-max" name="days" required>
           </div>
           <div class="umodal-text">&nbsp;天</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">可用时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>可用时间：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="begin" value="1" data-am-ucheck checked> 当天开始
@@ -139,7 +144,7 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3" name="memo"></textarea>
           </div>
         </div>
-      </form>
+      
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
@@ -148,6 +153,7 @@
         </button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 
@@ -156,41 +162,41 @@
     <div class="am-modal-hd uhead">修改代金券
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
+    <form class="am-form am-form-horizontal" id="cinfoedit" >
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal" id="cinfoedit">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
             <input type="hidden" class="am-form-field uinput uinput-max" name="id">
-            <input type="text" class="am-form-field uinput uinput-max" name="name" >
+            <input type="text" class="am-form-field uinput uinput-max" name="name" required>
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">面值：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>面值：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="value">
+            <input type="text" class="am-form-field uinput uinput-max" name="value" required>
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元</label>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="" >消费限额：</label>
+          <label class="umodal-label am-form-label" for="" ><span class="gtext-orange">*</span>消费限额：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="limit">
+            <input type="text" class="am-form-field uinput uinput-max" name="limit" required>
           </div>
           <label class="umodal-label am-form-label am-text-left">&nbsp;元以上使用</label>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">有效期：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>有效期：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="days">
+            <input type="text" class="am-form-field uinput uinput-max" name="days" required>
           </div>
           <div class="umodal-text">&nbsp;天</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">可用时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>可用时间：</label>
           <div class="umodal-normal am-text-left">
             <label class="am-radio-inline">
-              <input type="radio" name="begin" value="1" data-am-ucheck checked> 当天开始
+              <input type="radio" name="begin" value="1" data-am-ucheck checked required> 当天开始
             </label>
             <label class="am-radio-inline">
               <input type="radio" name="begin" value="2" data-am-ucheck> 第二天开始
@@ -203,7 +209,6 @@
             <textarea class="am-form-field utextarea utextarea-max" row="3" name="memo"></textarea>
           </div>
         </div>
-      </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
@@ -212,6 +217,7 @@
         </button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 <!-- 删除框 -->
@@ -230,6 +236,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
+
 //分页首末页不可选中
 if(<?php echo $this->_data['ticket_money_list']['pagenow'];?>>1){
   $('.upages li.cfirst').removeClass('am-disabled');
@@ -268,26 +275,31 @@ $(function() {
   });
 });
 
-$('.csubmitadd').on('click',function(){
-    $('.csubmitadd').attr("disabled",true);
-    var url="ticket_money_add_do.php";
-    var data = $("#cinfoadd").serialize();
-    console.log(data);
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        alert('请完善数据');
-        $('.csubmitadd').attr("disabled",false);
-      }else if(res=='100'){
-        alert('有效期不能超过一年');
-        $('.csubmitedit').attr("disabled",false);
-      }else{
-        alert('添加失败');
-        $('.csubmitadd').attr("disabled",false);
-        console.log(res);
-      }
-    });
+$('#cinfoadd').on('submit',function(){
+    var formValidity = $('#cinfoadd').validator('isFormValid');
+    console.log(formValidity);
+    if (formValidity) {
+      $('.csubmitadd').attr("disabled",true);
+      var url="ticket_money_add_do.php";
+      var data = $("#cinfoadd").serialize();
+      console.log(data);
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('请完善数据');
+          $('.csubmitadd').attr("disabled",false);
+        }else if(res=='100'){
+          alert('有效期不能超过一年');
+          $('.csubmitadd').attr("disabled",false);
+        }else{
+          alert('添加失败');
+          $('.csubmitadd').attr("disabled",false);
+          console.log(res);
+        }
+      });
+    }
+    return false;
   });
 $('.cedit').on('click',function(){
     var url="ticket_money_edit_ajax.php";
@@ -309,26 +321,31 @@ $('.cedit').on('click',function(){
       $("#uticket_moneym2 textarea[name='memo']").val(res.ticket_money_memo);
     });
   });
-$('.csubmitedit').on('click',function(){
-    $('.csubmitedit').attr("disabled",true);
-    var url="ticket_money_edit_do.php";
-    var data = $("#cinfoedit").serialize();
-    console.log(data);
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        alert('请完善数据');
-        $('.csubmitedit').attr("disabled",false);
-      }else if(res=='100'){
-        alert('有效期不能超过一年');
-        $('.csubmitedit').attr("disabled",false);
-      }else{
-        alert('修改失败');
-        $('.csubmitedit').attr("disabled",false);
-        console.log(res);
-      }
-    });
+
+$('#cinfoedit').on('submit',function(){
+    var formValidity = $('#cinfoedit').validator('isFormValid');
+    if (formValidity) {
+      $('.csubmitedit').attr("disabled",true);
+      var url="ticket_money_edit_do.php";
+      var data = $("#cinfoedit").serialize();
+      console.log(data);
+      $.post(url,data,function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else if(res=='1'){
+          alert('请完善数据');
+          $('.csubmitedit').attr("disabled",false);
+        }else if(res=='100'){
+          alert('有效期不能超过一年');
+          $('.csubmitedit').attr("disabled",false);
+        }else{
+          alert('修改失败');
+          $('.csubmitedit').attr("disabled",false);
+          console.log(res);
+        }
+      });
+    }
+    return false;
   });
 </script>
 </body>

@@ -38,6 +38,12 @@ if ($intreturn == 0) {
 }
 
 if ($intreturn == 0) {
+	if ($intticket_goods_id == 0 && $intticket_money_id == 0) {
+		$intreturn = 1;
+	}
+}
+
+if ($intreturn == 0) {
 	$strsql = "SELECT act_give_start,act_give_end FROM " . $gdb->fun_table2('act_give') . " WHERE act_give_id = " . $intid ;
 	$hresult = $gdb->fun_do($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -83,9 +89,9 @@ $intend = 0;
 if($intreturn == 0) {
 	if(!empty($strend2)) {
 		$int = strtotime($strend2);
-		if($int > 0) {
+		if($int > time()) {
 			$intend = $int;
-		}
+		}else{$intreturn = 100;}
 	}else{$intreturn = 5;}
 }
 

@@ -45,6 +45,4 @@ if($intreturn == 0) {
 }
 echo $intreturn;
 
-
-
 ?>

@@ -25,12 +25,12 @@ if($inttype==1){
 $intreturn = 0;
 $atime = time();
 
-if($sqlpassword!=$sqlpassword2){
+if($sqlpassword != $sqlpassword2){
   $intreturn = 1;
 }
 
-if($sqlpassword==''){
-  $intreturn = 3;
+if($inttype != 1 && $intshop == 0){
+  $intreturn = 2;
 }
 
 if($intreturn == 0) {
@@ -38,7 +38,7 @@ if($intreturn == 0) {
   $hresult = $gdb->fun_query($strsql);
   $arr = $gdb->fun_fetch_assoc($hresult);
   if(!empty($arr)){
-    $intreturn = 2;
+    $intreturn = 3;
   }
 }
 if($intreturn == 0) {

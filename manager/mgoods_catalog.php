@@ -43,7 +43,7 @@ function get_mgoods_catalog_list(){
 		return $arrpackage;
 	}
 
-	$intpagesize = 2;
+	$intpagesize = 5;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;

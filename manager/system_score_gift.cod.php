@@ -64,13 +64,13 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
             <input name="name" class="uinput uinput-max" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">积分：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>积分：</label>
           <div class="umodal-normal">
             <input name="score" class="uinput uinput-max" type="text" placeholder="">
           </div>
@@ -99,14 +99,14 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cform2">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
             <input name="gift_name" class="uinput uinput-max" type="text" placeholder="">
             <input name="gift_name_old" class="uinput uinput-max" type="hidden" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">积分：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>积分：</label>
           <div class="umodal-normal">
             <input name="gift_score" class="uinput uinput-max" type="text" placeholder="">
           </div>

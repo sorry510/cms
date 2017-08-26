@@ -56,7 +56,7 @@
     <tbody>
     <?php foreach($this->_data['store_list']['list'] as $row) { ?>
       <tr>
-        <td><?php echo date('Y-m-d H:i:s',$row['store_time']);?></td>
+        <td><a href="javascript:;" class="coffopen" store_id="<?php echo $row['store_id'];?>"><?php echo date('Y-m-d H:i:s',$row['store_time']);?></a></td>
         <td><?php echo $row['store_type']=='1'?'入库':'出库';?></td>
         <td><?php echo $row['store_money'];?></td>
         <td><?php echo $row['store_operator'];?></td>
@@ -415,39 +415,35 @@
     </div>
   </div>
 </div>
-<!-- 删除按钮弹出框 -->
-<div id="cconfirm" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你确定要删除这条记录吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
-<!-- 确认按钮弹出框 -->
-<div id="cconfirm2" class="am-modal am-modal-confirm" tabindex="-1">
-  <div class="am-modal-dialog uconfirm">
-    <div class="am-modal-hd uhead"><b>提&nbsp;&nbsp;&nbsp;&nbsp;醒</b></div>
-    <div class="am-modal-bd">
-      你已经确定了这条记录吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+
+<!-- 侧拉框 -->
+<div id="uoffcanvas" class="am-offcanvas">
+  <div class="am-offcanvas-bar am-offcanvas-bar-flip uoffcanvas">
+    <div class="am-offcanvas-content" >
+      <div class="am-modal-hd"><span class="utitle">出入库明细</span>
+        <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
+      </div>
+      <div class="gspace15"></div>
+      <div class="am-g ucontent">
+        <div class="am-u-lg-6">时间：<span class="cstore_time"></span></div>
+        <div class="am-u-lg-6">类型：<span class="cstore_type"></span></div>
+        <div class="am-u-lg-6">金额：<span class="cstore_money"></span></div>
+        <div class="am-u-lg-6">经办人：<span class="cstore_operator"></div>
+        <div class="am-u-lg-12">备注：<span class="cstore_memo"></div>
+      </div>
     </div>
   </div>
 </div>
+
+<?php confirmHtml(1);?>
+<?php confirmHtml(6);?>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 <?php pageJs($this->_data['store_list'],$this->_data['request'],'store.php');?>
 // delete
 $('.cdel').on('click', function() {
-  $('#cconfirm').modal({
+  $('#cconfirm1').modal({
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('store_delete_do.php',{store_id:$(this.relatedTarget).val()},function(res){
@@ -467,7 +463,7 @@ $('.cdel').on('click', function() {
 });
 // 确认库存
 $('.ccheck').on('click', function() {
-  $('#cconfirm2').modal({
+  $('#cconfirm6').modal({
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('store_state_do.php',{store_id:$(this.relatedTarget).val()},function(res){
@@ -641,6 +637,54 @@ $(document).on("click", ".cbtnplus", function() {
 //删除
 $(document).on("click",".cdel2",function(){
     $(this).parent().remove();
+});
+
+//侧拉打开
+$('.coffopen').on('click',function() {
+  var url = "store_edit_ajax.php";
+  $.getJSON(url,{store_id:$(this).attr('store_id')},function(res){
+    console.log(res);
+    $("#uoffcanvas .cstore_time").text(res.store_time);
+    $("#uoffcanvas .cstore_operator").text(res.store_operator);
+    $("#uoffcanvas .cstore_memo").text(res.store_memo);
+    if(res.store_money != 0){
+      $("#uoffcanvas .cstore_money").text(res.store_money);
+    }else{
+      $("#uoffcanvas .cstore_money").text('--');
+    }
+    switch(res.store_type)
+    {
+      case '1':
+        $("#uoffcanvas .cstore_type").text('入库');
+        break;
+      case '2':
+        $("#uoffcanvas .cstore_type").text('出库');
+        break;
+      default :
+        $("#uoffcanvas .cstore_type").text('--');
+    }
+   
+    // 买套餐商品
+    if(res.store_goods){
+      var goods_head = '<p class="cjs"><strong>商品清单</strong></p>';
+      var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>序号</td><td>名称</td><td>数量</td></thead>';
+      var table_body = '';
+      $.each(res.store_goods, function(k,v){
+          table_body = table_body+'<tr><td>'+(k+1)+'</td><td>'+v.c_goods_name+'</td><td>'+v.store_goods_count+'</td></tr>';
+      });
+      var table_bottom = '</table>';
+      $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
+    }
+  });
+  $('#uoffcanvas').offCanvas('open');
+});
+//关闭侧拉
+$('.doc-oc-js').on('click', function() {
+  $('#uoffcanvas').offCanvas($(this).data('rel'));
+});
+//侧拉关闭删除商品信息
+$('#uoffcanvas').on('close.offcanvas.amui', function() {
+  $('#uoffcanvas').find('.cjs').remove();
 });
 
 //添加商品

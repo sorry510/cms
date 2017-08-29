@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strcard_record_id = api_value_get('card_record_id');
 $intcard_record_id = api_value_int0($strcard_record_id);

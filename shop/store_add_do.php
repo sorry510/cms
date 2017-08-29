@@ -2,13 +2,14 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strstore_time = api_value_post('store_time');
 $intstore_time = strtotime($strstore_time)==false?'0':strtotime($strstore_time);
 $strstore_type = api_value_post('store_type');
 $intstore_type = api_value_int0($strstore_type);
 $strstore_money = api_value_post('store_money');
-$decstore_money = api_value_decimal($strstore_money, 2);
+$decstore_money = api_value_sdecimal($strstore_money, 2);
 $strstore_operator = api_value_post('store_operator');
 $sqlstore_operator = $gdb->fun_escape($strstore_operator);
 $strstore_memo = api_value_post('store_memo');

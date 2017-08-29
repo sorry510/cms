@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'system';
 $strcard_type_name = api_value_post('card_type_name');

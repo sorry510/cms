@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strroom_catalog_name = api_value_post('name');
 $sqlroom_catalog_name = $gdb->fun_escape($strroom_catalog_name );

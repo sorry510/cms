@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strsgoods_catalog_id = api_value_post('sgoods_catalog_id');
 $intsgoods_catalog_id = api_value_int0($strsgoods_catalog_id);

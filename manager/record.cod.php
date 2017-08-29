@@ -98,7 +98,7 @@
          <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
          <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
          <td><?php echo $row['shop_name'];?></td>
-         <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
+         <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?> <?php if($row['card_record_state']==4) echo 'gtext-green';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
          <td>
            <button class="am-btn ubtn-table ubtn-orange">
              <i class="iconfont icon-dayin"></i>

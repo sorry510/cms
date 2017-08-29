@@ -219,6 +219,7 @@ $('.cid').on('click', function() {
 
 //添加操作员提交按钮
 $('.cadd-form1').on('click',function(){
+  
   $.post('system_user_add_do.php', $("#form1").serialize(), function(res){
     if(res=='0'){
       window.location.reload();

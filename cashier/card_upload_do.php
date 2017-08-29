@@ -3,21 +3,21 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
 
-$strcard_photo = '';
-$intnow = time();
+$photo_name = $GLOBALS['_SESSION']['login_sid'].'-'.$intcard_id;
 
 $intreturn = 0;
 $strext = strtolower(strrchr($_FILES['card_photo']['name'], '.'));
 $intlength = $_FILES['card_photo']['size'];
 if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
 	if($intlength < 1024000) {
-		$hresult = move_uploaded_file($_FILES['card_photo']['tmp_name'], $gconfig['path']['photo'] . '/'. $intnow . $strext);
+		$hresult = move_uploaded_file($_FILES['card_photo']['tmp_name'], $gconfig['path']['card_photo'] . '/'. $photo_name . $strext);
 		if($hresult) {
-			$strsql = "UPDATE " . $gdb->fun_table2('card') . " SET card_photo_file = '".$intnow.$strext."' WHERE card_id = " . $intcard_id . " LIMIT 1";
+			$strsql = "UPDATE " . $gdb->fun_table2('card') . " SET card_photo_file = '".$photo_name.$strext."' WHERE card_id = " . $intcard_id . " LIMIT 1";
 			// echo $strsql;
 			$hresult = $gdb->fun_do($strsql);
 			if(!$hresult) {

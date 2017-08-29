@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strlimit_money = api_value_get('limit_money');
 $declimit_money = api_value_decimal($strlimit_money,2);

@@ -212,7 +212,7 @@ $(function(){
     }).then(function(res){
       if(res=='0'){
         $.ajaxFileUpload ({
-          url:'upload_company_do.php', //你处理上传文件的服务端
+          url:'company_upload_do.php', //你处理上传文件的服务端
           secureuri:false, //与页面处理代码中file相对应的ID值
           fileElementId:'cfile',
           data:{id:company_id},

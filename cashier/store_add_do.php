@@ -1,7 +1,9 @@
 <?php
 define('C_CNFLY', true);
+
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strstore_time = api_value_post('store_time');
 $intstore_time = strtotime($strstore_time)==false?'0':strtotime($strstore_time);

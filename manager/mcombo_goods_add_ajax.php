@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strmgoods_code = api_value_get('mgoods_code');
 $sqlmgoods_code = $gdb->fun_escape($strmgoods_code);

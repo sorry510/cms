@@ -13,6 +13,8 @@
 #ubody .gtext-overflow {overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
 /*yd新增*/
 table a{color:#2D7EF6; text-decoration:underline;}
+#ubody .am-icon-minus{color:#000000; font-size:1.6rem}
+#ubody .am-icon-plus{color:#000000; font-size:1.6rem}
 
 /*公共样式*/
 /*header*/
@@ -127,7 +129,7 @@ table a{color:#2D7EF6; text-decoration:underline;}
 #ubody .uinput2 {display:inline-block; height:28px; line-height:28px; border:1px solid #CCCCCC; border-radius:3px; font-size:1.4rem;}
 #ubody .uinput2:focus {outline:none; box-shadow:none; -webkit-box-shadow:none;}
 #ubody .uinput2.uinput-max {width:100%;}
-#ubody .uinput2.uinput-35 {width:35px; height:24px; line-height:24px; text-align:center;}
+#ubody .uinput2.uinput-35 {width:45px; height:24px; line-height:24px; text-align:center;}
 #ubody .uinput2.uinput-60 {width:60px;}
 
 /*文件上传样式*/

@@ -2,8 +2,8 @@
 define('C_CNFLY', true);
 
 require('inc_path.php');
-require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'card';
 $now = time();
@@ -41,7 +41,6 @@ function get_cards_list() {
 	$arrpackage = array();
 
 	$strwhere = '';
-
 	$strwhere = $strwhere . " AND (card_code='" . $GLOBALS['strsearch'] . "'";
 	$strwhere = $strwhere . " or card_name='" . $GLOBALS['strsearch'] . "'";
 	$strwhere = $strwhere . " or card_phone='" . $GLOBALS['strsearch'] . "')";

@@ -50,7 +50,7 @@
     </form>
   </div> 
   <div class="gspace15"></div>   
-   <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
+  <table class="am-table am-table-bordered am-table-hover utable1 am-table-compact">
     <thead>
       <tr>
         <td>消费时间</td>
@@ -89,7 +89,7 @@
          <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
          <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
          <td><?php echo $row['shop_name'];?></td>
-         <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
+         <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?><?php if($row['card_record_state']==4) echo 'gtext-green';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
          <td>
            <button class="am-btn ubtn-table ubtn-orange">
              <i class="iconfont icon-dayin"></i>
@@ -123,19 +123,6 @@
         <div class="am-u-lg-6">操作人员：<span class="cuser_name"></span></div>
         <div class="am-u-lg-6">是否免单：<span class="ccard_record_state"></span></div>
       </div>
-      
-      <div class="gspace20"></div>
-      <div class="ub">
-        <button class="am-btn ubtn-sure ubtn-blue ubutton1">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-        <button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen" data-am-modal="{target: '#urecordm1', closeViaDimmer: 0}">
-          <i class="iconfont icon-huaidanbaotui"></i>
-          退款
-        </button>
-      </div>
-     <div class="gspace15"></div>
     </div>
   </div>
 </div>
@@ -280,6 +267,11 @@ $(function() {
         });
         var table_bottom = '</table>';
         $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
+      }
+      // 退款
+      if(res.card_record_type==3){
+        var refund = '<button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen cjs"><i class="iconfont icon-huaidanbaotui"></i>退款</button>';
+        $(".am-offcanvas-content .ub").append(refund);
       }
     });
     $('#uoffcanvas').offCanvas('open');

@@ -158,9 +158,9 @@ $('.coffcanvasopen').on('click', function(){
       if(res.goods_name)
         $("#uworkeroff1 .cworker_goods").text(res.goods_name);
       if(res.worker_photo_file)
-        $("#uworkeroff1 .cworker_photo1").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_show"];?>/'+res.worker_photo_file);
+        $("#uworkeroff1 .cworker_photo1").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_photo_file);
       if(res.worker_identity_file)
-        $("#uworkeroff1 .cworker_photo2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_show"];?>/'+res.worker_identity_file);
+        $("#uworkeroff1 .cworker_photo2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_identity_file);
     }
   });
 })

@@ -84,11 +84,36 @@ function confirmHtml($type){
 // 获取当前用户姓名
 function userName(){
 	$arr = array();
-	
 	$strsql = "SELECT user_name FROM ".$GLOBALS['gdb']->fun_table2('user'). " WHERE user_id=".$GLOBALS['_SESSION']['login_id'];
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$user_name = $arr['user_name'];
-
 	return $user_name;
+}
+
+function companyState(){
+	$arr = array();
+	$strsql = "SELECT company_state FROM ".$GLOBALS['gdb']->fun_table('company'). " WHERE company_id=".$GLOBALS['_SESSION']['login_cid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$company_state = $arr['company_state'];
+	return $company_state;
+}
+
+function shopEdate(){
+	$arr = array();
+	$strsql = "SELECT shop_edate FROM ".$GLOBALS['gdb']->fun_table('shop'). " WHERE shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$shop_edate = $arr['shop_edate'];
+	return $shop_edate;
+}
+
+function shopState(){
+	$arr = array();
+	$strsql = "SELECT shop_state FROM ".$GLOBALS['gdb']->fun_table('shop'). " WHERE shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$shop_state = $arr['shop_state'];
+	return $shop_state;
 }

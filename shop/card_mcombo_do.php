@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-
+require('inc_limit.php');
 
 $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
@@ -13,14 +13,18 @@ $strmoney = api_value_post('money');//应付
 $decmoney = api_value_decimal($strmoney, 2);
 $strgive = api_value_post('give');//减免
 $decgive = api_value_decimal($strgive, 2);
-$decrel_money = $decmoney - $decgive;//实际付
+$decrel_money = $decmoney - $decgive > 0 ? $decmoney - $decgive : 0;//实际付
 $strpay_type = api_value_post('pay_type');
 $intpay_type = api_value_int0($strpay_type);
-$strrecord_state = api_value_post('state');
-$intrecord_state = api_value_int0($strrecord_state);
-$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
-$arract_give = api_value_post('arr2');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
+$strrecord_state = api_value_post('state');//默认1为正常，4免单
+$intrecord_state = api_value_int0($strrecord_state);//是否免单
+$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"}]
+$arract_give = api_value_post('arr2');//[{"id":"2","num":"1"},{"id":"3","num":"1"}]
 $arract_decrease = api_value_post('act_decrease');//1维数组，满减id
+
+if($intrecord_state == 4){
+	$decrel_money = 0;
+}
 
 $now = time();
 $now2 = strtotime(date('Y-m-d',$now))+86399;//当前天的最后一秒
@@ -138,7 +142,7 @@ if($intreturn == 0){
 		}
 	}else{
 		//用卡扣
-		$card_ymoney = $arr['s_card_ymoney']-$decrel_money;
+		$card_ymoney = $arr['s_card_ymoney'] - $decrel_money;
 		if($card_ymoney<0){
 			$intreturn = 15;
 		}
@@ -173,75 +177,76 @@ if($intreturn == 0){
 		$intmcombo_id = api_value_int0($strmcombo_id);
 		$strnum = $v['num'];
 		$intnum = api_value_int0($strnum);
-		if($intreturn == 0){
-			//查询套餐信息
-			$strsql = "SELECT mcombo_id,mcombo_type,mcombo_name,mcombo_price,mcombo_cprice,mcombo_limit_type,mcombo_limit_days,mcombo_limit_months FROM ". $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_id = ".$intmcombo_id." and mcombo_state = 1 limit 1";
-			$hresult = $GLOBALS['gdb']->fun_query($strsql);
-			$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-			if(!empty($arr)){
-				$intmcombo_limit_type = $arr['mcombo_limit_type'];
-				$intmcombo_limit_days = $arr['mcombo_limit_days'];
-				$intmcombo_limit_months = $arr['mcombo_limit_months'];
-				$strmcombo_name = $arr['mcombo_name'];
-				$intmcombo_type = $arr['mcombo_type'];
-				$intedate = 0;
-			}else{
-				$intreturn = 6;//套餐不存在或停用
-				echo $intreturn;
-				exit;
-			}
-			if($intmcombo_limit_type==1){
-				$intedate = 0;
-			}else if($intmcombo_limit_type==2){
-				$intedate = strtotime("+".$intmcombo_limit_days." day");
-			}else if($intmcombo_limit_type==3){
-				$intedate = strtotime("+".$intmcombo_limit_months." month");
-			}else{
-				$intedate = 0;
-			}
-			//插入套餐
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,card_mcombo_cedate,card_mcombo_atime,c_mcombo_name,c_mcombo_type) VALUES (".$intcard_id.",1,".$intmcombo_id.",".$intnum.",".$intedate.",".time().",'".$strmcombo_name."',".$intmcombo_type.")";
-			$hresult = $GLOBALS['gdb']->fun_do($strsql);
-			if($hresult == FALSE) {
-				$intreturn = 7;
-			}
-			//插入record2表套餐
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_mcombo')."(card_record_id,card_id,shop_id,card_record2_mcombo_type,mcombo_id,card_record2_mcombo_ccount,card_record2_mcombo_cedate,c_mcombo_name,c_mcombo_price,c_mcombo_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",1,".$intmcombo_id.",".$intnum.",".$intedate.",'".$arr['mcombo_name']."',".$arr['mcombo_price'].",".$arr['mcombo_cprice'].")";
-			$hresult = $GLOBALS['gdb']->fun_do($strsql);
-			if($hresult == FALSE) {
-				$intreturn = 8;
-			}
-			//查询套餐商品
-			$strsql = "SELECT a.mgoods_id,a.mcombo_goods_count,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT mgoods_id,mcombo_goods_count FROM ".$GLOBALS['gdb']->fun_table2('mcombo_goods')." where mcombo_id = ".$intmcombo_id.") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
+		
+		//查询套餐信息
+		$strsql = "SELECT mcombo_id,mcombo_type,mcombo_name,mcombo_price,mcombo_cprice,mcombo_limit_type,mcombo_limit_days,mcombo_limit_months FROM ". $GLOBALS['gdb']->fun_table2('mcombo') . " where mcombo_id = ".$intmcombo_id." and mcombo_state = 1 limit 1";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$intmcombo_limit_type = $arr['mcombo_limit_type'];
+			$intmcombo_limit_days = $arr['mcombo_limit_days'];
+			$intmcombo_limit_months = $arr['mcombo_limit_months'];
+			$strmcombo_name = $arr['mcombo_name'];
+			$intmcombo_type = $arr['mcombo_type'];
+			$intedate = 0;
+		}else{
+			$intreturn = 6;//套餐不存在或停用
+			// echo $intreturn;
+			// exit;
+			continue;
+		}
+		if($intmcombo_limit_type==1){
+			$intedate = 0;
+		}else if($intmcombo_limit_type==2){
+			$intedate = strtotime("+".$intmcombo_limit_days." day");
+		}else if($intmcombo_limit_type==3){
+			$intedate = strtotime("+".$intmcombo_limit_months." month");
+		}else{
+			$intedate = 0;
+		}
+		//插入套餐
+		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,card_mcombo_cedate,card_mcombo_atime,c_mcombo_name,c_mcombo_type) VALUES (".$intcard_id.",1,".$intmcombo_id.",".$intnum.",".$intedate.",".time().",'".$strmcombo_name."',".$intmcombo_type.")";
+		$hresult = $GLOBALS['gdb']->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 7;
+		}
+		//插入record2表套餐
+		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_mcombo')."(card_record_id,card_id,shop_id,card_record2_mcombo_type,mcombo_id,card_record2_mcombo_ccount,card_record2_mcombo_cedate,c_mcombo_name,c_mcombo_price,c_mcombo_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",1,".$intmcombo_id.",".$intnum.",".$intedate.",'".$arr['mcombo_name']."',".$arr['mcombo_price'].",".$arr['mcombo_cprice'].")";
+		$hresult = $GLOBALS['gdb']->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 8;
+		}
+		//查询套餐商品
+		$strsql = "SELECT a.mgoods_id,a.mcombo_goods_count,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT mgoods_id,mcombo_goods_count FROM ".$GLOBALS['gdb']->fun_table2('mcombo_goods')." where mcombo_id = ".$intmcombo_id.") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
 
-			$hresult = $GLOBALS['gdb']->fun_query($strsql);
-			$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-			// echo json_encode($arr);
-			if(!empty($arr)){
-				foreach($arr as $v){
-					$intmgoods_id = $v['mgoods_id'];
-					$intmcombo_goods_count = $v['mcombo_goods_count']*$intnum;
-					// 插入套餐商品
-					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,mgoods_id,card_mcombo_gcount,card_mcombo_cedate,card_mcombo_atime,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mcombo_type) VALUES (".$intcard_id.",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",".time().",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].",".$intmcombo_type.")";
-					$hresult = $GLOBALS['gdb']->fun_do($strsql);
-					if($hresult == FALSE) {
-						$intreturn = 9;
-					}
-					//$card_mcombo_id = mysql_insert_id();
-
-					// 插入record2表套餐商品，应该记录card_mcombo_id(现没有)
-					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_mcombo')."(card_record_id,card_id,shop_id,card_record2_mcombo_type,mcombo_id,mgoods_id,card_record2_mcombo_gcount,card_record2_mcombo_cedate,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
-					$hresult = $GLOBALS['gdb']->fun_do($strsql);
-					if($hresult == FALSE) {
-						$intreturn = 10;
-					}
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		// echo json_encode($arr);
+		if(!empty($arr)){
+			foreach($arr as $v){
+				$intmgoods_id = $v['mgoods_id'];
+				$intmcombo_goods_count = $v['mcombo_goods_count']*$intnum;
+				// 插入套餐商品
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,mgoods_id,card_mcombo_gcount,card_mcombo_cedate,card_mcombo_atime,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mcombo_type) VALUES (".$intcard_id.",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",".time().",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].",".$intmcombo_type.")";
+				$hresult = $GLOBALS['gdb']->fun_do($strsql);
+				if($hresult == FALSE) {
+					$intreturn = 9;
 				}
-			}else{
-				$intreturn = 11;
+				//$card_mcombo_id = mysql_insert_id();
+
+				// 插入record2表套餐商品，应该记录card_mcombo_id(现没有)
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_mcombo')."(card_record_id,card_id,shop_id,card_record2_mcombo_type,mcombo_id,mgoods_id,card_record2_mcombo_gcount,card_record2_mcombo_cedate,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].")";
+				$hresult = $GLOBALS['gdb']->fun_do($strsql);
+				if($hresult == FALSE) {
+					$intreturn = 10;
+				}
 			}
+		}else{
+			$intreturn = 11;
 		}
 	}
 }
+
 //记录recrord2_ygoods,没有考虑到期时间
 if($intreturn == 0){
 	$strsql = "SELECT SUM(card_mcombo_gcount)as sum,mgoods_id,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by c_mgoods_name";
@@ -258,8 +263,9 @@ if($intreturn == 0){
 		}
 	}
 }
+
 //记录满减活动产生的金额
-if($intreturn == 0){
+if($intreturn == 0 && $intrecord_state == 1){
 	if(!empty($arract_decrease)){
 		$arract_decrease=array_unique($arract_decrease);//除去重复值
 		//var_dump($arract_decrease);
@@ -277,8 +283,9 @@ if($intreturn == 0){
 		}
 	}
 }
+
 //记录限时折扣活动产生的金额
-if($intreturn == 0){
+if($intreturn == 0 && $intrecord_state == 1){
 	if(!empty($arract_discount)){
 		$arract_discount=array_unique($arract_discount);
 		foreach($arract_discount as $v){
@@ -295,5 +302,6 @@ if($intreturn == 0){
 		}
 	}
 }
+
 echo $intreturn;
 ?>

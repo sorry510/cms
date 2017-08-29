@@ -4,7 +4,12 @@ if(!defined('C_CNFLY')) {
 }
 
 if($GLOBALS['_SESSION']['login_type'] != 1) {
-	echo '<script language="javascript">alert("登录超时，请重新登录！"); window.location="../login.php";</script>';
+	echo '<script language="javascript">alert("没有此权限，请重新登录！"); window.location="../login.php";</script>';
 	exit();
 }
+if(companyState() != 1){
+	echo '<script language="javascript">alert("注册企业已停用，请联系管理员！"); window.location="../login.php";</script>';
+	exit();
+}
+
 ?>

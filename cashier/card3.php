@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'card';
 $strcard_type = api_value_get('card_type');
@@ -39,7 +40,7 @@ function get_cards_list() {
 	$strwhere = $strwhere . " AND (card_code='" . $GLOBALS['strsearch'] . "'";
 	$strwhere = $strwhere . " or card_name='" . $GLOBALS['strsearch'] . "'";
 	$strwhere = $strwhere . " or card_phone='" . $GLOBALS['strsearch'] . "')";
-
+	
 	if($GLOBALS['intcard_type'] != 'all'){
 		$strwhere .= " and card_type_id=".$GLOBALS['intcard_type'];
 	}

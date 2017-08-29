@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
 
 $strgoods = api_value_get('goods');
 $sqlgoods = $gdb->fun_escape($strgoods);

@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'record';
 
@@ -24,10 +25,16 @@ $intstime = 0;
 if($strstime!=''){
 	$intstime = strtotime($strstime)?strtotime($strstime):0;
 }
+
 if($intstime == 0){
-	$strstime = date('Y-m-d',strtotime('-3 month'))." 00:00:00";//最早时间是，3个月之前
+	//最早时间是，1个月之前
+	$strstime = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
 	$intstime = strtotime($strstime);
+}else{
+	//最早日期为一年前
+	$intstime = $intstime < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intstime;
 }
+
 $intetime = 0;
 if($stretime!=''){
 	$intetime = strtotime($stretime)?strtotime($stretime):0;

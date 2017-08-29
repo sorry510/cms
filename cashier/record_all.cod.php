@@ -89,7 +89,7 @@
       <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
       <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
       <td><?php echo $row['shop_name'];?></td>
-      <td><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
+      <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?> <?php if($row['card_record_state']==4) echo 'gtext-green';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-orange">
           <i class="iconfont icon-dayin"></i>
@@ -123,56 +123,49 @@
         <div class="am-u-lg-6">操作人员：<span class="cuser_name"></span></div>
         <div class="am-u-lg-6">是否免单：<span class="ccard_record_state"></span></div>
       </div>
-      
       <div class="gspace20"></div>
       <div class="ub">
         <button class="am-btn ubtn-sure ubtn-blue ubutton1">
-          <i class="iconfont icon-dayin"></i>
-          打印小票
-        </button>
-        <button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen" data-am-modal="{target: '#urecordm1', closeViaDimmer: 0, width: 320, height: 320}">
-          <i class="iconfont icon-huaidanbaotui"></i>
-          退款
+          <i class="iconfont icon-dayin"></i>打印小票
         </button>
       </div>
-     <div class="gspace15"></div>
     </div>
   </div>
 </div>
 
-<div id="urecordm1" class="am-modal am-modal-no-btn" tabindex="-1" >
+<div id="urecordm1" class="am-modal" tabindex="-1" >
   <div class="am-modal-dialog umodal">
     <div class="am-modal-hd uhead">退款
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label utext1" for="">授权密码</label>
-          <div class="umodal-small">
-            <input class="am-form-field uinput uinput-max cpassword" type="password" name="password" placeholder="请输入授权密码">
-            <input class="crecord_id" type="hidden" name="record_id">
-          </div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">备注</label>
-          <div class="umodal-small">
-            <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
-          </div>
-        </div>
-        <div class="gspace20"></div>
-        <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
-        <div class="gspace15"></div>
-        <div class="ua1">
-          <button class="am-btn ubtn-sure ubtn-red crefunddo" type="button">
-            <i class="iconfont icon-huaidanbaotui"></i>
-            退款
-          </button>
-          <button class="am-btn ubtn-sure ubtn-red" type="submit">
-            取消
-          </button>
-        </div>
-      </form>
+     <form class="am-form am-form-horizontal">
+       <div class="am-form-group">
+         <label class="umodal-label am-form-label utext1" for="">授权密码：</label>
+         <div class="umodal-normal">
+           <input class="am-form-field uinput uinput-max" type="password" name="password" placeholder="请输入授权密码">
+           <input class="crecord_id" type="hidden" name="record_id">
+         </div>
+       </div>
+       <div class="am-form-group">
+         <label class="umodal-label am-form-label" for="">备注：</label>
+         <div class="umodal-normal">
+           <textarea style="height: 60px;" class="am-form-field utextarea utextarea-max" row="3" placeholder="请输入备注信息"></textarea>
+         </div>
+       </div>
+       <p>1.如未设置，请到“设置”->“其他设置”->“授权密码”进行设置；</p>
+     </form>
+    </div>
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group">
+        <button class="am-btn ubtn-sure ubtn-red crefunddo" type="button">
+          <i class="iconfont icon-huaidanbaotui"></i>
+           退款
+        </button>
+        <button class="am-btn ubtn-sure ubtn-red ccancel" type="submit">
+           取消
+        </button>
+      </div>
     </div>
   </div>
 </div> 
@@ -282,6 +275,10 @@ $(function() {
         var table_bottom = '</table>';
         $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
       }
+      if(res.card_record_type==3){
+        var refund = '<button class="am-btn ubtn-sure ubtn-red ubutton2 crefundopen cjs"><i class="iconfont icon-huaidanbaotui"></i>退款</button>';
+        $(".am-offcanvas-content .ub").append(refund);
+      }
     });
     $('#uoffcanvas').offCanvas('open');
   });
@@ -290,9 +287,10 @@ $(function() {
     $myOc.find('.cjs').remove();
   });
   //退款打开
-  $('.crefundopen').on('click',function(){
+  $(document).on("click",".crefundopen", function(){
     var card_record_id = $(this).val();
     $('.crecord_id').val(card_record_id);
+    $('#urecordm1').modal('open');
   })
   //退款提交
   $('.crefunddo').on('click',function(){
@@ -302,9 +300,9 @@ $(function() {
 
     $.post(url,{card_record_id:card_record_id,password:password},function(res){
       console.log(res);
-      return false;
-     /* if(res=='0'){
-        // window.location.reload();
+      // return false;
+      if(res=='0'){
+        window.location.reload();
       }else if(res=='1'){
         //密码错误
         $('.cpay').attr('disabled',false);
@@ -312,7 +310,7 @@ $(function() {
       }else{
         $('.cpay').attr('disabled',false);
         return false;
-      }*/
+      }
     });
   })
   //删除

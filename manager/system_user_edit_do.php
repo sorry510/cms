@@ -2,6 +2,7 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $struser_password_old = api_value_post('user_password_old');
 $sqluser_password_old = $gdb->fun_escape($struser_password_old);

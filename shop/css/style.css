@@ -21,8 +21,8 @@
 /*购买套餐*/
 #ubody #ucardm3 .utext1{position:absolute; right:200px; bottom:25px;}
 /*购买完成*/
-#ubody #ucardm4 .am-icon-minus{color:#000000; font-size:1.6rem}
-#ubody #ucardm4 .am-icon-plus{color:#000000; font-size:1.6rem}
+#ubody #ucardm4 .utable1 .uc2a{display:inline-block; margin:1px 4px 0 0;}
+#ubody #ucardm4 .utable1 .uc2b{display:inline-block; margin:1px 0 0 4px;}
 #ubody #ucardm4 .ufootleft{position:absolute; left:40px; bottom:25px;}
 #ubody #ucardm4 .ufootleft >div{float:left; margin-right:10px; height:36px;line-height:36px;}
 #ubody #ucardm4 .ufootleft label.am-checkbox{margin:0; line-height:36px;}
@@ -100,7 +100,7 @@
 
 /*加减数字*/
 #ubody .umodal .ufont1{color:#000; font-size:1.6rem;}
-#ubody .umodal .uinputmin1{display:inline-block; margin:0 1rem 0.5rem 1rem; width:30px; height:19px; text-align:center; font-size:1.4rem;}
+#ubody .umodal .uinputmin1{display:inline-block; margin:0 0 0.3rem 0; padding:0; width:45px; height:20px; text-align:center; font-size:1.4rem;}
 
 /*打印设置*/
 #system_print .uform1 .ua{margin-bottom:5px;line-height:36px;}

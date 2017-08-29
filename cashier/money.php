@@ -5,6 +5,7 @@ error_reporting(0);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'money';
 
@@ -27,24 +28,19 @@ $gtemplate->fun_assign('act_give_list', get_act_give_list());
 $gtemplate->fun_show('money');
 
 function get_cards_list() {
-
 	$arr = array();
 	$strwhere = '';
 	if($GLOBALS['strsearch'] != '') {
 		$strwhere = $strwhere . " AND (card_code = '" . $GLOBALS['strsearch'] . "'";
 		$strwhere = $strwhere . " or card_name = '" . $GLOBALS['strsearch'] . "'";
 		$strwhere = $strwhere . " or card_phone = '" . $GLOBALS['strsearch'] . "')";
-	
-		$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 		$strsql = "SELECT card_id,card_code, card_name,card_phone,card_sex,card_birthday,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_score FROM " . $GLOBALS['gdb']->fun_table2('card') . " where ".$strwhere." ORDER BY card_id DESC LIMIT 1";
 		// echo $strsql;exit;
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
-
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
-		return $arr;
 	}
+	return $arr;
 }
 function get_mcombo_list(){
 	$arr = array();
@@ -112,8 +108,8 @@ function get_act_discount_list(){
 		$strsql = "SELECT act_discount_id,act_discount_name FROM " . $GLOBALS['gdb']->fun_table2('act_discount')." where act_discount_start<=".$GLOBALS['now']." and act_discount_end>=".$GLOBALS['now']." and act_discount_state=1 and act_discount_client!=2 and act_discount_id in (".$stract_discount_id.") order by act_discount_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-		return $arr;
 	}
+	return $arr;
 }
 function get_act_decrease_list(){
 	$arr = array();
@@ -131,8 +127,8 @@ function get_act_decrease_list(){
 		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=2 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-		return $arr;
 	}
+	return $arr;
 }
 function get_act_give_list(){
 	$arr = array();
@@ -150,7 +146,7 @@ function get_act_give_list(){
 		$strsql = "SELECT act_give_id,act_give_name,act_give_man,act_give_ttype,ticket_money_id,ticket_goods_id FROM " . $GLOBALS['gdb']->fun_table2('act_give')." where act_give_start<=".$GLOBALS['now']." and act_give_end>=".$GLOBALS['now']." and act_give_state=1 and act_give_client!=2 and act_give_id in (".$stract_give_id.") order by act_give_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-		return $arr;
 	}
+	return $arr;
 }
 ?>

@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $arr = array();
 $strmgoods_id = api_value_post('mgoods_id');
@@ -70,11 +71,12 @@ if(!empty($arrmcombo)){
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		if(!empty($arr)){
 			$act_mcombo_price = $arr[0]['act_discount_goods_price'];
+			$act_discount_id = $arr[0]['act_discount_id'];
 			// echo $act_mcombo_price;
 			foreach($arr as $v){
-				if($act_mcombo_price>=$v['act_discount_goods_price']){
-					$act_mcombo_price=$v['act_discount_goods_price'];
-					$act_discount_id=$v['act_discount_id'];
+				if($act_mcombo_price > $v['act_discount_goods_price']){
+					$act_mcombo_price = $v['act_discount_goods_price'];
+					$act_discount_id = $v['act_discount_id'];
 				}
 			}
 		}
@@ -163,7 +165,12 @@ if($mcombo_cprice!=0){
 
 $arr = array();
 $arr['min_price'] = min($arrprice);
-$arr['act_discount_id'] = $act_discount_id;
+if($arr['min_price'] == $act_mcombo_price){
+	$arr['act_discount_id'] = $act_discount_id;
+}else{
+	$arr['act_discount_id'] = 0;
+}
+
 
 echo json_encode($arr);
 

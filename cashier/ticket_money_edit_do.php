@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
 
 $strid = api_value_post('id');
 $intid = api_value_int0($strid);

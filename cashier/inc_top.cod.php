@@ -14,7 +14,7 @@
       <ul class="am-dropdown-content umenu1">
         <li><a href="#"><span class="am-icon-user am-icon-fw"></span>资料</a></li>
         <li><a href="#"><span class="am-icon-cog am-icon-fw"></span>设置</a></li>
-        <li><a href="#"><span class="am-icon-power-off am-icon-fw"></span>退出</a></li>
+        <li><a href="../logout_do.php"><span class="am-icon-power-off am-icon-fw"></span>退出</a></li>
       </ul>
     </li>
     <li class="am-dropdown" data-am-dropdown>

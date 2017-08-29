@@ -147,14 +147,15 @@
             </label>
           </div>
         </div>
+        <button type="reset" style="display:none;"></button>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadds-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成并继续添加
         </button>
-        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form cadd-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green cadd-form2"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -321,6 +322,29 @@ $('.cadd-form2').on('click',function(){
     }
   });
 });
+//添加商品submit,并继续
+$('.cadds-form2').on('click',function(){
+  $(this).attr('disabled',true);
+  var url="sgoods_add_do.php";
+  var data = $("#cform1").serialize();
+  $.post(url,data,function(res){
+    if(res=='0'){
+      $("#usgoodsm1 select[name='sgoods_catalog_id']").selected('destroy');
+      $("#usgoodsm1 button[type='reset']").trigger("click");
+      $("#usgoodsm1 select[name='sgoods_catalog_id']").val('0');
+      $("#usgoodsm1 select[name='sgoods_catalog_id']").selected();
+      $('.cadds-form2').attr('disabled',false);
+    }else if(res=='1'){
+      alert("缺少必填项");
+      $('.cadds-form2').attr('disabled',false);
+    }else if(res=='2'){
+      alert("商品编码不能重复");
+      $('.cadds-form2').attr('disabled',false);
+    }else{
+      alert("添加失败");
+    }
+  });
+});
 
 //修改商品show
 $('.cupdate').on('click', function(e) {
@@ -364,10 +388,10 @@ $('.cadd-form3').on('click',function(){
       window.location.reload();
     }else if(res=='1'){
       alert("缺少必填项");
-      $('.cadd-form2').attr('disabled',false);
+      $('.cadd-form3').attr('disabled',false);
     }else if(res=='2'){
       alert("商品编码不能重复");
-      $('.cadd-form2').attr('disabled',false);
+      $('.cadd-form3').attr('disabled',false);
     }else{
       alert("修改失败");
     }

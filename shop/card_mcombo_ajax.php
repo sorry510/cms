@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $arr = array();
 $strmcombo_id = api_value_get('mcombo_id');
@@ -12,4 +13,5 @@ $strsql = "SELECT a.*,b.mgoods_name FROM (select mcombo_id,mgoods_id,mcombo_good
 
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+
 echo json_encode($arr);

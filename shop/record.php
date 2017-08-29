@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'record';
 
@@ -26,6 +27,9 @@ if($strstime!=''){
 if($intstime == 0){
 	$strstime = date('Y-m-d', $now)." 00:00:00";
 	$intstime = strtotime($strstime);
+}else{
+	//最早日期为一年前
+	$intstime = $intstime < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intstime;
 }
 
 $intetime = 0;

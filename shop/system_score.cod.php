@@ -93,23 +93,27 @@
               </button>
           </div>
         </div>
-        <div class="am-form-group">
-          <div class="gspace20" style="border-bottom:1px solid #dddddd;"></div>
-        </div>
-        <div class="am-form-group" style="margin-bottom:0px;">
+        <div class="gspace10" style="border-bottom:1px solid #dddddd;"></div>
+        <div class="am-u-lg-6" style="margin-bottom:0px;">
           <label class="umodal-label am-form-label" for="">会员卡号：</label>
-          <div class="umodal-text ccard_code" style="width:200px;">&nbsp;</div>
+          <div class="umodal-text ccard_code">&nbsp;</div>
+        </div>
+        <div class="am-u-lg-6" style="margin-bottom:0px;">
           <label class="umodal-label am-form-label" for="">会员姓名：</label>
           <div class="umodal-text ccard_name">&nbsp;</div>
         </div>
-        <div class="am-form-group">
+        <div class="am-u-lg-6">
           <label class="umodal-label am-form-label" for="">手机号码：</label>
-          <div class="umodal-text ccard_phone" style="width:200px;">&nbsp;</div>
+          <div class="umodal-text ccard_phone">&nbsp;</div>
+        </div>
+        <div class="am-u-lg-6" style="margin-bottom:0px;">
           <label class="umodal-label am-form-label" for="">积分：</label>
           <div class="umodal-text ccard_yscore">&nbsp;</div>
         </div>
+        <div style="clear:both;"></div>
+        <div class="gspace15"></div>
         <div class="am-scrollable-vertical uscroll-table">
-          <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" style="width:100%;">
+          <table class="am-table am-table-bordered am-table-hover am-table-compact utable1" style="width:100%">
             <thead>
               <tr>
                 <td>礼品列表</td>
@@ -174,7 +178,6 @@
 
 $('.ccard_search').on('click' ,function(){
   var search = $('#usystem_scorem1 .csearch').val();
-  console.log(search);
   $.getJSON('card_search_ajax.php' ,{search:search} ,function(res){
     //可能会有多个，暂时只处理第一个
     // console.log(res);
@@ -186,6 +189,13 @@ $('.ccard_search').on('click' ,function(){
       $('#usystem_scorem1 .ccard_yscore').text(res.s_card_yscore);
       $('#usystem_scorem1 .ccard_yscore_now').text(res.s_card_yscore);
       $('#usystem_scorem1 .ccard_id').val(res.card_id);
+    }else{
+      $('#usystem_scorem1 .ccard_code').text(' ');
+      $('#usystem_scorem1 .ccard_name').text(' ');
+      $('#usystem_scorem1 .ccard_phone').text(' ');
+      $('#usystem_scorem1 .ccard_yscore').text(' ');
+      $('#usystem_scorem1 .ccard_yscore_now').text(' ');
+      $('#usystem_scorem1 .ccard_id').val('');
     }
   })
 })
@@ -233,9 +243,11 @@ $('.caddsubmit').on('click', function(){
   }
   // console.log(data);return false;
   $.post('system_score_add_do.php', data, function(res){
-    console.log(res);
+    // console.log(res);
     if(res == 0){
-
+      window.location.reload();
+    }else{
+      alert('积分兑换失败');
     }
   })
 

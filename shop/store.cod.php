@@ -615,7 +615,7 @@ $('.cstoreedit').on('click', function(){
         store_id:store_id
       };
   $.post(url,data,function(res){
-    console.log(res);
+    // console.log(res);
     if(res=='0'){
       window.location.reload();
     }else{
@@ -643,7 +643,7 @@ $(document).on("click",".cdel2",function(){
 $('.coffopen').on('click',function() {
   var url = "store_edit_ajax.php";
   $.getJSON(url,{store_id:$(this).attr('store_id')},function(res){
-    console.log(res);
+    // console.log(res);
     $("#uoffcanvas .cstore_time").text(res.store_time);
     $("#uoffcanvas .cstore_operator").text(res.store_operator);
     $("#uoffcanvas .cstore_memo").text(res.store_memo);
@@ -844,7 +844,7 @@ function add2(){
     type:"GET",
     dataType:"json"
   }).then(function(res){
-    console.log(res);
+    // console.log(res);
     if(res){
       if(res.goods_type=='1'){
         mgoods_id = res.mgoods_id;

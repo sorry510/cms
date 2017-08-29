@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'record';
 
@@ -20,11 +21,21 @@ $now = time();
 // $intstime = strtotime($strstime);
 $intstime = 0;
 if($strstime!=''){
-	$intstime = strtotime($strstime)==false?0:strtotime($strstime);
+	$intstime = strtotime($strstime)?strtotime($strstime):0;
 }
+
+if($intstime == 0){
+	//默认是1个月之前
+	$strstime = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
+	$intstime = strtotime($strstime);
+}else{
+	//最早日期为一年前
+	$intstime = $intstime < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intstime;
+}
+
 $intetime = 0;
 if($stretime!=''){
-	$intetime = strtotime($stretime)==false?0:strtotime($stretime);
+	$intetime = strtotime($stretime)?strtotime($stretime):0;
 }
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('card_records_list', get_card_records_list());

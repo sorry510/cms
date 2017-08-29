@@ -3,6 +3,7 @@ define('C_CNFLY', true);
 
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
+require('inc_limit.php');
 
 $strchannel = 'record';
 
@@ -20,17 +21,21 @@ $now = time();
 $intstime = 0;
 
 if($strstime!=''){
-	$intstime = strtotime($strstime)==false?0:strtotime($strstime);
+	$intstime = strtotime($strstime)?strtotime($strstime):0;
 }
+
 if($intstime == 0){
 	$strstime = date('Y-m-d', $now)." 00:00:00";
 	$intstime = strtotime($strstime);
+}else{
+	//最早日期为一年前
+	$intstime = $intstime < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intstime;
 }
 
 $intetime = 0;
 
 if($stretime!=''){
-	$intetime = strtotime($stretime)==false?0:strtotime($stretime);
+	$intetime = strtotime($stretime)?strtotime($stretime):0;
 }
 if($intetime == 0){
 	$stretime = date('Y-m-d', $now)." 23:59:59";
@@ -67,10 +72,6 @@ function get_card_records_list() {
 	if($GLOBALS['intcard_type_id'] != 0){
 		$strwhere .= " and c_card_type_id=".$GLOBALS['intcard_type_id'];
 	}
-	if($GLOBALS['intshop_id'] != 0){
-		$strwhere .= " and shop_id=".$GLOBALS['intshop_id'];
-	}
-
 	$strwhere .= " and card_record_atime>=".$GLOBALS['intstime'];
 	$strwhere .= " and card_record_atime<=".$GLOBALS['intetime'];
 	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];

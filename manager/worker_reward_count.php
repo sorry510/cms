@@ -16,6 +16,22 @@ $strto = api_value_get('to');
 $intto = api_value_int0($strto);
 $strsearch = api_value_get('search');
 
+$intfrom = 0;
+if($strfrom != ''){
+	$intfrom = strtotime($strstime)?strtotime($strstime):0;
+}
+if($intfrom == 0){
+	//默认是1个月之前
+	$strfrom = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
+	$intfrom = strtotime($strfrom);
+}else{
+	//最早日期为一年前
+	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intfrom;
+}
+$intto = 0;
+if($strto != ''){
+	$intto = strtotime($stretime)?strtotime($stretime):0;
+}
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('shop_list', get_shop_list());
@@ -60,7 +76,8 @@ function get_worker_reward_count_list() {
 		$strwhere .= " AND worker_reward_atime < ".$GLOBALS['intto'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " AND (worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or worker_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 	//$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 

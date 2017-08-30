@@ -37,9 +37,9 @@ function get_mgoods_list() {
 	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	//return $arr;
+
 	foreach($arr as $k=>$v){
-		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id desc";
+		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." and mgoods_state=1 ORDER BY mgoods_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$arr[$k]['mgoods'] = $arrmgoods;

@@ -116,7 +116,7 @@
                       </select>
                     </div>
                     <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_goods">
+                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_goods" value="1">
                         <i class="iconfont icon-search"></i>
                         查询
                       </button>
@@ -205,7 +205,7 @@
                       </select>
                     </div>
                     <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_mcombo">
+                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_mcombo" value="1">
                         <i class="iconfont icon-search"></i>
                         查询
                       </button>
@@ -346,7 +346,7 @@
                       </select>
                     </div>
                     <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_goods">
+                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_goods" value="2">
                         <i class="iconfont icon-search"></i>
                         查询
                       </button>
@@ -399,7 +399,7 @@
                       </select>
                     </div>
                     <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_mcombo">
+                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_mcombo" value="2">
                         <i class="iconfont icon-search"></i>
                         查询
                       </button>
@@ -531,8 +531,8 @@ $('.cupdate').on('click',function(){
 //edit-show总店
 $('.cupdate2').on('click',function(){
   //进入弹出框首先删除，遗留下来的数据
-  $('#uworker_rewardm3 .cprice1').val('');
-  $('#uworker_rewardm3 .cprice2').val('');
+  $('#uworker_rewardm4 .cprice1').val('');
+  $('#uworker_rewardm4 .cprice2').val('');
   $('#uworker_rewardm3 .cfill_type').selected('destroy');
   $('#uworker_rewardm3 .cguide_type').selected('destroy');
   var worker_group_id = $(this).val();
@@ -629,37 +629,80 @@ $('.csubmit').on('click',function(){
 //弹出框中的商品查询
 $('.csearch_goods').on('click',function(){
   var arr = [];
-  var goods_catalog_id = $("#uworker_rewardm2 .cgoods_catalog").val();
-  if(goods_catalog_id!='0'){
-    $("#uworker_rewardm2 .cgoods_list li").hide();
-    arr=goods_catalog_id.split("-");
-    $('#uworker_rewardm2 .cgoods_list li').each(function () {
-      if(arr[0]=='m'){
-        if($(this).attr('mgoods_catalog_id')==arr[1]){
-          $(this).show();
-        }
-      }else if(arr[0]=='s'){
-        if($(this).attr('sgoods_catalog_id')==arr[1]){
-          $(this).show();
-        }
-      }
-    });
+  var type = $(this).val();
+  if(type==1){
+    var goods_catalog_id = $("#uworker_rewardm2 .cgoods_catalog").val();
   }else{
-    $("#uworker_rewardm2 .cgoods_list li").show();
+    var goods_catalog_id = $("#uworker_rewardm4 .cgoods_catalog").val();
+  }
+  if(goods_catalog_id!='0'){
+    if(type==1){
+      $("#uworker_rewardm2 .cgoods_list li").hide();
+      arr=goods_catalog_id.split("-");
+      $('#uworker_rewardm2 .cgoods_list li').each(function () {
+        if(arr[0]=='m'){
+          if($(this).attr('mgoods_catalog_id')==arr[1]){
+            $(this).show();
+          }
+        }else if(arr[0]=='s'){
+          if($(this).attr('sgoods_catalog_id')==arr[1]){
+            $(this).show();
+          }
+        }
+      });
+    }else{
+      $("#uworker_rewardm4 .cgoods_list li").hide();
+      arr=goods_catalog_id.split("-");
+      $('#uworker_rewardm4 .cgoods_list li').each(function () {
+        if(arr[0]=='m'){
+          if($(this).attr('mgoods_catalog_id')==arr[1]){
+            $(this).show();
+          }
+        }else if(arr[0]=='s'){
+          if($(this).attr('sgoods_catalog_id')==arr[1]){
+            $(this).show();
+          }
+        }
+      });
+    }
+  }else{
+    if(type==1){
+      $("#uworker_rewardm2 .cgoods_list li").show();
+    }else{
+      $("#uworker_rewardm4 .cgoods_list li").show();
+    }
   }
 });
 //弹出框中的套餐查询
 $('.csearch_mcombo').on('click',function(){
-  var mcombo_id = $("#uworker_rewardm2 .cmcombo").val();
-  if(mcombo_id!='0'){
-    $("#uworker_rewardm2 .cmcombo_list li").hide();
-    $('#uworker_rewardm2 .cmcombo_list li').each(function () {
-        if($(this).attr('mcombo')==mcombo_id){
-          $(this).show();
-        }
-    });
+  var type = $(this).val();//1本店，2总店
+  if(type==1){
+    var mcombo_id = $("#uworker_rewardm2 .cmcombo").val();
   }else{
-    $("#uworker_rewardm2 .cmcombo_list li").show();
+    var mcombo_id = $("#uworker_rewardm4 .cmcombo").val();
+  }
+  if(mcombo_id!='0'){
+    if(type==1){
+      $("#uworker_rewardm2 .cmcombo_list li").hide();
+      $('#uworker_rewardm2 .cmcombo_list li').each(function () {
+          if($(this).attr('mcombo')==mcombo_id){
+            $(this).show();
+          }
+      });
+    }else{
+      $("#uworker_rewardm4 .cmcombo_list li").hide();
+      $('#uworker_rewardm4 .cmcombo_list li').each(function () {
+          if($(this).attr('mcombo')==mcombo_id){
+            $(this).show();
+          }
+      });
+    }
+  }else{
+    if(type==1){
+      $("#uworker_rewardm2 .cmcombo_list li").show();
+    }else{
+      $("#uworker_rewardm4 .cmcombo_list li").show();
+    }
   }
 });
 //批量商品价格

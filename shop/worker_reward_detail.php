@@ -8,17 +8,29 @@ $strchannel = 'worker';
 
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
-$strshop_id = api_value_get('shop_id');
-$intshop_id = api_value_int0($strshop_id);
 $strfrom = api_value_get('from');
-$intfrom = api_value_int0($strfrom);
 $strto = api_value_get('to');
-$intto = api_value_int0($strto);
 $strsearch = api_value_get('search');
 
 
+$intfrom = 0;
+if($strfrom != ''){
+	$intfrom = strtotime($strstime)?strtotime($strstime):0;
+}
+if($intfrom == 0){
+	//默认是1个月之前
+	$strfrom = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
+	$intfrom = strtotime($strfrom);
+}else{
+	//最早日期为一年前
+	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intfrom;
+}
+$intto = 0;
+if($strto != ''){
+	$intto = strtotime($stretime)?strtotime($stretime):0;
+}
+
 $gtemplate->fun_assign('request', get_request());
-$gtemplate->fun_assign('shop_list', get_shop_list());
 $gtemplate->fun_assign('worker_reward_detail_list', get_worker_reward_detail_list());//exit;
 $gtemplate->fun_show('worker_reward_detail');
 
@@ -28,14 +40,6 @@ function get_request(){
 	$arr['from'] = $GLOBALS['strfrom'];
 	$arr['to'] = $GLOBALS['strto'];
 	$arr['search'] = $GLOBALS['strsearch'];
-	return $arr;
-}
-
-function get_shop_list() {
-	$arr = array();
-	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." order by shop_id";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
 
@@ -50,9 +54,6 @@ function get_worker_reward_detail_list() {
 
 	$strwhere = '';
 
-	if($GLOBALS['intshop_id'] != 0){
-		$strwhere .= " AND shop_id=".$GLOBALS['intshop_id'];
-	}
 	if($GLOBALS['intfrom'] != 0){
 		$strwhere .= " AND worker_reward_atime > ".$GLOBALS['intfrom'];
 	}
@@ -60,9 +61,10 @@ function get_worker_reward_detail_list() {
 		$strwhere .= " AND worker_reward_atime < ".$GLOBALS['intto'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " AND (worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or worker_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
-	//$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 	$arr = array();
 	$strsql = "SELECT count(worker_reward_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE 1 = 1 " . $strwhere;
@@ -102,7 +104,7 @@ function get_worker_reward_detail_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT a.*, b.shop_name FROM ( SELECT worker_reward_id, shop_id, worker_reward_type, worker_reward_money, worker_reward_atime, c_worker_name, c_card_code, c_card_name, c_card_phone, c_card_record_id,c_card_record_code FROM " . $GLOBALS['gdb']->fun_table2('worker_reward') . " where 1=1 ".$strwhere." ORDER BY worker_reward_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id ";
+	$strsql = "SELECT worker_reward_id, shop_id, worker_reward_type, worker_reward_money, worker_reward_atime, c_worker_name, c_card_code, c_card_name, c_card_phone, c_card_record_id,c_card_record_code FROM " . $GLOBALS['gdb']->fun_table2('worker_reward') . " where 1=1 ".$strwhere." ORDER BY worker_reward_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arrlist as $k=>$v){

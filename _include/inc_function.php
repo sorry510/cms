@@ -117,3 +117,11 @@ function shopState(){
 	$shop_state = $arr['shop_state'];
 	return $shop_state;
 }
+// 正常的没有过期的店铺
+function shopList(){
+	$arr = array();
+	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')."where shop_state=1 and shop_edate>".time()." order by shop_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}

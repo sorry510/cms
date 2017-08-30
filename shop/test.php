@@ -5,6 +5,13 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
 
+// var_dump($_FILES['worker_photo4']);
+// echo "<pre>";
+// var_dump($_FILES['worker_photo4']);
+var_dump($_FILES);
+// echo "</pre>";
+
+
 /*echo strtotime('1970-02-20');
 echo "<br/>";
 echo mktime(0, 0, 0, 2, 20, 0);
@@ -47,3 +54,5 @@ echo $now3-$now2;*/
 // $arrmgoods = $gdb->fun_fetch_assoc($hresult);
 
 // var_dump($arrmgoods);
+
+

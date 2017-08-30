@@ -39,7 +39,7 @@ function get_mgoods_list() {
 
 function get_group_reward_list(){
 	$arr = array();
-	$strsql = "SELECT a.worker_group_id,a.worker_group_name,b.group_reward_ctime FROM ". $GLOBALS['gdb']->fun_table2('worker_group')." order by worker_group_id desc";
+	$strsql = "SELECT worker_group_id,worker_group_name FROM ". $GLOBALS['gdb']->fun_table2('worker_group')." order by worker_group_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

@@ -17,16 +17,13 @@
         <li><a href="#"><span class="am-icon-power-off am-icon-fw"></span>退出</a></li>
       </ul>
     </li>
-    <li class="am-dropdown" data-am-dropdown>
-      <a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
-        <span class="iconfont icon-dianpu1"></span> <span class="udropdown">转换为管理员</span>
+    <?php if($GLOBALS['_SESSION']['login_type']==1){?>
+    <li>
+      <a href="identify_exchange_do.php">
+        <span class="iconfont icon-dianpu1"></span><span>转换为管理员</span>
       </a>
-      <ul class="am-dropdown-content umenu1">
-        <li><a href="#"><span class="iconfont icon-question"></span> 唐人街老店</a></li>
-        <li><a href="#"><span class="iconfont icon-question"></span> 伏牛路新店</a></li>
-        <li><a href="#"><span class="iconfont icon-question"></span> 第八号当铺</a></li>
-      </ul>
     </li>
+    <?php }?>
   </ul>
   <a href="#" class="am-topbar-right uhelp">视频教程</a>
 </header>

@@ -19,12 +19,12 @@
     </li>
     <li class="am-dropdown" data-am-dropdown>
       <a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
-        <span class="iconfont icon-dianpu1"></span> <span class="udropdown">转换为管理员</span>
+        <span class="iconfont icon-dianpu1"></span> <span class="udropdown">转换为店长</span>
       </a>
       <ul class="am-dropdown-content umenu1">
-        <li><a href="#"><span class="iconfont icon-question"></span> 唐人街老店</a></li>
-        <li><a href="#"><span class="iconfont icon-question"></span> 伏牛路新店</a></li>
-        <li><a href="#"><span class="iconfont icon-question"></span> 第八号当铺</a></li>
+        <?php foreach(shopList() as $row){?>
+        <li><a href="identify_exchange_do.php?shop_id=<?php echo $row['shop_id'];?>"><span class="iconfont icon-question"></span> <?php echo $row['shop_name'] ?></a></li>
+        <?php }?>
       </ul>
     </li>
   </ul>

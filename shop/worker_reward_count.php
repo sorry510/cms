@@ -16,6 +16,22 @@ $strto = api_value_get('to');
 $intto = api_value_int0($strto);
 $strsearch = api_value_get('search');
 
+$intfrom = 0;
+if($strfrom != ''){
+	$intfrom = strtotime($strstime)?strtotime($strstime):0;
+}
+if($intfrom == 0){
+	//默认是1个月之前
+	$strfrom = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
+	$intfrom = strtotime($strfrom);
+}else{
+	//最早日期为一年前
+	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year'))?date('Y-m-d',strtotime('-1 year')):$intfrom;
+}
+$intto = 0;
+if($strto != ''){
+	$intto = strtotime($stretime)?strtotime($stretime):0;
+}
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('shop_list', get_shop_list());
@@ -60,7 +76,8 @@ function get_worker_reward_count_list() {
 		$strwhere .= " AND worker_reward_atime < ".$GLOBALS['intto'];
 	}
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " AND (worker_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or worker_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 	//$strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
@@ -105,10 +122,14 @@ function get_worker_reward_count_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	// 主表分类分组查询提成金额
-	$strsql1 = "SELECT SUM(case when worker_reward_type=1 then worker_reward_money else 0 end)as sum_kk,SUM(case when worker_reward_type=2 then worker_reward_money else 0 end)as sum_cz,SUM(case when worker_reward_type=3 then worker_reward_money else 0 end)as sum_xf,SUM(case when worker_reward_type=4 then worker_reward_money else 0 end)as sum_dg,SUM(case when worker_reward_type=1 then 1 else 0 end)as num_kk,SUM(case when worker_reward_type=2 then 1 else 0 end)as num_cz,SUM(case when worker_reward_type=3 then 1 else 0 end)as num_xf,SUM(case when worker_reward_type=4 then 1 else 0 end)as num_dg,shop_id,worker_id,c_worker_name,c_worker_group_name,c_card_record_id,worker_reward_type,c_goods_name FROM ".$GLOBALS['gdb']->fun_table2('worker_reward')." where 1=1 ".$strwhere." group by worker_id ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	//主表分类分组查询提成金额
+	$strsql1 = "SELECT SUM(case when worker_reward_type=1 then worker_reward_money else 0 end)as tc_kk,SUM(case when worker_reward_type=2 then worker_reward_money else 0 end)as tc_cz,SUM(case when worker_reward_type=3&&c_goods_type=1 then worker_reward_money else 0 end)as tc_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then worker_reward_money else 0 end)as tc_sw,SUM(case when worker_reward_type=4 then worker_reward_money else 0 end)as tc_dg,SUM(case when worker_reward_type=1 then 1 else 0 end)as num_kk,SUM(case when worker_reward_type=3&&c_goods_type=1 then 1 else 0 end)as num_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then 1 else 0 end)as num_sw,SUM(case when worker_reward_type=4 then 1 else 0 end)as num_dg,SUM(case when worker_reward_type=2 then c_card_record_smoney else 0 end)as je_cz,SUM(case when worker_reward_type=3&&c_goods_type=1 then c_goods_price*c_goods_count else 0 end)as je_fw,SUM(case when worker_reward_type=3&&c_goods_type=2 then c_goods_price*c_goods_count else 0 end)as je_sw,SUM(case when worker_reward_type=4 then c_goods_price*c_goods_count else 0 end)as je_dg,shop_id,worker_id,c_worker_name,c_worker_group_name,c_card_record_id,worker_reward_type,c_goods_name FROM ".$GLOBALS['gdb']->fun_table2('worker_reward')." where 1=1 ".$strwhere." group by worker_id";
+        // ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
 	// echo $strsql1;exit;
-	$strsql = "SELECT a.*, b.shop_name,c.worker_wage FROM (".$strsql1.") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker') . " AS c ON a.worker_id = c.worker_id";
+	//合并2个表为一表
+	$strsql2 = "SELECT a.*,c.worker_wage FROM (".$strsql1.") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker') . " AS c ON a.worker_id = c.worker_id";
+	//求实际工资，并排序
+	$strsql ="select SUM(d.tc_kk+d.tc_cz+d.tc_fw+d.tc_sw+d.tc_dg+d.worker_wage)as sz_wage,d.* FROM (".$strsql2.") as d group by d.worker_id order by sz_wage DESC LIMIT ". $intoffset . ", " . $intpagesize;
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);

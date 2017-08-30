@@ -32,7 +32,7 @@
       <div class="am-form-group">    
         <label for="doc-ipt-3" class="am-form-label">至：</label>
         <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="to" value="<?php echo $this->_data['request']['from'] ?>">
+          <input type="text" class="am-form-field" name="to" value="<?php echo $this->_data['request']['to'];?>">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>

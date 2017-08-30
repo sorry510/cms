@@ -11,15 +11,6 @@
   <div class="utools">
     <form class="am-form-inline uform2" id="form1">
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">分店：</label>
-        <select class="uselect uselect-auto" data-am-selected name="shop_id">
-          <option value="0">全部</option>
-          <?php foreach($this->_data['shop_list'] as $row) { ?>
-          <option <?php if($row['shop_id'] == $this->_data['request']['shop_id']){echo "selected";} ?> value="<?php echo $row['shop_id'] ?>"><?php echo $row['shop_name'] ?></option>
-          <?php } ?>
-        </select>
-      </div>
-      <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">日期：</label>
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
           <input type="text" class="am-form-field" name="from" value="<?php echo $this->_data['request']['from'] ?>">
@@ -32,7 +23,7 @@
       <div class="am-form-group">    
         <label for="doc-ipt-3" class="am-form-label">至：</label>
         <div class="am-input-group am-datepicker-date udatepicker udatepicker140" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field" name="to" value="<?php echo $this->_data['request']['from'] ?>">
+          <input type="text" class="am-form-field" name="to" value="<?php echo $this->_data['request']['to'] ?>">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
@@ -40,7 +31,7 @@
       </div>
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">员工：</label>
-        <input type="text" class="am-form-field uinput uinput-220" name="search" value="<?php echo $this->_data['request']['search'] ?>">
+        <input type="text" class="am-form-field uinput uinput-220" name="search" value="<?php echo $this->_data['request']['search'] ?>" placeholder="员工/编号">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search csearch_form1">
@@ -62,7 +53,6 @@
         <td>手机号</td>
         <td>内容</td>
         <td>提成</td>
-        <td>分店</td>
       </tr>
     </thead>
     <tbody>
@@ -77,7 +67,6 @@
         <td><?php echo $row['c_card_phone']; ?></td>
         <td>办理vip卡</td>
         <td  class="gtext-orange"><?php echo $row['worker_reward_money']; ?>元</td>
-        <td><?php echo $row['shop_name']; ?></td>
       </tr>
       <?php } ?>
     </tbody>

@@ -18,7 +18,7 @@ if($sqladdress == 'worker_photo_file'){
 }else if($sqladdress == 'worker_identity_file'){
 	$photo_name = $GLOBALS['_SESSION']['login_sid'].'-'.$intworker_id.'-2';
 }else{
-	$photo_name = '0-'.$worker_id.'-2';
+	$photo_name = $GLOBALS['_SESSION']['login_sid'].'-'.$intworker_id.'-3';
 }
 // echo $photo_name;
 $intreturn = 0;

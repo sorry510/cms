@@ -41,7 +41,7 @@
     </button>
   </div>
   <div class="gspace15"></div>
-  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
+  <table class="am-table am-table-bordered am-table-hover am-table-compact utable1 utable1-fixed">
     <thead>
       <tr>
         <td>时间</td>
@@ -49,8 +49,8 @@
         <td>金额</td>
         <td>经办人</td>
         <td>状态</td>
-        <td>备注</td>
-        <td style="width: 18%;">操作</td>
+        <td width="30%">备注</td>
+        <td width="18%">操作</td>
       </tr>
     </thead>
     <tbody>
@@ -61,7 +61,7 @@
         <td><?php echo $row['store_money'];?></td>
         <td><?php echo $row['store_operator'];?></td>
         <td class="gtext-orange"><?php echo $row['store_state']=='1'?'未确认':'已确认';?></td>
-        <td><?php echo $row['store_memo'];?></td>
+        <td class="gtext-overflow" title="<?php echo $row['store_memo'];?>"><?php echo $row['store_memo'];?></td>
         <td>
           <?php if($row['store_state']=='1'){?>
           <button type="button" class="am-btn ubtn-table ubtn-green cedit" value="<?php echo $row['store_id'];?>" data-am-modal="{target: '#ustorem3'}">

@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-require('inc_limit.php');
+//require('inc_limit.php');
 
 $strdtime = api_value_post('dtime');
 $strdtime2 = $gdb->fun_escape($strdtime);
@@ -37,15 +37,15 @@ $intdtime = 0;
 if($intreturn == 0) {
 	if(!empty($strdtime2)) {
 		$int = strtotime($strdtime2);
-		if($int > 0) {
+		if($int > $time) {
 			$intdtime = $int;
-		}
-	}else{$intreturn = 2;}
+		}else{$intreturn = 2;}
+	}else{$intreturn = 1;}
 }
 
 if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('reserve') . " (card_id, shop_id, reserve_type,reserve_name,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_memo) VALUES ("
-	.$intcard_id . ", " . $intshop_id . ", 1 , '" . $sqlname ."', '" . $sqlphone ."', ". $intcount .", 1 , ".$time.",".$intdtime.",'".$sqlmemo."')";
+	$strsql = "INSERT INTO " . $gdb->fun_table2('reserve') . " (card_id, shop_id, reserve_type,reserve_name,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_here,reserve_memo) VALUES ("
+	.$intcard_id . ", " . $intshop_id . ", 1 , '" . $sqlname ."', '" . $sqlphone ."', ". $intcount .", 1 , ".$time.",".$intdtime.", 2 ,'".$sqlmemo."')";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;
@@ -64,6 +64,16 @@ if($intreturn == 0) {
 	}
 }
 
+$ttime = strtotime(date('Y-m-d',$time));
+if ($intreturn == 0) {
+	if ($intdtime<($ttime+86400) && $intdtime>=$ttime) {
+		$intreturn = 201;
+	}elseif ($intdtime <($ttime+172800) && $intdtime >= ($ttime+86400)) {
+		$intreturn = 202;
+	}else{
+		$intreturn = 203;
+	}
+}
 echo $intreturn;
 
 ?>

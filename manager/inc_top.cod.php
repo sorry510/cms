@@ -9,7 +9,7 @@
     </li>
     <li class="am-dropdown" data-am-dropdown>
       <a class="am-dropdown-toggle" href="javascript:;" data-am-dropdown-toggle>
-        <span class="iconfont icon-wode"></span> <span class="udropdown">收银员</span>
+        <span class="iconfont icon-wode"></span> <span class="udropdown"><?php echo $GLOBALS['_SESSION']['login_account']?></span>
       </a>
       <ul class="am-dropdown-content umenu1">
         <li><a href="#"><span class="am-icon-user am-icon-fw"></span>资料</a></li>

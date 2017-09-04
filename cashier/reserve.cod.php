@@ -59,6 +59,7 @@
         <td>预约方式</td>
         <td>预约添加时间</td>
         <td>状态</td>
+        <td>备注</td>
         <td style="width:16%">操作</td>
       </tr>
     </thead>
@@ -74,6 +75,7 @@
         <td><?php echo $row['type']; ?></td>
         <td><?php echo date('Y-m-d',$row['reserve_atime']); ?></td>
         <td><?php echo $row['state'] ;?></td>
+        <td><?php echo $row['reserve_memo'] ;?></td>
         <td>
           <button class="am-btn ubtn-table ubtn-green chere" value="<?php echo $row['reserve_id']; ?>" <?php if ($row['reserve_here']) {
             echo "style='display:none;'";
@@ -431,62 +433,7 @@ function page_do() {
     window.location = "reserve.php?<?php echo api_value_query($this->_data['request']); ?>&page=" + intpage;
   }
 }
-//添加操作JS
-/*$('.csubmitadd').on('click',function(){
-    $('.csubmitadd').attr("disabled",true);
-    var url="reserve_add_do.php";
-    var data = $("#cinfoadd").serialize();
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='1'){
-        alert('请完善数据');
-        $('.csubmitadd').attr("disabled",false);
-      }else{
-        alert('添加失败');
-        $('.csubmitadd').attr("disabled",false);
-        console.log(res);
-      }
-    });
-  });*/
 
-//修改AJAX JS
-/*$('.cedit').on('click',function(){
-  $("#ureservem2 input[name='mgoods_id[]']").uCheck('uncheck')
-    var url="reserve_edit_ajax.php";
-    var data = $(this).val();
-    console.log(data);
-    $.getJSON(url,{id:data},function(res){
-      console.log(res);
-      $("#ureservem2 input[name='id']").val(res.reserve_id);
-      $("#ureservem2 input[name='name']").val(res.reserve_name);
-      $("#ureservem2 input[name='dtime']").val(res.reserve_dtime);
-      $("#ureservem2 input[name='phone']").val(res.reserve_phone);
-      $("#ureservem2 input[name='count']").val(res.reserve_phone);
-    });
-  });*/
-//修改操作JS
-/*$('.csubmitedit').on('click',function(){
-    $('.csubmitedit').attr("disabled",true);
-    var url="reserve_edit_do.php";
-    var data = $(".cinfoedit").serialize();
-    console.log(data);
-    $.post(url,data,function(res){
-      if(res=='0'){
-        window.location.reload();
-      }else if(res=='100'){
-        alert('客人已到店');
-        $('.csubmitedit').attr("disabled",false);
-      }else if(res=='101'){
-        alert('预约已过期');
-        $('.csubmitedit').attr("disabled",false);
-      }else{
-        alert('修改失败');
-        $('.csubmitedit').attr("disabled",false);
-        console.log(res);
-      }
-    });
-  });*/
 //取消恢复预约操作JS
 $('.cstop').on('click',function(){
     var url="reserve_cancel_do.php";
@@ -559,6 +506,8 @@ $('.caddsearch').on('click',function(){
       }else{
         $('.caddtext').text(res.card_code);
          $("#ureservem1 input[name='card_id']").val(res.card_id);
+         $("#ureservem1 input[name='name']").val(res.card_name);
+         $("#ureservem1 input[name='phone']").val(res.card_phone);
       };
     });
     setTimeout("$('.caddsearch').attr('disabled',false)",1000);
@@ -575,6 +524,8 @@ $('.ceditsearch').on('click',function(){
       }else{
         $('.cedittext').text(res.card_code);
          $("#ureservem2 input[name='card_id']").val(res.card_id);
+         $("#ureservem2 input[name='name']").val(res.card_name);
+         $("#ureservem2 input[name='phone']").val(res.card_phone);
       };
     });
     setTimeout("$('.ceditsearch').attr('disabled',false)",1000);
@@ -639,6 +590,7 @@ $('.creserveadd').on('click', function(){
 });
 //修改打开
 $('.cedit').on('click', function(){
+  $("#ureservem2 input[name='search']").val('');
   $("#ureservem4 .uright .uc li").remove();/*删除之前可能存在的套餐商品*/
   var url="reserve_edit_ajax.php";
   var data = $(this).val();

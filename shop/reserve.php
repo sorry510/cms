@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 //define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-require('inc_limit.php');
+//require('inc_limit.php');
 
 $strchannel = 'appoint';
 
@@ -117,7 +117,7 @@ function get_reserve_list() {
 	
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = 'SELECT a.reserve_id,a.card_id,a.reserve_name,a.reserve_phone,a.reserve_count,a.reserve_state,a.reserve_atime,a.reserve_dtime,a.reserve_here,a.reserve_type,b.card_code FROM (SELECT reserve_id,card_id,reserve_name,reserve_here,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_type FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' WHERE 1 = 1 ' . $strwhere .' ORDER BY reserve_dtime LIMIT ' . $intoffset . ', ' . $intpagesize . ') as a LEFT JOIN (SELECT card_code,card_id FROM ' . $GLOBALS['gdb']->fun_table2('card') .' WHERE card_state =1 AND card_edate >'. time() .' ) as b on a.card_id = b.card_id WHERE 1=1 ' . $strwhere2;
+	$strsql = 'SELECT a.reserve_id,a.card_id,a.reserve_name,a.reserve_phone,a.reserve_count,a.reserve_state,a.reserve_atime,a.reserve_dtime,a.reserve_here,a.reserve_type,a.reserve_memo,b.card_code FROM (SELECT reserve_id,card_id,reserve_name,reserve_here,reserve_phone,reserve_count,reserve_state,reserve_atime,reserve_dtime,reserve_type,reserve_memo FROM ' . $GLOBALS['gdb']->fun_table2('reserve') . ' WHERE 1 = 1 ' . $strwhere .' ORDER BY reserve_dtime LIMIT ' . $intoffset . ', ' . $intpagesize . ') as a LEFT JOIN (SELECT card_code,card_id FROM ' . $GLOBALS['gdb']->fun_table2('card') .' WHERE card_state =1 AND card_edate >'. time() .' ) as b on a.card_id = b.card_id WHERE 1=1 ' . $strwhere2;
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -157,7 +157,7 @@ function get_reserve_list() {
 		foreach ($arr2 as $key2 => $row2) {
 			array_push($mgoods, $row2['c_mgoods_name']);
 		}
-		$arr[$key]['mgoods'] = implode(',', $mgoods);
+		$arr[$key]['mgoods'] = implode('，', $mgoods);
 	}
 
 	$arrpackage['allcount'] = $intallcount;

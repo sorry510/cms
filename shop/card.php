@@ -134,7 +134,7 @@ function get_card_type_list(){
 }
 function get_worker_list(){
 	$arr = array();
-	$strsql = "SELECT worker_id,worker_name FROM ".$GLOBALS['gdb']->fun_table2('worker'). "where shop_id =".$GLOBALS['_SESSION']['login_sid']." order by worker_name asc";
+	$strsql = "SELECT worker_id,worker_name FROM ".$GLOBALS['gdb']->fun_table2('worker'). " where shop_id =".$GLOBALS['_SESSION']['login_sid']." order by worker_name asc";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

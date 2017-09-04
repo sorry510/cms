@@ -943,7 +943,7 @@ $(function() {
     });
     //card新增提交信息
     $('.ccardaddsubmit').on('click',function(){
-      $(this).attr('disabled',true);
+      // $(this).attr('disabled',true);
       var count=0;
       var url="card_add_do.php";
       var data = $("#ccardinfoadd").serialize();
@@ -952,7 +952,7 @@ $(function() {
         data:data,
         type:"POST",
       }).then(function(res){
-        // console.log(res);
+        console.log(res);
         if(res=='error'){
           $('#ualert .ctext').html("<span class='gtext-orange am-text-large'>必须填写姓名和手机号码</span>");
           $('#ualert').modal('open');
@@ -984,10 +984,10 @@ $(function() {
               }*/
             }
           });
-          setInterval(function(){
-            if(count===1)
-              window.location.href='card.php';
-          }, 200);
+          // setInterval(function(){
+          //   if(count===1)
+          //     window.location.href='card.php';
+          // }, 200);
         }
       });
     });

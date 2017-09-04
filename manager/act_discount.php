@@ -28,7 +28,6 @@ $gtemplate->fun_show('act_discount');
 
 function get_request(){
 	$arr = array();
-/*	$arr['client'] = $GLOBALS['strclient'];*/
 	$arr['act_name'] = $GLOBALS['stract_name'];
 	$arr['from'] = $GLOBALS['strfrom'];
 	$arr['to'] = $GLOBALS['strto'];

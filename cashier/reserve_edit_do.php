@@ -87,5 +87,16 @@ if($intreturn == 0) {
 	}
 }
 
+$ttime = strtotime(date('Y-m-d',$time));
+if ($intreturn == 0) {
+	if ($intdtime<($ttime+86400) && $intdtime>=$ttime) {
+		$intreturn = 201;
+	}elseif ($intdtime <($ttime+172800) && $intdtime >= ($ttime+86400)) {
+		$intreturn = 202;
+	}else{
+		$intreturn = 203;
+	}
+}
+
 echo $intreturn;
 ?>

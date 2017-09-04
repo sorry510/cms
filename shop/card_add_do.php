@@ -52,16 +52,50 @@ if($strcard_name=='' || $strcard_phone== ''){
 }
 
 
-if($strreturn == 0){
-	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone,card_carcode,card_birthday_date, card_birthday_month,card_birthday_day, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo, worker_id, card_state,card_ltime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",'" . $gdb->fun_escape($strcard_name) . "'," .$intcard_sex. ", '" . $gdb->fun_escape($strcard_phone) . "','".$gdb->fun_escape($strcard_carcode)."'," . $intcard_birthday_date . ", " . $intcard_birthday_month . ", ".$intcard_birthday_day.", ".$intcard_passsword_state.", '".$gdb->fun_escape($strcard_password)."','".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_ikey)."', ".$intnow.",".$intcard_edate.", '".$gdb->fun_escape($strcard_identity)."','".$gdb->fun_escape($strcard_memo)."',".$intcard_worker_id.",1,".$intnow.")";
+if($strreturn == ''){
+	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone,card_carcode,card_birthday_date, card_birthday_month,card_birthday_day, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo, worker_id, card_state,card_ltime) VALUES (".$GLOBALS['_SESSION']['login_sid'].",'" . $gdb->fun_escape($strcard_name) . "'," .$intcard_sex. ", '" . $gdb->fun_escape($strcard_phone) . "','".$gdb->fun_escape($strcard_carcode)."'," . $intcard_birthday_date . ", " . $intcard_birthday_month . ", ".$intcard_birthday_day.", ".$intcard_passsword_state.", '".$gdb->fun_escape($strcard_password)."','".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_ikey)."', ".$intnow.",".$intcard_edate.", '.".$gdb->fun_escape($strcard_identity)."','".$gdb->fun_escape($strcard_memo)."',".$intcard_worker_id.",1,".$intnow.")";
 	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
-	if($hresult) {
+	if($hresult){
 		$card_id = mysql_insert_id();
 	}else{
 		$strreturn = 'error2';
 	}
 }
+// 开卡提成
+if($strreturn == '' && $intcard_worker_id != 0){
+	$strsql = "SELECT a.*,b.worker_group_name FROM (SELECT worker_id,worker_group_id,worker_name FROM " . $gdb->fun_table2('worker') . " where worker_id=" . $intcard_worker_id .") as a left join " . $gdb->fun_table2('worker_group') . " as b on a.worker_group_id = b.worker_group_id";
+	$hresult = $gdb->fun_query($strsql);
+	$arr = $gdb->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		$intcard_worker_id = $arr['worker_id'];
+		$intworker_group_id = $arr['worker_group_id'];
+		$strworker_name = $arr['worker_name'];
+		$strworker_group_name = $arr['worker_group_name'];
+		$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
+		$hresult = $gdb->fun_query($strsql);
+		$arr = $gdb->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$decgroup_reward_create = $arr['group_reward_create'];
+		}else{
+			$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=0";
+			$hresult = $gdb->fun_query($strsql);
+			$arr = $gdb->fun_fetch_assoc($hresult);
+			if(!empty($arr)){
+				$decgroup_reward_create = $arr['group_reward_create'];
+			}else{
+				$decgroup_reward_create = 0;
+			}
+		}
+		// echo $decgroup_reward_create;
+		if($decgroup_reward_create != 0){
+			$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone) VALUES (".$intcard_worker_id.",".$GLOBALS['_SESSION']['login_sid'].",1,".$decgroup_reward_create.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$card_id.",'".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_name)."','".$gdb->fun_escape($strcard_phone)."')";
+			// echo $strsql;
+			$gdb->fun_do($strsql);
+		}
+	}
+}
+
 if($strreturn != ''){
 	echo $strreturn;
 }else{

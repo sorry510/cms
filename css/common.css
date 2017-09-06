@@ -7,7 +7,8 @@
 #ubody .gspace25 {height: 25px;}
 #ubody .gspace30 {height:30px;}
 #ubody .gspace50 {height:50px;}
-#ubody .gtext-orange {color:#FF4200;}
+#ubody .gtext-orange {color:#FF4200;}/*字体变红用的颜色，通常用于警告和醒目提醒*/
+#ubody .gtext-yellow {color:#FDAF11;}
 #ubody .gtext-green {color:#2AA672;}
 #ubody .gtext-blue {color:#3D76C7;}
 #ubody .gtext-overflow {overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}

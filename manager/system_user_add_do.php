@@ -26,6 +26,7 @@ if($inttype==1){
 $intreturn = 0;
 $atime = time();
 
+// 判断是否超过最大用户数量限制
 if($sqlpassword != $sqlpassword2){
   $intreturn = 1;
 }

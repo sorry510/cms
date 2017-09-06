@@ -29,11 +29,12 @@
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'wechat') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-weixin"></span> 微信</a>
     <ul class="am-dropdown-content umenu2 umenu2-five">
-      <li><a href="wechat_publicnumber.php">1. 公众号设置</a></li>
-      <li><a href="#">2. 微店设置</a></li>
+      <li><a href="wechat_config.php">1. 公众号设置</a></li>
+      <li><a href="wechat_shop_config.php">2. 微店设置</a></li>
       <li><a href="wechat_redpacket.php">3. 微信红包活动</a></li>
       <li><a href="wechat_redpacket_count.php">4. 微信红包发放统计</a></li>
       <li><a href="wechat_concern_coupon.php">5. 关注优惠券设置</a></li>
+      <li><a href="wechat_shop_config.php">6. 微商城</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'marketing') {echo 'uhighlight';} ?>" data-am-dropdown>
@@ -53,8 +54,8 @@
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-setup"></span> 系统</a>
     <ul class="am-dropdown-content umenu2 umenu2-seven">
       <li><a href="system_company.php">1. 企业信息</a></li>
-      <li><a href="#">2. 参数设置</a></li>
-      <li><a href="#">3. 支付设置</a></li>
+      <li><a href="system_base_config.php">2. 参数设置</a></li>
+      <li><a href="system_pay_config.php">3. 支付设置</a></li>
       <li><a href="system_shop.php">4. 分店管理</a></li>
       <li><a href="system_user.php">5. 操作员管理</a></li>
       <li><a href="system_card_type.php">6. 会员卡分类</a></li>

@@ -189,17 +189,20 @@
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
-<!-- <script src="../js/PCASClass.js"></script> -->
 <script src="../js/ajaxfileupload.js"></script>
 <script type="text/javascript">
-// new PCAS("province1","city1");
-
 $(function(){
-
+  // var province = $('.cprovince').val();
   getCity();
-  
   $('.cprovince').on('change', getCity);
-  // $('.cedit').on('click', getCity);
+
+  $('#usystem_companym2').on('close.modal.amui', function(){
+    // $('.cprovince').selected('destroy');
+    // $('.cprovince').val(province);
+    // $('.cprovince').selected();
+    // getCity();
+    window.location.reload();
+  });
   $('.ccommit').on('click', function(){
     $(this).attr('disabled',true);
     var company_id = $('.ccompany_id').val();

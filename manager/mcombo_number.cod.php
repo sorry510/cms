@@ -725,9 +725,11 @@ $('.cadd-mcombo').on('click',function(){
       window.location.reload();
     }else if(res=='1'){
       alert('套餐价格和名称不能为空');
+    }else if(res=='2'){
+      alert('套餐编码不能重复');
+      //console.log(res);
     }else{
       alert('添加套餐失败');
-      //console.log(res);
     }
   });
 });

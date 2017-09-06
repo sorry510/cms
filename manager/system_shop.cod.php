@@ -27,7 +27,7 @@
         <td>地址</td>
         <td>地图位置</td>
         <td>最大用户数</td>
-        <td>到期时间</td>
+        <td>到期日期</td>
         <td style="width: 8%;">操作</td>
       </tr>
     </thead>

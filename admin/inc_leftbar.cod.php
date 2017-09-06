@@ -54,8 +54,8 @@
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-setup"></span> 系统</a>
     <ul class="am-dropdown-content umenu2 umenu2-seven">
       <li><a href="system_baseinfo.php">1. 企业信息</a></li>
-      <li><a href="#">2. 参数设置</a></li>
-      <li><a href="#">3. 支付设置</a></li>
+      <li><a href="system_base_config.php">2. 参数设置</a></li>
+      <li><a href="system_pay_config.php">3. 支付设置</a></li>
       <li><a href="system_shopmanage.php">4. 分店管理</a></li>
       <li><a href="system_operator.php">5. 操作员管理</a></li>
       <li><a href="system_card.php">6. 会员卡分类</a></li>

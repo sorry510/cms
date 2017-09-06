@@ -1,5 +1,5 @@
 <ul id="uleftbar" class="am-nav">
-  <li class="<?php if($GLOBALS['strchannel'] == 'money') {echo 'uhighlight';} ?>"><a href="money.php"><span class="iconfont icon-wsmp-payuser"></span> 消费</a></li>
+  <li class="<?php if($GLOBALS['strchannel'] == 'workbench') {echo 'uhighlight';} ?>"><a href="workbench.php"><span class="iconfont icon-wsmp-payuser"></span> 消费</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'card') {echo 'uhighlight';} ?>"><a href="card.php"><span class="iconfont icon-wsmp-payuser"></span> 会员</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'e-record') {echo 'uhighlight';} ?>"><a href="e-record.php"><span class="iconfont icon-wsmp-payuser"></span> 档案</a></li>
   <li class="<?php if($GLOBALS['strchannel'] == 'reserve') {echo 'uhighlight';} ?>"><a href="reserve.php"><span class="iconfont icon-clock"></span> 预约</a></li>
@@ -24,14 +24,6 @@
       <li><a href="worker_reward_count.php">5. 员工提成统计</a></li>
     </ul>
   </li>
-  <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'wechat') {echo 'uhighlight';} ?>" data-am-dropdown>
-    <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-weixin"></span> 微信</a>
-    <ul class="am-dropdown-content umenu2 umenu2-three">
-      <li><a href="#">1. 公众号设置</a></li>
-      <li><a href="#">2. 微店设置</a></li>
-      <li><a href="wechat_redpacket.php">3. 微信红包设置</a></li>
-    </ul>
-  </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'bill') {echo 'uhighlight';} ?>" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-jifen-xianxing"></span> 收支</a>
     <ul class="am-dropdown-content umenu2 umenu2-two">
       <li><a href="bill_manage.php">1. 收支管理</a></li>
@@ -53,7 +45,7 @@
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'system') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-setup"></span> 系统</a>
     <ul class="am-dropdown-content umenu2 umenu2-five">
-      <li><a href="#">1. 参数设置</a></li>
+      <li><a href="system_config.php">1. 参数设置</a></li>
       <li><a href="system_user.php">2. 操作员管理</a></li>
       <li><a href="system_card_type.php">3. 会员卡分类</a></li>
       <li><a href="system_score.php">4. 积分换礼</a></li>

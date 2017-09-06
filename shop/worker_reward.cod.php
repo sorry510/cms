@@ -61,6 +61,7 @@
           <div class="umodal-short">
             <input class="uinput uinput-max creward_fill" type="text"/>
           </div>
+          <div class="umodal-text">&nbsp;<span class="cfill_type_words">%</span></div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label cdgtc" for="">导购提成：</label>
@@ -73,6 +74,7 @@
           <div class="umodal-short">
             <input class="uinput uinput-max creward_guide" type="text"/>
           </div>
+          <div class="umodal-text">&nbsp;<span class="cguide_type_words">%</span></div>
         </div>
         <input class="cworker_group_id" type="hidden">
       </form>
@@ -294,6 +296,7 @@
           <div class="umodal-short">
             <input class="uinput uinput-max creward_fill" type="text" disabled/>
           </div>
+          <div class="umodal-text">&nbsp;<span class="cfill_type_words">%</span></div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label cdgtc" for="">导购提成：</label>
@@ -306,6 +309,7 @@
           <div class="umodal-short">
             <input class="uinput uinput-max creward_guide" type="text" disabled/>
           </div>
+          <div class="umodal-text">&nbsp;<span class="cguide_type_words">%</span></div>
         </div>
         <input class="cworker_group_id" type="hidden">
       </form>
@@ -448,25 +452,41 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-$(function(){
-  $('.cmodalopen1').on('click', function(e) {
-    $('#uworker_rewardm2').modal('close');
-    $('#uworker_rewardm1').modal('open');
-    $('#uworker_rewardm1 input').eq(0).focus();
-  });
-  $('.cmodalopen2').on('click', function(e) {
-    $('#uworker_rewardm1').modal('close');
-    $('#uworker_rewardm2').modal('open');
-    $('#uworker_rewardm2 input').eq(0).focus();
-  });
-  $('.cmodalopen3').on('click', function(e) {
-    $('#uworker_rewardm4').modal('close');
-    $('#uworker_rewardm3').modal('open');
-  });
-  $('.cmodalopen4').on('click', function(e) {
-    $('#uworker_rewardm3').modal('close');
-    $('#uworker_rewardm4').modal('open');
-  });
+
+$('.cmodalopen1').on('click', function(e) {
+  $('#uworker_rewardm2').modal('close');
+  $('#uworker_rewardm1').modal('open');
+  $('#uworker_rewardm1 input').eq(0).focus();
+});
+$('.cmodalopen2').on('click', function(e) {
+  $('#uworker_rewardm1').modal('close');
+  $('#uworker_rewardm2').modal('open');
+  $('#uworker_rewardm2 input').eq(0).focus();
+});
+$('.cmodalopen3').on('click', function(e) {
+  $('#uworker_rewardm4').modal('close');
+  $('#uworker_rewardm3').modal('open');
+});
+$('.cmodalopen4').on('click', function(e) {
+  $('#uworker_rewardm3').modal('close');
+  $('#uworker_rewardm4').modal('open');
+});
+
+
+$('#uworker_rewardm1 .cguide_type').on('change', function() {
+  if($(this).val()==1){
+    $('.cguide_type_words').text('%');
+  }else{
+    $('.cguide_type_words').text('元');
+  }
+})
+
+$('#uworker_rewardm1 .cfill_type').on('change', function() {
+  if($(this).val()==1){
+    $('.cfill_type_words').text('%');
+  }else{
+    $('.cfill_type_words').text('元');
+  }
 })
 
 //edit-show本店
@@ -483,10 +503,12 @@ $('.cupdate').on('click',function(){
     if(res){
       $('#uworker_rewardm1 .creward_create').val(res.group_reward_create);
       if(res.group_reward_fill != 0){
+        $('.cfill_type_words').text('元');
         $('#uworker_rewardm1 .cfill_type').val(2);
         $('#uworker_rewardm1 .creward_fill').val(res.group_reward_fill);
       }
       if(res.group_reward_pfill != 0){
+        $('.cfill_type_words').text('%');
         $('#uworker_rewardm1 .cfill_type').val(1);
         $('#uworker_rewardm1 .creward_fill').val(res.group_reward_pfill);
       }
@@ -495,10 +517,12 @@ $('.cupdate').on('click',function(){
         $('#uworker_rewardm1 .creward_fill').val(0);
       }
       if(res.group_reward_guide != 0){
+        $('.cguide_type_words').text('元');
         $('#uworker_rewardm1 .cguide_type').val(2);
         $('#uworker_rewardm1 .creward_guide').val(res.group_reward_guide);
       }
       if(res.group_reward_pguide != 0){
+        $('.cguide_type_words').text('%');
         $('#uworker_rewardm1 .cguide_type').val(1);
         $('#uworker_rewardm1 .creward_guide').val(res.group_reward_pguide);
       }
@@ -542,10 +566,12 @@ $('.cupdate2').on('click',function(){
     if(res){
       $('#uworker_rewardm3 .creward_create').val(res.group_reward_create);
       if(res.group_reward_fill != 0){
+        $('.cfill_type_words').text('元');
         $('#uworker_rewardm3 .cfill_type').val(2);
         $('#uworker_rewardm3 .creward_fill').val(res.group_reward_fill);
       }
       if(res.group_reward_pfill != 0){
+        $('.cfill_type_words').text('%');
         $('#uworker_rewardm3 .cfill_type').val(1);
         $('#uworker_rewardm3 .creward_fill').val(res.group_reward_pfill);
       }
@@ -554,10 +580,12 @@ $('.cupdate2').on('click',function(){
         $('#uworker_rewardm3 .creward_fill').val(0);
       }
       if(res.group_reward_guide != 0){
+        $('.cguide_type_words').text('元');
         $('#uworker_rewardm3 .cguide_type').val(2);
         $('#uworker_rewardm3 .creward_guide').val(res.group_reward_guide);
       }
       if(res.group_reward_pguide != 0){
+        $('.cguide_type_words').text('%');
         $('#uworker_rewardm3 .cguide_type').val(1);
         $('#uworker_rewardm3 .creward_guide').val(res.group_reward_pguide);
       }

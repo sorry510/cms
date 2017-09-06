@@ -51,5 +51,17 @@
 #ubody .umodal .umain1 .am-selected-list{max-height:160px;}
 /*员工管理页面*/
 #uworkeroff1 .uphoto{width:200px; height:300px;}
+/*系统设置*/
+#ubody #usystem_base_config .ua{margin-bottom:5px;}
+#ubody #usystem_base_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
+#ubody #usystem_base_config .ub{float:left; padding:0px;}
+/*微信参数设置*/
+#ubody #uwechat_config .ua{margin-bottom:5px;}
+#ubody #uwechat_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
+#ubody #uwechat_config .ub{float:left; padding:0px;}
+/*微商城参数设置*/
+#ubody #uwechat_shop_config .ua{margin-bottom:5px;}
+#ubody #uwechat_shop_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
+#ubody #uwechat_shop_config .ub{float:left; padding:0px;}
 
 

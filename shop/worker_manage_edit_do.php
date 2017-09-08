@@ -49,7 +49,6 @@ $intworker_reserve = api_value_int0($strworker_reserve);
 $strworker_guide = api_value_post('worker_guide');
 $intworker_guide = api_value_int0($strworker_guide);
 $intshop_id = $GLOBALS['_SESSION']['login_sid'];
-$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
 
 
 $arr = array();
@@ -75,34 +74,6 @@ if($intreturn == 0){
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 1;
-	}
-}
-if($intreturn == 0){
-	if($intworker_id != 0){
-		$strsql = 'DELETE FROM '.$GLOBALS['gdb']->fun_table2('worker_goods')." where worker_id=".$intworker_id;
-		$hresult = $gdb->fun_do($strsql);
-		if($hresult==false){
-			$intreturn = 2;
-		}
-	}
-}
-if($intreturn == 0){
-	if(!empty($arrinfo)){
-		foreach($arrinfo as $v){
-			$intmgoods_id = $v['mgoods_id'];
-			$strmgoods_name = $v['mgoods_name'];
-			$intnum = api_value_int0($v['num']);
-			if($intnum==0){
-				continue;
-			}
-			if($intmgoods_id != 0){
-				$strsql = "INSERT INTO " .$GLOBALS['gdb']->fun_table2('worker_goods'). "(worker_id,shop_id,mgoods_id) VALUES (".$intworker_id.",".$intshop_id.",".$intmgoods_id.")";
-				$hresult = $gdb->fun_do($strsql);
-				if($hresult==false){
-					$intreturn = 3;
-				}
-			}
-		}
 	}
 }
 

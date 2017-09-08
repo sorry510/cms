@@ -40,7 +40,7 @@
       </div>
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">员工：</label>
-        <input type="text" class="am-form-field uinput uinput-220" name="search" value="<?php echo $this->_data['request']['search'] ?>" placeholder="员工/编号">
+        <input type="text" class="am-form-field uinput uinput-220" name="search" value="<?php echo $this->_data['request']['search'] ?>" placeholder="姓名/编号">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search csearch_form1">

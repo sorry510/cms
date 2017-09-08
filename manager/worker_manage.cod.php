@@ -55,8 +55,8 @@
         <td>学历</td>
         <td>入职时间</td>
         <td>基本工资</td>
-        <td>参与预约</td>
-        <td>导购提成</td>
+        <!-- <td>参与预约</td> -->
+        <!-- <td>导购提成</td> -->
       </tr>
     </thead>
     <?php foreach($this->_data['worker_list']['list'] as $row){?>
@@ -71,8 +71,8 @@
       <td><?php echo $row['education_name'];?></td>
       <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
       <td><?php echo $row['worker_wage'];?></td>
-      <td><?php echo $row['worker_config_reserve']=='1'?'参与':'不参与';?></td>
-      <td><?php echo $row['worker_config_guide']=='1'?'参与':'不参与';?></td>
+      <!-- <td><?php //echo $row['worker_config_reserve']=='1'?'参与':'不参与';?></td> -->
+      <!-- <td><?php //echo $row['worker_config_guide']=='1'?'参与':'不参与';?></td> -->
     </tr>
     <?php }?>
   </table>
@@ -100,8 +100,8 @@
         <div class="am-u-lg-6">入职时间：<span class="cworker_join">&nbsp;</span></div>
         <div class="am-u-lg-6">居信住址：<span class="cworker_address">&nbsp;</span></div>
         <div class="am-u-lg-6">基本工资：<span class="cworker_wage">&nbsp;</span></div>
-        <div class="am-u-lg-6">参与预约：<span class="cworker_reserve">&nbsp;</span></div>
-        <div class="am-u-lg-6">导购提成：<span class="cworker_guide">&nbsp;</span></div>
+        <!-- <div class="am-u-lg-6">参与预约：<span class="cworker_reserve">&nbsp;</span></div> -->
+        <!-- <div class="am-u-lg-6">导购提成：<span class="cworker_guide">&nbsp;</span></div> -->
         <div class="am-u-lg-12">工作内容：<span class="cworker_goods">&nbsp;</span></div>
         <div class="am-u-lg-12 gspace15"></div>
         <label class="am-u-lg-6">照片</label>
@@ -153,14 +153,14 @@ $('.coffcanvasopen').on('click', function(){
       $("#uworkeroff1 .cworker_join").text(res.worker_join);
       $("#uworkeroff1 .cworker_address").text(res.worker_address);
       $("#uworkeroff1 .cworker_wage").text(res.worker_wage);
-      $("#uworkeroff1 .cworker_guide").text(res.worker_config_guide_name);
-      $("#uworkeroff1 .cworker_reserve").text(res.worker_config_reserve_name);
+      // $("#uworkeroff1 .cworker_guide").text(res.worker_config_guide_name);
+      // $("#uworkeroff1 .cworker_reserve").text(res.worker_config_reserve_name);
       if(res.goods_name)
         $("#uworkeroff1 .cworker_goods").text(res.goods_name);
       if(res.worker_photo_file)
-        $("#uworkeroff1 .cworker_photo1").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_photo_file);
+        $("#uworkeroff1 .cworker_photo1").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_photo_file+'?'+Math.random()*1000);
       if(res.worker_identity_file)
-        $("#uworkeroff1 .cworker_photo2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_identity_file);
+        $("#uworkeroff1 .cworker_photo2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_identity_file+'?'+Math.random()*1000);
     }
   });
 })

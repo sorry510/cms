@@ -59,13 +59,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
+            <input id="" class="uinput uinput-max cvalid" type="text" placeholder="" name="card_type_name">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>卡折扣：</label>
           <div class="umodal-normal">
-            <input class="uinput uinput-max cfilter" type="text" value="10" name="card_type_discount">
+            <input class="uinput uinput-max cfilter cvalid" type="text" value="10" name="card_type_discount">
           </div>
           <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
           </div>
@@ -99,14 +99,14 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
-            <input class="uinput uinput-max" type="text" placeholder="" name="card_type_name">
+            <input class="uinput uinput-max cvalid" type="text" placeholder="" name="card_type_name">
             <input class="uinput uinput-max" type="hidden" placeholder="" name="card_type_name_old">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>卡折扣：</label>
           <div class="umodal-normal">
-            <input class="uinput uinput-max cfilter" type="text" name="card_type_discount">
+            <input class="uinput uinput-max cfilter cvalid" type="text" name="card_type_discount">
           </div>
           <div class="umodal-text gtext-green">（八八折填8.8，不打折填10）
 
@@ -172,28 +172,48 @@ $('.cdel').on('click', function() {
   });
 });
 
+
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
 // 折扣js
 $('.cfilter').on('input propertychange',function(){
   var discount = Number($(this).val());
-  // console.log(discount);
+  console.log(discount);
   if(isNaN(discount)){
-    $(this).val(10);
+    $(this).val('');
   }
   if(discount>10){
     $(this).val(10);
   }
-  if(discount<=0){
-    $(this).val(10);
+  if(discount<0){
+    $(this).val('');
   }
 })
 //添加会员卡add-submit
 $('.cadd-form1').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_card_typem1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_card_typem1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_card_type_add_do.php', $("#form1").serialize(), function(res){
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
+      _self.attr('disabled',false);
       alert('会员卡类型名已存在，请重新输入');
     }else{
+      _self.attr('disabled',false);
       alert('添加失败');
     }
   });
@@ -221,13 +241,28 @@ $('.cupdate').on('click', function(e) {
 
 //修改会员卡分类edit-submit
 $('.cadd-form2').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_card_typem2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_card_typem2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_card_type_edit_do.php', $("#form2").serialize(), function(res){
     console.log(res);
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
+      _self.attr('disabled',false);
       alert('会员卡类型名已存在，请重新输入');
     }else{
+      _self.attr('disabled',false);
       alert('修改失败');
     }
   });

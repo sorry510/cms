@@ -13,7 +13,8 @@
     <thead>
       <tr>
         <td>分组</td>
-        <td style="width: 20%;">操作</td>
+        <td style="width: 12%;">操作</td>
+        <td style="width: 12%;">同步</td>
       </tr>
     </thead>
     <?php foreach($this->_data['group_reward_list'] as $row) { ?>
@@ -24,10 +25,11 @@
           <i class="iconfont icon-bianji"></i>
           本店提成方案
         </button>
-        &nbsp;&nbsp;
-        <button class="am-btn ubtn-table ubtn-green cupdate2" value="<?php echo $row['worker_group_id']; ?>" data-am-modal="{target: '#uworker_rewardm3'}">
-          <i class="iconfont icon-bianji"></i>
-          总店提成方案
+      </td>
+      <td>
+        <button class="am-btn ubtn-table ubtn-blue cupdate2" value="<?php echo $row['worker_group_id']; ?>">
+          <i class="iconfont am-icon-refresh"></i>
+          同步总部方案
         </button>
       </td>
     </tr>
@@ -269,189 +271,45 @@
     </div>
   </div>
 </div>
+<?php confirmHtml(8);?>
+<!-- alert -->
+<div class="am-modal am-modal-alert" tabindex="-1" id="calert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">提 示 信 息</div>
+    <div class="am-modal-bd ctext" style="font-size:24px">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
 
-<!--modal框-->
-<div class="am-modal" tabindex="-1" id="uworker_rewardm3">
-  <div class="am-modal-dialog umodal umodal-simple">
-    <div class="am-modal-hd uhead"><span class="cname"></span>总店提成方案
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal">
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">办卡提成：</label>
-          <div class="umodal-short">
-            <input class="uinput uinput-max creward_create" type="text" disabled/>
-          </div>
-          <div class="umodal-text" for="">&nbsp;&nbsp;元/会员</div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">充值提成：</label>
-          <div class="umodal-short" style="margin-right:10px">
-            <select class="uselect uselect-max cfill_type" data-am-selected disabled>
-              <option value="1">百分比</option>
-              <option value="2">固定值</option>
-            </select>
-          </div>
-          <div class="umodal-short">
-            <input class="uinput uinput-max creward_fill" type="text" disabled/>
-          </div>
-          <div class="umodal-text">&nbsp;<span class="cfill_type_words">%</span></div>
-        </div>
-        <div class="am-form-group">
-          <label class="umodal-label am-form-label cdgtc" for="">导购提成：</label>
-          <div class="umodal-short" style="margin-right:10px">
-            <select class="uselect uselect-max cguide_type" data-am-selected disabled>
-              <option value="1">百分比</option>
-              <option value="2">固定值</option>
-            </select>
-          </div>
-          <div class="umodal-short">
-            <input class="uinput uinput-max creward_guide" type="text" disabled/>
-          </div>
-          <div class="umodal-text">&nbsp;<span class="cguide_type_words">%</span></div>
-        </div>
-        <input class="cworker_group_id" type="hidden">
-      </form>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green cmodalopen4"><i class="iconfont icon-xiangyou2"></i>
-          下一步
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="am-modal" tabindex="-1" id="uworker_rewardm4">
-  <div class="am-modal-dialog umodal">
-    <div class="am-modal-hd uhead">总店提成方案
-      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
-    </div>
-    <div class="am-modal-bd umain1">
-      <div class="am-tabs utabs" data-am-tabs="{noSwipe: 1}">
-        <ul class="am-tabs-nav am-nav am-nav-tabs">
-          <li class="am-active"><a href="#tab1">商品提成</a></li>
-          <li><a href="#tab2">套餐提成</a></li>
-        </ul>
-        <div class="am-tabs-bd">
-          <div class="am-tab-panel am-active" id="tab1">
-            <ul class="am-list am-list-border utop">
-              <li class="uheader"><span class="uspan1">分类/名称</span><span class="uspan2">活动</span></li>
-              <li>
-                <div class="am-form-group am-g">
-                  <form action="">
-                    <div class="umodal-short" style="padding-left:20px;">
-                      <select class="uselect uselect-max cgoods_catalog" data-am-selected>
-                        <option value="0">全部</option>
-                        <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-                          <option value="m-<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_goods" value="2">
-                        <i class="iconfont icon-search"></i>
-                        查询
-                      </button>
-                    </div>
-                    <div class="umodal-search" style="float:right;margin-right:25px;display:inline-block;">
-                    </div>
-                  </form>
-                </div>
-              </li>
-            </ul>
-            <ul class="am-list am-list-border ucont cgoods_list">
-            <?php foreach($this->_data['mgoods_list'] as $row) { ?>
-              <li mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>">
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-u-end am-text-left utext1">
-                    <?php echo $row['mgoods_catalog_name'] ;?>
-                  </div>
-                </div>
-              </li>
-              <?php foreach($row['mgoods'] as $row2) {?>
-              <li mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>">
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-text-left utext2"><?php echo $row2['mgoods_name']."(".$row2['mgoods_price']."元)" ;?></div>
-                  <div class="am-u-lg-6 am-u-end am-text-right">
-                    
-                    <input mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>" mgoods_id="<?php echo $row2['mgoods_id'] ;?>" price="<?php echo $row2['mgoods_price'] ;?>" class="uinput uinput-60 cprice1" type="text" disabled>
-                    <span class="utext3">%</span>&nbsp;&nbsp;
-                    
-                    <input mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'] ;?>" price="<?php echo $row2['mgoods_price'] ;?>" mgoods_id="<?php echo $row2['mgoods_id'] ;?>" class="uinput uinput-60 cprice2" type="text" disabled>
-                    <span class="utext3">元</span>
-                  </div>
-                </div>
-              </li>
-              <?php } ?>
-            <?php }?>
-            </ul>
-          </div>
-          <div class="am-tab-panel am-fade" id="tab2">
-            <ul class="am-list am-list-border utop">
-              <li class="uheader"><span class="uspan1">套餐/名称</span><span class="uspan2">活动</span></li>
-              <li>
-                <div class="am-form-group am-g">
-                  <form action="">
-                    <div class="umodal-short" style="padding-left:20px;">
-                      <select class="uselect uselect-max cmcombo" data-am-selected>
-                        <option value="0">全部</option>
-                        <?php foreach($this->_data['mcombo'] as $row) { ?>
-                          <option value="<?php echo $row['mcombo_id']; ?>"><?php echo $row['mcombo_name']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="umodal-text" style="padding-left:10px;">
-                      <button type="button" class="am-btn ubtn-search2 ubtn-green csearch_mcombo" value="2">
-                        <i class="iconfont icon-search"></i>
-                        查询
-                      </button>
-                    </div>
-                    <div class="umodal-search" style="float:right;margin-right:25px;display:inline-block;">
-                    </div>
-                  </form>
-                </div>
-              </li>
-            </ul>
-            <ul class="am-list am-list-border ucont cmcombo_list">
-              <li>
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-u-end am-text-left utext1">
-                    套餐名称
-                  </div>
-                </div>
-              </li>
-              <?php foreach($this->_data['mcombo'] as $row) { ?>
-              <li mcombo="<?php echo $row['mcombo_id'] ;?>">
-                <div class="am-form-group am-g">
-                  <div class="am-u-lg-5 am-text-left utext2"><?php echo $row['mcombo_name']."(".$row['mcombo_price']."元)" ;?></div>
-                  <div class="am-u-lg-6 am-u-end am-text-right">
-                    <input class="uinput uinput-60 cprice1" price="<?php echo $row['mcombo_price'] ;?>"  mcombo_id="<?php echo $row['mcombo_id'] ;?>" type="text" disabled>
-                    <span class="utext3">%</span>&nbsp;&nbsp;
-                    <input class="uinput uinput-60 cprice2" price="<?php echo $row['mcombo_price'] ;?>"  mcombo_id="<?php echo $row['mcombo_id'] ;?>" type="text" disabled>
-                    <span class="utext3">元</span>
-                  </div>
-                </div>
-              </li>
-              <?php } ?> 
-            </ul>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="am-modal-footer ufoot">
-      <div class="am-btn-group ubtn-right">
-        <button type="submit" class="am-btn ubtn-sure ubtn-green cmodalopen3"><i class="iconfont icon-xiangyou2"></i>
-          上一步
-        </button>
-      </div>
-  </div>
-</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
+// 同步
+$('.cupdate2').on('click', function(){
+  $('#cconfirm8').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('worker_reward_sync_do.php',{'worker_group_id':$(this.relatedTarget).val()},function(res){
+        if(res=='0'){
+          $('#calert .ctext').text('同步成功!');
+          $('#calert').modal('open');
+        }else if(res==1){
+          $('#calert .ctext').text('总部没有设置!');
+          $('#calert').modal('open');
+        }else{
+          $('#calert .ctext').text('同步失败!');
+          $('#calert').modal('open');
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
+})
 
 $('.cmodalopen1').on('click', function(e) {
   $('#uworker_rewardm2').modal('close');
@@ -462,14 +320,6 @@ $('.cmodalopen2').on('click', function(e) {
   $('#uworker_rewardm1').modal('close');
   $('#uworker_rewardm2').modal('open');
   $('#uworker_rewardm2 input').eq(0).focus();
-});
-$('.cmodalopen3').on('click', function(e) {
-  $('#uworker_rewardm4').modal('close');
-  $('#uworker_rewardm3').modal('open');
-});
-$('.cmodalopen4').on('click', function(e) {
-  $('#uworker_rewardm3').modal('close');
-  $('#uworker_rewardm4').modal('open');
 });
 
 
@@ -496,6 +346,9 @@ $('.cupdate').on('click',function(){
   $('#uworker_rewardm2 .cprice2').val('');
   $('#uworker_rewardm1 .cfill_type').selected('destroy');
   $('#uworker_rewardm1 .cguide_type').selected('destroy');
+  $('#uworker_rewardm1 .creward_create').val('');
+  $('#uworker_rewardm1 .creward_fill').val('');
+  $('#uworker_rewardm1 .creward_guide').val('');
   var worker_group_id = $(this).val();
   $('#uworker_rewardm1 .cworker_group_id').val(worker_group_id);
   $.getJSON('worker_reward_edit_ajax.php', {worker_group_id:worker_group_id}, function(res){
@@ -552,65 +405,7 @@ $('.cupdate').on('click',function(){
     $('#uworker_rewardm1 .cguide_type').selected();
   })
 });
-//edit-show总店
-$('.cupdate2').on('click',function(){
-  //进入弹出框首先删除，遗留下来的数据
-  $('#uworker_rewardm4 .cprice1').val('');
-  $('#uworker_rewardm4 .cprice2').val('');
-  $('#uworker_rewardm3 .cfill_type').selected('destroy');
-  $('#uworker_rewardm3 .cguide_type').selected('destroy');
-  var worker_group_id = $(this).val();
-  $('#uworker_rewardm3 .cworker_group_id').val(worker_group_id);
-  $.getJSON('worker_reward_edit_ajax2.php', {worker_group_id:worker_group_id}, function(res){
-    // console.log(res);
-    if(res){
-      $('#uworker_rewardm3 .creward_create').val(res.group_reward_create);
-      if(res.group_reward_fill != 0){
-        $('.cfill_type_words').text('元');
-        $('#uworker_rewardm3 .cfill_type').val(2);
-        $('#uworker_rewardm3 .creward_fill').val(res.group_reward_fill);
-      }
-      if(res.group_reward_pfill != 0){
-        $('.cfill_type_words').text('%');
-        $('#uworker_rewardm3 .cfill_type').val(1);
-        $('#uworker_rewardm3 .creward_fill').val(res.group_reward_pfill);
-      }
-      if(res.group_reward_fill == 0 && res.group_reward_pfill == 0){
-        $('#uworker_rewardm3 .cfill_type').val(1);
-        $('#uworker_rewardm3 .creward_fill').val(0);
-      }
-      if(res.group_reward_guide != 0){
-        $('.cguide_type_words').text('元');
-        $('#uworker_rewardm3 .cguide_type').val(2);
-        $('#uworker_rewardm3 .creward_guide').val(res.group_reward_guide);
-      }
-      if(res.group_reward_pguide != 0){
-        $('.cguide_type_words').text('%');
-        $('#uworker_rewardm3 .cguide_type').val(1);
-        $('#uworker_rewardm3 .creward_guide').val(res.group_reward_pguide);
-      }
-      if(res.group_reward_guide == 0 && res.group_reward_pguide == 0){
-        $('#uworker_rewardm3 .cguide_type').val(1);
-        $('#uworker_rewardm3 .creward_guide').val('');
-      }
-      if(res.goods){
-        $.each(res.goods, function(k,v){
-          if(v.mgoods_id){
-            $("#uworker_rewardm4 .cprice2[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_money);
-            $("#uworker_rewardm4 .cprice1[mgoods_id='"+v.mgoods_id+"']").val(v.group_reward2_percent);
-          }
-          if(v.mcombo_id){
-            $("#uworker_rewardm4 .cprice2[mcombo_id='"+v.mcombo_id+"']").val(v.group_reward2_money);
-            $("#uworker_rewardm4 .cprice1[mcombo_id='"+v.mcombo_id+"']").val(v.group_reward2_percent);
-          }
-        });
-      }
-    }
-    //第一次时添加，没有数据
-    $('#uworker_rewardm1 .cfill_type').selected();
-    $('#uworker_rewardm1 .cguide_type').selected();
-  })
-});
+
 //edit-submit
 $('.csubmit').on('click',function(){
   var url = 'worker_reward_add_do.php';

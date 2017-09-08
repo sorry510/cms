@@ -1031,7 +1031,7 @@ $(function() {
           }
         });
         if(res.card_photo_file.length!=0){
-          $("#ucardm1-1 #cimg2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_card_show"];?>/'+res.card_photo_file);
+          $("#ucardm1-1 #cimg2").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_card_show"];?>/'+res.card_photo_file+'?'+Math.random()*1000);
         }else{
           $("#ucardm1-1 #cimg2").attr('src','../img/wu.jpg');
         }

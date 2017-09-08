@@ -54,9 +54,9 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="form1">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分组名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分组名称：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max" name="worker_group_name" type="text" placeholder="">
+            <input id="" class="uinput uinput-max cvalid" name="worker_group_name" type="text" placeholder="">
           </div>
         </div>
       </form>
@@ -80,9 +80,9 @@
     <div class="am-modal-bd umain1">
       <form class="am-form am-form-horizontal" id="form2">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">分组名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分组名称：</label>
           <div class="umodal-normal">
-            <input id="" class="uinput uinput-max name" name="worker_group_name" type="text" placeholder="">
+            <input id="" class="uinput uinput-max cvalid" name="worker_group_name" type="text" placeholder="">
             <input name="worker_group_name_old" type="hidden">
           </div>
         </div>
@@ -136,9 +136,26 @@ $('.cdel').on('click', function() {
     }
   });
 });
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+});
+
 //添加分组提交按钮
 $('.cadd-form1').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#uworker_groupm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#uworker_groupm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="worker_group_add_do.php";
   var data = $("#form1").serialize();
   $.post(url,data,function(res){
@@ -164,6 +181,19 @@ $('.cupdate').on('click', function() {
 
 //修改分组提交
 $('.cadd-form2').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#uworker_groupm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#uworker_groupm2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   if($("#uworker_groupm2 input[name='worker_group_name']").val()==$("#uworker_groupm2 input[name='worker_group_name_old']").val()){
     $("#uworker_groupm2").modal('close');
     return false;

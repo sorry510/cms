@@ -66,13 +66,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
-            <input name="name" class="uinput uinput-max" type="text" placeholder="">
+            <input name="name" class="uinput uinput-max cvalid" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>积分：</label>
           <div class="umodal-normal">
-            <input name="score" class="uinput uinput-max" type="text" placeholder="">
+            <input name="score" class="uinput uinput-max cvalid" type="text" placeholder="">
           </div>
           <div class="umodal-text gtext-green">
             &nbsp;分
@@ -101,14 +101,14 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>名称：</label>
           <div class="umodal-normal">
-            <input name="gift_name" class="uinput uinput-max" type="text" placeholder="">
+            <input name="gift_name" class="uinput uinput-max cvalid" type="text" placeholder="">
             <input name="gift_name_old" class="uinput uinput-max" type="hidden" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>积分：</label>
           <div class="umodal-normal">
-            <input name="gift_score" class="uinput uinput-max" type="text" placeholder="">
+            <input name="gift_score" class="uinput uinput-max cvalid" type="text" placeholder="">
           </div>
           <div class="umodal-text gtext-green">
             &nbsp;分
@@ -144,6 +144,10 @@
 <script type="text/javascript">
 <?php pageJs($this->_data['gift_list'],$this->_data['request'],'system_score_gift.php');?>
 $(function() {
+  // cvalid
+  $('.cvalid').on('input propertychange blur', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
   $('.cdel').on('click', function() {
     $('#cconfirm').modal({
       relatedTarget: this,
@@ -166,14 +170,28 @@ $(function() {
       }
     });
   });
-
   $('.caddsubmit').on('click', function(){
+    var _self = $(this);
+    _self.attr('disabled',true);
+    // 验证变红
+    $('#usystem_score_giftm1 .cvalid').each(function(){
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    })
+    // 验证返回
+    if($('#usystem_score_giftm1 .cvalid').hasClass("am-field-error")){
+      _self.attr('disabled',false);
+      return false;
+    }
     $.post('system_score_gift_add_do.php' ,$('#cform1').serialize() ,function(res){
       if(res=='0'){
         window.location.reload();
       }else if(res=='1'){
+        _self.attr('disabled',false);
         alert('名字不能重复');
       }else{
+        _self.attr('disabled',false);
         alert('添加失败');
       }
     })
@@ -196,17 +214,27 @@ $(function() {
     });
   })
   $('.ceditsubmit').on('click',function(){
-    var target = $(this);
-    target.attr('disabled',true);
+    var _self = $(this);
+    _self.attr('disabled',true);
+    // 验证变红
+    $('#usystem_score_giftm2 .cvalid').each(function(){
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    })
+    // 验证返回
+    if($('#usystem_score_giftm2 .cvalid').hasClass("am-field-error")){
+      _self.attr('disabled',false);
+      return false;
+    }
     $.post('system_score_gift_edit_do.php', $("#cform2").serialize(), function(res){
-      console.log(res);
       if(res=='0'){
         window.location.reload();
       }else if(res=='1'){
-        target.attr('disabled',false);
+        _self.attr('disabled',false);
         alert('礼品名字已存在，请重新输入');
       }else{
-        target.attr('disabled',false);
+        _self.attr('disabled',false);
         alert('修改失败');
       }
     });

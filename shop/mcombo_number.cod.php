@@ -13,7 +13,7 @@
     <form class="am-form-inline uform2">
       <div class="am-form-group">
         <label for="doc-ipt-3" class="am-form-label">名称：</label>
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="" value="<?php echo $this->_data['request']['mcombo_number_name']?>" name="mcombo_number_name">
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="名称/简拼/编码" value="<?php echo $this->_data['request']['search']?>" name="search">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">

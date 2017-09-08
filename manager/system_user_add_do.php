@@ -27,6 +27,33 @@ $intreturn = 0;
 $atime = time();
 
 // 判断是否超过最大用户数量限制
+$intuser_max_count = 0;
+if($intshop !=0){
+  //检测添加操作员最大数量限制
+  $strsql = "SELECT shop_limit_user FROM ".$gdb->fun_table('shop')." where shop_id = ".$intshop;
+  // echo $strsql;
+  $hresult = $gdb->fun_query($strsql);
+  $arr = $gdb->fun_fetch_assoc($hresult);
+  if(!empty($arr)){
+    $intuser_max_count = $arr['shop_limit_user'];
+  }
+  // 现有数量
+  $strsql = "SELECT count(user_id) as user_count FROM ".$gdb->fun_table2('user')." where shop_id = ".$intshop;
+  $hresult = $gdb->fun_query($strsql);
+  $arr = $gdb->fun_fetch_assoc($hresult);
+  if($intuser_max_count - $arr['user_count'] < 1){
+    $intreturn = 4;
+  }
+}else{
+  // manager权限的人员上限为5
+  $strsql = "SELECT count(user_id) as user_count FROM ".$gdb->fun_table2('user')." where shop_id = 0";
+  $hresult = $gdb->fun_query($strsql);
+  $arr = $gdb->fun_fetch_assoc($hresult);
+  if($arr['user_count'] >= 5){
+    $intreturn = 4;
+  }
+}
+
 if($sqlpassword != $sqlpassword2){
   $intreturn = 1;
 }
@@ -47,7 +74,7 @@ if($intreturn == 0) {
 	  $strsql = "INSERT INTO " . $gdb->fun_table2('user') . "( shop_id, user_type, user_account, user_password, user_atime , user_name ) VALUES ( $intshop , $inttype, '$sqlaccount' , '$sqlpassword' , $atime ,'$sqlname')";
 	  $hresult = $gdb->fun_do($strsql);
  	if($hresult == FALSE) {
- 		$intreturn = 4;
+ 		$intreturn = 5;
  	}
 }
 

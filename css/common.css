@@ -145,6 +145,7 @@ table a{color:#2D7EF6; text-decoration:underline;}
 
 /*下拉框样式*/
 #ubody .uselect + .am-selected .am-selected-btn.am-btn-default {padding:0 15px; height:36px; border-radius:3px; border-color:#CCCCCC; background:#FFFFFF;}
+#ubody .uselect.am-field-error + .am-selected .am-selected-btn.am-btn-default{border-color:#E74C2E!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);}
 #ubody .uselect + .am-selected .am-selected-btn.am-btn-default .am-selected-status {padding-right:12px; font-size:1.4rem; text-align:center;}
 #ubody .uselect.uselect-max + .am-selected {width:100%;}
 #ubody .uselect.uselect-auto + .am-selected {width:auto; max-width:160px; min-width:81px;}

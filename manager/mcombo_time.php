@@ -6,7 +6,7 @@ require('inc_limit.php');
 
 $strchannel = 'goods';
 
-$strmcombo_time_name = api_value_get('mcombo_time_name');
+$strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
@@ -19,7 +19,7 @@ $gtemplate->fun_show('mcombo_time');
 
 function get_request() {
 	$arr = array();
-	$arr['mcombo_time_name'] = $GLOBALS['strmcombo_time_name'];
+	$arr['search'] = $GLOBALS['strsearch'];
 	return $arr;
 }
 
@@ -56,8 +56,10 @@ function get_mcombo_time_list(){
 	$arrlist = array();
 	$arrpackage = array();
 	$strwhere = '';
-	if($GLOBALS['strmcombo_time_name'] != ""){
-		$strwhere = $strwhere . " AND (mcombo_name LIKE '%" . $GLOBALS['strmcombo_time_name'] . "%')";
+	if($GLOBALS['strsearch'] != ""){
+		$strwhere = $strwhere . " AND (mcombo_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+		$strwhere = $strwhere . " OR mcombo_code LIKE '%" . $GLOBALS['strsearch'] . "%'";
+		$strwhere = $strwhere . " OR mcombo_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
 	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$arr = array();

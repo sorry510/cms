@@ -30,7 +30,7 @@ function pageJs($datalist,$request,$url){
 }
 
 // 提示框 
-/*1删除 2停用 3启用 4还原 5取消 6确认 7到店*/
+/*1删除 2停用 3启用 4还原 5取消 6确认 7到店 8同步 9总店*/
 function confirmHtml($type){
 	switch ($type)
 	{
@@ -61,6 +61,14 @@ function confirmHtml($type){
 		case 7:
 			$header = '到&nbsp;&nbsp;&nbsp;&nbsp;店&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒';
 			$content = '你确认要到店吗';
+			break;
+		case 8:
+			$header = '同&nbsp;&nbsp;&nbsp;&nbsp;步&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒';
+			$content = '你确认要同步吗';
+			break;
+		case 9:
+			$header = '设&nbsp;&nbsp;&nbsp;&nbsp;置&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;醒';
+			$content = '你确认要把它设置为总店吗';
 			break;
 		default:
 			$header = '提&nbsp;&nbsp;&nbsp;&nbsp;醒';

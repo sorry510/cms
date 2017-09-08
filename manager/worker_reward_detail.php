@@ -21,7 +21,7 @@ if($strfrom != ''){
 }
 if($intfrom == 0){
 	//默认是1个月之前
-	$strfrom = date('Y-m-d',strtotime('-1 month'))." 00:00:00";
+	$strfrom = date('Y-m-d',strtotime('-1 month'));
 	$intfrom = strtotime($strfrom);
 }else{
 	//最早日期为一年前

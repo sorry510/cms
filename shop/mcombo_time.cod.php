@@ -12,8 +12,8 @@
   <div class="utools">
     <form class="am-form-inline uform2" if="form1" action="mcombo_time.php" method="get">
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">套餐名称：</label>
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="" value="<?php echo $this->_data['request']['mcombo_time_name']?>" name="mcombo_time_name">
+        <label for="doc-ipt-3" class="am-form-label">套餐：</label>
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="名称/简拼/编码" value="<?php echo $this->_data['request']['search']?>" name="search">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search uadd-form1">

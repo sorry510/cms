@@ -48,4 +48,16 @@ switch($arr['worker_education'])
 		$arr['worker_education_name'] = '未知';
 }
 
+$arr['goods_name'] = '';
+$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('worker_goods')." where worker_id=".$intworker_id.") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
+$hresult = $GLOBALS['gdb']->fun_query($strsql);
+$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
+if(!empty($arrgoods)){
+	foreach($arrgoods as $row){
+		$arr['goods_name'] .= $row['mgoods_name'].",";
+	}
+}
+$arr['goods'] = $arrgoods;
+$arr['goods_name'] = substr($arr['goods_name'],0,strlen($arr['goods_name'])-1);
+
 echo json_encode($arr);

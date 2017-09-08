@@ -105,7 +105,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected name="mgoods_catalog_id">
+            <select class="uselect uselect-max cvalid" data-am-selected name="mgoods_catalog_id">
               <option value="0">请选择</option>
               <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
               <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
@@ -116,7 +116,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品名称：</label>
           <div class="umodal-normal">
-            <input type="text" id="cgoodsname" name="mgoods_name" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+            <input type="text" id="cgoodsname" name="mgoods_name" class="am-form-field uinput uinput-max cvalid" onKeyUp="query()">
           </div>
           <div class="umodal-text"  style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
@@ -132,7 +132,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="mgoods_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="mgoods_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -143,7 +143,7 @@
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与库存：</label>
-          <div class="umodal-normal am-text-left">
+          <div class="umodal-small am-text-left">
             <label class="am-radio-inline">
               <input type="radio" name="mgoods_type" value="2" data-am-ucheck> 参与
             </label>
@@ -151,6 +151,7 @@
               <input type="radio" name="mgoods_type" value="1" data-am-ucheck checked> 不参与
             </label>
           </div>
+          <div class="umodal-text am-text-left gtext-green">(库存状态一旦添加不可修改，请慎重选择)</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">参与活动：</label>
@@ -200,7 +201,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" name="mgoods_catalog_id">
+            <select class="uselect uselect-max cvalid" name="mgoods_catalog_id">
             <option value="0">请选择</option>
             <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
             <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
@@ -211,7 +212,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品名称：</label>
           <div class="umodal-normal">
-            <input name= "mgoods_name" type="text" id="cgoodsname2" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
+            <input name= "mgoods_name" type="text" id="cgoodsname2" class="am-form-field uinput uinput-max cvalid" onKeyUp="query2()" required>
             <input name= "mgoods_name_old" type="hidden">
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
@@ -229,7 +230,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="mgoods_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="mgoods_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -355,9 +356,37 @@ $('.cmgoods_state2').on('click',function(){
     }
   });
 });
+
+// cvalid
+$('input.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+// select cvalid
+$('select.cvalid').on('change', function(){
+  $(this).val()=='0'?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+
 //添加商品submit
 $('.cadd-form2').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#umgoodsm1 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#umgoodsm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="mgoods_add_do.php";
   var data = $("#form2").serialize();
   $.post(url,data,function(res){
@@ -377,7 +406,25 @@ $('.cadd-form2').on('click',function(){
 });
 //添加多个商品submit
 $('.cadds-form2').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#umgoodsm1 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#umgoodsm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="mgoods_add_do.php";
   var data = $("#form2").serialize();
   $.post(url,data,function(res){
@@ -445,7 +492,25 @@ $('#umgoodsm2').on('close.modal.amui', function(){
 });
 //修改商品submit
 $('.cadd-form3').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#umgoodsm2 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#umgoodsm2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var data = $("#form3").serialize();
   var url = "mgoods_edit_do.php";
   $.post(url,data,function(msg){
@@ -453,12 +518,13 @@ $('.cadd-form3').on('click',function(){
       window.location.reload();
     }else if(res=='1'){
       alert("缺少必填项");
-      $('.cadd-form2').attr('disabled',false);
+      _self.attr('disabled',false);
     }else if(res=='2'){
       alert("商品编码不能重复");
-      $('.cadd-form2').attr('disabled',false);
+      _self.attr('disabled',false);
     }else{
       alert("修改失败");
+      _self.attr('disabled',false);
     }
   });
 });

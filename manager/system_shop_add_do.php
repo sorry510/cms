@@ -23,7 +23,26 @@ $intreturn = 0;
 $intnow = time();
 $intyear = strtotime('+1 year',$intnow);
 $intmaxshop_id = 0;
+$intshop_max_count = 0;
 $arr = array();
+
+//检测添加店铺最大数量限制
+$strsql = "SELECT company_shop_acount FROM ".$gdb->fun_table('company')." where company_id = ".$GLOBALS['_SESSION']['login_cid']." and company_state = 1";
+// echo $strsql;
+$hresult = $gdb->fun_query($strsql);
+$arr = $gdb->fun_fetch_assoc($hresult);
+if(empty($arr)){
+	$intreturn = 1;
+}else{
+	$intshop_max_count = $arr['company_shop_acount'];
+}
+// 现有数量
+$strsql = "SELECT count(shop_id) as shop_count FROM ".$gdb->fun_table('shop')." where company_id = ".$GLOBALS['_SESSION']['login_cid'];
+$hresult = $gdb->fun_query($strsql);
+$arr = $gdb->fun_fetch_assoc($hresult);
+if($intshop_max_count - $arr['shop_count'] < 1){
+	$intreturn = 4;
+}
 
 $strsql = "SELECT shop_id FROM ".$gdb->fun_table('shop')." order by shop_id desc limit 1";
 $hresult = $gdb->fun_query($strsql);
@@ -34,14 +53,14 @@ if(!empty($arr)){
 	$intmaxshop_id = 1;
 }
 
-
-//没有检测添加店铺最大数量限制
-$strsql = "SELECT company_config_trade FROM ".$gdb->fun_table('company')." where company_id = ".$GLOBALS['_SESSION']['login_cid']." and company_state = 1";
-// echo $strsql;
+//取最后一个添加的店铺id
+$strsql = "SELECT shop_id FROM ".$gdb->fun_table('shop')." order by shop_id desc limit 1";
 $hresult = $gdb->fun_query($strsql);
 $arr = $gdb->fun_fetch_assoc($hresult);
-if(empty($arr)){
-	$intreturn = 1;
+if(!empty($arr)){
+	$intmaxshop_id = $arr['shop_id'] + 1;
+}else{
+	$intmaxshop_id = 1;
 }
 
 if($intreturn == 0){
@@ -54,10 +73,11 @@ if($intreturn == 0){
 }
 
 if($intreturn == 0){
-	$strsql = "INSERT INTO ".$gdb->fun_table('shop')." (shop_id,company_id,system_code,shop_name,shop_phone,shop_area_sheng,shop_area_shi,shop_area_address,shop_state,shop_atime,shop_limit_user,shop_edate,shop_area_jing,shop_area_wei) VALUES(".$intmaxshop_id.",".$GLOBALS['_SESSION']['login_cid'].",'".$GLOBALS['_SESSION']['login_code']."','".$sqlshop_name."','".$sqlshop_phone."',".$intprovince.",".$intcity.",'".$sqladdress."',1,".$intnow.",5,".$intyear.",".$decjing.",".$decwei.")";
+	$strsql = "INSERT INTO ".$gdb->fun_table('shop')." (shop_id,company_id,system_code,shop_name,shop_phone,shop_area_sheng,shop_area_shi,shop_area_address,shop_state,shop_atime,shop_limit_user,shop_edate,shop_area_jing,shop_area_wei,shop_center) VALUES(".$intmaxshop_id.",".$GLOBALS['_SESSION']['login_cid'].",'".$GLOBALS['_SESSION']['login_code']."','".$sqlshop_name."','".$sqlshop_phone."',".$intprovince.",".$intcity.",'".$sqladdress."',1,".$intnow.",5,".$intyear.",".$decjing.",".$decwei.",2)";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == false){
 		$intreturn = 3;
 	}
 }
+
 echo $intreturn;

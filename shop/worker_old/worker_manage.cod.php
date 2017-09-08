@@ -49,6 +49,8 @@
         <td>学历</td>
         <td>入职时间</td>
         <td>基本工资</td>
+        <td>参与预约</td>
+        <td>导购提成</td>
         <td width="12%">操作</td>
       </tr>
     </thead>
@@ -63,6 +65,8 @@
       <td><?php echo $row['education_name'];?></td>
       <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
       <td><?php echo $row['worker_wage'];?></td>
+      <td><?php echo $row['worker_config_reserve']=='1'?'参与':'不参与';?></td>
+      <td><?php echo $row['worker_config_guide']=='1'?'参与':'不参与';?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-green cedit" data-am-modal="{target: '#uworker_managem2'}" value="<?php echo $row['worker_id'];?>">
           <i class="iconfont icon-bianji"></i>
@@ -106,7 +110,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>员工姓名：</label>
           <div class="umodal-normal">
-            <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name cvalid">
+            <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name">
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">员工编号：</label>
@@ -138,7 +142,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机号码：</label>
           <div class="umodal-normal">
-            <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone cvalid">
+            <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone">
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">身份证号：</label>
@@ -196,13 +200,34 @@
             <input name="worker_wage" type="text" class="am-form-field uinput uinput-max cworker_wage">
           </div>
         </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left" >
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_reserve1" value="1" data-am-ucheck checked> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_reserve1" value="2" data-am-ucheck> 不参与
+            </label>
+          </div>
+          <div class="umodal-search">&nbsp;</div>
+          <label class="umodal-label am-form-label" for="">导购提成：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_guide1" value="1" data-am-ucheck checked> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_guide1" value="2" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cworkeradd">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen">
           <i class="iconfont icon-xiangyou2"></i>
-          完成
+          下一步
         </button>
       </div>
     </div>
@@ -237,7 +262,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>员工姓名：</label>
           <div class="umodal-normal">
-            <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name cvalid">
+            <input name="worker_name" type="text" class="am-form-field uinput uinput-max cworker_name">
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">员工编号：</label>
@@ -270,7 +295,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>手机号码：</label>
           <div class="umodal-normal">
-            <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone cvalid">
+            <input name="worker_phone" type="text" class="am-form-field uinput uinput-max cworker_phone">
           </div>
           <div class="umodal-search">&nbsp;</div>
           <label class="umodal-label am-form-label" for="">身份证号：</label>
@@ -328,20 +353,213 @@
             <input name="worker_wage" type="text" class="am-form-field uinput uinput-max cworker_wage">
           </div>
         </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">参与预约：</label>
+          <div class="umodal-normal am-text-left" >
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_reserve2" value="1" data-am-ucheck checked> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_reserve2" value="2" data-am-ucheck> 不参与
+            </label>
+          </div>
+          <div class="umodal-search">&nbsp;</div>
+          <label class="umodal-label am-form-label" for="">导购提成：</label>
+          <div class="umodal-normal am-text-left">
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_guide2" value="1" data-am-ucheck checked> 参与
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="worker_guide2" value="2" data-am-ucheck> 不参与
+            </label>
+          </div>
+        </div>
         <input type="hidden" class="cworker_id">
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green cworkeredit">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen3">
           <i class="iconfont icon-xiangyou2"></i>
+          下一步
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="uworker_managem3" class="am-modal" tabindex="-1" style="min-height:291px;">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">选择商品
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd">
+      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+        <ul class="am-tabs-nav am-nav am-nav-tabs">
+          <li class="am-active"><a href="#tab1">可选商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
+        </ul>
+        <div class="am-tabs-bd">
+          <div class="am-tab-panel am-active" id="tab1">
+            <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
+            <div class="am-form-group ub">
+              <div class="ub1">
+                <select name="type" class="uselect2 uselect-max cgoods_type" data-am-selected>
+                  <option value="0">全部</option>
+                  <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                  <?php }?>
+                </select>
+              </div>
+              <div class="ub1">
+                <input class="am-form-field uinput2 uinput2-max cgoods_name" type="text" placeholder="">
+              </div>
+              <div class="ub2">
+                <button type="button" ctype="add" class="am-btn ubtn-search3 ubtn-green cgoods_search">
+                  <i class="iconfont icon-search"></i>
+                  查询
+                </button>
+              </div>
+            </div>
+            <ul class="uc">
+              <?php foreach($this->_data['mgoods_list'] as $row) { ?>
+                <li class="uc1" mgoods_type="<?php echo $row['mgoods_catalog_id'];?>"><?php echo $row['mgoods_catalog_name'];?></li>
+                <?php foreach($row['mgoods'] as $row2){ ?>
+                  <li class="uc2" mgoods_id="<?php echo $row2['mgoods_id'];?>">
+                    <div class="uc2a" mgoods_name="<?php echo $row2['mgoods_name'];?>"><?php echo $row2['mgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="add"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
+            </ul>
+          </div>
+          <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
+            <div class="gspace50"></div>
+            <div class="gspace50"></div>
+            <div>
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+              </div>           
+              <button type="button" ctype="add" class="am-btn ubtn-search2 ubtn-green usearch cgoodsadd" style="width:80px;">
+                添加
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uright">
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
+        <ul class="ub">
+          <li class="ub1">名称</li>
+          <li class="ub2">&nbsp;</li>
+          <li class="ub3">操作</li>
+        </ul>
+        <ul class="uc">
+          
+        </ul>
+      </div>
+      <div style="clear:both;"></div>
+    </div>         
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group ubtn-left">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen2"><i class="iconfont icon-xiangyou2"></i>
+          上一步
+        </button>
+      </div>
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cworkeradd"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
     </div>
   </div>
 </div>
+<div id="uworker_managem4" class="am-modal" tabindex="-1" style="min-height:291px;">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">修改商品
+      <a href="javascript:void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd">
+      <div class="am-tabs uleft" data-am-tabs="{noSwipe: 1}">
+        <ul class="am-tabs-nav am-nav am-nav-tabs">
+          <li class="am-active"><a href="#tab1">可选商品</a></li>
+          <li><a href="#tab2">扫码添加商品</a></li>
+        </ul>
 
+        <div class="am-tabs-bd">
+          <div class="am-tab-panel am-active" id="tab1">
+            <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
+            <div class="am-form-group ub">
+              <div class="ub1">
+                <select name="type" class="uselect2 uselect-max cgoods_type" data-am-selected>
+                  <option value="0">全部</option>
+                  <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+                  <option value="<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                  <?php }?>
+                </select>
+              </div>
+              <div class="ub1">
+                <input class="am-form-field uinput2 uinput2-max cgoods_name" type="text" placeholder="">
+              </div>
+              <div class="ub2">
+                <button type="button" ctype="edit" class="am-btn ubtn-search3 ubtn-green cgoods_search">
+                  <i class="iconfont icon-search"></i>
+                  查询
+                </button>
+              </div>
+            </div>
+            <ul class="uc">
+              <?php foreach($this->_data['mgoods_list'] as $row) { ?>
+                <li class="uc1" mgoods_type="<?php echo $row['mgoods_catalog_id'];?>"><?php echo $row['mgoods_catalog_name'];?></li>
+                <?php foreach($row['mgoods'] as $row2){ ?>
+                  <li class="uc2" mgoods_id="<?php echo $row2['mgoods_id'];?>">
+                    <div class="uc2a" mgoods_name="<?php echo $row2['mgoods_name'];?>"><?php echo $row2['mgoods_name'];?></div>
+                    <div class="uc2b cadd" ctype="edit"><a href="#">添加</a></div>
+                  </li>
+                <?php } ?>
+              <?php }?>
+            </ul>
+          </div>
+          <div class="am-tab-panel am-fade" id="tab2" style="min-height:414px;">
+            <div class="gspace50"></div>
+            <div class="gspace50"></div>
+            <div>
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
+                <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="条码枪扫码或手动输入">
+              </div>           
+              <button type="button" ctype="edit" class="am-btn ubtn-search2 ubtn-green usearch cgoodsadd" style="width:80px;">
+                添加
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uright">
+        <div class="ua">已选择商品<!-- <span>（数量为0代表不限数量）</span> --></div>
+        <ul class="ub">
+          <li class="ub1">名称</li>
+          <li class="ub2">数量</li>
+          <li class="ub3">操作</li>
+        </ul>
+        <ul class="uc">
+          
+        </ul>
+      </div>
+      <div style="clear:both;"></div>
+    </div>         
+    <div class="am-modal-footer ufoot">
+      <div class="am-btn-group ubtn-left">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4"><i class="iconfont icon-xiangyou2"></i>
+          上一步
+        </button>
+      </div>
+      <div class="am-btn-group">
+        <button type="button" class="am-btn ubtn-sure ubtn-green cworkeredit"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 侧拉框 -->
 <div id="uworkeroff1" class="am-offcanvas" >
   <div class="am-offcanvas-bar am-offcanvas-bar-flip uoffcanvas" style="width: 690px;">
@@ -363,6 +581,9 @@
         <div class="am-u-lg-6">入职时间：<span class="cworker_join">&nbsp;</span></div>
         <div class="am-u-lg-6">居信住址：<span class="cworker_address">&nbsp;</span></div>
         <div class="am-u-lg-6">基本工资：<span class="cworker_wage">&nbsp;</span></div>
+        <div class="am-u-lg-6">参与预约：<span class="cworker_reserve">&nbsp;</span></div>
+        <div class="am-u-lg-6">导购提成：<span class="cworker_guide">&nbsp;</span></div>
+        <div class="am-u-lg-12">工作内容：<span class="cworker_goods">&nbsp;</span></div>
         <div class="am-u-lg-12 gspace15"></div>
         <label class="am-u-lg-6">照片</label>
         <label class="am-u-lg-6">身份证</label>
@@ -384,15 +605,39 @@
       <span class="am-modal-btn" data-am-modal-confirm>确定</span>
     </div>
   </div>
-</div>
+</div> 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
 <script>
 <?php pageJs($this->_data['worker_list'],$this->_data['request'],'worker_manage.php');?>
-// cvalid
-$('.cvalid').on('input propertychange blur', function(){
-  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+//下一步
+$('.cmodelopen').on('click', function(e) {
+  if($('#uworker_managem1 .cworker_name').val() || $('#uworker_managem1 .cworker_phone').val()){
+    $('#uworker_managem1').modal('close');
+    $('#uworker_managem3').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
+});
+$('.cmodelopen3').on('click', function(e) {
+  if($('#uworker_managem2 .cworker_name').val() || $('#uworker_managem2 .cworker_phone').val()){
+    $('#uworker_managem2').modal('close');
+    $('#uworker_managem4').modal('open');
+  }else{
+    alert('请填写必填项');
+    return false;
+  }
+});
+//上一步
+$('.cmodelopen2').on('click', function(e) {
+  $('#uworker_managem3').modal('close');
+  $('#uworker_managem1').modal('open');
+});
+$('.cmodelopen4').on('click', function(e) {
+  $('#uworker_managem4').modal('close');
+  $('#uworker_managem2').modal('open');
 });
 
 //文件上传
@@ -403,27 +648,29 @@ $('.cfile').on('change', function() {
   });
   $(this).siblings('.file-list').html(fileNames);
 });
-
+//弹出框中的查询
+$('.cgoods_search').on('click',searchGoods);
+// 添加商品
+$('.cadd').on('click', cadd);
+// 扫码添加商品
+$('.cgoodsadd').on('click',add2);
 
 // 添加提交
 $('.cworkeradd').on('click', function(){
-  var _self = $(this);
-  _self.attr('disabled',true);
-  // 验证变红
-  $('#uworker_managem1 .cvalid').each(function(){
-    if($(this).val()==''){
-      $(this).addClass('am-field-error');
-    }
-  })
-  // 验证返回
-  if($('#uworker_managem1 .cvalid').hasClass("am-field-error")){
-    _self.attr('disabled',false);
-    return false;
-  }
+  $(this).attr('disabled',true);
   var url="worker_manage_add_do.php";
   var count=0;
+  var arr= [];
+  var json = {};
   var worker_id = 0;
+  $("#uworker_managem3 .cnum").each(function(k,v){
+    if($(this).attr('mgoods_id')){
+      json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'mgoods_name':$(this).attr('mgoods_name')};
+    }
+    arr.push(json);
+  });
   var data = {
+        arr:arr,
         shop_id:$('#uworker_managem1 .cshop_id').val(),
         worker_group_id:$('#uworker_managem1 .cworker_group_id').val(),
         worker_name:$('#uworker_managem1 .cworker_name').val(),
@@ -435,7 +682,9 @@ $('.cworkeradd').on('click', function(){
         worker_education:$('#uworker_managem1 .cworker_education').val(),
         worker_join:$('#uworker_managem1 .cworker_join').val(),
         worker_address:$('#uworker_managem1 .cworker_address').val(),
-        worker_wage:$('#uworker_managem1 .cworker_wage').val()
+        worker_wage:$('#uworker_managem1 .cworker_wage').val(),
+        worker_reserve:$("#uworker_managem1 input[name='worker_reserve1']:checked").val(),
+        worker_guide:$("#uworker_managem1 input[name='worker_guide1']:checked").val(),
       }
   // console.log(data);
   $.ajax({
@@ -488,6 +737,7 @@ $('.cworkeradd').on('click', function(){
 //修改打开
 $('.cedit').on('click', function(){
   var worker_id = $(this).val();
+  $("#uworker_managem4 .uright .uc li").remove();/*删除之前可能存在的商品*/
   $("#uworker_managem2 .cworker_id").val(worker_id);
   $.ajax({
     type: "GET",
@@ -528,6 +778,10 @@ $('.cedit').on('click', function(){
             $(this).uCheck('check');
           }
         });
+        $.each(res.goods, function (key,val) {
+          var addhtml ='<li><div class="uc1">'+val.mgoods_name+'</div><div class="uc2"><input mgoods_id="'+val.mgoods_id+'" mgoods_name="'+val.mgoods_name+'" class="am-form-field uinput2 uinput-35 cnum" type="hidden" placeholder="" value="1"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+          $("#uworker_managem4 .uright .uc").append(addhtml);
+        });
       }
     }
   });
@@ -541,23 +795,19 @@ $('#uworker_managem2').on('close.modal.amui', function(){
 
 // 修改提交
 $('.cworkeredit').on('click', function(){
-  var _self = $(this);
-  _self.attr('disabled',true);
-  // 验证变红
-  $('#uworker_managem2 .cvalid').each(function(){
-    if($(this).val()==''){
-      $(this).addClass('am-field-error');
-    }
-  })
-  // 验证返回
-  if($('#uworker_managem2 .cvalid').hasClass("am-field-error")){
-    _self.attr('disabled',false);
-    return false;
-  }
   var count = 0;
   var url="worker_manage_edit_do.php";
   var worker_id = $('#uworker_managem2 .cworker_id').val();
+  var arr= [];
+  var json = {};
+  $("#uworker_managem4 .cnum").each(function(k,v){
+    if($(this).attr('mgoods_id')){
+      json = {'mgoods_id':$(this).attr('mgoods_id'),'num':$(this).val(),'mgoods_name':$(this).attr('mgoods_name')};
+    }
+    arr.push(json);
+  });
   var data = {
+    arr:arr,
     worker_id:$('#uworker_managem2 .cworker_id').val(),
     shop_id:$('#uworker_managem2 .cshop_id').val(),
     worker_group_id:$('#uworker_managem2 .cworker_group_id').val(),
@@ -622,6 +872,7 @@ $('.cworkeredit').on('click', function(){
     }, 200)
   });
 })
+
 
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
@@ -692,6 +943,157 @@ $('.doc-oc-js').on('click', function() {
   $('#uworkeroff1').offCanvas($(this).data('rel'));
 });
 
+
+//删除
+$(document).on("click",".cdel2",function(){
+    $(this).parent().remove();
+});
+
+//添加商品
+function cadd(){
+  var product = $(this).prev().text();
+  var type = $(this).attr('ctype');
+  var mgoods_name = $(this).prev().attr('mgoods_name');
+  var mgoods_id = $(this).parent().attr('mgoods_id');
+  var flag = true;
+  if(type=='add'){
+    $('#uworker_managem3 .cnum').each(function(){
+      if(mgoods_id != undefined && mgoods_id == $(this).attr('mgoods_id')){
+        flag = false;
+      }
+    });
+  }else{
+    $('#uworker_managem4 .cnum').each(function(){
+      if(mgoods_id != undefined && mgoods_id == $(this).attr('mgoods_id')){
+        flag = false;
+      }
+    });
+  }
+  // console.log(flag);
+  if(!flag){
+    return false;//添加过了后面不在执行
+  }
+  var addhtml = '';
+  if(mgoods_id != undefined){
+    addhtml ='<li><div class="uc1">'+product+'</div><div class="uc2"><input mgoods_id="'+mgoods_id+'" mgoods_name="'+mgoods_name+'" class="am-form-field uinput2 uinput-35 cnum" type="hidden" placeholder="" value="1"></div><div class="uc3 cdel2" mgoods_id="'+mgoods_id+'"><a href="javascript:;">移除</a></div></li>';
+  }
+
+  if(type=='add'){
+    $("#uworker_managem3 .uright .uc").append(addhtml);
+  }else{
+    $("#uworker_managem4 .uright .uc").append(addhtml);
+  }
+}
+//查询商品
+function searchGoods(){
+    // $(this).attr('disabled',true);
+    var type = $(this).attr('ctype');
+    var data = {};
+    if(type=='add'){
+      $("#uworker_managem3 #tab1 .uc li").hide();
+      data={
+        type: $("#uworker_managem3 #tab1 .cgoods_type").val(),
+        search:$("#uworker_managem3 #tab1 .cgoods_name").val()
+      };
+    }else{
+      $("#uworker_managem4 #tab1 .uc li").hide();
+      data={
+        type: $("#uworker_managem4 #tab1 .cgoods_type").val(),
+        search:$("#uworker_managem4 #tab1 .cgoods_name").val()
+      };
+    }
+    $.ajax({
+      url:'worker_goods_ajax.php',
+      data:data,
+      type:"GET",
+      dataType:"json"
+    }).then(function(res){
+      if(res){
+        if(type=='add'){
+          $.each(res, function(key, val) {
+            console.log(val);
+            $("#uworker_managem3 #tab1 .uc li[mgoods_type]").each(function(){
+              if($(this).attr('mgoods_type')==val.mgoods_catalog_id){
+                $(this).show();
+              }
+            });
+            if(val.mgoods!=undefined){
+              $.each(val.mgoods, function(key,val){
+                $("#uworker_managem3 #tab1 .uc li[mgoods_id]").each(function(){
+                  if($(this).attr('mgoods_id')  == val['mgoods_id']){
+                    $(this).show();
+                  }
+                });
+              })
+            }
+          });
+        }else{
+          $.each(res, function(key, val) {
+            $("#uworker_managem4 #tab1 .uc li[mgoods_type]").each(function(){
+              //console.log($(this).attr('mgoods_type'));
+              if($(this).attr('mgoods_type')==val.mgoods_catalog_id){
+                $(this).show();
+              }
+            });
+            if(val.mgoods!=undefined){
+              $.each(val.mgoods, function(key,val){
+                $("#uworker_managem4 #tab1 .uc li[mgoods_id]").each(function(){
+                  if($(this).attr('mgoods_id')  == val['mgoods_id']){
+                    $(this).show();
+                  }
+                });
+              })
+            }
+          });
+        }
+      }
+      $('.cgoodssubmit').attr('disabled',false);
+    });
+}
+//扫码添加库存商品
+function add2(){
+  var goods_code = $(this).siblings().find('input').val();
+  var type = $(this).attr('ctype');
+  var goods_type = 0;
+  var mgoods_id = 0;
+  var flag = true;
+  var addhtml = '';
+  $.ajax({
+    url:'worker_goods_add_ajax.php',
+    data:{
+      goods_code:goods_code
+    },
+    type:"GET",
+    dataType:"json"
+  }).then(function(res){
+    if(res){
+      mgoods_id = res.mgoods_id;
+      mgoods_name = res.mgoods_name;
+      if(type=="add"){
+        $('#uworker_managem3 .cnum').each(function(){
+          if(mgoods_id == $(this).attr('mgoods_id')){
+            flag = false;
+          }
+        });
+      }else{
+        $('#uworker_managem4 .cnum').each(function(){
+          if(mgoods_id == $(this).attr('mgoods_id')){
+            flag = false;
+          }
+        });
+      }
+      if(!flag){
+        return false;//添加过了后面不在执行
+      }
+      addhtml ='<li><div class="uc1">'+mgoods_name+'</div><div class="uc2"><input mgoods_id="'+mgoods_id+'" mgoods_name="'+mgoods_name+'" class="am-form-field uinput2 uinput-35 cnum" type="hidden" placeholder="" value="1"></div><div class="uc3 cdel2"><a href="javascript:;">移除</a></div></li>';
+      if(type=="add"){
+        $("#uworker_managem3 .uright .uc").append(addhtml);
+      }else{
+        $("#uworker_managem4 .uright .uc").append(addhtml);
+      }
+    }
+  });
+}
 </script>
 </body>
 </html>

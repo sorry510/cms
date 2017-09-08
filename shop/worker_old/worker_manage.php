@@ -13,6 +13,8 @@ $intpage = api_value_int1($strpage);
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('worker_group_list', get_worker_group_list());
+$gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
+$gtemplate->fun_assign('mgoods_list', get_mgoods_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_show('worker_manage');
 
@@ -124,4 +126,26 @@ function get_worker_list() {
 	return $arrpackage;
 }
 
+function get_mgoods_catalog_list() {
+	$arr = array();
+	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id desc";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+
+function get_mgoods_list(){
+	$arr = array();
+	$arrmgoods = array();
+	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id desc";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arr as &$v){
+		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." and mgoods_reserve=1 and mgoods_state=1 ORDER BY mgoods_id desc";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		$v['mgoods'] = $arrmgoods;
+	}
+	return $arr;
+}
 ?>

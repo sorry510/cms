@@ -12,7 +12,7 @@
   <div class="utools">
     <form class="am-form-inline uform2">
     </form> 
-    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_shopm1'}">
+    <button class="am-btn ubtn-sure ubtn-blue caddopen">
       <i class="iconfont icon-question"></i>
       新增分店
     </button>
@@ -28,6 +28,7 @@
         <td>地图位置</td>
         <td>最大用户数</td>
         <td>到期日期</td>
+        <td style="width: 8%;">总店</td>
         <td style="width: 8%;">操作</td>
       </tr>
     </thead>
@@ -36,9 +37,17 @@
       <td><?php echo $row['shop_name']; ?></td>
       <td><?php echo $row['shop_phone']; ?></td>
       <td><?php echo $row['province'].$row['city'].$row['shop_area_address']; ?></td>
-      <td><a href="#" class="iconfont icon-question cmapshow" jing="<?php echo $row['shop_area_jing']; ?>" wei="<?php echo $row['shop_area_wei'];?>" shop_name="<?php echo $row['shop_name']; ?>" data-am-modal="{target: '#usystem_shopm3'}"></a>地图</td>
+      <td><a href="#" class="am-icon-map cmapshow" jing="<?php echo $row['shop_area_jing']; ?>" wei="<?php echo $row['shop_area_wei'];?>" shop_name="<?php echo $row['shop_name']; ?>" data-am-modal="{target: '#usystem_shopm3'}"></a>地图</td>
       <td><?php echo $row['shop_limit_user']; ?></td>
       <td class="<?php if($row['shop_edate']<time()) echo 'gtext-orange'; ?>"><?php echo date('Y-m-d',$row['shop_edate']); ?></td>
+      <td><a href="javascript:;" class="<?php if($row['shop_center'] != 1) echo'ccenter';?>" style="text-decoration:none;" shop_id="<?php echo $row['shop_id'];?>">
+          <?php if($row['shop_center'] == 1){?>
+            <i class="am-icon-home am-icon-md"></i>
+          <?php }else{
+            echo "--";
+          }?>
+          </a>
+      </td>
       <td>
       <?php if($row['shop_edate']>time()){?>
         <button class="am-btn ubtn-table ubtn-green cedit" data-am-modal="{target: '#usystem_shopm2'}" value="<?php echo $row['shop_id']; ?>">
@@ -61,9 +70,9 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">店铺名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>店铺名称：</label>
           <div class="umodal-normal">
-            <input name="shop_name" type="text" class="am-form-field uinput uinput-max cshop_name">
+            <input name="shop_name" type="text" class="am-form-field uinput uinput-max cshop_name cvalid" value="">
           </div>
         </div>
         <div class="am-form-group">
@@ -121,9 +130,9 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal" id="cform2">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">店铺名称：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>店铺名称：</label>
           <div class="umodal-normal">
-            <input name="shop_name" type="text" class="am-form-field uinput uinput-max">
+            <input name="shop_name" type="text" class="am-form-field uinput uinput-max cshop_name cvalid" value="">
             <input name="shop_name_old" type="hidden">
           </div>
         </div>
@@ -188,32 +197,98 @@
     </div>
   </div>
 </div>
+<?php confirmHtml(6)?>
+<div class="am-modal am-modal-alert" tabindex="-1" id="calert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">警告</div>
+    <div class="am-modal-bd">
+      超过店铺最大数量限制！
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=LxI9Y9IBOKmglxZlF5128gcb51Pnz0WL" type="text/javascript"></script>
 <script type="text/javascript">
-
-
 getCity();
+// 是否是主店
+$('.ccenter').on('click', function(){
+  $('#cconfirm9').modal({
+    relatedTarget: this,
+    onConfirm: function(options) {
+      $.post('system_shop_center_do.php',{'shop_id':$(this.relatedTarget).attr('shop_id')},function(res){
+        if(res=='0'){
+          window.location.reload();
+        }else{
+          alert("设置失败");
+          console.log(res);
+        }
+      });
+    },
+    onCancel: function() {
+      return false;
+    }
+  });
+})
+// 是否可以添加店铺
+$('.caddopen').on('click', function(){
+  $.ajax({
+    url:'system_shop_count_ajax.php',
+  }).then(function(res){
+    if(res==0){
+      $('#usystem_shopm1').modal('open');
+    }else{
+      $('#calert').modal('open');
+    }
+  })
+})
 
-// add
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+// add-submit
 $('.caddsubmit').on('click', function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_shopm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_shopm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url = "system_shop_add_do.php";
   var data = $('#cform1').serialize();
-  // console.log(data);
   $.post(url, data, function(res){
+    // console.log(res);
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
       alert('店家被停用');
+      _self.attr('disabled',false);
     }else if(res=='2'){
       alert('店铺名字不能重复');
+      _self.attr('disabled',false);
+    }else if(res=='3'){
+      alert('添加失败');
+      _self.attr('disabled',false);
+    }else if(res=='4'){
+      alert('超过最大数量限制');
+      _self.attr('disabled',false);
     }else{
       alert('添加失败');
+      _self.attr('disabled',false);
     }
   });
 });
-
 // edit-show
 $('.cedit').on('click', function(){
   var shop_id = $(this).val();
@@ -405,6 +480,16 @@ $('#usystem_shopm2').on('close.modal.amui', function(){
 });
 // edit-submit
 $('.ceditsubmit').on('click', function(){
+  // 验证变红
+  $('#usystem_shopm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_shopm2 .cvalid').hasClass("am-field-error")){
+    return false;
+  }
   var url = "system_shop_edit_do.php";
   var data = $('#cform2').serialize();
   // console.log(data);

@@ -56,7 +56,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="mgoods_catalog_name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="mgoods_catalog_name">
           </div>
         </div> 
       </form>
@@ -81,7 +81,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max ccatalog_name" name="mgoods_catalog_name">
+            <input type="text" class="am-form-field uinput uinput-max ccatalog_name cvalid" name="mgoods_catalog_name">
             <input type="hidden" class="ccatalog_name_old" name="mgoods_catalog_name_old">
           </div>
         </div> 
@@ -137,9 +137,26 @@ $('.cdel').on('click', function() {
   });
 });
 
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+
 //添加分类提交按钮
 $('.cadd-form1').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#umgoods_catalogm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#umgoods_catalogm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="mgoods_catalog_add_do.php";
   var data = $("#form1").serialize();
   $.post(url,data,function(res){
@@ -147,13 +164,13 @@ $('.cadd-form1').on('click',function(){
       window.location.href='mgoods_catalog.php';
     }else if(res=='1'){
       alert("名字不能重复");
-      $('.cadd-form1').attr('disabled',false);
+      _self.attr('disabled',false);
     }else{
+      _self.attr('disabled',false);
       alert("添加失败");
     }
   });
 });
-
 
 //修改按钮
 $('.cid-update').on('click', function() {
@@ -166,11 +183,24 @@ $('.cid-update').on('click', function() {
 
 //修改分类提交按钮
 $('.cadd-form2').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#umgoods_catalogm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#umgoods_catalogm2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
+  //没做改变时直接返回
   if($("#umgoods_catalogm2 .ccatalog_name_old").val()==$("#umgoods_catalogm2 .ccatalog_name").val()){
     $("#umgoods_catalogm2").modal('close');
     return false;
   }
-  $(this).attr('disabled',true);
   var url="mgoods_catalog_edit_do.php";
   var data = $("#form2").serialize();
   $.post(url,data,function(res){

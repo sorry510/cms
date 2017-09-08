@@ -43,7 +43,7 @@
     <?php foreach($this->_data['user_list']['list'] as $row) { ?>
     <tr>
       <td><?php echo $row['user_power'] ?></td>
-      <td><?php echo empty($row['shop_name'])?'总店':$row['shop_name']; ?></td>
+      <td><?php echo empty($row['shop_name'])?'--':$row['shop_name']; ?></td>
       <td><?php echo $row['user_account']; ?></td>
       <td><?php echo $row['user_name']; ?></td>
       <td>
@@ -101,25 +101,25 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>帐号：</label>
           <div class="umodal-normal">
-            <input type="text" name="account" class="am-form-field uinput uinput-max">
+            <input type="text" name="account" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">密码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>密码：</label>
           <div class="umodal-normal">
-            <input type="password"  name="password" class="am-form-field uinput uinput-max">
+            <input type="password"  name="password" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">确认密码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>确认密码：</label>
           <div class="umodal-normal">
-            <input type="password"  name="password2" class="am-form-field uinput uinput-max">
+            <input type="password"  name="password2" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>姓名：</label>
           <div class="umodal-normal">
-            <input type="text" name="name" class="am-form-field uinput uinput-max">
+            <input type="text" name="name" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
       </form>
@@ -159,21 +159,21 @@
           <label class="umodal-normal am-form-label am-text-left cuser_name"></label>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">旧密码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>旧密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password_old">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password_old">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">新密码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>新密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password">
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">确认密码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>确认密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password2">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password2">
           </div>
         </div>
         <input type="hidden" class="cuser_id" name="user_id">
@@ -242,20 +242,45 @@ $('.cid').on('click', function() {
     $('#usystem_userm1 .am-selected-btn').removeAttr('disabled');
   }
 });
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
 
 //添加操作员提交按钮
 $('.cadd-form1').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_userm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_userm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_user_add_do.php', $("#form1").serialize(), function(res){
+    console.log(res);
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
       alert('密码不一致');
+      _self.attr('disabled',false);
     }else if(res=='2'){
       alert('必须选一个店铺');
+      _self.attr('disabled',false);
     }else if(res=='3'){
       alert('用户名已存在，请重新输入');
+      _self.attr('disabled',false);
+    }else if(res=='4'){
+      alert('超出最大用户限制');
+      _self.attr('disabled',false);
     }else{
       alert('添加失败');
+      _self.attr('disabled',false);
     }
   });
 });
@@ -269,7 +294,7 @@ $('.cupdate').on('click', function(e) {
     if(res.shop_name){
       $("#usystem_userm2 .cuser_shop").text(res.shop_name);
     }else{
-      $("#usystem_userm2 .cuser_shop").text('总店');
+      $("#usystem_userm2 .cuser_shop").text('--');
     }
     $("#usystem_userm2 .cuser_account").text(res.user_account);
     $("#usystem_userm2 .cuser_name").text(res.user_name);
@@ -278,6 +303,16 @@ $('.cupdate').on('click', function(e) {
 });
 // edit-submit
 $('.cupdate_form3').on('click',function(){
+  // 验证变红
+  $('#usystem_userm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_userm2 .cvalid').hasClass("am-field-error")){
+    return false;
+  }
   $.post('system_user_edit_do.php', $("#form3").serialize(), function(res){
     console.log(res);
     if(res=='0'){

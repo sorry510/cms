@@ -35,7 +35,7 @@ $sqlworker_identity = $gdb->fun_escape($strworker_identity);
 $strworker_education = api_value_post('worker_education');
 $intworker_education = api_value_int0($strworker_education);
 $strworker_join = api_value_post('worker_join');
-$intworker_join = strtotime($strworker_join)?strtotime($strworker_join):0;
+$intworker_join = strtotime($strworker_join)==false?'0':strtotime($strworker_join);
 $strworker_address = api_value_post('worker_address');
 $sqlworker_address = $gdb->fun_escape($strworker_address);
 $strworker_wage = api_value_post('worker_wage');
@@ -47,7 +47,7 @@ $intworker_guide = api_value_int0($strworker_guide);
 
 $intshop_id = $GLOBALS['_SESSION']['login_sid'];
 
-//$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
+$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
 
 
 $arr = array();
@@ -79,7 +79,7 @@ if($intreturn == 0){
 	}
 }
 
-/*if($intreturn == 0){
+if($intreturn == 0){
 	if(!empty($arrinfo)){
 		foreach($arrinfo as $v){
 			$intmgoods_id = $v['mgoods_id'];
@@ -97,7 +97,7 @@ if($intreturn == 0){
 			}
 		}
 	}
-}*/
+}
 
 // echo $intreturn;
 if($intreturn==0){

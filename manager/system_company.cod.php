@@ -113,9 +113,9 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">证件号码：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>证件号码：</label>
           <div class="umodal-normal">
-            <input name="identity" type="text" class="am-form-field uinput uinput-max" value="<?php echo $this->_data['company_info']['company_identity_info']; ?>">
+            <input name="identity" type="text" class="am-form-field uinput uinput-max cidentity" value="<?php echo $this->_data['company_info']['company_identity_info']; ?>">
           </div>
           <div class="umodal-text gtext-green">
             （营业执照/身份证号码，提交完成后不能修改，请正确填写）
@@ -164,9 +164,9 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">联系人：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>联系人：</label>
           <div class="umodal-normal">
-            <input name="name" class="am-form-field uinput uinput-max" type="text" placeholder="" value="<?php echo $this->_data['company_info']['company_link_name']; ?>">
+            <input name="name" class="am-form-field uinput uinput-max cname" type="text" placeholder="" value="<?php echo $this->_data['company_info']['company_link_name']; ?>">
           </div>
         </div>
         <div class="am-form-group">
@@ -196,6 +196,12 @@ $(function(){
   getCity();
   $('.cprovince').on('change', getCity);
 
+  $('#usystem_companym2 .cidentity').on('input propertychange', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
+  $('#usystem_companym2 .cname').on('input propertychange', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
   $('#usystem_companym2').on('close.modal.amui', function(){
     // $('.cprovince').selected('destroy');
     // $('.cprovince').val(province);
@@ -205,6 +211,10 @@ $(function(){
   });
   $('.ccommit').on('click', function(){
     $(this).attr('disabled',true);
+    if($('#usystem_companym2 .cidentity').val()=='' || $('#usystem_companym2 .cname').val()==''){
+      $(this).attr('disabled',false);
+      return false;
+    }
     var company_id = $('.ccompany_id').val();
     var url="system_company_do.php";
     var data = $("#cform1").serialize();

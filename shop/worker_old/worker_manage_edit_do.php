@@ -4,12 +4,16 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
+$strworker_id = api_value_post('worker_id');
+$intworker_id = api_value_int0($strworker_id);
 $strworker_group_id = api_value_post('worker_group_id');
 $intworker_group_id = api_value_int0($strworker_group_id);
 $strworker_name = api_value_post('worker_name');
 $sqlworker_name = $gdb->fun_escape($strworker_name);
 $strworker_code = api_value_post('worker_code');
 $sqlworker_code = $gdb->fun_escape($strworker_code);
+$strworker_code_old = api_value_post('worker_code_old');
+$sqlworker_code_old = $gdb->fun_escape($strworker_code_old);
 $strworker_sex = api_value_post('worker_sex');
 $intworker_sex = api_value_int0($strworker_sex);
 $strworker_birthday_date = api_value_post('worker_birthday_date');
@@ -35,7 +39,7 @@ $sqlworker_identity = $gdb->fun_escape($strworker_identity);
 $strworker_education = api_value_post('worker_education');
 $intworker_education = api_value_int0($strworker_education);
 $strworker_join = api_value_post('worker_join');
-$intworker_join = strtotime($strworker_join)?strtotime($strworker_join):0;
+$intworker_join = strtotime($strworker_join)==false?'0':strtotime($strworker_join);
 $strworker_address = api_value_post('worker_address');
 $sqlworker_address = $gdb->fun_escape($strworker_address);
 $strworker_wage = api_value_post('worker_wage');
@@ -44,42 +48,45 @@ $strworker_reserve = api_value_post('worker_reserve');
 $intworker_reserve = api_value_int0($strworker_reserve);
 $strworker_guide = api_value_post('worker_guide');
 $intworker_guide = api_value_int0($strworker_guide);
-
 $intshop_id = $GLOBALS['_SESSION']['login_sid'];
-
-//$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
+$arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
 
 
 $arr = array();
 $intreturn = 0;
 $intnow = time();
-$intworker_id = 0;
 
 //姓名手机必填
 if(empty($sqlworker_name) || empty($sqlworker_phone)){
-	$intreturn = 4;
+	$intreturn = 5;
 }
 // 员工编码唯一
-if(!empty($sqlworker_code)){
+if(!empty($sqlworker_code) && $sqlworker_code != $sqlworker_code_old){
 	$strsql = "SELECT worker_id FROM ".$gdb->fun_table2('worker')." WHERE worker_code='".$sqlworker_code."' and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$hresult = $gdb->fun_query($strsql);
 	$arr = $gdb->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
+		$intreturn = 4;
+	}
+}
+if($intreturn == 0){
+	$strsql = "UPDATE ".$gdb->fun_table2('worker')." SET shop_id=".$intshop_id.",worker_group_id=".$intworker_group_id.",worker_name='".$sqlworker_name."',worker_code='".$sqlworker_code."',worker_sex=".$intworker_sex.",worker_birthday_date=".$intworker_birthday_date.",worker_birthday_day=".$intworker_birthday_date_day.",worker_birthday_month=".$intworker_birthday_date_month.",worker_phone='".$sqlworker_phone."',worker_identity='".$sqlworker_identity."',worker_education=".$intworker_education.",worker_join=".$intworker_join.",worker_address='".$sqlworker_address."',worker_wage=".$decworker_wage.",worker_config_reserve=".$intworker_reserve.",worker_config_guide=".$intworker_guide." where worker_id=".$intworker_id;
+	// echo $strsql;exit;
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
 		$intreturn = 1;
 	}
 }
-
 if($intreturn == 0){
-	$strsql = "INSERT INTO ".$gdb->fun_table2('worker')." (worker_group_id,shop_id,worker_code,worker_name,worker_sex,worker_birthday_date,worker_birthday_month,worker_birthday_day,worker_phone,worker_identity,worker_education,worker_join,worker_address,worker_wage,worker_config_guide,worker_config_reserve,worker_atime) VALUES (".$intworker_group_id.",".$intshop_id.",'".$sqlworker_code."','".$sqlworker_name."',".$intworker_sex.",".$intworker_birthday_date.",".$intworker_birthday_date_month.",".$intworker_birthday_date_day.",'".$sqlworker_phone."','".$sqlworker_identity."',".$intworker_education.",".$intworker_join.",'".$sqlworker_address."',".$decworker_wage.",".$intworker_guide.",".$intworker_reserve.",".$intnow.")";
-	$hresult = $gdb->fun_do($strsql);
-	if($hresult == FALSE) {
-		$intreturn = 2;
-	}else{
-		$intworker_id = mysql_insert_id();
+	if($intworker_id != 0){
+		$strsql = 'DELETE FROM '.$GLOBALS['gdb']->fun_table2('worker_goods')." where worker_id=".$intworker_id;
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult==false){
+			$intreturn = 2;
+		}
 	}
 }
-
-/*if($intreturn == 0){
+if($intreturn == 0){
 	if(!empty($arrinfo)){
 		foreach($arrinfo as $v){
 			$intmgoods_id = $v['mgoods_id'];
@@ -97,12 +104,7 @@ if($intreturn == 0){
 			}
 		}
 	}
-}*/
-
-// echo $intreturn;
-if($intreturn==0){
-	echo $intworker_id;
-}else{
-	echo 'error';
 }
+
+echo $intreturn;
 ?>

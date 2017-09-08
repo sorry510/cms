@@ -12,8 +12,8 @@
   <div class="utools">
     <form class="am-form-inline uform2">
       <div class="am-form-group">
-        <label for="doc-ipt-3" class="am-form-label">名称：</label>
-        <input type="text" class="am-form-field uinput uinput-220" placeholder="" value="<?php echo $this->_data['request']['mcombo_number_name']?>" name="mcombo_number_name">
+        <label for="doc-ipt-3" class="am-form-label">套餐：</label>
+        <input type="text" class="am-form-field uinput uinput-220" placeholder="名称/简拼/编码" value="<?php echo $this->_data['request']['search']?>" name="search">
       </div>
       <div class="am-form-group">
         <button type="submit" class="am-btn ubtn-search">
@@ -42,7 +42,7 @@
     </thead>
     <?php foreach($this->_data['mcombo_number_list']['list'] as $row) { ?>
     <tr>
-      <td class="gtext-overflow" title="<?php echo $row['mcombo_name']; ?>"><?php echo $row['mcombo_name']; ?></td>
+      <td class="gtext-overflow" title="<?php echo $row['mcombo_name']; ?>"><a href="#" class="coffopen" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']; ?></a></td>
       <td><?php echo $row['mcombo_code']; ?></td>
       <td class="gtext-orange"><?php echo $row['mcombo_price']; ?></td>
       <td class="gtext-orange"><?php echo $row['mcombo_cprice']==0?'--':$row['mcombo_cprice']; ?></td>
@@ -91,7 +91,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>套餐名称：</label>
           <div class="umodal-normal">
-            <input type="text" name="mcombo_name" id="cgoodsname" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+            <input type="text" name="mcombo_name" id="cgoodsname" class="am-form-field uinput uinput-max cvalid" onKeyUp="query()" required>
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
@@ -107,7 +107,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -168,7 +168,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>套餐名称：</label>
           <div class="umodal-normal">
-            <input type="text" id="cgoodsname2" name="mcombo_name" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
+            <input type="text" id="cgoodsname2" name="mcombo_name" class="am-form-field uinput uinput-max cvalid" onKeyUp="query2()" required>
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
@@ -185,7 +185,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="mcombo_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -381,7 +381,7 @@
             <div>
               <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%;">
                 <input id="" class="am-form-field uinput uinput-max cmgoods_code" type="text" placeholder="条码枪扫码或手动输入">
-              </div>           
+              </div>
               <button type="button" ctype="edit" class="am-btn ubtn-search2 ubtn-green usearch cmcombo_goods_add" style="width:80px;">
                 添加
               </button>
@@ -400,7 +400,7 @@
         </ul>
       </div>
       <div style="clear:both"></div>
-    </div>         
+    </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group ubtn-left">
         <button type="button" class="am-btn ubtn-sure ubtn-green cmodelopen4"><i class="iconfont icon-xiangyou2"></i>
@@ -454,11 +454,37 @@
     </div>
   </div>
 </div>
+<!-- 侧拉框 -->
+<div id="uoffcanvas" class="am-offcanvas">
+  <div class="am-offcanvas-bar am-offcanvas-bar-flip uoffcanvas">
+    <div class="am-offcanvas-content" >
+      <div class="am-modal-hd"><span class="utitle">套餐明细</span>
+        <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
+      </div>
+      <div class="gspace15"></div>
+      <div class="am-g ucontent">
+        <div class="am-u-lg-6">套餐名称：<span class="cmcombo_name"></span></div>
+        <div class="am-u-lg-6">套餐编码：<span class="cmcombo_code"></span></div>
+        <div class="am-u-lg-6">价格：<span class="cmcombo_price"></span></div>
+        <div class="am-u-lg-6">会员价：<span class="cmcombo_cprice"></span></div>
+        <div class="am-u-lg-6">有效期：<span class="cmcombo_edate"></div>
+        <div class="am-u-lg-6">参与活动：<span class="cmcombo_act"></div>
+        <div class="am-u-lg-6">状态：<span class="cmcombo_state"></span></div>
+        <div class="am-u-lg-6">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pinying.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 <?php pageJs($this->_data['mcombo_number_list'],$this->_data['request'],'mcombo_number.php');?>
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+});
+
 //删除
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
@@ -518,22 +544,32 @@ $('.cmcombo_state2').on('click',function(){
 });
 //下一步
 $('.cmodelopen').on('click', function(e) {
-  if($("#umcombo_numberm1 input[name='mcombo_name']").val() && $("#umcombo_numberm1 input[name='mcombo_price']").val()){
-    $('#umcombo_numberm1').modal('close');
-    $('#umcombo_numberm3').modal('open');
-  }else{
-    alert('请填写必填项');
+  // 验证变红
+  $('#umcombo_numberm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#umcombo_numberm1 .cvalid').hasClass("am-field-error")){
     return false;
   }
+  $('#umcombo_numberm1').modal('close');
+  $('#umcombo_numberm3').modal('open');
 });
 $('.cmodelopen3').on('click', function(e) {
-  if($("#umcombo_numberm2 input[name='mcombo_name']").val() && $("#umcombo_numberm2 input[name='mcombo_price']").val()){
-    $('#umcombo_numberm2').modal('close');
-    $('#umcombo_numberm4').modal('open');
-  }else{
-    alert('请填写必填项');
+  // 验证变红
+  $('#umcombo_numberm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#umcombo_numberm2 .cvalid').hasClass("am-field-error")){
     return false;
   }
+  $('#umcombo_numberm2').modal('close');
+  $('#umcombo_numberm4').modal('open');
 });
 //上一步
 $('.cmodelopen2').on('click', function(e) {
@@ -846,19 +882,91 @@ $('.ceditor-mcombo').on('click',function(){
       }
       // console.log(data);
       // return false;
-      $.post(url,data,function(res){
-        // console.log(res);
-        if(res=='0'){
-          window.location.reload();
-        }else if(res==1){
-          alert('编码不能相同');
-        }else{
-          alert('修改套餐失败');
-          console.log(res);
-        }
-      });
+  $.post(url,data,function(res){
+    // console.log(res);
+    if(res=='0'){
+      window.location.reload();
+    }else if(res==1){
+      alert('编码不能相同');
+    }else{
+      alert('修改套餐失败');
+      console.log(res);
+    }
+  });
 });
 
+//侧拉打开
+$('.coffopen').on('click',function() {
+  var url = "mcombo_detail_ajax.php";
+  $('#uoffcanvas .crefundopen').val($(this).attr('mcombo_id'));
+  $.getJSON(url,{mcombo_id:$(this).attr('mcombo_id')},function(res){
+    // console.log(res);
+    $("#uoffcanvas .cmcombo_name").text(res.mcombo_name);
+    $("#uoffcanvas .cmcombo_code").text(res.mcombo_code);
+    $("#uoffcanvas .cmcombo_price").text(res.mcombo_price);
+    if(res.mcombo_cprice!=0){
+      $("#uoffcanvas .cmcombo_cprice").text(res.mcombo_cprice);
+    }else{
+      $("#uoffcanvas .cmcombo_cprice").text('--');
+    }
+    switch(res.mcombo_limit_type)
+    {
+      case '1':
+        $("#uoffcanvas .cmcombo_edate").text('不限期');
+        break;
+      case '2':
+        $("#uoffcanvas .cmcombo_edate").text(res.mcombo_limit_days+'天');
+        break;
+      case '3':
+        $("#uoffcanvas .cmcombo_edate").text(res.mcombo_limit_months+'个月');
+        break;
+      default :
+        $("#uoffcanvas .cmcombo_edate").text('--');
+    }
+    switch(res.mcombo_act)
+    {
+      case '1':
+        $("#uoffcanvas .cmcombo_act").text('参与');
+        break;
+      case '2':
+        $("#uoffcanvas .cmcombo_act").text('不参与');
+        break;
+      default :
+        $("#uoffcanvas .cmcombo_act").text('--');
+    }
+    switch(res.mcombo_state)
+    {
+      case '1':
+        $("#uoffcanvas .cmcombo_state").text('正常');
+        break;
+      case '2':
+        $("#uoffcanvas .cmcombo_state").text('停用');
+        break;
+      default :
+        $("#uoffcanvas .cmcombo_state").text('--');
+    }
+    // 买套餐商品
+    if(res.mgoods){
+      var goods_head = '<p class="cjs"><strong>套餐商品清单</strong></p>';
+      var table_head = '<table class="am-table am-table-bordered am-table-hover utable1 am-table-compact cjs" style="color:black;"><thead><tr><td>序号</td><td>名称</td><td>原价</td><td>数量</td></thead>';
+      var table_body = '';
+      $.each(res.mgoods,function(k,v){
+          table_body = table_body+'<tr><td>'+(k+1)+'</td><td>'+v.mgoods_name+'</td><td>'+v.mgoods_price+'元</td><td>'+v.mcombo_goods_count+'</td></tr>';
+      });
+      var table_bottom = '</table>';
+      $(".am-offcanvas-content .ucontent").after(goods_head+table_head+table_body+table_bottom);
+    }
+  });
+  $('#uoffcanvas').offCanvas('open');
+});
+//关闭侧拉
+$('.doc-oc-js').on('click', function() {
+  $('#uoffcanvas').offCanvas($(this).data('rel'));
+});
+//侧拉关闭删除商品信息
+$('#uoffcanvas').on('close.offcanvas.amui', function() {
+  $('#uoffcanvas').find('.cjs').remove();
+})
 </script>
 </body>
 </html>

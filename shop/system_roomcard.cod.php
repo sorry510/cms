@@ -60,7 +60,7 @@
       	<div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected name="catalog">
+            <select class="uselect uselect-max cvalid" data-am-selected name="catalog">
             <option value="0">请选择</option>
             <?php foreach($this->_data['room_catalog_list'] as $row){?>
               <option value="<?php echo $row['room_catalog_id'];?>"><?php echo $row['room_catalog_name'];?></option>
@@ -71,14 +71,14 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
           </div>
           <div class="umodal-text gtext-green">（备注：房间/手牌号）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">ID号：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="code">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="code">
           </div>
         </div> 
       </form>
@@ -103,7 +103,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" name="catalog">
+            <select class="uselect uselect-max cvalid" name="catalog">
               <option value="0">请选择</option>
               <?php foreach($this->_data['room_catalog_list'] as $row){?>
               <option value="<?php echo $row['room_catalog_id'];?>"><?php echo $row['room_catalog_name'];?></option>
@@ -114,14 +114,14 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
           </div>
           <div class="umodal-text gtext-green">（备注：房间/手牌号）</div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">ID号：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="code">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="code">
           </div>
         </div>
         <input type="hidden" name="id">
@@ -153,6 +153,14 @@
 <script src="../js/amazeui.min.js"></script>
 <script>
 <?php pageJs($this->_data['room_list'],$this->_data['request'],'system_roomcard.php');?>
+// cvalid
+$('input.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+// select cvalid
+$('select.cvalid').on('change', function(){
+  $(this).val()=='0'?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
 
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
@@ -175,11 +183,23 @@ $('.cdel').on('click', function() {
 });
 
 $('.cadd').on('click', function() {
-  var ele = $(this);
-  ele.attr('disable',true);
-  if($("#usystem_roomcardm1 select[name='catalog']").val()==0){
-    alert('类目不为空');
-    ele.attr('disable',false);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_roomcardm1 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#usystem_roomcardm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
     return false;
   }
   $.post('system_roomcard_add_do.php', $("#cform1").serialize(), function(res){
@@ -188,7 +208,7 @@ $('.cadd').on('click', function() {
       window.location.href="system_roomcard.php";
     }else{
       alert('添加失败');
-      ele.attr('disable',false);
+      _self.attr('disable',false);
     }
   })
 });
@@ -209,8 +229,23 @@ $("#usystem_roomcardm2").on('close.modal.amui', function(){
 })
 
 $('.ceditsubmit').on('click', function(){
-  if($("#usystem_roomcardm2 select[name='catalog']").val()==0){
-    alert('类目不为空');
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_roomcardm2 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#usystem_roomcardm2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
     return false;
   }
   $.post('system_roomcard_edit_do.php', $("#cform2").serialize(), function(res){

@@ -16,12 +16,11 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'worker') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-baobiao-xianxing"></span> 员工</a>
-    <ul class="am-dropdown-content umenu2 umenu2-five">
+    <ul class="am-dropdown-content umenu2 umenu2-four">
       <li><a href="worker_manage.php">1. 员工管理</a></li>
-      <li><a href="worker_group.php">2. 分组管理</a></li>
-      <li><a href="worker_reward.php">3. 员工提成</a></li>
-      <li><a href="worker_reward_detail.php">4. 员工提成明细</a></li>
-      <li><a href="worker_reward_count.php">5. 员工提成统计</a></li>
+      <li><a href="worker_reward.php">2. 员工提成方案</a></li>
+      <li><a href="worker_reward_detail.php">3. 员工提成明细</a></li>
+      <li><a href="worker_reward_count.php">4. 员工提成统计</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'bill') {echo 'uhighlight';} ?>" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-jifen-xianxing"></span> 收支</a>

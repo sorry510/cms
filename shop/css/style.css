@@ -167,8 +167,9 @@
 #ubody #uworkbench .uright .urhead{background:#D99F4C; color:#ffffff; padding-right:15px;}
 #ubody #uworkbench .uright .urhead > li{margin:0; padding:0; height:36px; line-height:36px; text-align:center;}
 #ubody #uworkbench .uright .urcontent{overflow-y:scroll; zoom:1; margin:0px; padding:0px; height:315px; background: #FFFFFF; border-left:1px solid #dddddd; border-bottom:1px solid #dddddd;}
-#ubody #uworkbench .uright .urcontent > li{margin:0; padding:0; height:36px; line-height:36px; text-align:center; border-bottom:1px solid #dddddd;}
-#ubody #uworkbench .uright .urcontent > li > input{margin-bottom:4px;}
+#ubody #uworkbench .uright .urcontent .uline {margin:0; padding:0;border-bottom:1px solid #dddddd;}
+#ubody #uworkbench .uright .urcontent .uline > li{margin:0; padding:0; height:36px; line-height:36px; text-align:center;}
+#ubody #uworkbench .uright .urcontent .uline > li > input{margin-bottom:4px;}
 #ubody #uworkbench .uright .urcontent .udec{padding-right:3px; display:inline-block;}
 #ubody #uworkbench .uright .urcontent .uplus{padding-left:3px; display:inline-block;}
 #ubody #uworkbench .uright .urcontent .udel > a{color:#2D7EF6; text-decoration:underline;}

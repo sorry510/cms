@@ -57,7 +57,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
           </div>
           <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
         </div> 
@@ -83,7 +83,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
             <input type="hidden" class="am-form-field uinput uinput-max" name="id">
           </div>
           <div class="umodal-text gtext-green">（备注：如一楼包间，一楼大厅）</div>
@@ -117,6 +117,11 @@
 <script>
 <?php pageJs($this->_data['roomcate_list'],$this->_data['request'],'system_roomcate.php');?>
 
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+
 $('.cdel').on('click', function() {
   $('#cconfirm').modal({
     relatedTarget: this,
@@ -138,14 +143,25 @@ $('.cdel').on('click', function() {
 });
 
 $('.cadd').on('click', function() {
-  var ele = $(this);
-  ele.attr('disable',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_roomcatem1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_roomcatem1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_roomcate_add_do.php' ,$('#cform1').serialize() ,function(res){
     if(res=='0'){
       window.location.href="system_roomcate.php";
     }else{
       alert('添加失败');
-      ele.attr('disable',false);
+      _self.attr('disable',false);
     }
   })
 });
@@ -158,14 +174,25 @@ $('.cmodal2open').on('click', function() {
 });
 
 $('.ceditsubmit').on('click',function(){
-  var target = $(this);
-  target.attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_roomcatem2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_roomcatem2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_roomcate_edit_do.php', $("#cform2").serialize(), function(res){
-    console.log(res);
+    // console.log(res);
     if(res=='0'){
       window.location.reload();
     }else{
-      target.attr('disabled',false);
+      _self.attr('disabled',false);
       alert('修改失败');
     }
   });

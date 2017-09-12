@@ -100,7 +100,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" name="sgoods_catalog_id" data-am-selected>
+            <select class="uselect uselect-max cvalid" name="sgoods_catalog_id" data-am-selected>
             <option value="0">请选择</option>
             <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
               <option value="<?php echo $row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
@@ -111,7 +111,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品名称：</label>
           <div class="umodal-normal">
-            <input type="text" id="cgoodsname" name="sgoods_name" class="am-form-field uinput uinput-max" onKeyUp="query()" required>
+            <input type="text" id="cgoodsname" name="sgoods_name" class="am-form-field uinput uinput-max cvalid" onKeyUp="query()" required>
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
@@ -127,7 +127,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="sgoods_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="sgoods_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -173,9 +173,9 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max csgoods_catalog" name="sgoods_catalog_id">
-            <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
+            <select class="uselect uselect-max csgoods_catalog cvalid" name="sgoods_catalog_id">
               <option value="0">请选择</option>
+            <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
               <option value="<?php echo $row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
             <?php } ?>
             </select>
@@ -184,7 +184,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品名称：</label>
           <div class="umodal-normal">
-            <input type="text" id="cgoodsname2" name="sgoods_name" class="am-form-field uinput uinput-max" onKeyUp="query2()" required>
+            <input type="text" id="cgoodsname2" name="sgoods_name" class="am-form-field uinput uinput-max cvalid" onKeyUp="query2()" required>
           </div>
           <div class="umodal-text" style="text-indent:2em;">简拼：</div>
           <div class="umodal-valid">
@@ -201,7 +201,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>商品价格：</label>
           <div class="umodal-normal">
-            <input type="text" name="sgoods_price" class="am-form-field uinput uinput-max">
+            <input type="text" name="sgoods_price" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
@@ -243,6 +243,15 @@
 <script src="../js/pinying.js"></script>
 <script>
 <?php pageJs($this->_data['sgoods_list'],$this->_data['request'],'sgoods.php');?>
+// cvalid
+$('input.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+// select cvalid
+$('select.cvalid').on('change', function(){
+  $(this).val()=='0'?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+
 // 商品删除
 $('.cdel').on('click', function() {
   $('#cconfirm1').modal({
@@ -305,7 +314,25 @@ $('.csgoods_state2').on('click',function(){
 
 //添加商品submit
 $('.cadd-form2').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usgoodsm1 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#usgoodsm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="sgoods_add_do.php";
   var data = $("#cform1").serialize();
   $.post(url,data,function(res){
@@ -324,7 +351,25 @@ $('.cadd-form2').on('click',function(){
 });
 //添加商品submit,并继续
 $('.cadds-form2').on('click',function(){
-  $(this).attr('disabled',true);
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usgoodsm1 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#usgoodsm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var url="sgoods_add_do.php";
   var data = $("#cform1").serialize();
   $.post(url,data,function(res){
@@ -380,6 +425,25 @@ $('#usgoodsm2').on('close.modal.amui', function(){
 
 //修改商品submit
 $('.cadd-form3').on('click',function(){
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usgoodsm2 .cvalid').each(function(){
+    if($(this).prop('tagName')=='SELECT'){
+      if($(this).val()=='0'){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#usgoodsm2 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   var data = $("#cform2").serialize();
   var url = "sgoods_edit_do.php";
   //console.log(data);

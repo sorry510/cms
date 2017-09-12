@@ -10,7 +10,7 @@
   <div class="utools">
     <form class="am-form-inline uform2">
     </form> 
-    <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_userm1'}">
+    <button class="am-btn ubtn-sure ubtn-blue caddopen">
       <i class="iconfont icon-xinzeng"></i>
       新增操作员
     </button>
@@ -71,25 +71,25 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">帐号：</label>
           <div class="umodal-normal">
-            <input type="text" name="account" class="am-form-field uinput uinput-max">
+            <input type="text" name="account" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">密码：</label>
           <div class="umodal-normal">
-            <input type="password"  name="password" class="am-form-field uinput uinput-max">
+            <input type="password"  name="password" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">确认密码：</label>
           <div class="umodal-normal">
-            <input type="password"  name="password2" class="am-form-field uinput uinput-max">
+            <input type="password"  name="password2" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">姓名：</label>
           <div class="umodal-normal">
-            <input type="text" name="name" class="am-form-field uinput uinput-max">
+            <input type="text" name="name" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div>
       </form>
@@ -127,19 +127,19 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">旧密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password_old">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password_old">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">新密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">确认密码：</label>
           <div class="umodal-normal">
-            <input type="password" class="am-form-field uinput uinput-max"  name="user_password2">
+            <input type="password" class="am-form-field uinput uinput-max cvalid"  name="user_password2">
           </div>
         </div>
         <input type="hidden" class="cuser_id" name="user_id">
@@ -166,12 +166,27 @@
       <span class="am-modal-btn" data-am-modal-confirm>确定</span>
     </div>
   </div>
-</div> 
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="calert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">警告</div>
+    <div class="am-modal-bd">
+      超过操作员最大数量限制！
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
 
 <?php pageJs($this->_data['user_list'],$this->_data['request'],'system_user.php');?>
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
 
 $('.cdel').on('click', function() {
   var content = $(this).parent().parent();
@@ -198,15 +213,18 @@ $('.cdel').on('click', function() {
   });
 });
 
-
-//分页首末页不可选中
-if(<?php echo $GLOBALS['intpage'];?>>1){
-  $('.upages li').eq(1).removeClass('am-disabled');
-}
-if(<?php echo $this->_data['user_list']['pagecount']-$GLOBALS['intpage']; ?><1){
-  $('.upages li').last().addClass('am-disabled');
-}
-
+// 是否可以添加店铺
+$('.caddopen').on('click', function(){
+  $.ajax({
+    url:'system_user_count_ajax.php',
+  }).then(function(res){
+    if(res==0){
+      $('#usystem_userm1').modal('open');
+    }else{
+      $('#calert').modal('open');
+    }
+  })
+})
 // 所属分店变灰
 $('.cid').on('click', function() {
   var val = $(this).val();
@@ -219,18 +237,40 @@ $('.cid').on('click', function() {
 
 //添加操作员提交按钮
 $('.cadd-form1').on('click',function(){
-  
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#usystem_userm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_userm1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $.post('system_user_add_do.php', $("#form1").serialize(), function(res){
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
-      alert('密码不一致');
+      alert('超出最大数量限制');
+      _self.attr('disabled',false);
     }else if(res=='2'){
       alert('用户名已存在，请重新输入');
+      _self.attr('disabled',false);
     }else if(res=='3'){
       alert('密码不能为空');
+      _self.attr('disabled',false);
+    }else if(res=='4'){
+      alert('密码不一致');
+      _self.attr('disabled',false);
+    }else if(res=='5'){
+      alert('非法操作');
+      _self.attr('disabled',false);
     }else{
       alert('添加失败');
+      _self.attr('disabled',false);
     }
   });
 });
@@ -248,8 +288,18 @@ $('.cupdate').on('click', function(e) {
 });
 // edit-submit
 $('.cupdate_form3').on('click',function(){
+  // 验证变红
+  $('#usystem_userm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usystem_userm2 .cvalid').hasClass("am-field-error")){
+    return false;
+  }
   $.post('system_user_edit_do.php', $("#form3").serialize(), function(res){
-    console.log(res);
+    // console.log(res);
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){

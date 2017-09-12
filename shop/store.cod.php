@@ -100,9 +100,9 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>时间：</label>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max cvalid" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field cstore_time">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
@@ -122,16 +122,16 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">金额：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>金额：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max cstore_money" type="text" placeholder="">
+            <input id="" class="am-form-field uinput uinput-max cstore_money cvalid" type="text" placeholder="">
           </div>
           <div class="umodal-text">&nbsp;元</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">经办人：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>经办人：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max cstore_operator" type="text" placeholder="">
+            <input id="" class="am-form-field uinput uinput-max cstore_operator cvalid" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
@@ -262,9 +262,9 @@
     <div class="am-modal-bd">
       <form class="am-form am-form-horizontal">
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">时间：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>时间：</label>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max cvalid" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field cstore_time">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
@@ -284,16 +284,16 @@
           </div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">金额：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>金额：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max cstore_money" type="text" placeholder="">
+            <input id="" class="am-form-field uinput uinput-max cstore_money cvalid" type="text" placeholder="">
           </div>
           <div class="umodal-text">&nbsp;元</div>
         </div>
         <div class="am-form-group">
-          <label class="umodal-label am-form-label" for="">经办人：</label>
+          <label class="umodal-label am-form-label" for=""><span class="gtext-orange">*</span>经办人：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max cstore_operator" type="text" placeholder="">
+            <input id="" class="am-form-field uinput uinput-max cstore_operator cvalid" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
@@ -441,6 +441,13 @@
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
 <?php pageJs($this->_data['store_list'],$this->_data['request'],'store.php');?>
+// cvalid
+$('input.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
+$('div.cvalid input').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).parent().addClass('am-field-error'):$(this).parent().removeClass('am-field-error');
+})
 // delete
 $('.cdel').on('click', function() {
   $('#cconfirm1').modal({
@@ -484,6 +491,26 @@ $('.ccheck').on('click', function() {
 
 //下一步
 $('.cmodelopen').on('click', function(e) {
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#ustorem1 .cvalid').each(function(){
+    // console.log($(this).prop('tagName'));
+    if($(this).prop('tagName')=='DIV'){
+      if($(this).find('input').val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#ustorem1 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $('#ustorem1').modal('close');
   $('#ustorem2').modal('open');
 });
@@ -496,6 +523,25 @@ $('.cmodelopen2').on('click', function(e) {
 
 //下一步
 $('.cmodelopen3').on('click', function(e) {
+  var _self = $(this);
+  _self.attr('disabled',true);
+  // 验证变红
+  $('#ustorem3 .cvalid').each(function(){
+    if($(this).prop('tagName')=='DIV'){
+      if($(this).find('input').val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }else{
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    }
+  })
+  // 验证返回
+  if($('#ustorem3 .cvalid').hasClass("am-field-error")){
+    _self.attr('disabled',false);
+    return false;
+  }
   $('#ustorem3').modal('close');
   $('#ustorem4').modal('open');
 });

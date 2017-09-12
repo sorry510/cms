@@ -73,6 +73,17 @@
       </div>
     </div>
     <div class="am-u-lg-12 ua">
+      <label class="am-u-lg-2 ua1">预约功能：</label>
+      <div class="am-u-lg-3 ub">
+        <label class="am-radio-inline">
+          <input type="radio" name="appoint" value="1" data-am-ucheck <?php if($this->_data['company_config']['appoint_flag']==1) echo 'checked';?>> 启用
+        </label>
+        <label class="am-radio-inline">
+          <input type="radio" name="appoint" value="2" data-am-ucheck <?php if($this->_data['company_config']['appoint_flag']==2) echo 'checked';?>> 不启用
+        </label>
+      </div>
+    </div>
+    <div class="am-u-lg-12 ua">
       <label class="am-u-lg-2 ua1"></label> 
       <div class="am-u-lg-8 ub">
         <button type="button" class="am-btn ubtn-sure ubtn-green csubmit">

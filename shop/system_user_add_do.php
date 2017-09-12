@@ -23,16 +23,22 @@ $intshop = $GLOBALS['_SESSION']['login_sid'];
 $intreturn = 0;
 $atime = time();
 
-if($inttype==1){
-  $intreturn = 5;//防止手动操作为管理员
-}
+$intuser_max_count = 0;
 
-if($sqlpassword!=$sqlpassword2){
+//检测添加操作员最大数量限制
+$strsql = "SELECT shop_limit_user FROM ".$gdb->fun_table('shop')." where shop_id = ".$intshop;
+// echo $strsql;
+$hresult = $gdb->fun_query($strsql);
+$arr = $gdb->fun_fetch_assoc($hresult);
+if(!empty($arr)){
+  $intuser_max_count = $arr['shop_limit_user'];
+}
+// 现有数量
+$strsql = "SELECT count(user_id) as user_count FROM ".$gdb->fun_table2('user')." where shop_id = ".$intshop;
+$hresult = $gdb->fun_query($strsql);
+$arr = $gdb->fun_fetch_assoc($hresult);
+if($arr['user_count'] >= $intuser_max_count){
   $intreturn = 1;
-}
-
-if($sqlpassword==''){
-  $intreturn = 3;
 }
 
 if($intreturn == 0) {
@@ -43,11 +49,28 @@ if($intreturn == 0) {
     $intreturn = 2;
   }
 }
+
+if($intreturn == 0) {
+  if($sqlpassword==''){
+    $intreturn = 3;
+  }
+}
+if($intreturn == 0) {
+  if($sqlpassword!=$sqlpassword2){
+    $intreturn = 4;
+  }
+}
+if($intreturn == 0) {
+  if($inttype==1){
+    $intreturn = 5;//防止手动操作为管理员
+  }
+}
+
 if($intreturn == 0) {
 	  $strsql = "INSERT INTO " . $gdb->fun_table2('user') . "( shop_id, user_type, user_account, user_password, user_atime , user_name ) VALUES ( $intshop , $inttype, '$sqlaccount' , '$sqlpassword' , $atime ,'$sqlname')";
 	  $hresult = $gdb->fun_do($strsql);
  	if($hresult == FALSE) {
- 		$intreturn = 4;
+ 		$intreturn = 6;
  	}
 }
 

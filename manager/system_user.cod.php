@@ -18,10 +18,10 @@
           <?php } ?>
         </select>
       </div>
-      <div class="am-form-group">
-        <button type="submit" class="am-btn ubtn-search">
           <i class="iconfont icon-search"></i>查询
         </button>
+      <div class="am-form-group">
+        <button type="submit" class="am-btn ubtn-search">
       </div>
     </form> 
     <button class="am-btn ubtn-sure ubtn-blue" data-am-modal="{target: '#usystem_userm1'}">
@@ -204,8 +204,11 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-
 <?php pageJs($this->_data['user_list'],$this->_data['request'],'system_user.php');?>
+// cvalid
+$('.cvalid').on('input propertychange blur', function(){
+  $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+})
 
 $('.cdel').on('click', function() {
   var content = $(this).parent().parent();

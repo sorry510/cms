@@ -16,7 +16,20 @@ function get_company_config(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$intsms_ycount = $arr['company_sms_ycount'];
-	$arr = json_decode($arr['company_config_trade'],true);
-	$arr['sms_ycount'] = $intsms_ycount;
-	return $arr;
+	if($arr['company_config_trade'] != ''){
+		$arrjson = json_decode($arr['company_config_trade'],true);
+	}else{
+		$arrjson = array(
+			'password_flag' => 0,
+			'sms_flag' => 0,
+			'score_flag' => 0,
+			'reward_flag' => 0,
+			'store_warn_count' => 0,
+			'erecord_flag' => 0,
+			'appoint_flag' => 0
+		);
+	}
+
+	$arrjson['sms_ycount'] = $intsms_ycount;
+	return $arrjson;
 }

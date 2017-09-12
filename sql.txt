@@ -1,3 +1,90 @@
+CREATE TABLE IF NOT EXISTS cf_session (
+`session_key` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+`session_login_type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`session_login_id` int(10) unsigned NOT NULL DEFAULT '0',
+`session_login_account` varchar(20) NOT NULL DEFAULT '',
+`session_login_code` varchar(5) NOT NULL DEFAULT '',
+`session_login_cid` int(10) unsigned NOT NULL DEFAULT '0',
+`session_login_sid` int(10) unsigned NOT NULL DEFAULT '0',
+`session_ip` char(15) NOT NULL DEFAULT '',
+`session_last` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`session_key`),
+KEY `session_last` (`session_last`)
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS cf_admin (
+`admin_id` int(10) unsigned NOT NULL DEFAULT '0',
+`admin_account` varchar(20) NOT NULL DEFAULT '',
+`admin_password` varchar(20) NOT NULL DEFAULT '',
+`admin_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`admin_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`admin_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS cf_company (
+`company_id` int(10) unsigned NOT NULL DEFAULT '0',
+`company_tkey` varchar(50) NOT NULL DEFAULT '',
+`company_code` varchar(20) NOT NULL DEFAULT '',
+`system_code` varchar(5) NOT NULL DEFAULT '',
+`company_name` varchar(50) NOT NULL DEFAULT '',
+`company_phone` varchar(20) NOT NULL DEFAULT '',
+`company_identity_info` varchar(50) NOT NULL DEFAULT '',
+`company_identity_photo` varchar(50) NOT NULL DEFAULT '',
+`company_area_sheng` int(10) unsigned NOT NULL DEFAULT '0',
+`company_area_shi` int(10) unsigned NOT NULL DEFAULT '0',
+`company_area_address` varchar(100) NOT NULL DEFAULT '',
+`company_info_xingzhi` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`company_info_guimo` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`company_info_ziben` int(10) unsigned NOT NULL DEFAULT '0',
+`company_info_chengli` int(10) unsigned NOT NULL DEFAULT '0',
+`company_link_name` varchar(20) NOT NULL DEFAULT '',
+`company_link_weixin` varchar(40) NOT NULL DEFAULT '',
+`company_shop_acount` int(10) unsigned NOT NULL DEFAULT '0',
+`company_sms_acount` int(10) unsigned NOT NULL DEFAULT '0',
+`company_sms_ycount` int(10) unsigned NOT NULL DEFAULT '0',
+`company_config_trade` varchar(1000) NOT NULL DEFAULT '',
+`company_config_weixin` varchar(1000) NOT NULL DEFAULT '',
+`company_memo` varchar(100) NOT NULL DEFAULT '',
+`company_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`company_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`company_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`company_id`),
+UNIQUE KEY `company_code` (`company_code`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS cf_shop (
+`shop_id` int(10) unsigned NOT NULL DEFAULT '0',
+`company_id` int(10) unsigned NOT NULL DEFAULT '0',
+`system_code` varchar(5) NOT NULL DEFAULT '',
+`shop_name` varchar(40) NOT NULL DEFAULT '',
+`shop_phone` varchar(20) NOT NULL DEFAULT '',
+`shop_area_sheng` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_area_shi` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_area_jing` decimal(15,12) unsigned NOT NULL DEFAULT '0',
+`shop_area_wei` decimal(15,12) unsigned NOT NULL DEFAULT '0',
+`shop_area_address` varchar(100) NOT NULL DEFAULT '',
+`shop_limit_user` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_config` varchar(1000) NOT NULL DEFAULT '',
+`shop_center` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`shop_state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+`shop_atime` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_ctime` int(10) unsigned NOT NULL DEFAULT '0',
+`shop_edate` int(10) unsigned NOT NULL DEFAULT '0',
+PRIMARY KEY (`shop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS cf_region (
+`region_id` int(10) unsigned NOT NULL DEFAULT '0',
+`region_code` varchar(20) NOT NULL DEFAULT '',
+`region_name` varchar(100) NOT NULL DEFAULT '',
+`parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+`region_level` int(10) unsigned NOT NULL DEFAULT '0',
+`region_order` int(10) unsigned NOT NULL DEFAULT '0',
+`region_name_en` varchar(100) NOT NULL DEFAULT '',
+`region_shortname_en` varchar(20) NOT NULL DEFAULT '',
+PRIMARY KEY (`region_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS fw_0001_user (
 `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 `shop_id` int(10) unsigned NOT NULL DEFAULT '0',
@@ -114,6 +201,7 @@ CREATE TABLE IF NOT EXISTS fw_0001_worker_reward (
 `c_goods_count` int(10) unsigned NOT NULL DEFAULT '0',
 `c_card_record_id` int(10) unsigned NOT NULL DEFAULT '0',
 `c_card_record_code` varchar(50) NOT NULL DEFAULT '',
+`c_card_record_smoney` decimal(10,2) unsigned NOT NULL DEFAULT '0',
 PRIMARY KEY (`worker_reward_id`),
 KEY `shop_id` (`shop_id`),
 KEY `worker_reward_atime` (`worker_reward_atime`)

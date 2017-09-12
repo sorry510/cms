@@ -18,6 +18,8 @@ $strstore_warn_count = api_value_post('store_warn');
 $intstore_warn_count = api_value_int0($strstore_warn_count);
 $strerecord_flag = api_value_post('erecord');
 $interecord_flag = api_value_int0($strerecord_flag);
+$strappoint_flag = api_value_post('appoint');
+$intappoint_flag = api_value_int0($strappoint_flag);
 
 $intreturn = 0;
 $arr = array(
@@ -26,7 +28,8 @@ $arr = array(
 		'score_flag' => $intscore_flag,
 		'reward_flag' => $intreward_flag,
 		'store_warn_count' => $intstore_warn_count,
-		'erecord_flag' => $interecord_flag
+		'erecord_flag' => $interecord_flag,
+		'appoint_flag' => $intappoint_flag
 	);
 $strjson_config = json_encode($arr);
 

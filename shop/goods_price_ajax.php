@@ -53,9 +53,10 @@ if(!empty($arrmgoods)){
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		if(!empty($arr)){
 			$act_mgoods_price = $arr[0]['act_discount_goods_price'];
+			$act_discount_id = $arr[0]['act_discount_id'];
 			foreach($arr as $v){
-				if($act_mgoods_price>=$v['act_discount_goods_price']){
-					$act_mgoods_price=$v['act_discount_goods_price'];
+				if($act_mgoods_price > $v['act_discount_goods_price']){
+					$act_mgoods_price = $v['act_discount_goods_price'];
 					$act_discount_id = $v['act_discount_id'];
 				}
 			}
@@ -165,7 +166,7 @@ if($mcombo_cprice!=0){
 
 $arr = array();
 $arr['min_price'] = min($arrprice);
-if($arr['min_price'] == $act_mcombo_price){
+if($arr['min_price'] == $act_mcombo_price || $arr['min_price'] == $act_mgoods_price){
 	$arr['act_discount_id'] = $act_discount_id;
 }else{
 	$arr['act_discount_id'] = 0;

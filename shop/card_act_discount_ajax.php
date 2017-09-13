@@ -29,5 +29,5 @@ if($stract_discount_id!=''){
 	}
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	echo json_encode($arr);
 }
+echo json_encode($arr);

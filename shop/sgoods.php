@@ -26,7 +26,7 @@ function get_request() {
 }
 function get_sgoods_catalog_list() {
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id desc";
+	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." where shop_id=".$GLOBALS['_SESSION']['login_sid']." order by sgoods_catalog_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

@@ -27,6 +27,12 @@ foreach ($arr as &$v){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr1 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$v['shop_name'] = $arr1['shop_name'];
+	if($v['c_card_type_name'] == ''){
+		$v['c_card_type_name'] = '--';
+	}
+	if($v['c_card_type_discount'] == 0){
+		$v['c_card_type_discount'] = 10;
+	}
 	if($v['card_birthday_date'] != 0){
 		$v['birthday'] = date('Y-m-d',$v['card_birthday_date']);
 	}else{

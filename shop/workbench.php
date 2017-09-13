@@ -11,6 +11,7 @@ $gtemplate->fun_assign('mgoods_list', get_mgoods_list());
 $gtemplate->fun_assign('sgoods_list', get_sgoods_list());
 $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
+$gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_show('workbench');
 
 function get_mgoods_catalog_list() {
@@ -22,7 +23,7 @@ function get_mgoods_catalog_list() {
 }
 function get_sgoods_catalog_list() {
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id desc";
+	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." where shop_id=".$GLOBALS['_SESSION']['login_sid']." order by sgoods_catalog_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
@@ -34,7 +35,7 @@ function get_mgoods_list(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$v){
-		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id desc";
+		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice,mgoods_act FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$v['mgoods'] = $arrmgoods;
@@ -44,7 +45,7 @@ function get_mgoods_list(){
 function get_sgoods_list(){
 	$arr = array();
 	$arrsgoods = array();
-	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id desc";
+	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." where shop_id=".$GLOBALS['_SESSION']['login_sid']." order by sgoods_catalog_id desc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$v){
@@ -53,5 +54,12 @@ function get_sgoods_list(){
 		$arrsgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$v['sgoods'] = $arrsgoods;
 	}
+	return $arr;
+}
+function get_worker_list(){
+	$arr = array();
+	$strsql = "SELECT worker_id,worker_name FROM " . $GLOBALS['gdb']->fun_table2('worker')." where shop_id = ".$GLOBALS['_SESSION']['login_sid']." order by worker_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }

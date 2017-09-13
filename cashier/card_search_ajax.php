@@ -30,6 +30,5 @@ foreach ($arr as &$v){
 	$v['shop_name'] = $arr1['shop_name'];
 	$v['birthday'] = date('Y-m-d',$v['card_birthday_date']);
 	$v['edate'] = date('Y-m-d',$v['card_edate']);
-	$v['card_photo_file'] == 'li.img'?'':$v['card_photo_file'];//没有头像时默认显示一个通用头像
 }
 echo json_encode($arr);

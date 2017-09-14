@@ -24,7 +24,7 @@ function get_mgoods_catalog_list(){
 }
 function get_sgoods_catalog_list(){
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." ORDER BY sgoods_catalog_id DESC";
+	$strsql = "SELECT sgoods_catalog_id, sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." where shop_id=".$GLOBALS['_SESSION']['login_sid']." ORDER BY sgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
@@ -50,7 +50,7 @@ function get_mgoods_list() {
 function get_sgoods_list() {
 	$arr = array();
 	$arrsgoods = array();
-	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id DESC";
+	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')."where shop_id=".$GLOBALS['_SESSION']['login_sid']." order by sgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	

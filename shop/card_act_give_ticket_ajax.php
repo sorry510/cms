@@ -24,7 +24,7 @@ if($stract_give_id != '0'){
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	if(!empty($arr)){
 		for($i=0;$i<sizeof($arr);){
-			if($declimit_money >= $arr[$i]['act_give_man']){
+			if($declimit_money >= $arr[$i]['act_give_man'] && $arr[$i]['act_give_man'] > 0){
 				$act_give_number = floor($declimit_money/$arr[$i]['act_give_man']);//送券次数
 				$declimit_money = $declimit_money%$arr[$i]['act_give_man'];//送过之后余额
 				$arrticket[$arr[$i]['act_give_id']][$arr[$i]['c_ticket_name']] = $act_give_number;

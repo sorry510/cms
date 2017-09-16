@@ -197,7 +197,7 @@
     </div>
   </div>
 </div>
-<?php confirmHtml(6)?>
+<?php confirmHtml(9)?>
 <div class="am-modal am-modal-alert" tabindex="-1" id="calert">
   <div class="am-modal-dialog">
     <div class="am-modal-hd">警告</div>
@@ -220,6 +220,7 @@ $('.ccenter').on('click', function(){
     relatedTarget: this,
     onConfirm: function(options) {
       $.post('system_shop_center_do.php',{'shop_id':$(this.relatedTarget).attr('shop_id')},function(res){
+        // console.log(res);
         if(res=='0'){
           window.location.reload();
         }else{

@@ -7,6 +7,8 @@ require('inc_limit.php');
 $strshop_id = api_value_post('shop_id');
 $intshop_id = api_value_int0($strshop_id);
 
+// echo $intshop_id;
+
 $intreturn = 0;
 
 $strsql = "UPDATE ".$gdb->fun_table('shop')." SET shop_center=2 where company_id=".$GLOBALS['_SESSION']['login_cid'];

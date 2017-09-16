@@ -13,12 +13,12 @@
     <form class="am-form-inline uform2">
       <div class="am-form-group">
         <label class="am-form-label">搜索：</label>
-        <input class="am-form-field uinput uinput-220" type="text" name="" placeholder="会员卡号/姓名/手机号">
+        <input class="am-form-field uinput uinput-220" type="text" name="search" placeholder="会员卡号/姓名/手机号" value="<?php echo $this->_data['request']['search'];?>">
       </div>
       <div class="am-form-group">
         <label class="am-form-label">时间：</label> 
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field">
+          <input type="text" class="am-form-field" name="from" value="<?php echo $this->_data['request']['from'];?>">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
@@ -27,7 +27,7 @@
       <div class="am-form-group">
         <label class="am-form-label">至：</label> 
         <div class="am-input-group am-datepicker-date udatepicker" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-          <input type="text" class="am-form-field">
+          <input type="text" class="am-form-field" name="to" value="<?php echo $this->_data['request']['to'];?>">
           <span class="am-input-group-btn am-datepicker-add-on">
             <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
           </span>
@@ -57,28 +57,32 @@
         <td>诊疗人员</td>
         <td>服务项目</td>
         <td>顾客评价</td>
+        <td>操作</td>
       </tr>
     </thead>
+    <?php foreach($this->_data['record_history']['list'] as $row){?>
     <tr>
-    	<td><a href="javascript:void" data-am-offcanvas="{target: '#uoffcanvas'}">2017-5-18 15:36</a></td>
-      <td>HY100214</td>
-      <td>男</td>
-      <td>15617771749</td>
-      <td>--</td>
-      <td>张小明</td>
-      <td>李医生</td>
-      <td>服务项目</td>
-      <td>顾客评价</td>
+    	<td><a href="javascript:void" history_id="<?php echo $row['card_history_id'];?>" data-am-offcanvas="{target: '#uoffcanvas'}" class="coffopen"><?php echo date('Y-m-d', $row['card_history_atime'])?></a></td>
+      <td><?php echo $row['c_card_code']?></td>
+      <td><?php echo $row['c_card_name']?></td>
+      <td><?php echo $row['c_card_code']==1?'男':($row['c_card_code']==2?'女':'保密');?></td>
+      <td><?php echo $row['c_card_phone']?></td>
+      <td><?php echo $row['c_card_type_name']?></td>
+      <td><?php echo $row['c_worker_name']?></td>
+      <td>不知道</td>
+      <td>不知道</td>
+      <td>
+      <?php if($row['shop_id'] == $GLOBALS['_SESSION']['login_sid']){?>
+        <button class="am-btn ubtn-table ubtn-orange cmodaledit" value="<?php echo $row['card_history_id']; ?>" data-am-modal="{target: '#ue-recordm3'}">
+          <i class="iconfont icon-bianji"></i>
+          修改
+        </button>
+      <?php }?>
+      </td>
   	</tr>
+    <?php }?>
   </table>
-  <ul class="am-pagination am-pagination-centered upages">
-    <li class="upage-info">共1页 3条记录</li>
-    <li class="am-disabled"><a href="#">&laquo;</a></li>
-    <li class="am-active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">&raquo;</a></li>
-  </ul>
+  <?php pageHtml($this->_data['record_history'],$this->_data['request'],'e-record.php');?>
 </div>
 
 <!--modal框-->
@@ -92,16 +96,16 @@
         <div class="am-form-group" >
           <label class="umodal-label am-form-label" for="">会员：</label>
           <div class="umodal-normal">
-            <input type="text" name="search" class="am-form-field uinput uinput-max" placeholder="卡号/姓名/手机号">
+            <input type="text" name="search" class="am-form-field uinput uinput-max csearch" placeholder="卡号/姓名/手机号">
           </div>
           <div class="umodal-search">
-            <button type="button" class="am-btn ubtn-search">
+            <button type="button" class="am-btn ubtn-search csearchbtn">
               <i class="iconfont icon-search"></i>查询
             </button>
           </div>
         </div>
         <div class="am-scrollable-vertical" style="max-height:250px;margin:0 4%;">
-          <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable1 utable1-fixed" style="width:100%;">
+          <table class="am-table am-table-bordered am-table-centered am-table-hover am-table-compact utable1 utable1-fixed ctable" style="width:100%;">
             <thead>
               <tr>
                 <td>消费时间</td>
@@ -115,46 +119,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>2017-5-18</td>
-                <td>1234498002</td>
-                <td>cd12</td>
-                <td>吴海</td>
-                <td>男</td>
-                <td>1234498222</td>
-                <td>8折卡</td>
-                <td><button type="button" class="am-btn ubtn-table ubtn-green cmodalopen2" value="">下一步</button></td>
-              </tr>
-              <tr>
-                <td>2017-5-18</td>
-                <td>1234498002</td>
-                <td>cd12</td>
-                <td>吴海</td>
-                <td>男</td>
-                <td>1234498222</td>
-                <td>8折卡</td>
-                <td><button class="am-btn ubtn-table ubtn-green cmodalopen2" value="">下一步</button></td>
-              </tr>
-              <tr>
-                <td>2017-5-18</td>
-                <td>1234498002</td>
-                <td>cd12</td>
-                <td>吴海</td>
-                <td>男</td>
-                <td>1234498222</td>
-                <td>8折卡</td>
-                <td><button class="am-btn ubtn-table ubtn-green cmodalopen2" value="">下一步</button></td>
-              </tr>
-              <tr>
-                <td>2017-5-18</td>
-                <td>1234498002</td>
-                <td>cd12</td>
-                <td>吴海</td>
-                <td>男</td>
-                <td>1234498222</td>
-                <td>8折卡</td>
-                <td><button class="am-btn ubtn-table ubtn-green cmodalopen2" value="">下一步</button></td>
-              </tr>
+        
             </tbody>
           </table>
         </div>
@@ -168,16 +133,17 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd umain1">
-      <form class="am-form am-form-horizontal">
+      <form class="am-form am-form-horizontal" id="cform2">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">会员姓名：</label>
-          <label class="umodal-label am-form-label am-text-left" for="">张小明</label>
+          <label class="umodal-label am-form-label am-text-left cname"></label>
+          <input type="hidden" class="crecord_id" name="record_id"/>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">诊疗时间：</label>
           <div class="umodal-normal">
             <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
-              <input type="text" class="am-form-field">
+              <input type="text" class="am-form-field" name="time">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
               </span>
@@ -187,31 +153,30 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">诊疗人员：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected>
-              <option value="a">请选择</option>
-              <option value="b">大学</option>
-              <option value="o">Orange</option>
-              <option value="m">Mango</option>
-              <option value="d">禁用</option>
+            <select class="uselect uselect-max" name="worker_id" data-am-selected="{maxHeight: '150px'}">
+              <option value="0">请选择</option>
+              <?php foreach($this->_data['worker_list'] as $row){?>
+              <option value="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></option>
+              <?php }?>
             </select>
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">问题描述：</label>
           <div class="umodal-max">
-            <textarea class="utextarea utextarea-max"></textarea>
+            <textarea class="utextarea utextarea-max" name="question"></textarea>
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">诊疗结果：</label>
           <div class="umodal-max">
-            <textarea class="utextarea utextarea-max"></textarea>
+            <textarea class="utextarea utextarea-max" name="result"></textarea>
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">诊疗方案：</label>
           <div class="umodal-max">
-            <textarea class="utextarea utextarea-max"></textarea>
+            <textarea class="utextarea utextarea-max" name="plan"></textarea>
           </div>
         </div>
         <div class="am-form-group ">
@@ -220,7 +185,7 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 上传图片1
             </button>
-            <input type="file" id="doc-ipt-file-2">
+            <input type="file" class="cimg1" name="img1">
           </div>
         </div>
         <div class="am-form-group ">
@@ -229,7 +194,7 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 上传图片2
             </button>
-            <input type="file" id="doc-ipt-file-2">
+            <input type="file" class="cimg2" name="img2">
           </div>
         </div>
         <div class="am-form-group ">
@@ -238,7 +203,7 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 上传图片3
             </button>
-            <input type="file" id="doc-ipt-file-2">
+            <input type="file" class="cimg3" name="img3">
           </div>
         </div>
         <div class="am-form-group ">
@@ -247,7 +212,7 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 上传图片4
             </button>
-            <input type="file" id="doc-ipt-file-2">
+            <input type="file" class="cimg4" name="img4">
           </div>
         </div>
         <div class="am-form-group ">
@@ -256,19 +221,125 @@
             <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
               <i class="am-icon-cloud-upload"></i> 上传图片5
             </button>
-            <input type="file" id="doc-ipt-file-2">
+            <input type="file" class="cimg5" name="img5">
           </div>
         </div>
       </form>
     </div>
     <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green crollback"><i class="iconfont icon-yuanxingxuanzhong"></i>
+          上一步
+        </button>
+        <button type="button" class="am-btn ubtn-sure ubtn-green caddsubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
-      </div
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ue-recordm3" class="am-modal" tabindex="-1">
+  <div class="am-modal-dialog umodal">
+    <div class="am-modal-hd uhead">修改电子档案
+      <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
+    </div>
+    <div class="am-modal-bd umain1">
+      <form class="am-form am-form-horizontal" id="cform3">
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">会员姓名：</label>
+          <label class="umodal-label am-form-label am-text-left cname"></label>
+          <input type="hidden" class="ccard_history_id" name="card_history_id"/>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">诊疗时间：</label>
+          <div class="umodal-normal">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+              <input type="text" class="am-form-field ctime" name="time">
+              <span class="am-input-group-btn am-datepicker-add-on">
+                <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">诊疗人员：</label>
+          <div class="umodal-normal">
+            <select class="uselect uselect-max cworker_id" name="worker_id">
+              <option value="0">请选择</option>
+              <?php foreach($this->_data['worker_list'] as $row){?>
+              <option value="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></option>
+              <?php }?>
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">问题描述：</label>
+          <div class="umodal-max">
+            <textarea class="utextarea utextarea-max cquestion" name="question"></textarea>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">诊疗结果：</label>
+          <div class="umodal-max">
+            <textarea class="utextarea utextarea-max cresult" name="result"></textarea>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <label class="umodal-label am-form-label" for="">诊疗方案：</label>
+          <div class="umodal-max">
+            <textarea class="utextarea utextarea-max cplan" name="plan"></textarea>
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="umodal-label am-form-label">图片1：</label>
+          <div class="umodal-normal am-form-file am-text-left">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 上传图片1
+            </button>
+            <input type="file" class="cimg1" name="img1">
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="umodal-label am-form-label">图片2：</label>
+          <div class="umodal-normal am-form-file am-text-left">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 上传图片2
+            </button>
+            <input type="file" class="cimg2" name="img2">
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="umodal-label am-form-label">图片3：</label>
+          <div class="umodal-normal am-form-file am-text-left">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 上传图片3
+            </button>
+            <input type="file" class="cimg3" name="img3">
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="umodal-label am-form-label">图片4：</label>
+          <div class="umodal-normal am-form-file am-text-left">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 上传图片4
+            </button>
+            <input type="file" class="cimg4" name="img4">
+          </div>
+        </div>
+        <div class="am-form-group ">
+          <label class="umodal-label am-form-label">图片5：</label>
+          <div class="umodal-normal am-form-file am-text-left">
+            <button type="button" class="am-btn am-btn-default am-btn-sm" style="width: 100%;">
+              <i class="am-icon-cloud-upload"></i> 上传图片5
+            </button>
+            <input type="file" class="cimg5" name="img5">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="am-modal-footer ufoot">
       <div class="am-btn-group">
-        <button type="button" class="am-btn ubtn-sure ubtn-green"><i class="iconfont icon-yuanxingxuanzhong"></i>
+        <button type="button" class="am-btn ubtn-sure ubtn-green ceditsubmit"><i class="iconfont icon-yuanxingxuanzhong"></i>
           完成
         </button>
       </div>
@@ -280,7 +351,7 @@
   <div class="am-offcanvas-bar am-offcanvas-bar-flip uoffcanvas">
     <div class="am-offcanvas-content" >
       <div class="am-modal-hd"><span class="utitle">档案信息</span>
-        <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js uclose2" data-rel="close"><img src="../img/close.jpg"></a>
+        <a href="javascript: void(0)" class="am-close am-close-spin doc-oc-js coffcanvas1" data-rel="close"><img src="../img/close.jpg"></a>
       </div>
       <div class="gspace15"></div>
       <div class="am-g ucontent">
@@ -303,25 +374,100 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-/*右侧弹出框关闭按钮JS*/
-$('.doc-oc-js').on('click', function() {
-  $('#uoffcanvas').offCanvas($(this).data('rel'));
-});
-$('.cdel').on('click', function() {
-  $('#cconfirm').modal({
-    relatedTarget: this,
-    onConfirm: function(options) {
-      $(this.relatedTarget).parent('td').parent('tr').remove();
-    },
-    onCancel: function() {
-      return;
-    }
+<?php pageJs($this->_data['record_history'],$this->_data['request'],'e-record.php');?>
+(function(){
+  var card_record = [];
+  // 侧拉打开
+  $('.coffopen').on('click', function(){
+    var history_id = $(this).attr('history_id');
+    $.getJSON('e-record_edit_ajax.php', {history_id:history_id}, function(res){
+      console.log(res);
+    })
+  })
+  //侧拉关闭
+  $('.coffcanvas1').on('click', function() {
+    $('#uoffcanvas').offCanvas('close');
   });
-});
-$('.cmodalopen2').on('click', function(){
-  $('#ue-recordm1').modal('close');
-  $('#ue-recordm2').modal('open');
-})
+  //侧拉去掉禁止选中
+  $('.uoffcanvas').parent().on('open.offcanvas.amui', function() {
+    $(this).css('user-select','');
+  });
+  $(document).on('click','.cmodalopen2', function(event){
+    var event = event || window.event;
+    var _this = event.target;
+    var index = $(_this).val();
+    if(card_record[index]){
+        $('#ue-recordm2 .cname').html(card_record[index].c_card_name);
+        $('#ue-recordm2 .crecord_id').val(card_record[index].card_record_id);
+    }
+    $('#ue-recordm1').modal('close');
+    $('#ue-recordm2').modal('open');
+  })
+  $('#ue-recordm1 .csearchbtn').on('click', function(){
+    var _this = $(this);
+    _this.attr('disabled',true);
+    $('#ue-recordm1 .ctable tbody tr').remove();
+    var search = $('#ue-recordm1 .csearch').val();
+    $.getJSON('e-record_card_record_ajax.php', {search:search}, function(res){
+      _this.attr('disabled',false);
+      card_record = res;
+      if(res.length > 0){
+        var addhtml = '';
+        $.each(res, function(k,v){
+          addhtml += '<tr><td>'+v.date+'</td><td>'+v.card_record_id+'</td><td>'+v.c_card_code+'</td><td>'+v.c_card_name+'</td><td>'+v.sex+'</td><td>'+v.c_card_phone+'</td><td>'+v.c_card_type_name+'</td><td><button type="button" class="am-btn ubtn-table ubtn-green cmodalopen2" value="'+k+'">下一步</button></td></tr>';
+        });
+        $('#ue-recordm1 .ctable').find('tbody').append(addhtml);
+      }
+    });
+  })
+  $('#ue-recordm2 .crollback').on('click', function(){
+    $('#ue-recordm2').modal('close');
+    $('#ue-recordm1').modal('open');
+  })
+  $('#ue-recordm2 .caddsubmit').on('click', function(){
+    var formData = new FormData($('#cform2')[0]);
+    $.ajax({
+      type: 'post',
+      url: 'e-record_add_do.php',
+      data: formData,
+      contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+      processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+      success: function(res) {
+          console.log(res);
+      }
+    })
+  })
+  $('.cmodaledit').on('click', function(){
+    $('#ue-recordm3 .cworker_id').selected('destroy');
+    var history_id = $(this).val();
+    $.getJSON('e-record_edit_ajax.php', {history_id:history_id}, function(res){
+      $('#ue-recordm3 .cname').text(res.c_card_name);
+      $('#ue-recordm3 .ccard_history_id').val(res.card_history_id);
+      $('#ue-recordm3 .ctime').val(res.time);
+      $('#ue-recordm3 .cworker_id').val(res.worker_id);
+      $('#ue-recordm3 .cworker_id').selected({
+        maxHeight: '150px'
+      });
+      $('#ue-recordm3 .cquestion').val(res.card_history_question);
+      $('#ue-recordm3 .cresult').val(res.card_history_result);
+      $('#ue-recordm3 .cplan').val(res.card_history_plan);
+      console.log(res);
+    })
+  })
+  $('.ceditsubmit').on('click', function(){
+    var formData = new FormData($('#cform3')[0]);
+    $.ajax({
+      type: 'post',
+      url: 'e-record_edit_do.php',
+      data: formData,
+      contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+      processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+      success: function(res) {
+          console.log(res);
+      }
+    })
+  })
+})()
 </script>
 </body>
 </html>

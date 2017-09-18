@@ -610,7 +610,8 @@
     $('#uworkbench .uleft #tab2 .uc li').remove();
     $.when($.getJSON('card_mymcombo_ajax.php', {card_id:card_id}))
       .done(function(res){
-        if(res.length>0){
+        console.log(res);
+        if(res){
           var addli = '';
           $.each(res,function(k,v){
             //没有做套餐用完时怎么显示
@@ -634,7 +635,7 @@
     $('#uworkbench .ub .uleft #tab3 .uc li').remove();
     $.when($.getJSON('card_myticket_ajax.php', {card_id:card_id}))
       .done(function(res){
-        if(res.length>0){
+        if(res){
           var addli = '';
           $.each(res, function(k, v){
             if(v.ticket_type=='1'){
@@ -929,7 +930,7 @@
     var ticket_goods_id = _self.parent().parent().attr('ticket_goods_id');
     var mgoods_id = _self.parent().parent().attr('mgoods_id');
 
-    var limit_money = Number(_this.act_money);
+    var limit_money = Number(_this.money_act);
     var flag = true;
     $('#uworkbench .uright .cnum3').each(function(){
       if(ticket_id == $(this).attr('ticket_id')){
@@ -1169,6 +1170,7 @@
     var arr= [];//商品
     var arr2= [];//套餐商品
     var arr3= [];//优惠券
+    var success = true;
 
     var ticket_limit = 0;
     var max_give_value = 0;
@@ -1180,6 +1182,21 @@
     if(ticket_limit > limit_money){
       alert('代金券超出限额，请重新添加代金券!!!')
       $('#ualert').modal('open');
+      return false;
+    }
+    $("#uworkbench .uright .cnum3[ticket_type='2']").each(function(k,v){
+      var mgoods_id = $(this).attr('mgood_id');
+      var ticket_num = $("#uworkbench .uright .cnum3[mgoods_id='"+mgoods_id+"']").length;
+      var mgoods_num = $("#uworkbench .uright .cnum[mgoods_id='"+mgoods_id+"']").val();
+      // console.log(ticket_num);
+      // console.log(mgoods_num);
+      if(parseInt(ticket_num) > parseInt(mgoods_num)){
+        success = false;
+        return false;
+      }
+    });
+    if(!success){
+      alert('优惠券数量大于对应商品数量，请重新添加');
       return false;
     }
     if(pay_type == 5){
@@ -1231,16 +1248,17 @@
       act_give_use:_this.card_act_give_use,
       act_decrease_use:_this.card_act_decrease_use
     };
-    console.log(data);
+    // console.log(data);
+    // return false;
     $.post('workbench_do.php',data,function(res){
       _self.attr('disabled',false);
-      console.log(res);
-      return false;
-      // if(res=='0'){
-      //   window.location.reload();
-      // }else{
-      //   alert("出错了,请联系管理员");
-      // }
+      // console.log(res);
+      // return false;
+      if(res=='0'){
+        window.location.reload();
+      }else{
+        alert("出错了,请联系管理员");
+      }
     });
   }
   this.clone = function(obj){

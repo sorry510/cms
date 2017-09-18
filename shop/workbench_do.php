@@ -125,7 +125,7 @@ if($intreturn == 0){
 				$intact_give_id = api_value_int0($row['act_give_id']);
 				$intact_number = api_value_int0($row['act_number']);
 				$arract = array();
-				$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_give_id=".$intact_give_id." and act_type=3";
+				$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). " where act_give_id=".$intact_give_id." and act_type=3";
 				$hresult = $gdb->fun_query($strsql);
 				$arract = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 				if(!empty($arract)){
@@ -390,7 +390,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 		$intnum = api_value_int0($row['num']);
 		$intworker_id = api_value_int0($row['worker_id']);
 
-		$strsql = "SELECT card_mcombo_id,mcombo_id,mgoods_id,card_mcombo_gcount,c_mcombo_name,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo'). " where card_mcombo_id=".$intcard_mcombo_id;
+		$strsql = "SELECT card_mcombo_id,mcombo_id,mgoods_id,card_mcombo_gcount,c_mcombo_name,c_mgoods_name,c_mgoods_type,c_mgoods_price,c_mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo'). " where card_mcombo_id=".$intcard_mcombo_id;
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrmcombo = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 		if(empty($arrmcombo)){
@@ -420,7 +420,6 @@ if($intreturn == 0 && !empty($arrinfo2)){
 				$intreturn = 20;
 			}
 		}
-
 		//直接修改库存
 		if($intreturn == 0){
 			$strsql = "SELECT store_info_id FROM ".$GLOBALS['gdb']->fun_table2('store_info')." where mgoods_id=".$arrmcombo['mgoods_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid'];
@@ -452,11 +451,11 @@ if($intreturn == 0 && !empty($arrinfo2)){
 					if($decreward_money != 0){
 						if(!empty($arrcard)){
 							// 有会员卡提成
-							$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmcombo['mgoods_id'].",'".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.")";
+							$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmcombo['mgoods_id'].",'".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrmcombo['c_mgoods_type'].")";
 							// echo $strsql;
 							$hresult = $gdb->fun_do($strsql);
 							if($hresult == false){
-								$intreturn = 12;
+								$intreturn = 13;
 							}
 						}
 					}
@@ -466,7 +465,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 	}
 }
 //记录优惠券使用情况,做日期检验
-/*if($intreturn == 0 && !empty($arrinfo3)){
+if($intreturn == 0 && !empty($arrinfo3)){
 	$arract_id_use = array();
 	foreach($arrinfo3 as $row){
 		$intcard_ticket_id = api_value_int0($row['card_ticket_id']);
@@ -495,7 +494,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 				$intreturn = 23;
 			}
 		}
-		//记录act总表记录,没有记录金额方面的东西(用券记录消费金额)
+		//记录act总表记录
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_uticket=act_relate_uticket+1,act_ctime=".$intnow." where act_id=".$arr['act_id'];
 			$hresult = $gdb->fun_do($strsql);
@@ -512,9 +511,9 @@ if($intreturn == 0 && !empty($arrinfo2)){
 			$intreturn = 26;
 		}
 	}
-}*/
+}
 //记录recrord3_ygoods,没有管到期时间
-/*if($intreturn == 0 && $intcard_id!=0){
+if($intreturn == 0 && $intcard_id!=0){
 	$strsql = "SELECT SUM(card_mcombo_gcount)as sum,mgoods_id,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by c_mgoods_name";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -528,9 +527,9 @@ if($intreturn == 0 && !empty($arrinfo2)){
 			}
 		}
 	}
-}*/
+}
 //记录满减活动产生的金额
-/*if($intreturn == 0){
+if($intreturn == 0){
 	if(!empty($arract_decrease)){
 		foreach($arract_decrease as $row){
 			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_decrease_id=".$row['act_decrease_id']." and act_type=2";
@@ -545,11 +544,11 @@ if($intreturn == 0 && !empty($arrinfo2)){
 			}
 		}
 	}
-}*/
+}
 //记录限时折扣活动产生的金额
-/*if($intreturn == 0){
+if($intreturn == 0){
 	if(!empty($arract_discount)){
-		$arract_discount=array_unique($arract_discount);
+		$arract_discount = array_unique($arract_discount);
 		foreach($arract_discount as $row){
 			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_discount_id=".$row." and act_type=1";
 			$hresult = $gdb->fun_query($strsql);
@@ -563,7 +562,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 			}
 		}
 	}
-}*/
+}
 // 满送记录消费金额
 // 用券记录消费金额
 echo $intreturn;

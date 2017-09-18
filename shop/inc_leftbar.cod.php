@@ -25,8 +25,8 @@
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'bill') {echo 'uhighlight';} ?>" data-am-dropdown><a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-jifen-xianxing"></span> 收支</a>
     <ul class="am-dropdown-content umenu2 umenu2-two">
-      <li><a href="bill_manage.php">1. 收支管理</a></li>
-      <li><a href="bill_cate.php">2. 收支分类</a></li>
+      <li><a href="cash.php">1. 收支管理</a></li>
+      <li><a href="cash_type.php">2. 收支分类</a></li>
     </ul>
   </li>
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'marketing') {echo 'uhighlight';} ?>" data-am-dropdown>

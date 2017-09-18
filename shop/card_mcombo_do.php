@@ -217,7 +217,7 @@ if($intreturn == 0){
 			$intreturn = 8;
 		}
 		//查询套餐商品
-		$strsql = "SELECT a.mgoods_id,a.mcombo_goods_count,b.mgoods_name,b.mgoods_price,b.mgoods_cprice FROM (SELECT mgoods_id,mcombo_goods_count FROM ".$GLOBALS['gdb']->fun_table2('mcombo_goods')." where mcombo_id = ".$intmcombo_id.") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
+		$strsql = "SELECT a.mgoods_id,a.mcombo_goods_count,b.mgoods_name,b.mgoods_price,b.mgoods_cprice,b.mgoods_type FROM (SELECT mgoods_id,mcombo_goods_count FROM ".$GLOBALS['gdb']->fun_table2('mcombo_goods')." where mcombo_id = ".$intmcombo_id.") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
 
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -227,7 +227,7 @@ if($intreturn == 0){
 				$intmgoods_id = $v['mgoods_id'];
 				$intmcombo_goods_count = $v['mcombo_goods_count']*$intnum;
 				// 插入套餐商品
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,mgoods_id,card_mcombo_gcount,card_mcombo_cedate,card_mcombo_atime,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mcombo_type) VALUES (".$intcard_id.",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",".time().",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].",".$intmcombo_type.")";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,mgoods_id,card_mcombo_gcount,card_mcombo_cedate,card_mcombo_atime,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mcombo_type,c_mgoods_type) VALUES (".$intcard_id.",2,".$intmcombo_id.",".$intmgoods_id.",".$intmcombo_goods_count.",".$intedate.",".time().",'".$v['mgoods_name']."',".$v['mgoods_price'].",".$v['mgoods_cprice'].",".$intmcombo_type.",".$v['mgoods_type'].")";
 				$hresult = $GLOBALS['gdb']->fun_do($strsql);
 				if($hresult == FALSE) {
 					$intreturn = 9;

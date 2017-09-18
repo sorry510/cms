@@ -67,7 +67,7 @@ if(empty($arr)){
 
 if($intreturn == 0){
 	$strsql = "INSERT INTO ".$gdb->fun_table2('card_history')." (card_id,card_record_id,worker_id,shop_id,card_history_question,card_history_result,card_history_plan,card_history_photo1,card_history_photo2,card_history_photo3,card_history_photo4,card_history_photo5,card_history_atime,c_card_type_id,c_card_type_name,c_card_code,c_card_name,c_card_phone,c_card_record_code,c_worker_name) VALUES(".$arrrecord['card_id'].",".$intcard_record_id.",".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$sqlquestion."','".$sqlresult."','".$sqlplan."','".$imgfile[1]."','".$imgfile[2]."','".$imgfile[3]."','".$imgfile[4]."','".$imgfile[5]."',".$inttime.",".$arrrecord['c_card_type_id'].",'".$arrrecord['c_card_type_name']."','".$arrrecord['c_card_code']."','".$arrrecord['c_card_name']."','".$arrrecord['c_card_phone']."','".$arrrecord['card_record_code']."','".$worker_name."')";
-	echo $strsql;
+	// echo $strsql;
 	$hresult = $gdb->fun_do($strsql);
 	if(!$hresult){
 		$intreturn = 12;

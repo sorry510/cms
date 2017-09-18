@@ -1426,7 +1426,7 @@ $('.cmodalcommit4').on('click', function() {
   // return false;
   $.post(url,data,function(res){
     $('.cmodalcommit4').attr('disabled',false);
-    // console.log(res);
+    console.log(res);
     // return false;
     if(res=='0'){
       window.location.reload();

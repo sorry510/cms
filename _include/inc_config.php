@@ -28,7 +28,6 @@ $gconfig['worker']['education'][5] = '本科';
 $gconfig['worker']['education'][6] = '研究生';
 $gconfig['worker']['education'][7] = '博士';
 
-
 require(C_ROOT . '/_include/cls_mysql.php');
 $gdb = new cls_mysql();
 // $gdb->pub_host = '5lh35n8y.2292lan.dnstoo.com:3306';

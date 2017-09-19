@@ -52,11 +52,11 @@
       <a href="javascript: void(0)" class="am-close am-close-spin uclose" data-am-modal-close><img src="../img/close.jpg"></a>
     </div>
     <div class="am-modal-bd">
-      <form class="am-form am-form-horizontal"  id="cform1">
+      <form class="am-form am-form-horizontal" id="cform1">
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" name="sgoods_catalog_name" class="am-form-field uinput uinput-max">
+            <input type="text" name="sgoods_catalog_name" class="am-form-field uinput uinput-max cvalid">
           </div>
         </div> 
       </form>
@@ -81,7 +81,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max ccatalog_name" name="sgoods_catalog_name">
+            <input type="text" class="am-form-field uinput uinput-max ccatalog_name cvalid" name="sgoods_catalog_name">
             <input type="hidden" class="am-form-field uinput uinput-max ccatalog_name_old" name="sgoods_catalog_name_old">
           </div>
         </div> 
@@ -103,39 +103,54 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script>
-<?php pageJs($this->_data['sgoods_catalog_list'],$this->_data['request'],'sgoods_catalog.php');?>
-
-$('.cdel').on('click', function() {
-  $('#cconfirm1').modal({
-    relatedTarget: this,
-    onConfirm: function(options) {
-      $.post('sgoods_catalog_delete_do.php',{'sgoods_catalog_id':$(this.relatedTarget).val()},function(res){
-        if(res=='0'){
-          window.location.reload();
-        }else if(res=='1'){
-          alert("分类下面有商品，不能删除！");
-        }else{
-          alert("删除失败");
-        }
-      });
-    },
-    onCancel: function() {
-      return false;
-    }
+  <?php pageJs($this->_data['sgoods_catalog_list'],$this->_data['request'],'sgoods_catalog.php');?>
+  // cvalid
+  $('input.cvalid').on('input propertychange blur', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
+  $('.cdel').on('click', function() {
+    $('#cconfirm1').modal({
+      relatedTarget: this,
+      onConfirm: function(options) {
+        $.post('sgoods_catalog_delete_do.php',{'sgoods_catalog_id':$(this.relatedTarget).val()},function(res){
+          if(res=='0'){
+            window.location.reload();
+          }else if(res=='1'){
+            alert("分类下面有商品，不能删除！");
+          }else{
+            alert("删除失败");
+          }
+        });
+      },
+      onCancel: function() {
+        return false;
+      }
+    });
   });
-});
 
 //添加分类提交按钮
 $('.cadd-form1').on('click',function(){
-  $(this).attr('disabled',true);
+  var _this = $(this);
+  _this.attr('disabled', true);
+  // 验证变红
+  $('#usgoods_catalogm1 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usgoods_catalogm1 .cvalid').hasClass("am-field-error")){
+    _this.attr('disabled',false);
+    return false;
+  }
   var url="sgoods_catalog_add_do.php";
   var data = $("#cform1").serialize();
   $.post(url,data,function(res){
+     _this.attr('disabled', false);
     if(res=='0'){
       window.location.href='sgoods_catalog.php';
     }else if(res=='1'){
       alert("名字不能重复");
-      $('.cadd-form1').attr('disabled',false);
     }else{
       alert("添加失败");
     }
@@ -155,6 +170,19 @@ $('.cid-update').on('click', function() {
 
 //修改分类提交按钮
 $('.cadd-form2').on('click',function(){
+  var _this = $(this);
+  _this.attr('disabled', true);
+  // 验证变红
+  $('#usgoods_catalogm2 .cvalid').each(function(){
+    if($(this).val()==''){
+      $(this).addClass('am-field-error');
+    }
+  })
+  // 验证返回
+  if($('#usgoods_catalogm2 .cvalid').hasClass("am-field-error")){
+    _this.attr('disabled',false);
+    return false;
+  }
   if($("#usgoods_catalogm2 .ccatalog_name_old").val()==$("#usgoods_catalogm2 .ccatalog_name").val()){
     $("#usgoods_catalogm2").modal('close');
     return false;
@@ -164,11 +192,11 @@ $('.cadd-form2').on('click',function(){
   var data = $("#cform2").serialize();
   // console.log(data);
   $.post(url,data,function(res){
+    _this.attr('disabled', false);
     if(res=='0'){
       window.location.reload();
     }else if(res=='1'){
       alert("名字不能重复");
-      $('.cadd-form2').attr('disabled',false);
     }else{
       alert("修改失败");
     }

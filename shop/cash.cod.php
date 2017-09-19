@@ -118,13 +118,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max" data-am-selected name="type">
+            <select class="uselect uselect-max cvalid" data-am-selected name="type">
               <option value="0">请选择</option>
               <?php foreach($this->_data['cash_type_list'] as $row){?>
               <option value="<?php echo $row['cash_type_id'];?>"><?php echo $row['cash_type_name'];?></option>
@@ -135,13 +135,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">金额：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="money">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="money">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">时间：</label>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max cvalid" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field" name="time">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
@@ -187,13 +187,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max cname" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cname cvalid" name="name">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类：</label>
           <div class="umodal-normal">
-            <select class="uselect uselect-max ctype" name="type">
+            <select class="uselect uselect-max ctype cvalid" name="type">
               <option value="0">请选择</option>
               <?php foreach($this->_data['cash_type_list'] as $row){?>
               <option value="<?php echo $row['cash_type_id'];?>"><?php echo $row['cash_type_name'];?></option>
@@ -204,13 +204,13 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">金额：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max cmoney" name="money">
+            <input type="text" class="am-form-field uinput uinput-max cmoney cvalid" name="money">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">时间：</label>
           <div class="umodal-normal">
-            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max" data-am-datepicker="{format:'yyyy-mm-dd'}">
+            <div class="am-input-group am-datepicker-date udatepicker udatepicker-max cvalid" data-am-datepicker="{format:'yyyy-mm-dd'}">
               <input type="text" class="am-form-field ctime" name="time">
               <span class="am-input-group-btn am-datepicker-add-on">
                 <button  class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span></button>
@@ -253,9 +253,42 @@
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
   <?php pageJs($this->_data['cash_list'], $this->_data['request'], 'cash.php');?>
+  // cvalid
+  $('input.cvalid').on('input propertychange blur', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
+  // select cvalid
+  $('select.cvalid').on('change', function(){
+    $(this).val()=='0'?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
+  // 日期
+  $('div.cvalid input').on('input propertychange blur', function(){
+    $(this).val()==''?$(this).parent().addClass('am-field-error'):$(this).parent().removeClass('am-field-error');
+  })
   $('.caddsubmit').on('click', function(){
     var _this = $(this);
     _this.attr('disabled', true);
+    // 验证变红
+    $('#ucashm1 .cvalid').each(function(){
+      if($(this).prop('tagName')=='SELECT'){
+        if($(this).val()=='0'){
+          $(this).addClass('am-field-error');
+        }
+      }else if($(this).prop('tagName')=='DIV'){
+        if($(this).find('input').val()==''){
+          $(this).addClass('am-field-error');
+        }
+      }else{
+        if($(this).val()==''){
+          $(this).addClass('am-field-error');
+        }
+      }
+    })
+    // 验证返回
+    if($('#ucashm1 .cvalid').hasClass("am-field-error")){
+      _this.attr('disabled',false);
+      return false;
+    }
     $.post('cash_add_do.php', $('#cform1').serialize(), function(res){
       // console.log(res);
       _this.attr('disabled', false);
@@ -292,6 +325,27 @@
   $('.ceditsubmit').on('click', function(){
     var _this = $(this);
     _this.attr('disabled', true);
+    // 验证变红
+    $('#ucashm2 .cvalid').each(function(){
+      if($(this).prop('tagName')=='SELECT'){
+        if($(this).val()=='0'){
+          $(this).addClass('am-field-error');
+        }
+      }else if($(this).prop('tagName')=='DIV'){
+        if($(this).find('input').val()==''){
+          $(this).addClass('am-field-error');
+        }
+      }else{
+        if($(this).val()==''){
+          $(this).addClass('am-field-error');
+        }
+      }
+    })
+    // 验证返回
+    if($('#ucashm2 .cvalid').hasClass("am-field-error")){
+      _this.attr('disabled',false);
+      return false;
+    }
     $.post('cash_edit_do.php', $('#cform2').serialize(), function(res){
       // console.log(res);
       _this.attr('disabled', false);

@@ -21,7 +21,7 @@ if($intfrom == 0){
 	$intfrom = strtotime($strfrom);
 }else{
 	//最早日期为一年前
-	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year')) ? date('Y-m-d',strtotime('-1 year')) : $intfrom;
+	// $intfrom = $intfrom < date('Y-m-d',strtotime('-1 year')) ? date('Y-m-d',strtotime('-1 year')) : $intfrom;
 }
 
 

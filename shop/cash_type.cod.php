@@ -54,7 +54,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cvalid" name="name">
           </div>
         </div> 
       </form>
@@ -78,7 +78,7 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">分类名称：</label>
           <div class="umodal-normal">
-            <input type="text" class="am-form-field uinput uinput-max cname" name="name">
+            <input type="text" class="am-form-field uinput uinput-max cname cvalid" name="name">
             <input type="hidden" class="am-form-field uinput uinput-max cid" name="id">
           </div>
         </div> 
@@ -109,10 +109,25 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-<?php pageJs($this->_data['cash_type'], $this->_data['request'], 'cash_type.php');?>
+  <?php pageJs($this->_data['cash_type'], $this->_data['request'], 'cash_type.php');?>
+  // cvalid
+  $('input.cvalid').on('input propertychange blur', function(){
+    $(this).val()==''?$(this).addClass('am-field-error'):$(this).removeClass('am-field-error');
+  })
   $('.caddsubmit').on('click', function(){
     var _this = $(this);
     _this.attr('disabled', true);
+    // 验证变红
+    $('#ucash_typem1 .cvalid').each(function(){
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    })
+    // 验证返回
+    if($('#ucash_typem1 .cvalid').hasClass("am-field-error")){
+      _this.attr('disabled',false);
+      return false;
+    }
     $.post('cash_type_add_do.php', $('#cform1').serialize(), function(res){
       _this.attr('disabled', false);
       if(res==0){
@@ -133,6 +148,17 @@
   $('.ceditsubmit').on('click', function(){
     var _this = $(this);
     _this.attr('disabled', true);
+    // 验证变红
+    $('#ucash_typem2 .cvalid').each(function(){
+      if($(this).val()==''){
+        $(this).addClass('am-field-error');
+      }
+    })
+    // 验证返回
+    if($('#ucash_typem2 .cvalid').hasClass("am-field-error")){
+      _this.attr('disabled',false);
+      return false;
+    }
     $.post('cash_type_edit_do.php', $('#cform2').serialize(), function(res){
       console.log(res);
       _this.attr('disabled', false);

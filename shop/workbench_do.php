@@ -36,7 +36,7 @@ $reward_flag = $arrconfig['reward_flag'];
 $score_flag = $arrconfig['score_flag'];
 
 $intnow = time();
-$strnow = time();
+$card_record_code = uniqid(time());//唯一编码
 $intnow2 = strtotime(date('Y-m-d',$intnow))+86399;//当前天的最后一秒
 $intnow3 = strtotime(date('Y-m-d',$intnow))+1;//当前天的第一秒
 $arract_discount = array();
@@ -83,7 +83,7 @@ if($intreturn == 0){
 		if($card_pay != 'card_record_kakou'){
 			//不是卡扣
 			//插入card_record表
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$strnow."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".floor($decsmoney).",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".floor($decsmoney).",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
 
@@ -110,7 +110,7 @@ if($intreturn == 0){
 				$intreturn = 4;
 			}
 			if($intreturn == 0){
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$strnow."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$card_ymoney.",".$intpay_type.",".$decsmoney.",0,".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$card_ymoney.",".$intpay_type.",".$decsmoney.",0,".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 				// echo $strsql;
 				$hresult = $gdb->fun_do($strsql);
 				$record_id = mysql_insert_id();
@@ -168,7 +168,7 @@ if($intreturn == 0){
 		//没有会员卡，支付方式不是卡扣
 		if($card_pay != 'card_record_kakou'){
 			//插入card_record表
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_atime,c_user_id,c_user_name,card_record_state) VALUE (".$GLOBALS['_SESSION']['login_sid'].",'".$strnow."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$intpay_type.",".$decsmoney.",".$intnow.",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_pay,".$card_pay.",card_record_atime,c_user_id,c_user_name,card_record_state) VALUE (".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$intpay_type.",".$decsmoney.",".$intnow.",".$GLOBALS['_SESSION']['login_id'].",'".$GLOBALS['_SESSION']['login_account']."',1)";
 
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
@@ -205,14 +205,14 @@ if($intreturn == 0){
 				if($decgroup_reward_guide != 0){
 					if(!empty($arrcard)){
 						// 有会员卡提成
-						$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_guide_id.",".$GLOBALS['_SESSION']['login_sid'].",4,".$decgroup_reward_guide.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$record_id.",'".$strnow."',".$decsmoney.")";
+						$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_type_id,c_card_type_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_guide_id.",".$GLOBALS['_SESSION']['login_sid'].",4,".$decgroup_reward_guide.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$record_id.",'".$card_record_code."',".$decsmoney.")";
 						// echo $strsql;
 						$hresult = $gdb->fun_do($strsql);
 						if($hresult == false){
 							$intreturn = 8;
 						}
 					}else{
-						$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_guide_id.",".$GLOBALS['_SESSION']['login_sid'].",4,".$decgroup_reward_guide.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$record_id.",'".$strnow."',".$decsmoney.")";
+						$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_guide_id.",".$GLOBALS['_SESSION']['login_sid'].",4,".$decgroup_reward_guide.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$record_id.",'".$card_record_code."',".$decsmoney.")";
 						// echo $strsql;
 						$hresult = $gdb->fun_do($strsql);
 						if($hresult == false){
@@ -295,14 +295,14 @@ if($intreturn == 0){
 								if($decreward_money != 0){
 									if(!empty($arrcard)){
 										// 有会员卡提成
-										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmgoods['mgoods_id'].",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrmgoods['mgoods_type'].")";
+										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_type_id,c_card_type_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmgoods['mgoods_id'].",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$intnum.",".$record_id.",'".$card_record_code."',".$decsmoney.",".$arrmgoods['mgoods_type'].")";
 										// echo $strsql;
 										$hresult = $gdb->fun_do($strsql);
 										if($hresult == false){
 											$intreturn = 12;
 										}
 									}else{
-										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name.",".$arrmgoods['mgoods_id'].",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrmgoods['mgoods_type'].")";
+										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name.",".$arrmgoods['mgoods_id'].",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$intnum.",".$record_id.",'".$card_record_code."',".$decsmoney.",".$arrmgoods['mgoods_type'].")";
 										// echo $strsql;
 										$hresult = $gdb->fun_do($strsql);
 										if($hresult == false){
@@ -359,14 +359,14 @@ if($intreturn == 0){
 								if($decreward_money != 0){
 									if(!empty($arrcard)){
 										// 有会员卡提成
-										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_sgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrsgoods['sgoods_id'].",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrsgoods['sgoods_type'].")";
+										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_type_id,c_card_type_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_sgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrsgoods['sgoods_id'].",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$intnum.",".$record_id.",'".$card_record_code."',".$decsmoney.",".$arrsgoods['sgoods_type'].")";
 										// echo $strsql;
 										$hresult = $gdb->fun_do($strsql);
 										if($hresult == false){
 											$intreturn = 12;
 										}
 									}else{
-										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_sgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrsgoods['sgoods_id'].",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrsgoods['sgoods_type'].")";
+										$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_sgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrsgoods['sgoods_id'].",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$intnum.",".$record_id.",'".$card_record_code."',".$decsmoney.",".$arrsgoods['sgoods_type'].")";
 										// echo $strsql;
 										$hresult = $gdb->fun_do($strsql);
 										if($hresult == false){
@@ -451,7 +451,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 					if($decreward_money != 0){
 						if(!empty($arrcard)){
 							// 有会员卡提成
-							$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmcombo['mgoods_id'].",'".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$intnum.",".$record_id.",'".$strnow."',".$decsmoney.",".$arrmcombo['c_mgoods_type'].")";
+							$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_mgoods_id,c_goods_name,c_goods_price,c_goods_count,c_card_record_id,c_card_record_code,c_card_record_smoney,c_goods_type) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",3,".$decreward_money.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$arrcard['card_id'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrmcombo['mgoods_id'].",'".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$intnum.",".$record_id.",'".$card_record_code."',".$decsmoney.",".$arrmcombo['c_mgoods_type'].")";
 							// echo $strsql;
 							$hresult = $gdb->fun_do($strsql);
 							if($hresult == false){

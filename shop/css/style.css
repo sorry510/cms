@@ -157,6 +157,9 @@
 #ubody #uworkbench .uleft .ub .ub1{margin-right:4%; width:35%;float: left;}
 #ubody #uworkbench .uleft .ub .ub2{padding:0px; width:20%;float: left;}
 #ubody #uworkbench .uleft .uc{overflow-y:scroll; zoom:1; margin:0px; padding:0px; height:280px;background: #FFFFFF}
+#ubody #uworkbench .uleft #tab1 .uc{height:280px;}
+#ubody #uworkbench .uleft #tab2 .uc{height:316px;}
+#ubody #uworkbench .uleft #tab3 .uc{height:316px;}
 #ubody #uworkbench .uleft .uc .uc1{padding:5px 15px; line-height:24px; width:100%; color:#4372C8; border-bottom:1px solid #dddddd;}
 #ubody #uworkbench .uleft .uc .uc2{overflow:hidden; zoom:1; padding:5px 20px; color:#666666; border-bottom:1px solid #EBE9E5;}
 #ubody #uworkbench .uleft .uc .uc2 .uc2a{float:left; padding:0px 10px; width:84%; line-height:24px;}

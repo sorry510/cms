@@ -44,6 +44,8 @@ $strcard_carcode = api_value_post('card_carcode');
 $strcard_worker_id = api_value_post('worker_id');
 $intcard_worker_id = api_value_int0($strcard_worker_id);
 
+
+
 $intnow = time();
 $card_id = 0;
 $strreturn = '';

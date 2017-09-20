@@ -103,7 +103,7 @@ function get_cards_list() {
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	// card_mcombo
+	/*// card_mcombo
 	foreach($arrlist as &$v){
 		$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$v['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time().") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -114,7 +114,7 @@ function get_cards_list() {
 		$strsql = "SELECT ticket_type,c_ticket_name,c_ticket_value,card_ticket_edate FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id=".$v['card_id']." and card_ticket_state=1 and card_ticket_edate>".time();
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$v['ticket'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	}
+	}*/
 	// var_dump($arrlist);exit;
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
@@ -142,7 +142,7 @@ function get_worker_list(){
 }
 function get_mcombo_list(){
 	$arr = array();
-	$strsql = "SELECT mcombo_id,mcombo_name,mcombo_price,mcombo_cprice FROM ".$GLOBALS['gdb']->fun_table2('mcombo'). "where mcombo_state =1 order by mcombo_id desc";
+	$strsql = "SELECT mcombo_id,mcombo_name,mcombo_price,mcombo_cprice,mcombo_act FROM ".$GLOBALS['gdb']->fun_table2('mcombo'). "where mcombo_state =1 order by mcombo_id desc";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

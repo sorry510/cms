@@ -38,7 +38,7 @@
     </button>
   </div>
   <div class="gspace15"></div>
-
+  <?php foreach($this->_data['cards_list']['list'] as $row) { ?>
   <table class="am-table am-table-bordered am-table-hover am-table-compact utable1">
     <thead>
       <tr>
@@ -59,7 +59,6 @@
       </tr>
     </thead>
     <tbody>
-    <?php foreach($this->_data['cards_list']['list'] as $row) { ?>
       <tr>
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_code']; ?><?php if(!empty($row['card_okey'])){?><span class="gtext-green">(WX)</span><?php }?></a></td>
         <td class="coffopen" cardid="<?php echo $row['card_id']; ?>"><a href="javascript:;"><?php echo $row['card_name']; ?></a></td>
@@ -68,7 +67,7 @@
         <td><span class="<?php if(date("m-d",$row['card_birthday_date'])==date("m-d",time())) echo 'gtext-orange';?>"><?php echo $row['card_birthday_date'] == 0 ? '--' : date("Y-m-d",$row['card_birthday_date']); ?></span></td>
         <td><?php echo date("Y-m-d",$row['card_atime']); ?></td>
         <td><?php echo $row['c_card_type_name']; ?></td>
-        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? '10.0' : $row['c_card_type_discount']; ?></span>折</td>
+        <td><span class="gtext-orange"><?php echo $row['c_card_type_discount'] == '0' ? 10 : $row['c_card_type_discount']; ?></span>折</td>
         <td class="<?php if($row['card_edate'] < time() && $row['card_edate'] != 0) echo 'gtext-orange';?>"><?php echo $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']); ?></td>
         <td><span class="<?php if($row['card_state']=='2') echo 'gtext-orange';?>"><?php echo $row['card_state']=='1'?'正常':'停用';; ?></span></td>
         <td><?php echo $row['shop_name']?></td>
@@ -89,10 +88,36 @@
           </button>
         </td>
       </tr>
-    <?php }?>
+      <tr>
+        <td colspan="14" class="utable-text">余额：<span class="gtext-orange">￥<?php echo $row['s_card_ymoney']; ?></span>，剩余积分：<span class="gtext-orange"><?php echo $row['s_card_yscore']; ?></span>
+        <?php if(!empty($row['mcombo'])){?>，套餐余：【
+          <?php foreach($row['mcombo'] as $row2){
+          echo $row2['mgoods_name'];
+          if($row2['c_mcombo_type']==1){
+            echo '(<span class="gtext-orange">'.$row2['card_mcombo_gcount'].'</span>)';
+          }
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_mcombo_cedate']);
+          echo '；';
+          }?>】<?php }?>
+        <?php if(!empty($row['ticket'])){?>,卡券余：【
+          <?php foreach($row['ticket'] as $row2){
+          echo $row2['c_ticket_name'];
+          echo '(<span class="gtext-orange">'.$row2['c_ticket_value'].'</span>)';
+          echo '，到期时间:';
+          echo date('Y-m-d',$row2['card_ticket_edate']);
+          echo '；';
+          }?>】
+        <?php }?>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="14" class="utable-text">累计消费：<span class="gtext-orange">￥<?php echo $row['s_card_smoney']; ?></span>元，累计积分：<span class="gtext-orange"><?php echo $row['s_card_sscore']; ?></span>分</td>
+      </tr>
     </tbody>
   </table>
   <div class="gspace15"></div>
+  <?php }?>
   <?php pageHtml($this->_data['cards_list'],$this->_data['request'],'card.php');?>
 </div>
 <!-- 新增会员 -->
@@ -1128,7 +1153,7 @@ $('.cmodalopen2').on('click', function() {
     $("#ucardm2 .ccard_memo").text(res.card_memo);
     $("#ucardm2 .ccard_ymoney").text(res.s_card_ymoney);
     if(res.c_card_type_discount==0){
-      $("#ucardm2 .ccard_type_discount").text(10.0);
+      $("#ucardm2 .ccard_type_discount").text(10);
     }else{
       $("#ucardm2 .ccard_type_discount").text(res.c_card_type_discount);
     }
@@ -1242,7 +1267,7 @@ $('.cmodalopen3').on('click', function() {
           $("#ucardm3 .ccard_name").text(res.card_name);
           $("#ucardm3 .ccard_code").text(res.card_code);
           if(res.c_card_type_discount==0){
-            $("#ucardm3 .ccard_discount").text(10.0);
+            $("#ucardm3 .ccard_discount").text(10);
           }else{
             $("#ucardm3 .ccard_discount").text(res.c_card_type_discount);
           }
@@ -1260,7 +1285,7 @@ $('.cmodalopen3').on('click', function() {
       $("#ucardm3 .ccard_name").text(res.card_name);
       $("#ucardm3 .ccard_code").text(res.card_code);
       if(res.c_card_type_discount==0){
-        $("#ucardm3 .ccard_discount").text(10.0);
+        $("#ucardm3 .ccard_discount").text(10);
       }else{
         $("#ucardm3 .ccard_discount").text(res.c_card_type_discount);
       }
@@ -1290,7 +1315,7 @@ $('.cpwd-btn').on('click', function() {
         $("#ucardm3 .ccard_name").text(res.card_name);
         $("#ucardm3 .ccard_code").text(res.card_code);
         if(res.c_card_type_discount==0){
-          $("#ucardm3 .ccard_discount").text(10.0);
+          $("#ucardm3 .ccard_discount").text(10);
         }else{
           $("#ucardm3 .ccard_discount").text(res.c_card_type_discount);
         }
@@ -1360,7 +1385,7 @@ $('.cmodalopen4').on('click', function() {
     $("#ucardm4 .ccard_name").text(res.card_name);
     $("#ucardm4 .ccard_code").text(res.card_code);
     if(res.c_card_type_discount==0){
-      $("#ucardm4 .ccard_discount").text(10.0);
+      $("#ucardm4 .ccard_discount").text(10);
     }else{
       $("#ucardm4 .ccard_discount").text(res.c_card_type_discount);
     }

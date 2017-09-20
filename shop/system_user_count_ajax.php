@@ -17,9 +17,11 @@ if(!empty($arr)){
   $intuser_max_count = $arr['shop_limit_user'];
 }
 // 现有数量
-$strsql = "SELECT count(user_id) as user_count FROM ".$gdb->fun_table2('user')." where shop_id = ".$intshop;
+$strsql = "SELECT count(user_id) as user_count FROM ".$gdb->fun_table2('user')." where shop_id = ".$GLOBALS['_SESSION']['login_sid'];
 $hresult = $gdb->fun_query($strsql);
 $arr = $gdb->fun_fetch_assoc($hresult);
 if($arr['user_count'] >= $intuser_max_count){
   $intreturn = 1;
 }
+
+echo $intreturn;

@@ -85,12 +85,12 @@
         </div>
         <div class="am-tab-panel am-fade" id="tab2">
           <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
-          <ul class="uc" style="height: 362px;">
+          <ul class="uc">
           </ul>
         </div>
         <div class="am-tab-panel am-fade" id="tab3">
           <div class="ua"><span class="ua1">分类/名称</span><span class="ua2">操作</span></div>
-          <ul class="uc" style="height: 362px;">
+          <ul class="uc">
           </ul>
         </div>
       </div>
@@ -253,7 +253,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript">
-(function(){
+(function Pay(){
   this.card_id = 0;
   this.cardlist = [];
   this.card_act_discount = [];
@@ -263,89 +263,6 @@
   this.card_act_give_use = [];
   this.goods = {};
   this.money_act = 0;
-  this.init = function(){
-    var _this = this;
-    _this.cardActDiscount();//初始化活动
-    _this.cardActDecrease();//初始化活动
-    _this.cardActGive();//初始化活动
-    // 会员卡搜索
-    $('#uworkbench .ccardsearch').on('click', function(event){
-      _this.cardSearch(event);
-    });
-    // 会员卡选择（多个时）
-    $('#uworkbenchm1 .ccard_list').on('change', function(event){
-       _this.cardSelect(event);
-    })
-    // 选中会员卡
-    $('#uworkbenchm1 .ccardsubmit').on('click', function(){
-     _this.cardChecked();
-    })
-    // 商品搜索
-    $('#uworkbench .uleft #tab1 .cgoodssearch').on('click', function(){
-      _this.goodsSearch();
-    });
-    // 添加商品
-    $('#uworkbench .uleft #tab1 .cadd').on('click', function(event){
-      _this.goodsAdd(event);
-    });
-    //删除商品,套餐商品,券
-    $(document).on("click",".cdel", function(event){
-      _this.goodsDelete(event);
-    });
-    //+ -
-    $(document).on("click", ".cbtndec", function(event) {
-      _this.goodsNumDec(event);
-    });
-    $(document).on("click", ".cbtnplus", function(event) {
-      _this.goodsNumPlus(event);
-    });
-    $('.cpayopen').on('click', function(){
-      _this.bill();
-      $('#uworkbenchm2').modal('open');
-    })
-    //付款方式
-    $('#uworkbenchm2 .upay').on('click',function(){
-      $(this).addClass('upay-active').siblings().removeClass('upay-active');
-    });
-    //赠送金额
-    $('#uworkbenchm2 .cjmoney').on('input propertychange',function(){
-      if(isNaN($(this).val())){
-        $(this).val('');
-      }
-      var jmoney = $(this).val()?$(this).val():0;
-      var ymoney = $('#uworkbenchm2 .cymoney2').val();
-      if(Number(jmoney) >= Number(ymoney)){
-        $(this).val(ymoney);
-        jmoney = ymoney;
-      }
-      var smoney = Number(ymoney) - Number(jmoney);
-        smoney = smoney.toFixed(2);
-      // console.log(smoney);
-      if($('#uworkbenchm2 .cfree').prop('checked')){
-        $('#uworkbenchm2 .csmoney').text('0.00');
-      }else{
-        $('#uworkbenchm2 .csmoney').text(smoney);
-      }
-    })
-    //免单
-    $('#uworkbenchm2 .cfree').on('click',function(){
-      if($(this).prop('checked')){
-        $('#uworkbenchm2 .csmoney').text('0.00');
-        $('#uworkbenchm2 .cact_dec_use').hide();
-        $('#uworkbenchm2 .cact_give_use').hide();
-      }else{
-        var jmoney = $('#uworkbenchm2 .cjmoney').val();
-        var ymoney = $('#uworkbenchm2 .cymoney2').val();
-        var smoney = Number(ymoney) - Number(jmoney);
-        $('#uworkbenchm2 .csmoney').text(smoney);
-        $('#uworkbenchm2 .cact_dec_use').show();
-        $('#uworkbenchm2 .cact_give_use').show();
-      }
-    })
-    $('#uworkbenchm2 .cpayconfirm').on('click', function(event){
-      _this.payConfirm(event);
-    })
-  }
   this.cardActDiscount = function(){
     this.card_act_discount.length = 0;
     //user_type 1会员 2非会员
@@ -610,7 +527,7 @@
     $('#uworkbench .uleft #tab2 .uc li').remove();
     $.when($.getJSON('card_mymcombo_ajax.php', {card_id:card_id}))
       .done(function(res){
-        console.log(res);
+        // console.log(res);
         if(res){
           var addli = '';
           $.each(res,function(k,v){
@@ -1265,7 +1182,104 @@
     //深层clone,用于只有数据的数组，json对象
     return JSON.parse(JSON.stringify(obj));
   }
-  this.init();
+  this.init = (function(){
+    var height = $('#uworkbench').height();
+    var h2 = $('#uworkbench .utop').height();
+    var h3 = $('#uworkbench .ubottom').height();
+    var h4 = $('#uworkbench .uleft .ulhead').height();
+    var h5 = $('#uworkbench .uleft .am-tab-panel .ua').height();
+    var h6 = $('#uworkbench .uleft .am-tab-panel .ub').height();
+    var h7 = $('.gspace15').height();
+    var h8 = $('#uworkbench .uright .utotaltext').height();
+    var h9 = height-h2-h3-h4-h5-h6-h7*2-40;
+    var h10 = height-h2-h3-h4-h5-h7*2-30;
+    var h11 = height-h2-h3-h4-h7*2-h8-30;
+    $('#uworkbench .uleft #tab1 .uc').height(h9);
+    $('#uworkbench .uleft #tab2 .uc').height(h10);
+    $('#uworkbench .uleft #tab3 .uc').height(h10);
+    $('#uworkbench .uright .urcontent').height(h11);
+    var _this = this;
+    _this.cardActDiscount();//初始化活动
+    _this.cardActDecrease();//初始化活动
+    _this.cardActGive();//初始化活动
+    // 会员卡搜索
+    $('#uworkbench .ccardsearch').on('click', function(event){
+      _this.cardSearch(event);
+    });
+    // 会员卡选择（多个时）
+    $('#uworkbenchm1 .ccard_list').on('change', function(event){
+       _this.cardSelect(event);
+    })
+    // 选中会员卡
+    $('#uworkbenchm1 .ccardsubmit').on('click', function(){
+     _this.cardChecked();
+    })
+    // 商品搜索
+    $('#uworkbench .uleft #tab1 .cgoodssearch').on('click', function(){
+      _this.goodsSearch();
+    });
+    // 添加商品
+    $('#uworkbench .uleft #tab1 .cadd').on('click', function(event){
+      _this.goodsAdd(event);
+    });
+    //删除商品,套餐商品,券
+    $(document).on("click",".cdel", function(event){
+      _this.goodsDelete(event);
+    });
+    //+ -
+    $(document).on("click", ".cbtndec", function(event) {
+      _this.goodsNumDec(event);
+    });
+    $(document).on("click", ".cbtnplus", function(event) {
+      _this.goodsNumPlus(event);
+    });
+    $('.cpayopen').on('click', function(){
+      _this.bill();
+      $('#uworkbenchm2').modal('open');
+    })
+    //付款方式
+    $('#uworkbenchm2 .upay').on('click',function(){
+      $(this).addClass('upay-active').siblings().removeClass('upay-active');
+    });
+    //赠送金额
+    $('#uworkbenchm2 .cjmoney').on('input propertychange',function(){
+      if(isNaN($(this).val())){
+        $(this).val('');
+      }
+      var jmoney = $(this).val()?$(this).val():0;
+      var ymoney = $('#uworkbenchm2 .cymoney2').val();
+      if(Number(jmoney) >= Number(ymoney)){
+        $(this).val(ymoney);
+        jmoney = ymoney;
+      }
+      var smoney = Number(ymoney) - Number(jmoney);
+        smoney = smoney.toFixed(2);
+      // console.log(smoney);
+      if($('#uworkbenchm2 .cfree').prop('checked')){
+        $('#uworkbenchm2 .csmoney').text('0.00');
+      }else{
+        $('#uworkbenchm2 .csmoney').text(smoney);
+      }
+    })
+    //免单
+    $('#uworkbenchm2 .cfree').on('click',function(){
+      if($(this).prop('checked')){
+        $('#uworkbenchm2 .csmoney').text('0.00');
+        $('#uworkbenchm2 .cact_dec_use').hide();
+        $('#uworkbenchm2 .cact_give_use').hide();
+      }else{
+        var jmoney = $('#uworkbenchm2 .cjmoney').val();
+        var ymoney = $('#uworkbenchm2 .cymoney2').val();
+        var smoney = Number(ymoney) - Number(jmoney);
+        $('#uworkbenchm2 .csmoney').text(smoney);
+        $('#uworkbenchm2 .cact_dec_use').show();
+        $('#uworkbenchm2 .cact_give_use').show();
+      }
+    })
+    $('#uworkbenchm2 .cpayconfirm').on('click', function(event){
+      _this.payConfirm(event);
+    })
+  })();
 })()
 </script>
 </body>

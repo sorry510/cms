@@ -80,7 +80,6 @@
   </table>
   <?php pageHtml($this->_data['record_history'],$this->_data['request'],'e-record.php');?>
 </div>
-
 <!--modal框-->
 <div id="ue-recordm1" class="am-modal" tabindex="-1">
   <div class="am-modal-dialog umodal">
@@ -323,17 +322,16 @@
       </div>
       <div class="gspace15"></div>
       <div class="am-g ucontent">
-        <div class="am-u-lg-6">会员卡号：<span>张三</span></div>
-        <div class="am-u-lg-6">会员姓名：<span>3700824417</span></div>
-        <div class="am-u-lg-6">诊疗时间：<span>a123212</span></div>
-        <div class="am-u-lg-6">诊疗人员：<span>男</span></div>
-        <div class="am-u-lg-12">服务项目：<span>无</span></div>
-        <div class="am-u-lg-12">问题描述：<span>无</span></div>
-        <div class="am-u-lg-12">诊疗结果：<span>无</span></div>
-        <div class="am-u-lg-12">诊疗方案：<span>无</span></div>
+        <div class="am-u-lg-6">会员卡号：<span class="ccard_code"></span></div>
+        <div class="am-u-lg-6">会员姓名：<span class="ccard_name"></span></div>
+        <div class="am-u-lg-6">诊疗时间：<span class="crecode_time"></span></div>
+        <div class="am-u-lg-6">诊疗人员：<span class="cworker_name">男</span></div>
+        <div class="am-u-lg-12">问题描述：<span class="cquestion">无</span></div>
+        <div class="am-u-lg-12">诊疗结果：<span class="cresult">无</span></div>
+        <div class="am-u-lg-12">诊疗方案：<span class="cplan">无</span></div>
         <div class="am-u-lg-12 gspace15"></div>
         <label class="am-u-lg-12">照片</label>
-        <div class="am-u-lg-4"><img src="../img/wu.jpg"></div>
+        <div class="am-u-lg-4"><img src="../img/wu.jpg" class="cimg1" style="width:200px; height:300px;"></div>
         <label class="am-u-lg-8">&nbsp;</label>
       </div>
     </div>
@@ -365,7 +363,16 @@
   $('.coffopen').on('click', function(){
     var history_id = $(this).attr('history_id');
     $.getJSON('e-record_edit_ajax.php', {history_id:history_id}, function(res){
-      console.log(res);
+      $('#uoffcanvas .ccard_code').text(res.c_card_code);
+      $('#uoffcanvas .ccard_name').text(res.c_card_name);
+      $('#uoffcanvas .crecord_time').text(res.time);
+      $('#uoffcanvas .cworker_name').text(res.c_worker_name);
+      $('#uoffcanvas .cquestion').text(res.card_history_question);
+      $('#uoffcanvas .cresult').text(res.card_history_result);
+      $('#uoffcanvas .cplan').text(res.card_history_plan);
+      $('#uoffcanvas .cimg1').attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_erecord_show"];?>/'+res.card_history_photo1+'?'+Math.random()*1000);
+      // $('#uoffcanvas .cimg2').text(res.c_card_code);
+      // console.log(res);
     })
   })
   //侧拉关闭
@@ -429,11 +436,9 @@
     })
     // 验证返回
     if($('#ue-recordm2 .cvalid').hasClass("am-field-error")){
-      console.log(11);
       _this.attr('disabled',false);
       return false;
     }
-    console.log(222);
     var formData = new FormData($('#cform2')[0]);
     if(imgs_name){
       $.each(imgs_name, function(k,v){
@@ -470,7 +475,7 @@
       $('#ue-recordm3 .cquestion').val(res.card_history_question);
       $('#ue-recordm3 .cresult').val(res.card_history_result);
       $('#ue-recordm3 .cplan').val(res.card_history_plan);
-      console.log(res);
+      // console.log(res);
     })
   })
   $('.ceditsubmit').on('click', function(){

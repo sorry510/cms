@@ -6,6 +6,16 @@ require('inc_limit.php');
 
 $strchannel = 'e-record';
 
+$arrconfig = companyConfig();//!=1代表不启用
+$reward_flag = $arrconfig['reward_flag'];
+$erecord_flag = $arrconfig['erecord_flag'];
+
+if($erecord_flag != 1){
+	echo "<script>alert('非法访问！');window.history.back(-1);</script>";
+	return 0;
+}
+
+
 $strfrom = api_value_get('from');
 $intfrom = strtotime($strfrom) ? strtotime($strfrom) : 0;
 $strto = api_value_get('to');

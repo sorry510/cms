@@ -66,10 +66,10 @@
       <td><a class="coffcanvasopen" data-am-offcanvas="{target: '#uworkeroff1'}" href="#" worker_id="<?php echo $row['worker_id'];?>"><?php echo $row['worker_name'];?></a></td>
       <td><?php echo $row['worker_code'];?></td>
       <td><?php echo $row['worker_sex']=='2'?'女':'男';?></td>
-      <td><?php echo date('Y-m-d',$row['worker_birthday_date']);?></td>
+      <td><?php echo $row['worker_birthday_date']=='0'?'--':date('Y-m-d',$row['worker_birthday_date']);?></td>
       <td><?php echo $row['worker_phone'];?></td>
       <td><?php echo $row['education_name'];?></td>
-      <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
+      <td><?php echo $row['worker_join']=='0'?'--':date('Y-m-d',$row['worker_join']);?></td>
       <td><?php echo $row['worker_wage'];?></td>
       <!-- <td><?php //echo $row['worker_config_reserve']=='1'?'参与':'不参与';?></td> -->
       <!-- <td><?php //echo $row['worker_config_guide']=='1'?'参与':'不参与';?></td> -->
@@ -102,7 +102,7 @@
         <div class="am-u-lg-6">基本工资：<span class="cworker_wage">&nbsp;</span></div>
         <!-- <div class="am-u-lg-6">参与预约：<span class="cworker_reserve">&nbsp;</span></div> -->
         <!-- <div class="am-u-lg-6">导购提成：<span class="cworker_guide">&nbsp;</span></div> -->
-        <div class="am-u-lg-12">工作内容：<span class="cworker_goods">&nbsp;</span></div>
+        <!-- <div class="am-u-lg-12">工作内容：<span class="cworker_goods">&nbsp;</span></div> -->
         <div class="am-u-lg-12 gspace15"></div>
         <label class="am-u-lg-6">照片</label>
         <label class="am-u-lg-6">身份证</label>
@@ -155,8 +155,8 @@ $('.coffcanvasopen').on('click', function(){
       $("#uworkeroff1 .cworker_wage").text(res.worker_wage);
       // $("#uworkeroff1 .cworker_guide").text(res.worker_config_guide_name);
       // $("#uworkeroff1 .cworker_reserve").text(res.worker_config_reserve_name);
-      if(res.goods_name)
-        $("#uworkeroff1 .cworker_goods").text(res.goods_name);
+      // if(res.goods_name)
+        // $("#uworkeroff1 .cworker_goods").text(res.goods_name);
       if(res.worker_photo_file)
         $("#uworkeroff1 .cworker_photo1").attr('src','http://<?php echo $GLOBALS["gconfig"]["path"]["photo_worker_show"];?>/'+res.worker_photo_file+'?'+Math.random()*1000);
       if(res.worker_identity_file)

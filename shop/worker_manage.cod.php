@@ -61,7 +61,7 @@
       <td><?php echo $row['worker_birthday_date']=='0'?'--':date('Y-m-d',$row['worker_birthday_date']);?></td>
       <td><?php echo $row['worker_phone'];?></td>
       <td><?php echo $row['education_name'];?></td>
-      <td><?php echo date('Y-m-d',$row['worker_join']);?></td>
+      <td><?php echo $row['worker_join']=='0'?'--':date('Y-m-d',$row['worker_join']);?></td>
       <td><?php echo $row['worker_wage'];?></td>
       <td>
         <button class="am-btn ubtn-table ubtn-green cedit" data-am-modal="{target: '#uworker_managem2'}" value="<?php echo $row['worker_id'];?>">

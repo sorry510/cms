@@ -75,7 +75,7 @@ function get_cards_list() {
 		return $arrpackage;
 	}
 	
-	$intpagesize = 20;
+	$intpagesize = 50;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;

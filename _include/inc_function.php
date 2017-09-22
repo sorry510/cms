@@ -4,12 +4,24 @@ if(!defined('C_CNFLY')) {
 }
 
 // 分页html
-function pageHtml($datalist,$request,$url){
-	echo '<ul class="am-pagination am-pagination-centered upages"><li class="upage-info">共'.$datalist['pagecount'].'页，'.$datalist['allcount'].'条记录</li><li class="cfirst am-disabled"><a href="'.$url.'?'.api_value_query($request, $datalist['pagepre']).'">&laquo;</a></li><li class="am-active"><a href="#">'.$datalist['pagenow'].'</a></li><li class="clast"><a href="'.$url.'?'.api_value_query($request, $datalist['pagenext']).'">&raquo;</a></li><li class="upage-info">，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:50px;height: 26px;line-height:26px;vertical-align:bottom;text-align:center;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li></ul>';
+function pageHtml($datalist, $request, $url){
+	echo '<ul class="am-pagination am-pagination-centered upages">';
+	echo '<li class="upage-info">共'.$datalist['pagecount'].'页，'.$datalist['allcount'].'条记录</li>';
+	echo '<li class="cfirst am-disabled"><a href="'.$url.'?'.api_value_query($request, 1).'">&laquo;</a></li>';
+	if($datalist['pagenow'] > 1){
+		echo '<li><a href="'.$url.'?'.api_value_query($request, $datalist['pagepre']).'">'.$datalist['pagepre'].'</a></li>';
+	}
+	echo '<li class="am-active"><a href="#">'.$datalist['pagenow'].'</a></li>';
+	if($datalist['pagenow'] < $datalist['pagecount']){
+		echo '<li><a href="'.$url.'?'.api_value_query($request, $datalist['pagenext']).'">'.$datalist['pagenext'].'</a></li>';
+	}
+	echo '<li class="clast"><a href="'.$url.'?'.api_value_query($request, $datalist['pagecount']).'">&raquo;</a></li>';
+	echo '<li class="upage-info">，跳转到第 <input id="idpagego" class="am-form-field uinput" style="width:50px;height: 26px;line-height:26px;vertical-align:bottom;text-align:center;" onkeydown="if(event.keyCode == 13){page_do();}"> 页</li>';
+	echo '</ul>';
 }
 
 // 分页js
-function pageJs($datalist,$request,$url){
+function pageJs($datalist, $request, $url){
 	echo "if(".$datalist['pagenow'].">1){";
 	echo '$(".upages .cfirst").removeClass("am-disabled")};';
 	echo "if(";
@@ -29,7 +41,7 @@ function pageJs($datalist,$request,$url){
 	echo '}}';
 }
 
-// 提示框 
+// 提示框
 /*1删除 2停用 3启用 4还原 5取消 6确认 7到店 8同步 9总店*/
 function confirmHtml($type){
 	switch ($type)
@@ -156,4 +168,20 @@ function companyConfig(){
 
 	$arrjson['sms_ycount'] = $intsms_ycount;
 	return $arrjson;
+}
+
+function gGetCompanyInfo(){
+	$arr = array();
+	$strsql = "SELECT company_name,company_phone,company_area_address,company_link_weixin FROM ".$GLOBALS['gdb']->fun_table('company'). " WHERE company_id=".$GLOBALS['_SESSION']['login_cid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	return $arr;
+}
+
+function gGetShopInfo(){
+	$arr = array();
+	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop') . " where shop_id=".$GLOBALS['_SESSION']['login_sid'];
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	return $arr;
 }

@@ -103,14 +103,14 @@ function get_cards_list() {
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	/*// card_mcombo
+	// card_mcombo
 	foreach($arrlist as &$v){
 		$strsql = "SELECT a.*,b.mgoods_name FROM (SELECT mgoods_id,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$v['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time().") as a left join ".$GLOBALS['gdb']->fun_table2('mgoods')." as b on a.mgoods_id = b.mgoods_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$v['mcombo'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	}
 	// card_ticket
-	foreach($arrlist as &$v){
+	/*foreach($arrlist as &$v){
 		$strsql = "SELECT ticket_type,c_ticket_name,c_ticket_value,card_ticket_edate FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id=".$v['card_id']." and card_ticket_state=1 and card_ticket_edate>".time();
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$v['ticket'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -180,7 +180,7 @@ function get_act_decrease_list(){
 	$stract_decrease_id = substr($stract_decrease_id,0,strlen($stract_decrease_id)-1);
 	if($stract_decrease_id!=''){
 		//会员，期限内，正常，按减的价格升序
-		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=3 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_man desc";
+		$strsql = "SELECT act_decrease_id,act_decrease_name,act_decrease_man,act_decrease_jian FROM " . $GLOBALS['gdb']->fun_table2('act_decrease')." where act_decrease_start<=".$GLOBALS['now']." and act_decrease_end>=".$GLOBALS['now']." and act_decrease_state=1 and act_decrease_client!=3 and act_decrease_id in (".$stract_decrease_id.") order by act_decrease_jian desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	}

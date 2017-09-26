@@ -464,7 +464,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 		}
 	}
 }
-//记录优惠券使用情况,做日期检验
+//记录优惠券使用情况
 if($intreturn == 0 && !empty($arrinfo3)){
 	$arract_id_use = array();
 	foreach($arrinfo3 as $row){
@@ -564,5 +564,4 @@ if($intreturn == 0){
 	}
 }
 // 满送记录消费金额
-// 用券记录消费金额
 echo $intreturn;

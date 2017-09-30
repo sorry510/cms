@@ -56,10 +56,10 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">验证码：</label>
           <div class="umodal-valid">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+            <input class="am-form-field uinput uinput-max" type="text" placeholder="">
           </div>
           <div class="umodal-search">
-            <button type="button" class="am-btn ubtn-search2 ubtn-green">
+            <button type="button" class="am-btn ubtn-search2 ubtn-green cphonecode1">
               获取验证码
             </button>
           </div>
@@ -67,16 +67,16 @@
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">新手机号：</label>
           <div class="umodal-normal">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+            <input class="am-form-field uinput uinput-max cphonenew" type="text" placeholder="">
           </div>
         </div>
         <div class="am-form-group">
           <label class="umodal-label am-form-label" for="">验证码：</label>
           <div class="umodal-valid">
-            <input id="" class="am-form-field uinput uinput-max" type="text" placeholder="">
+            <input class="am-form-field uinput uinput-max" type="text" placeholder="">
           </div>
           <div class="umodal-search">
-            <button type="button" class="am-btn ubtn-search2 ubtn-green">
+            <button type="button" class="am-btn ubtn-search2 ubtn-green cphonecode2">
               获取验证码
             </button>
           </div>
@@ -191,6 +191,7 @@
 <script src="../js/amazeui.min.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
 <script type="text/javascript">
+
 $(function(){
   // var province = $('.cprovince').val();
   getCity();
@@ -279,6 +280,56 @@ $(function(){
     });
     $('.cfilename').html(fileNames);
   });
+  // 获取验证码
+  $('.cphonecode1').on('click', function(){
+    $(this).attr('disabled', true);
+    var maxtime = 60;
+    $('.cphonecode1').html(maxtime+'秒后重试');
+    var time = setInterval(function() {
+      maxtime--;
+      $('.cphonecode1').html(maxtime+'秒后重试');
+      if(maxtime <= 0){
+        clearInterval(time);
+        $('.cphonecode1').html('获取验证码');
+        $('.cphonecode1').attr('disabled', false);
+      }
+    }, 1000);
+    $.post('system_phone_sms_ajax.php', {}, function(res){
+      console.log(res);
+      if(res==0){
+        alert('短信已发出请及时接收');
+      }else if(res=='2'){
+        alert('短信余额已不足');
+      }else{
+        alert('异常错误');
+      }
+    })
+  })
+  // 获取验证码2
+  $('.cphonecode2').on('click', function(){
+    $(this).attr('disabled', true);
+    var maxtime = 60;
+    $('.cphonecode2').html(maxtime+'秒后重试');
+    var time = setInterval(function() {
+      maxtime--;
+      $('.cphonecode2').html(maxtime+'秒后重试');
+      if(maxtime <= 0){
+        clearInterval(time);
+        $('.cphonecode2').html('获取验证码');
+        $('.cphonecode2').attr('disabled', false);
+      }
+    }, 1000);
+    $.post('system_phone_sms_ajax.php', {'phone':$('.cphonenew').val()}, function(res){
+      console.log(res);
+      if(res==0){
+        alert('短信已发出请及时接收');
+      }else if(res=='2'){
+        alert('短信余额已不足');
+      }else{
+        alert('异常错误');
+      }
+    })
+  })
 });
 </script>
 </body>

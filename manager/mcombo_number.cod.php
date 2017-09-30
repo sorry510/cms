@@ -651,12 +651,14 @@ function add(){
   if(type=="add"){
     $('#umcombo_numberm3 .cnum').each(function(){
       if(mgoods_id== $(this).attr('mgoods_id')){
+        $(this).val(Number($(this).val())+1);
         flag = false;
       }
     });
   }else{
     $('#umcombo_numberm4 .cnum').each(function(){
       if(mgoods_id== $(this).attr('mgoods_id')){
+        $(this).val(Number($(this).val())+1);
         flag = false;
       }
     });

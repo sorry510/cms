@@ -75,23 +75,23 @@
     <?php foreach($this->_data['card_records_list']['list'] as $row){ ?>
     <tr>
       <td><?php echo date("Y-m-d H:i:s",$row['card_record_atime']);?></td>
-      <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['card_record_code'];?></a></td>
+      <td><a href="javascript:;"  class="coffopen" card_record_id="<?php echo $row['card_record_id'];?>"><?php echo $row['bianhao'];?></a></td>
       <td><?php echo $row['c_card_code'];?></td>
       <td><?php echo $row['c_card_name'];?></td>
       <td><?php echo $row['c_card_sex'] == '0' ? '' : ($row['c_card_sex'] == '1' ? '男':($row['c_card_sex'] == '2' ? '女':'保密')); ?></td>
       <td><?php echo $row['c_card_phone'];?></td>
       <td><?php echo $row['c_card_type_name'];?></td>
       <td><?php echo $row['card_record_type'] == '3' ? '消费' : ($row['card_record_type'] == '1' ? '充值':'买套餐'); ?></td>
-      <td class="gtext-orange"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '0.00';?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_xianjin'];?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_yinhang'];?></td>
-      <td class="gtext-orange">0.00</td>
-      <td class="gtext-orange"><?php echo $row['card_record_weixin'];?></td>
-      <td class="gtext-orange"><?php echo $row['card_record_zhifubao'];?></td>
+      <td class="<?php if($row['card_record_pay']=='5') echo 'gtext-orange'?>"><?php if($row['card_record_pay']=='5') echo $row['card_record_smoney']; else echo '--';?></td>
+      <td class="<?php if($row['card_record_xianjin']!='0') echo 'gtext-orange'?>"><?php echo $row['card_record_xianjin']==0?'--':$row['card_record_xianjin'];?></td>
+      <td class="<?php if($row['card_record_yinhang']!='0') echo 'gtext-orange'?>"><?php echo $row['card_record_yinhang']==0?'--':$row['card_record_yinhang'];?></td>
+      <td>--</td>
+      <td class="<?php if($row['card_record_weixin']!='0') echo 'gtext-orange'?>"><?php echo $row['card_record_weixin']==0?'--':$row['card_record_weixin'];?></td>
+      <td class="<?php if($row['card_record_zhifubao']!='0') echo 'gtext-orange'?>"><?php echo $row['card_record_zhifubao']==0?'--':$row['card_record_zhifubao'];?></td>
       <td><?php echo $row['shop_name'];?></td>
       <td class="<?php if($row['card_record_state']==5) echo 'gtext-orange';?> <?php if($row['card_record_state']==4) echo 'gtext-green';?>"><?php echo $row['card_record_state'] == '1' ? '正常' : ($row['card_record_state'] == '2' ? '挂单':($row['card_record_state'] == '3' ? '取消' : ($row['card_record_state'] == '4' ? '免单':'退款'))); ?></td>
       <td>
-        <button class="am-btn ubtn-table ubtn-orange">
+        <button class="am-btn ubtn-table ubtn-orange cprint">
           <i class="iconfont icon-dayin"></i>
           打印小票
         </button>
@@ -188,7 +188,7 @@ $(function() {
     $.getJSON(url,{card_record_id:$(this).attr('card_record_id')},function(res){
       // console.log(res);
       $("#uoffcanvas .ccard_record_atime").text(res.card_record_atime);
-      $("#uoffcanvas .ccard_record_code").text(res.card_record_code);
+      $("#uoffcanvas .ccard_record_code").text(res.bianhao);
       $("#uoffcanvas .ccard_type_name").text(res.c_card_type_name);
       $("#uoffcanvas .ccard_type_discount").text(res.c_card_type_discount);
       $("#uoffcanvas .ccard_name").text(res.c_card_name);
@@ -313,18 +313,9 @@ $(function() {
       }
     });
   })
-  //删除
-  /*$('.cdel').on('click', function() {
-    $('#cconfirm').modal({
-      relatedTarget: this,
-      onConfirm: function(options) {
-        $(this.relatedTarget).parent('td').parent('tr').remove();
-      },
-      onCancel: function() {
-        return;
-      }
-    });
-  });*/
+  $('.cprint').on('click', function(){
+    window.location.href="record_do.code.php";
+  })
 });
 </script>
 </body>

@@ -47,7 +47,7 @@
   <li class="am-dropdown <?php if($GLOBALS['strchannel'] == 'system') {echo 'uhighlight';} ?>" data-am-dropdown>
     <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle><span class="iconfont icon-tripshezhishi"></span>&nbsp;&nbsp;系统</a>
     <ul class="am-dropdown-content umenu2 umenu2-five">
-      <li><a href="#">1. 参数设置</a></li>
+      <li><a href="system_shop_config.php">1. 参数设置</a></li>
       <li><a href="system_user.php">2. 操作员管理</a></li>
       <li><a href="system_card_type.php">3. 会员卡分类</a></li>
       <li><a href="system_score.php">4. 积分换礼</a></li>

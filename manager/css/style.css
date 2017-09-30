@@ -64,4 +64,29 @@
 #ubody #uwechat_shop_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
 #ubody #uwechat_shop_config .ub{float:left; padding:0px;}
 
+/*count页面样式*/
+#ucount{font-size:1.4rem;}
+#ucount .ua{overflow:hidden; zoom:1; margin:0px auto; width:95%;}
+#ucount .ua .ua1{float:left; margin-left:1%; display:inline; color:#fff; font-size:2.4rem; text-align:center; }
+#ucount .ua .ua1-1{padding:40px 0px; width:10%; line-height:30px; background:#6bb0ef;}
+#ucount .ua .ua1-2{padding:30px 0px; width:10%; line-height:40px; background:#91c14f;}
+#ucount .ua .ua1-3{padding:30px 0px; width:10%; line-height:40px; background:#ed8323;}
+#ucount .ua .ua1-4{padding:40px 0px; width:10%; line-height:30px; background:#68c0bf;}
+#ucount .ua .ua2{float:left; padding-top:10px; width:20%; text-align:center;}
+#ucount .ua .ua2 .ua2a span{font-size:3rem; font-weight:bold; color:#cc0000;}
+#ucount .ua .ua2 .ua2c{color:#418f02;}
+#ucount .ua .ua3{float:left; margin:0px; padding:5px 0px 5px 4%; width:60%; text-align:left;  border-left:3px solid #cccccc;}
+#ucount .ua .ua3 li{height:25px; line-height:25px;}
+#ucount .ua .ua3 span{color:#cc0000; font-weight:bold;}
+
+/*count_dailyreport页面样式*/
+#ubody #count_dailyreport .ua{overflow:hidden; zoom:1; margin:0px auto; width:95%;}
+#ubody #count_dailyreport .ua .ua1{float:left; width:80%;}
+#ubody #count_dailyreport .ua .ua2{float:right; width:18%;}
+
+/*system_convert页面样式*/
+#system_convert .utools .uform2 .ua span{margin-right:20px; font-size:1.6rem;}
+#ubody #usystem_convertm1 .uscroll-table{margin:0px auto; height:251px; width:95%;}
+#ubody #usystem_convertm1 .uscroll-table td{padding:0px; height:34px; line-height:32px;}
+
 

@@ -666,12 +666,14 @@ function add(){
   if(type=="add"){
     $('#umcombo_timem3 .cnum').each(function(){
       if(mgoods_id== $(this).attr('mgoods_id')){
+        // $(this).val(Number($(this).val)+1);
         flag = false;
       }
     });
   }else{
     $('#umcombo_timem4 .cnum').each(function(){
       if(mgoods_id== $(this).attr('mgoods_id')){
+        // $(this).val(Number($(this).val)+1);
         flag = false;
       }
     });

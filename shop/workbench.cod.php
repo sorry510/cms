@@ -25,15 +25,16 @@
         <li>卡余额：<span class="ccard_ymoney"></span></li>
       </ul>
     </li>
-    <li class="uroomcard gtext-yellow"><i class="iconfont icon-search"></i><span>201-1001</span></li>
+    <!-- <li class="uroomcard gtext-yellow"><i class="iconfont icon-search"></i><span>201-1001</span></li> -->
   </ul>
   <div class="gspace15"></div>
   <div class="am-u-lg-4 uleft">
     <div class="am-tabs" data-am-tabs="{noSwipe: 1}">
       <ul class="am-tabs-nav am-nav am-nav-tabs ulhead">
         <li class="am-active"><a href="#tab1">可选商品</a></li>
-        <li><a href="#tab2">我的套餐</a></li>
-        <li><a href="#tab3">我的优惠券</a></li>
+        <li><a href="#tab4">扫码添加商品</a></li>
+        <li class="ccardhas"><a href="#tab2">我的套餐</a></li>
+        <li class="ccardhas"><a href="#tab3">我的优惠券</a></li>
       </ul>
       <div class="am-tabs-bd">
         <div class="am-tab-panel am-active" id="tab1">
@@ -93,6 +94,20 @@
           <ul class="uc">
           </ul>
         </div>
+        <div class="am-tab-panel am-fade" id="tab4">
+          <div class="gspace50"></div>
+          <div class="gspace50"></div>
+          <div>
+            <form onsubmit="return false;">
+              <div class="umodal-normal" style="width:180px; margin:0px 5% 0px 15%; float:left;">
+                <input class="am-form-field uinput uinput-max cgoodscode" type="text" placeholder="条码枪扫码或手动输入">
+              </div>
+              <button type="button" class="am-btn ubtn-search2 ubtn-green cgoodscodeadd" style="width:80px;">
+                添加
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -113,7 +128,7 @@
   </div>
   <div class="ubottom">
     <div class="am-u-lg-2">
-      <button class="am-btn ubtn-guadan">
+      <button type="button" class="am-btn ubtn-guadan">
         挂单
       </button>
     </div>
@@ -510,6 +525,7 @@
             })
           _this.cardActDecrease();
           _this.cardActGive();
+          $('.ccardhas').show();
           $('#uworkbenchm1').modal('close');
         }else{
           // 密码错误
@@ -625,6 +641,7 @@
       })
     _this.cardActDecrease();
     _this.cardActGive();
+    $('.ccardhas').hide();
     $('#uworkbench .uleft #tab2 .uc li').remove();
     $('#uworkbench .uleft #tab3 .uc li').remove();
     $('#uworkbench .utop .ccard_name').text('');
@@ -689,24 +706,14 @@
     var emt = event.target;
     var _self = $(emt);
     var product = _self.parent().prev().text();
+    var goods_name = product.slice(0,product.indexOf("("));
     var price = _self.parent().prev().attr('price');
     var mgoods_id = _self.parent().parent().attr('mgoods_id');
     var mgoods_act = _self.parent().parent().attr('mgoods_act');
     var sgoods_id =_self.parent().parent().attr('sgoods_id');
-    var flag = true;
     var goods_id = 0;
+    var addhtml = '';
     var type = 0;
-    $('.uright .cnum').each(function(){
-      if(mgoods_id != undefined && mgoods_id == $(this).attr('mgoods_id')){
-        flag = false;
-      }
-      if(sgoods_id != undefined && sgoods_id == $(this).attr('sgoods_id')){
-        flag = false;
-      }
-    });
-    if(!flag){
-      return false;//添加过了后面不在执行
-    }
     if(mgoods_id != undefined){
       goods_id = mgoods_id;
       type = 1;
@@ -714,15 +721,26 @@
       goods_id = sgoods_id;
       type = 2;
     }
-    var addhtml = '';
+    // var flag = true;
+    // $('.uright .cnum').each(function(){
+    //   if(mgoods_id != undefined && mgoods_id == $(this).attr('mgoods_id')){
+    //     flag = false;
+    //   }
+    //   if(sgoods_id != undefined && sgoods_id == $(this).attr('sgoods_id')){
+    //     flag = false;
+    //   }
+    // });
+    // if(!flag){
+    //   return false;//添加过了后面不在执行
+    // }
     $.when(_this.goodsPrice(goods_id,type))
       .done(function(){
-        // console.log(333);
+        product = goods_name+'(<span class="gtext-line">￥'+price+'</span>，<span>￥'+_this.goods.min_price+'</span>)';
         if(type == 1){
-          addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow" title="'+product+'">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" mgoods_id="'+mgoods_id+'" mgoods_act="'+mgoods_act+'" min_price="'+_this.goods.min_price+'" act_discount_id="'+_this.goods.act_discount_id+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
+          addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" mgoods_id="'+mgoods_id+'" mgoods_act="'+mgoods_act+'" min_price="'+_this.goods.min_price+'" act_discount_id="'+_this.goods.act_discount_id+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
         }else if(type == 2){
           // console.log(_this.goods);
-          addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow" title="'+product+'">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" sgoods_id="'+sgoods_id+'" min_price="'+_this.goods.min_price+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
+          addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" sgoods_id="'+sgoods_id+'" min_price="'+_this.goods.min_price+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
         }
       })
       .done(function(){
@@ -740,6 +758,75 @@
           _this.allGoodsPrice();
         })
       })
+  };
+  this.goodsAdd2 = function(event){
+    var goods_code = $('.cgoodscode').val();
+    //this指向pay对象
+    var _this = this;
+    // emt指向触发事件的对象
+    var event = event || window.event;
+    var emt = event.target;
+    var _self = $(emt);
+    var product = '';
+    var price = '';
+    var mgoods_id = 0;
+    var mgoods_act = 0;
+    var goods_id = 0;
+    var flag = true;
+    var goods_id = 0;
+    var goods_name = '';
+    var addhtml = '';
+    var type = 0;
+    $.ajax({
+      url:'workbench_goods_add_ajax.php',
+      data:{
+        goods_code:goods_code
+      },
+      type:"GET",
+      dataType:"json"
+    }).then(function(res){
+      if(res){
+        if(res.goods_type == 1){
+          type = 1;
+          goods_id = res.mgoods_id;
+          goods_name = res.mgoods_name;
+          mgoods_id = res.mgoods_id;
+          price = res.mgoods_price;
+          mgoods_act = res.mgoods_act;
+        }else if(res.goods_type == 2){
+          type = 2;
+          goods_id = res.sgoods_id;
+          goods_name = res.sgoods_name;
+          sgoods_id = res.sgoods_id;
+          price = res.sgoods_price;
+        }
+        $.when(_this.goodsPrice(goods_id,type))
+          .done(function(){
+            product = goods_name+'(<span class="gtext-line">￥'+price+'</span>，<span>￥'+_this.goods.min_price+'</span>)';
+            if(type == 1){
+              addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" mgoods_id="'+mgoods_id+'" mgoods_act="'+mgoods_act+'" min_price="'+_this.goods.min_price+'" act_discount_id="'+_this.goods.act_discount_id+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
+            }else if(type == 2){
+              // console.log(_this.goods);
+              addhtml += '<div class="am-g uline"><li class="am-u-lg-4 gtext-overflow">'+product+'</li><li class="am-u-lg-2"><span>'+_this.goods.min_price+'</span>元</li><li class="am-u-lg-2"><a href="javascript:;" class="udec"><i class="am-icon-minus cbtndec"></i></a><input price="'+price+'" sgoods_id="'+sgoods_id+'" min_price="'+_this.goods.min_price+'" type="text" class="uinput2 uinput-35 cnum" value="1"><a href="javascript:;" class="uplus"><i class="am-icon-plus cbtnplus"></i></a></li><li class="am-u-lg-2">';
+            }
+          })
+          .done(function(){
+            $.getJSON('goods_reward_worker_ajax.php', {goods_id:goods_id,type:type}, function(res){
+              addhtml += '<select class="uselect uselect-auto cworker" name=""><option value="0">请选择</option>';
+              if(res.length>0){
+                $.each(res, function(k,v){
+                  addhtml +='<option value="'+v.worker_id+'">'+v.worker_name+'</option>';
+                })
+              }
+              addhtml += '</select></li><li class="am-u-lg-2 udel"><a href="javascript:;" class="cdel">移除</a></li></div>';
+              $(".uright .urcontent").append(addhtml);
+              $(".uright .cnum").on("input propertychange", _this.allGoodsPrice);
+              $(".uright .cworker").selected();
+              _this.allGoodsPrice();
+            })
+          })
+      }
+    })
   };
   this.goodsDelete = function(event){
     //this指向pay对象
@@ -1183,6 +1270,7 @@
     return JSON.parse(JSON.stringify(obj));
   }
   this.init = (function(){
+    $('.ccardhas').hide();
     var height = $('#uworkbench').height();
     var h2 = $('#uworkbench .utop').height();
     var h3 = $('#uworkbench .ubottom').height();
@@ -1194,9 +1282,11 @@
     var h9 = height-h2-h3-h4-h5-h6-h7*2-40;
     var h10 = height-h2-h3-h4-h5-h7*2-30;
     var h11 = height-h2-h3-h4-h7*2-h8-30;
+    var h12 = height-h2-h3-h5-h7*2-30;
     $('#uworkbench .uleft #tab1 .uc').height(h9);
     $('#uworkbench .uleft #tab2 .uc').height(h10);
     $('#uworkbench .uleft #tab3 .uc').height(h10);
+    $('#uworkbench .uleft #tab4').height(h12);
     $('#uworkbench .uright .urcontent').height(h11);
     var _this = this;
     _this.cardActDiscount();//初始化活动
@@ -1221,6 +1311,16 @@
     // 添加商品
     $('#uworkbench .uleft #tab1 .cadd').on('click', function(event){
       _this.goodsAdd(event);
+    });
+    // 扫码添加
+    $('#uworkbench .uleft #tab4 .cgoodscodeadd').on('click', function(event){
+      _this.goodsAdd2(event);
+    });
+    $('#uworkbench .uleft #tab4 .cgoodscode').on('keyup', function(event){
+      event.stopPropagation();
+      if(event.keyCode==13){
+       _this.goodsAdd2(event);
+      }
     });
     //删除商品,套餐商品,券
     $(document).on("click",".cdel", function(event){

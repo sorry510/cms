@@ -214,7 +214,7 @@ if($intreturn == 0 && $intworker_id != 0 && $reward_flag == 1 && $intrecord_stat
 if($intreturn == 0){
 	foreach($arrinfo as $v){
 		//记录打折活动id
-		if($v['act_discount_id']!='0'){
+		if($v['act_discount_id'] != '0'){
 			$arract_discount[]=$v['act_discount_id'];
 		}
 		$strmcombo_id = $v['id'];
@@ -249,7 +249,7 @@ if($intreturn == 0){
 			$intedate = 0;
 		}
 		//插入套餐
-		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,card_mcombo_cedate,card_mcombo_atime,c_mcombo_name,c_mcombo_type) VALUES (".$intcard_id.",1,".$intmcombo_id.",".$intnum.",".$intedate.",".time().",'".$strmcombo_name."',".$intmcombo_type.")";
+		$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_mcombo')."(card_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,card_mcombo_cedate,card_mcombo_atime,c_mcombo_name,c_mcombo_type) VALUES (".$intcard_id.",1,".$intmcombo_id.",".$intnum.",".$intedate.",".$now.",'".$strmcombo_name."',".$intmcombo_type.")";
 		$hresult = $GLOBALS['gdb']->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 7;
@@ -314,7 +314,7 @@ if($intreturn == 0 && $intrecord_state == 1){
 		$arract_decrease=array_unique($arract_decrease);//除去重复值
 		//var_dump($arract_decrease);
 		foreach($arract_decrease as $v){
-			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_decrease_id=".$v." and act_type=2";
+			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). " where act_decrease_id=".$v." and act_type=2";
 			$hresult = $gdb->fun_query($strsql);
 			$arract = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arract)){
@@ -333,7 +333,7 @@ if($intreturn == 0 && $intrecord_state == 1){
 	if(!empty($arract_discount)){
 		$arract_discount=array_unique($arract_discount);
 		foreach($arract_discount as $v){
-			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). "where act_discount_id=".$v." and act_type=1";
+			$strsql = "SELECT act_id FROM ".$GLOBALS['gdb']->fun_table2('act'). " where act_discount_id=".$v." and act_type=1";
 			$hresult = $gdb->fun_query($strsql);
 			$arract = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arract)){

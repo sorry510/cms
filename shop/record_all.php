@@ -119,6 +119,14 @@ function get_card_records_list() {
 	$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " where 1=1 ".$strwhere." ORDER BY card_record_id DESC LIMIT ". $intoffset . ", " . $intpagesize." ) as a left join ".$GLOBALS['gdb']->fun_table('shop')." as b on a.shop_id = b.shop_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arrlist as &$row){
+		// $row['card_record_xianjin'] = $row['card_record_xianjin']==0?'--':$row['card_record_xianjin'];
+		// $row['card_record_yinhang'] = $row['card_record_yinhang']==0?'--':$row['card_record_yinhang'];
+		// $row['card_record_weixin'] = $row['card_record_weixin']==0?'--':$row['card_record_weixin'];
+		// $row['card_record_zhifubao'] = $row['card_record_zhifubao']==0?'--':$row['card_record_zhifubao'];
+		// $row['card_record_xianjin'] = $row['card_record_xianjin']==0?'--':$row['card_record_xianjin'];
+		$row['bianhao'] = str_pad($row['card_record_id'], 10, '0', STR_PAD_LEFT);
+	}
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;

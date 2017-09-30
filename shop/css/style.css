@@ -110,10 +110,10 @@
 /*员工管理页面*/
 #uworkeroff1 .uphoto{width:200px; height:300px;}
 
-/*系统设置*/
-#ubody #usystem_config .ua{margin-bottom:5px;}
-#ubody #usystem_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
-#ubody #usystem_config .ub{float:left; padding:0px;}
+/*微信参数设置*/
+#ubody #usystem_shop_config .ua{margin-bottom:5px;}
+#ubody #usystem_shop_config .ua1{margin-bottom:5px; text-align:right; font-weight:normal; font-size:1.4rem; line-height:36px;}
+#ubody #usystem_shop_config .ub{float:left; padding:0px;}
 
 /*带批量的弹出框样式(写的方式有点问题选项卡，可能会被覆盖)*/
 #ubody .umodal .umain1 .utabs{margin:0 auto; width:96%;}
@@ -136,13 +136,13 @@
 #ubody .umodal .umain1 .ucont [class*="am-u-lg"]{padding:0;}
 #ubody .umodal .umain1 .am-selected-list{max-height:160px;}
 /*消费页面*/
-#ubody #uworkbench .utop{height:57px; background-color:#FFFFFF; font-size:16px; box-shadow: 0px 0px 10px #d1d1d1;}
+#ubody #uworkbench .utop{height:57px; background-color:#FFFFFF; font-size:14px; box-shadow: 0px 0px 10px #d1d1d1;}
 #ubody #uworkbench .utop > li{height:56px; background-color:#FFFFFF;}
 #ubody #uworkbench .utop .ucardsearch{margin:10px 0 0 30px;}
 #ubody #uworkbench .utop .ucarddetail{margin:10px 0 0 30px;}
 #ubody #uworkbench .utop .ucarddetail > li{margin-left:40px; height:36px; line-height:36px;}
 #ubody #uworkbench .utop .uroomcard{margin:10px 40px 0 0; float:right; height:36px; line-height:36px; font-weight:bold;}
-#ubody #uworkbench .uleft{margin-left:30px; padding:0;}
+#ubody #uworkbench .uleft{margin-left:30px; padding:0; font-size:14px;}
 #ubody #uworkbench .uleft .ulhead{background: #FFFFFF;}
 #ubody #uworkbench .uleft .ulhead a{padding:0px 10px; height:36px; line-height:36px;}
 #ubody #uworkbench .uleft .ulhead .am-active a{background:#28A772; color:#ffffff; }
@@ -165,7 +165,7 @@
 #ubody #uworkbench .uleft .uc .uc2 .uc2a{float:left; padding:0px 10px; width:84%; line-height:24px;}
 #ubody #uworkbench .uleft .uc .uc2 .uc2b{float:right; width:15%; text-align:center; color:#868685; line-height:24px;}
 #ubody #uworkbench .uleft .uc .uc2 .uc2b a{text-decoration:underline; color:#2D7EF6;}
-#ubody #uworkbench .uright{margin-right:30px; padding:0;}
+#ubody #uworkbench .uright{margin-right:30px; padding:0; font-size:14px;}
 #ubody #uworkbench .uright button{height:28px; line-height:28px;}
 #ubody #uworkbench .uright .urhead{background:#D99F4C; color:#ffffff; padding-right:15px;}
 #ubody #uworkbench .uright .urhead > li{margin:0; padding:0; height:36px; line-height:36px; text-align:center;}
@@ -177,7 +177,7 @@
 #ubody #uworkbench .uright .urcontent .uplus{padding-left:3px; display:inline-block;}
 #ubody #uworkbench .uright .urcontent .udel > a{color:#2D7EF6; text-decoration:underline;}
 #ubody #uworkbench .uright .utotaltext{height:36px; line-height: 36px; padding-left:20px; background: #ffffff; border-left:1px solid #dddddd; border-bottom:1px solid #dddddd;}
-#ubody #uworkbench .ubottom{position:absolute; left:30px; bottom:20px;right:30px; z-index:110; height:72px; background:#FFFFFF; border:1px solid #dddddd;}
+#ubody #uworkbench .ubottom{position:absolute; left:30px; bottom:20px;right:30px; z-index:110; height:72px; background:#FFFFFF; border:1px solid #dddddd; font-size:14px;}
 #ubody #uworkbench .ubottom [class*='am-u-']{margin:0; padding:0; height:72px; line-height:72px;}
 #ubody #uworkbench .ubottom .ufont1{font-size:22px; font-weight:bold;}
 #ubody #uworkbench .ubottom .ubtn-guadan{margin-bottom:4px; background: #818181;width:100%;height: 72px; color: #FFF; font-size: 24px;}

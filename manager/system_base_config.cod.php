@@ -10,17 +10,6 @@
   <div class="gspace20"></div>
   <form class="am-form" id="cform1">
     <div class="am-u-lg-12 ua">
-      <label class="am-u-lg-2 ua1">会员密码：</label>
-      <div class="am-u-lg-3 ub">
-        <label class="am-radio-inline">
-          <input type="radio" name="password" value="1" data-am-ucheck <?php if($this->_data['company_config']['password_flag']==1) echo 'checked';?>> 启用
-        </label>
-        <label class="am-radio-inline">
-          <input type="radio" name="password" value="2" data-am-ucheck <?php if($this->_data['company_config']['password_flag']==2) echo 'checked';?>> 不启用
-        </label>
-      </div>
-    </div>
-    <div class="am-u-lg-12 ua">
       <label class="am-u-lg-2 ua1">短信通知：</label>
       <div class="am-u-lg-3 ub">
         <label class="am-radio-inline">
@@ -32,8 +21,8 @@
       </div>
     </div>
     <div class="am-u-lg-12 ua">
-      <label class="am-u-lg-2 ua1">短信余额：</label> 
-      <input class="am-form-field uinput uinput-60" type="text" name="sms_ycount" value="<?php echo $this->_data['company_config']['sms_ycount'];?>">  条
+      <label class="am-u-lg-2 ua1">短信余额：</label>
+      <label class="am-u-lg-2 ua1 am-u-end am-text-left" style="padding-left:0;"><?php echo $this->_data['company_config']['sms_ycount'];?> 条</label>
     </div>
     <div class="am-u-lg-12 ua">
       <label class="am-u-lg-2 ua1">积分功能：</label>

@@ -12,6 +12,7 @@
 #ubody .gtext-green {color:#2AA672;}
 #ubody .gtext-blue {color:#3D76C7;}
 #ubody .gtext-overflow {overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+#ubody .gtext-line {text-decoration:line-through;}
 /*yd新增*/
 table a{color:#2D7EF6; text-decoration:underline;}
 #ubody .am-icon-minus{color:#000000; font-size:1.6rem}

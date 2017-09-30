@@ -12,6 +12,7 @@ $strsql = "SELECT card_record_id,card_record_code,card_id,shop_id,card_record_ty
 $hresult = $gdb->fun_query($strsql);
 $arr = $gdb->fun_fetch_assoc($hresult);
 $arr['card_record_atime'] = date("Y-m-d H:i:s",$arr['card_record_atime']);
+$arr['bianhao'] = str_pad($arr['card_record_id'], 10, '0', STR_PAD_LEFT);
 
 if($arr['card_record_type']==3){
 	$strsql = "SELECT mgoods_id,sgoods_id,card_record3_goods_count,c_mgoods_name,c_mgoods_price,c_mgoods_rprice,c_sgoods_name,c_sgoods_price,c_sgoods_rprice FROM " .$gdb->fun_table2('card_record3_goods'). " where card_record_id=".$arr['card_record_id'];

@@ -156,7 +156,6 @@ function companyConfig(){
 		$arrjson = json_decode($arr['company_config_trade'],true);
 	}else{
 		$arrjson = array(
-			'password_flag' => 0,
 			'sms_flag' => 0,
 			'score_flag' => 0,
 			'reward_flag' => 0,

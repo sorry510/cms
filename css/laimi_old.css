@@ -1,0 +1,17 @@
+html, body {width:100%; height:100%;}
+
+/*通用样式*/
+.laimi-hicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#666666;}
+.laimi-cicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#009F95;}
+
+/*顶部样式*/
+#laimi-top .laimi-logo {position:absolute; left:0; top:0; width:140px; height:60px;}
+#laimi-top .laimi-logo a {position:absolute; left:50px; top:10px;}
+#laimi-top .laimi-title {position:absolute; left:180px; top:20px; color:white; font-size:16px;}
+#laimi-top .layui-badge {position:static; margin:0 0 0 5px;}
+
+#laimi-left {width:140px;}
+#laimi-left .layui-side-scroll {width:160px;}
+#laimi-left .layui-nav {width:140px;}
+
+#laimi-content {left:140px; bottom:0; padding:0 20px;}

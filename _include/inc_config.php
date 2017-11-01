@@ -1,0 +1,61 @@
+<?php
+if(!defined('C_CNFLY')) {
+	exit();
+}
+
+$gconfig = array();
+$gconfig['system']['version'] = 'V2.0';
+/*$gconfig['system']['code']['ty'] = '通用行业';
+$gconfig['system']['hangye']['am'] = '推拿按摩';
+$gconfig['system']['xingzhi']['gt'] = '个体';
+$gconfig['system']['xingzhi']['gf'] = '股份有限公司';
+$gconfig['system']['guimo']['x10'] = '0-10人';
+$gconfig['system']['guimo']['x30'] = '10-30人';
+$gconfig['system']['guimo']['x100'] = '30-100人';
+$gconfig['system']['guimo']['d100'] = '100人以上';*/
+
+$gconfig['path']['photo'] = C_ROOT.'/photo';
+$gconfig['path']['card_photo'] = C_ROOT.'/photo/card';//会员照片
+$gconfig['path']['worker_photo'] = C_ROOT.'/photo/worker';//员工照片
+$gconfig['path']['company_photo'] = C_ROOT.'/photo/company';//公司照片
+$gconfig['path']['erecord_photo'] = C_ROOT.'/photo/erecord';//档案照片
+$gconfig['path']['photo_card_show'] = $_SERVER['HTTP_HOST'].'/photo/card';
+$gconfig['path']['photo_worker_show'] = $_SERVER['HTTP_HOST'].'/photo/worker';
+$gconfig['path']['photo_company_show'] = $_SERVER['HTTP_HOST'].'/photo/company';
+$gconfig['path']['photo_erecord_show'] = $_SERVER['HTTP_HOST'].'/photo/erecord';
+
+$gconfig['worker']['education'][1] = '小学';
+$gconfig['worker']['education'][2] = '初中';
+$gconfig['worker']['education'][3] = '高中';
+$gconfig['worker']['education'][4] = '专科';
+$gconfig['worker']['education'][5] = '本科';
+$gconfig['worker']['education'][6] = '研究生';
+$gconfig['worker']['education'][7] = '博士';
+
+
+require(C_ROOT . '/_include/cls_mysql.php');
+$gdb = new cls_mysql();
+$gdb->pub_host = 'localhost';
+$gdb->pub_user = 'root';
+$gdb->pub_password = 'root';
+$gdb->pub_name = 'cf_shop';
+$gdb->pub_prefix = 'cf_';
+$gdb->pub_charset = 'utf8';
+$gdb->fun_connect();
+
+// var_dump($gdb);exit;
+$gsession = NULL;
+if(!defined('C_NOSESSION')) {
+	require(C_ROOT . '/_include/cls_session.php');
+	$gsession = new cls_session();
+	$gsession->fun_init($gdb);
+}
+$gdb->pub_prefix2 = laimi_prefix2_value();
+
+$gtemplate = NULL;
+if(!defined('C_NOTEMPLATE')) {
+	require(C_ROOT . '/_include/cls_template.php');
+	$gtemplate = new cls_template();
+	$gtemplate->pub_nocache = true;
+}
+?>

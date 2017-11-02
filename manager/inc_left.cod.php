@@ -191,7 +191,7 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'weixin') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>
 							&nbsp;微信

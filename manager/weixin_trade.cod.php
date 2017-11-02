@@ -26,7 +26,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">微信预约</label>
 		<div class="layui-input-inline">
-			<input type="checkbox" name="txtreserve" lay-skin="switch" lay-text="开启|关闭">
+			<input type="checkbox" name="txtreserve" lay-skin="switch" lay-text="开启|关闭" value="1" <?php if($this->_data['system_config_weixin']['reserve_flag'] == 1) echo 'checked';?>>
 		</div>
 	</div>
 	<!--div class="layui-form-item">
@@ -39,16 +39,17 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">微信排号</label>
 		<div class="layui-input-inline">
-			<input type="checkbox" name="txtline" lay-skin="switch" lay-text="开启|关闭">
+			<input type="checkbox" name="txtline" lay-skin="switch" lay-text="开启|关闭" value="1" <?php if($this->_data['system_config_weixin']['line_flag'] == 1) echo 'checked';?>>
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">微信会员卡底图</label>
+		<input type="hidden" name="txtimage" value="<?php $this->_data['system_config_weixin']['card_image'];?>">
 		<div class="layui-input-inline">
 			<div class="layui-upload">
-			  <button class="layui-btn layui-btn-normal layui-btn-small" type="button">上传图片</button>
+			  <button id="laimi-wxbg" class="layui-btn layui-btn-normal layui-btn-small" type="button">上传图片</button>
 			  <div class="layui-upload-list">
-			    <img class="layui-upload-img">
+			    <img id="laimi-showimg" class="layui-upload-img" style="width:264px;height:165px;" src="http://<?php echo $GLOBALS['gconfig']['show'][1];?><?php echo $this->_data['system_config_weixin']['card_image'] == '' ? 'demo.jpg' : $this->_data['system_config_weixin']['card_image'];?>">
 			    <p></p>
 			  </div>
 			</div>
@@ -56,7 +57,7 @@
 		<div class="layui-form-mid layui-word-aux">
 			尺寸：88X55mm，只允许上传png格式的图片，最大上传文件大小为1024K
 		</div>
-	</div>							
+	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label"></label>
 		<div class="layui-input-block">
@@ -72,15 +73,47 @@
 	</div>
 <?php echo $this -> fun_fetch('inc_foot', ''); ?>
 	<script>
-	layui.use(["element", "form"], function() {
+	layui.use(["element", "form","upload", "layer"], function() {
 		var $ = layui.jquery;
-		var objlayer = layui.layer;
 		var objelement = layui.element;
 		var objform = layui.form;
+		var objlayer = layui.layer;
+		var objupload = layui.upload;
+		objupload.render({
+		  elem: '#laimi-wxbg', //绑定元素
+		  url: './upload_do.php', //上传接口
+		  exts: 'png',
+		  data: {
+		  	id:10,
+		  	type: 1,//config上传文件目录
+		  },
+		  before: function(obj){
+		    //预读本地文件示例，不支持ie8
+		    obj.preview(function(index, file, result){
+		      $('#laimi-showimg').attr('src', result); //图片链接（base64）
+		    });
+		  },
+		  done: function(res){
+		  	if(res.code == 200){
+		  		$("#laimi-main input[name='txtimage']").val(res.data.photo);
+		  	}
+		  },
+		  error: function(){
+		    objlayer.alert('上传失败，请联系管理员', {
+		    	title: "提示信息"
+		    });
+		  }
+	  });
 		objform.on("submit(laimi-submit)", function(data) {
-			objlayer.alert(JSON.stringify(data.field), {
-				title: '提示信息'
-			});
+			$.post('weixin_trade_do.php', data.field, function(res){
+				if(res == 0){
+					window.location.reload();
+				}else{
+					objlayer.alert('修改失败，请联系管理员', {
+						title: "提示信息"
+					});
+				}
+			})
 			return false;
 		});
 	});

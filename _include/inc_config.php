@@ -14,15 +14,17 @@ $gconfig['system']['guimo']['x30'] = '10-30人';
 $gconfig['system']['guimo']['x100'] = '30-100人';
 $gconfig['system']['guimo']['d100'] = '100人以上';*/
 
-$gconfig['path']['photo'] = C_ROOT.'/photo';
-$gconfig['path']['card_photo'] = C_ROOT.'/photo/card';//会员照片
-$gconfig['path']['worker_photo'] = C_ROOT.'/photo/worker';//员工照片
-$gconfig['path']['company_photo'] = C_ROOT.'/photo/company';//公司照片
-$gconfig['path']['erecord_photo'] = C_ROOT.'/photo/erecord';//档案照片
-$gconfig['path']['photo_card_show'] = $_SERVER['HTTP_HOST'].'/photo/card';
-$gconfig['path']['photo_worker_show'] = $_SERVER['HTTP_HOST'].'/photo/worker';
-$gconfig['path']['photo_company_show'] = $_SERVER['HTTP_HOST'].'/photo/company';
-$gconfig['path']['photo_erecord_show'] = $_SERVER['HTTP_HOST'].'/photo/erecord';
+$gconfig['photo'][0] = C_ROOT.'/photo/other/';
+$gconfig['photo'][1] = C_ROOT.'/photo/company/';
+$gconfig['photo'][2] = C_ROOT.'/photo/shop/';
+$gconfig['photo'][3] = C_ROOT.'/photo/worker/';
+$gconfig['photo'][4] = C_ROOT.'/photo/card/';
+$gconfig['photo'][5] = C_ROOT.'/photo/history/';//档案
+$gconfig['show'][1] = $_SERVER['HTTP_HOST'].'/shop/photo/company/';
+$gconfig['show'][2] = $_SERVER['HTTP_HOST'].'/shop/photo/company/';
+$gconfig['show'][3] = $_SERVER['HTTP_HOST'].'/shop/photo/worker/';
+$gconfig['show'][4] = $_SERVER['HTTP_HOST'].'/shop/photo/card/';
+$gconfig['show'][5] = $_SERVER['HTTP_HOST'].'/shop/photo/history/';
 
 $gconfig['worker']['education'][1] = '小学';
 $gconfig['worker']['education'][2] = '初中';

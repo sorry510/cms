@@ -21,9 +21,9 @@
 			<img src="../img/touxiang.png">
 		</div>
 		<div class="layui-col-xs10 layui-text" style="line-height:26px;">
-			<span style="line-height:42px; color:#009688; font-size:22px;">河南奕之堂科技有限公司</span>&nbsp;&nbsp;<span class="layui-badge">第1年</span><br>
-			企业代码：<b class="laimi-color-ju">administrator</b> 　　　联系人：苏东坡　　　手机号：13623833360<br>
-			所属区域：江西省 新余市　　　地址：长椿路河南国家大学科技园5#楼A座1000<br>
+			<span style="line-height:42px; color:#009688; font-size:22px;"><?php echo $this->_data['company_info']['company_name']; ?></span>&nbsp;&nbsp;<span class="layui-badge">第<?php echo $this->_data['company_info']['years'];?>年</span><br>
+			企业代码：<b class="laimi-color-ju"><?php echo $this->_data['company_info']['company_code'];?></b> 　　　联系人：<?php echo $this->_data['company_info']['company_link_name']; ?>　　　手机号：<?php echo $this->_data['company_info']['company_phone']; ?><br>
+			所属区域：<?php echo $this->_data['company_info']['province']; ?> <?php echo $this->_data['company_info']['city']; ?>　　　地址：<?php echo $this->_data['company_info']['company_area_address']; ?><br>
 		</div>
 	</div>
 </blockquote>

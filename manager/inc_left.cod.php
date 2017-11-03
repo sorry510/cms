@@ -141,7 +141,8 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<?php if(laimi_config_trade()['act_module'] == 1){?>
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'marketing') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingxiao2"></use></svg>
 							&nbsp;营销
@@ -191,6 +192,8 @@
 							</dd>
 						</dl>
 					</li>
+					<?php }?>
+					<?php if(laimi_config_trade()['wmp_module'] == 1){?>
 					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'weixin') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>
@@ -217,6 +220,7 @@
 							</dd>
 						</dl>
 					</li>
+					<?php }?>
 					<li class="layui-nav-item">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>

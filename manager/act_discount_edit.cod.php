@@ -14,7 +14,7 @@
 						<a href="act_discount.php">限时打折</a>
 					</li>
 					<li class="layui-this">
-						<a href="act_discount_add.php">新增打折活动</a>
+						<a href="act_discount_edit.php">修改打折活动</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-act-discount-add layui-tab-content">
@@ -24,21 +24,28 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动名称</label>
 				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-300" type="text" name="txtname">
+					<input class="layui-input laimi-input-300" type="text" name="txtname" value="<?php echo $this->_data['edit']['act_discount_name'];?>">
+					<input class="layui-input laimi-input-300" type="hidden" name="txtid" value="<?php echo $this->_data['edit']['act_discount_id'];?>">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">顾客类型</label>
 				<div class="layui-input-inline">
-					<input type="radio" name="txtclient" value="1" title="不限制" checked="">
-					<input type="radio" name="txtclient" value="2" title="会员">
-					<input type="radio" name="txtclient" value="3" title="非会员">
+					<input type="radio" name="txtclient" value="1" title="不限制" <?php if ($this->_data['edit']['act_discount_client'] == 1) {
+						echo "checked='checked'";
+					};?>>
+					<input type="radio" name="txtclient" value="2" title="会员" <?php if ($this->_data['edit']['act_discount_client'] == 2) {
+						echo "checked='checked'";
+					};?>>
+					<input type="radio" name="txtclient" value="3" title="非会员" <?php if ($this->_data['edit']['act_discount_client'] == 3) {
+						echo "checked='checked'";
+					};?>>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间</label>
 				<div class="layui-input-inline">
-					<input id="laimi-from" class="layui-input" type="text" name="txtstart" placeholder="yyyy-MM-dd">
+					<input id="laimi-from" class="layui-input" type="text" name="txtstart" placeholder="yyyy-MM-dd" value="<?php echo $this->_data['edit']['act_discount_start'];?>">
 				</div>
 				<div class="layui-form-mid layui-word-aux">
 					当天0点开始活动
@@ -47,7 +54,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间</label>
 				<div class="layui-input-inline">
-					<input id="laimi-to" class="layui-input" type="text" name="txtend" placeholder="yyyy-MM-dd">
+					<input id="laimi-to" class="layui-input" type="text" name="txtend" placeholder="yyyy-MM-dd" value="<?php echo $this->_data['edit']['act_discount_end'];?>">
 				</div>
 				<div class="layui-form-mid layui-word-aux">
 					当天12点结束活动
@@ -56,7 +63,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">备注</label>
 				<div class="layui-input-block">
-					<textarea class="layui-textarea laimi-input-b80" name="txtmemo"></textarea>
+					<textarea class="layui-textarea laimi-input-b80" name="txtmemo"><?php echo $this->_data['edit']['act_discount_memo'];?></textarea>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -125,10 +132,10 @@
 									<td>￥<?php echo $row2['mgoods_price'];?></td>
 									<td style="padding:5px">
 										<div class="layui-inline">
-											<input class="layui-input laimi-input-60-32" type="text" name="txtgoods_discount[]" placeholder="折" mgoods_price="<?php echo $row2['mgoods_price'];?>">
+											<input class="layui-input laimi-input-60-32" type="text" name="txtgoods_discount[]" placeholder="折" mgoods_id="<?php echo $row2['mgoods_id'];?>" mgoods_price="<?php echo $row2['mgoods_price'];?>">
 										</div>
 										<div class="layui-inline">
-											<input class="layui-input laimi-input-60-32" type="text" name="txtgoods_price[]" placeholder="￥" mgoods_price="<?php echo $row2['mgoods_price'];?>">
+											<input class="layui-input laimi-input-60-32" type="text" name="txtgoods_price[]" placeholder="￥" mgoods_id="<?php echo $row2['mgoods_id'];?>" mgoods_price="<?php echo $row2['mgoods_price'];?>">
 										</div>
 										<div class="layui-inline">元</div>		
 									</td>
@@ -168,10 +175,10 @@
 									<td>￥<?php echo $row['mcombo_price'];?></td>
 									<td style="padding:5px">
 										<div class="layui-inline">
-											<input class="layui-input laimi-input-60-32" type="text" name="txtmcombo_discount[]" placeholder="折" mcombo_price="<?php echo $row['mcombo_price'];?>">
+											<input mcombo_id="<?php echo $row['mcombo_id'];?>" class="layui-input laimi-input-60-32" type="text" name="txtmcombo_discount[]" placeholder="折" mcombo_price="<?php echo $row['mcombo_price'];?>">
 										</div>
 										<div class="layui-inline">
-											<input class="layui-input laimi-input-60-32" type="text" name="txtmcombo_price[]" placeholder="￥" mcombo_price="<?php echo $row['mcombo_price'];?>">
+											<input mcombo_id="<?php echo $row['mcombo_id'];?>" class="layui-input laimi-input-60-32" type="text" name="txtmcombo_price[]" placeholder="￥" mcombo_price="<?php echo $row['mcombo_price'];?>">
 										</div>
 										<div class="layui-inline">元</div>		
 									</td>
@@ -209,10 +216,47 @@
 			});
 			return false;
 		});
+		$(function () {
+			var res = <?php echo $this->_data['goods'];?>;
+			for (var i = 0; i < res.length; i++) {
+	      if (res[i].act_discount_goods_value != '0.0') {
+	        $("#laimi-discount input[name='txtgoods_discount[]']").each(function() {
+	          if ($(this).attr('mgoods_id') == res[i].mgoods_id) {
+	            $(this).val(res[i].act_discount_goods_value);
+	          }
+	        })
+	      }
+	      if (res[i].act_discount_goods_price != '0.00') {
+	        $("#laimi-discount input[name='txtgoods_price[]']").each(function() {
+	          if ($(this).attr('mgoods_id') == res[i].mgoods_id) {
+	            if (res[i].act_discount_goods_price != '') {
+	              $(this).val(res[i].act_discount_goods_price);
+	            }
+	          }
+	        })
+	      }
+	      if (res[i].act_discount_goods_value != '0.0') {
+	        $("#laimi-discount2 input[name='txtmcombo_discount[]']").each(function() {
+	          if ($(this).attr('mcombo_id') == res[i].mcombo_id) {
+	            $(this).val(res[i].act_discount_goods_value);
+	          }
+	        })
+	      }
+	      if (res[i].act_discount_goods_price != '0.00') {
+	        $("#laimi-discount2 input[name='txtmcombo_price[]']").each(function() {
+	          if ($(this).attr('mcombo_id') == res[i].mcombo_id) {
+	            if (res[i].act_discount_goods_price != '') {
+	              $(this).val(res[i].act_discount_goods_price);
+	            }
+	          }
+	        })
+	      }
+	    }
+		})
 		//添加操作JS
 		$('.laimi-submitadd').on('click',function(){
 		  $('.laimi-submitadd').attr("disabled",true);
-		  var url="act_discount_add_do.php";
+		  var url="act_discount_edit_do.php";
 		  var arr1 = [];
 		  var arr2 = [];
 		  $("#laimi-discount .laimi-mgoods").each(function(){
@@ -234,12 +278,14 @@
 		    return false;
 		  }
 
+		  var id = $(".layui-form input[name='txtid']").val();
 		  var name = $(".layui-form input[name='txtname']").val();
 		  var client = $(".layui-form input[name='txtclient']:checked").val();
 		  var start = $(".layui-form input[name='txtstart']").val();
 		  var end = $(".layui-form input[name='txtend']").val();
 		  var memo = $(".layui-form textarea[name='txtmemo']").val();
 		  var data = {
+		  		id:id,
 		      name:name,
 		      client:client,
 		      start:start,
@@ -260,7 +306,7 @@
 		      $('.laimi-submitadd').attr("disabled",false);
 		    }else{
 		      $('.laimi-submitadd').attr("disabled",false);
-		      alert('添加失败');
+		      alert('修改失败');
 		      console.log(res);
 		    }
 		  });

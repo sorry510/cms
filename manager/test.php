@@ -9,19 +9,18 @@ $sqlappid = $gdb->fun_escape('我是谁');
 $sqlappsecret = $gdb->fun_escape('好');
 
 $intreturn = 0;
-$arr = array();
-
+$arr = array('a','b','c');
+// echo $arr;
 $arrweixin = laimi_config_weixin();
 
 // echo '<pre>';
 // var_dump($arrweixin);
 // echo '</pre>';
-echo json_encode($arrweixin);
-// $sqlname = iconv("GBK", "UTF-8", $sqlname);
+// echo json_encode($arrweixin);
 // $arrweixin['name'] = $sqlname;
 // $arrweixin['appid'] = $sqlappid;
 // $arrweixin['appsecret'] = $sqlappsecret;
-// echo json_encode($arrweixin);
+echo json_encode($arrweixin);
 // echo '<pre>';
 // var_dump($arrweixin);
 // echo '</pre>';

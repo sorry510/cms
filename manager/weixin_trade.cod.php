@@ -44,7 +44,7 @@
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">微信会员卡底图</label>
-		<input type="hidden" name="txtimage" value="<?php $this->_data['system_config_weixin']['card_image'];?>">
+		<input type="hidden" name="txtimage" value="<?php echo $this->_data['system_config_weixin']['card_image'];?>">
 		<div class="layui-input-inline">
 			<div class="layui-upload">
 			  <button id="laimi-wxbg" class="layui-btn layui-btn-normal layui-btn-small" type="button">上传图片</button>
@@ -106,6 +106,7 @@
 	  });
 		objform.on("submit(laimi-submit)", function(data) {
 			$.post('weixin_trade_do.php', data.field, function(res){
+				console.log(res);
 				if(res == 0){
 					window.location.reload();
 				}else{

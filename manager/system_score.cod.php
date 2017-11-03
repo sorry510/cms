@@ -22,23 +22,23 @@
 	<div class="laimi-tools layui-form-item">		  	
 		<label class="layui-form-label">搜索</label>
 		<div class="layui-input-inline">
-			<input class="layui-input" type="text" name="key" placeholder="卡号/手机号/姓名">
+			<input class="layui-input" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo $this->_data['request']['key']?>">
 		</div>
 		<label class="layui-form-label">日期</label>
 		<div class="layui-input-inline">
-			<input id="laimi-from" class="layui-input laimi-input-100" type="text" name="from" placeholder="yyyy-MM-dd">
+			<input id="laimi-from" class="layui-input laimi-input-100" type="text" name="from" placeholder="yyyy-MM-dd" value="<?php echo $this->_data['request']['from']?>">
 		</div>
 		<label class="layui-form-label">至</label>
 		<div class="layui-input-inline">
-			<input id="laimi-to" class="layui-input laimi-input-100" type="text" name="to" placeholder="yyyy-MM-dd">
+			<input id="laimi-to" class="layui-input laimi-input-100" type="text" name="to" placeholder="yyyy-MM-dd" value="<?php echo $this->_data['request']['to']?>">
 		</div>
 		<label class="layui-form-label">分店</label>
 		<div class="layui-input-inline last">
 			<select name="shop">
 				<option value="">全部分店</option>
-				<option value="1">东风路分店</option>
-				<option value="2">王城路分店</option>
-				<option value="3">九都路分店</option>
+				<?php foreach($this->_data['shop_list'] as $row){?>
+				<option value="<?php echo $row['shop_id'];?>" <?php if($this->_data['request']['shop_id'] == $row['shop_id']) echo 'selected';?>><?php echo $row['shop_name']?></option>
+				<?php }?>
 			</select>
 		</div>
 		<div class="layui-input-inline">
@@ -66,9 +66,9 @@
 			<td><?php echo $row['atime'];?></td>
 			<td><?php echo $row['c_card_code'];?></td>
 			<td><?php echo $row['c_card_name'];?></td>
-			<td><?php echo $row['atime'];?></td>
+			<td><?php echo $row['gift_goods'];?></td>
 			<td><?php echo $row['gift_score'];?>分</td>
-			<td><?php echo $row['shop_id'];?></td>
+			<td><?php echo $row['shop_name'];?></td>
 		</tr>
 	<?php }?>
 	</tbody>
@@ -221,7 +221,7 @@
 		objpage.render({
 			elem: 'laimi-page-content',
 			count: <?php echo $this->_data['gift_record_list']['allcount'];?>,
-			limit: 5,
+			limit: 2,
 			curr: <?php echo $this->_data['gift_record_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
 			jump: function(obj, first){

@@ -5,21 +5,22 @@ require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
 if(laimi_config_trade()['score_module'] != 1){
-	// echo '<scirpt> window.location.href="#"</scirpt>';
+	// echo '<scirpt> window.location.href="#"</scirpt>';//跳到一个通知页
 	echo '<script> window.history.back();</script>';
 	return;
 }
 $strchannel = 'system';
+
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 $strto = api_value_get('to');
 $intto = strtotime($strto)?strtotime($strto):0;
 $strfrom = api_value_get('from');
 $intfrom = strtotime($strfrom)?strtotime($strfrom):0;
-$strshop_id = api_value_get('shop_id');
+$strshop_id = api_value_get('shop');
 $intshop_id = api_value_int0($strshop_id);
-$strsearch = api_value_get('search');
-$sqlsearch = $gdb->fun_escape($strsearch);
+$strkey = api_value_get('key');
+$sqlkey = $gdb->fun_escape($strkey);
 
 $gtemplate->fun_assign('request', get_request());
 $gtemplate->fun_assign('gift_list', get_gift_list());
@@ -32,7 +33,7 @@ function get_request(){
 	$arr['from'] = $GLOBALS['strfrom'];
 	$arr['to'] = $GLOBALS['strto'];
 	$arr['shop_id'] = $GLOBALS['intshop_id'];
-	$arr['search'] = $GLOBALS['strsearch'];
+	$arr['key'] = $GLOBALS['strkey'];
 	return $arr;
 }
 
@@ -72,15 +73,14 @@ function get_gift_record_list(){
 	if($GLOBALS['intto'] != 0){
 		$strwhere .= " AND gift_record_atime<=".$GLOBALS['intto'];
 	}
-	if($GLOBALS['strsearch'] != ''){
-		$strwhere .= " AND (c_card_code like '%".$GLOBALS['strsearch']."%'";
-		$strwhere .= " OR c_card_phone like '%".$GLOBALS['strsearch']."%'";
-		$strwhere .= " OR c_card_name like '%".$GLOBALS['strsearch']."%')";
+	if($GLOBALS['strkey'] != ''){
+		$strwhere .= " AND (c_card_code like '%".$GLOBALS['strkey']."%'";
+		$strwhere .= " OR c_card_phone like '%".$GLOBALS['strkey']."%'";
+		$strwhere .= " OR c_card_name like '%".$GLOBALS['strkey']."%')";
 	}
 	// $strwhere .= " AND shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	
 	$strsql = "SELECT count(gift_record_id) as mycount FROM ". $GLOBALS['gdb']->fun_table2('gift_record') ." WHERE 1 = 1 ".$strwhere;
-	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
@@ -117,7 +117,7 @@ function get_gift_record_list(){
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT gift_record_id,gift_score,c_card_code,c_card_name,gift_record_atime,shop_id FROM ". $GLOBALS['gdb']->fun_table2('gift_record')." WHERE 1=1 ". $strwhere. " ORDER BY gift_record_id DESC LIMIT ". $intoffset . ", " . $intpagesize;
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT gift_record_id,gift_score,c_card_code,c_card_name,gift_record_atime,shop_id FROM ". $GLOBALS['gdb']->fun_table2('gift_record')." WHERE 1=1 ". $strwhere. " ORDER BY gift_record_id DESC LIMIT ". $intoffset . ", " . $intpagesize .") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop')." as b ON a.shop_id = b.shop_id";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -125,7 +125,6 @@ function get_gift_record_list(){
 		$row1['atime'] = date("Y-m-d H:i:s", $row1['gift_record_atime']);
 		$row1['gift_goods'] = '';
 		$strsql = "SELECT c_gift_name,gift_count FROM ".$GLOBALS['gdb']->fun_table2('gift_record_goods')." WHERE gift_record_id=".$row1['gift_record_id'];
-		// echo $strsql;
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		foreach($arr as $row2){

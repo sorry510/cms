@@ -19,7 +19,7 @@ html, body {width:100%; height:100%;}
 .laimi-color-ju {color:#FF5722;}
 .laimi-color-hui {color:#757575;}
 .laimi-color-lv {color:#009688;}
-.laimi-color-blue {color:#1E9FFF;}
+.laimi-color-lan {color:#1E9FFF; text-decoration:underline;}
 .laimi-input-60 {width:60px;}
 .laimi-input-80 {width:80px;}
 .laimi-input-100 {width:100px;}
@@ -31,7 +31,7 @@ html, body {width:100%; height:100%;}
 .laimi-button-100 {width:100px;}
 .laimi-height-20 {height:20px;}
 .laimi-float-right {float:right;}
-.laimi-modal {display:block; padding:20px 20px 40px;}
+.laimi-modal {padding:20px 20px 40px;}
 .laimi-modal .layui-form-label {padding-left:0px;}
 .laimi-modal .layui-form-label span {color:#FF5722;}
 .laimi-modal .layui-input-block {margin-left:95px;}

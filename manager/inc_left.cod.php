@@ -7,20 +7,20 @@
 							&nbsp;首页
 						</a>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'card') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-vip"></use></svg>
 							&nbsp;会员
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="card.php">
+								<a href="card.php?state=1">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huiyuan"></use></svg>
 									&nbsp;会员管理
 								</a>
 							</dd>
 							<dd>
-								<a href="e-record.php">
+								<a href="card_history.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-dangan"></use></svg>
 									&nbsp;电子档案
 								</a>
@@ -33,7 +33,7 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'goods') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-shangpin"></use></svg>
 							&nbsp;商品
@@ -70,8 +70,8 @@
 								</a>
 							</dd>
 						</dl>
-					</li>	        
-					<li class="layui-nav-item">
+					</li>
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'worker') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yuangong"></use></svg>
 							&nbsp;员工
@@ -84,13 +84,14 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="worker_manage.php">
+								<a href="worker.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-user"></use></svg>
 									&nbsp;员工管理
 								</a>
 							</dd>
+							<?php if(laimi_config_trade()['worker_module'] == 1){?>
 							<dd>
-								<a href="worker_reward.php">
+								<a href="worker_group_reward.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji3"></use></svg>
 									&nbsp;提成方案
 								</a>
@@ -102,39 +103,40 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="worker_reward_count.php">
+								<a href="worker_reward_tongji.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji2"></use></svg>
 									&nbsp;提成统计
 								</a>
 							</dd>
+							<?php }?>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'tongji') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
 							&nbsp;统计
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="count.php">
+								<a href="tongji_all.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji4"></use></svg>
 									&nbsp;基础统计
 								</a>
 							</dd>
 							<dd>
-								<a href="count_rank.php">
+								<a href="tongji_goods.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji1"></use></svg>
 									&nbsp;商品排名
 								</a>
 							</dd>
 							<dd>
-								<a href="count_business.php">
+								<a href="tongji_trade.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
 									&nbsp;营业数据
 								</a>
 							</dd>
 							<dd>
-								<a href="count_income.php">
+								<a href="tongji_money.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
 									&nbsp;收入组成
 								</a>

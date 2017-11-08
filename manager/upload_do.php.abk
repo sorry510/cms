@@ -5,6 +5,11 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
+$strid = api_value_post('id');
+$intid = api_value_int0($strid);
+$strtype = api_value_post('type');
+$inttype = api_value_int0($strtype);
+
 $arrreturn = array(
 	'code' => 0,
 	'msg' => '',
@@ -13,9 +18,13 @@ $arrreturn = array(
 	]
 );
 
+// switch($inttype)
+// {
+// 	case 0:
+// }
 $intreturn = 0;
 $arrfile = $_FILES['file'];
-$new_name = uniqid(time());
+$new_name = "wxbg_".$GLOBALS['_SESSION']['login_cid'];
 $strext = strtolower(strrchr($arrfile['name'], '.'));
 $photo = $new_name.$strext;
 // $arrreturn['data']['photo'] = $photo;
@@ -23,7 +32,7 @@ $photo = $new_name.$strext;
 $intlength = $_FILES['file']['size'];
 if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
 	if($intlength < 1024000) {
-		$hresult = move_uploaded_file($arrfile['tmp_name'], $GLOBALS['gconfig']['photo'][0].$photo);
+		$hresult = move_uploaded_file($arrfile['tmp_name'], $GLOBALS['gconfig']['photo'][$inttype].$photo);
 		if(!$hresult) {
 			$intreturn = 1;
 		}

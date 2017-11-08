@@ -5,7 +5,7 @@ require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
 if(laimi_config_trade()['score_module'] != 1){
-	// echo '<scirpt> window.location.href="#"</scirpt>';//跳到一个通知页
+	// echo '<script> window.location.href="#"</script>';//跳到一个通知页
 	echo '<script> window.history.back();</script>';
 	return;
 }
@@ -130,7 +130,7 @@ function get_gift_record_list(){
 		foreach($arr as $row2){
 			$row1['gift_goods'] .= $row2['c_gift_name']."*".$row2['gift_count'].",";
 		}
-		$row1['gift_goods'] = substr($row1['gift_goods'],0,strlen($row1['gift_goods'])-1);
+		$row1['gift_goods'] = substr($row1['gift_goods'],0,-1);
 		// echo $row1['gift_goods'];
 		// echo "<br/>";
 	}

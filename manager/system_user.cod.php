@@ -157,7 +157,7 @@
 			    <div class="layui-input-block">
 			      <input class="layui-input laimi-input-200" type="password" name="password2" placeholder="请再次输入密码" lay-verify="pass|pass2">
 			    </div>
-			  </div>	  	  
+			  </div>
 			  <div class="layui-form-item">
 			    <div class="layui-input-block">
 			      <button class="layui-btn laimi-button-100" lay-filter="laimi-edit" lay-submit>

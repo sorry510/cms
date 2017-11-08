@@ -68,7 +68,7 @@
 					重置
 					</button>
 				</div>
-			</div>															
+			</div>
 		</div>
 		<div class="layui-col-xs6">
 			<div class="layui-tab">

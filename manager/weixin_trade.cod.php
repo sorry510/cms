@@ -61,7 +61,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label"></label>
 		<div class="layui-input-block">
-			<button class="layui-btn laimi-button-100" lay-filter="laimi-submit" lay-submit>
+			<button class="layui-btn laimi-button-100 laimi-submit" lay-filter="laimi-submit" lay-submit>
 			确定
 			</button>
 		</div>
@@ -83,6 +83,7 @@
 		  elem: '#laimi-wxbg', //绑定元素
 		  url: './upload_do.php', //上传接口
 		  exts: 'png',
+		  bindAction: '.laimi-submit',
 		  data: {
 		  	id:10,
 		  	type: 1,//config上传文件目录

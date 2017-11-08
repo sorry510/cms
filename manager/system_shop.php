@@ -55,3 +55,4 @@ function get_province(){
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
+?>

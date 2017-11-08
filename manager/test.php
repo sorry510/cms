@@ -2,26 +2,13 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-require('inc_limit.php');
+// require('inc_limit.php');
+$a = array('a','b','c');
+foreach($a as &$v){}
+// echo $v;
+// echo "<br/>";
+foreach($a as $v){
 
-$sqlname = $gdb->fun_escape('年后');
-$sqlappid = $gdb->fun_escape('我是谁');
-$sqlappsecret = $gdb->fun_escape('好');
-
-$intreturn = 0;
-$arr = array('a','b','c');
-// echo $arr;
-$arrweixin = laimi_config_weixin();
-
-// echo '<pre>';
-// var_dump($arrweixin);
-// echo '</pre>';
-// echo json_encode($arrweixin);
-// $arrweixin['name'] = $sqlname;
-// $arrweixin['appid'] = $sqlappid;
-// $arrweixin['appsecret'] = $sqlappsecret;
-echo json_encode($arrweixin);
-// echo '<pre>';
-// var_dump($arrweixin);
-// echo '</pre>';
+}
+var_dump($a);
 ?>

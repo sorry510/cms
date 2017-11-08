@@ -99,7 +99,7 @@
 								selected 
 							{{#  } }}
 							><?php echo $row['region_name'];?></option>
-							<? }?>
+							<?php }?>
 						</select>
 					</div>
 					<div class="layui-input-inline">

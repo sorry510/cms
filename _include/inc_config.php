@@ -14,7 +14,8 @@ $gconfig['system']['guimo']['x30'] = '10-30人';
 $gconfig['system']['guimo']['x100'] = '30-100人';
 $gconfig['system']['guimo']['d100'] = '100人以上';*/
 
-$gconfig['photo'][0] = C_ROOT.'/photo/other/';
+$gconfig['image']['base'] = 'D:'.DIRECTORY_SEPARATOR.'UPUPW5.6'.DIRECTORY_SEPARATOR.'UPUPW_AP5.6'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'photo'.DIRECTORY_SEPARATOR;
+$gconfig['photo'][0] = C_ROOT.'/photo/temp/';
 $gconfig['photo'][1] = C_ROOT.'/photo/company/';
 $gconfig['photo'][2] = C_ROOT.'/photo/shop/';
 $gconfig['photo'][3] = C_ROOT.'/photo/worker/';
@@ -26,13 +27,13 @@ $gconfig['show'][3] = $_SERVER['HTTP_HOST'].'/shop/photo/worker/';
 $gconfig['show'][4] = $_SERVER['HTTP_HOST'].'/shop/photo/card/';
 $gconfig['show'][5] = $_SERVER['HTTP_HOST'].'/shop/photo/history/';
 
-$gconfig['worker']['education'][1] = '小学';
-$gconfig['worker']['education'][2] = '初中';
-$gconfig['worker']['education'][3] = '高中';
-$gconfig['worker']['education'][4] = '专科';
-$gconfig['worker']['education'][5] = '本科';
-$gconfig['worker']['education'][6] = '研究生';
-$gconfig['worker']['education'][7] = '博士';
+$gconfig['education'][1] = '小学';
+$gconfig['education'][2] = '初中';
+$gconfig['education'][3] = '高中';
+$gconfig['education'][4] = '专科';
+$gconfig['education'][5] = '本科';
+$gconfig['education'][6] = '研究生';
+$gconfig['education'][7] = '博士';
 
 
 require(C_ROOT . '/_include/cls_mysql.php');

@@ -132,7 +132,7 @@
 		var objlaytpl = layui.laytpl;
 		objform.verify({
 		  carddiscount: function(value, item){ //value：表单的值、item：表单的DOM对象
-		    if(value > 10 || value <= 0.1){
+		    if(value > 10 || value < 0.1){
 		    	 return '折扣必须在0.1-10折之间';
 		    }
 		  }

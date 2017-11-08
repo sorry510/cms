@@ -69,6 +69,7 @@ if($intreturn == 0) {
     $intreturn = 3;
   }
 }
+
 if($intreturn == 0) {
 	  $strsql = "INSERT INTO " . $gdb->fun_table2('user') . "( shop_id, user_type, user_account, user_password, user_atime , user_name ) VALUES ( $intshop , $inttype, '$sqlaccount' , '$sqlpassword' , $atime ,'$sqlname')";
 	  $hresult = $gdb->fun_do($strsql);

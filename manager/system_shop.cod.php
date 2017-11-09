@@ -243,16 +243,9 @@
 			});
 		})
 		function getCity(id, callback){
-		  $.ajax({
-		    url:'city_ajax.php',
-		    data:{
-		      province_id:id
-		    },
-		    type:"get",
-		    dataType:"json"
-		  }).then(function(res){
-		    callback(res);
-		  });
+			$.getJSON('city_ajax.php',{province_id: id}, function(res){
+				callback(res);
+			})
 		}
 		// 生成地图
 		function createMap(id, point={}){
@@ -305,7 +298,7 @@
 		  var local = new BMap.LocalSearch(map, {
 		    renderOptions:{map: map}
 		  });
-		  local.search(place,{forceLocal:flag});
+		  local.search(place, {forceLocal:flag});
 		}
 	});
 </script>

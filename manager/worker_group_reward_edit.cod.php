@@ -209,11 +209,17 @@
 			  if(res=='0'){
 			    window.location.reload();
 			  }else if(res=='1'){
-			    alert('添加失败');
+			    objlayer.alert('新增失败，请联系管理员', {
+						title: '提示信息'
+					});
 			  }else if(res=='2'){
-			    alert('更新失败');
+			    objlayer.alert('更新失败，请联系管理员', {
+						title: '提示信息'
+					});
 			  }else{
-			    alert('更新商品失败');
+			    objlayer.alert('更新商品失败，请联系管理员', {
+						title: '提示信息'
+					});
 			  }
 			});
 			return false;
@@ -250,8 +256,8 @@
 		  $.each(elm, translate1);
 		});
 		//修改百分比或价格
-		$("#laimi-main .laimi-percent").on("input propertychange",translate1);
-		$("#laimi-main .laimi-money").on("input propertychange",translate2);
+		$("#laimi-main .laimi-percent").on("input propertychange", translate1);
+		$("#laimi-main .laimi-money").on("input propertychange", translate2);
 		//转换%=>元
 		function translate1(){
 		  if(isNaN($(this).val())){

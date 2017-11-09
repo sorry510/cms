@@ -126,7 +126,7 @@
 		    <div class="layui-col-md6">
 		      <div class="layui-form-item" style="margin-bottom:-6px;">
 				    <label class="layui-form-label">卡类型</label>
-				    <div class="layui-form-mid layui-word-aux">{{d.c_card_type_name}}({{d.c_card_type_discount}})</div>
+				    <div class="layui-form-mid layui-word-aux">{{d.c_card_type_name}}({{d.discount}})</div>
 				  </div>
 		    </div>
 		    <div class="layui-col-md6">
@@ -168,6 +168,7 @@
 		    <div class="layui-col-md12">
 		      <div class="layui-form-item" style="margin-bottom:-6px;">
 				    <div class="layui-form-mid layui-word-aux" style="width:100%;">
+				    {{# if(d.card_record_type == '3'){ }}
 				    	<table class="layui-table">
 							  <thead>
 							    <tr>
@@ -178,37 +179,59 @@
 							    </tr> 
 							  </thead>
 							  <tbody>
-							  {{#  layui.each(d.goods_list, function(index, item){ }}
+							  {{# layui.each(d.goods_list, function(index, item){ }}
 							    <tr>
-							      <td>{{item.}}</td>
-							      <td>2</td>
-							      <td style="text-decoration:line-through;">￥120.00</td>
-							      <td>￥98.00</td>
+							      <td>{{item.c_mgoods_name || item.c_sgoods_name}}</td>
+							      <td>{{item.card_record3_goods_count}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price != 0 ? item.c_mgoods_price : item.c_sgoods_price}}</td>
+							      <td>￥{{item.c_mgoods_rprice != 0 ? item.c_mgoods_rprice : item.c_sgoods_rprice}}</td>
+							    </tr>
+							  {{# }) }}
+							  {{# layui.each(d.mcombo_goods_list2, function(index, item){ }}
+							    <tr>
+							      <td>{{item.c_mgoods_name || item.c_sgoods_name}}</td>
+							      <td>{{item.card_record3_goods_count}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_rprice != 0 ? item.c_mgoods_rprice : item.c_sgoods_rprice}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'.item.c_mgoods_cprice : '--'}}</td>
 							    </tr>
 							  {{# }) }}
 							    <tr>
-							      <td>代金券</td>
-							      <td>2</td>
-							      <td style="text-decoration:line-through;">￥120.00</td>
-							      <td>￥98.00</td>
+							      <td colspan="4" style="text-align:right;">共{{d.goods_count + d.mcombo_goods_count2}}件，合计<span class="laimi-color-ju">￥{{d.goods_money + d.mcombo_goods_money2}}</span>，实收<span class="laimi-color-ju" style="font-size:18px;">￥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
 							    </tr>
-							    <tr>
-							      <td>代金券</td>
-							      <td>2</td>
-							      <td style="text-decoration:line-through;">￥120.00</td>
-							      <td>￥98.00</td>
-							    </tr>
-							    <tr>
-							      <td colspan="4" style="text-align:right;">共5件，合计<span class="laimi-color-ju">￥1500.00</span>，实收<span class="laimi-color-ju" style="font-size:18px;">￥1286.00</span>&nbsp;&nbsp;</td>
-							    </tr>
-							    <tr>
+							   <!--  <tr>
 							      <td colspan="4" style="text-align:left;">优惠：满100元减10元&nbsp;&nbsp;×1</td>
-							    </tr>
-							    <tr>
+							    </tr> -->
+ 							    <tr>
 							      <td colspan="4" style="text-align:left;">赠送：30元&nbsp;&nbsp;×3（满200元送30元）</td>
 							    </tr>
 							  </tbody>
 							</table>
+						{{# } }}
+						{{# if(d.card_record_type == '2'){ }}
+				    	<table class="layui-table">
+							  <thead>
+							    <tr>
+							      <th width="400">名称</th>
+							      <th>数量</th>
+							      <th>单价</th>
+							      <th>优惠价</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  {{#  layui.each(d.mcombo_goods_list, function(index, item){ }}
+							    <tr>
+							      <td>{{item.c_mgoods_name}}</td>
+							      <td>{{item.card_record2_mcombo_gcount}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'.item.c_mgoods_cprice : '--'}}</td>
+							    </tr>
+							  {{# }) }}
+							    <tr>
+							      <td colspan="4" style="text-align:right;">共{{d.mcombo_goods_count}}件，合计<span class="laimi-color-ju">￥{{d.mcombo_goods_money}}</span>，实收<span class="laimi-color-ju" style="font-size:18px;">￥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
+							    </tr>
+							  </tbody>
+							</table>
+						{{# } }}
 				    </div>
 			  	</div>
 		    </div>

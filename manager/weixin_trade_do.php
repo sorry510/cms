@@ -17,6 +17,14 @@ $arr = array();
 $intreserve == 0 ? 2 : $intreserve;
 $intline == 0 ? 2 : $intline;
 
+$objfile = new FileClass();
+$strtmpfile = $GLOBALS['gconfig']['photo'][0].$sqlimage;
+$strext = strtolower(strrchr($sqlimage, '.'));
+//photo目录对应cid文件夹下sid_wid
+// $strnewurl = $GLOBALS['gconfig']['photo'][3].$GLOBALS['_SESSION']['login_cid']."/";
+// $strnewfile = $fix.$GLOBALS['intshop']."_".$GLOBALS['intworker_id'].$strext;
+$hresult = $objfile -> moveFile($strtmpfile, $strnewurl.$strnewfile, true);
+
 $arrweixin = laimi_config_weixin();
 
 $arrweixin['reserve_flag'] = $intreserve;

@@ -84,10 +84,6 @@
 		  url: './upload_do.php', //上传接口
 		  exts: 'png',
 		  bindAction: '.laimi-submit',
-		  data: {
-		  	id:10,
-		  	type: 1,//config上传文件目录
-		  },
 		  before: function(obj){
 		    //预读本地文件示例，不支持ie8
 		    obj.preview(function(index, file, result){

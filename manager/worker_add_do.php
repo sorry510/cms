@@ -119,4 +119,4 @@ function update_photo($objfile, $photo, $place, $fix = ''){
 	}
 }*/
 
-// echo $intreturn;
+echo $intreturn;

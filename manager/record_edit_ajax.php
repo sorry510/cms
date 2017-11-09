@@ -11,6 +11,7 @@ $intcard_record_id = api_value_int0($strcard_record_id);
 $strsql = "SELECT a.*,b.shop_name FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_kakou,card_record_tuan,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $gdb->fun_table2('card_record') . " where card_record_id = ".$intcard_record_id." limit 1) AS a LEFT JOIN ". $gdb->fun_table('shop') ." AS b on a.shop_id = b.shop_id";
 $hresult = $gdb->fun_query($strsql);
 $arr = $gdb->fun_fetch_assoc($hresult);
+
 if(!empty($arr)){
 	$arr['atime'] = date("Y-m-d H:i",$arr['card_record_atime']);
 	$arr['free'] = $arr['card_record_state'] == '4' ? '免单' : '--';
@@ -59,25 +60,45 @@ if(!empty($arr)){
 		default:
 			$arr['recordtype'] = '其它';
 	}
-
+	//消费
 	if($arr['card_record_type'] == 3){
+		//消费商品
 		$strsql = "SELECT mgoods_id,sgoods_id,card_record3_goods_count,c_mgoods_name,c_mgoods_price,c_mgoods_rprice,c_sgoods_name,c_sgoods_price,c_sgoods_rprice FROM " .$gdb->fun_table2('card_record3_goods'). " where card_record_id=".$arr['card_record_id'];
 		$hresult = $gdb->fun_query($strsql);
 		$arrlist = $gdb->fun_fetch_all($hresult);
 		$arr['goods_list'] = $arrlist;
+		$arr['goods_count'] = 0;
+		$arr['goods_money'] = 0;
+		foreach($arrlist as $row){
+			$arr['goods_count'] += $row['card_record3_goods_count'];
+			$arr['goods_money'] += ($row['c_mgoods_price'] + $row['c_sgoods_price']) * $row['card_record3_goods_count'];
+		}
 
 		//消费套餐商品
 		$strsql = "SELECT mgoods_id,card_record3_mgoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM " .$gdb->fun_table2('card_record3_mcombo'). " where card_record_id=".$arr['card_record_id'];
 		$hresult = $gdb->fun_query($strsql);
 		$arrlist2 = $gdb->fun_fetch_all($hresult);
 		$arr['mcombo_goods_list2'] = $arrlist2;
+		$arr['mcombo_goods_count2'] = 0;
+		$arr['mcombo_goods_money2'] = 0;
+		foreach($arrlist2 as $row){
+			$arr['mcombo_goods_count2'] += $row['card_record3_mcombo_count'];
+			$arr['mcombo_goods_money2'] += $row['c_mgoods_price'] * $row['card_record3_mcombo_count'];
+		}
 	}
-
+	//买套餐
 	if($arr['card_record_type'] == 2){
 		$strsql = "SELECT mgoods_id,card_record2_mcombo_gcount,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM " .$gdb->fun_table2('card_record2_mcombo'). " where card_record2_mcombo_type=2 and card_record_id=".$arr['card_record_id'];
 		$hresult = $gdb->fun_query($strsql);
 		$arrlist = $gdb->fun_fetch_all($hresult);
 		$arr['mcombo_goods_list'] = $arrlist;
+		$arr['mcombo_goods_count'] = 0;
+		$arr['mcombo_goods_money'] = 0;
+		foreach($arrlist as $row){
+			$arr['mcombo_goods_count'] += $row['card_record2_mcombo_gcount'];
+			$arr['mcombo_goods_money'] += $row['c_mgoods_price'] * $row['card_record2_mcombo_gcount'];
+		}
 	}
 }
+
 echo json_encode($arr);

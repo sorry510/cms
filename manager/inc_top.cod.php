@@ -31,7 +31,7 @@
 					</a>
 					<dl class="layui-nav-child">
 <?php foreach(laimi_shop_list() as $row) { ?>
-						<dd><a href="/shop/main.php"><?php echo $row['shop_name']; ?></a></dd>
+						<dd><a href="id_exchange_do.php?id=<?php echo $row['shop_id']; ?>"><?php echo $row['shop_name']; ?></a></dd>
 <?php } ?>
 					</dl>
 				</li>

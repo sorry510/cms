@@ -12,29 +12,27 @@ $intgroup = api_value_int0($strgroup);
 $strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
+$intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 
 $gtemplate->fun_assign('request', get_request());
-$gtemplate->fun_assign('shop_list', get_shop_list());
+$gtemplate->fun_assign('shop', get_shop());
 $gtemplate->fun_assign('worker_group_list', get_worker_group_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
 $gtemplate->fun_show('worker');
 
 function get_request(){
 	$arr = array();
-	$arr['shop'] = $GLOBALS['intshop'];
 	$arr['group'] = $GLOBALS['intgroup'];
 	$arr['search'] = $GLOBALS['strsearch'];
 	return $arr;
 }
-
-function get_shop_list() {
+function get_shop() {
 	$arr = array();
-	$strsql = "SELECT shop_id,shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." order by shop_id";
+	$strsql = "SELECT shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')." where shop_id=".$GLOBALS['intshop'];
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;
 }
-
 function get_worker_group_list() {
 	$arr = array();
 	$strsql = "SELECT worker_group_id,worker_group_name FROM " . $GLOBALS['gdb']->fun_table2('worker_group')." order by worker_group_id";
@@ -53,10 +51,6 @@ function get_worker_list() {
 	$arrpackage = array();
 
 	$strwhere = '';
-
-	if($GLOBALS['intshop'] != 0){
-		$strwhere .= " AND shop_id=".$GLOBALS['intshop'];
-	}
 	if($GLOBALS['intgroup'] != 0){
 		$strwhere .= " AND worker_group_id=".$GLOBALS['intgroup'];
 	}
@@ -64,6 +58,7 @@ function get_worker_list() {
 	  $strwhere .= " AND (worker_name = '" . $GLOBALS['strsearch'] . "'";
 	  $strwhere .= " or worker_code = '" . $GLOBALS['strsearch'] . "')";
 	}
+	$strwhere .= " AND shop_id=".$GLOBALS['intshop'];
 
 	$arr = array();
 	$strsql = "SELECT count(worker_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker')  . " WHERE 1 = 1 " . $strwhere;

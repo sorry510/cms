@@ -18,45 +18,45 @@
 <form class="layui-form">
 	<div class="layui-row">
 		<div class="layui-col-xs6" style="padding-top:10px;">
-			<div class="layui-form-item">
-				<label class="layui-form-label">办卡提成</label>
-				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-100" type="text" name="create" value="<?php echo $this->_data['reward_list']['group_reward_create']?>">
-					<input class="layui-input laimi-input-100" type="hidden" name="id" value="<?php echo $GLOBALS['intid'];?>">
+					<div class="layui-form-item">
+						<label class="layui-form-label">办卡提成</label>
+						<div class="layui-input-inline">
+							<input class="layui-input laimi-input-100" type="text" name="create" value="<?php echo $this->_data['reward_list']['group_reward_create']?>">
+							<input class="layui-input laimi-input-100" type="hidden" name="id" value="<?php echo $GLOBALS['intid'];?>">
+						</div>
+						 <div class="layui-form-mid layui-word-aux">元/会员</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">充值提成</label>
+						<div class="layui-input-inline">
+							<input type="radio" name="filltype" value="1" title="百分比(%)" <?php if($this->_data['reward_list']['group_reward_pfill']!=0) echo "checked"?> lay-verify="radio">
+							<input type="radio" name="filltype" value="2" title="固定金额(元)" <?php if($this->_data['reward_list']['group_reward_fill']!=0) echo "checked"?> lay-verify="radio">
+						</div>
+						<div class="layui-input-inline">
+							<input class="layui-input laimi-input-80" type="text" name="fill" value="<?php echo $this->_data['reward_list']['group_reward_pfill']!=0?$this->_data['reward_list']['group_reward_pfill']:$this->_data['reward_list']['group_reward_fill']; ?>">
+						</div>
+					</div>	
+					<div class="layui-form-item">
+						<label class="layui-form-label">导购提成</label>
+						<div class="layui-input-inline">
+							<input type="radio" name="guidetype" value="1" title="百分比(%)" <?php if($this->_data['reward_list']['group_reward_pguide']!=0) echo "checked"?> lay-verify="radio2">
+							<input type="radio" name="guidetype" value="2" title="固定金额(元)" <?php if($this->_data['reward_list']['group_reward_guide']!=0) echo "checked"?> lay-verify="radio2">
+						</div>
+						<div class="layui-input-inline">
+							<input class="layui-input laimi-input-80" type="text" name="guide" value="<?php echo $this->_data['reward_list']['group_reward_pguide']!=0?$this->_data['reward_list']['group_reward_pguide']:$this->_data['reward_list']['group_reward_guide']; ?>">
+						</div>
+					</div>	
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn laimi-button-100" lay-filter="laimi-submit" lay-submit>
+								确认
+							</button>
+							<button type="reset" class="layui-btn layui-btn-primary">
+								重置
+							</button>
+						</div>
+					</div>
 				</div>
-				 <div class="layui-form-mid layui-word-aux">元/会员</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">充值提成</label>
-				<div class="layui-input-inline">
-					<input type="radio" name="filltype" value="1" title="百分比(%)" <?php if($this->_data['reward_list']['group_reward_pfill']!=0) echo "checked"?> lay-verify="radio">
-					<input type="radio" name="filltype" value="2" title="固定金额(元)" <?php if($this->_data['reward_list']['group_reward_fill']!=0) echo "checked"?> lay-verify="radio">
-				</div>
-				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-80" type="text" name="fill" value="<?php echo $this->_data['reward_list']['group_reward_pfill']!=0?$this->_data['reward_list']['group_reward_pfill']:$this->_data['reward_list']['group_reward_fill']; ?>">
-				</div>
-			</div>	
-			<div class="layui-form-item">
-				<label class="layui-form-label">导购提成</label>
-				<div class="layui-input-inline">
-					<input type="radio" name="guidetype" value="1" title="百分比(%)" <?php if($this->_data['reward_list']['group_reward_pguide']!=0) echo "checked"?> lay-verify="radio2">
-					<input type="radio" name="guidetype" value="2" title="固定金额(元)" <?php if($this->_data['reward_list']['group_reward_guide']!=0) echo "checked"?> lay-verify="radio2">
-				</div>
-				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-80" type="text" name="guide" value="<?php echo $this->_data['reward_list']['group_reward_pguide']!=0?$this->_data['reward_list']['group_reward_pguide']:$this->_data['reward_list']['group_reward_guide']; ?>">
-				</div>
-			</div>	
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button class="layui-btn laimi-button-100" lay-filter="laimi-submit" lay-submit>
-						确认
-					</button>
-					<button type="reset" class="layui-btn layui-btn-primary">
-						重置
-					</button>
-				</div>
-			</div>
-		</div>
 		<div class="layui-col-xs6">
 			<div class="layui-tab">
 				<ul class="layui-tab-title">
@@ -82,10 +82,13 @@
 								<tr>
 									<th colspan="3" style="text-align:left;">
 										<div class="layui-input-inline">
-											<select name="mgoodscatalog" lay-search>
+											<select name="goodscatalog" lay-search>
 												<option value="">请选择商品</option>
 												<?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-                        <option value="<?php echo $row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                        <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+                      	<?php } ?>
+                      	<?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
+                        <option value="<?php echo 's-'.$row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
                       	<?php } ?>
 											</select>
 										</div>
@@ -95,7 +98,7 @@
 									</th>
 									<th>
 										<div class="layui-input-inline">
-											<input class="layui-input laimi-input-60-32 laimi-mgoods-all" type="text" name="txtpercent" placeholder="%">
+											<input class="layui-input laimi-input-60-32 laimi-goods-all" type="text" name="txtpercent" placeholder="%">
 										</div>
 										<div class="layui-inline">
 								     	<button type="button" class="layui-btn layui-btn-small layui-btn-normal laimi-allset1">批量设置</button>
@@ -104,7 +107,7 @@
 								</tr>
 								<?php foreach($this->_data['mgoods_list'] as $row){?>
 									<?php foreach($row['mgoods'] as $row2){?>
-								<tr class="laimi-mgoods" catalog="<?php echo $row['mgoods_catalog_id']?>">
+								<tr class="laimi-goods" gtype="m" catalog="<?php echo $row['mgoods_catalog_id']?>">
 									<td><?php echo $row['mgoods_catalog_name'];?></td>
 									<td style="text-align:left;"><?php echo $row2['mgoods_name'];?></td>
 									<td>￥<?php echo $row2['mgoods_price'];?></td>
@@ -114,6 +117,24 @@
 										</div>
 										<div class="layui-inline">
 											<input class="layui-input laimi-input-60-32 laimi-money" type="text" name="txtmoney" placeholder="￥" price="<?php echo $row2['mgoods_price'];?>" catalog="<?php echo $row['mgoods_catalog_id']?>" mgoods="<?php echo $row2['mgoods_id']?>" value="<?php echo $row2['group_reward2_money'];?>">
+										</div>
+										<div class="layui-inline">元</div>
+									</td>
+								</tr>
+									<?php }?>
+								<?php }?>
+								<?php foreach($this->_data['sgoods_list'] as $row){?>
+									<?php foreach($row['sgoods'] as $row2){?>
+								<tr class="laimi-goods" gtype="s" catalog="<?php echo $row['sgoods_catalog_id']?>">
+									<td><?php echo $row['sgoods_catalog_name'];?></td>
+									<td style="text-align:left;"><?php echo $row2['sgoods_name'];?></td>
+									<td>￥<?php echo $row2['sgoods_price'];?></td>
+									<td style="padding:5px">
+										<div class="layui-inline">
+											<input class="layui-input laimi-input-60-32 laimi-percent" type="text" name="txtpercent" placeholder="%" price="<?php echo $row2['sgoods_price'];?>" value="<?php echo $row2['group_reward2_percent'];?>">
+										</div>
+										<div class="layui-inline">
+											<input class="layui-input laimi-input-60-32 laimi-money" type="text" name="txtmoney" placeholder="￥" price="<?php echo $row2['sgoods_price'];?>" catalog="<?php echo $row['sgoods_catalog_id']?>" sgoods="<?php echo $row2['sgoods_id']?>" value="<?php echo $row2['group_reward2_money'];?>">
 										</div>
 										<div class="layui-inline">元</div>
 									</td>
@@ -202,6 +223,9 @@
 			    if($(this).attr('mgoods')){
 			      json = {'mgoods_catalog_id':$(this).attr('catalog'),'mgoods_id':$(this).attr('mgoods'),'money':$(this).val(),'percent':$(this).parent('div').siblings('div').find('input').val()};
 			    }
+			    if($(this).attr('sgoods')){
+			      json = {'sgoods_catalog_id':$(this).attr('catalog'),'sgoods_id':$(this).attr('sgoods'),'money':$(this).val(),'percent':$(this).parent('div').siblings('div').find('input').val()};
+			    }
 			    if($(this).attr('mcombo')){
 			      json = {'mcombo_id':$(this).attr('mcombo'),'money':$(this).val(),'percent':$(this).parent('div').siblings('div').find('input').val()};
 			    }
@@ -217,7 +241,7 @@
 			  guide_type:$("#laimi-main input[name='guidetype']:checked").val(),
 			  worker_group_id:$("#laimi-main input[name='id']").val()
 			};
-			// console.log(data);
+			// console.log(data);return false;
 			$.post('worker_group_reward_edit_do.php', data, function(res){
 				console.log(res);
 			  if(res=='0'){
@@ -240,24 +264,36 @@
 		});
 		//搜索分类JS
 		$('.laimi-search').on('click',function(){
-			var search = $("#laimi-main select[name='mgoodscatalog']").val() || 0;
+			var search = $("#laimi-main select[name='goodscatalog']").val() || 0;
 			$("#laimi-main .laimi-allset1").val(search);
 			if(search == 0){
-				$('#laimi-main .laimi-mgoods').removeClass('layui-hide');
+				$('#laimi-main .laimi-goods').removeClass('layui-hide');
 			}else{
-				$('#laimi-main .laimi-mgoods').addClass('layui-hide');
-				$("#laimi-main .laimi-mgoods[catalog='"+search+"']").removeClass('layui-hide');
+				var arr = search.split("-");
+				var type = arr[0];
+				var id = arr[1];
+				$('#laimi-main .laimi-goods').addClass('layui-hide');
+				if(type == 'm')
+					$("#laimi-main .laimi-goods[catalog='"+id+"'][gtype='m']").removeClass('layui-hide');
+				if(type == 's')
+					$("#laimi-main .laimi-goods[catalog='"+id+"'][gtype='s']").removeClass('layui-hide');
 			}
 		});
 		//批量商品价格
 		$('#laimi-main .laimi-allset1').on('click',function () {
 		  var catalog = $(this).val() || 0;
-		  var price = $('#laimi-main .laimi-mgoods-all').val();
+		  var price = $('#laimi-main .laimi-goods-all').val();
 		  var elm = null;
 		  if(catalog == 0){
-		  	elm = $("#laimi-main .laimi-mgoods").find('.laimi-percent');
+		  	elm = $("#laimi-main .laimi-goods").find('.laimi-percent');
 		  }else{
-		  	elm = $("#laimi-main .laimi-mgoods[catalog='"+catalog+"']").find('.laimi-percent');
+		  	var arr = catalog.split("-");
+		  	var type = arr[0];
+		  	var id = arr[1];
+		  	if(type == 'm')
+		  		elm = $("#laimi-main .laimi-goods[catalog='"+id+"'][gtype='m']").find('.laimi-percent');
+		  	if(type == 's')
+		  		elm = $("#laimi-main .laimi-goods[catalog='"+id+"'][gtype='s']").find('.laimi-percent');
 		  }
 	    elm.val(price);
 	    $.each(elm, translate1);

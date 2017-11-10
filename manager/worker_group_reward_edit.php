@@ -54,14 +54,16 @@ function get_mcombo_list(){
 function get_group_reward_list(){
 	$arr = array();
 	$arrgoods = array();
-	$strsql = "SELECT group_reward_create,group_reward_fill,group_reward_pfill,group_reward_guide,group_reward_pguide,group_reward_ctime FROM ".$GLOBALS['gdb']->fun_table2('group_reward')." where worker_group_id=".$GLOBALS['intid']." and shop_id = 0";
+	$strsql = "SELECT group_reward_create,group_reward_fill,group_reward_pfill,group_reward_guide,group_reward_pguide FROM ".$GLOBALS['gdb']->fun_table2('group_reward')." where worker_group_id=".$GLOBALS['intid']." and shop_id = 0";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-
-	$strsql = "SELECT mgoods_catalog_id,mgoods_id,sgoods_catalog_id,sgoods_id,mcombo_id,group_reward2_money,group_reward2_percent,group_reward2_ctime FROM ".$GLOBALS['gdb']->fun_table2('group_reward2')." where worker_group_id=".$GLOBALS['intid']." and shop_id = 0";
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	$arr['goods'] = $arrgoods;
+	if(empty($arr)){
+		$arr['group_reward_create'] = 0;
+		$arr['group_reward_fill'] = 0;
+		$arr['group_reward_pfill'] = 0;
+		$arr['group_reward_guide'] = 0;
+		$arr['group_reward_pguide'] = 0;
+	}
 	return $arr;
 }
 ?>

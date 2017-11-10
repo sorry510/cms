@@ -1,11 +1,16 @@
 		<div id="laimi-left" class="layui-side layui-bg-black">
 			<div class="layui-side-scroll">
-				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item">
 						<a href="main.php">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-shouye1"></use></svg>
 							&nbsp;首页
+						</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="workbench.php">
+							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
+							&nbsp;收银
 						</a>
 					</li>
 					<li class="layui-nav-item">
@@ -15,13 +20,13 @@
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="card.php">
+								<a href="card.php?state=1">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huiyuan"></use></svg>
 									&nbsp;会员管理
 								</a>
 							</dd>
 							<dd>
-								<a href="e-record.php">
+								<a href="card_history.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-dangan"></use></svg>
 									&nbsp;电子档案
 								</a>
@@ -33,6 +38,12 @@
 								</a>
 							</dd>
 						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="#">
+							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeshijian"></use></svg>
+							&nbsp;预约
+						</a>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;">
@@ -53,19 +64,19 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="mcombo_time.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-jihuashijian"></use></svg>
-									&nbsp;计时套餐
-								</a>
-							</dd>
-							<dd>
-								<a href="mcombo_number.php">
+								<a href="mcombo1.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-fenxiangcishu"></use></svg>
 									&nbsp;计次套餐
 								</a>
 							</dd>
 							<dd>
-								<a href="store_info_mgoods.php">
+								<a href="mcombo2.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-jihuashijian"></use></svg>
+									&nbsp;计时套餐
+								</a>
+							</dd>
+							<dd>
+								<a href="store_info.php?type=1">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-kucun"></use></svg>
 									&nbsp;库存查询
 								</a>
@@ -73,6 +84,38 @@
 						</dl>
 					</li>	        
 					<li class="layui-nav-item">
+						<a href="javascript:;">
+							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
+							&nbsp;统计
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="tongji_all.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji4"></use></svg>
+									&nbsp;基础统计
+								</a>
+							</dd>
+							<dd>
+								<a href="tongji_goods.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji1"></use></svg>
+									&nbsp;商品排名
+								</a>
+							</dd>
+							<dd>
+								<a href="tongji_business.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
+									&nbsp;收入对比
+								</a>
+							</dd>
+							<dd>
+								<a href="tongji_income.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
+									&nbsp;新增会员
+								</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'worker') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yuangong"></use></svg>
 							&nbsp;员工
@@ -85,13 +128,13 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="worker_manage.php">
+								<a href="worker.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-user"></use></svg>
 									&nbsp;员工管理
 								</a>
 							</dd>
 							<dd>
-								<a href="worker_reward.php">
+								<a href="worker_group_reward.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji3"></use></svg>
 									&nbsp;提成方案
 								</a>
@@ -103,7 +146,7 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="worker_reward_count.php">
+								<a href="worker_reward_tongji.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji2"></use></svg>
 									&nbsp;提成统计
 								</a>
@@ -113,169 +156,59 @@
 					<li class="layui-nav-item">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
-							&nbsp;统计
+							&nbsp;收支
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="count.php">
+								<a href="cash.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji4"></use></svg>
-									&nbsp;基础统计
+									&nbsp;收支管理
 								</a>
 							</dd>
 							<dd>
-								<a href="count_rank.php">
+								<a href="cash_type.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji1"></use></svg>
-									&nbsp;商品排名
-								</a>
-							</dd>
-							<dd>
-								<a href="count_business.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
-									&nbsp;营业数据
-								</a>
-							</dd>
-							<dd>
-								<a href="count_income.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
-									&nbsp;收入组成
+									&nbsp;收支分类
 								</a>
 							</dd>
 						</dl>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;">
+							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
+							&nbsp;库存
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="store.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji4"></use></svg>
+									&nbsp;入库出库
+								</a>
+							</dd>
+							<dd>
+								<a href="store_info.php?type=1">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji1"></use></svg>
+									&nbsp;库存管理
+								</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="act_batch.php">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingxiao2"></use></svg>
 							&nbsp;营销
 						</a>
-						<dl class="layui-nav-child">
-							<dd>
-								<a href="ticket_money.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-daijinquan"></use></svg>
-									&nbsp;代金券管理
-								</a>
-							</dd>
-							<dd>
-								<a href="ticket_goods.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tiyanbiao"></use></svg>
-									&nbsp;体验券管理
-								</a>
-							</dd>
-							<dd>
-								<a href="act_discount.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-dazheyouhui"></use></svg>
-									&nbsp;限时打折
-								</a>
-							</dd>
-							<dd>
-								<a href="act_decrease.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-manjian1"></use></svg>
-									&nbsp;满减活动
-								</a>
-							</dd>
-							<dd>
-								<a href="act_give.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-song"></use></svg>
-									&nbsp;满送活动
-								</a>
-							</dd>
-							<dd>
-								<a href="act_ticket.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yingxiao"></use></svg>
-									&nbsp;批量营销
-								</a>
-							</dd>
-						</dl>
 					</li>					
-					<li class="layui-nav-item">
-						<a href="javascript:;">
-							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>
-							&nbsp;微商城
-						</a>
-						<dl class="layui-nav-child">
-							<dd>
-								<a href="wechat_shop_config.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-weibiaoti-"></use></svg>
-									&nbsp;微商城设置
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongzhi"></use></svg>
-									&nbsp;商城公告
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_class.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tiyandian"></use></svg>
-									&nbsp;商品分类
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-shangpin"></use></svg>
-									&nbsp;商品管理
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_order.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-zhangdanmingxi"></use></svg>
-									&nbsp;商城订单
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
-									&nbsp;分销佣金
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
-									&nbsp;统计分析
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongzhi"></use></svg>
-									&nbsp;商城公告
-								</a>
-							</dd>
-						</dl>
-					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-weibiaoti-"></use></svg>
 							&nbsp;系统
 						</a>
-						<dl class="layui-nav-child">							
+						<dl class="layui-nav-child">
 							<dd>
-								<a href="system_base.php">
+								<a href="system_trade.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-weibiaoti-"></use></svg>
-									&nbsp;参数设置
-								</a>
-							</dd>
-							<dd>
-								<a href="wechat_config.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-weibiaoti-"></use></svg>
-									&nbsp;公众号设置
-								</a>
-							</dd>
-							<dd>
-								<a href="system_pay.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-shezhizhifumima"></use></svg>
-									&nbsp;支付设置
-								</a>
-							</dd>
-							<dd>
-								<a href="system_shop.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>
-									&nbsp;分店管理
-								</a>
-							</dd>
-							<dd>
-								<a href="system_user.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-caozuoyuanquanxian"></use></svg>
-									&nbsp;操作员管理
+									&nbsp;打印设置
 								</a>
 							</dd>
 							<dd>
@@ -291,11 +224,11 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="system_company.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-zhanghumingxi1"></use></svg>
-									&nbsp;企业信息
+								<a href="system_user.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-caozuoyuanquanxian"></use></svg>
+									&nbsp;操作员管理
 								</a>
-							</dd>
+							</dd>	
 						</dl>
 					</li>
 				</ul>

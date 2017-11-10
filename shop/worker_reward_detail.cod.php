@@ -11,35 +11,26 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li class="layui-this">
-						<a href="#">员工提成明细</a>
+						<a href="worker_reward_detail.php">员工提成明细</a>
 					</li>
 				</ul>
-				<div id="laimi-main" class="p-system-user layui-tab-content">
+				<div id="laimi-main" class="p-worker-reward-detail layui-tab-content">
 <form class="layui-form">
 	<div class="laimi-tools layui-form-item">
-		<label class="layui-form-label">选择分店</label>
-		<div class="layui-input-inline">
-			<select name="shop">
-				<option value="">全部分店</option>
-				<option value="东风路分店">东风路分店</option>
-				<option value="王城路分店">王城路分店</option>
-				<option value="九都路分店">九都路分店</option>
-			</select>
-		</div>
-		<label class="layui-form-label laimi-input">日期</label>
-	      <div class="layui-input-inline">
-	        <input type="text" class="layui-input laimi-input-100" id="test1" placeholder="yyyy-MM-dd">
-	      </div>
-	      <label class="layui-form-label laimi-input" style="width: 0px;margin-right:10px">至</label>
-	      <div class="layui-input-inline">
-	        <input type="text" class="layui-input laimi-input-100" id="test2" placeholder="yyyy-MM-dd">
-	      </div>
+ 	<label class="layui-form-label">日期</label>
+      <div class="layui-input-inline">
+        <input id="laimi-from" name="from" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['from']); ?>">
+      </div>
+      <label class="layui-form-label">至</label>
+      <div class="layui-input-inline">
+        <input id="laimi-to" name="to" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['to']); ?>">
+      </div>
 		<label class="layui-form-label">员工</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="txtname" placeholder="姓名/编号">
+			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="姓名/编号" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
-			<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">搜索</button>
+			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
 	</div>
 </form>
@@ -47,101 +38,69 @@
 	<thead>
 		<tr>
 			<th>时间</th>
+			<th>消费单号</th>
 			<th>会员卡号</th>
 			<th>会员姓名</th>
 			<th>消费类型</th>
-			<th>消费金额</th>
+			<th>消费内容</th>
 			<th>提成金额</th>
 			<th>员工</th>
 			<th>分店</th>
 		</tr>
 	</thead>
 	<tbody>
+	<?php foreach($this->_data['reward_list']['list'] as $row){?>
 		<tr>
-			<td>2017-12-28 15:20</td>
-			<td>20001</td>
-			<td>张小宇</td>
-			<td>办卡</td>	
-			<td>--</td>
-			<td>10元</td>
-			<td>小明</td>
-			<td>东风路分店</td>
+			<td><?php echo $row['atime'];?></td>
+			<td><a class="laimi-color-lan laimi-offcanvas" href="javascript:;"><?php echo $row['c_card_record_code'];?></a></td>
+			<td><?php echo $row['c_card_code'];?></td>
+			<td><?php echo $row['c_card_name'];?></td>
+			<td><?php echo $row['worker_reward_type1'];?></td>
+			<td><?php if($row['c_goods_name'] !=''){echo $row['c_goods_name'].'*'.$row['c_goods_count'];} else echo '--';?></td>	
+			<td><span class="laimi-color-ju"><?php echo $row['worker_reward_money'];?></span></td>
+			<td><?php echo $row['c_worker_name'];?></td>
+			<td><?php echo $row['shop_name'];?></td>
 		</tr>
-		<tr>
-			<td>2017-12-28 15:20</td>
-			<td>20001</td>
-			<td>张小宇</td>
-			<td>充值</td>	
-			<td>2000元</td>
-			<td>100元</td>
-			<td>小明</td>
-			<td>东风路分店</td>
-		</tr>
+	<?php }?>
 	</tbody>
 </table>
-<div class="laimi-fenye">
-	<div id="demo7"></div>
+<div class="laimi-page">
+	<div id="laimi-page-content"></div>
 </div>
 				</div>
-			</div> 
+			</div>
 		</div>
-</div>	
+	</div>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
-	layui.use(["element", "layer", "form"], function() {
+	layui.use(["element", "laydate", "laypage", "form"], function() {
 		var $ = layui.jquery;
 		var objlayer = layui.layer;
 		var objelement = layui.element;
+		var objdate = layui.laydate;
+		var objpage = layui.laypage;
 		var objform = layui.form;
-		$("#laimi-add").on("click", function() {
-			objlayer.open({
-				type: 1,
-				title: ["新增操作员", "font-size:16px;"],
-				btnAlign: "r",
-				area: ["800px", "auto"],
-				shadeClose: true,//点击遮罩关闭
-				content: $("#laimi-modal-add")
-			});
+		objdate.render({
+			elem: '#laimi-from'
 		});
-		objform.on("submit(laimi-submit)", function(data) {
-			objlayer.alert(JSON.stringify(data.field), {
-				title: '提示信息'
-			});
-			return false;
+		objdate.render({
+			elem: '#laimi-to'
+		});
+		objpage.render({
+			elem: 'laimi-page-content',
+			count: <?php echo $this->_data['reward_list']['allcount'];?>,
+			limit: 5,
+			curr: <?php echo $this->_data['reward_list']['pagenow'];?>,
+			layout: ['count', 'prev', 'page', 'next',  'skip'],
+			jump: function(obj, first){
+				var search = "<?php echo api_value_query($this->_data['request']);?>";
+				var url = window.location.pathname+'?'+'page='+obj.curr+'&'+search;
+				if(!first){
+					window.location.href = url;
+        }
+			}
 		});
 	});
 	</script>
-	<script>
-layui.use('laydate', function(){
-  var laydate = layui.laydate;    
-  //常规用法
-  laydate.render({
-    elem: '#test1'
-  });
-  //常规用法
-  laydate.render({
-    elem: '#test2'
-  });
-});
-</script>
-<script>
-//分页
-layui.use(['laypage', 'layer'], function(){
-var laypage = layui.laypage
-,layer = layui.layer;
-
-//自定义首页、尾页、上一页、下一页文本
-laypage.render({
-elem: 'demo7'
-,count: 60
-,limit:50
-,layout: ['count', 'prev', 'page', 'next', 'skip']
-,jump: function(obj){
-console.log(obj)
-}
-});
-
-});
-</script>
 </body>
 </html>

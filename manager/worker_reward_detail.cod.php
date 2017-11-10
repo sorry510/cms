@@ -80,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/html" id="laimi-script-show">
+	<!-- <script type="text/html" id="laimi-script-show">
 		<div id="laimi-modal-show" class="laimi-modal">
 			<div class="layui-row">	
 				<div class="layui-col-md6">
@@ -136,7 +136,7 @@
 			  </div>
 			</div>
 		</div>
-	</script>
+	</script> -->
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
 	// layui.extend({offcanvas: '../js/extends/offcanvas'});//扩展js文件文件路径
@@ -147,7 +147,6 @@
 		var objdate = layui.laydate;
 		var objpage = layui.laypage;
 		var objform = layui.form;
-		var objoffcanvas = layui.offcanvas;
 		objdate.render({
 			elem: '#laimi-from'
 		});

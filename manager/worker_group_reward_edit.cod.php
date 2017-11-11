@@ -11,7 +11,7 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li class="layui-this">
-						<a href="worker_group_reward.php?id=<?php echo $GLOBALS['intid']; ?>">员工提成方案</a>
+						<a href="worker_group_reward.php">员工提成方案</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-worker-group-reward-edit layui-tab-content">

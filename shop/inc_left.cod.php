@@ -153,7 +153,7 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'cash') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
 							&nbsp;收支
@@ -173,7 +173,7 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'store') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
 							&nbsp;库存

@@ -83,7 +83,7 @@
 									<th colspan="3" style="text-align:left;">
 										<div class="layui-input-inline">
 											<select name="goodscatalog" lay-search>
-												<option value="">请选择商品</option>
+												<option value="">请选择分类</option>
 												<?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
                         <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
                       	<?php } ?>

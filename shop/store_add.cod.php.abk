@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="layui-col-xs7" style="padding-top:10px; overflow-y:auto; height:400px;">
+		<div class="layui-col-xs7" style="padding-top:10px;">
 			<table class="layui-table" style="margin:0;">
 				<thead>
 					<tr>
@@ -96,28 +96,32 @@
 						</th>
 					</tr>
 					<?php foreach($this->_data['mgoods_list'] as $row){?>
-					<tr class="laimi-goods" gtype="m" catalog="<?php echo $row['mgoods_catalog_id']; ?>" gcode="<?php echo $row['mgoods_code']; ?>" gname="<?php echo $row['mgoods_name']; ?>" gshort="<?php echo $row['mgoods_jianpin']; ?>">
+						<?php foreach($row['mgoods'] as $row2){?>
+					<tr class="laimi-goods" gtype="m" catalog="<?php echo $row['mgoods_catalog_id']; ?>" gcode="<?php echo $row2['mgoods_code']; ?>" gname="<?php echo $row2['mgoods_name']; ?>" gshort="<?php echo $row2['mgoods_jianpin']; ?>">
 						<td><?php echo $row['mgoods_catalog_name'];?></td>
-						<td style="text-align:left;"><?php echo $row['mgoods_name'];?></td>
-						<td>￥<?php echo $row['mgoods_price'];?></td>
+						<td style="text-align:left;"><?php echo $row2['mgoods_name'];?></td>
+						<td>￥<?php echo $row2['mgoods_price'];?></td>
 						<td style="padding:5px">
 							<div class="layui-inline">
-								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['mgoods_price'];?>" gname="<?php echo $row['mgoods_name']; ?>" catalog="<?php echo $row['mgoods_catalog_id']?>" mgoods="<?php echo $row['mgoods_id']?>">
+								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row2['mgoods_price'];?>" gname="<?php echo $row2['mgoods_name']; ?>" catalog="<?php echo $row['mgoods_catalog_id']?>" mgoods="<?php echo $row2['mgoods_id']?>">
 							</div>
 						</td>
 					</tr>
+						<?php }?>
 					<?php }?>
 					<?php foreach($this->_data['sgoods_list'] as $row){?>
-					<tr class="laimi-goods" gtype="s" catalog="<?php echo $row['sgoods_catalog_id']; ?>" code="<?php echo $row['sgoods_code']; ?>" gname="<?php echo $row['sgoods_name']; ?>" gshort="<?php echo $row['sgoods_jianpin']; ?>">
+						<?php foreach($row['sgoods'] as $row2){?>
+					<tr class="laimi-goods" gtype="s" catalog="<?php echo $row['sgoods_catalog_id']; ?>" code="<?php echo $row2['sgoods_code']; ?>" gname="<?php echo $row2['sgoods_name']; ?>" gshort="<?php echo $row2['sgoods_jianpin']; ?>">
 						<td><?php echo $row['sgoods_catalog_name'];?></td>
-						<td style="text-align:left;"><?php echo $row['sgoods_name'];?></td>
-						<td>￥<?php echo $row['sgoods_price'];?></td>
+						<td style="text-align:left;"><?php echo $row2['sgoods_name'];?></td>
+						<td>￥<?php echo $row2['sgoods_price'];?></td>
 						<td style="padding:5px">
 							<div class="layui-inline">
-								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['sgoods_price'];?>" gname="<?php echo $row['sgoods_name']; ?>" catalog="<?php echo $row['sgoods_catalog_id']?>" sgoods="<?php echo $row['sgoods_id']?>">
+								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row2['sgoods_price'];?>" gname="<?php echo $row2['sgoods_name']; ?>" catalog="<?php echo $row['sgoods_catalog_id']?>" sgoods="<?php echo $row2['sgoods_id']?>">
 							</div>
 						</td>
 					</tr>
+						<?php }?>
 					<?php }?>
 				</tbody>
 			</table>
@@ -192,7 +196,7 @@
 			  }
 			  arr.push(json);
 			});
-			var datapackage = {
+			var postdata = {
 	      arr: arr,
 	      store_time: data.field.time,
 	      store_type: data.field.type,
@@ -200,11 +204,11 @@
 	      store_operator: data.field.operator,
 	      store_memo: data.field.memo,
 	    }
-			// console.log(datapackage);return false;
-			$.post('store_add_do.php', datapackage, function(msg){
+			// console.log(postdata);return false;
+			$.post('store_add_do.php', postdata, function(msg){
 				console.log(msg);
 			  if(msg == '0'){
-			    window.location.href="./store.php";
+			    window.location.reload();
 			  }else if(msg == '1'){
 			    objlayer.alert('商品不能为空', {
 						title: '提示信息'

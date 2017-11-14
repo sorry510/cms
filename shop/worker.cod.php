@@ -31,7 +31,7 @@
 		</div>
 		<label class="layui-form-label">员工</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="txtname" placeholder="姓名/编号" value="<?php echo $this->_data['request']['search'];?>">
+			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="姓名/编号" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>

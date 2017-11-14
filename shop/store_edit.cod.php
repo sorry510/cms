@@ -14,7 +14,7 @@
 						<a href="store.php">入库和入库</a>
 					</li>
 					<li class="layui-this">
-						<a href="store_add.php">新增出库/入库</a>
+						<a href="store_edit.php?id=<?php echo $GLOBALS['intid']; ?>">修改出库/入库</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-worker-group-reward-edit layui-tab-content">
@@ -24,34 +24,35 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span>*</span> 类型</label>
 				<div class="layui-input-inline">
-					<input type="radio" name="type" value="1" title="入库" checked>
-					<input type="radio" name="type" value="2" title="出库">
+					<input type="radio" name="type" value="1" title="入库" <?php if($this->_data['store']['store_type'] == 1) echo 'checked'; ?> >
+					<input type="radio" name="type" value="2" title="出库" <?php if($this->_data['store']['store_type'] == 2) echo 'checked'; ?>>
 				</div>
+				<input type="hidden" name="id" value="<?php echo htmlspecialchars($GLOBALS['intid']); ?>">
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span>*</span> 时间</label>
 				<div class="layui-input-inline">
-					<input id="laimi-from" class="layui-input laimi-input-200" type="text" name="time" placeholder="yyyy-MM-dd" lay-verify="required">
+					<input id="laimi-from" class="layui-input laimi-input-200" type="text" name="time" placeholder="yyyy-MM-dd" lay-verify="required" value="<?php echo date("Y-m-d", $this->_data['store']['store_time']); ?>">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span>*</span> 金额</label>
 				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-100" placeholder="￥" type="text" name="money" lay-verify="required|number">
+					<input class="layui-input laimi-input-100" placeholder="￥" type="text" name="money" lay-verify="required|number" value="<?php echo htmlspecialchars($this->_data['store']['store_money']); ?>">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">经办人</label>
 				<div class="layui-input-inline">
-					<input class="layui-input laimi-input-200" type="text" name="operator">
+					<input class="layui-input laimi-input-200" type="text" name="operator" value="<?php echo htmlspecialchars($this->_data['store']['store_operator']); ?>">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">备注</label>
 				<div class="layui-input-inline">
-					<textarea class="layui-textarea" name="memo" style="width:300px;"></textarea>
+					<textarea class="layui-textarea" name="memo" style="width:300px;"><?php echo htmlspecialchars($this->_data['store']['store_memo']); ?></textarea>
 				</div>
-			</div>		
+			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button class="layui-btn laimi-button-100" lay-filter="laimi-submit" lay-submit>
@@ -102,7 +103,7 @@
 						<td>￥<?php echo $row['mgoods_price'];?></td>
 						<td style="padding:5px">
 							<div class="layui-inline">
-								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['mgoods_price'];?>" gname="<?php echo $row['mgoods_name']; ?>" catalog="<?php echo $row['mgoods_catalog_id']?>" mgoods="<?php echo $row['mgoods_id']?>">
+								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['mgoods_price']; ?>" gname="<?php echo $row['mgoods_name']; ?>" catalog="<?php echo $row['mgoods_catalog_id']; ?>" mgoods="<?php echo $row['mgoods_id']; ?>" value="<?php echo $row['store_goods_count']; ?>">
 							</div>
 						</td>
 					</tr>
@@ -114,7 +115,7 @@
 						<td>￥<?php echo $row['sgoods_price'];?></td>
 						<td style="padding:5px">
 							<div class="layui-inline">
-								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['sgoods_price'];?>" gname="<?php echo $row['sgoods_name']; ?>" catalog="<?php echo $row['sgoods_catalog_id']?>" sgoods="<?php echo $row['sgoods_id']?>">
+								<input class="layui-input laimi-input-60-32 laimi-number" type="text" name="txtnum" price="<?php echo $row['sgoods_price'];?>" gname="<?php echo $row['sgoods_name']; ?>" catalog="<?php echo $row['sgoods_catalog_id']; ?>" sgoods="<?php echo $row['sgoods_id']; ?>" value="<?php echo $row['store_goods_count']; ?>">
 							</div>
 						</td>
 					</tr>
@@ -183,7 +184,7 @@
 		});
 		objform.on("submit(laimi-submit)", function(data) {
 			var arr= [];
-			$(".laimi-number").each(function(k,v){
+			$(".laimi-number").each(function(){
 			  if($(this).attr('mgoods')){
 			    var json = {'mgoods_id':$(this).attr('mgoods'),'num':$(this).val(),'mgoods_name':$(this).attr('gname')};
 			  }
@@ -194,14 +195,15 @@
 			});
 			var datapackage = {
 	      arr: arr,
+	      store_id: data.field.id,
 	      store_time: data.field.time,
 	      store_type: data.field.type,
 	      store_money: data.field.money,
 	      store_operator: data.field.operator,
 	      store_memo: data.field.memo,
 	    }
-			// console.log(datapackage);return false;
-			$.post('store_add_do.php', datapackage, function(msg){
+			// console.log(postdata);return false;
+			$.post('store_edit_do.php', datapackage, function(msg){
 				console.log(msg);
 			  if(msg == '0'){
 			    window.location.href="./store.php";

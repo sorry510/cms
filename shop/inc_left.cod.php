@@ -13,7 +13,7 @@
 							&nbsp;收银
 						</a>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'card') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-vip"></use></svg>
 							&nbsp;会员

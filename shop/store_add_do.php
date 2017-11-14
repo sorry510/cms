@@ -15,9 +15,7 @@ $sqlstore_operator = $gdb->fun_escape($strstore_operator);
 $strstore_memo = api_value_post('store_memo');
 $sqlstore_memo = $gdb->fun_escape($strstore_memo);
 $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
-
 $arrinfo = api_value_post('arr');//[{"id":"2","num":"1"},{"id":"3","num":"1"},{"id":"5","num":"4"}]
-
 
 $arr = array();
 $intreturn = 0;
@@ -51,7 +49,6 @@ if($intreturn == 0){
 		}
 		// 商品可以是负数
 		$intnum = api_value_sint($row['num']);
-		// $price = api_value_decimal($row['price'],2);
 
 		if($intnum==0){
 			continue;

@@ -11,43 +11,36 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li class="layui-this">
-						<a href="store_info_mgoods.php">消费明细</a>
+						<a href="record.php">消费明细</a>
 					</li>
 				</ul>
-				<div id="laimi-main" class="p-system-user layui-tab-content">
+				<div id="laimi-main" class="p-record layui-tab-content">
 <form class="layui-form">
 	<div class="laimi-tools layui-form-item">
-		<label class="layui-form-label">分店</label>
-		<div class="layui-input-inline" style="width:160px;">
-			<select name="shop">
-				<option value="">全部分店</option>
-				<option value="东风路分店">东风路分店</option>
-				<option value="王城路分店">王城路分店</option>
-				<option value="九都路分店">九都路分店</option>
-			</select>
-		</div>
 		<label class="layui-form-label">卡类型</label>
-		<div class="layui-input-inline" style="width:160px;">
-			<select name="shop">
-				<option value="">全部卡类型</option>
-				<option value="东风路分店">钻石卡</option>
-				<option value="王城路分店">会员卡</option>
+		<div class="layui-input-inline">
+			<select name="card_type_id">
+				<option value="all" <?php if($this->_data['request']['card_type_id']=='all') echo "selected";?>>全部</option>
+				<option value="0" <?php if($this->_data['request']['card_type_id']=='0') echo "selected";?>>未设置</option>
+				<?php foreach($this->_data['card_type_list'] as $row) { ?>
+				<option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
+				<?php }?>
 			</select>
 		</div>
 		<label class="layui-form-label laimi-input">日期</label>
 		<div class="layui-input-inline">
-			<input type="text" class="layui-input laimi-input-100" id="test1" placeholder="yyyy-MM-dd">
+			<input id="laimi-from" name="stime" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['stime']); ?>">
 		</div>
 		<label class="layui-form-label laimi-input" style="width: 0px;margin-right:10px">至</label>
 		<div class="layui-input-inline">
-			<input type="text" class="layui-input laimi-input-100" id="test2" placeholder="yyyy-MM-dd">
+			<input id="laimi-to" name="etime" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['etime']); ?>">
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="txtname" placeholder="会员卡号/姓名/手机号码">
+			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="会员卡号/姓名/手机号码" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
-			<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">搜索</button>
+			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
 	</div>
 </form>
@@ -65,256 +58,259 @@
 			<th>金额</th>
 			<th>分店</th>
 			<th>状态</th>
-			<th>操作</th>
+			<th width="90">操作</th>
 		</tr>
 	</thead>
 	<tbody>
+	<?php foreach($this->_data['card_records_list']['list'] as $row){?>
 		<tr>
-			<td>2017-12-28 12:20</td>
-			<td>12454211</td>
-			<td>10002</td>
-			<td>张小宇</td>
-			<td>男</td>	
-			<td>13623833360</td>
-			<td>充值</td>
-			<td>微信</td>
-			<td><span class="laimi-color-ju">¥35.00</span></td>
-			<td>--</td>
-			<td>东风路分店</td>
+			<td><?php echo $row['atime'];?></td>
+			<td><?php echo $row['card_record_code'];?></td>
+			<td><?php echo $row['c_card_code'];?></td>
+			<td><?php echo $row['c_card_name'];?></td>
+			<td><?php echo $row['sex'];?></td>	
+			<td><?php echo $row['c_card_phone'];?></td>
+			<td><?php echo $row['recordtype'];?></td>
+			<td><?php echo $row['paytype'];?></td>
+			<td><span class="laimi-color-ju">¥<?php echo $row['card_record_smoney'];?></span></td>
+			<td><?php echo $row['shop_name'];?></td>
+			<td><?php echo $row['state'];?></td>
 			<td>
-				<a class="layui-btn layui-btn-mini" id="laimi-add"><svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+				<button type="button" class="layui-btn layui-btn-mini laimi-info" value="<?php echo $row['card_record_id'];?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					订单明细
-				</a>
+				</button>
 			</td>
 		</tr>
-		<tr>
-			<td>2017-12-28 12:20</td>
-			<td>12454211</td>
-			<td>10002</td>
-			<td>张小宇</td>
-			<td>男</td>	
-			<td>13623833360</td>
-			<td>办卡</td>
-			<td><span class="laimi-color-hui" style="text-decoration: line-through ;">微信</span></td>
-			<td><span class="laimi-color-hui" style="text-decoration: line-through ;">¥35.00</span></td>
-			<td>已退款</td>
-			<td>东风路分店</td>			
-			<td>
-				<a class="layui-btn layui-btn-mini" id="laimi-add"><svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
-					订单明细
-				</a>
-			</td>
-		</tr>
-		<tr>
-			<td>2017-12-28 12:20</td>
-			<td>12454211</td>
-			<td>10002</td>
-			<td>张小宇</td>
-			<td>男</td>	
-			<td>13623833360</td>
-			<td>办卡</td>
-			<td>--</td>
-			<td>--</td>			
-			<td>--</td>
-			<td>东风路分店</td>
-			<td>
-				<a class="layui-btn layui-btn-mini" id="laimi-add"><svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
-					订单明细
-				</a>
-			</td>
-		</tr>
+	<?php }?>
 	</tbody>
 </table>
-<div class="laimi-fenye">
-	<div id="demo7"></div>
+<div class="laimi-page">
+	<div id="laimi-page-content"></div>
 </div>
 				</div>
-			</div> 
-		</div>
-</div>
-<!--新增操作员弹出层开始-->
-	<div id="laimi-modal-add" class="laimi-modal">
-			<div class="layui-row">	    
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">消费时间</label>
-				    <div class="layui-form-mid layui-word-aux">2017-12-15 15:00</div>
-				  </div>
-			    </div>	    
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">会员卡号</label>
-				    <div class="layui-form-mid layui-word-aux">10101</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">会员姓名</label>
-				    <div class="layui-form-mid layui-word-aux">张小宇</div>
-				  </div>
-			    </div>			    
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">卡类型</label>
-				    <div class="layui-form-mid layui-word-aux">钻石卡(8.8折)</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">消费类型</label>
-				    <div class="layui-form-mid layui-word-aux">充值</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">消费金额</label>
-				    <div class="layui-form-mid layui-word-aux"><span class="laimi-color-ju">￥1286.00</span>（微信支付）</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">手动优惠</label>
-				    <div class="layui-form-mid layui-word-aux"><span class="laimi-color-ju">￥10.00</span></div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">是否免单</label>
-				    <div class="layui-form-mid layui-word-aux">--</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">操作人员</label>
-				    <div class="layui-form-mid layui-word-aux">李小红</div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md6">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <label class="layui-form-label">分店</label>
-				    <div class="layui-form-mid layui-word-aux">东风路分店</div>
-				  </div>
-			    </div>			    
-			    <div class="layui-col-md12">
-			      <div class="layui-form-item" style="margin-bottom: -6px;">
-				    <div class="layui-form-mid layui-word-aux" style="line-height: 26px;width: 100%;">
-				    	<table class="layui-table">
-						  <thead>
-						    <tr>
-						      <th width="400">名称</th>
-						      <th>数量</th>
-						      <th>单价</th>
-						      <th>优惠价</th>
-						    </tr> 
-						  </thead>
-						  <tbody>
-						    <tr>
-						      <td>代金券</td>
-						      <td>2</td>
-						      <td style="text-decoration:line-through;">￥120.00</td>
-						      <td>￥98.00</td>
-						    </tr>
-						    <tr>
-						      <td>代金券</td>
-						      <td>2</td>
-						      <td style="text-decoration:line-through;">￥120.00</td>
-						      <td>￥98.00</td>
-						    </tr>
-						    <tr>
-						      <td>代金券</td>
-						      <td>2</td>
-						      <td style="text-decoration:line-through;">￥120.00</td>
-						      <td>￥98.00</td>
-						    </tr>
-						    <tr>
-						      <td colspan="4" style="text-align: right;">共5件，合计<span class="laimi-color-ju">￥1500.00</span>，实收<span class="laimi-color-ju" style="font-size: 18px;">￥1286.00</span>&nbsp;&nbsp;</td>
-						    </tr>
-						    <tr>
-						      <td colspan="4" style="text-align: left;">优惠：满100元减10元&nbsp;&nbsp;×1</td>
-						    </tr>
-						    <tr>
-						      <td colspan="4" style="text-align: left;">赠送：30元&nbsp;&nbsp;×3（满200元送30元）</td>
-						    </tr>
-						  </tbody>
-						</table>
-				    </div>
-				  </div>
-			    </div>
-			    <div class="layui-col-md9">
-			      <button class="layui-btn layui-btn-normal" lay-filter="laimi-submit" lay-submit>
-			      	退款
-			      </button>
-			      <button class="layui-btn layui-btn-primary" type="reset">
-			      	删除
-			      </button>
-			    </div>
-			    <div class="layui-col-md3" style="text-align: right;">
-			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submit" lay-submit>
-			      	打印小票
-			      </button>
-			    </div>
-			    
 			</div>
+		</div>
 	</div>
+	<!--新增操作员弹出层开始-->
+	<script type="text/html" id="laimi-script-info">
+		<div id="laimi-modal-info" class="laimi-modal">
+			<div class="layui-row">	    
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">消费时间</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.atime}}</div>
+				  </div>
+		    </div>	    
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">会员卡号</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.c_card_code}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">会员姓名</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.c_card_name}}</div>
+				  </div>
+		    </div>			    
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">卡类型</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.c_card_type_name}}({{d.discount}})</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">消费类型</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.recordtype}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">消费金额</label>
+				    <div class="layui-form-mid layui-word-aux"><span class="laimi-color-ju">￥{{d.card_record_smoney}}</span>（{{d.paytype}}）</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">手动优惠</label>
+				    <div class="layui-form-mid layui-word-aux"><span class="laimi-color-ju">￥{{d.card_record_jmoney}}</span></div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">是否免单</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.free}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">操作人员</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.c_user_name}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">分店</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.shop_name}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md12">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <div class="layui-form-mid layui-word-aux" style="width:100%;">
+				    {{# if(d.card_record_type == '3'){ }}
+				    	<table class="layui-table">
+							  <thead>
+							    <tr>
+							      <th width="400">名称</th>
+							      <th>数量</th>
+							      <th>单价</th>
+							      <th>优惠价</th>
+							    </tr> 
+							  </thead>
+							  <tbody>
+							  {{# layui.each(d.goods_list, function(index, item){ }}
+							    <tr>
+							      <td>{{item.c_mgoods_name || item.c_sgoods_name}}</td>
+							      <td>{{item.card_record3_goods_count}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price != 0 ? item.c_mgoods_price : item.c_sgoods_price}}</td>
+							      <td>￥{{item.c_mgoods_rprice != 0 ? item.c_mgoods_rprice : item.c_sgoods_rprice}}</td>
+							    </tr>
+							  {{# }) }}
+							  {{# layui.each(d.mcombo_goods_list2, function(index, item){ }}
+							    <tr>
+							      <td>{{item.c_mgoods_name}}</td>
+							      <td>{{item.card_record3_mgoods_count}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'+item.c_mgoods_cprice : '--'}}</td>
+							    </tr>
+							  {{# }) }}
+							    <tr>
+							      <td colspan="4" style="text-align:right;">共{{d.goods_count + d.mcombo_goods_count2}}件，合计<span class="laimi-color-ju">￥{{d.goods_money + d.mcombo_goods_money2}}</span>，实收<span class="laimi-color-ju" style="font-size:18px;">￥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
+							    </tr>
+							   <!--  <tr>
+							      <td colspan="4" style="text-align:left;">优惠：满100元减10元&nbsp;&nbsp;×1</td>
+							    </tr> -->
+							  {{# if(d.ticket_list.length > 0){ }}
+ 							    <tr>
+							      <td colspan="4" style="text-align:left;">赠送：
+										{{# layui.each(d.ticket_list, function(index, item){ }}
+							      {{item.c_ticket_value}}元&nbsp;&nbsp;×{{item.count}}（{{item.c_act_name}}）;
+										{{# }) }}
+							      </td>
+							    </tr>
+							  {{# } }}
+							  </tbody>
+							</table>
+						{{# } }}
+						{{# if(d.card_record_type == '2'){ }}
+				    	<table class="layui-table">
+							  <thead>
+							    <tr>
+							      <th width="400">名称</th>
+							      <th>数量</th>
+							      <th>单价</th>
+							      <th>优惠价</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  {{#  layui.each(d.mcombo_goods_list, function(index, item){ }}
+							    <tr>
+							      <td>{{item.c_mgoods_name}}</td>
+							      <td>{{item.card_record2_mcombo_gcount}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'+item.c_mgoods_cprice : '--'}}</td>
+							    </tr>
+							  {{# }) }}
+							    <tr>
+							      <td colspan="4" style="text-align:right;">共{{d.mcombo_goods_count}}件，合计<span class="laimi-color-ju">￥{{d.mcombo_goods_money}}</span>，实收<span class="laimi-color-ju" style="font-size:18px;">￥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
+							    </tr>
+							  </tbody>
+							</table>
+						{{# } }}
+				    </div>
+			  	</div>
+		    </div>
+		    <div class="layui-col-md9">
+		      <button type="button" class="layui-btn layui-btn-normal laimi-refund" value="{{d.card_record_id}}">
+		      	退款
+		      </button>
+		    </div>
+		    <div class="layui-col-md3" style="text-align:right;">
+		      <button type="button" class="layui-btn laimi-button-100">
+		      	打印小票
+		      </button>
+		    </div>
+			</div>
+		</div>
+	</script>
 	<!--新增操作员弹出层结束-->
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
-	layui.use(["element", "layer", "form"], function() {
+	layui.use(["element", "laypage", "layer", "form", "laytpl"], function() {
 		var $ = layui.jquery;
 		var objlayer = layui.layer;
 		var objelement = layui.element;
-		var objform = layui.form;	
-		$("#laimi-add").on("click", function() {
-			objlayer.open({
-				type: 1,
-				title: ["消费明细", "font-size:16px;"],
-				btnAlign: "r",
-				offset: 'rt',
-				anim: 7,
-				area: ["750px", "100%"],
-				shadeClose: true,//点击遮罩关闭
-				content: $("#laimi-modal-add")
-			});
+		var objpage = layui.laypage;
+		var objform = layui.form;
+		var objlaytpl = layui.laytpl;
+		objpage.render({
+			elem: 'laimi-page-content',
+			count: <?php echo $this->_data['card_records_list']['allcount'];?>,
+			limit: 50,
+			curr: <?php echo $this->_data['card_records_list']['pagenow'];?>,
+			layout: ['count', 'prev', 'page', 'next',  'skip'],
+			jump: function(obj, first){
+				var search = "<?php echo api_value_query($this->_data['request']);?>";
+				var url = window.location.pathname+'?'+'page='+obj.curr+'&'+search;
+				if(!first){
+					window.location.href = url;
+        }
+			}
 		});
-		objform.on("submit(laimi-submit)", function(data) {
-			objlayer.alert(JSON.stringify(data.field), {
-				title: '提示信息'
-			});
-			return false;
+		$(".laimi-info").on("click", function() {
+			$.getJSON('record_edit_ajax.php', {id:$(this).val()}, function(data){
+				objlaytpl($("#laimi-script-info").html()).render(data, function(html){
+				  objlayer.open({
+				  	type: 1,
+				  	title: ["消费明细", "font-size:16px;"],
+				  	btnAlign: "r",
+				  	offset: 'rt',
+				  	anim: 7,
+				  	area: ["750px", "100%"],
+				  	shadeClose: true,//点击遮罩关闭
+				  	content: html,
+				  	success: function(){
+				  		$('.laimi-refund').on('click', function(){
+				  			var id = $(this).val();
+				  			objlayer.confirm('你确定要退款吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+				  				console.log(id);
+				  			  // $.post('worker_delete_do.php', {id:id}, function(res){
+				  			  // 	if(res == 0){
+				  			  // 		window.location.reload();
+				  			  // 	}else if(res == 1){
+				  					// 	objlayer.alert('删除失败，此员工有提成不能删除', {
+				  					// 		title: '提示信息'
+				  					// 	});
+				  					// }else{
+				  			  // 		objlayer.alert('删除失败，请联系管理员', {
+				  			  // 			title: '提示信息'
+				  			  // 		});
+				  			  // 	}
+				  			  // })
+				  			  objlayer.close(index);
+				  			});
+				  		})
+				  	},
+				  	end: function(){
+				  		$('.laimi-refund').off("click");
+				  	}
+				  });
+				});
+			})
 		});
 	});
 	</script>
-	<script>
-layui.use('laydate', function(){
-  var laydate = layui.laydate;    
-  //常规用法
-  laydate.render({
-    elem: '#test1'
-  });
-  //常规用法
-  laydate.render({
-    elem: '#test2'
-  });
-});
-</script>
-<script>
-//分页
-layui.use(['laypage', 'layer'], function(){
-var laypage = layui.laypage
-,layer = layui.layer;
-
-//自定义首页、尾页、上一页、下一页文本
-laypage.render({
-elem: 'demo7'
-,count: 60
-,limit:50
-,layout: ['count', 'prev', 'page', 'next', 'skip']
-,jump: function(obj){
-console.log(obj)
-}
-});
-
-});
-</script>
 </body>
 </html>

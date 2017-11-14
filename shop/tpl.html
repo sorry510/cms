@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>layout 后台大布局 - Layui</title>
+  <link rel="stylesheet" href="http://res.layui.com/layui/dist/css/layui.css?t=1510415843061">
+  <style type="text/css">
+    .offcanvas{width: 100%;height: 100%;}  
+    .offcanvas-content{width: 200px;float: right;background-color: royalblue;position: relative;}
+    .offcanvas-close{width: 100%;height: 50px;background-color: darkgoldenrod;line-height: 50px;text-align: center;color: white;cursor: pointer;}
+  </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">layui 后台布局</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="">用户</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">其它系统</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">邮件管理</a></dd>
+          <dd><a href="">消息管理</a></dd>
+          <dd><a href="">授权管理</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          贤心
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="demo1">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">所有商品</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">列表一</a></dd>
+            <dd><a href="javascript:;">列表二</a></dd>
+            <dd><a href="javascript:;">列表三</a></dd>
+            <dd><a href="">超链接</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">解决方案</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">列表一</a></dd>
+            <dd><a href="javascript:;">列表二</a></dd>
+            <dd><a href="">超链接</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">云市场</a></li>
+        <li class="layui-nav-item"><a href="">发布商品</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+      <div class="layui-tab" lay-filter="demo2">
+        <ul class="layui-tab-title">
+          <li class="layui-this">网站设置</li>
+          <li>商品管理</li>
+          <li>订单管理</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+             <button class="layui-btn laimi-info">增加</button>
+          </div>
+          <div class="layui-tab-item">内容2</div>
+          <div class="layui-tab-item">内容3</div>
+        </div>
+      </div>
+      <!-- <span class="layui-breadcrumb" lay-separator="|"></span> -->
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域
+  </div>
+</div>
+<script type="text/html" id="laimi-script-info">
+  <div id="laimi-modal-info" class="laimi-modal">
+    <div class="layui-row">     
+      <div class="layui-col-md12">
+        <div class="layui-form-item" style="margin-bottom:-6px;">
+          <div class="layui-form-mid layui-word-aux" style="width:100%;">
+          {{# if(d.card_record_type == '2'){ }}
+            <table class="layui-table">
+              <thead>
+                <tr>
+                  <th width="400">名称</th>
+                  <th>数量</th>
+                  <th>单价</th>
+                  <th>优惠价</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#  layui.each(d.mcombo_goods_list, function(index, item){ }}
+                <tr>
+                  <td>{{item.c_mgoods_name}}</td>
+                  <td>{{item.card_record2_mcombo_gcount}}</td>
+                  <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
+                  <td>{{item.c_mgoods_cprice != 0 ? item.c_mgoods_cprice : '--'}}</td>
+                </tr>
+              {{# }) }}
+                <tr>
+                  <td colspan="4" style="text-align:right;">共{{d.mcombo_goods_count}}件，合计<span class="laimi-color-ju">￥{{d.mcombo_goods_money}}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          {{# } }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script src="../js/layui.js"></script>
+<script>
+  layui.use(['element','layer','laytpl'], function(){
+    var element = layui.element,
+        layer = layui.layer,
+        laytpl = layui.laytpl,
+        $ = layui.$;
+    $(".laimi-info").on("click", function() {
+      // $.getJSON('shop2.json', {id:$(this).val()}, function(data){
+        var data = {
+          "card_record_type": "2",
+          "mcombo_goods_list": [
+            {
+            "mgoods_id": "19",
+            "card_record2_mcombo_gcount": "10",
+            "c_mgoods_name": "护理卡",
+            "c_mgoods_price": "300.00",
+            "c_mgoods_cprice": "0.00"
+            },
+            {
+            "mgoods_id": "18",
+            "card_record2_mcombo_gcount": "10",
+            "c_mgoods_name": "理发卡",
+            "c_mgoods_price": "200.00",
+            "c_mgoods_cprice": "0.00"
+            },
+            {
+            "mgoods_id": "17",
+            "card_record2_mcombo_gcount": "30",
+            "c_mgoods_name": "洗车卡",
+            "c_mgoods_price": "88.00",
+            "c_mgoods_cprice": "0.00"
+            },
+            // {
+            // "mgoods_id": "17",
+            // "card_record2_mcombo_gcount": "30",
+            // "c_mgoods_name": "洗车卡",
+            // "c_mgoods_price": "88.00",
+            // "c_mgoods_cprice": "80.00"
+            // }
+          ],
+          "mcombo_goods_count": 20,
+          "mcombo_goods_money": 6000
+        };
+        var data2 = {
+          "card_record_type": "2",
+          "mcombo_goods_list": [
+            {
+            "mgoods_id": "19",
+            "card_record2_mcombo_gcount": "10",
+            "c_mgoods_name": "护理卡",
+            "c_mgoods_price": "300.00",
+            "c_mgoods_cprice": "0.00"
+            },
+            {
+            "mgoods_id": "18",
+            "card_record2_mcombo_gcount": "4",
+            "c_mgoods_name": "理发卡",
+            "c_mgoods_price": "138.00",
+            "c_mgoods_cprice": "58.00"
+            },
+            {
+            "mgoods_id": "17",
+            "card_record2_mcombo_gcount": "30",
+            "c_mgoods_name": "洗车卡",
+            "c_mgoods_price": "88.00",
+            "c_mgoods_cprice": "80.00"
+            }
+          ],
+          "mcombo_goods_count": 20,
+          "mcombo_goods_money": 6000
+        };
+        console.log(data);
+        laytpl($("#laimi-script-info").html()).render(data, function(html){
+          layer.open({
+            type: 1,
+            title: ["明细", "font-size:16px;"],
+            btnAlign: "r",
+            offset: 'rt',
+            anim: 7,
+            area: ["750px", "100%"],
+            shadeClose: true,//点击遮罩关闭
+            content: html,
+            success: function(){
+            
+            }
+          });
+        // });
+      })
+    });
+  });
+</script>
+</body>
+</html>

@@ -189,10 +189,10 @@
 							  {{# }) }}
 							  {{# layui.each(d.mcombo_goods_list2, function(index, item){ }}
 							    <tr>
-							      <td>{{item.c_mgoods_name || item.c_sgoods_name}}</td>
-							      <td>{{item.card_record3_goods_count}}</td>
-							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_rprice != 0 ? item.c_mgoods_rprice : item.c_sgoods_rprice}}</td>
-							      <td>{{item.c_mgoods_cprice != 0 ? '￥'.item.c_mgoods_cprice : '--'}}</td>
+							      <td>{{item.c_mgoods_name}}</td>
+							      <td>{{item.card_record3_mgoods_count}}</td>
+							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'+item.c_mgoods_cprice : '--'}}</td>
 							    </tr>
 							  {{# }) }}
 							    <tr>
@@ -201,9 +201,15 @@
 							   <!--  <tr>
 							      <td colspan="4" style="text-align:left;">优惠：满100元减10元&nbsp;&nbsp;×1</td>
 							    </tr> -->
+							  {{# if(d.ticket_list.length > 0){ }}
  							    <tr>
-							      <td colspan="4" style="text-align:left;">赠送：30元&nbsp;&nbsp;×3（满200元送30元）</td>
+							      <td colspan="4" style="text-align:left;">赠送：
+										{{# layui.each(d.ticket_list, function(index, item){ }}
+							      {{item.c_ticket_value}}元&nbsp;&nbsp;×{{item.count}}（{{item.c_act_name}}）;
+										{{# }) }}
+							      </td>
 							    </tr>
+							  {{# } }}
 							  </tbody>
 							</table>
 						{{# } }}
@@ -223,7 +229,7 @@
 							      <td>{{item.c_mgoods_name}}</td>
 							      <td>{{item.card_record2_mcombo_gcount}}</td>
 							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
-							      <td>{{item.c_mgoods_cprice != 0 ? '￥'.item.c_mgoods_cprice : '--'}}</td>
+							      <td>{{item.c_mgoods_cprice != 0 ? '￥'+item.c_mgoods_cprice : '--'}}</td>
 							    </tr>
 							  {{# }) }}
 							    <tr>
@@ -236,15 +242,16 @@
 			  	</div>
 		    </div>
 		    <div class="layui-col-md9">
-		      <button class="layui-btn layui-btn-normal">
+		      <button type="button" class="layui-btn layui-btn-normal laimi-refund" value="{{d.card_record_id}}">
 		      	退款
 		      </button>
-		      <button class="layui-btn layui-btn-primary">
-		      	删除
-		      </button>
+		     	<button type="button" class="layui-btn layui-btn-primary laimi-del" value="{{d.card_record_id}}">
+					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
+					删除
+					</button>
 		    </div>
 		    <div class="layui-col-md3" style="text-align:right;">
-		      <button class="layui-btn laimi-button-100">
+		      <button type="button" class="layui-btn laimi-button-100">
 		      	打印小票
 		      </button>
 		    </div>
@@ -288,7 +295,29 @@
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,
 				  	success: function(){
-				  	
+				  		$('.laimi-refund').on('click', function(){
+				  			var id = $(this).val();
+				  			objlayer.confirm('你确定要退款吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+				  				console.log(id);
+				  			  // $.post('worker_delete_do.php', {id:id}, function(res){
+				  			  // 	if(res == 0){
+				  			  // 		window.location.reload();
+				  			  // 	}else if(res == 1){
+				  					// 	objlayer.alert('删除失败，此员工有提成不能删除', {
+				  					// 		title: '提示信息'
+				  					// 	});
+				  					// }else{
+				  			  // 		objlayer.alert('删除失败，请联系管理员', {
+				  			  // 			title: '提示信息'
+				  			  // 		});
+				  			  // 	}
+				  			  // })
+				  			  objlayer.close(index);
+				  			});
+				  		})
+				  	},
+				  	end: function(){
+				  		$('.laimi-refund').off("click");
 				  	}
 				  });
 				});

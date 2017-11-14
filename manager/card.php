@@ -119,7 +119,7 @@ function get_card_list() {
 		$row['atime'] = date("Y-m-d",$row['card_atime']);
 		$row['discount'] = $row['c_card_type_discount'] == 0 ? 10 : $row['c_card_type_discount'];
 		$row['edate'] = $row['card_edate'] == 0 ? '--' : date("Y-m-d",$row['card_edate']);
-		$row['state'] = $row['card_state']=='1' ? '正常' : '停用';
+		$row['state'] = $row['card_state'] == '1' ? '正常' : ($row['card_state'] == '2' ? '停用' : '已删除');
 		$strsql = "SELECT c_mgoods_name,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$row['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time();
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$row['mcombo'] = $GLOBALS['gdb']->fun_fetch_all($hresult);

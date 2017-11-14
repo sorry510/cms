@@ -19,27 +19,18 @@ $hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
-// foreach ($arr as &$row){
-// 	$strsql = "SELECT shop_name FROM ".$GLOBALS['gdb']->fun_table('shop')." where shop_id = ".$row['shop_id']." limit 1";
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr1 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-// 	$row['shop_name'] = $arr1['shop_name'];
-// 	if($row['c_card_type_name'] == ''){
-// 		$row['c_card_type_name'] = '--';
-// 	}
-// 	if($row['c_card_type_discount'] == 0){
-// 		$row['c_card_type_discount'] = 10;
-// 	}
-// 	if($row['card_birthday_date'] != 0){
-// 		$row['birthday'] = date('Y-m-d', $row['card_birthday_date']);
-// 	}else{
-// 		$row['birthday'] = '--';
-// 	}
-// 	if($row['card_edate'] != 0){
-// 		$row['edate'] = date('Y-m-d', $row['card_edate']);
-// 	}else{
-// 		$row['edate'] = '--';
-// 	}
-// }
+foreach ($arr as &$row){
+	$strsql = "SELECT shop_name FROM ".$GLOBALS['gdb']->fun_table('shop')." where shop_id = ".$row['shop_id']." limit 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr1 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$row['shop_name'] = $arr1['shop_name'];
+
+	$row['type_name'] = $row['c_card_type_name'] != '' ? $row['c_card_type_name'] : '--';
+	$row['type_discount'] = $row['c_card_type_discount'] != 0 ? $row['c_card_type_discount'] : 10;
+	$row['birthday'] = $row['card_birthday_date'] != 0 ? date('Y-m-d', $row['card_birthday_date']) : '--';
+	$row['age'] = $row['card_birthday_date'] != 0 ? date('Y', time()) - date('Y', $row['card_birthday_date']).'岁' : '保密';
+	$row['edate'] = $row['card_edate'] != 0 ? date('Y-m-d', $row['card_edate']) : '--';
+	$row['sex'] = $row['card_sex'] == 1 ? '男' : ($row['card_sex'] == 2 ? '女' : '保密');
+}
 
 echo json_encode($arr);

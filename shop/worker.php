@@ -10,6 +10,7 @@ $intshop = api_value_int0($strshop);
 $strgroup = api_value_get('group');
 $intgroup = api_value_int0($strgroup);
 $strsearch = api_value_get('search');
+$sqlsearch = $gdb->fun_escape($strsearch);
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
@@ -23,7 +24,7 @@ $gtemplate->fun_show('worker');
 function get_request(){
 	$arr = array();
 	$arr['group'] = $GLOBALS['intgroup'];
-	$arr['search'] = $GLOBALS['strsearch'];
+	$arr['search'] = $GLOBALS['sqlsearch'];
 	return $arr;
 }
 function get_shop() {
@@ -54,9 +55,9 @@ function get_worker_list() {
 	if($GLOBALS['intgroup'] != 0){
 		$strwhere .= " AND worker_group_id=".$GLOBALS['intgroup'];
 	}
-	if($GLOBALS['strsearch'] != '') {
-	  $strwhere .= " AND (worker_name = '" . $GLOBALS['strsearch'] . "'";
-	  $strwhere .= " or worker_code = '" . $GLOBALS['strsearch'] . "')";
+	if($GLOBALS['sqlsearch'] != '') {
+	  $strwhere .= " AND (worker_name = '" . $GLOBALS['sqlsearch'] . "'";
+	  $strwhere .= " or worker_code = '" . $GLOBALS['sqlsearch'] . "')";
 	}
 	$strwhere .= " AND shop_id=".$GLOBALS['intshop'];
 

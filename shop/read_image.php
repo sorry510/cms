@@ -19,3 +19,4 @@ if(!@is_file($imagefile))
 	$imagefile = $image_path.'no.jpg';
 
 echo @file_get_contents($imagefile);
+

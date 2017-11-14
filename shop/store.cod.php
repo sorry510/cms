@@ -58,18 +58,25 @@
 			<td><?php echo $row['store_memo']; ?></td>
 			<td><?php echo $row['state']; ?></td>
 			<td>
+			<?php if($row['store_state'] != 2){ ?>
 				<button type="button" class="layui-btn layui-btn-mini laimi-sure" value="<?php echo $row['store_id']; ?>">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					确认
 				</button>
-				<button type="button" class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['store_id']; ?>">
+				<a href="store_edit.php?id=<?php echo $row['store_id']; ?>" class="layui-btn layui-btn-mini laimi-edit">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
-				</button>
+				</a>
 				<button type="button" class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['store_id']; ?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
 				</button>
+			<?php }else{ ?>
+				<button type="button" class="layui-btn layui-btn-mini" value="<?php echo $row['store_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					已确认
+				</button>
+			<?php } ?>
 			</td>
 		</tr>
 	<?php } ?>
@@ -112,7 +119,42 @@
 		});
 		objdate.render({
 			elem: '#laimi-to'
-		});	
+		});
+		$('.laimi-sure').on('click', function(){
+			var id = $(this).val();
+			objlayer.confirm('你已经确认了吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('store_state_do.php', {id:id}, function(msg){
+			  	console.log(msg);
+			  	if(msg == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
+		$(".laimi-del").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('worker_delete_do.php', {id:id}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else if(res == 1){
+						objlayer.alert('删除失败，此员工有提成不能删除', {
+							title: '提示信息'
+						});
+					}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 	});
 	</script>
 </body>

@@ -72,7 +72,7 @@
 	<?php foreach($this->_data['card_list']['list'] as $row) { ?>
 		<tr>
 			<td><?php echo $row['card_code'];?></td>
-			<td><a class="laimi-color-lan laimi-info" card="<?php echo $row['card_id'];?>" href="javascript:;"><?php echo $row['card_code'];?></a></td>
+			<td><a class="laimi-color-lan laimi-info" card="<?php echo $row['card_id'];?>" href="javascript:;"><?php echo $row['card_name'];?></a></td>
 			<td><?php echo $row['card_phone'];?></td>
 			<td><?php echo $row['sex'];?></td>
 			<td><?php echo $row['atime'];?></td>
@@ -81,7 +81,7 @@
 			<td><?php echo $row['state'];?></td>
 			<td><a class="laimi-color-lan" href="#">电子档案</a></td>
 			<td><a class="laimi-color-lan" href="#">消费明细</a></td>
-			<td>东风路分店</td>
+			<td><?php echo $row['shop_name'];?></td>
 		</tr>
 		<tr>
 			<td colspan="11" class="laimi-color-hui" style="text-align:left;">余额：<span class="laimi-color-ju">￥<?php echo $row['s_card_ymoney'];?></span>，剩余积分：<?php echo $row['s_card_yscore'];?>
@@ -296,19 +296,19 @@
 				  	title: ["电子档案信息", "font-size:16px;"],
 				  	btnAlign: "r",
 				  	offset: 'rt',
-				  	anim: 7,
+				  	anim: 2,
 				  	area: ["800px", "100%"],
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,
 				  	success: function(){
-				  		objtable.init('mcombo', {
-				  		  height: 118 //设置高度
-				  		  //支持所有基础参数
-				  		});
-				  		objtable.init('ticket', {
-				  		  height: 118 //设置高度
-				  		  //支持所有基础参数
-				  		});
+				  		// objtable.init('mcombo', {
+				  		//   height: 118 //设置高度
+				  		//   //支持所有基础参数
+				  		// });
+				  		// objtable.init('ticket', {
+				  		//   height: 118 //设置高度
+				  		//   //支持所有基础参数
+				  		// });
 				  	}
 				  });
 				});

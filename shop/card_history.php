@@ -117,7 +117,10 @@ function get_record_history(){
 		$row['age'] = $row['c_card_age'] != 0 ? $row['c_card_age'] : '保密';
 	}
 	unset($row);
-	// var_dump($arrlist);exit;
+	// echo "<pre>";
+	// var_dump($arrlist);
+	// echo "</pre>";
+	// exit;
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;
 	$arrpackage['pagenow'] = $intpagenow;

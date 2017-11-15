@@ -15,7 +15,7 @@ $arrreturn = array(
 
 $intreturn = 0;
 $arrfile = $_FILES['file'];
-$new_name = uniqid(time());
+$new_name = md5(uniqid(md5(microtime(true)),true));
 $strext = strtolower(strrchr($arrfile['name'], '.'));
 $photo = $new_name.$strext;
 // $arrreturn['data']['photo'] = $photo;

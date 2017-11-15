@@ -1,11 +1,16 @@
 <?php
 define('C_CNFLY', true);
+define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
 $strsearch = api_value_get('search');
 $sqlsearch = $gdb->fun_escape($strsearch);
+
+if($sqlsearch == ''){
+	return;
+}
 
 $arr = array();
 $strwhere = '';

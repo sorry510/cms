@@ -14,7 +14,7 @@
 						<a href="card_history.php">电子档案</a>
 					</li>
 					<li class="layui-this">
-						<a href="card_history_add.php">新增电子档案</a>
+						<a href="card_history_edit.php?id=<?php echo $this->_data['card_history']['card_history_id']; ?>">修改电子档案</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-system-user layui-tab-content">
@@ -23,19 +23,11 @@
 		<div class="layui-row">
 			<blockquote class="layui-elem-quote" style="height:40px;">
 				<div class="layui-form-item">
-					<label class="layui-form-label" style="width:40px;">*会员</label>
-					<div class="layui-input-inline last">
-						<input class="layui-input laimi-input-200 laimi-search" type="text" name="search" placeholder="卡号/手机号/姓名" lay-verify="required">
-						<input type="hidden" name="txtid" class="laimi-card-id" lay-verify="required">
-					</div>
-					<div class="layui-input-inline">
-						<button type="button" class="layui-btn layui-btn-normal laimi-card-search">搜索</button>
-					</div>
 					<div class="layui-input-inline">
 						<label class="layui-form-label" style="width:40px;">卡号:</label>
-						<div class="layui-form-mid laimi-color-ju laimi-card-code"></div>
+						<div class="layui-form-mid laimi-color-ju laimi-card-code"><?php echo htmlspecialchars($this->_data['card_history']['c_card_code']); ?></div>
 						<label class="layui-form-label" style="width:40px;">姓名:</label>
-						<div class="layui-form-mid laimi-color-ju"><span class="laimi-card-name">--</span>，<span class="laimi-card-sex">--</span>，<span class="laimi-card-age">--</span>，<span class="laimi-card-phone">--</span>，<span class="laimi-card-type">--</span></div>
+						<div class="layui-form-mid laimi-color-ju"><span class="laimi-card-name"><?php echo htmlspecialchars($this->_data['card_history']['c_card_name']); ?></span>，<span class="laimi-card-sex"><?php echo htmlspecialchars($this->_data['card_history']['sex']); ?></span>，<span class="laimi-card-age"><?php echo htmlspecialchars($this->_data['card_history']['age']); ?></span>，<span class="laimi-card-phone"><?php echo htmlspecialchars($this->_data['card_history']['c_card_phone']); ?></span>，<span class="laimi-card-type"><?php echo htmlspecialchars($this->_data['card_history']['c_card_type_name']); ?></span></div>
 					</div>
 				</div>
 			</blockquote>

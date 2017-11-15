@@ -9,30 +9,34 @@ $arrreturn = array(
 	'code' => 0,
 	'msg' => '',
 	'data' => [
-		'photo' => ''
+		'photo' => null
 	]
 );
 
 $intreturn = 0;
+// $photo = array();
 $arrfile = $_FILES['file'];
-$new_name = md5(uniqid(md5(microtime(true)),true));
-$strext = strtolower(strrchr($arrfile['name'], '.'));
-$photo = $new_name.$strext;
-// $arrreturn['data']['photo'] = $photo;
-// echo json_encode($arrreturn);return;
-$intlength = $_FILES['file']['size'];
-if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
-	if($intlength < 1024000) {
-		$hresult = move_uploaded_file($arrfile['tmp_name'], $GLOBALS['gconfig']['photo'][0].$photo);
-		if(!$hresult) {
-			$intreturn = 1;
-		}
-	}else{
-		$intreturn = 2;
-	}
-}else{
-	$intreturn = 3;
-}
+// foreach($arrfile as $key => $row){
+// 	$new_name = md5(uniqid(md5(microtime(true)),true));
+// 	array_push($photo, $key);
+// 	// $strext = strtolower(strrchr($row['name'], '.'));
+// 	// $intlength = $row['size'];
+// 	// if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
+// 	// 	if($intlength < 1024000) {
+// 	// 		$hresult = move_uploaded_file($row['tmp_name'], $GLOBALS['gconfig']['photo'][0].$new_name.$strext);
+// 	// 		if(!$hresult) {
+// 	// 			$intreturn = 1;
+// 	// 		}else{
+// 	// 			$photo[$key] = $new_name.$strext;
+// 	// 		}
+// 	// 	}else{
+// 	// 		$intreturn = 2;
+// 	// 	}
+// 	// }else{
+// 	// 	$intreturn = 3;
+// 	// }
+// }
+$photo = json_encode($arrfile);
 
 if($intreturn == 0){
 	$arrreturn['code'] = '200';

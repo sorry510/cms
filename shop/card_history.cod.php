@@ -49,7 +49,7 @@
 			<th>卡类型</th>
 			<th>诊疗人员</th>
 			<th>分店</th>
-			<th width="200">操作</th>
+			<th width="120">操作</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -57,22 +57,24 @@
 		<tr>
 			<td><?php echo $row['atime'];?></td>
 			<td><?php echo $row['c_card_code'];?></td>
-			<td><?php echo $row['c_card_name'];?></td>
+			<td><a class="laimi-color-lan laimi-info" history="<?php echo $row['card_history_id'];?>" href="javascript:;"><?php echo $row['c_card_name'];?></a></td>
 			<td><?php echo $row['sex'];?></td>
-			<td><?php echo $row['age'];?>岁</td>
+			<td><?php echo $row['age'];?></td>
 			<td><?php echo $row['c_card_phone'];?></td>
 			<td><?php echo $row['c_card_type_name'];?></td>
 			<td><span class="laimi-color-ju"><?php echo $row['c_worker_name'];?></span></td>
 			<td><?php echo $row['shop_name'];?></td>
 			<td>
-				<button type="button" class="layui-btn layui-btn-mini laimi-info" value="<?php echo $row['card_history_id'];?>">
+				<?php if($row['shop_id'] == $GLOBALS['intshop']){ ?>
+				<a href="card_history_edit.php?id=<?php echo $row['card_history_id']; ?>" class="layui-btn layui-btn-mini laimi-edit">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
-					档案明细
-				</button>
-				<a type="button" class="layui-btn layui-btn-mini" value="<?php echo $row['card_history_id'];?>">
-					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
-					档案修改
+					修改
 				</a>
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['card_history_id'];?>">
+					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
+					删除
+				</button>
+				<?php } ?>
 			</td>
 		</tr>
 	<?php }?>
@@ -208,7 +210,7 @@
 			}
 		});
 		$(".laimi-info").on("click", function() {
-			$.getJSON('card_history_edit_ajax.php', {id:$(this).val()}, function(data){
+			$.getJSON('card_history_edit_ajax.php', {id:$(this).attr('history')}, function(data){
 				objlaytpl($("#laimi-script-info").html()).render(data, function(html){
 				  objlayer.open({
 				  	type: 1,
@@ -226,6 +228,22 @@
 				});
 			})
 		});
+		$(".laimi-del").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要删除吗?', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('card_history_delete_do.php', {id:id}, function(res){
+			  	console.log(res);
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 	});
 	</script>
 </body>

@@ -32,28 +32,28 @@ if($intreturn == 0){
 	}
 }
 if($intreturn == 0){
-	$strsql = "DELETE FROM" . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ".$intcard_id." limit 1";
+	$strsql = "DELETE FROM " . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ".$intcard_id." limit 1";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;
 	}
 }
 if($intreturn == 0){
-	$strsql = "DELETE FROM" . $GLOBALS['gdb']->fun_table2('card_ticket') . " WHERE card_id = ".$intcard_id;
+	$strsql = "DELETE FROM " . $GLOBALS['gdb']->fun_table2('card_ticket') . " WHERE card_id = ".$intcard_id;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 4;
 	}
 }
 /*if($intreturn == 0){
-	$strsql = "DELETE FROM" . $GLOBALS['gdb']->fun_table2('card_ticket_record') . " WHERE card_id = ".$intcard_id;
+	$strsql = "DELETE FROM " . $GLOBALS['gdb']->fun_table2('card_ticket_record') . " WHERE card_id = ".$intcard_id;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 4;
 	}
 }*/
 if($intreturn == 0){
-	$strsql = "DELETE FROM" . $GLOBALS['gdb']->fun_table2('card_mcombo') . " WHERE card_id = ".$intcard_id;
+	$strsql = "DELETE FROM " . $GLOBALS['gdb']->fun_table2('card_mcombo') . " WHERE card_id = ".$intcard_id;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 5;

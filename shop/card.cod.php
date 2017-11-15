@@ -60,7 +60,7 @@
 			<th>电子档案</th>
 			<th>消费明细</th>
 			<th>所属店铺</th>
-			<th width="140">操作</th>
+			<th width="180">操作</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -83,6 +83,18 @@
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
 				</a>
+				<?php if($row['card_state'] == '2'){ ?>
+					<button class="layui-btn layui-bg-blue layui-btn-mini laimi-normal" value="<?php echo $row['card_id'];?>">
+						<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-dui"></use></svg>
+						启用
+					</button>
+				<?php } ?>
+				<?php if($row['card_state'] == '1'){ ?>
+					<button class="layui-btn layui-bg-red layui-btn-mini laimi-stop" value="<?php echo $row['card_id'];?>">
+						<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-tingyong"></use></svg>
+						停用
+					</button>
+				<?php } ?>
 				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del1" value="<?php echo $row['card_id'];?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
@@ -375,6 +387,36 @@
 			  		window.location.reload();
 			  	}else{
 			  		objlayer.alert('还原失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
+		$(".laimi-normal").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要启用吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('card_state_do.php', {id:id,type:'normal'}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('启用失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
+		$(".laimi-stop").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要停用吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('card_state_do.php', {id:id,type:'stop'}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('停用失败，请联系管理员', {
 			  			title: '提示信息'
 			  		});
 			  	}

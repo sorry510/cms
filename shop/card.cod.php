@@ -139,7 +139,7 @@
 	<!--会员明细弹出层开始-->
 	<script type="text/html" id="laimi-script-info">
 		<div id="laimi-modal-info" class="laimi-modal">
-			<div class="layui-row">
+			<div class="layui-row" style="overflow:auto">
 				<div class="layui-col-md4">
 					<label class="layui-form-label">会员照片</label>
 				  <div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=card&image=";?>{{d.card_photo_file}}" style="width:130px;height:130px;"></div>

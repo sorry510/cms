@@ -77,7 +77,7 @@ if($intreturn == 0){
 function update_photo($objfile, $photo, $place, $fix = ''){
 	$strtmpfile = $GLOBALS['gconfig']['photo'][0].$photo;
 	$strext = strtolower(strrchr($photo, '.'));
-	$strnewpath = $GLOBALS['gconfig']['image']['base'].$GLOBALS['_SESSION']['login_cid'].DIRECTORY_SEPARATOR."histroy".DIRECTORY_SEPARATOR;//目的文件夹
+	$strnewpath = $GLOBALS['gconfig']['image']['base'].$GLOBALS['_SESSION']['login_cid'].DIRECTORY_SEPARATOR."history".DIRECTORY_SEPARATOR;//目的文件夹
 	$strnewfile = $GLOBALS['intshop']."_".$GLOBALS['inthistory_id']."_".$fix.$strext;//新文件名
 	$hresult = $objfile -> moveFile($strtmpfile, $strnewpath.$strnewfile, true);
 	if($hresult){

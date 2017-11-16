@@ -44,57 +44,47 @@
 	      <div class="layui-form-item" style="margin-top:30px;">
 	      	<label class="layui-form-label">问题描述</label>
 			    <div class="layui-input-block">
-			      <textarea class="layui-textarea laimi-input-b80" name="txtquestion"></textarea>
+			      <textarea class="layui-textarea laimi-input-b80" name="txtquestion" lay-verify="required"></textarea>
 			    </div>
 		  	</div>
 			  <div class="layui-form-item">
 		      <label class="layui-form-label">诊疗结果</label>
 			    <div class="layui-input-block">
-			      <textarea class="layui-textarea laimi-input-b80" name="txtresult"></textarea>
+			      <textarea class="layui-textarea laimi-input-b80" name="txtresult" lay-verify="required"></textarea>
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
 		      <label class="layui-form-label">诊疗方案</label>
 			    <div class="layui-input-block">
-			      <textarea class="layui-textarea laimi-input-b80" name="txtplan"></textarea>
+			      <textarea class="layui-textarea laimi-input-b80" name="txtplan" lay-verify="required"></textarea>
 			    </div>
 			  </div>
 			  <div class="layui-form-item" style="margin-bottom:30px;">
-			  	<label class="layui-form-label">图片上传</label>
-			  	<div class="layui-input-block">
-			      <button type="button" class="layui-btn" id="laimi-upload">多图片上传</button>
-			    </div>
-			    <div class="layui-input-block">
-			      <blockquote class="layui-elem-quote layui-quote-nm laimi-input-b80" style="margin-top: 10px;">
-				    预览图：
-				    	<div class="layui-upload-list" id="laimi-photos"></div>
-				 		</blockquote>
-			  	</div>
-			  </div>
-			  <!-- <div class="layui-form-item" style="margin-bottom:30px;">
 			 		<label class="layui-form-label">图片上传</label>
 			 		<div class="layui-input-block">
 			 			<div class="layui-upload">
-			 			  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button> 
+			 			  <button type="button" class="layui-btn layui-btn-normal" id="photolist">选择多文件</button> 
 			 			  <div class="layui-upload-list">
-			 			    <table class="layui-table">
+			 			    <table class="layui-table" style="width:80%;">
 			 			      <thead>
-			 			        <tr><th>文件名</th>
+			 			        <tr>
+			 			        <th>预览图</th>
+			 			        <th>文件名</th>
 			 			        <th>大小</th>
 			 			        <th>状态</th>
 			 			        <th>操作</th>
 			 			      </tr></thead>
-			 			      <tbody id="demoList"></tbody>
+			 			      <tbody id="showList"></tbody>
 			 			    </table>
 			 			  </div>
-			 			  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+			 			  <button type="button" class="layui-btn" id="photolistAction">开始上传</button>
 			 			</div>
 			 		</div>
-			  </div> -->
+			  </div>
 		    <div class="layui-form-item">
 		      <label class="layui-form-label">服务人员</label>
 			    <div class="layui-input-block" style="width:200px;">
-			      <select name="txtworker" lay-search="">
+			      <select name="txtworker" lay-search="" lay-verify="required">
 		          <option value="">请选择服务人员</option>
 		          <?php foreach($this->_data['worker_list'] as $row){ ?>
 		          <option value="<?php echo $row['worker_id']; ?>"><?php echo $row['worker_name']; ?></option>
@@ -105,7 +95,7 @@
 		    <div class="layui-form-item">
 		      <label class="layui-form-label">添加时间</label>
 			    <div class="layui-input-block">
-			       <input id="laimi-to" class="layui-input laimi-input-200" type="text" name="txttime" placeholder="yyyy-MM-dd">
+			       <input id="laimi-to" class="layui-input laimi-input-200" type="text" name="txttime" placeholder="yyyy-MM-dd" lay-verify="required">
 			    </div>
 		    </div>
 			</fieldset>
@@ -137,32 +127,71 @@
 		var objform = layui.form;
 		var objupload = layui.upload;
 		var objlaydate = layui.laydate;
+		//多文件列表
 		var photo = [];
-		objupload.render({
-		  elem: '#laimi-upload',
-		  url: './upload_do.php',
-		  multiple: true,
-		  size: 1024000,
-		  before: function(obj){
-		    //预读本地文件示例，不支持ie8
-		    var files = obj.pushFile();
-		    obj.preview(function(index, file, result){
-		      $('#laimi-photos').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style=width:80px;height:80px;margin-right:10px;">')
-		    });
-		  },
-		  done: function(res, index){
-		    //上传完毕
-		    if(res.code == 200){
-		    	photo.push(res.data);
-		    }
-		  }
-		});
+		var file = {};
+	  var showListView = $('#showList'),
+	  uploadListIns = objupload.render({
+	    elem: '#photolist'
+	    ,url: './upload_do.php'
+	    ,multiple: true
+	    ,auto: false
+	    ,size: 1024
+	    ,bindAction: '#photolistAction'
+	    ,choose: function(obj){
+	      files = obj.pushFile(); //将每次选择的文件追加到文件队列
+	      // 读取本地文件
+	      obj.preview(function(index, file, result){
+	        var tr = $(['<tr id="upload-'+ index +'">'
+	        ,'<td style="padding:3px;"><img src="'+result+'" width="60" height="60"/></td>'
+	          ,'<td>'+ file.name +'</td>'
+	          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+	          ,'<td>等待上传</td>'
+	          ,'<td>'
+	            ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+	            ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+	          ,'</td>'
+	        ,'</tr>'].join(''));
+	        
+	        //单个重传
+	        tr.find('.demo-reload').on('click', function(){
+	          obj.upload(index, file);
+	        });
+	        
+	        //删除
+	        tr.find('.demo-delete').on('click', function(){
+	          delete files[index]; //删除对应的文件
+	          tr.remove();
+	        });
+	        
+	        showListView.append(tr);
+	      });
+	    }
+	    ,done: function(res, index, upload){
+	      if(res.code == 200){ //上传成功
+	        var tr = showListView.find('tr#upload-'+ index)
+	        ,tds = tr.children();
+	        tds.eq(3).html('<span style="color: #5FB878;">上传成功</span>');
+	        tds.eq(4).html(''); //清空操作
+	        delete files[index]; //删除文件队列已经上传成功的文件
+	        photo.push(res.data);
+	        return;
+	      }
+	      this.error(index, upload);
+	    }
+	    ,error: function(index, upload){
+	      var tr = showListView.find('tr#upload-'+ index)
+	      ,tds = tr.children();
+	      tds.eq(3).html('<span style="color: #FF5722;">上传失败</span>');
+	      tds.eq(4).find('.demo-reload').removeClass('layui-hide'); //显示重传
+	    }
+	  });
 		objlaydate.render({
 			elem: '#laimi-to'
 		});
 		objform.on("submit(laimi-submit)", function(data) {
 			data.field.photo = photo;
-			console.log(data.field);
+			// console.log(data.field);return false;
 			$.post('card_history_add_do.php', data.field, function(msg){
 			  console.log(msg);
 			  if(msg == 0){

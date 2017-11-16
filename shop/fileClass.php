@@ -134,7 +134,7 @@ class FileClass{
      */
     function unlinkFile($aimUrl) {
         if (file_exists($aimUrl)) {
-            unlink($aimUrl);
+            @unlink($aimUrl);
             return true;
         } else {
             return false;

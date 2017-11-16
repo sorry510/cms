@@ -16,6 +16,10 @@ $gconfig['system']['guimo']['d100'] = '100人以上';*/
 
 $gconfig['image']['base'] = 'D:'.DIRECTORY_SEPARATOR.'UPUPW5.6'.DIRECTORY_SEPARATOR.'UPUPW_AP5.6'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'photo'.DIRECTORY_SEPARATOR;
 $gconfig['photo'][0] = C_ROOT.'/photo/temp/';
+$gconfig['catalog'][0] = 'history';
+$gconfig['catalog'][1] = 'worker';
+$gconfig['catalog'][2] = 'shop';
+
 
 $gconfig['photo'][1] = C_ROOT.'/photo/company/';
 $gconfig['photo'][2] = C_ROOT.'/photo/shop/';

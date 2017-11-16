@@ -156,7 +156,7 @@
 							<tbody>
 								<tr>
 									<th colspan="2" style="text-align:left;">
-										
+
 									</th>
 									<th>
 										<div class="layui-input-inline">
@@ -344,6 +344,7 @@
 		    }
 		  }
 		}
+
 	});
 	</script>
 </body>

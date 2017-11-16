@@ -75,19 +75,21 @@
 			 		<label class="layui-form-label">图片上传</label>
 			 		<div class="layui-input-block">
 			 			<div class="layui-upload">
-			 			  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button> 
+			 			  <button type="button" class="layui-btn layui-btn-normal" id="photolist">选择多文件</button> 
 			 			  <div class="layui-upload-list">
-			 			    <table class="layui-table">
+			 			    <table class="layui-table" style="width:80%;">
 			 			      <thead>
-			 			        <tr><th>文件名</th>
+			 			        <tr>
+			 			        <th>预览图</th>
+			 			        <th>文件名</th>
 			 			        <th>大小</th>
 			 			        <th>状态</th>
 			 			        <th>操作</th>
 			 			      </tr></thead>
-			 			      <tbody id="demoList"></tbody>
+			 			      <tbody id="showList"></tbody>
 			 			    </table>
 			 			  </div>
-			 			  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+			 			  <button type="button" class="layui-btn" id="photolistAction">开始上传</button>
 			 			</div>
 			 		</div>
 			  </div>
@@ -137,44 +139,6 @@
 		var objform = layui.form;
 		var objupload = layui.upload;
 		var objlaydate = layui.laydate;
-		// objupload.render({
-		//   elem: '#laimi-upload',
-		//   url: './upload_do.php',
-		//   multiple: true,
-		//   size: 1024000,
-		//   choose: function(obj){
-	 //      //将每次选择的文件追加到文件队列
-	 //      var files = obj.pushFile();
-	 //      if(files.length >= 5){
-	 //      	return false;
-	 //      }
-	 //      console.log(files.length);
-	 //      //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
-	 //      // obj.preview(function(index, file, result){
-	 //      //   console.log(index); //得到文件索引
-	 //      //   console.log(file); //得到文件对象
-	 //      //   console.log(result); //得到文件base64编码，比如图片
-	        
-	 //      //   //这里还可以做一些 append 文件列表 DOM 的操作
-	        
-	 //      //   //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
-	 //      //   //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
-	 //      // });
-	 //    },
-		//   before: function(obj){
-		//     //预读本地文件示例，不支持ie8
-		//     var files = obj.pushFile();
-		//     console.log(files.length);
-		//     obj.preview(function(index, file, result){
-		//       $('#laimi-photos').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style=width:80px;height:80px;margin-right:10px;">')
-		//     });
-		//   },
-		//   done: function(res, index){
-		//     //上传完毕
-		//     console.log(res);
-		//     console.log(index);
-		//   }
-		// });
 		objlaydate.render({
 			elem: '#laimi-to'
 		});
@@ -218,29 +182,23 @@
 				}
 			});
 		})
-		//多文件列表示例
-		function Obj(){};
-		var files = new Obj();
-	  var demoListView = $('#demoList'),
+		//多文件列表
+		var photo = [];
+		var file = {};
+	  var showListView = $('#showList'),
 	  uploadListIns = objupload.render({
-	    elem: '#testList'
+	    elem: '#photolist'
 	    ,url: './upload_do.php'
-	    ,accept: 'file'
 	    ,multiple: true
 	    ,auto: false
-	    ,bindAction: '#testListAction'
+	    ,size: 1024
+	    ,bindAction: '#photolistAction'
 	    ,choose: function(obj){
-	      if(Object.getOwnPropertyNames(files).length <= 5){
-	      	files = obj.pushFile(); //将每次选择的文件追加到文件队列
-		    }else{
-    	    objlayer.alert('图片数量不能大于5张', {
-    				title: '提示信息'
-    			});
-	      	return false;
-	      }
+	      files = obj.pushFile(); //将每次选择的文件追加到文件队列
 	      // 读取本地文件
 	      obj.preview(function(index, file, result){
 	        var tr = $(['<tr id="upload-'+ index +'">'
+	        ,'<td style="padding:3px;"><img src="'+result+'" width="60" height="60"/></td>'
 	          ,'<td>'+ file.name +'</td>'
 	          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 	          ,'<td>等待上传</td>'
@@ -261,26 +219,24 @@
 	          tr.remove();
 	        });
 	        
-	        demoListView.append(tr);
+	        showListView.append(tr);
 	      });
 	    }
 	    ,done: function(res, index, upload){
 	      if(res.code == 200){ //上传成功
-	        var tr = demoListView.find('tr#upload-'+ index)
+	        var tr = showListView.find('tr#upload-'+ index)
 	        ,tds = tr.children();
-	        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-	        tds.eq(3).html(''); //清空操作
-	        // delete files[index]; //删除文件队列已经上传成功的文件
-	        $.each(files, function(k, v){
-	        	console.log(v);
-	        })
+	        tds.eq(3).html('<span style="color: #5FB878;">上传成功</span>');
+	        tds.eq(4).html(''); //清空操作
+	        delete files[index]; //删除文件队列已经上传成功的文件
+	        photo.push(res.data);
 	        return;
 	      }
 
 	      this.error(index, upload);
 	    }
 	    ,error: function(index, upload){
-	      var tr = demoListView.find('tr#upload-'+ index)
+	      var tr = showListView.find('tr#upload-'+ index)
 	      ,tds = tr.children();
 	      tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
 	      tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传

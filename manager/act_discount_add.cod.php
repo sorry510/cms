@@ -68,7 +68,7 @@
 					重置
 					</button>
 				</div>
-			</div>
+			</div>															
 		</div>
 		<div class="layui-col-xs6">
 			<div class="layui-tab">
@@ -203,12 +203,6 @@
 		objdate.render({
 			elem: '#laimi-to'
 		});
-		objform.on("submit(laimi-submit)", function(data) {
-			objlayer.alert(JSON.stringify(data.field), {
-				title: '提示信息'
-			});
-			return false;
-		});
 		//添加操作JS
 		$('.laimi-submitadd').on('click',function(){
 		  $('.laimi-submitadd').attr("disabled",true);
@@ -219,7 +213,7 @@
 		    if ($(this).find("input[name='txtgoods_discount[]']").val() != '' && $(this).find("input[name='txtgoods_price[]']").val() !='') {
 		      var json = {'mgoods_catalog_id':$(this).attr('mgoods_catalog_id'),'mgoods_id':$(this).attr('mgoods_id'),'value':$(this).find("input[name='txtgoods_discount[]']").val(),'price':$(this).find("input[name='txtgoods_price[]']").val()};
 		    arr1.push(json);
-		    }  
+		    }
 		  });
 		  $("#laimi-discount2 .laimi-mcombo").each(function(){
 		    if ($(this).find("input[name='txtmcombo_discount[]']").val() != '' && $(this).find("input[name='txtmcombo_price[]']").val() !='') {
@@ -248,7 +242,6 @@
 		      arr1:arr1,
 		      arr2:arr2
 		  }
-		  console.log(data);
 		  $.post(url,data,function(res){
 		    if(res=='0'){
 		      window.location="act_discount.php";
@@ -261,7 +254,6 @@
 		    }else{
 		      $('.laimi-submitadd').attr("disabled",false);
 		      alert('添加失败');
-		      console.log(res);
 		    }
 		  });
 		});
@@ -278,15 +270,14 @@
 		      	$(this).removeClass('layui-hide');
 		      	$(this).addClass('laimi-use1');
 		      }
-		    } 
-		  }) 
+		    }
+		  })
 		});
 		//批量设置商品js
 		$('#laimi-discount .laimi-allset1').on('click',function () {
 		  var value = Number($("#laimi-discount input[name='allmgoods_discount']").val());
 	  	$("#laimi-discount .laimi-use1").each(function () {
 	      if (value>0) {
-	      	console.log($(this).find("input[name='txtgoods_discount[]']"));
 	        $(this).find("input[name='txtgoods_discount[]']").val(value);
 	        var value2 = Number($(this).attr('mgoods_price'));
 	        var k = value * value2 / 10;
@@ -300,10 +291,8 @@
 		  var value = Number($("#laimi-discount2 input[name='allmcombo_discount']").val());
 	  	$("#laimi-discount2 .laimi-mcombo").each(function () {
 	      if (value>0) {
-	      	
 	        $(this).find("input[name='txtmcombo_discount[]']").val(value);
 	        var value2 = Number($(this).attr('mcombo_price'));
-	        console.log($(this).attr('mcombo_price'));
 	        var k = value * value2 / 10;
 	        k = k.toFixed(2);
 	        $(this).find("input[name='txtmcombo_price[]']").val(k);

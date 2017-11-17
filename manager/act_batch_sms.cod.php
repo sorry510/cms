@@ -25,16 +25,16 @@
 	<div class="laimi-tools layui-form-item">		  	
 		<label class="layui-form-label">活动名称</label>
 		<div class="layui-input-inline">
-			<input class="layui-input" type="text" name="name">
+			<input class="layui-input" type="text" name="act_name" value="<?php echo htmlspecialchars($this->_data['request']['act_name']); ?>">
 		</div>
 		<label class="layui-form-label">日期</label>
 		<div class="layui-input-inline">
-			<input id="laimi-from" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd">
+			<input name="from" id="laimi-from" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['from']); ?>">
 		</div>
 		<label class="layui-form-label">至</label>
 		<div class="layui-input-inline last">
-			<input id="laimi-to" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd">
-		</div>		      
+			<input name="to" id="laimi-to" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" value="<?php echo htmlspecialchars($this->_data['request']['to']); ?>">
+		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
@@ -50,12 +50,14 @@
 		</tr> 
 	</thead>
 	<tbody>
+		<?php foreach($this->_data['sms_list']['list'] as $row) { ?>
 		<tr>
-			<td>1970-8-23 16:25</td>
-			<td>国庆节微信优惠券活动</td>
-			<th>微信推送、短信通知</th>
-			<td>50人</td>
-		</tr>			   	    
+			<td><?php echo date('Y-m-d H:i',$row['act_ticket_atime']) ; ?></td>
+			<td><?php echo $row['act_ticket_name']; ?></td>
+			<td><?php echo $row['act_ticket_info']; ?></td>
+			<td><?php echo $row['s_act_ticket_count']; ?></td>
+		</tr>
+		<?php };?>	   	    
 	</tbody>
 </table>
 <div class="laimi-page">
@@ -81,11 +83,16 @@
 		});
 		objpage.render({
 			elem: 'laimi-page-content',
-			count: 50,
-			limit: 50,
+			count: <?php echo $this->_data['sms_list']['allcount'];?>,
+			limit: 25,
+			curr: <?php echo $this->_data['sms_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
-			jump: function(obj) {
-				//console.log(obj)
+			jump: function(obj,first) {
+				var search = "<?php echo api_value_query($this->_data['request']);?>";
+				var url = window.location.pathname+'?'+'page='+obj.curr+'&'+search;
+				if(!first){
+					window.location.href = url;
+        }
 			}
 		});
 	});

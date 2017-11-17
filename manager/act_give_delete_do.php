@@ -1,9 +1,14 @@
 <?php
 define('C_CNFLY', true);
-//define('C_NOTEMPLATE', true);
+define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
+
+if(laimi_config_trade()['act_module'] != 1){
+	echo '<script> window.history.back();</script>';
+	return;
+}
 
 $strid = api_value_post('id');
 $intid = api_value_int0($strid);
@@ -46,14 +51,6 @@ if($intreturn == 0) {
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;
-	}
-}
-
-if($intreturn == 0) {
-	$strsql = "DELETE FROM " . $gdb->fun_table2('act_give_shop') . " WHERE act_give_id = " . $intid ;
-	$hresult = $gdb->fun_do($strsql);
-	if($hresult == FALSE) {
-		$intreturn = 4;
 	}
 }
 

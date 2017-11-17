@@ -4,8 +4,15 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
+if(laimi_config_trade()['act_module'] != 1){
+	echo '<script> window.history.back();</script>';
+	return;
+}
+
 $strchannel = 'marketing';
 
+$strsign = api_value_get('sign');
+$intsign = api_value_int0($strsign);
 $strtype = api_value_get('card');
 $inttype = api_value_int0($strtype);
 $strshop = api_value_get('shop');
@@ -46,7 +53,8 @@ $gtemplate->fun_show('act_batch');
 
 function get_request(){
 	$arr = array();
-	$arr['type'] = $GLOBALS['strtype'];
+	$arr['shop'] = $GLOBALS['strshop'];
+	$arr['card'] = $GLOBALS['strtype'];
 	$arr['sex'] = $GLOBALS['strsex'];
 	$arr['atime'] = $GLOBALS['stratime'];
 	$arr['latime'] = $GLOBALS['strlatime'];
@@ -101,6 +109,9 @@ function get_card_list() {
 	$arrpackage = array();
 	
 	$strwhere = '';
+	if ($GLOBALS['intsign'] != 1) {
+		$strwhere = $strwhere . ' AND 1>2 ';
+	}
 	if ($GLOBALS['strtype'] != '') {
 		$strwhere = $strwhere . ' AND card_type_id = '. $GLOBALS['inttype'];
 	}
@@ -160,7 +171,7 @@ function get_card_list() {
 		}
 	}
 	if($GLOBALS['sqlphone'] !='') {
-		$strwhere = $strwhere . ' AND card_phone = "' . $GLOBALS['sqlphone'] .'" OR card_name like "%'.$GLOBALS['sqlphone'].'%" OR card_code = "'.$GLOBALS['sqlphone'].'"';
+		$strwhere = $strwhere . ' AND card_phone = "' . $GLOBALS['sqlphone'] .'" OR card_name = "'.$GLOBALS['sqlphone'].'" OR card_code = "'.$GLOBALS['sqlphone'].'"';
 	}
 	if($GLOBALS['intshop'] !='') {
 		$strwhere = $strwhere . ' AND shop_id = '.$GLOBALS['intshop'];

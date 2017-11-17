@@ -3,7 +3,12 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
+
+if(laimi_config_trade()['act_module'] != 1){
+	echo '<script> window.history.back();</script>';
+	return;
+}
 
 $strid = api_value_post('txtid');
 $intid = api_value_int0($strid);
@@ -33,7 +38,7 @@ if ($intdays > 365) {
 }
 
 if($intreturn == 0) {
-	$strsql = "UPDATE " . $gdb->fun_table2('ticket_goods') . " SET  ticket_goods_name = '" . $sqlname . "', ticket_goods_value = "
+	$strsql = "UPDATE " . $gdb->fun_table2('ticket_goods') . " SET ticket_goods_name = '" . $sqlname . "', ticket_goods_value = "
 	. $decvalue . ", mgoods_id = " . $intgoods_id  . ", ticket_goods_days = " . $intdays. ", ticket_goods_begin = " . $intbegin . ",  ticket_goods_memo = '"
 	. $sqlmemo . "', ticket_goods_ctime = " . time() . " WHERE ticket_goods_id = " . $intid . " LIMIT 1";
 

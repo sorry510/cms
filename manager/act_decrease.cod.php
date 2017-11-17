@@ -126,7 +126,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 活动名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -140,24 +140,24 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 实付满</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-80" type="text" name="txtman" placeholder="￥">
+						<input class="layui-input laimi-input-80" type="text" name="txtman" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">减</div>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-80" type="text" name="txtjian" placeholder="￥">
+						<input class="layui-input laimi-input-80" type="text" name="txtjian" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元，例：满200减50元</div>				
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 开始时间</label>
 					<div class="layui-input-inline">
-						<input name="txtstart" id="laimi-from2" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="txtstart" id="laimi-from2" class="layui-input" type="text" placeholder="yyyy-MM-dd" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 结束时间</label>
 					<div class="layui-input-inline">
-						<input name="txtend" id="laimi-to2" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="txtend" id="laimi-to2" class="layui-input" type="text" placeholder="yyyy-MM-dd" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -183,7 +183,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 活动名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 						<input class="layui-input laimi-input-300" type="hidden" name="txtid">
 					</div>
 				</div>
@@ -198,24 +198,24 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 实付满</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-80" type="text" name="txtman" placeholder="￥">
+						<input class="layui-input laimi-input-80" type="text" name="txtman" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">减</div>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-80" type="text" name="txtjian" placeholder="￥">
+						<input class="layui-input laimi-input-80" type="text" name="txtjian" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元，例：满200减50元</div>				
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 开始时间</label>
 					<div class="layui-input-inline">
-						<input name="txtstart" id="laimi-from3" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="txtstart" id="laimi-from3" class="layui-input" type="text" placeholder="yyyy-MM-dd" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 结束时间</label>
 					<div class="layui-input-inline">
-						<input name="txtend" id="laimi-to3" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="txtend" id="laimi-to3" class="layui-input" type="text" placeholder="yyyy-MM-dd" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -360,39 +360,48 @@
 		  });
 			return false;
 		});
-		//停止启用操作JS
-		$('.laimi-stop').on('click',function(){
-      var url="act_decrease_stop_do.php";
+		//停用操作JS
+	  $(".laimi-stop").on("click", function() {
+			var url="act_decrease_stop_do.php";
       var data = {
         id:$(this).val(),
         type:'stop'
       }
-      $.post(url,data,function(res){
-        if(res=='0'){
-          window.location.reload();
-        }else if(res=='101'){
-          alert('活动已经结束');
-        }else if(res=='102'){
-          alert('活动未开始');
-        }else{
-          alert('停止失败');
-        }
-      });
-		});
-		$('.laimi-start').on('click',function(){
-      var url="act_decrease_stop_do.php";
+			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url,data,function(res){
+	        if(res=='0'){
+	          window.location.reload();
+	        }else if(res=='101'){
+	          alert('活动已经结束');
+	        }else if(res=='102'){
+	          alert('活动未开始');
+	        }else{
+	          alert('停止失败');
+	        }
+	      })
+			  objlayer.close(index);
+			});
+		})
+		//启用操作JS
+	  $(".laimi-start").on("click", function() {
+			var url="act_decrease_stop_do.php";
       var data = {
         id:$(this).val(),
         type:'start'
       }
-      $.post(url,data,function(res){
-        if(res=='0'){
-          window.location.reload();
-        }else{
-          alert('启用失败');
-        }
-      });
-		});
+			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url, {id:id}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 		//删除操作JS
 	  $(".laimi-del").on("click", function() {
 			var id = $(this).val();

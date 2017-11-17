@@ -27,7 +27,7 @@
 		<label class="layui-form-label">活动名称</label>
 		<div class="layui-input-inline">
 			<input class="layui-input" type="text" name="act_name" value="<?php echo htmlspecialchars($this->_data['request']['act_name']); ?>">
-			<input class="layui-input" type="hidden" name="expire" value="<?php echo htmlspecialchars($this->_data['request']['act_name']); ?>">
+			<input class="layui-input" type="hidden" name="expire" value="<?php echo htmlspecialchars($this->_data['request']['expire']); ?>">
 		</div>
 		<label class="layui-form-label">日期</label>
 		<div class="layui-input-inline">
@@ -145,39 +145,48 @@
         }
 			}
 		});
-		//停止启用操作JS
-		$('.laimi-stop').on('click',function(){
-      var url="act_discount_stop_do.php";
+		//停用操作JS
+	  $(".laimi-stop").on("click", function() {
+			var url="act_discount_stop_do.php";
       var data = {
         id:$(this).val(),
         type:'stop'
       }
-      $.post(url,data,function(res){
-        if(res=='0'){
-          window.location.reload();
-        }else if(res=='101'){
-          alert('活动已经结束');
-        }else if(res=='102'){
-          alert('活动未开始');
-        }else{
-          alert('停止失败');
-        }
-      });
-		});
-		$('.laimi-start').on('click',function(){
-      var url="act_discount_stop_do.php";
+			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url,data,function(res){
+	        if(res=='0'){
+	          window.location.reload();
+	        }else if(res=='101'){
+	          alert('活动已经结束');
+	        }else if(res=='102'){
+	          alert('活动未开始');
+	        }else{
+	          alert('停止失败');
+	        }
+	      })
+			  objlayer.close(index);
+			});
+		})
+		//启用操作JS
+	  $(".laimi-start").on("click", function() {
+			var url="act_discount_stop_do.php";
       var data = {
         id:$(this).val(),
         type:'start'
       }
-      $.post(url,data,function(res){
-        if(res=='0'){
-          window.location.reload();
-        }else{
-          alert('启用失败');
-        }
-      });
-		});
+			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url, {id:id}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 		//删除操作JS
 	  $(".laimi-del").on("click", function() {
 			var id = $(this).val();

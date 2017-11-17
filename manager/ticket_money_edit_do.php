@@ -3,11 +3,16 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
+
+if(laimi_config_trade()['act_module'] != 1){
+	echo '<script> window.history.back();</script>';
+	return;
+}
 
 $strid = api_value_post('txtid');
 $intid = api_value_int0($strid);
-$strname =api_value_post('txtname');
+$strname = api_value_post('txtname');
 $sqlname = $gdb->fun_escape($strname);
 $strvalue = api_value_post('txtvalue');
 $decvalue = api_value_decimal($strvalue, 2);
@@ -43,6 +48,7 @@ if($intreturn == 0) {
 		$intreturn = 2;
 	}
 }
+
 echo $intreturn;
 
 ?>

@@ -149,6 +149,7 @@
 					<label class="layui-form-label">会员手机号</label>
 					<div class="layui-input-inline">
 						<input class="layui-input laimi-input-200" type="text" name="txtcode" placeholder="卡号/手机号/姓名">
+						<input class="layui-input laimi-input-200" type="hidden" value="1" name="sign" placeholder="">
 					</div>
 					<div class="layui-form-mid layui-word-aux"></div>
 				</div>
@@ -173,7 +174,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 活动名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -197,13 +198,13 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 通知方式</label>
 					<div class="layui-input-inline">
-						<input type="checkbox" name="like1[write]" lay-skin="primary" title="微信推送" checked="">
-						<input type="checkbox" name="like1[read]" lay-skin="primary" title="短信通知">
+						<input type="checkbox" name="like1[write]" lay-skin="primary" value="1" title="微信推送" checked="">
+						<input type="checkbox" name="like1[read]" lay-skin="primary" value="2" title="短信通知">
 					</div>
 				</div>
 				<div class="layui-form-item">
 			    <div class="layui-input-block">
-			      <button class="layui-btn laimi-button-100 " lay-filter="laimi-submitadd" lay-submit>完成</button>
+			      <button class="layui-btn laimi-button-100 " lay-filter="laimi-submitweixin" lay-submit>完成</button>
 			      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			    </div>
 		  	</div>
@@ -222,13 +223,13 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 活动名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 短信内容</label>
 					<div class="layui-input-block">
-						<textarea class="layui-textarea laimi-input-b80" name="txtcontent"></textarea>
+						<textarea class="layui-textarea laimi-input-b80" name="txtcontent" lay-verify="required"></textarea>
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -247,7 +248,7 @@
 				</div>
 				<div class="layui-form-item">
 			    <div class="layui-input-block">
-			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submit3" lay-submit>完成</button>
+			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submitsms" lay-submit>完成</button>
 			      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			    </div>
 		  	</div>
@@ -335,29 +336,27 @@
 			});
 			objform.render(); //刷新select选择框渲染
 		});
+		objform.on('checkbox', function(data){
+			if (data.elem.checked) {
+				$(this).val(1);
+			} else{$(this).val(2);}
+		}); 
 		//批量送券JS
-		function GetQueryString(name)
-		{
-		  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-		  var r = window.location.search.substr(1).match(reg);
-		  if(r!=null)return  unescape(r[2]); return '';
-		}
-		objform.on("submit(laimi-submitadd)", function(data) {
-			console.log(1);
+		objform.on("submit(laimi-submitweixin)", function(data) {
 	    var _self = $(this);
 	    _self.attr('disabled',true);
-	    var url="act_batch_add_do.php";
-	    var shop = GetQueryString('shop');
-	    var card = GetQueryString('card');
-	    var sex = GetQueryString('sex');
-	    var atime = GetQueryString('atime');
-	    var latime = GetQueryString('latime');
-	    var edate = GetQueryString('ledate');
-	    var ledate = GetQueryString('ledate');
-	    var birthday = GetQueryString('birthday');
-	    var lbirthday = GetQueryString('lbirthday');
-	    var ldays = GetQueryString('ldays');
-	    var phone = GetQueryString('phone');
+	    var url="act_batch_weixin_do.php";
+	    var shop = '<?php echo $this->_data['request']['shop'];?>';
+	    var card = '<?php echo $this->_data['request']['card'];?>';
+	    var sex = '<?php echo $this->_data['request']['sex'];?>';
+	    var atime = '<?php echo $this->_data['request']['atime'];?>';
+	    var latime = '<?php echo $this->_data['request']['latime'];?>';
+	    var edate = '<?php echo $this->_data['request']['edate'];?>';
+	    var ledate = '<?php echo $this->_data['request']['ledate'];?>';
+	    var birthday = '<?php echo $this->_data['request']['birthday'];?>';
+	    var lbirthday = '<?php echo $this->_data['request']['lbirthday'];?>';
+	    var ldays = '<?php echo $this->_data['request']['ldays'];?>';
+	    var phone = '<?php echo $this->_data['request']['phone'];?>';
 	    var act_name = $("#laimi-modal-weixin input[name='txtname']").val();
 	    var ticket = $("#laimi-modal-weixin select[name='txtticket']").val();
 	    var sms = $("#laimi-modal-weixin input[name='like1[read]']").val();
@@ -376,13 +375,63 @@
 	      act_name:act_name,
 	      ticket:ticket,
 	      sms:sms,
-	      weixn:weixin
+	      weixin:weixin
 	    };
 	    console.log(data);
 	    $.post(url,data,function(res){
 	      if(res=='0'){
 	        alert('发送成功！');
 	        _self.attr("disabled",false);
+	        objlayer.closeAll();
+	      }else if(res=='100'){
+	        alert('没有发送对象');
+	        _self.attr("disabled",false);
+	      }else{
+	        alert('发送失败');
+	        console.log(res);
+	        _self.attr("disabled",false);
+	      }
+	    });
+			return false;
+		});
+		objform.on("submit(laimi-submitsms)", function(data) {
+			console.log(1);
+	    var _self = $(this);
+	    _self.attr('disabled',true);
+	    var url="act_batch_sms_do.php";
+	    var shop = '<?php echo $this->_data['request']['shop'];?>';
+	    var card = '<?php echo $this->_data['request']['card'];?>';
+	    var sex = '<?php echo $this->_data['request']['sex'];?>';
+	    var atime = '<?php echo $this->_data['request']['atime'];?>';
+	    var latime = '<?php echo $this->_data['request']['latime'];?>';
+	    var edate = '<?php echo $this->_data['request']['edate'];?>';
+	    var ledate = '<?php echo $this->_data['request']['ledate'];?>';
+	    var birthday = '<?php echo $this->_data['request']['birthday'];?>';
+	    var lbirthday = '<?php echo $this->_data['request']['lbirthday'];?>';
+	    var ldays = '<?php echo $this->_data['request']['ldays'];?>';
+	    var phone = '<?php echo $this->_data['request']['phone'];?>';
+	    var act_name = $("#laimi-modal-sms input[name='txtname']").val();
+	    var act_info = $("#laimi-modal-sms textarea[name='txtcontent']").val();
+	    var data = {
+	    	shop:shop,
+	      card:card,
+	      sex:sex,
+	      atime:atime,
+	      latime:latime,
+	      edate:edate,
+	      ledate:ledate,
+	      birthday:birthday,
+	      lbirthday:lbirthday,
+	      ldays:ldays,
+	      act_name:act_name,
+	      act_info:act_info
+	    };
+	    console.log(data);
+	    $.post(url,data,function(res){
+	      if(res=='0'){
+	        alert('发送成功！');
+	        _self.attr("disabled",false);
+	        layer.closeAll();
 	      }else if(res=='100'){
 	        alert('没有发送对象');
 	        _self.attr("disabled",false);

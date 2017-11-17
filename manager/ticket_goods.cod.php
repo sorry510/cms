@@ -86,20 +86,20 @@
 		<div id="laimi-modal-add" class="laimi-modal">
 			<form class="layui-form">
 				<div class="layui-form-item">
-					<label class="layui-form-label">名称</label>
+					<label class="layui-form-label"><span>*</span>名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">面值</label>
+					<label class="layui-form-label"><span>*</span>面值</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">体验商品</label>
+					<label class="layui-form-label"><span>*</span>体验商品</label>
 					<div class="layui-input-inline">
 						<select name="txtmgoods" lay-search>
 							<option value="">请选择商品</option>
@@ -119,14 +119,14 @@
 					<div class="layui-form-mid layui-word-aux">下拉选择或搜索商品</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">有效期</label>
+					<label class="layui-form-label"><span>*</span>有效期</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtdays">
+						<input class="layui-input laimi-input-100" type="text" name="txtdays" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">天</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">开始时间</label>
+					<label class="layui-form-label"><span>*</span>开始时间</label>
 					<div class="layui-input-inline">
 						<input type="radio" name="txtbegin" value="1" title="当天开始" checked="">
 						<input type="radio" name="txtbegin" value="2" title="第二天开始">
@@ -148,26 +148,26 @@
 		</div>
 	</script>
 	<!--新增体验券弹出层结束-->
-	<!--新增体验券弹出层开始-->
+	<!--修改体验券弹出层开始-->
 	<script type="text/html" id="laimi-edit">
 		<div id="laimi-modal-edit" class="laimi-modal">
 			<form class="layui-form">
 				<div class="layui-form-item">
-					<label class="layui-form-label">名称</label>
+					<label class="layui-form-label"><span>*</span>名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 						<input class="layui-input laimi-input-300" type="hidden" name="txtid">
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">面值</label>
+					<label class="layui-form-label"><span>*</span>面值</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">体验商品</label>
+					<label class="layui-form-label"><span>*</span>体验商品</label>
 					<div class="layui-input-inline">
 						<select name="txtmgoods" lay-search>
 							<option value="">请选择商品</option>
@@ -187,14 +187,14 @@
 					<div class="layui-form-mid layui-word-aux">下拉选择或搜索商品</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">有效期</label>
+					<label class="layui-form-label"><span>*</span>有效期</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtdays">
+						<input class="layui-input laimi-input-100" type="text" name="txtdays" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">天</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">开始时间</label>
+					<label class="layui-form-label"><span>*</span>开始时间</label>
 					<div class="layui-input-inline">
 						<input type="radio" name="txtbegin" value="1" title="当天开始" checked="">
 						<input type="radio" name="txtbegin" value="2" title="第二天开始">

@@ -3,7 +3,12 @@ define('C_CNFLY', true);
 define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-//require('inc_limit.php');
+require('inc_limit.php');
+
+if(laimi_config_trade()['act_module'] != 1){
+	echo '<script> window.history.back();</script>';
+	return;
+}
 
 $strid = api_value_get('id');
 $intid = api_value_int1($strid);

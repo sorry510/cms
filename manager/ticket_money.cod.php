@@ -88,27 +88,27 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 代金券名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 面值</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 消费限额</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtlimit" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtlimit" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元以上使用</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 有效期</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtdays">
+						<input class="layui-input laimi-input-100" type="text" name="txtdays" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">天</div>
 				</div>
@@ -142,28 +142,28 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 代金券名称</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-300" type="text" name="txtname">
+						<input class="layui-input laimi-input-300" type="text" name="txtname" lay-verify="required">
 						<input class="layui-input laimi-input-300" type="hidden" name="txtid">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 面值</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtvalue" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 消费限额</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtlimit" placeholder="￥">
+						<input class="layui-input laimi-input-100" type="text" name="txtlimit" placeholder="￥" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">元以上使用</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 有效期</label>
 					<div class="layui-input-inline">
-						<input class="layui-input laimi-input-100" type="text" name="txtdays">
+						<input class="layui-input laimi-input-100" type="text" name="txtdays" lay-verify="required">
 					</div>
 					<div class="layui-form-mid layui-word-aux">天</div>
 				</div>

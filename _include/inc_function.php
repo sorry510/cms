@@ -32,44 +32,6 @@ function laimi_shop_list(){
 	return $arr;
 }
 
-// // 获取当前用户姓名
-// function userName(){
-// 	$arr = array();
-// 	$strsql = "SELECT user_name FROM ".$GLOBALS['gdb']->fun_table2('user'). " WHERE user_id=".$GLOBALS['_SESSION']['login_id'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-// 	$user_name = $arr['user_name'];
-// 	return $user_name;
-// }
-
-// function companyState(){
-// 	$arr = array();
-// 	$strsql = "SELECT company_state FROM ".$GLOBALS['gdb']->fun_table('company'). " WHERE company_id=".$GLOBALS['_SESSION']['login_cid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-// 	$company_state = $arr['company_state'];
-// 	return $company_state;
-// }
-
-// function shopEdate(){
-// 	$arr = array();
-// 	$strsql = "SELECT shop_edate FROM ".$GLOBALS['gdb']->fun_table('shop'). " WHERE shop_id=".$GLOBALS['_SESSION']['login_sid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-// 	$shop_edate = $arr['shop_edate'];
-// 	return $shop_edate;
-// }
-
-// function shopState(){
-// 	$arr = array();
-// 	$strsql = "SELECT shop_state FROM ".$GLOBALS['gdb']->fun_table('shop'). " WHERE shop_id=".$GLOBALS['_SESSION']['login_sid'];
-// 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-// 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-// 	$shop_state = $arr['shop_state'];
-// 	return $shop_state;
-// }
-// // 正常的没有过期的店铺
-
 // get系统基础配置信息
 function laimi_config_trade(){
 	$arr = array();
@@ -129,4 +91,146 @@ function laimi_config_weixin(){
 		}
 	}
 	return $arrweixin;
+}
+
+/**
+ * 获取商品最低价格
+ *
+ * @param int $goods_id
+ * @param int $type
+ * @param int $card_id
+ * @param array $act_id : 1.mgoods,2.sgoods,3.mcombo
+ * @return array min_price,act_discount_id
+ */
+function laimi_goods_price($goods_id, $type, $card_id=0, $act_id=[]){
+	$arr = array();
+	$price = 0;
+	$cprice = 0;
+	$act_price = 0;
+	$discount_price = 0;
+	$stract_id = implode(',', $act_id);
+	$act_discount_id = 0;
+
+	if($goods_id != 0){
+		if($type == 1){
+			// 判断商品是否参加活动
+			$arrmgoods = array();
+			$strsql = "SELECT mgoods_id,mgoods_price,mgoods_cprice,mgoods_act FROM ".$GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_id=".$goods_id;
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arrmgoods = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+			if(!empty($arrmgoods)){
+				$price = $arrmgoods['mgoods_price'];
+				$cprice = $arrmgoods['mgoods_cprice'];
+				//$act_price
+				if($arrmgoods['mgoods_act'] == 1 && !empty($stract_id)){
+					$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$goods_id." && act_discount_id in (".$stract_id.")";
+					$hresult = $GLOBALS['gdb']->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+					if(!empty($arr)){
+						$act_price = $arr[0]['act_discount_goods_price'];
+						$act_discount_id = $arr[0]['act_discount_id'];
+						foreach($arr as $v){
+							if($act_price > $v['act_discount_goods_price']){
+								$act_price = $v['act_discount_goods_price'];
+								$act_discount_id = $v['act_discount_id'];
+							}
+						}
+					}
+				}
+				//$discount_price
+				if(!empty($card_id)){
+					$strsql = "SELECT c_card_type_discount FROM ".$GLOBALS['gdb']->fun_table2('card')." where card_id=".$card_id." limit 1";
+					$hresult = $GLOBALS['gdb']->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+					if(!empty($arr)){
+						$card_discount = $arr['c_card_type_discount'];
+						if($card_discount <= 0 || $card_discount > 10){
+							$card_discount = 10;
+						}
+						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+					}
+				}
+			}
+		}else if($type == 2){
+			$arrsgoods = array();
+			$strsql = "SELECT sgoods_id,sgoods_price,sgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('sgoods')." WHERE sgoods_id=".$goods_id;
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arrsgoods = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+			if(!empty($arrsgoods)){
+				$price = $arrsgoods['sgoods_price'];
+				$cprice = $arrsgoods['sgoods_cprice'];
+				//$discount_price
+				if(!empty($card_id)){
+					$strsql = "SELECT c_card_type_discount FROM ".$GLOBALS['gdb']->fun_table2('card')." where card_id=".$card_id." limit 1";
+					$hresult = $GLOBALS['gdb']->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+					if(!empty($arr)){
+						$card_discount = $arr['c_card_type_discount'];
+						if($card_discount <= 0 || $card_discount > 10){
+							$card_discount = 10;
+						}
+						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+					}
+				}
+			}
+		}else if($type == 3){
+			// 判断商品是否参加活动
+			$arrmcombo = array();
+			$strsql = "SELECT mcombo_id,mcombo_price,mcombo_cprice,mcombo_act FROM ".$GLOBALS['gdb']->fun_table2('mcombo')." WHERE mcombo_id=".$goods_id;
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arrmcombo = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+			if(!empty($arrmcombo)){
+				$price = $arrmcombo['mcombo_price'];
+				$cprice = $arrmcombo['mcombo_cprice'];
+				//$act_price
+				if($arrmcombo['mcombo_act'] == 1 && !empty($stract_id)){
+					$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$goods_id." && act_discount_id in (".$stract_id.")";
+					$hresult = $GLOBALS['gdb']->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+					if(!empty($arr)){
+						$act_price = $arr[0]['act_discount_goods_price'];
+						$act_discount_id = $arr[0]['act_discount_id'];
+						foreach($arr as $v){
+							if($act_price > $v['act_discount_goods_price']){
+								$act_mcombo_price = $v['act_discount_goods_price'];
+								$act_discount_id = $v['act_discount_id'];
+							}
+						}
+					}
+				}
+				//$discount_price
+				if(!empty($card_id)){
+					$strsql = "SELECT c_card_type_discount FROM ".$GLOBALS['gdb']->fun_table2('card')." where card_id=".$card_id." limit 1";
+					$hresult = $GLOBALS['gdb']->fun_query($strsql);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+					if(!empty($arr)){
+						$card_discount = $arr['c_card_type_discount'];
+						if($card_discount <= 0 || $card_discount > 10){
+							$card_discount = 10;
+						}
+						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+					}
+				}
+			}
+		}
+	}
+
+	$arrprice = array();
+	if($price != 0)
+		$arrprice[] = $price;
+	if($cprice != 0)
+		$arrprice[] = $cprice;
+	if($act_price != 0)
+		$arrprice[] = $act_price;
+	if($discount_price != 0)
+		$arrprice[] = $discount_price;
+
+	$arrgoods = array();
+	$arrgoods['min_price'] = 0;
+	$arrgoods['act_discount_id'] = 0;
+	if(!empty($arrprice)){
+		$arrgoods['min_price'] = min($arrprice);
+		$arrgoods['act_discount_id'] = $arrgoods['min_price'] == $act_price ? $act_discount_id : 0;
+	}
+	return $arrgoods;
 }

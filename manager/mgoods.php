@@ -6,32 +6,32 @@ require('inc_limit.php');
 
 $strchannel = 'goods';
 
-$strsgoods_catalog_id = api_value_get('sgoods_catalog_id');
-$intsgoods_catalog_id = api_value_int0($strsgoods_catalog_id);
+$strmgoods_catalog_id = api_value_get('mgoods_catalog_id');
+$intmgoods_catalog_id = api_value_int0($strmgoods_catalog_id);
 $strsearch = api_value_get('search');
 $strpage = api_value_get('page');
 $intpage = api_value_int1($strpage);
 
 $gtemplate->fun_assign('request', get_request());
-$gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
-$gtemplate->fun_assign('sgoods_list', get_sgoods_list());
-$gtemplate->fun_show('sgoods');
+$gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
+$gtemplate->fun_assign('mgoods_list', get_mgoods_list());
+$gtemplate->fun_show('mgoods');
 
 function get_request() {
 	$arr = array();
-	$arr['sgoods_catalog_id'] = $GLOBALS['intsgoods_catalog_id'];
+	$arr['mgoods_catalog_id'] = $GLOBALS['intmgoods_catalog_id'];
 	$arr['search'] = $GLOBALS['strsearch'];
 	return $arr;
 }
-function get_sgoods_catalog_list() {
+function get_mgoods_catalog_list() {
 	$arr = array();
-	$strsql = "SELECT sgoods_catalog_id,sgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('sgoods_catalog')." order by sgoods_catalog_id";
+	$strsql = "SELECT mgoods_catalog_id,mgoods_catalog_name FROM " . $GLOBALS['gdb']->fun_table2('mgoods_catalog')." order by mgoods_catalog_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
 
-function get_sgoods_list() {
+function get_mgoods_list() {
 	$intallcount = 0;
 	$intpagecount = 0;
 	$intpagenow = 0;
@@ -42,17 +42,17 @@ function get_sgoods_list() {
 
 	$strwhere = '';
 	if($GLOBALS['strsearch'] != '') {
-	  $strwhere = $strwhere . " AND (sgoods_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
-	  $strwhere = $strwhere . " or sgoods_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%'";
-	  $strwhere = $strwhere . " or sgoods_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
+	  $strwhere = $strwhere . " AND (mgoods_name LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or mgoods_jianpin LIKE '%" . $GLOBALS['strsearch'] . "%'";
+	  $strwhere = $strwhere . " or mgoods_code LIKE '%" . $GLOBALS['strsearch'] . "%')";
 	}
-	if($GLOBALS['intsgoods_catalog_id'] != 0){
-		$strwhere .= " and sgoods_catalog_id=".$GLOBALS['intsgoods_catalog_id'];
+	if($GLOBALS['intmgoods_catalog_id'] != 0){
+		$strwhere .= " and mgoods_catalog_id=".$GLOBALS['intmgoods_catalog_id'];
 	}
-		
+	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 
 	$arr = array();
-	$strsql = "SELECT count(sgoods_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('sgoods')  . " WHERE shop_id = ".api_value_int0($GLOBALS['_SESSION']['login_sid']) . $strwhere;
+	$strsql = "SELECT count(mgoods_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('mgoods')  . " WHERE 1 = 1 " . $strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
@@ -67,13 +67,14 @@ function get_sgoods_list() {
 		return $arrpackage;
 	}
 	
-	$intpagesize = 50;
+	$intpagesize = 25;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
 	}
 	$intpagenow = $GLOBALS['intpage'];
 
+	//echo $GLOBALS['intpage'];exit;
 	if($intpagenow < 1) {
 		$intpagenow = 1;
 	}
@@ -90,10 +91,11 @@ function get_sgoods_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT a.*, b.sgoods_catalog_id, b.sgoods_catalog_name FROM ( SELECT sgoods_id, sgoods_catalog_id, sgoods_type, sgoods_code, sgoods_name, sgoods_jianpin, sgoods_price, sgoods_cprice, sgoods_state FROM " . $GLOBALS['gdb']->fun_table2('sgoods') . " where shop_id = ".api_value_int0($GLOBALS['_SESSION']['login_sid']).$strwhere." ORDER BY sgoods_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a left join " . $GLOBALS['gdb']->fun_table2('sgoods_catalog') . " AS b on a.sgoods_catalog_id = b.sgoods_catalog_id";
+	$strsql = "SELECT a.*, b.mgoods_catalog_id, b.mgoods_catalog_name FROM ( SELECT mgoods_id, mgoods_catalog_id, mgoods_type, mgoods_code, mgoods_name, mgoods_jianpin, mgoods_price, mgoods_cprice, mgoods_act, mgoods_reserve, mgoods_state FROM " . $GLOBALS['gdb']->fun_table2('mgoods') . " where 1=1 ".$strwhere." ORDER BY mgoods_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a left join " . $GLOBALS['gdb']->fun_table2('mgoods_catalog') . " AS b on a.mgoods_catalog_id = b.mgoods_catalog_id"; 
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	//var_dump($arrlist);exit;
 
 	$arrpackage['allcount'] = $intallcount;
 	$arrpackage['pagecount'] = $intpagecount;

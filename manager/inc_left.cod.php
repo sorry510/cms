@@ -52,13 +52,13 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="mcombo_time.php">
+								<a href="mcombo1.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-jihuashijian"></use></svg>
 									&nbsp;计时套餐
 								</a>
 							</dd>
 							<dd>
-								<a href="mcombo_number.php">
+								<a href="mcombo2.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-fenxiangcishu"></use></svg>
 									&nbsp;计次套餐
 								</a>

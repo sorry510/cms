@@ -13,13 +13,15 @@
 <form class="layui-form">
 <table class="layui-table" lay-skin="line">
   <tbody>
+  	<!-- 会员搜索栏 -->
     <tr>
       <td style="padding:0px;" class="layui-bg-gray" colspan="2">
       	<div class="layui-form-mid" style="margin-left:20px;"><input class="layui-input card-search" type="text" name="txtname" placeholder="卡号/姓名/手机号"></div>
-		<div class="layui-form-mid"><a class="layui-btn layui-btn-normal laimi-add3">搜索</a></div>
-		<div class="layui-form-mid laimi-float-right"><a href="card_add.php" target="_blank" class="layui-btn layui-btn-danger">开卡</a></div>
-	  </td>
+				<div class="layui-form-mid"><a class="layui-btn layui-btn-normal laimi-add3">搜索</a></div>
+				<div class="layui-form-mid laimi-float-right"><a href="card_add.php" target="_blank" class="layui-btn layui-btn-danger">开卡</a></div>
+	  	</td>
     </tr>
+    <!-- 会员卡信息 -->
     <tr class="laimi-cardinfo layui-hide">
       <td style="padding:0px;height:50px;line-height:50px;">
       	<div class="layui-form-mid laimi-color-hui" style="margin-left:25px;">卡号</div>
@@ -50,10 +52,11 @@
 		  <ul class="layui-tab-title">
 		    <li class="layui-this" style="padding:0px 6px;">可选商品</li>
 		    <li style="padding:0px 6px;">买套餐</li>
-		    <li style="padding:0px 12px;">会员套餐<span class="layui-badge layui-bg-orange">3</span></li>
-		    <li style="padding:0px 12px;">体验券<span class="layui-badge layui-bg-orange">2</span></li>
+		    <li style="padding:0px 12px;">会员套餐<span class="layui-badge layui-bg-orange layui-hide laimi-mymcombo-count">0</span></li>
+		    <li style="padding:0px 12px;">体验券<span class="layui-badge layui-bg-orange layui-hide laimi-myticket-count">0</span></li>
 		  </ul>
 		  <div class="layui-tab-content" style="padding:0px;">
+		  	<!-- 买商品 -->
 		    <div class="layui-tab-item layui-show">
 		    	<table class="layui-table" style="margin-top:0px;" lay-skin="line">
 					  <thead>
@@ -62,31 +65,34 @@
 					      <th width="40">价格</th>
 					      <th width="40">操作</th>
 					    </tr>
-					    <tr>
-					      <td colspan="3" style="text-align:left;background-color:#F8F8F8;color:#FF5722;">
-				      		限时打折：2017-8-15至2017-8-30
-					      </td>
-					    </tr>
+					 		<tr>
+					 		  <td colspan="3" style="text-align:left;background-color:#F8F8F8;color:#FF5722;">
+					 		  	<marquee height="22" loop="-1" scrollamount="10" scrolldelay="150" onMouseOut="this.start()" onMouseOver="this.stop()">
+					 		  	<span class="laimi-act-discount"></span>
+					 		  	</marquee>
+					 		  </td>
+					 		</tr>
 					  </thead>
 					  <tbody>
 					    <tr>
 					      <td colspan="3" style="text-align: left;">
-								<div class="layui-input-inline last" style="width:100px;">
-									<select name="goodscatalog">
-										<option value="">商品分类</option>
-										<?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
-		                <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
-		              	<?php } ?>
-		              	<?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-		                <option value="<?php echo 's-'.$row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
-		              	<?php } ?>
-									</select>
-								</div>
-								<div class="layui-input-inline last">
-									<input class="layui-input laimi-input-200 laimi-search" type="text" placeholder="商品名称/编码/简拼" style="width:120px;">
-								</div>
-								<div class="layui-input-inline">
-									<button type="button" class="layui-btn layui-btn-normal laimi-button-search">F2搜索</button>
+									<div class="layui-input-inline last" style="width:100px;">
+										<select name="goodscatalog">
+											<option value="">商品分类</option>
+											<?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+			                <option value="<?php echo 'm-'.$row['mgoods_catalog_id']; ?>"><?php echo $row['mgoods_catalog_name']; ?></option>
+			              	<?php } ?>
+			              	<?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
+			                <option value="<?php echo 's-'.$row['sgoods_catalog_id']; ?>"><?php echo $row['sgoods_catalog_name']; ?></option>
+			              	<?php } ?>
+										</select>
+									</div>
+									<div class="layui-input-inline last">
+										<input class="layui-input laimi-input-200 laimi-search" type="text" placeholder="商品名称/编码/简拼" style="width:120px;">
+									</div>
+									<div class="layui-input-inline">
+										<button type="button" class="layui-btn layui-btn-normal laimi-button-search">F2搜索</button>
+									</div>
 							  </td>
 					    </tr>
 					  <?php foreach($this->_data['mgoods_list'] as $row) { ?>
@@ -94,7 +100,7 @@
 					      <td colspan="3" style="text-align:left;" class="laimi-color-lan"><span class="layui-badge layui-bg-blue">通用</span>&nbsp;<?php echo $row['mgoods_catalog_name']; ?></td>
 					    </tr>
 					    <?php foreach($row['mgoods'] as $row2){ ?>
-					    <tr class="laimi-goods" gtype="m" catalog="<?php echo $row['mgoods_catalog_id']; ?>" gcode="<?php echo $row2['mgoods_code']; ?>" gname="<?php echo $row2['mgoods_name']; ?>" gshort="<?php echo $row2['mgoods_jianpin']; ?>">
+					    <tr class="laimi-goods" gtype="m" catalog="<?php echo $row['mgoods_catalog_id']; ?>" gcode="<?php echo $row2['mgoods_code']; ?>" gname="<?php echo $row2['mgoods_name']; ?>" gshort="<?php echo $row2['mgoods_jianpin']; ?>" price="<?php echo $row2['mgoods_price']; ?>" gid="<?php echo $row2['mgoods_id']; ?>" act="<?php echo $row2['mgoods_act']; ?>">
 					      <td style="text-align:left;">
 				      		<?php echo $row2['mgoods_name']; ?> <span class="laimi-color-hui">(34)</span>
 					      </td>
@@ -102,7 +108,7 @@
 				      		<span class="laimi-color-hui2">¥<?php echo $row2['mgoods_price']; ?>&nbsp;<span class="laimi-color-ju">¥22</span>
 					      </td>
 					      <td>
-				      		<a href="#" class="laimi-color-lan">添加</a>
+				      		<a href="javascript:;" class="laimi-color-lan laimi-goods-add1">添加</a>
 					      </td>
 					    </tr>
 					    <?php } ?>
@@ -112,7 +118,7 @@
 			  	      <td colspan="3" style="text-align:left;" class="laimi-color-lan"><span class="layui-badge layui-bg-blue">单店</span>&nbsp;<?php echo $row['sgoods_catalog_name']; ?></td>
 			  	    </tr>
 			  	    <?php foreach($row['sgoods'] as $row2){ ?>
-			  	    <tr class="laimi-goods" gtype="s" catalog="<?php echo $row['sgoods_catalog_id']; ?>" gcode="<?php echo $row2['sgoods_code']; ?>" gname="<?php echo $row2['sgoods_name']; ?>" gshort="<?php echo $row2['sgoods_jianpin']; ?>">
+			  	    <tr class="laimi-goods" gtype="s" catalog="<?php echo $row['sgoods_catalog_id']; ?>" gcode="<?php echo $row2['sgoods_code']; ?>" gname="<?php echo $row2['sgoods_name']; ?>" gshort="<?php echo $row2['sgoods_jianpin']; ?>" price="<?php echo $row2['sgoods_price']; ?>" gid="<?php echo $row2['sgoods_id']; ?>" act=0>
 			  	      <td style="text-align:left;">
 			        		<?php echo $row2['sgoods_name']; ?> <span class="laimi-color-hui">(34)</span>
 			  	      </td>
@@ -120,7 +126,7 @@
 			        		<span class="laimi-color-hui2">¥<?php echo $row2['sgoods_price']; ?>&nbsp;<span class="laimi-color-ju">¥22</span>
 			  	      </td>
 			  	      <td>
-			        		<a href="#" class="laimi-color-lan">添加</a>
+			        		<a href="javascript:;" class="laimi-color-lan laimi-goods-add1">添加</a>
 			  	      </td>
 			  	    </tr>
 			  	    <?php } ?>
@@ -128,44 +134,48 @@
 					  </tbody>
 					</table>
 		    </div>
+		    <!-- 买套餐 -->
 		    <div class="layui-tab-item">
 		    	<table class="layui-table" style="margin-top:0px;" lay-skin="line">
-				  <thead>
-				    <tr class="layui-bg-green">
-				      <th width="200">可选套餐</th>
-				      <th>价格</th>
-				      <th width="40">操作</th>
-				    </tr>
-				    <tr>
-				      <td colspan="3" style="text-align:left;background-color:#F8F8F8;color:#FF5722;">
-			      		限时打折：2017-8-15至2017-8-30
-				      </td>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  <?php foreach($this->_data['mcombo_list'] as $row) { ?>
-				  	<tr>
-				      <td style="text-align:left;" class="laimi-color-lan">
-				      	<span class="layui-badge layui-bg-blue"><?php echo $row['mcombo_type'] == 1 ? '次' : '时'; ?></span>&nbsp;<?php echo $row['mcombo_name']; ?>
-				       </td>
-				       <td>
-				      	<span class="laimi-color-hui2">¥<?php echo $row['mcombo_price']; ?></span><!-- &nbsp;<span class="laimi-color-ju">¥116.00</span> -->
-				       </td>
-				       <td>
-				      	<a href="" class="laimi-color-lan">添加</a>
-				       </td>
-				    </tr>
-				    <?php foreach($row['goods'] as $row2){ ?>
-				    	<tr>
-				    		<td style="text-align:left;" colspan="3">
-				    	  	<?php echo $row2['mgoods_name']; ?>&nbsp;<?php if($row['mcombo_type'] == 1){ ?><span class="layui-badge layui-bg-gray"><?php echo $row2['mcombo_goods_count']; ?>次</span><?php } ?>&nbsp;<span class="layui-badge layui-bg-gray"><?php echo $row['days']; ?></span>
-				    	  </td>
-				    	</tr>
-				    <?php } ?>
-				  <?php } ?>
-				  </tbody>
-				</table>
+					  <thead>
+					    <tr class="layui-bg-green">
+					      <th width="200">套餐</th>
+					      <th>价格</th>
+					      <th width="40">操作</th>
+					    </tr>
+					    <tr>
+					      <td colspan="3" style="text-align:left;background-color:#F8F8F8;color:#FF5722;">
+				      		<marquee behavior="scroll" direction="left" loop="-1" scrollamount="10" scrolldelay="150" onMouseOut="this.start()" onMouseOver="this.stop()">
+				      		<span class="laimi-act-discount"></span>
+				      		</marquee>
+					      </td>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  <?php foreach($this->_data['mcombo_list'] as $row) { ?>
+					  	<tr>
+					      <td style="text-align:left;" class="laimi-color-lan">
+					      	<span class="layui-badge layui-bg-blue"><?php echo $row['mcombo_type'] == 1 ? '次' : '时'; ?></span>&nbsp;<?php echo $row['mcombo_name']; ?>
+					       </td>
+					       <td>
+					      	<span class="laimi-color-hui2">¥<?php echo $row['mcombo_price']; ?></span><!-- &nbsp;<span class="laimi-color-ju">¥116.00</span> -->
+					       </td>
+					       <td>
+					      	<a href="javascript:;" class="laimi-color-lan laimi-goods-add2" price="<?php echo $row['mcombo_price']; ?>" gname="<?php echo $row['mcombo_name']; ?>" gid="<?php echo $row['mcombo_id']; ?>" act="<?php echo $row['mcombo_act']; ?>">添加</a>
+					       </td>
+					    </tr>
+					    <?php foreach($row['goods'] as $row2){ ?>
+					    	<tr>
+					    		<td style="text-align:left;" colspan="3">
+					    	  	<?php echo $row2['mgoods_name']; ?>&nbsp;<?php if($row['mcombo_type'] == 1){ ?><span class="layui-badge layui-bg-gray"><?php echo $row2['mcombo_goods_count']; ?>次</span><?php } ?>&nbsp;<span class="layui-badge layui-bg-gray"><?php echo $row['days']; ?></span>
+					    	  </td>
+					    	</tr>
+					    <?php } ?>
+					  <?php } ?>
+					  </tbody>
+					</table>
 		    </div>
+		    <!-- 我的套餐 -->
 		    <div class="layui-tab-item">
 		    	<table class="layui-table" style="margin-top:0px;" lay-skin="line">
 				  <thead>
@@ -174,102 +184,78 @@
 				      <th width="40">操作</th>
 				    </tr> 
 				  </thead>
-				  <tbody class="laimi-mycombo">
+				  <tbody class="laimi-mymcombo">
 
 				  </tbody>
 				</table>
 		    </div>
-		    <div class="layui-tab-item" style="padding:10px;">
-		    	<div style="width:80%;padding:10px;height:60px;background: url('../img/ticket_bg2.png') no-repeat;margin-left:20px;margin-bottom:8px;">
-				    <div class="layui-col-md9" style="margin-left:20px;margin-top:5px;">
-				      <ul>
-						<li style="line-height:26px;font-size:18px;color:#FFFFFF;">总监理发&nbsp;×1&nbsp;<span class="layui-badge layui-bg-cyan">体验券</span></li>
-						<li style="line-height:26px;font-size:12px;">2017-9-30至2017-12-31</li>
-					</ul>
-				    </div>
-				    <div class="layui-col-md2 laimi-float-right" style="margin-top:15px;">
-				    	<a href="" style="color:#FFFFFF;">使用</a>
-				    </div>
-		    	</div>
+		    <!-- 我的体验券 -->
+		    <div class="layui-tab-item laimi-myticket-goods" style="padding:10px;">
 		    </div>
 		  </div>
 		</div>
     </div>
     <div class="layui-col-md8">
-      	<table class="layui-table" lay-skin="line">
-			<thead>
-				<tr class="layui-bg-orange">
-					<th width="230">名称</th>
-					<th>价格</th>
-					<th>数量</th>
-					<th>方式</th>
-					<th>人员</th>
-					<th width="50">操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<form class="layui-form layui-form-pane" action="">				
-				<tr>
-					<td style="text-align:left;"><span class="layui-badge layui-bg-blue">通用</span>&nbsp;收银员收银员收银员收银员</td>
-					<td><span class="laimi-color-hui2">¥180.00</span>&nbsp;<span class="laimi-color-ju">¥180.00</span></td>					
-					<td><input class="layui-input" type="text" name="txtname" value="1" style="width:50px;padding:5px;text-align:center;"></td>					
-					<td><span class="layui-badge">卡扣</span></td>
-					<td style="padding:5px;width:100px;text-align:left;">
-						<select name="">
-							<option value=""></option>
-						</select>
-					</td>
-					<td>
-						<a href="#" class="laimi-color-lan">移除</a>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align:left;"><span class="layui-badge layui-bg-blue">单店</span>&nbsp;收银员收银员收银员收银员</td>
-					<td><span class="laimi-color-hui">¥180.00</span></td>					
-					<td>1</td>					
-					<td><span class="layui-badge">体验券</span></td>
-					<td style="padding:5px;width:100px;text-align:left;">
-						<select name="">
-							<option value=""></option>
-						</select>
-					</td>
-					<td>
-						<a href="#" class="laimi-color-lan">移除</a>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align:left;"><span class="layui-badge layui-bg-blue">套餐</span>&nbsp;收银员收银员收银员收银员</td>
-					<td><span class="laimi-color-hui">¥180.00</span></td>					
-					<td><input class="layui-input" type="text" name="txtname" value="1" style="width:50px;padding:5px;text-align:center;"></td>					
-					<td></td>
-					<td style="padding:5px;width:100px;text-align:left;">
-						<select name="">
-							<option value=""></option>
-						</select>
-					</td>
-					<td>
-						<a href="#" class="laimi-color-lan">移除</a>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align:left;" colspan="6">						
-						<label class="layui-form-label">
-							<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huo"></use></svg>
-							满减：满200元减50元。满送：满200元减50元</label>
-					</td>
-				</tr>
-				</form>
-			</tbody>
-		</table>
+    	<!-- 购买栏 -->
+      <table class="layui-table" lay-skin="line">
+				<thead>
+					<tr class="layui-bg-orange">
+						<th width="230">名称</th>
+						<th>价格</th>
+						<th>数量</th>
+						<th>方式</th>
+						<th>人员</th>
+						<th width="50">操作</th>
+					</tr>
+				</thead>
+				<tbody class="laimi-goods-checked">
+					<!-- <tr>
+						<td style="text-align:left;"><span class="layui-badge layui-bg-blue">通用</span>&nbsp;收银员收银员收银员收银员</td>
+						<td><span class="laimi-color-hui2">¥180.00</span>&nbsp;<span class="laimi-color-ju">¥180.00</span></td>
+						<td><input class="layui-input" type="text" name="txtname" value="1" style="width:50px;padding:5px;text-align:center;"></td>
+						<td><span class="layui-badge">卡扣</span></td>
+						<td style="padding:5px;width:100px;text-align:left;">
+							<select name="">
+								<option value=""></option>
+							</select>
+						</td>
+						<td>
+							<a href="#" class="laimi-color-lan">移除</a>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:left;"><span class="layui-badge layui-bg-blue">单店</span>&nbsp;收银员收银员收银员收银员</td>
+						<td><span class="laimi-color-hui">¥180.00</span></td>					
+						<td>1</td>					
+						<td><span class="layui-badge">体验券</span></td>
+						<td style="padding:5px;width:100px;text-align:left;">
+							<select name="">
+								<option value=""></option>
+							</select>
+						</td>
+						<td>
+							<a href="#" class="laimi-color-lan">移除</a>
+						</td>
+					</tr>-->
+					<tr>
+						<td style="text-align:left;" colspan="6">
+							<label class="layui-form-label">
+								<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huo"></use></svg>
+								<span class="laimi-act-decrease"></span>
+							</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
     </div>
   </div>
 </div>
 <div style="position:fixed;bottom:0px;width:100%;padding:0px 15px 0px 15px;height:70px;border:1px solid #eeeeee;line-height:70px;background-color:#F6F6F6;">
 	<div class="layui-input-inline" style="margin-left:40px;">
-		共<span style="font-weight:bold;font-size:16px;" class="laimi-color-ju">0</span>件，原价：<span style="font-size:16px; font-weight:bold;" class="laimi-color-hui">¥368.00</span>，优惠：<span style="font-size:16px; font-weight:bold;" class="laimi-color-hui">¥68.00</span>，应收金额：<span style="font-size:26px;font-weight:bold;" class="laimi-color-ju">¥256.00</span>
+		共<span style="font-weight:bold;font-size:16px;" class="laimi-color-ju laimi-goodscount">0</span>件，原价：<span style="font-size:16px; font-weight:bold;" class="laimi-color-hui">¥<span class="laimi-money-yuan">0.00</span></span>，优惠：<span style="font-size:16px; font-weight:bold;" class="laimi-color-hui">¥<span class="laimi-money-jian">0.00</span></span>，应收金额：<span style="font-size:26px;font-weight:bold;" class="laimi-color-ju">¥<span class="laimi-money-ying">0.00</span></span>
 	</div>
 	<div class="layui-input-inline laimi-float-right" style="margin-right:200px;margin-top:10px;">
-		<a id="laimi-add" class="layui-btn layui-btn-big" style="height:50px;line-height:50px;font-size:24px;">&nbsp;&nbsp;结帐&nbsp;&nbsp;</a>
+		<a href="javascript:;" class="layui-btn layui-btn-big laimi-payopen" style="height:50px;line-height:50px;font-size:24px;">&nbsp;&nbsp;结帐&nbsp;&nbsp;</a>
 	</div>
 </div>
 </form>
@@ -299,7 +285,7 @@
 				</fieldset>
 			  	<div class="layui-field-box" style="font-size:16px;background-color:#FFFFDD;height:55px;padding-top:25px;border:1px solid #FCEFA1;margin-top:10px;">
 				    <label class="layui-form-label">应收金额</label>
-				    <div class="layui-form-mid laimi-color-hui" style="font-size:22px;font-weight:bold;">¥256.00</div>			    
+				    <div class="layui-form-mid laimi-color-hui" style="font-size:22px;font-weight:bold;">¥{{d.money}}</div>			    
 				    <label class="layui-form-label" style="margin-left:30px;">手动优惠</label>
 				    <div class="layui-input-inline">
 				      <input class="layui-input laimi-input-80 laimi-color-lan" type="text" name="txtname" placeholder="0.00" style="height:50px;margin-top:-6px;line-height:50px;font-size:22px;">
@@ -361,9 +347,9 @@
 					<div class="layui-input-inline">
 						<select name="shop" lay-search>
 							<option value="">导购人员</option>
-							<option value="分类1">分类1</option>
-							<option value="分类2">分类2</option>
-							<option value="分类3">分类3</option>
+							<?php foreach($this->_data['worker_list'] as $row){ ?>
+							<option value="<?php echo $row['worker_id']; ?>"><?php echo $row['worker_name']; ?></option>
+							<?php } ?>
 						</select>
 					</div>			    
 					<div class="laimi-float-right">
@@ -642,19 +628,7 @@
 		var objelement = layui.element;
 		var objform = layui.form;
 		var objlaytpl = layui.laytpl;
-		$("#laimi-add").on("click", function() {
-			objlayer.open({
-				type: 1,
-				title: ["结帐", "font-size:16px;"],
-				btnAlign: "r",
-				area: ["800px", "auto"],
-				shadeClose: true,//点击遮罩关闭
-				content: $("#laimi-script-add").html(),
-				success: function(){
-					objform.render(null, 'pay');
-				}
-			});
-		});
+		
 		$(".laimi-add2").on("click", function() {
 			objlayer.open({
 				type: 1,
@@ -673,20 +647,25 @@
 		var card_id = 0;
 		var card_key = null;
 	  var cardlist = [];
+	  var cardtikcet = [];
 	  var card_act_discount = [];
 	  var card_act_decrease = [];
 	  var card_act_give = [];
 	  var card_act_decrease_use = [];
 	  var card_act_give_use = [];
-	  var goods = {};
-	  var money_act = 0;
+	  var min_goods = {};//min_price,act_discount_id
+	  var allmoney_act = 0;
 
 	  function cardActDiscount(){
 	    card_act_discount.length = 0;
 	    // var dtd = $.Deferred();// 新建一个Deferred对象
 	    $.getJSON('card_act_discount_ajax.php', {id: card_id}, function(res){
 	    	card_act_discount = res;
-	    	console.log(card_act_discount);
+	    	var text = '';
+	    	$.each(res, function(k, v){
+	    		text += v.act_discount_name+'：'+v.start+'至'+v.end+'；';
+	    	})
+	    	$('#laimi-main .laimi-act-discount').text(text);
 	      // dtd.resolve();
 	    });
 	    // return dtd.promise();
@@ -695,6 +674,15 @@
 	    card_act_decrease.length = 0;
 	    $.getJSON('card_act_decrease_ajax.php', {id: card_id}, function(res){
 	    	card_act_decrease = res;
+	    	var text = '';
+	    	if(res){
+	    		text += '当前满减活动：';
+	    		$.each(res, function(k, v){
+	    			text += v.act_decrease_name+'；';
+	    		})
+	    		text = text.slice(0, -1);
+	    	}
+	    	$('#laimi-main .laimi-act-decrease').text(text);
 	    	// console.log(card_act_decrease);
 	    });
 	  };
@@ -770,6 +758,7 @@
         		card_id = cardlist[card_key].card_id;
         		cardShow(cardlist[card_key]);
         		cardMcombo();
+        		cardTicket();
 	         /* 
 	          _this.cardMcombo(res.card_id);
 	          _this.cardTicket(res.card_id);
@@ -823,9 +812,9 @@
 	            })
 	            .then(function(){
 	              _this.allGoodsPrice();
-	            })
+	            })*/
 	          cardActDecrease();
-	          cardActGive();*/
+	          // cardActGive();
           }
         }else if(state == 1){
           // 密码错误
@@ -865,13 +854,15 @@
 	  }
 	  function cardMcombo(){
 	    var _this = $(this);
-	    $('#laimi-main .laimi-mycombo').empty();
+	    $('#laimi-main .laimi-mymcombo').empty();
+	    $('#laimi-main .laimi-mymcombo-count').addClass('layui-hide');
 	    $.getJSON('card_mymcombo_ajax.php', {id: card_id}, function(res){
 	    	// console.log(res);
 	    	if(res){
 	    		var type = '';
 	    	  var tr = '';
-	    	  $.each(res,function(k,v){
+	    	  var count = 0;
+	    	  $.each(res, function(k,v){
 	    	    //没有做套餐用完时怎么显示
 	    	    if(v.card_mcombo_type == 1){
 	    	    	if(v.c_mcombo_type == 1){
@@ -885,6 +876,7 @@
           							'</td>',
           						'</tr>'].join('');
 	    	    }else if(v.card_mcombo_type == 2){
+	    	    	count++;
 	    	      if(v.c_mcombo_type == 1)
 	    	      	tr += ['<tr mcombo_type="'+v.c_mcombo_type+'" mcombo_id="'+v.mcombo_id+'"><div class="uc2a" card_mcombo_id ="'+v.card_mcombo_id+'" mgoods_id="'+v.mgoods_id+'" mgoods_count="'+v.card_mcombo_gcount+'">',
 					    						'<td style="text-align:left;">',
@@ -906,39 +898,64 @@
 	    	      }
 	    	    }
 	    	  });
-	    	  $('#laimi-main .laimi-mycombo').append(tr);
+	    	  $('#laimi-main .laimi-mymcombo').append(tr);
+	    	  $('#laimi-main .laimi-mymcombo-count').removeClass('layui-hide').text(count);
 	    	  // $('#uworkbench .uleft #tab2 .cadd2').on('click', _this.mcomboAdd);
 	    	}
 	    })
 	  };
-	  // function cardTicket(){
-	  //   var _this = this;
-	  //   $('#uworkbench .ub .uleft #tab3 .uc li').remove();
-	  //   $.when($.getJSON('card_myticket_ajax.php', {card_id: card_id}))
-	  //     .done(function(res){
-	  //       if(res){
-	  //         var addli = '';
-	  //         $.each(res, function(k, v){
-	  //           if(v.ticket_type=='1'){
-	  //             addli += '<li class="uc2" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.c_ticket_value+'" ticket_limit="'+v.c_ticket_limit+'"><div class="uc2a">代金券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b"><a href="#" class="cadd3">添加</a></div></li>';
-	  //           }else{
-	  //             addli += '<li class="uc2" ticket_goods_id="'+v.ticket_goods_id+'" mgoods_id="'+v.c_mgoods_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'"><div class="uc2a">体验券：'+v.c_ticket_name+'('+v.c_ticket_value+')</div><div class="uc2b"><a href="#" class="cadd3">添加</a></div></li>';
-	  //           }
-	  //         });
-	  //         $('#uworkbench .uleft #tab3 .uc').append(addli);
-	  //         $('#uworkbench .uleft #tab3 .cadd3').on('click', function(event){
-	  //           _this.ticketAdd(event)
-	  //         });
-	  //       }
-	  //     })
-	  // };
+	  function cardTicket(type){
+	  	var dtd = $.Deferred();// 新建一个Deferred对象
+	  	var type = type || 2;//1.代金 2.体验
+	    // var _this = $(this);
+	    if(type == 2){
+	    	$('#laimi-main .laimi-myticket-goods').empty();
+	    	$('#laimi-main .laimi-myticket-count').addClass('layui-hide');
+	    }else if(type == 1){
+	    	cardticket.length = 0;
+	    }
+	    // $('#uworkbench .uleft #tab3 .cadd3').off('click');
+	    $.getJSON('card_myticket_ajax.php', {id: card_id, type: type}, function(res){
+	    	if(res){
+	    	  var div = '';
+	    	  $.each(res, function(k, v){
+	    	    if(v.ticket_type=='1'){
+	    	  			cardticket.push(v);
+	    	    }else if(v.ticket_type == '2'){
+	    	    	div += ['<div style="width:80%;padding:10px;height:60px;background: url(\'../img/ticket_bg2.png\') no-repeat;margin-left:20px;margin-bottom:8px;">',
+				    						'<div class="layui-col-md9" style="margin-left:20px;margin-top:5px;">',
+				      						'<ul>',
+														'<li style="line-height:26px;font-size:18px;color:#FFFFFF;">'+v.c_ticket_name+'&nbsp;×1&nbsp;<span class="layui-badge layui-bg-cyan">体验券</span></li>',
+														'<li style="line-height:26px;font-size:12px;">'+v.atime+'至'+v.edate+'</li>',
+													'</ul>',
+										    '</div>',
+										    '<div class="layui-col-md2 laimi-float-right" style="margin-top:15px;">',
+										    	'<a href="javascript:;" style="color:#FFFFFF;" ticket_money_id="'+v.ticket_money_id+'" ticket_type="'+v.ticket_type+'" ticket_id="'+v.card_ticket_id+'" ticket_value="'+v.c_ticket_value+'" ticket_limit="'+v.c_ticket_limit+'">使用</a>',
+										    '</div>',
+		    							'</div>'].join('');
+	    	    }
+	    	  });
+	    	  $('#laimi-main .laimi-myticket-goods').append(div);
+	    	  if(type == 2)
+	    	  	$('#laimi-main .laimi-myticket-count').removeClass('layui-hide').text(res.length);
+	    	  // $('#uworkbench .uleft #tab3 .cadd3').on('click', function(event){
+	    	  //   _this.ticketAdd(event)
+	    	  // });
+	    	}
+	    	dtd.resolve();
+	    })
+			return dtd.promise();
+	  };
 	  function cardClear(){
 	    // var _this = this;
 	    card_id = 0;
 	    card_key = null;
 	    cardlist.length = 0;
 	    cardShow();
-	    $('#laimi-main .laimi-mycombo').empty();
+	    $('#laimi-main .laimi-mymcombo').empty();
+	    $('#laimi-main .laimi-mymcombo-count').addClass('layui-hide');
+	    $('#laimi-main .laimi-myticket-goods').empty();
+	    $('#laimi-main .laimi-myticket-count').addClass('layui-hide');
 	    //重新计算所有商品价格
 	    // _this.cardActDiscount()
 	    //   .then(function(){
@@ -990,8 +1007,8 @@
 	    //   .then(function(){
 	    //     _this.allGoodsPrice();
 	    //   })
-	    // _this.cardActDecrease();
-	    // _this.cardActGive();
+	    cardActDecrease();
+	    // cardActGive();
 	  };
 	  function goodsSearch(){
 	    var search = $("#laimi-main select[name='goodscatalog']").val() || 0;
@@ -1038,8 +1055,230 @@
 	    	}
 	    }
 	  };
+	  function goodsAdd(){
+	  	var goodsinfo = $(this).parent().parent();
+	  	var tr ='';
+	  	var type = '';
+	  	var type_id = '';
+	  	if(goodsinfo.attr('gtype') == 'm'){
+	  		type = '通用';
+	  		type_id = 1;
+	  	}else if(goodsinfo.attr('gtype') == 's'){
+	  		type = '单店';
+	  		type_id = 2;
+	  	}
+	  	$.when(goodsPrice(goodsinfo.attr('gid'), type_id))
+	  	  .then(function(){
+	  	  	tr = ['<tr>',
+			  			'<td style="text-align:left;"><span class="layui-badge layui-bg-blue">'+type+'</span>&nbsp;'+goodsinfo.attr('gname')+'</td>',
+			  			'<td><span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span>&nbsp;<span class="laimi-color-ju">'+min_goods.min_price+'</span></td>',
+			  			'<td><input class="layui-input laimi-num" type="text" value="1" style="width:50px;padding:5px;text-align:center;" price="'+goodsinfo.attr('price')+'" min-price="'+min_goods.min_price+'" act="'+goodsinfo.attr('act')+'"></td>',
+			  			'<td></td>',
+			  			'<td style="padding:5px;width:100px;text-align:left;">',
+			  				'<select name="worker">',
+			  					'<option value="">请选择</option>'].join('');
+	  	  })
+	  	  .then(function(){
+	  	    $.getJSON('goods_reward_worker_ajax.php', {goods_id:goodsinfo.attr('gid'), type:type_id}, function(res){
+	  	    	if(res){
+	  	        $.each(res, function(k,v){
+	  	          tr += '<option value="'+v.worker_id+'">'+v.worker_name+'</option>';
+	  	        })
+	  	      }
+	  	    	tr += ['</select>',
+					  			'</td>',
+					  			'<td>',
+					  				'<a href="javascript:;" class="laimi-color-lan laimi-del">移除</a>',
+					  			'</td>',
+					  		'</tr>'].join('');
+
+					  $('#laimi-main .laimi-goods-checked').prepend(tr);
+					  objform.render('select');
+	  	      allGoodsPrice();
+	  	    })
+	  	  })
+	  };
+	  function goodsAdd2(){
+	  	var tr ='';
+	  	var goodsinfo = $(this);
+	  	$.when(goodsPrice(goodsinfo.attr('gid'), 3))
+	  	  .then(function(){
+	  	  	tr = ['<tr>',
+					  			'<td style="text-align:left;"><span class="layui-badge layui-bg-blue">套餐</span>&nbsp;'+goodsinfo.attr('gname')+'</td>',
+					  			'<td><span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span>&nbsp;<span class="laimi-color-ju">'+min_goods.min_price+'</span></td>',
+					  			'<td><input class="layui-input laimi-num" type="text" value="1" style="width:50px;padding:5px;text-align:center;" price="'+goodsinfo.attr('price')+'" min-price="'+min_goods.min_price+'" act="'+goodsinfo.attr('act')+'"></td>',
+					  			'<td></td>',
+					  			'<td style="padding:5px;width:100px;text-align:left;">',
+			  					'</td>',
+					  			'<td>',
+					  				'<a href="javascript:;" class="laimi-color-lan laimi-del">移除</a>',
+					  			'</td>',
+					  		'</tr>'].join('');
+					$('#laimi-main .laimi-goods-checked').prepend(tr);
+					allGoodsPrice();
+	  	  })
+	  };
+	  function goodsPrice(goods_id, goods_type){
+	  	/**
+  		*goods_type: 1mgoods, 2sgoods, 3mcombo
+  		*/
+	  	var act_id = [];
+	  	$.each(card_act_discount, function(k, v){
+	  		act_id.push(v.act_discount_id);
+	  	})
+	    var dtd = $.Deferred();// 新建一个Deferred对象
+	    var data = {
+		        goods_id: goods_id,
+		        type: goods_type,
+		        card_id: card_id,
+		        act_id: act_id
+		      };
+	    $.getJSON('goods_price_ajax.php', data, function(res){
+	    	min_goods = res;
+	    	dtd.resolve();
+	    })
+	    return dtd.promise();
+	  };
+	  function goodsDelete(){
+	  	$(this).parent().parent().remove();
+	  	allGoodsPrice();
+		  // var event = event || window.event;
+		  // var emt = event.target;
+		  // var _this = $(emt);
+		  // _this.parent().parent().remove();
+		}
+		function allGoodsPrice(){
+			card_act_decrease_use.length = 0;
+			$('#laimi-main .laimi-decrease-use').remove();
+	    var money = 0;//原价
+	    var ymoney = 0;//优惠价(计算商品，套餐，优惠券之后的价格)
+	    var ymoney2 = 0;//优惠价之后去掉满减后的价格
+	    var jian = 0;//优惠的价格
+	    var money_act = 0;//参加活动的总价
+	    var num = 0;
+	    //计算所有商品总价
+	    $("#laimi-main .laimi-num").each(function(){
+	      if(isNaN($(this).val())){
+	        $(this).val(0);
+	      }
+	      money = Number(money) + Number($(this).val()) * Number($(this).attr('price'));
+	      ymoney = Number(ymoney) + Number($(this).val()) * Number($(this).attr('min-price'));
+	      if($(this).attr('act') == '1'){
+	        money_act = Number(money_act) + Number($(this).val()) * Number($(this).attr('min-price'));
+	      }
+	      num = Number(num) + Number($(this).val());
+	    });
+	  	// 扣除券中对应商品价格或直接券的价值
+	  	/*$("#uworkbench .uright .cnum3").each(function(){
+	  	  var mgoods_id = $(this).attr('mgoods_id');
+	  	  var ticket_value = $(this).attr('ticket_value');
+	  	  if(mgoods_id != undefined){
+	  	    $("#uworkbench .uright .cnum").each(function(){
+	  	      if(mgoods_id == $(this).attr('mgoods_id')){
+	  	        ymoney = Number(ymoney)-Number($(this).attr('min_price'));
+	  	        money_act = Number(money_act)-Number($(this).attr('min_price'));
+	  	      }
+	  	    });
+	  	  }
+	  	  if(ticket_value != undefined){
+	  	    ymoney = Number(ymoney)-Number(ticket_value);
+	  	    money_act = Number(money_act)-Number(ticket_value);
+	  	  }
+	  	});*/
+	  	allmoney_act = money_act;//缓存
+	    ymoney2 = ymoney;
+	    if(card_act_decrease){
+	    	$.each(card_act_decrease, function(k, v){
+	    		if(money_act >= Number(v.act_decrease_man)){
+	    			ymoney2 = Number(ymoney2) - Number(v.act_decrease_jian);
+	    			card_act_decrease_use.push(v);
+    				var	tr = ['<tr class="laimi-decrease-use">',
+												'<td style="text-align:left;" colspan="6">',
+													'<label class="layui-form-label">',
+														'<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huo"></use></svg>',
+														'<span>已参与满减活动：'+v.act_decrease_name+'，共减'+v.act_decrease_jian+'元</span>',
+													'</label>',
+												'</td>',
+											'</tr>'].join('');
+						$('#laimi-main .laimi-goods-checked').append(tr);
+	    			return false;
+	    		}
+	    	})
+	    }
+	    money = money.toFixed(2);
+	    ymoney = ymoney.toFixed(2);
+	    ymoney2 = ymoney2.toFixed(2);
+	    jian = money - ymoney2;
+	    $("#laimi-main .laimi-goodscount").text(num);
+	    $("#laimi-main .laimi-money-yuan").text(money);
+	    $("#laimi-main .laimi-money-jian").text(jian);
+	    $("#laimi-main .laimi-money-ying").text(ymoney2);
+	  }
+	  function bill(){
+	  	card_act_give_use.length = 0;
+	  	var money_act = allmoney_act;
+	  	var actgive = clone(card_act_give);//clone 一份满减活动数据
+	  	// var ticket = clone(card_ticket);
+	  	var ymoney = $("#laimi-main .laimi-money-ying").text();
+	  	var temp = {};
+	  	var act_number = 0;
+	  	var card = [];
+	  	// 满送
+	  	if(card_id != 0){
+	  		card = cardlist[card_key];
+	  	  // 满送的总金额是参加活动的商品总额
+	  	  for(var i = 0; i < actgive.length;){
+	  	    if(money_act > actgive[i].act_give_man && actgive[i].act_give_man > 0){
+	  	      act_number = parseInt(Number(money_act)/Number(actgive[i].act_give_man));//减了几次
+	  	      money_act = Number(money_act)%Number(actgive[i].act_give_man);//减过之后剩余价格
+	  	      temp = actgive[i];
+	  	      temp.act_number = act_number;
+	  	      card_act_give_use.push(temp);
+	  	    }else{
+	  	      i++;
+	  	    }
+	  	  }
+	  	}
+	  	$.when(cardTicket(1))
+	  		.then(function(){
+	  			var ticket = [];
+	  			//只显示可用券;
+	  			if(card_ticket.length > 0){
+	  				$.each(card_ticket, function(k, v){
+	  					if(ymoney > v.c_ticket_limit){
+	  						ticket.push(v);
+	  					}
+	  				})
+	  			}
+	  			var data = {
+	  					money: ymoney,
+	  					act_give: card_act_give_use,
+	  					ticket: ticket,
+	  					card: card
+	  			}
+	  			objlaytpl($("#laimi-script-add").html()).render(data, function(html){
+	  			  objlayer.open({
+	  			  	type: 1,
+	  			  	title: ["结帐", "font-size:16px;"],
+	  			  	btnAlign: "r",
+	  			  	area: ["800px", "auto"],
+	  			  	shadeClose: true,//点击遮罩关闭
+	  			  	content: html,
+	  			  	success: function(){
+	  			  		objform.render(null, 'pay');
+	  			  	}
+	  			  });
+	  			});
+	  		})
+	  }
+	  function clone(obj){
+	    //深层clone,用于只有数据的数组，json对象
+	    if(obj)
+	    	return JSON.parse(JSON.stringify(obj));
+	    else
+	    	return [];
+	  }
 	  (function init(){
-	    // $('.ccardhas').hide();
 	    cardActDiscount();//初始化活动
 	    cardActDecrease();//初始化活动
 	    // 会员卡搜索
@@ -1050,36 +1289,24 @@
 	    $('.laimi-button-search').on('click',function(){
 	    	goodsSearch();
 	    });
-	    /*
 	    // 添加商品
-	    $('#uworkbench .uleft #tab1 .cadd').on('click', function(event){
-	      _this.goodsAdd(event);
-	    });
-	    // 扫码添加
-	    $('#uworkbench .uleft #tab4 .cgoodscodeadd').on('click', function(event){
-	      _this.goodsAdd2(event);
-	    });
-	    $('#uworkbench .uleft #tab4 .cgoodscode').on('keyup', function(event){
-	      event.stopPropagation();
-	      if(event.keyCode==13){
-	       _this.goodsAdd2(event);
-	      }
-	    });
+	    $('#laimi-main .laimi-goods-add1').on('click', goodsAdd);
+	    // 添加套餐
+	    $('#laimi-main .laimi-goods-add2').on('click', goodsAdd2);
 	    //删除商品,套餐商品,券
-	    $(document).on("click",".cdel", function(event){
-	      _this.goodsDelete(event);
+	    $(document).on("click", "#laimi-main .laimi-del", goodsDelete);
+	    $(document).on("input propertychange", "#laimi-main .laimi-num", allGoodsPrice);
+	    // //+ -
+	    // $(document).on("click", ".cbtndec", function(event) {
+	    //   goodsNumDec(event);
+	    // });
+	    // $(document).on("click", ".cbtnplus", function(event) {
+	    //   goodsNumPlus(event);
+	    // });
+	    $(".laimi-payopen").on("click", function() {
+	    	bill();
 	    });
-	    //+ -
-	    $(document).on("click", ".cbtndec", function(event) {
-	      _this.goodsNumDec(event);
-	    });
-	    $(document).on("click", ".cbtnplus", function(event) {
-	      _this.goodsNumPlus(event);
-	    });
-	    $('.cpayopen').on('click', function(){
-	      _this.bill();
-	      $('#uworkbenchm2').modal('open');
-	    })
+	    /*
 	    //付款方式
 	    $('#uworkbenchm2 .upay').on('click',function(){
 	      $(this).addClass('upay-active').siblings().removeClass('upay-active');

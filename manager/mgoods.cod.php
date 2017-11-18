@@ -11,21 +11,21 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li class="layui-this">
-						<a href="sgoods.php">单店商品管理</a>
+						<a href="mgoods.php">通用商品管理</a>
 					</li>
 					<li>
-						<a href="sgoods_catalog.php">商品分类</a>
+						<a href="mgoods_catalog.php">商品分类</a>
 					</li>
 				</ul>
-				<div id="laimi-main" class="p-sgoods layui-tab-content">
+				<div id="laimi-main" class="p-mgoods layui-tab-content">
 <form class="layui-form">
 	<div class="laimi-tools layui-form-item">		
 		<label class="layui-form-label">选择分类</label>
 		<div class="layui-input-inline">
-			<select name="sgoods_catalog_id">
+			<select name="mgoods_catalog_id">
 				<option value="0">全部</option>
-        <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-        <option value="<?php echo $row['sgoods_catalog_id'] ?>" <?php if($row['sgoods_catalog_id'] == $this->_data['request']['sgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['sgoods_catalog_name'] ?></option>
+        <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+        <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['request']['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
         <?php } ?>
 			</select>
 		</div>
@@ -50,38 +50,42 @@
 			<th>商品价格</th>
 			<th>会员价格</th>
 			<th>库存</th>
+			<th>活动</th>
+			<th>预约</th>
 			<th>状态</th>
 			<th width="180">操作</th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach($this->_data['sgoods_list']['list'] as $row) { ?>
+		<?php foreach($this->_data['mgoods_list']['list'] as $row) { ?>
 		<tr>
-			<td><?php echo $row['sgoods_catalog_name']; ?></td>
-      <td><?php echo $row['sgoods_name']; ?></td>
-      <td><?php echo $row['sgoods_code']; ?></td>
-      <td><?php echo $row['sgoods_price']; ?></td>
-			<td><?php echo $row['sgoods_cprice']==0?'--':$row['sgoods_cprice']; ?></td>
-			<td><i class="layui-icon <?php echo $row['sgoods_type']==2?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
-			<td class="<?php echo $row['sgoods_state']=='1'?'':'laimi-color-hong';?>"><?php echo $row['sgoods_state']=='1'?'正常':'停用';?></td>
+			<td><?php echo $row['mgoods_catalog_name']; ?></td>
+      <td><?php echo $row['mgoods_name']; ?></td>
+      <td><?php echo $row['mgoods_code']; ?></td>
+      <td><?php echo $row['mgoods_price']; ?></td>
+			<td><?php echo $row['mgoods_cprice']==0?'--':$row['mgoods_cprice']; ?></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_type']==2?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_act']==1?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_reserve']==1?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td class="<?php echo $row['mgoods_state']=='1'?'':'laimi-color-hong';?>"><?php echo $row['mgoods_state']=='1'?'正常':'停用';?></td>
 			<td>
-				<button class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['sgoods_id']; ?>">
+				<button class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['mgoods_id']; ?>">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
 				</button>
-				<?php if($row['sgoods_state'] == 1){
-                echo '<button class="layui-btn layui-bg-red layui-btn-mini laimi-state" value="'.$row["sgoods_id"].'" state="'.$row['sgoods_state'].'">
+				<?php if($row['mgoods_state'] == 1){
+                echo '<button class="layui-btn layui-bg-red layui-btn-mini laimi-state" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-tingyong"></use></svg>
                         停用
                       </button>';
-              }else if($row['sgoods_state'] == 2){
-                echo '<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state2" value="'.$row["sgoods_id"].'" state="'.$row['sgoods_state'].'">
+              }else if($row['mgoods_state'] == 2){
+                echo '<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state2" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-dui"></use></svg>
                         启用
                       </button>';
               }
         ?>
-				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['sgoods_id']; ?>">
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['mgoods_id']; ?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
 				</button>
@@ -104,10 +108,10 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品分类</label>
 			    <div class="layui-input-inline">
-			      <select name="txtsgoods_catalog_id">
+			      <select name="txtmgoods_catalog_id">
 			        <option value="0">请选择分类</option>
-              <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-              <option value="<?php echo $row['sgoods_catalog_id'] ?>"><?php echo $row['sgoods_catalog_name'] ?></option>
+              <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+              <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
               <?php } ?>
 			      </select>
 			    </div>
@@ -115,7 +119,7 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品名称</label>
 			    <div class="layui-input-inline">
-			      <input id="laimi-goodsname" class="layui-input laimi-input-300" type="text" name="txtsgoods_name" lay-verify="required">
+			      <input id="laimi-goodsname" class="layui-input laimi-input-300" type="text" name="txtmgoods_name" lay-verify="required">
 			    </div>
 			    <label class="layui-form-label" style="width:auto;">简拼</label>
 			    <div class="layui-input-inline">
@@ -125,29 +129,45 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label">商品编码</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-300" type="text" name="txtsgoods_code">
+			      <input class="layui-input laimi-input-300" type="text" name="txtmgoods_code">
 			    </div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品价格</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-100" type="text" name="txtsgoods_price" placeholder="￥" lay-verify="required">
+			      <input class="layui-input laimi-input-100" type="text" name="txtmgoods_price" placeholder="￥" lay-verify="required">
 			    </div>
 			    <div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label">会员价格</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-100" type="text" name="txtsgoods_cprice" placeholder="￥">
+			      <input class="layui-input laimi-input-100" type="text" name="txtmgoods_cprice" placeholder="￥">
 			    </div>
 			    <div class="layui-form-mid layui-word-aux">元&nbsp;&nbsp;如有会员价，优先按会员价结算</div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label">商品库存</label>
 			    <div class="layui-input-inline">
-				    <input type="radio" name="txtsgoods_type" value="1" title="无库存">
-					  <input type="radio" name="txtsgoods_type" value="2" title="有库存">
+				    <input type="radio" name="txtmgoods_type" value="1" title="无库存">
+					  <input type="radio" name="txtmgoods_type" value="2" title="有库存">
 				  </div>
+				</div>
+				<div class="layui-form-item">
+			    <label class="layui-form-label">参与活动</label>
+			    <div class="layui-input-inline">
+			      <input type="radio" name="txtmgoods_act" value="2" title="不参与">
+				  	<input type="radio" name="txtmgoods_act" value="1" title="参与活动">
+			   	</div>
+			    <div class="layui-form-mid layui-word-aux">是否参与满减、满送活动</div>
+				</div>
+				<div class="layui-form-item">
+			    <label class="layui-form-label">参与预约</label>
+			    <div class="layui-input-inline">
+			      <input type="radio" name="txtmgoods_reserve" value="2" title="不参与">
+				  	<input type="radio" name="txtmgoods_reserve" value="1" title="参与预约">
+			  	</div>
+			    <div class="layui-form-mid layui-word-aux">是否参与微信预约</div>
 				</div>
 		  	<div class="layui-form-item">
 		    	<div class="layui-input-block">
@@ -170,10 +190,10 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品分类</label>
 			    <div class="layui-input-inline">
-			      <select name="txtsgoods_catalog_id">
+			      <select name="txtmgoods_catalog_id">
 			        <option value="0">请选择</option>
-              <?php foreach($this->_data['sgoods_catalog_list'] as $row) { ?>
-              <option value="<?php echo $row['sgoods_catalog_id'] ?>"><?php echo $row['sgoods_catalog_name'] ?></option>
+              <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+              <option value="<?php echo $row['mgoods_catalog_id'] ?>"><?php echo $row['mgoods_catalog_name'] ?></option>
               <?php } ?>
 			      </select>
 			    </div>
@@ -181,8 +201,8 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品名称</label>
 			    <div class="layui-input-inline">
-			      <input id="laimi-goodsname2" class="layui-input laimi-input-300" type="text" name="txtsgoods_name">
-			      <input class="layui-input laimi-input-300" type="hidden" name="txtsgoods_id">
+			      <input id="laimi-goodsname2" class="layui-input laimi-input-300" type="text" name="txtmgoods_name">
+			      <input class="layui-input laimi-input-300" type="hidden" name="txtmgoods_id">
 			    </div>
 			    <label class="layui-form-label" style="width:auto;">简拼</label>
 			    <div class="layui-input-inline">
@@ -192,29 +212,45 @@
 				<div class="layui-form-item">
 			    <label class="layui-form-label">商品编码</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-300" type="text" name="txtsgoods_code">
+			      <input class="layui-input laimi-input-300" type="text" name="txtmgoods_code">
 			    </div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 商品价格</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-100" type="text" name="txtsgoods_price" placeholder="￥">
+			      <input class="layui-input laimi-input-100" type="text" name="txtmgoods_price" placeholder="￥">
 			    </div>
 			    <div class="layui-form-mid layui-word-aux">元</div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label">会员价格</label>
 			    <div class="layui-input-inline">
-			      <input class="layui-input laimi-input-100" type="text" name="txtsgoods_cprice" placeholder="￥">
+			      <input class="layui-input laimi-input-100" type="text" name="txtmgoods_cprice" placeholder="￥">
 			    </div>
 			    <div class="layui-form-mid layui-word-aux">元&nbsp;&nbsp;如有会员价，优先按会员价结算</div>
 				</div>
 				<div class="layui-form-item">
 			    <label class="layui-form-label">商品库存</label>
 			    <div class="layui-input-inline">
-				    <input type="radio" name="txtsgoods_type" value="1" title="无库存" disabled>
-					  <input type="radio" name="txtsgoods_type" value="2" title="有库存" disabled>
+				    <input type="radio" name="txtmgoods_type" value="1" title="无库存" disabled>
+					  <input type="radio" name="txtmgoods_type" value="2" title="有库存" disabled>
 				  </div>
+				</div>
+				<div class="layui-form-item">
+			    <label class="layui-form-label">参与活动</label>
+			    <div class="layui-input-inline">
+			      <input type="radio" name="txtmgoods_act" value="2" title="不参与">
+				  	<input type="radio" name="txtmgoods_act" value="1" title="参与活动">
+			   	</div>
+			    <div class="layui-form-mid layui-word-aux">是否参与满减、满送活动</div>
+				</div>
+				<div class="layui-form-item">
+			    <label class="layui-form-label">参与预约</label>
+			    <div class="layui-input-inline">
+			      <input type="radio" name="txtmgoods_reserve" value="2" title="不参与">
+				  	<input type="radio" name="txtmgoods_reserve" value="1" title="参与预约">
+			  	</div>
+			   <div class="layui-form-mid layui-word-aux">是否参与微信预约</div>
 				</div>					    	  
 		  	<div class="layui-form-item">
 		    	<div class="layui-input-block">
@@ -241,9 +277,9 @@
 		var objform = layui.form;
 		objpage.render({
 			elem: 'laimi-page-content',
-			count: <?php echo $this->_data['sgoods_list']['allcount'];?>,
-			limit: 50,
-			curr: <?php echo $this->_data['sgoods_list']['pagenow'];?>,
+			count: <?php echo $this->_data['mgoods_list']['allcount'];?>,
+			limit: 25,
+			curr: <?php echo $this->_data['mgoods_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
 			jump: function(obj,first) {
 				var search = "<?php echo api_value_query($this->_data['request']);?>";
@@ -279,29 +315,39 @@
 					renderAll();
 				}
 			});
-			var sgoods_id = $(this).val();
+			var mgoods_id = $(this).val();
 		  $.ajax({
 		    type: "get",
-		    url: "sgoods_edit_ajax.php",
-		    data: {sgoods_id:sgoods_id}, 
+		    url: "mgoods_edit_ajax.php",
+		    data: {mgoods_id:mgoods_id}, 
 		    dataType:'json',
 		    success: function(msg){
-		      $("#laimi-modal-edit input[name='txtsgoods_name']").val(msg.sgoods_name);
-		      $("#laimi-modal-edit input[name='txtjianpin']").val(msg.sgoods_jianpin);
-		      $("#laimi-modal-edit input[name='txtsgoods_code']").val(msg.sgoods_code);
-		      $("#laimi-modal-edit input[name='txtsgoods_price']").val(msg.sgoods_price);
-		      if(msg.sgoods_cprice==0){
-		        msg.sgoods_cprice = '';
+		      $("#laimi-modal-edit input[name='txtmgoods_name']").val(msg.mgoods_name);
+		      $("#laimi-modal-edit input[name='txtjianpin']").val(msg.mgoods_jianpin);
+		      $("#laimi-modal-edit input[name='txtmgoods_code']").val(msg.mgoods_code);
+		      $("#laimi-modal-edit input[name='txtmgoods_price']").val(msg.mgoods_price);
+		      if(msg.mgoods_cprice==0){
+		        msg.mgoods_cprice = '';
 		      }
-		      $("#laimi-modal-edit input[name='txtsgoods_cprice']").val(msg.sgoods_cprice);
-		      $("#laimi-modal-edit input[name='txtsgoods_id']").val(msg.sgoods_id);
+		      $("#laimi-modal-edit input[name='txtmgoods_cprice']").val(msg.mgoods_cprice);
+		      $("#laimi-modal-edit input[name='txtmgoods_id']").val(msg.mgoods_id);
 		      $("#laimi-modal-edit option").each(function () {
-		    		if($(this).val()==(msg.sgoods_catalog_id)){
+		    		if($(this).val()==(msg.mgoods_catalog_id)){
 	            $(this).attr('selected',true);
 	          }
 		      });
-		      $("#laimi-modal-edit input[name='txtsgoods_type']").each(function(){
-	          if($(this).val()==msg.sgoods_type){
+		      $("#laimi-modal-edit input[name='txtmgoods_type']").each(function(){
+	          if($(this).val()==msg.mgoods_type){
+	            $(this).attr('checked',true);
+	          }
+	        });
+	        $("#laimi-modal-edit input[name='txtmgoods_act']").each(function(){
+	          if($(this).val()==msg.mgoods_act){
+	            $(this).attr('checked',true);
+	          }
+	        });
+		      $("#laimi-modal-edit input[name='txtmgoods_reserve']").each(function(){
+	          if($(this).val()==msg.mgoods_reserve){
 	            $(this).attr('checked',true);
 	          }
 	        });
@@ -313,10 +359,10 @@
 		objform.on("submit(laimi-submitadd)", function(data) {
 		  var _self = $(this);
 		  _self.attr('disabled',true);
-		  var url="sgoods_add_do.php";
+		  var url="mgoods_add_do.php";
 		  $.post(url,data.field,function(res){
 		    if(res=='0'){
-		      window.location.href='sgoods.php';
+		      window.location.href='mgoods.php';
 		    }else if(res=='1'){
 		      alert("缺少必填项");
 		      _self.attr('disabled',false);
@@ -333,11 +379,11 @@
 		objform.on("submit(laimi-submitedit)", function(data) {
 		  var _self = $(this);
 		  _self.attr('disabled',true);
-		  var url="sgoods_edit_do.php";
+		  var url="mgoods_edit_do.php";
 		  console.log(data.field);
 		  $.post(url,data.field,function(res){
 		    if(res=='0'){
-		      window.location.href='sgoods.php';
+		      window.location.href='mgoods.php';
 		    }else if(res=='1'){
 		      alert("缺少必填项");
 		      _self.attr('disabled',false);
@@ -354,7 +400,7 @@
 	  $(".laimi-del").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
-			  $.post('sgoods_delete_do.php', {id:id}, function(res){
+			  $.post('mgoods_delete_do.php', {id:id}, function(res){
 			  	if(res == 0){
 			  		window.location.reload();
 			  	}else if(res=='1'){
@@ -378,7 +424,7 @@
 	  $(".laimi-state").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
-			  $.post('sgoods_state_do.php',{'sgoods_id':id},function(res){
+			  $.post('mgoods_state_do.php',{'mgoods_id':id},function(res){
 	        if(res=='0'){
 	          window.location.reload();
 	        }else if(res=='1'){
@@ -393,7 +439,7 @@
 		$(".laimi-state2").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
-			  $.post('sgoods_state_do.php',{'sgoods_id':id},function(res){
+			  $.post('mgoods_state_do.php',{'mgoods_id':id},function(res){
 	        if(res=='0'){
 	          window.location.reload();
 	        }else if(res=='1'){

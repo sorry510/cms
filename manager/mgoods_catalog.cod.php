@@ -11,13 +11,13 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li>
-						<a href="sgoods.php">通用商品管理</a>
+						<a href="mgoods.php">通用商品管理</a>
 					</li>
 					<li class="layui-this">
-						<a href="sgoods_catalog.php">商品分类</a>
+						<a href="mgoods_catalog.php">商品分类</a>
 					</li>
 				</ul>
-				<div id="laimi-main" class="p-sgoods-catalog layui-tab-content">
+				<div id="laimi-main" class="p-mgoods-catalog layui-tab-content">
 <form class="layui-form">
 	<div class="laimi-tools layui-form-item">		
 		<div class="laimi-float-right">
@@ -33,15 +33,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach($this->_data['sgoods_catalog_list']['list'] as $row) { ?>
+		<?php foreach($this->_data['mgoods_catalog_list']['list'] as $row) { ?>
 		<tr>
-			<td><?php echo $row['sgoods_catalog_name']; ?></td>
+			<td><?php echo $row['mgoods_catalog_name']; ?></td>
 			<td>
-				<button class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['sgoods_catalog_id'];?>">
+				<button class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['mgoods_catalog_id'];?>">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
 				</button>
-				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['sgoods_catalog_id'];?>">
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['mgoods_catalog_id'];?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-shanchu1"></use></svg>
 					删除
 				</button>
@@ -64,7 +64,7 @@
 			  <div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 分类名称</label>
 			    <div class="layui-input-block">
-			      <input class="layui-input laimi-input-200" type="text" name="txtsgoods_catalog_name" lay-verify="required">
+			      <input class="layui-input laimi-input-200" type="text" name="txtmgoods_catalog_name" lay-verify="required">
 			    </div>
 			  </div>		    	  
 			  <div class="layui-form-item">
@@ -88,8 +88,8 @@
 			  <div class="layui-form-item">
 			    <label class="layui-form-label"><span>*</span> 分类名称</label>
 			    <div class="layui-input-block">
-			      <input class="layui-input laimi-input-200" type="text" name="txtsgoods_catalog_name" lay-verify="required">
-			      <input class="layui-input laimi-input-200" type="hidden" name="txtsgoods_catalog_id">
+			      <input class="layui-input laimi-input-200" type="text" name="txtmgoods_catalog_name" lay-verify="required">
+			      <input class="layui-input laimi-input-200" type="hidden" name="txtmgoods_catalog_id">
 			    </div>
 			  </div>		    	  
 			  <div class="layui-form-item">
@@ -116,9 +116,9 @@
 		var objform = layui.form;
 		objpage.render({
 			elem: 'laimi-page-content',
-			count: <?php echo $this->_data['sgoods_catalog_list']['allcount'];?>,
-			limit: 50,
-			curr: <?php echo $this->_data['sgoods_catalog_list']['pagenow'];?>,
+			count: <?php echo $this->_data['mgoods_catalog_list']['allcount'];?>,
+			limit: 25,
+			curr: <?php echo $this->_data['mgoods_catalog_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
 			jump: function(obj,first) {
 				var search = "<?php echo api_value_query($this->_data['request']);?>";
@@ -147,20 +147,20 @@
 				shadeClose: true,//点击遮罩关闭
 				content: $("#laimi-edit").html()
 			});
-			var sgoods_catalog_id = $(this).val();
-		  var sgoods_catalog_name = $(this).parent().siblings().eq(0).text();
-		  console.log(sgoods_catalog_name);
-		  $("#laimi-modal-edit input[name='txtsgoods_catalog_name']").val(sgoods_catalog_name);
-		  $("#laimi-modal-edit input[name='txtsgoods_catalog_id']").val(sgoods_catalog_id);
+			var mgoods_catalog_id = $(this).val();
+		  var mgoods_catalog_name = $(this).parent().siblings().eq(0).text();
+		  console.log(mgoods_catalog_name);
+		  $("#laimi-modal-edit input[name='txtmgoods_catalog_name']").val(mgoods_catalog_name);
+		  $("#laimi-modal-edit input[name='txtmgoods_catalog_id']").val(mgoods_catalog_id);
 		});
 		//添加商品submit
 		objform.on("submit(laimi-submitadd)", function(data) {
 			var _self = $(this);
 		  _self.attr('disabled',true);
-		  var url="sgoods_catalog_add_do.php";
+		  var url="mgoods_catalog_add_do.php";
 		  $.post(url,data.field,function(res){
 		    if(res=='0'){
-		      window.location.href='sgoods_catalog.php';
+		      window.location.href='mgoods_catalog.php';
 		    }else{
 		      _self.attr('disabled',false);
 		      alert("添加失败");
@@ -172,11 +172,11 @@
 		objform.on("submit(laimi-submitedit)", function(data) {
 		  var _self = $(this);
 		  _self.attr('disabled',true);
-		  var url="sgoods_catalog_edit_do.php";
+		  var url="mgoods_catalog_edit_do.php";
 		  console.log(data.field);
 		  $.post(url,data.field,function(res){
 		    if(res=='0'){
-		      window.location.href='sgoods_catalog.php';
+		      window.location.href='mgoods_catalog.php';
 		    }else if(res=='1'){
 		      alert("缺少必填项");
 		      _self.attr('disabled',false);
@@ -193,7 +193,7 @@
 	  $(".laimi-del").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
-			  $.post('sgoods_catalog_delete_do.php', {id:id}, function(res){
+			  $.post('mgoods_catalog_delete_do.php', {id:id}, function(res){
 			  	if(res == 0){
 			  		window.location.reload();
 			  	}else if(res=='1'){

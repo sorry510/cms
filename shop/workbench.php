@@ -5,6 +5,7 @@ require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
 $strchannel = 'workbench';
+$intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 
 $gtemplate->fun_assign('mgoods_list', get_mgoods_list());
 $gtemplate->fun_assign('sgoods_list', get_sgoods_list());
@@ -12,6 +13,7 @@ $gtemplate->fun_assign('mgoods_catalog_list', get_mgoods_catalog_list());
 $gtemplate->fun_assign('sgoods_catalog_list', get_sgoods_catalog_list());
 $gtemplate->fun_assign('mcombo_list', get_mcombo_list());
 $gtemplate->fun_assign('worker_list', get_worker_list());
+$gtemplate->fun_assign('card_type_list', get_card_type_list());
 $gtemplate->fun_show('workbench');
 
 function get_mgoods_catalog_list() {
@@ -35,11 +37,12 @@ function get_mgoods_list(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$v){
-		$strsql = "SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice,mgoods_act,mgoods_code,mgoods_jianpin FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_state=1 and mgoods_catalog_id = ".$v['mgoods_catalog_id']." ORDER BY mgoods_id desc";
+		$strsql = "SELECT a.*,b.store_info_count FROM (SELECT mgoods_id, mgoods_name, mgoods_price,mgoods_cprice,mgoods_act,mgoods_code,mgoods_jianpin,mgoods_type FROM " . $GLOBALS['gdb']->fun_table2('mgoods')." WHERE mgoods_state=1 and mgoods_catalog_id = ".$v['mgoods_catalog_id'].") AS a LEFT JOIN (SELECT mgoods_id,store_info_count FROM ".$GLOBALS['gdb']->fun_table2('store_info')." WHERE shop_id=".$GLOBALS['intshop'].") as b on a.mgoods_id=b.mgoods_id order by a.mgoods_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrmgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$v['mgoods'] = $arrmgoods;
 	}
+	unset($v);
 	return $arr;
 }
 function get_sgoods_list(){
@@ -49,11 +52,12 @@ function get_sgoods_list(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$v){
-		$strsql = "SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice,sgoods_code,sgoods_jianpin FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE sgoods_state=1 and sgoods_catalog_id = ".$v['sgoods_catalog_id']." and shop_id=".$GLOBALS['_SESSION']['login_sid']." ORDER BY sgoods_id desc";
+		$strsql = "SELECT a.*,b.store_info_count FROM (SELECT sgoods_id, sgoods_name, sgoods_price,sgoods_cprice,sgoods_code,sgoods_jianpin,sgoods_type FROM " . $GLOBALS['gdb']->fun_table2('sgoods')." WHERE sgoods_state=1 and sgoods_catalog_id = ".$v['sgoods_catalog_id']." and shop_id=".$GLOBALS['intshop'].") AS a LEFT JOIN (SELECT sgoods_id,store_info_count FROM ".$GLOBALS['gdb']->fun_table2('store_info')." WHERE shop_id=".$GLOBALS['intshop'].") as b on a.sgoods_id=b.sgoods_id order by a.sgoods_id desc";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrsgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$v['sgoods'] = $arrsgoods;
 	}
+	unset($v);
 	return $arr;
 }
 function get_mcombo_list(){
@@ -78,6 +82,13 @@ function get_mcombo_list(){
 function get_worker_list(){
 	$arr = array();
 	$strsql = "SELECT worker_id,worker_name FROM " . $GLOBALS['gdb']->fun_table2('worker')." where shop_id = ".$GLOBALS['_SESSION']['login_sid']." order by worker_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	return $arr;
+}
+function get_card_type_list(){
+	$arr = array();
+	$strsql = "SELECT card_type_id,card_type_name,card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card_type')." order by card_type_discount asc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

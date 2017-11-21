@@ -22,7 +22,7 @@ $strwhere .= " or card_phone = '" . $sqlsearch . "')";
 $strwhere .= " and card_state = 1";
 $strwhere .= " and (card_edate = 0 or card_edate>=".time().")";
 
-$strsql = "SELECT shop_id,card_id,card_code,card_photo_file,card_identity,card_name,card_phone,card_sex,card_birthday_date,worker_id,card_link,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_yscore,card_memo FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC";
+$strsql = "SELECT shop_id,card_id,card_type_id,card_code,card_photo_file,card_identity,card_name,card_phone,card_sex,card_birthday_date,worker_id,card_link,card_atime,c_card_type_name,c_card_type_discount,card_edate,card_state,shop_id,s_card_smoney,s_card_ymoney,s_card_yscore,card_memo FROM " . $GLOBALS['gdb']->fun_table2('card') . " where 1=1 ".$strwhere." ORDER BY card_id DESC";
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

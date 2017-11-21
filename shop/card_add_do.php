@@ -97,34 +97,37 @@ function update_photo($objfile, $photo, $place, $fix = ''){
 		$objfile -> unlinkFile($strtmpfile);
 	}
 }
+
 // 开卡提成
-if($intreturn == 0 && $intcard_worker_id != 0){
-	$strsql = "SELECT a.*,b.worker_group_name FROM (SELECT worker_id,worker_group_id,worker_name FROM " . $gdb->fun_table2('worker') . " where worker_id=" . $intcard_worker_id .") as a left join " . $gdb->fun_table2('worker_group') . " as b on a.worker_group_id = b.worker_group_id";
-	$hresult = $gdb->fun_query($strsql);
-	$arr = $gdb->fun_fetch_assoc($hresult);
-	if(!empty($arr)){
-		$intcard_worker_id = $arr['worker_id'];
-		$intworker_group_id = $arr['worker_group_id'];
-		$strworker_name = $arr['worker_name'];
-		$strworker_group_name = $arr['worker_group_name'];
-		$decgroup_reward_create = 0;
-		$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=".$intshop;
+if(laimi_config_trade()['worker_module'] == 1 && laimi_config_trade()['worker_flag'] == 1){
+	if($intreturn == 0 && $intcard_worker_id != 0){
+		$strsql = "SELECT a.*,b.worker_group_name FROM (SELECT worker_id,worker_group_id,worker_name FROM " . $gdb->fun_table2('worker') . " where worker_id=" . $intcard_worker_id .") as a left join " . $gdb->fun_table2('worker_group') . " as b on a.worker_group_id = b.worker_group_id";
 		$hresult = $gdb->fun_query($strsql);
 		$arr = $gdb->fun_fetch_assoc($hresult);
 		if(!empty($arr)){
-			$decgroup_reward_create = $arr['group_reward_create'];
-		}else{
-			// 当分店没有设置提成时，去总店取
-			$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=0";
+			$intcard_worker_id = $arr['worker_id'];
+			$intworker_group_id = $arr['worker_group_id'];
+			$strworker_name = $arr['worker_name'];
+			$strworker_group_name = $arr['worker_group_name'];
+			$decgroup_reward_create = 0;
+			$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=".$intshop;
 			$hresult = $gdb->fun_query($strsql);
 			$arr = $gdb->fun_fetch_assoc($hresult);
 			if(!empty($arr)){
 				$decgroup_reward_create = $arr['group_reward_create'];
+			}else{
+				// 当分店没有设置提成时，去总店取
+				$strsql = "SELECT group_reward_create FROM " .$gdb->fun_table2('group_reward') . " where worker_group_id=".$intworker_group_id." and shop_id=0";
+				$hresult = $gdb->fun_query($strsql);
+				$arr = $gdb->fun_fetch_assoc($hresult);
+				if(!empty($arr)){
+					$decgroup_reward_create = $arr['group_reward_create'];
+				}
 			}
-		}
-		if($decgroup_reward_create != 0){
-			$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone) VALUES (".$intcard_worker_id.",".$GLOBALS['_SESSION']['login_sid'].",1,".$decgroup_reward_create.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$intcard_id.",'".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_name)."','".$gdb->fun_escape($strcard_phone)."')";
-			$gdb->fun_do($strsql);
+			if($decgroup_reward_create != 0){
+				$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_id,c_card_code,c_card_name,c_card_phone) VALUES (".$intcard_worker_id.",".$GLOBALS['_SESSION']['login_sid'].",1,".$decgroup_reward_create.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$intcard_id.",'".$gdb->fun_escape($strcard_code)."','".$gdb->fun_escape($strcard_name)."','".$gdb->fun_escape($strcard_phone)."')";
+				$gdb->fun_do($strsql);
+			}
 		}
 	}
 }

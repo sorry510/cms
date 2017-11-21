@@ -32,6 +32,17 @@ function laimi_shop_list(){
 	return $arr;
 }
 
+// 获取当前用户姓名
+function laimi_user_name(){
+	$str = '';
+	$arr = array();
+	$strsql = "SELECT user_name FROM ".$GLOBALS['gdb']->fun_table2('user'). " WHERE user_id=".api_value_int0($GLOBALS['_SESSION']['login_id']). " LIMIT 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	$str = $arr['user_name'];
+	return $str;
+}
+
 // get系统基础配置信息
 function laimi_config_trade(){
 	$arr = array();

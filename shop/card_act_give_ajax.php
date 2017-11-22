@@ -11,7 +11,7 @@ $intid = api_value_int0($strid);
 $arr = array();
 $inttype = 0;
 $now = time();
-$arrdiscount = array();
+$arrgive = array();
 
 if($intid == 0){
 	$inttype = 1;

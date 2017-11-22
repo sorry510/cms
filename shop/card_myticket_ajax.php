@@ -17,13 +17,17 @@ if($inttype == 2){
 }else if($inttype == 1){
 	$order = ' order by c_ticket_value desc';
 }
-
-$strsql = "SELECT card_ticket_id,ticket_type,ticket_money_id,ticket_goods_id,card_ticket_atime,card_ticket_edate,c_ticket_name,c_ticket_value,c_ticket_limit,c_ticket_days,c_ticket_begin,c_mgoods_id,c_mgoods_name FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id = ".$intcard_id." and card_ticket_state=1 and card_ticket_edate>".time()." and ticket_type = ".$inttype." and (c_ticket_begin=1 or (c_ticket_begin=2 and card_ticket_atime <".strtotime(date('Y-m-d',time()))."))".$order;
+//strtotime(date('Y-m-d', time()))今天0:00
+$strsql = "SELECT card_ticket_id,ticket_type,ticket_money_id,ticket_goods_id,card_ticket_atime,card_ticket_edate,c_ticket_name,c_ticket_value,c_ticket_limit,c_ticket_days,c_ticket_begin,c_mgoods_id,c_mgoods_name FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id = ".$intcard_id." and card_ticket_state=1 and card_ticket_edate>".time()." and ticket_type = ".$inttype." and (c_ticket_begin=1 or (c_ticket_begin=2 and card_ticket_atime <".strtotime(date('Y-m-d', time()))."))".$order;
 
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 foreach($arr as &$row){
-	$row['atime'] = date('Y-m-d', $row['card_ticket_atime']);
+	if($row['c_ticket_begin'] == 1){
+		$row['atime'] = date('Y-m-d', $row['card_ticket_atime']);
+	}else{
+		$row['atime'] = date('Y-m-d', ($row['card_ticket_atime'] + 86400));
+	}
 	$row['edate'] = date('Y-m-d', $row['card_ticket_edate']);
 }
 

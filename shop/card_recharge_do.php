@@ -77,7 +77,7 @@ if($intreturn == 0){
 		default:
 			break;
 	}
-	// 充值code码uniqid(time())
+
 	$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',1,".$decmoney.",".$deccash.",".$arr['s_card_ymoney'].",".$intpay_type.",".$deccash.",".$intscore.",".$intnow.",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$struser_name."',1)";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {

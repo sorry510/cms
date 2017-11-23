@@ -13,15 +13,15 @@ $hresult = $gdb->fun_do($strsql);
 if($hresult)
 	echo "2ok</br>";
 
-// $strsql = "delete from am_0001_card_record2_mcombo";
-// $hresult = $gdb->fun_do($strsql);
-// if($hresult)
-// 	echo "3ok</br>";
+$strsql = "delete from am_0001_card_record2_mcombo";
+$hresult = $gdb->fun_do($strsql);
+if($hresult)
+	echo "3ok</br>";
 
-// $strsql = "delete from am_0001_card_record2_ygoods";
-// $hresult = $gdb->fun_do($strsql);
-// if($hresult)
-// 	echo "4ok</br>";
+$strsql = "delete from am_0001_card_record2_ygoods";
+$hresult = $gdb->fun_do($strsql);
+if($hresult)
+	echo "4ok</br>";
 
 $strsql = "delete from am_0001_card_record3_goods";
 $hresult = $gdb->fun_do($strsql);

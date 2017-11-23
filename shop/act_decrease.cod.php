@@ -13,8 +13,8 @@
 					<li class="layui-this">满减活动</li>
 				</ul>
 				<div class="layui-tab-content">
-					<form class="layui-form" action="">		    
-		 		 <div class="layui-form-item">		  	
+					<form class="layui-form" action="">
+		 		 <div class="layui-form-item">
 		      <label class="layui-form-label laimi-input" style="width: 80px;">活动名称</label>
 		      <div class="layui-input-inline">
 		        <input type="tel" name="phone" placeholder="" autocomplete="off" class="layui-input">
@@ -26,10 +26,10 @@
 		      <label class="layui-form-label laimi-input" style="width: 0px;margin-right:10px">至</label>
 		      <div class="layui-input-inline">
 		        <input type="text" class="layui-input laimi-input-100" id="test2" placeholder="yyyy-MM-dd">
-		      </div>		      
+		      </div>
 		    <div class="layui-inline">
 		     	<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">搜索</button>
-		  	</div>		  			   		    		  	    	    
+		  	</div>
 		    <div class="layui-inline laimi-float-right">
 		    	<a id="laimi-modal" href="javascript:;" class="layui-btn">新增满减</a>
 		  	</div>		  		    

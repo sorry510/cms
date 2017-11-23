@@ -35,7 +35,10 @@ $user_id = api_value_int0($GLOBALS['_SESSION']['login_id']);
 $intnow = time();
 $intnow2 = strtotime(date('Y-m-d', $intnow)) + 86399;
 $intnow3 = strtotime(date('Y-m-d', $intnow)) - 1;
-
+$intscore = 0;
+if(laimi_config_trade()['score_module'] == 1 && laimi_config_trade()['score_flag'] == 1){
+	$intscore = floor($decsmoney);
+}
 $intreturn = 0;
 $arr = array();
 
@@ -115,7 +118,7 @@ if($intreturn == 0){
 		// 有会员卡
 		if($card_pay != 'card_record_kakou'){
 			//不是卡扣
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".floor($decsmoney).",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".$intscore.",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
 
@@ -126,7 +129,7 @@ if($intreturn == 0){
 			if($intreturn == 0) {
 				//启用积分模块
 				if(laimi_config_trade()['score_module'] == 1 && laimi_config_trade()['score_flag'] == 1){
-					$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_smoney=s_card_smoney+".$decsmoney.",s_card_sscore=s_card_sscore+".floor($decsmoney).",s_card_yscore=s_card_yscore+".floor($decsmoney).",card_ctime=".$intnow.",card_ltime=".$intnow." where card_id=".$intcard_id." limit 1";
+					$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_smoney=s_card_smoney+".$decsmoney.",s_card_sscore=s_card_sscore+".$intscore.",s_card_yscore=s_card_yscore+".$intscore.",card_ctime=".$intnow.",card_ltime=".$intnow." where card_id=".$intcard_id." limit 1";
 					// echo $strsql;
 					$gdb->fun_do($strsql);
 				}else{
@@ -233,7 +236,7 @@ if($intreturn == 0){
 						$decgroup_reward_guide = $arr['group_reward_guide'];
 					}
 					if($arr['group_reward_pguide'] != 0){
-						$decgroup_reward_guide = $arr['group_reward_pguide'] * $decsmoney/100;
+						$decgroup_reward_guide = $arr['group_reward_pguide'] * $decsmoney / 100;
 					}
 
 					if($decgroup_reward_guide != 0){

@@ -82,8 +82,8 @@ if(!empty($arr)){
 		$arr['mcombo_goods_count2'] = 0;
 		$arr['mcombo_goods_money2'] = 0;
 		foreach($arrlist2 as $row){
-			$arr['mcombo_goods_count2'] += $row['card_record3_mcombo_count'];
-			$arr['mcombo_goods_money2'] += $row['c_mgoods_price'] * $row['card_record3_mcombo_count'];
+			$arr['mcombo_goods_count2'] += $row['card_record3_mgoods_count'];
+			$arr['mcombo_goods_money2'] += $row['c_mgoods_price'] * $row['card_record3_mgoods_count'];
 		}
 	}
 	//买套餐
@@ -106,5 +106,5 @@ if(!empty($arr)){
 	$arrticket = $gdb->fun_fetch_all($hresult);
 	$arr['ticket_list'] = $arrticket;
 }
-
+//缺少满减活动和代金券的使用情况，导致价格会对应不上
 echo json_encode($arr);

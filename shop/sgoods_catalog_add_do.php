@@ -19,7 +19,7 @@ if(!empty($arr)){
 }*/
 
 if($intreturn == 0) {
-	  $strsql = "INSERT INTO " . $gdb->fun_table2('sgoods_catalog') . "( sgoods_catalog_name, sgoods_catalog_ctime ) VALUES ( '$sqlsgoods_catalog_name' , $atime)";
+	  $strsql = "INSERT INTO " . $gdb->fun_table2('sgoods_catalog') . "( sgoods_catalog_name, sgoods_catalog_atime ) VALUES ( '$sqlsgoods_catalog_name' , $atime)";
 	  $hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 2;

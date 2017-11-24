@@ -21,6 +21,12 @@ if($intreturn == 0) {
 	if($hresult == FALSE) {
 		$intreturn = 2;
 	}
+
+	$strsql = "DELETE FROM " . $gdb->fun_table2('act_discount_goods') . " WHERE mcombo_id = " . $intmcombo_id;
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
+		$intreturn = 3;
+	}
 }
 
 echo $intreturn;

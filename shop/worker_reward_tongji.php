@@ -71,12 +71,10 @@ function get_worker_reward_count_list() {
 	$strwhere .= " and shop_id=".$GLOBALS['intshop'];
 
 	$arr = array();
-	$strsql = "SELECT worker_reward_id as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE 1 = 1 " . $strwhere." group by worker_id";
+	$strsql = "SELECT worker_reward_id as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker_reward')  . " WHERE worker_reward_state=1 " . $strwhere." group by worker_id";
 	//echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-
-
 
 	$intallcount = count($arr);
 	if($intallcount == 0) {
@@ -129,7 +127,7 @@ function get_worker_reward_count_list() {
 	$arrpackage['pagenext'] = $intpagenext;
 	$arrpackage['list'] = $arrlist;
 
-	// echo '<pre>'; var_dump($arr); echo '</pre>';
+	// echo '<pre>'; var_dump($arrpackage); echo '</pre>';
 	// exit;
 	return $arrpackage;
 }

@@ -180,9 +180,9 @@ function api_other_gpc($strdata) {
 		return $strdata;
 	} else {
 		if(is_array($strdata)) {
-			return array_map('api_other_gpc', $strdata);
+			return array_map('api_other_gpc', $strdata);//对数组中每个data执行api_other_gpc
 		} else {
-			return stripslashes($strdata);
+			return stripslashes($strdata);//去掉反斜杠的字符串
 		}
 	}
 }

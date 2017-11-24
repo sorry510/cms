@@ -70,7 +70,7 @@
 	<?php foreach($this->_data['worker_list']['list'] as $row){?>
 		<tr>
 			<td><?php echo $row['worker_group_name'];?></td>
-			<td><?php echo $row['worker_name'];?></td>
+			<td><a href="javasript:;" class="laimi-color-lan laimi-info" wid="<?php echo $row['worker_id']; ?>"><?php echo $row['worker_name'];?></a></td>
 			<td><?php echo $row['worker_code'];?></td>
 			<td><?php echo $row['sex'];?></td>
 			<td><?php echo $row['birthday'];?></td>
@@ -422,6 +422,95 @@
 			</form>
 		</div>
 	</script>
+	<script type="text/html" id="laimi-modal-info">
+		<div id="laimi-modal-info" class="laimi-modal">
+			<div class="layui-row">
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">所属分店</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.shop_name}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">员工分组</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_group_name}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">姓名</label>
+				    <div class="layui-form-mid layui-word-aux"><span class="laimi-color-lan">{{d.worker_name}}</span></div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">员工编号</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_code}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">性别</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_sex_name}}</div>
+				  </div>
+		    </div>	   
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">手机号码</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_phone}}</div>
+				  </div>
+		    </div>	    
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">出生日期</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_birthday_date}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">身份证号</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_identity}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">学历</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_education_name}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">入职时间</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_join}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">居住地址</label>
+				    <div class="layui-form-mid layui-word-aux">{{d.worker_address}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		      <div class="layui-form-item" style="margin-bottom:-6px;">
+				    <label class="layui-form-label">基本工资</label>
+				    <div class="layui-form-mid layui-word-aux">¥{{d.worker_wage}}</div>
+				  </div>
+		    </div>
+		    <div class="layui-col-md6">
+		    	<div class="layui-form-item" style="margin-bottom:-6px;">
+						<label class="layui-form-label">会员照片</label>
+			  		<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=worker&image=";?>{{d.worker_photo_file}}" style="width:130px;height:130px;"></div>    
+					</div>
+		    </div>
+		    <div class="layui-col-md6">
+		    	<div class="layui-form-item" style="margin-bottom:-6px;">
+						<label class="layui-form-label">身份证照</label>
+			  		<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=worker&image=";?>{{d.worker_identity_file}}" style="width:200px;height:130px;"></div>    
+				</div>
+		  </div>
+		</div>
+	</script>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
 	layui.use(["element", "laydate", "laypage", "upload", "layer", "form", "laytpl"], function() {
@@ -532,7 +621,22 @@
 			  objlayer.close(index);
 			});
 		})
-
+		$(".laimi-info").on("click", function() {
+			$.getJSON('worker_edit_ajax.php', {id:$(this).attr('wid')}, function(res){
+				objlaytpl($("#laimi-modal-info").html()).render(res, function(html){
+				  objlayer.open({
+				  	type: 1,
+				  	title: ["员工信息", "font-size:16px;"],
+				  	btnAlign: "r",
+				  	offset: 'rt',
+				  	anim: 2,
+				  	area: ["800px", "100%"],
+				  	shadeClose: true,//点击遮罩关闭
+				  	content: html,
+				  });
+				});
+			})
+		});
 		function renderAll(){
 			objform.render();
 			objdate.render({

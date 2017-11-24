@@ -3,10 +3,12 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
+
 if(laimi_config_trade()['score_module'] != 1){
 	echo '<script> window.history.back();</script>';
 	return;
 }
+
 $strchannel = 'system';
 
 $strpage = api_value_get('page');
@@ -78,7 +80,7 @@ function get_gift_record_list(){
 		return $arrpackage;
 	}
 
-	$intpagesize = 5;
+	$intpagesize = 50;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -101,7 +103,7 @@ function get_gift_record_list(){
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
 	$strsql = "SELECT a.*,b.shop_name FROM (SELECT gift_record_id,gift_score,c_card_code,c_card_name,gift_record_atime,shop_id FROM ". $GLOBALS['gdb']->fun_table2('gift_record')." WHERE 1=1 ". $strwhere. " ORDER BY gift_record_id DESC LIMIT ". $intoffset . ", " . $intpagesize .") AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop')." as b ON a.shop_id = b.shop_id";
-	// echo $strsql;exit;
+
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arrlist as &$row1){

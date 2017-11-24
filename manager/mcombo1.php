@@ -63,7 +63,6 @@ function get_mcombo_time_list(){
 	// $strwhere .= " and shop_id=".$GLOBALS['_SESSION']['login_sid'];
 	$arr = array();
 	$strsql = "SELECT count(mcombo_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('mcombo')  . " WHERE mcombo_type = 1 " . $strwhere;
-
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$intallcount = $arr['mycount'];

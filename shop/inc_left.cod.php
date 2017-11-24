@@ -39,13 +39,13 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
-						<a href="#">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'reserve') echo 'layui-nav-itemed'; ?>"">
+						<a href="reserve_today.php">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeshijian"></use></svg>
 							&nbsp;预约
 						</a>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'goods') echo 'layui-nav-itemed'; ?>"">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-shangpin"></use></svg>
 							&nbsp;商品
@@ -76,14 +76,14 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="store_info.php?type=1">
+								<a href="store_info_mgoods.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-kucun"></use></svg>
 									&nbsp;库存查询
 								</a>
 							</dd>
 						</dl>
-					</li>	        
-					<li class="layui-nav-item">
+					</li>
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'tongji') echo 'layui-nav-itemed'; ?>"">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
 							&nbsp;统计
@@ -193,13 +193,13 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'marketing') echo 'layui-nav-itemed'; ?>"">
 						<a href="act_batch.php">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingxiao2"></use></svg>
 							&nbsp;营销
 						</a>
-					</li>					
-					<li class="layui-nav-item">
+					</li>
+					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'system') echo 'layui-nav-itemed'; ?>"">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-weibiaoti-"></use></svg>
 							&nbsp;系统
@@ -231,6 +231,7 @@
 							</dd>	
 						</dl>
 					</li>
+
 				</ul>
 				<div class="laimi-height-20">					
 				</div>

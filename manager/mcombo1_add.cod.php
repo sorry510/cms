@@ -118,7 +118,7 @@
 										<div class="layui-inline">
 								     	<button type="button" class="laimi-search layui-btn layui-btn-small layui-btn-normal">搜索</button>
 								  	</div>
-										</th>
+									</th>
 								</tr>
 								<?php foreach($this->_data['mgoods_catalog'] as $row) { ?>
 									<?php foreach($this->_data['mgoods'] as $row2) { 

@@ -156,7 +156,7 @@
 		objpage.render({
 			elem: 'laimi-page-content',
 			count: <?php echo $this->_data['gift_record_list']['allcount'];?>,
-			limit: 5,
+			limit: 50,
 			curr: <?php echo $this->_data['gift_record_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
 			jump: function(obj, first){

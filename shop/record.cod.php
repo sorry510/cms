@@ -233,7 +233,7 @@
 			  	</div>
 		    </div>
 		    <div class="layui-col-md9">
-		    {{# if(d.card_record_type == 3){ }}
+		    {{# if(d.card_record_type == 3 && d.card_record_state == 1){ }}
 		      <button type="button" class="layui-btn layui-btn-normal laimi-refund" value="{{d.card_record_id}}">
 		      	退款
 		      </button>
@@ -300,7 +300,7 @@
 		});
 		$(".laimi-info").on("click", function() {
 			$.getJSON('record_edit_ajax.php', {id: $(this).val()}, function(data){
-				console.log(data);
+				// console.log(data);
 				objlaytpl($("#laimi-script-info").html()).render(data, function(html){
 				  objlayer.open({
 				  	type: 1,
@@ -334,11 +334,17 @@
 		  $.post('refund_do.php', data.field, function(res){
 		  	_self.attr('disabled', false);
 		  	console.log(res);
-		    // if(res=='0'){
-		    //   window.location.reload();
-		    // }else{
-		    //   alert("退款失败");
-		    // }
+		    if(res == '0'){
+		      window.location.reload();
+		    }else if(res == '1'){
+          objlayer.alert('授权失败，密码或账号错误', {
+		  			title: '提示信息'
+		  		});
+		    }else{
+          objlayer.alert('退款失败', {
+		  			title: '提示信息'
+		  		});
+		    }
 		  });
 			return false;
 		});

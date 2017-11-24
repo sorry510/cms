@@ -294,7 +294,7 @@ if($intreturn == 0 && !empty($arrinfo)){
 				$intreturn = 9;
 			}else{
 				//记录card_record3_goods
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_goods_count,c_mgoods_name,c_mgoods_price,c_mgoods_rprice) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$intmgoods_id.",".$intnum.",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$price.")";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_goods_count,c_mgoods_name,c_mgoods_price,c_mgoods_rprice,	card_record3_goods_state,card_record3_goods_atime) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$intmgoods_id.",".$intnum.",'".$arrmgoods['mgoods_name']."',".$arrmgoods['mgoods_price'].",".$price.",".$intpay_state.",".$intnow.")";
 				// echo $strsql;
 				$hresult = $gdb->fun_do($strsql);
 				if($hresult==false){
@@ -362,7 +362,7 @@ if($intreturn == 0 && !empty($arrinfo)){
 				$intreturn = 9;
 			}else{
 				// 记录card_record3_goods
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,sgoods_id,card_record3_goods_count,c_sgoods_name,c_sgoods_price,c_sgoods_rprice) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$intsgoods_id.",".$intnum.",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$price.")";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_goods')." (card_record_id,card_id,shop_id,sgoods_id,card_record3_goods_count,c_sgoods_name,c_sgoods_price,c_sgoods_rprice,card_record3_goods_state,card_record3_goods_atime) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$intsgoods_id.",".$intnum.",'".$arrsgoods['sgoods_name']."',".$arrsgoods['sgoods_price'].",".$price.",".$intpay_state.",".$intnow.")";
 				$hresult = $gdb->fun_do($strsql);
 				if($hresult==false){
 					$intreturn = 10;
@@ -457,7 +457,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 		}
 		// 添加card_record3_mcombo,记录本次使用的套餐商品
 		if($intreturn == 0){
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_mcombo'). " (card_record_id,card_id,shop_id,card_mcombo_id,mcombo_id,mgoods_id,card_record3_mgoods_count,c_mcombo_name,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$arrmcombo['card_mcombo_id'].",".$arrmcombo['mcombo_id'].",".$arrmcombo['mgoods_id'].",".$intnum.",'".$arrmcombo['c_mcombo_name']."','".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$arrmcombo['c_mgoods_cprice'].")";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_mcombo'). " (card_record_id,card_id,shop_id,card_mcombo_id,mcombo_id,mgoods_id,card_record3_mgoods_count,c_mcombo_name,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,card_record3_mcombo_state,card_record3_mcombo_atime) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$arrmcombo['card_mcombo_id'].",".$arrmcombo['mcombo_id'].",".$arrmcombo['mgoods_id'].",".$intnum.",'".$arrmcombo['c_mcombo_name']."','".$arrmcombo['c_mgoods_name']."',".$arrmcombo['c_mgoods_price'].",".$arrmcombo['c_mgoods_cprice'].",".$intpay_state.",".$intnow.")";
 			$hresult = $gdb->fun_do($strsql);
 			if($hresult == false){
 				$intreturn = 20;

@@ -189,7 +189,7 @@
 							  {{# }) }}
 							  {{# layui.each(d.mcombo_goods_list2, function(index, item){ }}
 							    <tr>
-							      <td>{{item.c_mgoods_name}}</td>
+							      <td>{{item.c_mgoods_name}}(套餐)</td>
 							      <td>{{item.card_record3_mgoods_count}}</td>
 							      <td style="text-decoration:line-through;">￥{{item.c_mgoods_price}}</td>
 							      <td>{{item.c_mgoods_cprice != 0 ? '￥'+item.c_mgoods_cprice : '--'}}</td>
@@ -203,9 +203,9 @@
 							    </tr> -->
 							  {{# if(d.ticket_list.length > 0){ }}
  							    <tr>
-							      <td colspan="4" style="text-align:left;">赠送：
+							      <td colspan="4" style="text-align:left;">赠送优惠券：
 										{{# layui.each(d.ticket_list, function(index, item){ }}
-							      {{item.c_ticket_value}}元&nbsp;&nbsp;×{{item.count}}（{{item.c_act_name}}）;
+							      {{item.c_ticket_name}}&nbsp;&nbsp;×{{item.count}}（{{item.c_ticket_value}}元）;
 										{{# }) }}
 							      </td>
 							    </tr>
@@ -242,9 +242,11 @@
 			  	</div>
 		    </div>
 		    <div class="layui-col-md9">
-		      <button type="button" class="layui-btn layui-btn-normal laimi-refund" value="{{d.card_record_id}}">
-		      	退款
-		      </button>
+		      {{# if(d.card_record_type == 3 && d.card_record_state == 1){ }}
+		        <button type="button" class="layui-btn layui-btn-normal laimi-refund" value="{{d.card_record_id}}">
+		        	退款
+		        </button>
+		      {{# } }}
 		     	<button type="button" class="layui-btn layui-btn-primary laimi-del" value="{{d.card_record_id}}">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
@@ -259,6 +261,32 @@
 		</div>
 	</script>
 	<!--新增操作员弹出层结束-->
+	<script type="text/html" id="laimi-script-refund">
+		<div id="laimi-modal-refund" class="laimi-modal">
+			<form class="layui-form">
+				<div class="layui-form-item">
+				  <label class="layui-form-label"><span>*</span> 授权账号</label>
+				  <div class="layui-input-block">
+				    <input class="layui-input laimi-input-200" type="text" name="name" lay-verify="required">
+				  </div>
+				</div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label"><span>*</span> 授权密码</label>
+			    <div class="layui-input-block">
+			      <input class="layui-input laimi-input-200" type="password" name="password" autocomplete="new-password" lay-verify="required">
+			      <input type="hidden" name="id" value="{{d.id}}">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submitrefund" lay-submit>
+			      	完成
+			      </button>
+			    </div>
+			  </div>
+			</form>
+		</div>
+	</script>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
 	layui.use(["element", "laypage", "layer", "form", "laytpl"], function() {
@@ -294,34 +322,57 @@
 				  	area: ["750px", "100%"],
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,
-				  	success: function(){
-				  		$('.laimi-refund').on('click', function(){
-				  			var id = $(this).val();
-				  			objlayer.confirm('你确定要退款吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
-				  				console.log(id);
-				  			  // $.post('worker_delete_do.php', {id:id}, function(res){
-				  			  // 	if(res == 0){
-				  			  // 		window.location.reload();
-				  			  // 	}else if(res == 1){
-				  					// 	objlayer.alert('删除失败，此员工有提成不能删除', {
-				  					// 		title: '提示信息'
-				  					// 	});
-				  					// }else{
-				  			  // 		objlayer.alert('删除失败，请联系管理员', {
-				  			  // 			title: '提示信息'
-				  			  // 		});
-				  			  // 	}
-				  			  // })
-				  			  objlayer.close(index);
-				  			});
-				  		})
-				  	},
-				  	end: function(){
-				  		$('.laimi-refund').off("click");
-				  	}
 				  });
 				});
 			})
+		});
+		$(document).on('click', '.laimi-refund', function(){
+			var id = $(this).val();
+			objlaytpl($("#laimi-script-refund").html()).render({id: id}, function(html){
+				objlayer.open({
+					type: 1,
+					title: ["退款", "font-size:16px;"],
+					btnAlign: "r",
+					area: ["480px", "auto"],
+					shadeClose: true,//点击遮罩关闭
+					content: html,
+				});
+			});
+		});
+		$(document).on('click', '.laimi-del', function(){
+			var id = $(this).val();
+			objlayer.confirm('您确定要删除这条消费信息吗', {icon: 3, title:'提示'}, function(index){
+			  $.post('card_record_delete_do.php', {id: id}, function(msg){
+			  	if(msg == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  layer.close(index);
+			});
+		});
+		objform.on("submit(laimi-submitrefund)", function(data) {
+			var _self = $(this);
+		  _self.attr('disabled', true);
+		  $.post('refund_do.php', data.field, function(res){
+		  	_self.attr('disabled', false);
+		  	console.log(res);
+		    if(res == '0'){
+		      window.location.reload();
+		    }else if(res == '1'){
+          objlayer.alert('授权失败，密码或账号错误', {
+		  			title: '提示信息'
+		  		});
+		    }else{
+          objlayer.alert('退款失败', {
+		  			title: '提示信息'
+		  		});
+		    }
+		  });
+			return false;
 		});
 	});
 	</script>

@@ -22,15 +22,16 @@
 	<div class="laimi-tools layui-form-item">		
 		<label class="layui-form-label">选择分类</label>
 		<div class="layui-input-inline">
-			<select name="shop">
-				<option value="">全部分类</option>
-				<option value="理疗">理疗</option>
-				<option value="洗头">洗头</option>
+			<select name="mgoods_catalog_id">
+				<option value="0">全部</option>
+        <?php foreach($this->_data['mgoods_catalog_list'] as $row) { ?>
+        <option value="<?php echo $row['mgoods_catalog_id'] ?>" <?php if($row['mgoods_catalog_id'] == $this->_data['request']['mgoods_catalog_id']){echo "selected";} ?> ><?php echo $row['mgoods_catalog_name'] ?></option>
+        <?php } ?>
 			</select>
 		</div>
 		<label class="layui-form-label">商品</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="mgoods" placeholder="商品名称/编码/简拼">
+			<input class="layui-input laimi-input-200" type="text" name="search" value="<?php echo $this->_data['request']['search'];?>" placeholder="商品名称/编码/简拼">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -52,17 +53,19 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php foreach($this->_data['mgoods_list']['list'] as $row) { ?>
 		<tr>
-			<td>饮料</td>
-			<td>康师傅绿茶500ml</td>
-			<td>2154884115</td>
-			<td>¥35.00</td>
-			<td>¥25.00</td>
-			<td><i class="layui-icon laimi-icon-dui">&#x1005;</i></td>
-			<td><i class="layui-icon laimi-icon-cuo">&#x1007;</i></td>
-			<td><i class="layui-icon laimi-icon-dui">&#x1005;</i></td>
-			<td>正常</td>
+			<td><?php echo $row['mgoods_catalog_name']; ?></td>
+      <td><?php echo $row['mgoods_name']; ?></td>
+      <td><?php echo $row['mgoods_code']; ?></td>
+      <td><?php echo $row['mgoods_price']; ?></td>
+			<td><?php echo $row['mgoods_cprice']==0?'--':$row['mgoods_cprice']; ?></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_type']==2?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_act']==1?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td><i class="layui-icon <?php echo $row['mgoods_reserve']==1?'laimi-icon-dui':'laimi-icon-cuo';?>"">&#x1005;</i></td>
+			<td class="<?php echo $row['mgoods_state']=='1'?'':'laimi-color-hong';?>"><?php echo $row['mgoods_state']=='1'?'正常':'停用';?></td>
 		</tr>
+		<?php } ?>
 	</tbody>
 </table>
 <div class="laimi-page">
@@ -73,8 +76,9 @@
 		</div>
 	</div>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
+	<script src="../js/pinying.js"></script>
 	<script>
-	layui.use(["element", "laypage", "form"], function() {
+	layui.use(["element", "laypage", "layer", "form"], function() {
 		var $ = layui.jquery;
 		var objlayer = layui.layer;
 		var objelement = layui.element;
@@ -82,13 +86,18 @@
 		var objform = layui.form;
 		objpage.render({
 			elem: 'laimi-page-content',
-			count: 50,
+			count: <?php echo $this->_data['mgoods_list']['allcount'];?>,
 			limit: 50,
+			curr: <?php echo $this->_data['mgoods_list']['pagenow'];?>,
 			layout: ['count', 'prev', 'page', 'next',  'skip'],
-			jump: function(obj) {
-				//console.log(obj)
+			jump: function(obj,first) {
+				var search = "<?php echo api_value_query($this->_data['request']);?>";
+				var url = window.location.pathname+'?'+'page='+obj.curr+'&'+search;
+				if(!first){
+					window.location.href = url;
+        }
 			}
-		});		
+		});
 	});
 	</script>
 </body>

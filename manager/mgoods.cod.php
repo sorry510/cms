@@ -79,7 +79,7 @@
                         停用
                       </button>';
               }else if($row['mgoods_state'] == 2){
-                echo '<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state2" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
+                echo '<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state" value="'.$row["mgoods_id"].'" state="'.$row['mgoods_state'].'">
                         <svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-dui"></use></svg>
                         启用
                       </button>';
@@ -422,21 +422,6 @@
 		});
 		//停用启用
 	  $(".laimi-state").on("click", function() {
-			var id = $(this).val();
-			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
-			  $.post('mgoods_state_do.php',{'mgoods_id':id},function(res){
-	        if(res=='0'){
-	          window.location.reload();
-	        }else if(res=='1'){
-	          objlayer.alert('修改失败', {
-			  			title: '提示信息'
-			  		});
-	        }
-	      });
-			  objlayer.close(index);
-			});
-		});
-		$(".laimi-state2").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
 			  $.post('mgoods_state_do.php',{'mgoods_id':id},function(res){

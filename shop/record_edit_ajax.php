@@ -7,8 +7,9 @@ require('inc_limit.php');
 
 $strcard_record_id = api_value_get('id');
 $intcard_record_id = api_value_int0($strcard_record_id);
+$intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 
-$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_kakou,card_record_tuan,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $gdb->fun_table2('card_record') . " where card_record_id = ".$intcard_record_id." limit 1) AS a LEFT JOIN ". $gdb->fun_table('shop') ." AS b on a.shop_id = b.shop_id";
+$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_kakou,card_record_tuan,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $gdb->fun_table2('card_record') . " where card_record_id = ".$intcard_record_id." and shop_id = ".$intshop." limit 1) AS a LEFT JOIN ". $gdb->fun_table('shop') ." AS b on a.shop_id = b.shop_id";
 $hresult = $gdb->fun_query($strsql);
 $arr = $gdb->fun_fetch_assoc($hresult);
 

@@ -12,13 +12,18 @@ require('inc_limit.php');
 // echo "<br/>";
 // echo md5(uniqid(md5(microtime(true)),true));
 // echo "<br/>";
-// echo md5(uniqid(md5(microtime(true)),true));
-// $arr = [1,3, 5, 6];
-// foreach($arr as $row){
-// 	$a = $row;
-// }
 
+/*$key = md5(uniqid(mt_rand(), true));
+$strcrc = C_ROOT . $key . 'a9c901455f34ca' . '165e23968c7683c5f1';
+echo sprintf('%08x', crc32($strcrc));*/
 
-$strsql = "SELECT card_mcombo_atime FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." WHERE card_id = 4 group by card_mcombo_atime having sum(card_mcombo_gcount)!=0";
-echo $strsql;
+$strcookie = '065a821ff7439b209a4e6a08dcd4a54a81113405';//40位
+$strcookie1 = substr($strcookie, 0, 32);//32位
+$strcookie2 = substr($strcookie, 32);//8位
+$strcrc = C_ROOT . $strcookie1 . 'a9c901455f34ca' . '165e23968c7683c5f1';
 
+echo $strcookie1;
+echo "<br/>";
+echo $strcookie2;
+echo "<br/>";
+echo sprintf('%08x', crc32($strcrc));

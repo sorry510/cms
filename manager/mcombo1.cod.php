@@ -46,7 +46,7 @@
 	<tbody>
 		<?php foreach($this->_data['mcombo_time_list']['list'] as $row) { ?>
 		<tr>
-			<td title="<?php echo $row['mcombo_name']; ?>"><a href="#" class="coffopen" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']; ?></a></td>
+			<td title="<?php echo $row['mcombo_name']; ?>"><a href="#" class="laimi-info laimi-color-lan" mcombo_id="<?php echo $row['mcombo_id'];?>"><?php echo $row['mcombo_name']; ?></a></td>
 			<td><?php echo $row['mcombo_code']; ?></td>
 			<td>¥<?php echo $row['mcombo_price']; ?></td>
 			<td><?php echo $row['mcombo_cprice']==0?'--':'¥'.$row['mcombo_cprice']; ?></td>
@@ -87,6 +87,94 @@
 			</div>
 		</div>
 	</div>
+	<!--电子档案明细弹出层开始-->
+	<script type="text/html" id="laimi-info">
+	<div id="laimi-modal-info" class="laimi-modal">
+		<div class="layui-row">   
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">套餐名称</label>
+			    <div class="layui-form-mid layui-word-aux">康师傅绿茶500ml</div>
+			  </div>
+	    </div>
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">套餐编码</label>
+			    <div class="layui-form-mid layui-word-aux">1001321231101</div>
+			  </div>
+	    </div>
+	     <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">有效期</label>
+			    <div class="layui-form-mid layui-word-aux">180天</div>
+			  </div>
+	    </div>
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">套餐价格</label>
+			    <div class="layui-form-mid layui-word-aux">¥35.00</div>
+			  </div>
+	    </div>
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">会员价格</label>
+			    <div class="layui-form-mid layui-word-aux">¥25.00</div>
+			  </div>
+	    </div>	   
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">参于活动</label>
+			    <div class="layui-form-mid layui-word-aux"><i class="layui-icon laimi-icon-dui">&#x1005;</i></div>
+			  </div>
+	    </div>	    
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">参于预约</label>
+			    <div class="layui-form-mid layui-word-aux"><i class="layui-icon laimi-icon-dui">&#x1007;</i></div>
+			  </div>
+	    </div>
+	    <div class="layui-col-md6">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">套餐状态</label>
+			    <div class="layui-form-mid layui-word-aux">正常</div>
+			  </div>
+	    </div>
+	    <div class="layui-col-md12">
+	      <div class="layui-form-item" style="margin-bottom:-6px;">
+			    <label class="layui-form-label">套餐内容</label>
+			    <div class="layui-form-mid layui-word-aux laimi-input-b80">
+			    	<table class="layui-table">
+					  <thead>
+					    <tr>
+					      <th>商品</th>
+					      <th>价格</th>
+					      <th width="100">数量</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>康师傅绿茶</td>
+					      <td>¥25.00</td>
+					      <td>10</td>
+					    </tr>
+					    <tr>
+					      <td>康师傅绿茶</td>
+					      <td>¥25.00</td>
+					      <td>10</td>
+					    </tr>
+					    <tr>
+					      <td>康师傅绿茶</td>
+					      <td>¥25.00</td>
+					      <td>10</td>
+					    </tr>
+					  </tbody>
+					</table>
+			    </div>
+			  </div>
+	    </div>
+	</div>
+	</script>
+	<!--电子档案明细弹出层结束-->
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
 	layui.use(["element", "laypage", "form"], function() {
@@ -108,6 +196,18 @@
 					window.location.href = url;
         }
 			}
+		});
+		$(".laimi-info").on("click", function() {
+			objlayer.open({
+				type: 1,
+				title: ["计次套餐", "font-size:16px;"],
+				btnAlign: "r",
+				offset: 'rt',
+				anim: 7,
+				area: ["800px", "100%"],
+				shadeClose: true,//点击遮罩关闭
+				content: $("#laimi-info").html()
+			});
 		});
 		//删除操作JS
 	  $(".laimi-del").on("click", function() {

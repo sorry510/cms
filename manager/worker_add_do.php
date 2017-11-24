@@ -90,7 +90,7 @@ function update_photo($objfile, $photo, $place, $fix = ''){
 	$strtmpfile = $GLOBALS['gconfig']['photo'][0].$photo;
 	$strext = strtolower(strrchr($photo, '.'));
 	//photo目录对应cid文件夹下sid_wid
-	$strnewurl = $GLOBALS['gconfig']['photo'][3].$GLOBALS['_SESSION']['login_cid']."/";
+	$strnewurl = $GLOBALS['gconfig']['image']['base'].$GLOBALS['_SESSION']['login_cid'].DIRECTORY_SEPARATOR."worker".DIRECTORY_SEPARATOR;
 	$strnewfile = $fix.$GLOBALS['intshop']."_".$GLOBALS['intworker_id'].$strext;
 	$hresult = $objfile -> moveFile($strtmpfile, $strnewurl.$strnewfile, true);
 	if($hresult){

@@ -15,6 +15,7 @@ $gconfig['system']['guimo']['x100'] = '30-100人';
 $gconfig['system']['guimo']['d100'] = '100人以上';*/
 
 $gconfig['image']['base'] = 'D:'.DIRECTORY_SEPARATOR.'UPUPW5.6'.DIRECTORY_SEPARATOR.'UPUPW_AP5.6'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'photo'.DIRECTORY_SEPARATOR;
+// $gconfig['image']['base'] = C_ROOT.DIRECTORY_SEPARATOR.'photo'.DIRECTORY_SEPARATOR;
 $gconfig['photo'][0] = C_ROOT.'/photo/temp/';
 $gconfig['catalog'][0] = 'history';
 $gconfig['catalog'][1] = 'worker';
@@ -50,6 +51,14 @@ $gdb->pub_name = 'cf_shop';
 $gdb->pub_prefix = 'cf_';
 $gdb->pub_charset = 'utf8';
 $gdb->fun_connect();
+// $gdb = new cls_mysql();
+// $gdb->pub_host = '5lh35n8y.2292lan.dnstoo.com:3306';
+// $gdb->pub_user = 've709d_f';
+// $gdb->pub_password = 'laimisoft';
+// $gdb->pub_name = 've709d';
+// $gdb->pub_prefix = 'cf_';
+// $gdb->pub_charset = 'utf8';
+// $gdb->fun_connect();
 
 // var_dump($gdb);exit;
 $gsession = NULL;

@@ -417,7 +417,8 @@ layui.define('layer', function(exports){
         var isFn = typeof verify[thisVer] === 'function';
         if(verify[thisVer] && (isFn ? tips = verify[thisVer](value, item) : !verify[thisVer][0].test(value)) ){
           layer.msg(tips || verify[thisVer][1], {
-            icon: 0
+            icon: 5
+            ,shift: 6
           });
           //非移动设备自动定位焦点
           if(!device.android && !device.ios){

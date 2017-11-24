@@ -53,14 +53,14 @@
 							</dd>
 							<dd>
 								<a href="mcombo1.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-jihuashijian"></use></svg>
-									&nbsp;计时套餐
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-fenxiangcishu"></use></svg>
+									&nbsp;计次套餐
 								</a>
 							</dd>
 							<dd>
 								<a href="mcombo2.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-fenxiangcishu"></use></svg>
-									&nbsp;计次套餐
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-jihuashijian"></use></svg>
+									&nbsp;计时套餐
 								</a>
 							</dd>
 							<dd>
@@ -130,13 +130,25 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="tongji_trade.php">
+								<a href="tongji_business.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
-									&nbsp;营业数据
+									&nbsp;营业收入对比
 								</a>
 							</dd>
 							<dd>
-								<a href="tongji_money.php">
+								<a href="tongji_income.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
+									&nbsp;新增会员曲线
+								</a>
+							</dd>
+							<dd>
+								<a href="tongji_shop_revenue.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
+									&nbsp;收入组成
+								</a>
+							</dd>
+							<dd>
+								<a href="tongji_shop_ranking.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-xiaofei"></use></svg>
 									&nbsp;收入组成
 								</a>
@@ -252,7 +264,7 @@
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-shangpin"></use></svg>
 									&nbsp;商品管理
 								</a>
-							</dd>
+							</dd>	
 							<dd>
 								<a href="wechat_shop_order.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-zhangdanmingxi"></use></svg>
@@ -260,15 +272,34 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="wechat_shop_manage.php">
+								<a href="wechat_shop_act_discount.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
+									&nbsp;限时打折
+								</a>
+							</dd>							
+							<hr class="layui-bg-black" style="width:80%;margin-left:10px;">
+							<dd>
+								<a href="wechat_shop_agent.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
-									&nbsp;分销佣金
+									&nbsp;分销商管理
 								</a>
 							</dd>
 							<dd>
-								<a href="wechat_shop_manage.php">
-									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
-									&nbsp;统计分析
+								<a href="wechat_shop_agent_money.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
+									&nbsp;佣金设置
+								</a>
+							</dd>
+							<dd>
+								<a href="wechat_shop_agent_month.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
+									&nbsp;佣金统计
+								</a>
+							</dd>
+							<dd>
+								<a href="wechat_shop_agent_take.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
+									&nbsp;提现记录
 								</a>
 							</dd>
 						</dl>

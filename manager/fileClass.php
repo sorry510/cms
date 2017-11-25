@@ -1,4 +1,6 @@
 <?php
+ini_set("display_errors", "Off");
+error_reporting(0);
 class FileClass{
     /**
      * 建立文件夹
@@ -13,8 +15,8 @@ class FileClass{
         $result = true;
         foreach ($arr as $str) {
             $aimDir .= $str . DIRECTORY_SEPARATOR;
-            if (!is_dir($aimDir)) {
-                $result = mkdir($aimDir);
+            if (!@is_dir($aimDir)) {
+                $result = @mkdir($aimDir);
             }
         }
         return $result;
@@ -35,7 +37,7 @@ class FileClass{
         }
         $aimDir = dirname($aimUrl);
         $this->createDir($aimDir);
-        touch($aimUrl);
+        @touch($aimUrl);
         return true;
     }
 
@@ -52,21 +54,21 @@ class FileClass{
         $aimDir = substr($aimDir, -1) == DIRECTORY_SEPARATOR ? $aimDir : $aimDir . DIRECTORY_SEPARATOR;
         $oldDir = str_replace('', DIRECTORY_SEPARATOR, $oldDir);
         $oldDir = substr($oldDir, -1) == DIRECTORY_SEPARATOR ? $oldDir : $oldDir . DIRECTORY_SEPARATOR;
-        if (!is_dir($oldDir)) {
+        if (!@is_dir($oldDir)) {
             return false;
         }
         if (!file_exists($aimDir)) {
             $this->createDir($aimDir);
         }
-        @ $dirHandle = opendir($oldDir);
+        $dirHandle = @opendir($oldDir);
         if (!$dirHandle) {
             return false;
         }
-        while (false !== ($file = readdir($dirHandle))) {
+        while (false !== ($file = @readdir($dirHandle))) {
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            if (!is_dir($oldDir . $file)) {
+            if (!@is_dir($oldDir . $file)) {
                 $this->moveFile($oldDir . $file, $aimDir . $file, $overWrite);
             } else {
                 $this->moveDir($oldDir . $file, $aimDir . $file, $overWrite);
@@ -95,7 +97,7 @@ class FileClass{
         }
         $aimDir = dirname($aimUrl);
         $this->createDir($aimDir);
-        rename($fileUrl, $aimUrl);
+        @rename($fileUrl, $aimUrl);
         return true;
     }
 
@@ -108,22 +110,22 @@ class FileClass{
     function unlinkDir($aimDir) {
         $aimDir = str_replace('', DIRECTORY_SEPARATOR, $aimDir);
         $aimDir = substr($aimDir, -1) == DIRECTORY_SEPARATOR ? $aimDir : $aimDir . DIRECTORY_SEPARATOR;
-        if (!is_dir($aimDir)) {
+        if (!@is_dir($aimDir)) {
             return false;
         }
-        $dirHandle = opendir($aimDir);
-        while (false !== ($file = readdir($dirHandle))) {
+        $dirHandle = @opendir($aimDir);
+        while (false !== ($file = @readdir($dirHandle))) {
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            if (!is_dir($aimDir . $file)) {
+            if (!@is_dir($aimDir . $file)) {
                 $this->unlinkFile($aimDir . $file);
             } else {
                 $this->unlinkDir($aimDir . $file);
             }
         }
-        closedir($dirHandle);
-        return rmdir($aimDir);
+        @closedir($dirHandle);
+        return @rmdir($aimDir);
     }
 
     /**
@@ -134,7 +136,7 @@ class FileClass{
      */
     function unlinkFile($aimUrl) {
         if (file_exists($aimUrl)) {
-            unlink($aimUrl);
+            @unlink($aimUrl);
             return true;
         } else {
             return false;
@@ -154,7 +156,7 @@ class FileClass{
         $aimDir = substr($aimDir, -1) == DIRECTORY_SEPARATOR ? $aimDir : $aimDir . DIRECTORY_SEPARATOR;
         $oldDir = str_replace('', DIRECTORY_SEPARATOR, $oldDir);
         $oldDir = substr($oldDir, -1) == DIRECTORY_SEPARATOR ? $oldDir : $oldDir . DIRECTORY_SEPARATOR;
-        if (!is_dir($oldDir)) {
+        if (!@is_dir($oldDir)) {
             return false;
         }
         if (!file_exists($aimDir)) {
@@ -165,13 +167,13 @@ class FileClass{
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            if (!is_dir($oldDir . $file)) {
+            if (!@is_dir($oldDir . $file)) {
                 $this->copyFile($oldDir . $file, $aimDir . $file, $overWrite);
             } else {
                 $this->copyDir($oldDir . $file, $aimDir . $file, $overWrite);
             }
         }
-        return closedir($dirHandle);
+        return @closedir($dirHandle);
     }
 
     /**
@@ -193,7 +195,7 @@ class FileClass{
         }
         $aimDir = dirname($aimUrl);
         $this->createDir($aimDir);
-        copy($fileUrl, $aimUrl);
+        @copy($fileUrl, $aimUrl);
         return true;
     }
 

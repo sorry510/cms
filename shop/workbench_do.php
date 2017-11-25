@@ -52,6 +52,8 @@ if(empty($arrinfo3)){
 	$arrinfo3 = array();
 }
 
+//检验价格是否正确,最终价=所有商品真实价格+满减+代金券+手动优惠，免单不算
+
 // 检测体验券商品是否存在，同时封装到商品数组中
 if($intreturn == 0 && !empty($arrinfo3)){
 	foreach($arrinfo3 as $row){
@@ -91,8 +93,6 @@ if($intreturn == 0){
 		}
 	}
 }
-
-//检验价格是否正确
 
 //记录card_record，赠送优惠券,记录导购提成
 if($intreturn == 0){

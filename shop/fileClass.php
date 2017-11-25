@@ -1,5 +1,6 @@
 <?php
 ini_set("display_errors", "Off");
+error_reporting(0);
 class FileClass{
     /**
      * 建立文件夹

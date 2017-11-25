@@ -997,6 +997,7 @@
 	  		type = '单店';
 	  		type_id = 2;
 	  	}
+	  	// console.log(goodsinfo);
 	  	$.when(goodsPrice(goodsinfo.attr('gid'), type_id))
 	  	  .then(function(){
 	  	  	// console.log(2);
@@ -1065,6 +1066,7 @@
 		        act_id: act_id
 		      };
 		  //返回一个deferred对象
+		  // console.log(data);
 	    return $.getJSON('goods_price_ajax.php', data, function(res){
 	    	min_goods = res;
 	    	// console.log(1);
@@ -1079,9 +1081,11 @@
 		function mcomboAdd(){
 			//添加会员卡中的套餐
 		  var goodsinfo = $(this).parent().parent();
+		  var hide = "layui-hide";
 		  if(goodsinfo.attr('mcombo-type') == 1){
 		  	var gcount = goodsinfo.attr('gcount');
 		  	var count = 0;
+		  	hide = '';
 		  	$("#laimi-main .laimi-num2[card-mcombo-id='"+goodsinfo.attr('card-mcombo-id')+"']").each(function(){
 		  		count = Number(count) + Number($(this).val());
 		  	})
@@ -1091,12 +1095,16 @@
 		  		});
 		  		return false;
 		  	}
+		  }else if(goodsinfo.attr('mcombo-type') == 2){
+		  	if($("#laimi-main .laimi-num2[card-mcombo-id='"+goodsinfo.attr('card-mcombo-id')+"']").length != 0 ){
+		  		return false;
+		  	}
 		  }
 	  	var tr ='';
 	  	tr += ['<tr>',
 								'<td style="text-align:left;"><span class="layui-badge layui-bg-blue">通用</span>&nbsp;'+goodsinfo.attr('gname')+'</td>',
 								'<td><span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span></td>',
-								'<td><input class="layui-input laimi-num2" type="text" name="txtname" value="1" style="width:50px;padding:5px;text-align:center;" mcombo-type="'+goodsinfo.attr('mcombo-type')+'" mcombo-id="'+goodsinfo.attr('mcombo-id')+'" card-mcombo-id ="'+goodsinfo.attr('card-mcombo-id')+'" gid="'+goodsinfo.attr('gid')+'" gcount="'+goodsinfo.attr('gcount')+'"></td>',
+								'<td><input class="layui-input laimi-num2 '+hide+'" type="text" name="txtname" value="1" style="width:50px;padding:5px;text-align:center;" mcombo-type="'+goodsinfo.attr('mcombo-type')+'" mcombo-id="'+goodsinfo.attr('mcombo-id')+'" card-mcombo-id ="'+goodsinfo.attr('card-mcombo-id')+'" gid="'+goodsinfo.attr('gid')+'" gcount="'+goodsinfo.attr('gcount')+'"></td>',
 								'<td><span class="layui-badge">卡扣</span></td>',
 								'<td style="padding:5px;width:100px;text-align:left;">',
 									'<select name="worker">',

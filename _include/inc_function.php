@@ -165,13 +165,16 @@ function laimi_config_wpay(){
  * @param array $act_id : 1.mgoods,2.sgoods,3.mcombo
  * @return array min_price,act_discount_id
  */
-function laimi_goods_price($goods_id, $type, $card_id=0, $act_id=[]){
+function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = array()){
 	$arr = array();
 	$price = 0;
 	$cprice = 0;
 	$act_price = 0;
 	$discount_price = 0;
-	$stract_id = implode(',', $act_id);
+	$stract_id = '';
+	if(!empty($act_id) && is_array($act_id)){
+		$stract_id = implode(',', $act_id);
+	}
 	$act_discount_id = 0;
 
 	if($goods_id != 0){

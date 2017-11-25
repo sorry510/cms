@@ -14,13 +14,15 @@ $intreturn = 0;
 
 $arr = array();
 $card_ymoney = 0;
-$strsql = "SELECT card_id,s_card_ymoney FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = " .$intcard_id;
+$card_reward = 0;
+$strsql = "SELECT card_id,s_card_ymoney,s_card_reward FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = " .$intcard_id;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(empty($arr)){
 	$intreturn = 1;
 }else{
 	$card_ymoney = $arr['s_card_ymoney'];
+	$card_reward = $arr['s_card_reward'];
 }
 if($intreturn == 0){
 	if($sqltype == "normal"){
@@ -37,7 +39,7 @@ if($intreturn == 0){
 		}
 	}else if($sqltype == "del"){
 		// 有余额
-		if($card_ymoney != 0){
+		if($card_ymoney != 0 || $card_reward != 0){
 			$intreturn = 3;
 		}
 		if($intreturn == 0){

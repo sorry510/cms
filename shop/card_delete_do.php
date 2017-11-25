@@ -10,16 +10,18 @@ $intcard_id = api_value_int0($strcard_id);
 $arr = array();
 $intreturn = 0;
 $card_ymoney = 0;
-$strsql = "SELECT card_id,s_card_ymoney FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = " .$intcard_id;
+$card_reward = 0;
+$strsql = "SELECT card_id,s_card_ymoney,s_card_reward FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = " .$intcard_id;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(empty($arr)){
 	$intreturn = 1;
 }else{
 	$card_ymoney = $arr['s_card_ymoney'];
+	$card_reward = $arr['s_card_reward'];
 }
 // 有余额
-if($card_ymoney != 0){
+if($card_ymoney != 0 || $card_reward != 0){
 	$intreturn = 2;
 }
 if($intreturn == 0){

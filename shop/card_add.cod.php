@@ -155,10 +155,10 @@
 						</div>
 						<input type="hidden" name="txtphoto">
 						<div style="padding-bottom: 15px;">
-							<button type="button" class="layui-btn layui-btn-normal" id="upload">上传照片</button>
+							<button type="button" class="layui-btn layui-btn-normal" id="laimi-upload">上传照片</button>
 						</div>
 						<div>
-							<button type="button" class="layui-btn layui-btn-normal" id="test1">在线拍照</button>
+							<button type="button" class="layui-btn layui-btn-normal" id="online-photo">在线拍照</button>
 						</div>
 					</div>
 				</div>
@@ -181,11 +181,37 @@
 				</div>
 			</div> 
 		</div>
-</div>	
+</div>
+<script type="text/html" id="laimi-script-photo">
+	<div id="laimi-modal-photo" class="laimi-modal">
+		<div class="layui-col-md6">
+	　	<video width="200" height="150"></video>
+		</div>
+		<div class="layui-col-md6">
+    <canvas width="200" height="150"></canvas>
+    </div>
+    <div class="layui-col-md12 laimi-height-20">
+    &nbsp;
+    </div>
+    <div class="layui-col-md6">
+    	<button class="layui-btn laimi-button-100" id="snap">截取图像</button>
+    	<button class="layui-btn laimi-button-100" id="upload">上传图像</button>
+    </div>
+     <div class="layui-col-md6">
+    	&nbsp;
+    </div>
+    <div class="layui-col-md12 laimi-height-20">
+    &nbsp;
+    </div>
+      <!-- <button id="close">关闭摄像头</button> -->
+	    <!-- <img id="uploaded" width="200" height="150" /> -->
+	</div>
+</script>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 <script>
 layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 	var $ = layui.jquery;
+	var jQuery = layui.jquery;
 	var objlayer = layui.layer;
 	var objelement = layui.element;
 	var objform = layui.form;
@@ -199,7 +225,7 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 	});
 	//普通图片上传
 	var uploadInst = objupload.render({
-	  elem: '#upload',
+	  elem: '#laimi-upload',
 	  url: './upload_do.php',
 	  before: function(obj){
 	    //预读本地文件示例，不支持ie8
@@ -248,6 +274,96 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 		});
 		return false;
 	});
+	//在线上传照片
+	$('#online-photo').on('click', function(){
+		objlayer.open({
+			type: 1,
+			title: ["在线拍照", "font-size:16px;"],
+			btnAlign: "r",
+			area: ["500px", "auto"],
+			shadeClose: true,//点击遮罩关闭
+			content: $('#laimi-script-photo').html(),
+			success: function(){
+				openCamera();
+	    },
+	    end: function(){
+	    	mediaStreamTrack && mediaStreamTrack.stop();
+	    }
+		});
+	})
+	var mediaStreamTrack = null;
+	function openCamera(){
+		function $(elem) {
+      return document.querySelector(elem);
+    }
+	  // 获取媒体方法（旧方法）
+    navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMeddia || navigator.msGetUserMedia;
+
+    var canvas = $('canvas'),
+        context = canvas.getContext('2d'),
+        video = $('video'),
+        snap = $('#snap'),
+        close = $('#close'),
+        upload = $('#upload');
+
+    // 获取媒体方法（新方法）
+    // 使用新方法打开摄像头
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({
+			   video: true,
+			   audio: true
+			}).then(function(stream) {
+			   console.log(stream);
+
+			   mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
+
+			   video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+			   video.play();
+			}).catch(function(err) {
+			   console.log(err);
+			})
+    }
+   // 使用旧方法打开摄像头
+    else if (navigator.getMedia) {
+			navigator.getMedia({
+			   video: true
+			}, function(stream) {
+			   mediaStreamTrack = stream.getTracks()[0];
+
+			   video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+			   video.play();
+			}, function(err) {
+			   console.log(err);
+			});
+    }
+
+   // 截取图像
+		snap.addEventListener('click', function() {
+		   context.drawImage(video, 0, 0, 200, 150);
+		}, false);
+
+    // 关闭摄像头
+		// close.addEventListener('click', function() {
+		//    mediaStreamTrack && mediaStreamTrack.stop();
+		// }, false);
+
+   // 上传截取的图像
+		upload.addEventListener('click', function() {
+		   jQuery.post('upload_snap_do.php', {
+		       snapData: canvas.toDataURL('image/png')
+		   }).done(function(res) {
+		       res = JSON.parse(res);
+		       if(res.code == 200){
+		       	jQuery("#laimi-main input[name='txtphoto']").val(res.photo);
+		       	var url = "../photo/temp/"+res.photo;
+		       	jQuery('#img').attr('src', url);
+		       }
+		       console.log(res);
+		   }).fail(function(err) {
+		       console.log(err);
+		   });
+		}, false);
+	}
 });
 </script>
 </body>

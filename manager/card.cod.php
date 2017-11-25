@@ -213,10 +213,10 @@
 				    	<table class="layui-table" lay-filter="mcombo">
 							  <thead>
 							    <tr>
-							      <th lay-data="{field:'name1', width:150}">名称</th>
-							      <th lay-data="{field:'name2', width:150}">价格</th>
-							      <th lay-data="{field:'name3', width:150}">数量</th>
-							      <th lay-data="{field:'name4', width:153}">到期时间</th>
+							      <th>名称</th>
+							      <th>价格</th>
+							      <th>数量</th>
+							      <th>到期时间</th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -240,11 +240,11 @@
 				    	<table class="layui-table" lay-filter="ticket">
 							  <thead>
 							    <tr>
-							      <th lay-data="{field:'name1', width:150}">类型</th>
-							      <th lay-data="{field:'name2', width:150}">名称</th>
-							      <th lay-data="{field:'name3', width:150}">价值</th>
-							      <th lay-data="{field:'name4', width:153}">到期时间</th>
-							    </tr> 
+							      <th>类型</th>
+							      <th>名称</th>
+							      <th>价值</th>
+							      <th>到期时间</th>
+							    </tr>
 							  </thead>
 							  <tbody>
 							  {{#  layui.each(d.ticket, function(index2, item2){ }}
@@ -301,14 +301,7 @@
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,
 				  	success: function(){
-				  		// objtable.init('mcombo', {
-				  		//   height: 118 //设置高度
-				  		//   //支持所有基础参数
-				  		// });
-				  		// objtable.init('ticket', {
-				  		//   height: 118 //设置高度
-				  		//   //支持所有基础参数
-				  		// });
+				  		$('.layui-layer-content').css('overflow', 'auto');
 				  	}
 				  });
 				});

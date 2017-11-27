@@ -17,7 +17,7 @@
 				<div id="laimi-main" class="p-main layui-tab-content">
 内容
 				</div>
-			</div> 
+			</div>
 		</div>
 	</div>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>

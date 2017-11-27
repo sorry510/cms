@@ -44,11 +44,8 @@
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal" lay-filter="laimi-search" lay-submit>搜索</button>
 		</div>		  			   		    		  	    	    
-		<div class="laimi-float-right">
-			<a class="layui-btn laimi-add">积分换礼</a>
-		</div>		  		    
 	</div>
-</form>		  
+</form>
 <table class="layui-table">
 	<thead>
 		<tr>

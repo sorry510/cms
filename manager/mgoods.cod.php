@@ -251,7 +251,7 @@
 				  	<input type="radio" name="txtmgoods_reserve" value="1" title="参与预约">
 			  	</div>
 			   <div class="layui-form-mid layui-word-aux">是否参与微信预约</div>
-				</div>					    	  
+				</div>
 		  	<div class="layui-form-item">
 		    	<div class="layui-input-block">
 			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submitedit" lay-submit>

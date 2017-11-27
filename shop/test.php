@@ -1,4 +1,5 @@
 <?php
+echo setcookie('CF_SKEY', 'f900eb6d1fcf08f1a83b5ff075993097f6f9a9d0', 0, '/', '', false);
 // define('C_CNFLY', true);
 // define('C_NOTEMPLATE', true);
 // require('inc_path.php');
@@ -41,13 +42,14 @@ for($i = 1; $i < strlen($str) - 1; $i++){
 }
 print_r(array_keys($arr));
 echo $arr[max(array_keys($arr))];*/
-ini_set('memory_limit', '64M');
-echo memory_get_usage() . "\n"; // 36640
+// ini_set('memory_limit', '64M');
+// echo memory_get_usage() . "\n"; // 36640
 
-$a = str_repeat("Hello", 4242);
+// $a = str_repeat("Hello", 4242);
 
-echo memory_get_usage() . "\n"; // 57960
+// echo memory_get_usage() . "\n"; // 57960
 
-unset($a);
+// unset($a);
 
-echo memory_get_usage() . "\n"; // 36744
+// echo memory_get_usage() . "\n"; // 36744
+

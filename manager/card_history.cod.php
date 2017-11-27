@@ -169,12 +169,12 @@
 		    </div>
 				<div class="layui-col-md12">
 					<label class="layui-form-label">图片</label>
-			    <div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_photo_file}}" style="width:120px;height:120px;"></div>
-	 				<div class="layui-form-mid layui-word-aux"><img src="/img/no.jpg" style="width:120px;height:120px;"></div>
-	 				<div class="layui-form-mid layui-word-aux"><img src="/img/no.jpg" style="width:120px;height:120px;"></div>
-	 				<div class="layui-form-mid layui-word-aux"><img src="/img/no.jpg" style="width:120px;height:120px;"></div>
-	 				<div class="layui-form-mid layui-word-aux"><img src="/img/no.jpg" style="width:120px;height:120px;"></div>
-				</div>			    
+  		    <div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_history_photo1}}" style="width:120px;height:120px;"></div>
+   				<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_history_photo2}}" style="width:120px;height:120px;"></div>
+   				<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_history_photo3}}" style="width:120px;height:120px;"></div>
+   				<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_history_photo4}}" style="width:120px;height:120px;"></div>
+   				<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=history&image=";?>{{d.card_history_photo5}}" style="width:120px;height:120px;"></div>
+				</div>
 			</div>
 		</div>
 	</script>

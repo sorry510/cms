@@ -276,20 +276,22 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 	});
 	//在线上传照片
 	$('#online-photo').on('click', function(){
-		objlayer.open({
-			type: 1,
-			title: ["在线拍照", "font-size:16px;"],
-			btnAlign: "r",
-			area: ["500px", "auto"],
-			shadeClose: true,//点击遮罩关闭
-			content: $('#laimi-script-photo').html(),
-			success: function(){
-				openCamera();
-	    },
-	    end: function(){
-	    	mediaStreamTrack && mediaStreamTrack.stop();
-	    }
-		});
+		if(window.navigator.userAgent.indexOf("Firefox") !== -1){
+			objlayer.open({
+				type: 1,
+				title: ["在线拍照", "font-size:16px;"],
+				btnAlign: "r",
+				area: ["500px", "auto"],
+				shadeClose: true,//点击遮罩关闭
+				content: $('#laimi-script-photo').html(),
+				success: function(){
+						openCamera();
+		    },
+		    end: function(){
+		    	mediaStreamTrack && mediaStreamTrack.stop();
+		    }
+			});
+		}
 	})
 	var mediaStreamTrack = null;
 	function openCamera(){
@@ -313,7 +315,7 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 			   video: true,
 			   audio: true
 			}).then(function(stream) {
-			   console.log(stream);
+			   // console.log(stream);
 
 			   mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
 
@@ -323,7 +325,7 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 			   console.log(err);
 			})
     }
-   // 使用旧方法打开摄像头
+    // 使用旧方法打开摄像头
     else if (navigator.getMedia) {
 			navigator.getMedia({
 			   video: true

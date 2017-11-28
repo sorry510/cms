@@ -66,7 +66,7 @@
 			    <div class="layui-input-block">
 			      <input class="layui-input laimi-input-200" type="text" name="txtmgoods_catalog_name" lay-verify="required">
 			    </div>
-			  </div>		    	  
+			  </div>
 			  <div class="layui-form-item">
 			    <div class="layui-input-block">
 			      <button class="layui-btn laimi-button-100" lay-filter="laimi-submitadd" lay-submit>

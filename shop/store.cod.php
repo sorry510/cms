@@ -22,12 +22,12 @@
 	<div class="laimi-tools layui-form-item">
 		<label class="layui-form-label laimi-input">日期</label>
 		<div class="layui-input-inline">
-			<input id="laimi-from" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd">
+			<input id="laimi-from" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" name="from" value="<?php echo $this->_data['request']['from']; ?>">
 		</div>
 		<label class="layui-form-label laimi-input" style="width: 0px;margin-right:10px">至</label>
 		<div class="layui-input-inline last">
-			<input id="laimi-to" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd">
-		</div>		
+			<input id="laimi-to" class="layui-input laimi-input-100" type="text" placeholder="yyyy-MM-dd" name="to" value="<?php echo $this->_data['request']['to']; ?>">
+		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
@@ -45,28 +45,41 @@
 			<th>经办人</th>
 			<th>备注</th>
 			<th>状态</th>
-			<th width="130">操作</th>
+			<th width="180">操作</th>
 		</tr>
 	</thead>
 	<tbody>
+	<?php foreach($this->_data['store_list']['list'] as $row){ ?>
 		<tr>
-			<td>1995-8-15 12:12</td>
-			<td class="laimi-color-ju">入库</td>
-			<td>¥1201.00</td>
-			<td>张小宇</td>
-			<td>东风路分店东风路分店东风路分店东风路分店东风路分店</td>
-			<td>已完成</td>
+			<td><?php echo $row['time']; ?></td>
+			<td class="laimi-color-ju"><?php echo $row['type']; ?></td>
+			<td>¥<?php echo $row['store_money']; ?></td>
+			<td><?php echo $row['store_operator']; ?></td>
+			<td><?php echo $row['store_memo']; ?></td>
+			<td><?php echo $row['state']; ?></td>
 			<td>
-				<a class="layui-btn layui-btn-mini">
+			<?php if($row['store_state'] != 2){ ?>
+				<button type="button" class="layui-btn layui-btn-mini laimi-sure" value="<?php echo $row['store_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					确认
+				</button>
+				<a href="store_edit.php?id=<?php echo $row['store_id']; ?>" class="layui-btn layui-btn-mini laimi-edit">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
 				</a>
-				<a class="layui-btn layui-btn-primary layui-btn-mini">
+				<button type="button" class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['store_id']; ?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
-				</a>
+				</button>
+			<?php }else{ ?>
+				<button type="button" class="layui-btn layui-btn-mini" value="<?php echo $row['store_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					已确认
+				</button>
+			<?php } ?>
 			</td>
 		</tr>
+	<?php } ?>
 	</tbody>
 </table>
 <div class="laimi-page">
@@ -106,7 +119,42 @@
 		});
 		objdate.render({
 			elem: '#laimi-to'
-		});	
+		});
+		$('.laimi-sure').on('click', function(){
+			var id = $(this).val();
+			objlayer.confirm('你已经确认了吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('store_state_do.php', {id:id}, function(msg){
+			  	console.log(msg);
+			  	if(msg == 0){
+			  		window.location.reload();
+			  	}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
+		$(".laimi-del").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('worker_delete_do.php', {id:id}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else if(res == 1){
+						objlayer.alert('删除失败，此员工有提成不能删除', {
+							title: '提示信息'
+						});
+					}else{
+			  		objlayer.alert('删除失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 	});
 	</script>
 </body>

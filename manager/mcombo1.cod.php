@@ -212,7 +212,7 @@
 		//删除操作JS
 	  $(".laimi-del").on("click", function() {
 			var id = $(this).val();
-			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			objlayer.confirm('你确定要删除吗?', {icon: 0, title:'提示',shadeClose: true}, function(index){
 			  $.post('mcombo_delete_do.php', {id:id}, function(res){
 			  	if(res == 0){
 			  		window.location.reload();
@@ -228,12 +228,12 @@
 		//停止启用JS
 	  $(".laimi-state").on("click", function() {
 			var id = $(this).val();
-			objlayer.confirm('你确定要修改吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			objlayer.confirm('你确定要停用吗?', {icon: 0, title:'提示',shadeClose: true}, function(index){
 			  $.post('mcombo_state_do.php', {id:id}, function(res){
 			  	if(res == 0){
 			  		window.location.reload();
 			  	}else{
-			  		objlayer.alert('修改失败，请联系管理员', {
+			  		objlayer.alert('停用失败，请联系管理员', {
 			  			title: '提示信息'
 			  		});
 			  	}

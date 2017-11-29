@@ -82,11 +82,11 @@
 		    <td><span class="laimi-color-ju"><?php echo $row['je_cz'];?></span></td>
 		    <td><span class="laimi-color-ju"><?php echo $row['tc_cz'];?></span></td>
 		    <td><span class="laimi-color-ju"><?php echo $row['je_fw'];?></span></td>
-		    <!-- <td><span><?php echo $row['num_fw'];?></span></td> -->
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_fw'];?></span></td>
+		    <td><span><?php echo $row['num_fw'];?></span></td>
+		    <!-- <td><span class="laimi-color-ju"><?php echo $row['tc_fw'];?></span></td> -->
 		    <td><span class="laimi-color-ju"><?php echo $row['je_sw'];?></span></td>
-		    <!-- <td><span><?php echo $row['num_sw'];?></span></td> -->
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_sw'];?></span></td>
+		    <td><span><?php echo $row['num_sw'];?></span></td>
+		    <!-- <td><span class="laimi-color-ju"><?php echo $row['tc_sw'];?></span></td> -->
 		    <td><span class="laimi-color-ju"><?php echo $row['je_dg'];?></span></td>
 		    <!-- <td><span><?php echo $row['num_dg'];?></span></td> -->
 		    <td><span class="laimi-color-ju"><?php echo $row['tc_dg'];?></span></td>

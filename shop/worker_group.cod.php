@@ -11,7 +11,7 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li>
-						<a href="worker.php">员工管理</a>
+						<a href="worker.php?state=1">员工管理</a>
 					</li>
 					<li class="layui-this">
 						<a href="worker_group.php">员工分组</a>

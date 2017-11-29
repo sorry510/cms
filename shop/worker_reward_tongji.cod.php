@@ -69,20 +69,20 @@
 		    <td><?php echo $row['c_worker_name'];?></td>
 		    <td><?php echo $row['c_worker_group_name'];?></td>
 		    <td><?php echo $row['num_kk'];?></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_kk'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['je_cz'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_cz'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['je_fw'];?></span></td>
-		    <!-- <td><span><?php echo $row['num_fw'];?></span></td> -->
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_fw'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['je_sw'];?></span></td>
-		    <!-- <td><span><?php echo $row['num_sw'];?></span></td> -->
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_sw'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['je_dg'];?></span></td>
-		    <!-- <td><span><?php echo $row['num_dg'];?></span></td> -->
-		    <td><span class="laimi-color-ju"><?php echo $row['tc_dg'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['worker_wage'];?></span></td>
-		    <td><span class="laimi-color-ju"><?php echo $row['sz_wage'];?></span>元</td>
+		    <td><span class="laimi-color-ju"><?php echo $row['tc_kk'] + 0;?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['je_cz'] + 0;?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['tc_cz'] + 0;?></span></td>
+		    <!-- <td><span class="laimi-color-ju"><?php echo $row['je_fw'];?></span></td> -->
+		    <td><span><?php echo $row['num_fw'];?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['tc_fw'] + 0;?></span></td>
+		    <!-- <td><span class="laimi-color-ju"><?php echo $row['je_sw'];?></span></td> -->
+		    <td><span><?php echo $row['num_sw'];?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['tc_sw'] + 0;?></span></td>
+		    <!-- <td><span class="laimi-color-ju"><?php echo $row['je_dg'] + 0;?></span></td> -->
+		    <td><span><?php echo $row['num_dg'];?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['tc_dg'] + 0;?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['worker_wage'] + 0;?></span></td>
+		    <td><span class="laimi-color-ju"><?php echo $row['sz_wage'] + 0;?></span>元</td>
 		    <td><?php echo $row['shop_name'];?></td>
 		  </tr>
 		<?php }?>

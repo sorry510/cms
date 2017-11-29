@@ -11,7 +11,7 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li>
-						<a href="worker.php">员工管理</a>
+						<a href="worker.php?state=1">员工管理</a>
 					</li>
 					<li class="layui-this">
 						<a href="worker_group.php">员工分组</a>
@@ -167,6 +167,10 @@
 			  $.post('worker_group_delete_do.php', {id:id}, function(res){
 			  	if(res == 0){
 			  		window.location.reload();
+			  	}else if(res == 1){
+			  		objlayer.alert('分组下面有员工，不能删除', {
+			  			title: '提示信息'
+			  		});
 			  	}else{
 			  		objlayer.alert('删除失败，请联系管理员', {
 			  			title: '提示信息'

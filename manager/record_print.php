@@ -8,11 +8,12 @@ $strid = api_value_get('id');
 $intid = api_value_int0($strid);
 
 $gtemplate->fun_assign('record_info', record_info());
+$gtemplate->fun_assign('card_info', card_info());
 $gtemplate->fun_show('record_print');
 
 function record_info(){
 	$arr = array();
-	$strsql = "SELECT a.*,b.shop_name FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_kakou,card_record_tuan,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " where card_record_id = ".$GLOBALS['intid']." limit 1) AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') ." AS b on a.shop_id = b.shop_id";
+	$strsql = "SELECT a.*,b.shop_name,b.shop_phone,b.shop_area_address FROM (SELECT card_record_id,card_record_code,card_id,shop_id,card_record_type,card_record_cmoney,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,card_record_xianjin,card_record_yinhang,card_record_weixin,card_record_zhifubao,card_record_kakou,card_record_tuan,card_record_score,card_record_state,card_record_atime,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " where card_record_id = ".$GLOBALS['intid']." limit 1) AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table('shop') ." AS b on a.shop_id = b.shop_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
@@ -109,5 +110,13 @@ function record_info(){
 		$arrticket = $GLOBALS['gdb']->fun_fetch_all($hresult);
 		$arr['ticket_list'] = $arrticket;
 	}
+	return $arr;
+}
+
+function card_info(){
+	$arr = array();
+	$strsql = "SELECT a.*,b.card_name FROM (SELECT card_id,c_mgoods_name,card_record3_ygoods_count FROM " . $GLOBALS['gdb']->fun_table2('card_record3_ygoods') . " where card_record_id = ".$GLOBALS['intid']." limit 1) AS a LEFT JOIN ". $GLOBALS['gdb']->fun_table2('card') ." AS b on a.card_id = b.card_id";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;
 }

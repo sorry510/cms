@@ -128,7 +128,7 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="worker.php">
+								<a href="worker.php?state=1">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-user"></use></svg>
 									&nbsp;员工管理
 								</a>

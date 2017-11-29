@@ -132,7 +132,7 @@ function get_worker_reward_count_list() {
 	$strsql2 = "SELECT a.*, b.shop_name,c.worker_wage FROM (".$strsql1.") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker') . " AS c ON a.worker_id = c.worker_id";
 	//求实际工资，并排序
 	$strsql ="select SUM(d.tc_kk+d.tc_cz+d.tc_fw+d.tc_sw+d.tc_dg+d.worker_wage)as sz_wage,d.* FROM (".$strsql2.") as d group by d.worker_id order by sz_wage DESC LIMIT ". $intoffset . ", " . $intpagesize;
-	// echo $strsql;exit;
+	echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);
 

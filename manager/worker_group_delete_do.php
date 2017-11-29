@@ -21,7 +21,17 @@ if($intreturn == 0) {
 	$strsql = "DELETE FROM " . $gdb->fun_table2('worker_group') . " WHERE worker_group_id = " . $intid . " LIMIT 1";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
-		$intreturn = 1;
+		$intreturn = 2;
+	}
+	$strsql = "DELETE FROM " . $gdb->fun_table2('group_reward') . " WHERE worker_group_id = " . $intid . " LIMIT 1";
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
+		$intreturn = 3;
+	}
+	$strsql = "DELETE FROM " . $gdb->fun_table2('group_reward2') . " WHERE worker_group_id = " . $intid . " LIMIT 1";
+	$hresult = $gdb->fun_do($strsql);
+	if($hresult == FALSE) {
+		$intreturn = 4;
 	}
 }
 

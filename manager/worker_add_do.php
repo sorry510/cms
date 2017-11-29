@@ -67,7 +67,7 @@ if(!empty($sqlworker_code)){
 }
 
 if($intreturn == 0){
-	$strsql = "INSERT INTO ".$gdb->fun_table2('worker')." (worker_group_id,shop_id,worker_code,worker_name,worker_sex,worker_birthday_date,worker_birthday_month,worker_birthday_day,worker_phone,worker_identity,worker_education,worker_join,worker_address,worker_wage,worker_atime) VALUES (".$intworker_group_id.",".$intshop.",'".$sqlworker_code."','".$sqlworker_name."',".$intworker_sex.",".$intworker_birthday_date.",".$intworker_birthday_date_month.",".$intworker_birthday_date_day.",'".$sqlworker_phone."','".$sqlworker_identity."',".$intworker_education.",".$intworker_join.",'".$sqlworker_address."',".$decworker_wage.",".$intnow.")";
+	$strsql = "INSERT INTO ".$gdb->fun_table2('worker')." (worker_group_id,shop_id,worker_code,worker_name,worker_sex,worker_birthday_date,worker_birthday_month,worker_birthday_day,worker_phone,worker_identity,worker_education,worker_join,worker_address,worker_wage,worker_atime,worker_state) VALUES (".$intworker_group_id.",".$intshop.",'".$sqlworker_code."','".$sqlworker_name."',".$intworker_sex.",".$intworker_birthday_date.",".$intworker_birthday_date_month.",".$intworker_birthday_date_day.",'".$sqlworker_phone."','".$sqlworker_identity."',".$intworker_education.",".$intworker_join.",'".$sqlworker_address."',".$decworker_wage.",".$intnow.",1)";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;

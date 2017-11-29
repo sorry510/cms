@@ -143,6 +143,9 @@
 		$('.laimi-button-search').on('click',function(){
 			var search = $("#laimi-main select[name='goodscatalog']").val() || 0;
 			var goods = $("#laimi-main .laimi-search").val() || '';
+			var gname = '';
+			var gcode = '';
+			var gshort = '';
 			goods = $.trim(goods);
 			$('#laimi-main .laimi-goods').addClass('layui-hide');
 			if(search == 0){
@@ -150,7 +153,11 @@
 					$('#laimi-main .laimi-goods').removeClass('layui-hide');
 				}else{
 					$.each($('#laimi-main .laimi-goods'), function(){
-						if($(this).attr('gname') == goods || $(this).attr('gcode') == goods || $(this).attr('gshort') == goods){
+						gname = $(this).attr('gname') || '';
+						gcode = $(this).attr('gcode') || '';
+						gshort = $(this).attr('gshort') || '';
+						gshort = gshort.toLowerCase();//大写转小写
+						if(gname.indexOf(goods) !== -1 || gcode.indexOf(goods) !== -1 || gshort.indexOf(goods) !== -1){
 							$(this).removeClass('layui-hide');
 						}
 					})

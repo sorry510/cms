@@ -9,11 +9,17 @@ $intworker_id = api_value_int0($strworker_id);
 
 $intreturn = 0;
 
-// 查询员工提成下有员工
+/*// 查询员工提成下有员工
 $strsql = "SELECT worker_id FROM " . $gdb->fun_table2('worker_reward') . " where worker_id=".$intworker_id;
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 if(!empty($arr)){
+	$intreturn = 1;
+}*/
+$strsql = "SELECT worker_id FROM " . $gdb->fun_table2('worker') . " where worker_id=".$intworker_id;
+$hresult = $GLOBALS['gdb']->fun_query($strsql);
+$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+if(empty($arr)){
 	$intreturn = 1;
 }
 
@@ -24,12 +30,12 @@ if($intreturn == 0) {
 		$intreturn = 2;
 	}
 }
-if($intreturn == 0) {
+/*if($intreturn == 0) {
 	$strsql = "DELETE FROM " . $gdb->fun_table2('worker_goods') . " WHERE worker_id = " . $intworker_id;
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 2;
 	}
-}
+}*/
 // 删除员工提成表
 echo $intreturn;

@@ -11,10 +11,13 @@
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
 					<li class="layui-this">
-						<a href="worker.php">员工管理</a>
+						<a href="worker.php?state=1">员工管理</a>
 					</li>
 					<li>
 						<a href="worker_group.php">员工分组</a>
+					</li>
+					<li>
+						<a href="worker.php?state=2">离职员工</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-worker layui-tab-content">
@@ -32,6 +35,7 @@
 		<label class="layui-form-label">员工</label>
 		<div class="layui-input-inline last">
 			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="姓名/编号" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
+			<input class="layui-input laimi-input-200" type="hidden" name="state" value="<?php echo htmlspecialchars($this->_data['request']['state']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -71,14 +75,25 @@
 			<td><?php echo $row['worker_wage'];?>元</td>
 			<td><?php echo $row['shop_name'];?></td>
 			<td>
+			<?php if($row['worker_state'] == 1){ ?>
 				<button class="layui-btn layui-btn-mini laimi-edit" value="<?php echo $row['worker_id'];?>">
 					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
 					修改
+				</button>
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-lizhi" value="<?php echo $row['worker_id'];?>">
+					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
+					离职
+				</button>
+			<?php }else if($row['worker_state'] == 2){ ?>
+				<button class="layui-btn layui-btn-mini laimi-restore" value="<?php echo $row['worker_id'];?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					恢复
 				</button>
 				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" value="<?php echo $row['worker_id'];?>">
 					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
 					删除
 				</button>
+			<?php	} ?>
 			</td>
 		</tr>
 	<?php }?>
@@ -483,7 +498,8 @@
 		    <div class="layui-col-md6">
 		    	<div class="layui-form-item" style="margin-bottom:-6px;">
 						<label class="layui-form-label">身份证照</label>
-			  		<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=worker&image=";?>{{d.worker_identity_file}}" style="width:200px;height:130px;"></div>    
+			  		<div class="layui-form-mid layui-word-aux"><img src="<?php echo "read_image.php?c=".$GLOBALS['_SESSION']['login_cid']."&type=worker&image=";?>{{d.worker_identity_file}}" style="width:200px;height:130px;"></div>
+			  	</div>
 				</div>
 		  </div>
 		</div>
@@ -578,6 +594,45 @@
 			})
 			return false;
 		});
+		$(".laimi-lizhi").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要离职吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
+			  $.post('worker_state_do.php', {id: id, type:'lizhi'}, function(res){
+			  	console.log(res);
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else if(res == 1){
+						objlayer.alert('此员工已不存在，离职失败', {
+							title: '提示信息'
+						});
+					}else{
+			  		objlayer.alert('离职失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
+		$(".laimi-restore").on("click", function() {
+			var id = $(this).val();
+			objlayer.confirm('你确定要恢复吗', {icon: 0, title: '提示', shadeClose: true}, function(index){
+			  $.post('worker_state_do.php', {id: id, type: 'restore'}, function(res){
+			  	if(res == 0){
+			  		window.location.reload();
+			  	}else if(res == 1){
+						objlayer.alert('此员工已不存在，离职失败', {
+							title: '提示信息'
+						});
+					}else{
+			  		objlayer.alert('恢复失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  objlayer.close(index);
+			});
+		})
 		$(".laimi-del").on("click", function() {
 			var id = $(this).val();
 			objlayer.confirm('你确定要删除吗', {icon: 0, title:'提示', shadeClose: true}, function(index){
@@ -585,7 +640,7 @@
 			  	if(res == 0){
 			  		window.location.reload();
 			  	}else if(res == 1){
-						objlayer.alert('删除失败，此员工有提成不能删除', {
+						objlayer.alert('此员工已不存在，删除失败', {
 							title: '提示信息'
 						});
 					}else{
@@ -605,7 +660,7 @@
 				  	title: ["员工信息", "font-size:16px;"],
 				  	btnAlign: "r",
 				  	offset: 'rt',
-				  	anim: 2,
+				  	anim: 0,
 				  	area: ["800px", "100%"],
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,

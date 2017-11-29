@@ -5,6 +5,8 @@ require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
 
 $strchannel = 'worker';
+$strstate = api_value_get('state');
+$intstate = api_value_int0($strstate);
 $strshop = api_value_get('shop');
 $intshop = api_value_int0($strshop);
 $strgroup = api_value_get('group');
@@ -21,6 +23,7 @@ $gtemplate->fun_show('worker');
 
 function get_request(){
 	$arr = array();
+	$arr['state'] = $GLOBALS['intstate'];
 	$arr['shop'] = $GLOBALS['intshop'];
 	$arr['group'] = $GLOBALS['intgroup'];
 	$arr['search'] = $GLOBALS['strsearch'];
@@ -64,6 +67,13 @@ function get_worker_list() {
 	  $strwhere .= " AND (worker_name = '" . $GLOBALS['strsearch'] . "'";
 	  $strwhere .= " or worker_code = '" . $GLOBALS['strsearch'] . "')";
 	}
+	if($GLOBALS['intstate'] == 1){
+		$strwhere .= " and worker_state=1";
+	}else if($GLOBALS['intstate'] == 2){
+		$strwhere .= " and worker_state=2";
+	}else{
+		$strwhere .= " and worker_state=0";
+	}
 
 	$arr = array();
 	$strsql = "SELECT count(worker_id) as mycount FROM " . $GLOBALS['gdb']->fun_table2('worker')  . " WHERE 1 = 1 " . $strwhere;
@@ -80,7 +90,7 @@ function get_worker_list() {
 		$arrpackage['list'] = array();
 		return $arrpackage;
 	}
-	$intpagesize = 5;
+	$intpagesize = 50;
 	$intpagecount = intval($intallcount / $intpagesize);
 	if($intallcount % $intpagesize > 0) {
 		$intpagecount = $intpagecount + 1;
@@ -103,7 +113,7 @@ function get_worker_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT a.*, b.shop_name, c.worker_group_name FROM (SELECT shop_id, worker_id, worker_group_id, worker_name, worker_code, worker_sex, worker_birthday_date, worker_phone, worker_education, worker_join, worker_wage FROM " . $GLOBALS['gdb']->fun_table2('worker') . " where 1=1 ".$strwhere." ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker_group') . " AS c on a.worker_group_id = c.worker_group_id ";
+	$strsql = "SELECT a.*, b.shop_name, c.worker_group_name FROM (SELECT shop_id, worker_id, worker_group_id, worker_name, worker_code, worker_sex, worker_birthday_date, worker_phone, worker_education, worker_join, worker_wage, worker_state FROM " . $GLOBALS['gdb']->fun_table2('worker') . " where 1=1 ".$strwhere." ORDER BY worker_id DESC LIMIT ". $intoffset . ", " . $intpagesize . ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b on a.shop_id = b.shop_id LEFT JOIN " . $GLOBALS['gdb']->fun_table2('worker_group') . " AS c on a.worker_group_id = c.worker_group_id ";
 	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrlist = $GLOBALS['gdb']->fun_fetch_all($hresult);

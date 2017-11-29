@@ -944,13 +944,20 @@
 	    var search = $("#laimi-main select[name='goodscatalog']").val() || 0;
 	    var goods = $("#laimi-main .laimi-search").val() || '';
 	    goods = $.trim(goods);
+	    var gname = '';
+			var gcode = '';
+			var gshort = '';
 	    $('#laimi-main .laimi-goods').addClass('layui-hide');
 	    if(search == 0){
 	    	if(goods == ''){
 	    		$('#laimi-main .laimi-goods').removeClass('layui-hide');
 	    	}else{
 	    		$.each($('#laimi-main .laimi-goods'), function(){
-	    			if($(this).attr('gname') == goods || $(this).attr('gcode') == goods || $(this).attr('gshort') == goods){
+	    			gname = $(this).attr('gname') || '';
+	    			gcode = $(this).attr('gcode') || '';
+	    			gshort = $(this).attr('gshort') || '';
+	    			gshort = gshort.toLowerCase();//大写转小写
+	    			if(gname.indexOf(goods) !== -1 || gcode.indexOf(goods) !== -1 || gshort.indexOf(goods) !== -1){
 	    				$(this).removeClass('layui-hide');
 	    				$("#laimi-main .laimi-goods[catalog='"+$(this).attr('catalog')+"'][gtype='m'][cate]").removeClass('layui-hide');
 	    			}
@@ -1208,7 +1215,7 @@
 	    money = money.toFixed(2);
 	    ymoney = ymoney.toFixed(2);
 	    ymoney2 = ymoney2.toFixed(2);
-	    jian = money - ymoney2;
+	    jian = (money - ymoney2).toFixed(2);
 	    money_pbill = ymoney2;
 	    hmoney = money;
 	    $("#laimi-main .laimi-goodscount").text(num);

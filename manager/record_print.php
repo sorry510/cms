@@ -21,6 +21,8 @@ function record_info(){
 		$arr['free'] = $arr['card_record_state'] == '4' ? '免单' : '--';
 		$arr['discount'] = $arr['c_card_type_discount'] != '0' ? $arr['c_card_type_discount'] : '10';
 		$arr['cardtype'] = $arr['c_card_type_name'] != '' ? $arr['c_card_type_name'] : '无';
+		$arr['address'] = implode(mbStrSplit($arr['shop_area_address'] ,10),"<br/>");
+		// chunk_split($arr['shop_area_address'], 20, "<br/>")
 		switch($arr['card_record_state'])
 		{
 			case '1':
@@ -120,3 +122,15 @@ function card_info(){
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;
 }
+
+function mbStrSplit($string, $len=1) {
+  $start = 0;
+  $strlen = mb_strlen($string);
+  while ($strlen) {
+    $array[] = mb_substr($string,$start,$len,"utf8");
+    $string = mb_substr($string, $len, $strlen,"utf8");
+    $strlen = mb_strlen($string);
+  }
+  return $array;
+}
+

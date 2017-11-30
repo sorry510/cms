@@ -15,7 +15,7 @@ function get_shop_config(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if($arr['shop_config'] != ''){
-		$arrjson = json_decode($arr['shop_config'],true);
+		$arrjson = json_decode($arr['shop_config'], true);
 	}else{
 		$arrjson = array(
 			'print_flag' => 0,

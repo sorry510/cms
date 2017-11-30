@@ -29,7 +29,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">打印标题</label>
 		<div class="layui-input-inline">
-			<input type="text" name="print_title" value="<?php echo $this->_data['shop_config']['print_title'];?>" autocomplete="off" class="layui-input laimi-input-300">
+			<input type="text" name="print_title" value="<?php echo $this->_data['shop_config']['print_title'];?>" lay-verify="required" class="layui-input laimi-input-300">
 		</div>
 		<div class="layui-form-mid layui-word-aux">
 			例：海底捞东风路分店
@@ -70,38 +70,43 @@
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script src="../js/LodopFuncs.js"></script>
 	<script>
-	
-	layui.use(["element", "form"], function() {
-		var $ = layui.jquery;
-		var objlayer = layui.layer;
-		var objelement = layui.element;
-		var objform = layui.form;
-		//获取打印机名称，参考文档http://www.lodop.net/demolist/PrintSample7.html
-		window.onload = function(){
+	window.onload = function(){
+		layui.use(["element", "form"], function() {
+			var $ = layui.jquery;
+			var objlayer = layui.layer;
+			var objelement = layui.element;
+			var objform = layui.form;
+			//获取打印机名称，参考文档http://www.lodop.net/demolist/PrintSample7.html
 			var LODOP = getLodop();
 			var objselect = document.getElementById('mySelect');
 			for (var i = 0; i < LODOP.GET_PRINTER_COUNT(); i++) {
 				objselect.options.add(new Option(LODOP.GET_PRINTER_NAME(i),LODOP.GET_PRINTER_NAME(i)));
 			}
+			$("#mySelect option").each(function(){
+				if ($(this).val() == '<?php echo $this->_data['shop_config']['print_device'];?>') {
+					$(this).attr('selected',true);
+				}
+			})
 			objform.render();
-		}; 
-		objform.on("submit(laimi-submit)", function(data) {
-			console.log(data.field);
-			var _self = $(this);
-		  _self.attr('disabled',true);
-		  var url="system_trade_add_do.php";
-		  $.post(url,data.field,function(res){
-		    if(res=='0'){
-		    	window.location="system_trade.php";
-		    }else{
-		      alert('设置失败');
-		      console.log(res);
-		      _self.attr("disabled",false);
-		    }
-		  });
-			return false;
+			
+			objform.on("submit(laimi-submit)", function(data) {
+				console.log(data.field);
+				var _self = $(this);
+			  _self.attr('disabled',true);
+			  var url="system_trade_add_do.php";
+			  $.post(url,data.field,function(res){
+			    if(res=='0'){
+			    	window.location="system_trade.php";
+			    }else{
+			      alert('设置失败');
+			      console.log(res);
+			      _self.attr("disabled",false);
+			    }
+			  });
+				return false;
+			});
 		});
-	});
+	};
 	</script>
 </body>
 </html>

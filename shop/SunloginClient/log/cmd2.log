@@ -1,0 +1,6 @@
+[11104][11120]2017-08-29 17:35:39	- Info  -	plugin cmd2 starting
+[11104][11120]2017-08-29 17:35:39	- Info  -	attempt to connect server 127.0.0.1:53995(127.0.0.1:53995)
+[11104][10440]2017-08-29 17:35:39	- Info  -	CBinaryHandler client_connect
+[11104][11120]2017-08-29 17:35:39	- Info  -	[web] cmd starting
+[11104][11120]2017-08-29 17:36:16	- Info  -	CBinaryHandler client_disconnect
+[11104][11120]2017-08-29 17:36:16	- Info  -	plugin cmd2 is stoped

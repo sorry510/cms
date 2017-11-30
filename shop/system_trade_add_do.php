@@ -18,6 +18,10 @@ $sqlprint_device = $gdb->fun_escape($strprint_device);
 
 $intreturn = 0;
 
+if (empty($intprint_flag) || empty($sqlprint_title) || empty($intprint_width) || empty($sqlprint_device)) {
+	$intreturn = 1;
+}
+
 if($intreturn == 0){
 	$arr = array(
 		'print_flag' => $intprint_flag,
@@ -26,13 +30,13 @@ if($intreturn == 0){
 		'print_memo' => $sqlprint_memo,
 		'print_device' => $sqlprint_device
 	);
-	$strjson_config = json_encode($arr);
+	$strjson_config = json_encode($arr, JSON_UNESCAPED_UNICODE);
 
 	$strsql = "UPDATE " . $gdb->fun_table('shop') . " SET shop_config='" . $strjson_config . "' where shop_id= " . $GLOBALS['_SESSION']['login_sid'];
 	$hresult = $gdb->fun_do($strsql);
 
 	if(!$hresult){
-		$intreturn = 1;
+		$intreturn = 2;
 	}
 
 }

@@ -1,0 +1,114 @@
+[4888][4892]2017-08-31 09:15:06	- Info  -	SunloginService starting.
+[4888][4940]2017-08-31 09:15:06	- Info  -	[Service] RegisterServiceCtrlHandlerEx Succeed
+[4888][4940]2017-08-31 09:15:06	- Info  -	[service] start listen OK,tcp:0.0.0.0:49221,udp:15175
+[4888][4940]2017-08-31 09:15:06	- Info  -	DesktopAgentServer created with port 0.
+[4888][4940]2017-08-31 09:15:06	- Info  -	LoginServer IsNetworkAlive 1
+[4888][4940]2017-08-31 09:15:06	- Info  -	Current client status: 2
+[4888][4940]2017-08-31 09:15:06	- Info  -	Login task time 0
+[4888][4996]2017-08-31 09:15:06	- Info  -	Do login( type: 3 )
+[4888][4996]2017-08-31 09:15:06	- Info  -	CSLAPI::CheckLogin_1243
+[4888][4996]2017-08-31 09:15:06	- Info  -	[http_call] connect server: slapi.oray.net:443(114.215.171.69)
+[4888][4952]2017-08-31 09:15:07	- Info  -	CBinaryHandler client_connect
+[4888][4996]2017-08-31 09:15:07	- Info  -	attempt to connect server rc08-g2.oray.com:443(121.40.61.26:443)
+[4888][4996]2017-08-31 09:15:07	- Info  -	CBinaryHandler client_connect
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] attempted logon
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] logon server OK. public ip:115.60.63.223
+[4888][4996]2017-08-31 09:15:07	- Info  -	CBinaryHandler client_connect
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] attempted client online
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] client online OK.
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] attempted register client to server
+[4888][4996]2017-08-31 09:15:07	- Info  -	[service] received name:eminem , description: .
+[4888][4996]2017-08-31 09:15:08	- Info  -	CBinaryHandler client_connect
+[4888][4996]2017-08-31 09:15:08	- Info  -	[service] registered client to server
+[4888][4996]2017-08-31 09:15:08	- Info  -	Current client status: 1
+[4888][4996]2017-08-31 09:15:08	- Info  -	[discover] Client NotifyDiscover type=5
+[4888][4996]2017-08-31 09:15:08	- Info  -	[OnLogin]
+[4888][4996]2017-08-31 09:15:08	- Info  -	CSLAPI::DownloadConfigs_564
+[4888][4996]2017-08-31 09:15:08	- Info  -	CSLAPI::GetShareURL_1389
+[4888][4996]2017-08-31 09:15:09	- Info  -	CSLAPI::GetAccountPermission_2003
+[4888][5080]2017-08-31 09:15:11	- Info  -	CSLAPI::GetShareURL_1389
+[4888][4996]2017-08-31 09:15:11	- Info  -	[Flagship account login and file delivery begin]
+[4888][4996]2017-08-31 09:15:11	- Info  -	CSLAPI::GetFileList_1523
+[4888][4996]2017-08-31 09:15:11	- Info  -	[http_call] connect server: slapi.oray.net:443(114.215.171.69)
+[4888][4996]2017-08-31 09:15:11	- Info  -	SLAPI GetFileList Result is true, Server has 0 Files
+[4888][4996]2017-08-31 09:15:11	- Info  -	CSLAPI::GetGroupMessage_1666
+[4888][4996]2017-08-31 09:15:12	- Info  -	CSLAPI::CheckMicroLiveStatus_1948
+[4888][4996]2017-08-31 09:15:12	- Info  -	[MICRO LIVE] get info allSecond = 0, url = 
+[4888][5092]2017-08-31 09:15:23	* Error *	[wakeup] OnDiscover error
+[4888][4996]2017-08-31 09:15:43	- Info  -	[RemoteControl] attempted to connect TCP forward server 121.40.61.26:443 
+[4888][4996]2017-08-31 09:15:43	- Info  -	attempt to connect server 121.40.61.26:443(121.40.61.26:443)
+[4888][4996]2017-08-31 09:15:43	- Info  -	[Acceptor] TCP forward server 121.40.61.26:443 connected
+[4888][4996]2017-08-31 09:15:43	- Info  -	[Acceptor][HTTP] new RC HTTP connection 121.40.61.26:443,/login.cgi
+[4888][4996]2017-08-31 09:15:43	- Info  -	[Acceptor][HTTP] new RC HTTP connection 121.40.61.26:443,/login.cgi, plugin:login, session:
+[4888][4996]2017-08-31 09:15:44	- Info  -	[plugin] login the host OK, user:__SUNLOGIN_USER__
+[4888][4996]2017-08-31 09:15:45	- Info  -	[Acceptor][HTTP] new RC HTTP connection 121.40.61.26:443,query_remote_address?remoteid=22262018-83cfs1a3d2879&sid=ArFTATXGBQAAAAAAf9RzdqlJ8xdBR5UdvgNlpXD9yL0nQqVO&moduleid=desktop&configid=&p2pmode=0&p2paddr=PHSRC://slp2p-08g2-183.oray.net:4118;PHSRC_HTTPS://slp2p-08g2-183.oray.net:443&p2psid=
+[4888][4996]2017-08-31 09:15:45	- Info  -	[service] connect p2p server @ slp2p-08g2-183.oray.net:4118
+[4888][5000]2017-08-31 09:15:45	- Info  -	CBinaryHandler client_connect
+[4888][5000]2017-08-31 09:15:45	- Info  -	[P2P][UDP] connect p2p server 114.55.255.68:4118 OK
+[4888][5000]2017-08-31 09:15:45	- Info  -	[P2P][UDP] login p2p server [114.55.255.68:4118] OK,received public ip 115.60.63.223:17070
+[4888][5000]2017-08-31 09:15:45	- Info  -	P2P_INDEX = 288219
+[4888][5000]2017-08-31 09:15:45	- Info  -	[RC] access address UdpAddress=PHSRC://114.55.255.68:4118/288219/;HttpsAddress=PHSRC_HTTPS://114.55.255.68:443/288219/;MultiChannel=1;UsingMultiChannel://;
+[4888][5000]2017-08-31 09:15:46	- Info  -	[P2P] attempted to create forward tunnel slp2p-08g2-183.oray.net:443 with ssl
+[4888][5000]2017-08-31 09:15:46	- Info  -	[P2P] attempt to create forward tunnel, server slp2p-08g2-183.oray.net:443, ssl:true
+[4888][5000]2017-08-31 09:15:46	- Info  -	[P2P] attempt to connect tcp server slp2p-08g2-183.oray.net:443,ArFTATXGBQAAAAAAf9RzdqlJ8xdBR5UdvgNlpXD9yL0nQqVO
+[4888][5000]2017-08-31 09:15:46	- Info  -	attempt to connect server slp2p-08g2-183.oray.net:443(114.55.255.68:443)
+[4888][4996]2017-08-31 09:15:46	- Info  -	[Acceptor][HTTP] new RC HTTP connection 114.55.255.68:443,/desktop
+[4888][4996]2017-08-31 09:15:46	- Info  -	[Acceptor][HTTP] new RC tcp forward plugin connection(MultiChannel) 114.55.255.68:443
+[4888][4996]2017-08-31 09:15:46	- Info  -	[service] new MultiChannelStream 2lQ8dcbHRuCr8E3WM2atbT5UHRpGJVNB
+[4888][4996]2017-08-31 09:15:46	- Info  -	[MultiChannel] Forward channel shake handle 114.55.255.68:443
+[4888][4996]2017-08-31 09:15:46	- Info  -	CBinaryHandler client_connect
+[4888][4996]2017-08-31 09:15:46	- Info  -	[P2P][PluginStream] MultiChannel connected server 114.55.255.68:443
+[4888][4996]2017-08-31 09:15:46	- Info  -	[MultiChannel] Forward channel connected 114.55.255.68:443
+[4888][4996]2017-08-31 09:15:46	- Info  -	[P2P] receive plugin stream logon message
+[4888][4996]2017-08-31 09:15:46	- Info  -	CPluginStream::CheckCode ok, plugin: desktop
+[4888][4996]2017-08-31 09:15:46	- Info  -	[P2P][PluginStream] CPluginStream::CheckCode succeeded, plugin: desktop
+[4888][4996]2017-08-31 09:15:46	- Info  -	[Service] start plugin desktop ...
+[4888][4996]2017-08-31 09:15:46	- Info  -	[Service] start plugin desktop ok, index :1
+[4888][4996]2017-08-31 09:15:46	- Info  -	[mdesktop] IMultiDesktopRouter::RegisterControl 1 OK
+[4888][4996]2017-08-31 09:15:46	- Info  -	[P2P][PluginStream] login succeeded, session: fgxoinrwbdtjuqafjgqafsqrgvkfhjlp, plugin: desktop @ 158
+[4888][4996]2017-08-31 09:15:46	- Info  -	[P2P][PluginStream] MultiChannel connection 114.55.255.68:443 logged
+[4888][3440]2017-08-31 09:15:47	+Warning+	[mdesktop] not found, discard data control(1)
+[4888][5000]2017-08-31 09:15:47	- Info  -	[P2P][UDP] receive P2P request from 114.55.255.68:4118 (public 117.136.61.117:4040 local 10.233.165.72:15163)
+[4888][5000]2017-08-31 09:15:47	- Info  -	[P2P][UDP] response public ip 115.60.63.223:17070, local ip 192.168.2.160:15175
+[4888][5000]2017-08-31 09:15:47	- Info  -	[udpwrapper] P2PHolePunch 117.136.61.117:4040
+[4888][3440]2017-08-31 09:15:47	- Info  -	[control] OnEnumUser
+[4888][3440]2017-08-31 09:15:47	- Info  -	[control] OnSwitchHost
+[4888][5004]2017-08-31 09:15:47	- Info  -	[service] Run Desktop 1, 124847
+[4888][5004]2017-08-31 09:15:47	- Info  -	[service] Run Desktop resume 0, 125112
+[4888][5012]2017-08-31 09:15:48	- Info  -	CBinaryHandler client_connect
+[4888][5012]2017-08-31 09:15:48	- Info  -	[server::handler] new agent client connected!
+
+[4888][5012]2017-08-31 09:15:48	- Info  -	[desktop] Recv sid 1, remoteid: 1, size: 8
+[4888][5012]2017-08-31 09:15:48	- Info  -	[mdesktop] RegisterRemote 1 OK(125424)
+[4888][5012]2017-08-31 09:15:48	- Info  -	[desktop] stop plugin
+[4888][5012]2017-08-31 09:15:48	- Info  -	[mdesktop] add_input_stream (1)
+[4888][5012]2017-08-31 09:15:48	- Info  -	[mdesktop] ConnectDesktop send SWITCH_HOST_MESSAGE_RES(1,1) OK
+[4888][3312]2017-08-31 09:15:52	+Warning+	[udpwrapper] UPNP discovery failed, Fail to find an UPNP NAT.
+
+[4888][4996]2017-08-31 09:15:55	- Info  -	CBinaryHandler client_disconnect
+[4888][4996]2017-08-31 09:15:55	- Info  -	[P2P][PluginStream] MultiChannel disconnected server 114.55.255.68:443
+[4888][4996]2017-08-31 09:15:55	- Info  -	[service] delete MultiChannelStream 2lQ8dcbHRuCr8E3WM2atbT5UHRpGJVNB
+[4888][3440]2017-08-31 09:15:55	- Info  -	[mdesktop] IMultiDesktopRouter::RevokeControl 1 OK
+[4888][3440]2017-08-31 09:15:55	- Info  -	[mdesktop] remove_input_stream (0)
+[4888][3440]2017-08-31 09:15:55	- Info  -	[mdesktop] revoke_control 1
+[4888][3440]2017-08-31 09:15:55	- Info  -	CBinaryHandler client_disconnect
+[4888][3440]2017-08-31 09:15:55	- Info  -	[server::handler] agent(1) client disconnected!
+
+[4888][5004]2017-08-31 09:15:55	- Info  -	[mdesktop] revoke remote 0 OK(133053)
+[4888][4996]2017-08-31 09:17:00	+Warning+	[passive:keepalive:] 114.55.255.68:4118 disconnect by keepalive timeout(198074>=124582+60002)
+[4888][4996]2017-08-31 09:17:00	- Info  -	CBinaryHandler client_disconnect
+[4888][4996]2017-08-31 09:17:00	- Info  -	[P2P][UDP] 114.55.255.68:4118 disconnected
+[4888][5000]2017-08-31 09:17:00	- Info  -	[udpwrapper] disconnect reason : 1
+[4888][5000]2017-08-31 09:17:00	- Info  -	[udpwrapper] Disconnect 114.55.255.68:4118 @ 754
+[4888][4996]2017-08-31 09:40:43	+Warning+	[passive:keepalive:] 121.40.61.26:443 disconnect by keepalive timeout(1620912>=122928+1200004)
+[4888][4996]2017-08-31 09:40:43	+Warning+	[Acceptor] TCP forward server 121.40.61.26:443 disconnected
+[4888][4952]2017-08-31 10:36:50	- Info  -	[STOP SERVICE] recv before
+[4888][4952]2017-08-31 10:36:50	- Info  -	[discover] Client NotifyDiscover type=6
+[4888][4952]2017-08-31 10:36:51	- Info  -	[STOP SERVICE] recv after
+[4888][4952]2017-08-31 10:36:51	- Info  -	CBinaryHandler client_disconnect
+[4888][4940]2017-08-31 10:36:51	- Info  -	CBinaryHandler client_disconnect
+[4888][4940]2017-08-31 10:36:51	- Info  -	[RemoteControl] disconnected server(121.40.61.26:443)
+[4888][4940]2017-08-31 10:36:51	- Info  -	CBinaryHandler client_disconnect
+[4888][4940]2017-08-31 10:36:51	* Error *	[service] online disconnected
+[4888][4940]2017-08-31 10:36:51	- Info  -	[service] disconnected server(121.40.61.26:443)
+[4888][4940]2017-08-31 10:36:51	- Info  -	Current client status: 0

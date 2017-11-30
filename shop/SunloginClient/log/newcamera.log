@@ -1,0 +1,8 @@
+[956][9268]2017-08-29 17:35:21	- Info  -	plugin newcamera starting
+[956][9268]2017-08-29 17:35:21	- Info  -	attempt to connect server 127.0.0.1:53986(127.0.0.1:53986)
+[956][8472]2017-08-29 17:35:21	- Info  -	CBinaryHandler client_connect
+[956][9268]2017-08-29 17:35:21	- Info  -	[camera] set format, width=320, height=240
+[956][9268]2017-08-29 17:35:21	- Info  -	[camera] attempted to open camear.
+[956][9268]2017-08-29 17:35:21	- Info  -	[camera] Open Camera Integrated Camera Successed
+[956][8472]2017-08-29 17:35:35	- Info  -	CBinaryHandler client_disconnect
+[956][9268]2017-08-29 17:35:35	- Info  -	plugin newcamera is stoped

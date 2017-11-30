@@ -1,0 +1,95 @@
+[Version]
+   Signature = "$Windows NT$"
+   CatalogFile =OrayVpn.cat
+   ClassGUID = {4d36e972-e325-11ce-bfc1-08002be10318}
+   Provider = %TAP%
+   Class = Net
+   DriverVer=11/01/2011,1.0.1.17579
+   CatalogFile.NTx86=OrayVpnX86.cat
+
+[Strings]
+   DeviceDescription = "OrayVPN Virtual Ethernet Adapter V1"
+   TAP = "Shanghai Best Oray Information Technology Co., Ltd."
+   Provider = "Shanghai Best Oray Information Technology Co., Ltd."
+
+;----------------------------------------------------------------
+;                      Manufacturer + Product Section (Done)
+;----------------------------------------------------------------
+[Manufacturer]
+   %TAP% = installtap
+
+[installtap]
+   %DeviceDescription% = orayvpn.ndi, orayvpn
+
+;---------------------------------------------------------------
+;                             Driver Section (Done)
+;---------------------------------------------------------------
+[orayvpn.ndi]
+   CopyFiles       = orayvpn.driver, orayvpn.files
+   AddReg          = orayvpn.reg
+   AddReg          = orayvpn.params.reg
+   Characteristics = 0x81
+
+[orayvpn.ndi.Services]
+   AddService = orayvpn,        2, orayvpn.service
+
+[orayvpn.reg]
+   HKR, Ndi,            Service,      0, "orayvpn"
+   HKR, Ndi\Interfaces, UpperRange,   0, "ndis5"
+   HKR, Ndi\Interfaces, LowerRange,   0, "ethernet"
+   HKR, ,               Manufacturer, 0, "%Provider%"
+   HKR, ,               ProductName,  0, "%DeviceDescription%"
+
+[orayvpn.params.reg]
+   HKR, Ndi\params\MTU,                  ParamDesc, 0, "MTU"
+   HKR, Ndi\params\MTU,                  Type,      0, "int"
+   HKR, Ndi\params\MTU,                  Default,   0, "1500"
+   HKR, Ndi\params\MTU,                  Optional,  0, "0"
+   HKR, Ndi\params\MTU,                  Min,       0, "100"
+   HKR, Ndi\params\MTU,                  Max,       0, "1500"
+   HKR, Ndi\params\MTU,                  Step,      0, "1"
+   HKR, Ndi\params\MediaStatus,          ParamDesc, 0, "Media Status"
+   HKR, Ndi\params\MediaStatus,          Type,      0, "enum"
+   HKR, Ndi\params\MediaStatus,          Default,   0, "0"
+   HKR, Ndi\params\MediaStatus,          Optional,  0, "0"
+   HKR, Ndi\params\MediaStatus\enum,     "0",       0, "Application Controlled"
+   HKR, Ndi\params\MediaStatus\enum,     "1",       0, "Always Connected"
+   HKR, Ndi\params\MAC,                  ParamDesc, 0, "MAC Address"
+   HKR, Ndi\params\MAC,                  Type,      0, "edit"
+   HKR, Ndi\params\MAC,                  Optional,  0, "1"
+   HKR, Ndi\params\AllowNonAdmin,        ParamDesc, 0, "Non-Admin Access"
+   HKR, Ndi\params\AllowNonAdmin,        Type,      0, "enum"
+   HKR, Ndi\params\AllowNonAdmin,        Default,   0, "1"
+   HKR, Ndi\params\AllowNonAdmin,        Optional,  0, "0"
+   HKR, Ndi\params\AllowNonAdmin\enum,   "0",       0, "Not Allowed"
+   HKR, Ndi\params\AllowNonAdmin\enum,   "1",       0, "Allowed"
+
+[orayvpn.service]
+   DisplayName = %DeviceDescription%
+   ServiceType = 1
+   StartType = 3
+   ErrorControl = 1
+   LoadOrderGroup = NDIS
+   ServiceBinary = %12%\orayvpn.sys
+
+;-----------------------------------------------------------------
+;                                File Installation
+;-----------------------------------------------------------------
+[SourceDisksNames]
+   1 = %DeviceDescription%, orayvpn.sys
+
+[SourceDisksFiles]
+orayvpn.sys = 1
+
+[DestinationDirs]
+   orayvpn.files  = 11
+   orayvpn.driver = 12
+
+[orayvpn.files]
+
+[orayvpn.driver]
+   orayvpn.sys,,,6     ; COPYFLG_NOSKIP | COPYFLG_NOVERSIONCHECK
+
+;---------------------------------------------------------------
+;                                      End
+;---------------------------------------------------------------

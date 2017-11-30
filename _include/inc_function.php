@@ -61,7 +61,7 @@ function laimi_config_trade(){
 					'history_flag' => 2,
 					'store_count' => 0
 				);
-	$strsql = "SELECT company_config_trade FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . $GLOBALS['_SESSION']['login_cid'] . " LIMIT 1";
+	$strsql = "SELECT company_config_trade FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
@@ -76,7 +76,32 @@ function laimi_config_trade(){
 	}
 	return $arrtrade;
 }
-
+// get店铺配置信息
+function laimi_config_shop_trade(){
+	$arr = array();
+	$arrtrade = array();
+	$arrjson = array(
+				'print_flag' => 0,
+				'print_title' => '',
+				'print_width' => 0,
+				'print_memo' => '',
+				'print_device' => '',
+			);
+	$strsql = "SELECT shop_config FROM " . $GLOBALS['gdb']->fun_table('shop')." where shop_id=".api_value_int0($GLOBALS['_SESSION']['login_sid'])." and company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']);
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		if($arr['shop_config'] != ''){
+			$arrtrade = json_decode($arr['shop_config'], true);
+			if(!$arrtrade){
+				$arrtrade = $arrjson;
+			}
+		}else{
+			$arrtrade = $arrjson;
+		}
+	}
+	return $arrtrade;
+}
 function laimi_config_weixin(){
 	$arr = array();
 	$arrweixin = array();

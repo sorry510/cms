@@ -22,7 +22,7 @@ $arr['edate'] = $arr['card_edate'] == 0 ? '--' : date("Y-m-d",$arr['card_edate']
 $arr['state'] = $arr['card_state'] == '1' ? '正常' : '停用';
 // $arr['photo'] = $arr['card_photo_file'] != '' ? $arr['card_photo_file'] : 'no.jpg';//默认图片名称
 
-$strsql = "SELECT c_mgoods_name,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$arr['card_id']." and card_mcombo_type=2 and card_mcombo_cedate>".time();
+$strsql = "SELECT c_mgoods_name,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$arr['card_id']." and card_mcombo_type=2 and (card_mcombo_cedate>".time()." or card_mcombo_cedate=0)";
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arrmcombo = $GLOBALS['gdb']->fun_fetch_all($hresult);
 foreach($arrmcombo as &$row){

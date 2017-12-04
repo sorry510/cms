@@ -1,0 +1,29 @@
+html, body {width:100%; height:100%;}
+ul {list-style:none;}
+div {color:#222222; font-size:14px;}
+
+/*覆盖MUI*/
+.mui-bar {-webkit-box-shadow:none; box-shadow:0 0 1px #CFCFCF;}
+.mui-content {padding-bottom:10px;}
+#laimi-header {background-color:#0162CB;height:40px;}
+
+
+/*来米通用样式*/
+#laimi-body .laimi-color-white {color:white;}
+#laimi-body .laimi-color-gray {color:#8F8F94;}
+#laimi-body .laimi-color-blue {color:#1F84D1;}
+#laimi-body .laimi-color-orange {color:orange;}
+#laimi-body .laimi-title {margin:20px 15px 10px; color: #6d6d72; font-size: 14px; color:#555555;}
+#laimi-body .laimi-icon {width:16px; height:16px; vertical-align: -0.15em; fill: currentColor; overflow: hidden;}
+#laimi-body .laimi-icon2 {width:16px; height:16px; vertical-align: -0.15em; fill: currentColor; overflow: hidden;color:#75A6F2;}
+#laimi-body .laimi-icon3 {width:2em; height:2em; vertical-align: -0.15em; fill: currentColor; overflow: hidden;}
+#laimi-body .laimi-font16{font-size:16px;}
+#laimi-body .laimi-font14{font-size:14px;}
+#laimi-body .laimi-font12{font-size:12px;}
+#laimi-body .laimi-font10{font-size:10px;}
+#laimi-body .laimi-table-view:before{background-color:#ffffff;}
+#laimi-body .laimi-table-view:after{background-color:#ffffff;}
+#laimi-body .laimi-card-header1:after{background-color:#EFEFEF;}
+#laimi-body .laimi-card-header2:after{background-color:#529DEE;}
+#laimi-body .laimi-botton{height:45px;background-color:#orange;border:0px;font-size:16px;}
+#laimi-body .laimi-input100{width:100px;margin-top:12px;height:35px;font-size:14px;}

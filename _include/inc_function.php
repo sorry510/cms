@@ -26,7 +26,7 @@ function laimi_company_name() {
 function laimi_shop_list(){
 	$arr = array();
 	$strsql = "SELECT shop_id, shop_name FROM " . $GLOBALS['gdb']->fun_table('shop')
-	. " WHERE shop_etime > " . time() . " ORDER BY shop_id DESC";
+	. " WHERE shop_etime > " . time() . " and company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) ." ORDER BY shop_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
@@ -81,7 +81,7 @@ function laimi_config_shop_trade(){
 	$arr = array();
 	$arrtrade = array();
 	$arrjson = array(
-				'print_flag' => 0,
+				'print_flag' => 2,
 				'print_title' => '',
 				'print_width' => 0,
 				'print_memo' => '',
@@ -113,7 +113,7 @@ function laimi_config_weixin(){
 					'line_flag' => 2,
 					'card_image' => '',
 				);
-	$strsql = "SELECT company_config_weixin FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . $GLOBALS['_SESSION']['login_cid'] . " LIMIT 1";
+	$strsql = "SELECT company_config_weixin FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
@@ -138,7 +138,7 @@ function laimi_config_wshop(){
 					'send_from' => 2,
 					'fenxiao_flag' => 2,
 				);
-	$strsql = "SELECT company_config_wshop FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . $GLOBALS['_SESSION']['login_cid'] . " LIMIT 1";
+	$strsql = "SELECT company_config_wshop FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
@@ -165,7 +165,7 @@ function laimi_config_wpay(){
 					'weixin_appid' => '',
 					'weixin_appsecret' => '',
 				);
-	$strsql = "SELECT company_config_wpay FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id = " . $GLOBALS['_SESSION']['login_cid'] . " LIMIT 1";
+	$strsql = "SELECT company_config_wpay FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){

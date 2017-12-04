@@ -241,9 +241,9 @@
 		    &nbsp;
 		    </div>
 		    <div class="layui-col-md3" style="text-align:right;">
-		      <button type="button" class="layui-btn laimi-button-100">
+		      <a href="record_print.php?id={{d.card_record_id}}" class="layui-btn laimi-button-100" target="_blank">
 		      	打印小票
-		      </button>
+		      </a>
 		    </div>
 			</div>
 		</div>

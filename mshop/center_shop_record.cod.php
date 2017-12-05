@@ -25,14 +25,14 @@
 					<span class="laimi-font12 laimi-color-gray">2017-11-26 15:30 </span>
 					<span class="mui-badge mui-badge-inverted laimi-font14" style="float:right;color:#0162CB;"><span class="laimi-color-gray laimi-font12">充值：</span> ¥21400</span></a>
 				<ul class="mui-table-view mui-table-view-chevron">
-		            <li class="mui-table-view-cell laimi-font12 laimi-color-gray">
-		            	实收¥600，赠送¥200&nbsp;&nbsp;(支付宝支付)
-		            </li>
-		            <li class="laimi-font12 laimi-color-gray" style="padding:8px;margin-left:22px;">
-		            	店铺：奕之堂东风路分店
-		            </li>
+          <li class="mui-table-view-cell laimi-font12 laimi-color-gray">
+          	实收¥600，赠送¥200&nbsp;&nbsp;(支付宝支付)
+          </li>
+          <li class="laimi-font12 laimi-color-gray" style="padding:8px;margin-left:22px;">
+          	店铺：奕之堂东风路分店
+          </li>
 				</ul>
-			</li>			
+			</li>
 		</ul>
 	</div>
 	<div class="mui-card laimi-first" style="padding:6px;">
@@ -45,12 +45,12 @@
 					<span class="laimi-font12 laimi-color-gray">2017-11-26 15:30 </span>
 					<span class="mui-badge mui-badge-inverted laimi-font14" style="float:right;color:#0162CB;"><span class="laimi-color-gray laimi-font12">充值：</span> ¥2400</span></a>
 				<ul class="mui-table-view mui-table-view-chevron">
-		            <li class="mui-table-view-cell laimi-font12 laimi-color-gray">
-		            	实收¥2600，赠送¥300&nbsp;&nbsp;(现金支付)
-		            </li>
-		            <li class="laimi-font12 laimi-color-gray" style="padding:8px;margin-left:22px;">
-		            	微信公众号在线充值
-		            </li>
+          <li class="mui-table-view-cell laimi-font12 laimi-color-gray">
+          	实收¥2600，赠送¥300&nbsp;&nbsp;(现金支付)
+          </li>
+          <li class="laimi-font12 laimi-color-gray" style="padding:8px;margin-left:22px;">
+          	微信公众号在线充值
+          </li>
 				</ul>
 			</li>			
 		</ul>

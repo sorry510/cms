@@ -26,7 +26,7 @@
 		<div id="item1" class="mui-control-content mui-active">
 			<div class="mui-card laimi-first" style="padding: 15px;">
 			<?php foreach($this->_data['card_coupon1'] as $row){ ?>
-				<div class="mui-card-header" style="background-image: url(img/ticket_bg2.png);height:78px;margin-top:10px;padding:0px;">
+				<div class="mui-card-header" style="background-image: url('../img/ticket_bg2.png');height:78px;margin-top:10px;padding:0px;">
 					<ul>
 						<li class="laimi-color-white laimi-font16"><?php echo $row['c_ticket_name']; ?> ×1 <span style="background-color:#000000;border-radius:6px;padding:2px 6px 2px 6px;opacity:0.8;" class="laimi-font12 laimi-color-white"><?php echo $row['typename']; ?></span>&nbsp;<span style="background-color:#FFA500;border-radius:6px;padding:2px 6px 2px 6px;opacity:0.8;" class="laimi-font12 laimi-color-white">门店券</span></li>
 						<li class="laimi-font12" style="line-height:26px;"><?php if($row['ticket_type'] == 1) echo '满'.$row['c_ticket_limit'].'元可用,';?>到期时间：<?php echo $row['edate']; ?></li>
@@ -37,12 +37,11 @@
 			<?php if(empty($this->_data['card_coupon1'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
 			<? } ?>
-			</div>
 		</div>
 		<div id="item2" class="mui-control-content">
 			<div class="mui-card laimi-first" style="padding: 15px;">
 			<?php foreach($this->_data['card_coupon2'] as $row){ ?>
-				<div class="mui-card-header" style="background-image: url(img/ticket_bg3.png);height:78px;margin-top:10px;padding:0px;">
+				<div class="mui-card-header" style="background-image: url('../img/ticket_bg3.png');height:78px;margin-top:10px;padding:0px;">
 					<ul>
 						<li class="laimi-color-white laimi-font16"><?php echo $row['c_ticket_name']; ?> ×1 <span style="background-color:#000000;border-radius:6px;padding:2px 6px 2px 6px;opacity:0.8;" class="laimi-font12 laimi-color-white"><?php echo $row['typename']; ?></span>&nbsp;<span style="background-color:#FFA500;border-radius:6px;padding:2px 6px 2px 6px;opacity:0.8;" class="laimi-font12 laimi-color-white">门店券</span></li>
 						<li class="laimi-font12" style="line-height:26px;"><?php if($row['ticket_type'] == 1) echo '满'.$row['c_ticket_limit'].'元可用,';?>到期时间：<?php echo $row['edate']; ?></li>
@@ -53,7 +52,6 @@
 			<?php if(empty($this->_data['card_coupon2'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
 			<? } ?>
-			</div>
 		</div>
 		<div id="item3" class="mui-control-content">
 			<div class="mui-card laimi-first" style="padding: 15px;">
@@ -68,7 +66,6 @@
 			<?php if(empty($this->_data['card_coupon3'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
 			<? } ?>
-			</div>
 		</div>
 	</div>
 </div>

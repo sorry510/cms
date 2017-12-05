@@ -60,6 +60,12 @@ $intnow = time();
 if($strcard_name == '' || $strcard_phone == ''){
 	$intreturn = 1;
 }
+$strsql = "SELECT card_id FROM ". $gdb->fun_table2('card') ." WHERE card_phone = '".$sqlcard_phone."'";
+$hresult = $gdb->fun_query($strsql);
+$arr = $gdb->fun_fetch_assoc($hresult);
+if(!empty($arr)){
+	$intreturn = 4;
+}
 
 if($intreturn == 0){
 	$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (shop_id,card_name, card_sex, card_phone,	card_link,card_birthday_date, card_birthday_month,card_birthday_day, card_password_state, card_password, card_code, card_ikey, card_atime,card_edate,card_identity,card_memo, worker_id, card_state,card_ltime,card_fenxiao,card_fenxiao2) VALUES (".$intshop.",'" . $sqlcard_name . "'," .$intcard_sex. ", '" . $sqlcard_phone . "','".$sqlcard_link."'," . $intcard_birthday_date . ", " . $intcard_birthday_month . ", ".$intcard_birthday_day.", ".$intcard_passsword_state.", '".$sqlcard_password."','".$sqlcard_code."','".$sqlcard_ikey."', ".$intnow.",".$intcard_edate.", '".$sqlcard_identity."','".$sqlcard_memo."',".$intcard_worker_id.",1,".$intnow.",2,2)";

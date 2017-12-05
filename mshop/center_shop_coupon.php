@@ -30,7 +30,7 @@ function get_card_coupon($type = 1){
 		default:
 			break;
 	}
-	$strsql = "SELECT ticket_type,c_ticket_name,c_ticket_value,c_ticket_limit,card_ticket_edate FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id=".$GLOBALS['intcard_id']." and ".$strwhere;
+	$strsql = "SELECT ticket_type,c_ticket_name,c_ticket_value,c_ticket_limit,card_ticket_edate FROM ".$GLOBALS['gdb']->fun_table2('card_ticket')." where card_id=".$GLOBALS['intcard_id']." and ".$strwhere." order by card_ticket_edate asc";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$row){

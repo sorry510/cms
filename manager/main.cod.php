@@ -15,7 +15,7 @@
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-main layui-tab-content">
-内容
+<a href="../mshop/">跳转微信端</a>
 				</div>
 			</div>
 		</div>

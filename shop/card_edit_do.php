@@ -61,11 +61,19 @@ if($strcard_name == '' || $strcard_phone == ''){
 
 if($intreturn == 0){
 	$arr = array();
-	$strsql = "SELECT card_id FROM ".$gdb->fun_table2('card')." WHERE card_id=".$intcard_id." limit 1";
+	$strsql = "SELECT card_id,card_phone FROM ".$gdb->fun_table2('card')." WHERE card_id=".$intcard_id." limit 1";
 	$hresult = $gdb->fun_query($strsql);
 	$arr = $gdb->fun_fetch_assoc($hresult);
 	if(empty($arr)){
 		$intreturn = 2;
+	}
+}
+if($intreturn == 0){
+	$strsql = "SELECT card_id FROM ". $gdb->fun_table2('card') ." WHERE card_phone = '".$sqlcard_phone."' and card_phone != '".$arr['card_phone']."'";
+	$hresult = $gdb->fun_query($strsql);
+	$arr = $gdb->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		$intreturn = 4;
 	}
 }
 

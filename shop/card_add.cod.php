@@ -253,19 +253,19 @@ layui.use(["element", "layer", "form", "laydate", "upload"], function() {
 	});
 	objform.on("submit(laimi-submit)", function(data) {
 		$.post('card_add_do.php', data.field, function(msg){
-			console.log(msg);
 		  if(msg == '0'){
 		    window.location.href="./card.php?state=1";
 		  }
-		  // else if(msg == '1'){
-		  //   objlayer.alert('商品不能为空', {
-				// 	title: '提示信息'
-				// });
-		  // }else if(msg == '2'){
-		  //   objlayer.alert('新增失败，请联系管理员', {
-				// 	title: '提示信息'
-				// });
-		  // }
+		  else if(msg == '1'){
+		    objlayer.alert('姓名和手机号不能为空', {
+					title: '提示信息'
+				});
+		  }
+		  else if(msg == '4'){
+		    objlayer.alert('手机号已存在，添加失败', {
+					title: '提示信息'
+				});
+		  }
 		  else{
 		    objlayer.alert('新增失败，请联系管理员', {
 					title: '提示信息'

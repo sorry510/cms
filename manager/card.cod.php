@@ -79,8 +79,8 @@
 			<td><?php echo $row['edate'];?></td>
 			<td><?php echo $row['c_card_type_name'];?></td>
 			<td><?php echo $row['state'];?></td>
-			<td><a class="laimi-color-lan" href="#">电子档案</a></td>
-			<td><a class="laimi-color-lan" href="#">消费明细</a></td>
+			<td><a class="laimi-color-lan" href="card_history.php?search=<?php echo $row['card_phone']; ?>">电子档案</a></td>
+			<td><a class="laimi-color-lan" href="record.php?search=<?php echo $row['card_phone']; ?>">消费明细</a></td>
 			<td><?php echo $row['shop_name'];?></td>
 		</tr>
 		<tr>
@@ -296,7 +296,7 @@
 				  	title: ["电子档案信息", "font-size:16px;"],
 				  	btnAlign: "r",
 				  	offset: 'rt',
-				  	anim: 2,
+				  	anim: 0,
 				  	area: ["800px", "100%"],
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,

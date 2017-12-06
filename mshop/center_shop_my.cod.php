@@ -28,13 +28,13 @@
     	<span class="mui-badge mui-badge-inverted" style="font-size:14px;"><?php echo $this->_data['card_info']['card_code']; ?></span>					
     	会员卡号
     </div>
+    <div class="mui-table-view-cell">
+    	<span class="mui-badge mui-badge-inverted" style="font-size:14px;"><?php echo $this->_data['card_info']['card_phone']; ?></span>
+    	手机号码
+    </div>
     <div class="mui-input-row">
         <label>会员姓名</label>
     <input type="text" name="cardname" class="mui-input-clear" placeholder="请输入姓名" value="<?php echo $this->_data['card_info']['card_name']; ?>">
-    </div>
-    <div class="mui-input-row">
-        <label>手机号码</label>
-    <input type="text" name="cardphone" class="mui-input-clear" placeholder="请输入手机号码" value="<?php echo $this->_data['card_info']['card_phone']; ?>">
     </div>
     <div class="mui-input-row">
         <label>会员密码</label>
@@ -42,9 +42,9 @@
     </div>
 		<div class="mui-table-view-cell">
 			<a href="javascript:;" id='date1' class="mui-navigate-right" data-options='{}'>
-				<span class="mui-badge mui-badge-danger mui-badge-inverted laimi-birthday" style="font-size:14px;font-family:'Segoe UI';"></span>
+				<span class="mui-badge mui-badge-danger mui-badge-inverted laimi-birthday" style="font-size:14px;font-family:'Segoe UI';"><?php echo $this->_data['card_info']['date']; ?></span>
 				出生日期
-				<input type="hidden" name="bithday" class="date1" value="<?php echo $this->_data['card_info']['date']; ?>">
+				<input type="hidden" name="birthday" class="date1" value="<?php echo $this->_data['card_info']['date']; ?>">
 			</a>
 		</div>
 	</div>

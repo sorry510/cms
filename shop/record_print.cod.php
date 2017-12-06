@@ -100,21 +100,6 @@
 				      <td>¥0</td>
 				    </tr>
 				  <?php } ?>
-				    <!-- <tr>
-				      <td colspan="2" style="text-align:right;">共<?php echo $this->_data['record_info']['goods_count'] + $this->_data['record_info']['mcombo_goods_count2']; ?>件，合计<span class="laimi-color-ju">¥<?php echo $this->_data['record_info']['goods_money'] + $this->_data['record_info']['mcombo_goods_money2']; ?></span>，实收<span class="laimi-color-ju">¥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
-				    </tr>
-				    <tr>
-				      <td colspan="2" style="text-align:left;">优惠：满100元减10元&nbsp;&nbsp;×1</td>
-				    </tr> -->
-				  <!-- {{# if(d.ticket_list.length > 0){ }}
-					    <tr>
-				      <td colspan="4" style="text-align:left;">赠送优惠券：
-							{{# layui.each(d.ticket_list, function(index, item){ }}
-				      {{item.c_ticket_name}}&nbsp;&nbsp;×{{item.count}}（{{item.c_ticket_value}}元）;
-							{{# }) }}
-				      </td>
-				    </tr>
-				  {{# } }} -->
 				  </tbody>
 				</table>
 			<?php } ?>

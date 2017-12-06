@@ -38,14 +38,14 @@
 					</a>
         </div-->
         <div class="mui-col-sm-4" style="width:33%;text-align:center;">
-        	<a href="center_shop_coupon.php">
+        	<a href="center_shop_coupon.php?id=<?php echo $this->_data['card_info']['card_id']; ?>">
 	        	<svg class="laimi-icon3" aria-hidden="true">
 				    <use xlink:href="#icon-youhuiquan2"></use>
 						</svg><br><span style="font-size:12px;color:#555555;">优惠券</span>
 					</a>
         </div>
         <div class="mui-col-sm-4" style="width:33%;text-align:center;">
-        	<a href="center_shop_record.php">
+        	<a href="center_shop_record.php?id=<?php echo $this->_data['card_info']['card_id']; ?>">
 	        	<svg class="laimi-icon3" aria-hidden="true">
 				    <use xlink:href="#icon-yuyuejilu"></use>
 						</svg><br><span style="font-size:12px;color:#555555;">消费记录</span>

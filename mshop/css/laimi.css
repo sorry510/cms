@@ -5,7 +5,13 @@ div {color:#222222; font-size:14px;}
 /*覆盖MUI*/
 .mui-bar {-webkit-box-shadow:none; box-shadow:0 0 1px #CFCFCF;}
 .mui-content {padding-bottom:10px;}
+.mui-search .mui-placeholder{font-size:14px;}
+.mui-search .mui-placeholder .mui-icon{font-size:18px;color:#8F8F94;}
 #laimi-header {background-color:#0162CB;height:40px;}
+.mui-table-view:before{background-color:transparent;}
+.mui-table-view:after{background-color:transparent;}
+.mui-card{box-shadow:0 0px 2px rgba(0,0,0,.1);}
+
 
 
 /*来米通用样式*/
@@ -17,6 +23,8 @@ div {color:#222222; font-size:14px;}
 #laimi-body .laimi-icon {width:16px; height:16px; vertical-align: -0.15em; fill: currentColor; overflow: hidden;}
 #laimi-body .laimi-icon2 {width:16px; height:16px; vertical-align: -0.15em; fill: currentColor; overflow: hidden;color:#75A6F2;}
 #laimi-body .laimi-icon3 {width:2em; height:2em; vertical-align: -0.15em; fill: currentColor; overflow: hidden;}
+#laimi-body .laimi-icon4 {width:14px; height:14px; vertical-align: -0.15em; color:#FF0000;}
+#laimi-body .laimi-icon5 {width:20px; height:20px; vertical-align: -0.15em; fill: currentColor; overflow: hidden;margin-bottom:4px;}
 #laimi-body .laimi-font16{font-size:16px;}
 #laimi-body .laimi-font14{font-size:14px;}
 #laimi-body .laimi-font12{font-size:12px;}
@@ -27,3 +35,4 @@ div {color:#222222; font-size:14px;}
 #laimi-body .laimi-card-header2:after{background-color:#529DEE;}
 #laimi-body .laimi-botton{height:45px;background-color:#orange;border:0px;font-size:16px;}
 #laimi-body .laimi-input100{width:100px;margin-top:12px;height:35px;font-size:14px;}
+#laimi-body .laimi-search{font-size: 14px;margin-top:5px;color:#929292;}

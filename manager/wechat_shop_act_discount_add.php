@@ -17,7 +17,7 @@ $gtemplate->fun_show('wechat_shop_act_discount_add');
 
 function get_wgoods(){
 	$arr = array();
-	$strsql = ' SELECT wgoods_id, wgoods_name,wgoods_price, wgoods_catalog_id FROM ' . $GLOBALS['gdb']->fun_table2('wgoods') . 'WHERE wgoods_act = 1 AND wgoods_state = 1 order by wgoods_id ';
+	$strsql = ' SELECT wgoods_id, wgoods_name,wgoods_price, wgoods_catalog_id FROM ' . $GLOBALS['gdb']->fun_table2('wgoods') . 'WHERE wgoods_state = 1 order by wgoods_id ';
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/iconfont.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/laimi.css" rel="stylesheet"/> 
+</head>
+<body id="laimi-body">
+<header class="mui-bar mui-bar-nav">
+	<div class="mui-input-row mui-search" style="width:96%;margin:0 auto;">
+		<input type="search" placeholder="搜索商品，很多好货哦~" style="background-color:#FFFFFF;font-size:14px;color:#8F8F94;">
+	</div>
+</header>
+<nav class="mui-bar mui-bar-tab">
+	<a class="mui-tab-item mui-active" href="#tabbar">
+		<span class="mui-icon">
+			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
+			    <use xlink:href="#icon-home"></use>
+			</svg>
+		</span>
+		<span class="mui-tab-label">首页</span>
+	</a>
+		<a class="mui-tab-item" href="#tabbar-with-chat">
+		<span class="mui-icon">
+			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
+			    <use xlink:href="#icon-chanpinfenlei-xuanzhong"></use>
+			</svg>
+		</span>
+		<span class="mui-tab-label">商品分类</span>
+	</a>
+	<a class="mui-tab-item" href="#tabbar-with-contact">
+		<span class="mui-icon">
+			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
+			    <use xlink:href="#icon-gouwuche1"></use>
+			</svg>
+			<span class="mui-badge">9</span>
+		</span>
+		<span class="mui-tab-label">购物车</span>
+	</a>
+	<a class="mui-tab-item" href="index.html">
+		<span class="mui-icon">
+			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
+			    <use xlink:href="#icon-huiyuan"></use>
+			</svg>
+		</span>
+		<span class="mui-tab-label">会员中心</span>
+	</a>
+</nav>
+<div id="laimi-content" class="mui-content">	
+	<div id="slider" class="mui-slider" style="margin-top:0px;">
+		<div class="mui-slider-group mui-slider-loop">
+			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#"><img src="img/ad3.jpeg"></a>
+			</div>
+			<!-- 第一张 -->
+			<div class="mui-slider-item">
+				<a href="#"><img src="img/ad1.jpeg"></a>
+			</div>
+			<!-- 第二张 -->
+			<div class="mui-slider-item">
+				<a href="#"><img src="img/ad2.jpeg"></a>
+			</div>
+			<!-- 第三张 -->
+			<div class="mui-slider-item">
+				<a href="#"><img src="img/ad3.jpeg"></a>
+			</div>
+			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="img/ad1.jpeg">
+				</a>
+			</div>
+		</div>
+		<div class="mui-slider-indicator">
+			<div class="mui-indicator mui-active"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+		</div>		
+	</div>
+	<div style="line-height:32px;height:32px;background-color:#FFFFFF;color:#6D6D72;">
+		<span style="margin-left:30px;font-size:12px;">
+			<svg class="laimi-icon4" aria-hidden="true">
+			    <use xlink:href="#icon-duigou1"></use>
+			</svg>
+			优选好货
+		</span>
+		<span style="margin-left:30px;font-size:12px;">
+			<svg class="laimi-icon4" aria-hidden="true">
+			    <use xlink:href="#icon-duigou1"></use>
+			</svg>
+			30天退换
+		</span>
+		<span style="margin-left:30px;font-size:12px;">
+			<svg class="laimi-icon4" aria-hidden="true">
+			    <use xlink:href="#icon-duigou1"></use>
+			</svg>
+			精选热门品牌
+		</span>
+	</div>
+	<div style="line-height:32px;height:32px;background-color:#FFFFFF;color:#FFA500;margin-top:6px;">
+		<marquee behavior="scroll">
+		<span style="margin-left:15px;font-size:12px;">
+			<svg class="laimi-icon4" aria-hidden="true" style="color:#FFA500;">
+			    <use xlink:href="#icon-tongzhi"></use>
+			</svg>
+			最新通知：庆元旦迎新年，全店8折优惠，自2017-12-20至2018-01-10日。			
+		</span>
+		</marquee>
+	</div>
+	<div class="mui-row" style="margin-top:6px;background-color:#FFFFFF;">
+		<div class="mui-col-sm-3" style="width:25%;padding:10px;">
+        	<a href="list.html">
+        	<div style="margin:0 auto; background-color:#009688;height:43px;width:43px;border-radius:30px;text-align:center;">
+        		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
+				    <use xlink:href="#icon-fenlei1"></use>
+				</svg>				
+        	</div>
+        	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">全部分类</div>
+			</a>
+        </div>
+        <div class="mui-col-sm-3" style="width:25%;padding:10px;">
+        	<a href="shop.html">
+        	<div style="margin:0 auto; background-color:#5FB878;height:43px;width:43px;border-radius:30px;text-align:center;">
+        		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
+				    <use xlink:href="#icon-zhuanti"></use>
+				</svg>				
+        	</div>
+        	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">热门专题</div>
+			</a>
+        </div>
+        <div class="mui-col-sm-3" style="width:25%;padding:10px;">
+        	<a href="shop.html">
+        	<div style="margin:0 auto; background-color:#FFB800;height:43px;width:43px;border-radius:30px;text-align:center;">
+        		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
+				    <use xlink:href="#icon-gouwuche"></use>
+				</svg>				
+        	</div>
+        	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">购物车</div>
+			</a>
+        </div>
+        <div class="mui-col-sm-3" style="width:25%;padding:10px;">
+        	<a href="shop.html">
+        	<div style="margin:0 auto; background-color:#01AAED;height:43px;width:43px;border-radius:30px;text-align:center;">
+        		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
+				    <use xlink:href="#icon-huiyuanzhongxinxian"></use>
+				</svg>				
+        	</div>
+        	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">会员中心</div>
+			</a>
+        </div>
+    </div>
+    <ul class="mui-table-view" style="margin-top:6px;">
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right" style="font-size:14px;">
+				<span class="mui-badge mui-badge-inverted">更多商品</span>
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-huiyuanzhongxin1"></use>
+				</svg>
+				热门推荐商品
+			</a>
+		</li>
+	</ul>
+    <ul class="mui-table-view mui-grid-view">    	
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="detail.html">
+                <img class="mui-media-object" src="img/ad101.jpeg">
+                <div class="mui-media-body laimi-font12" style="text-align:left;">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class="mui-media-object" src="img/ad102.jpeg">
+                <div class="mui-media-body laimi-font12">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class="mui-media-object" src="img/ad107.jpg">
+                <div class="mui-media-body laimi-font12">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class="mui-media-object" src="img/ad104.jpg">
+                <div class="mui-media-body laimi-font12">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class="mui-media-object" src="img/ad107.jpg">
+                <div class="mui-media-body laimi-font12">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class="mui-media-object" src="img/ad104.jpg">
+                <div class="mui-media-body laimi-font12">想要一间这样的木屋，静静的喝咖啡</div>
+                <div style="width:100%;line-height:40px;">
+                	<div style="float:left; text-align:left;color:#CF2D28;">
+                		¥150.00
+                	</div>
+                	<div style="float:right; text-align:right;margin-top:6px;">
+                		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>
+                	</div>
+                </div>
+            </a>
+        </li>
+    </ul>    
+</div>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init({
+		swipeBack:true //启用右滑关闭功能
+	});
+	var slider = mui("#slider");
+	document.getElementById("switch").addEventListener('toggle', function(e) {
+		if (e.detail.isActive) {
+			slider.slider({
+				interval: 5000
+			});
+		} else {
+			slider.slider({
+				interval: 0
+			});
+		}
+	});
+</script>
+ <script type="text/javascript" charset="utf-8">
+    mui.init();
+</script>
+</body>
+</html>

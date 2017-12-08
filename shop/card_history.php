@@ -22,7 +22,7 @@ $intpage = api_value_int1($strpage);
 $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 
 if($intfrom == 0){
-	//默认是1个月之前
+	//默认是3个月之前
 	$strfrom = date('Y-m-d',strtotime('-3 month'));
 	$intfrom = strtotime($strfrom);
 }else{

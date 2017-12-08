@@ -21,7 +21,7 @@ $photo = $new_name.$strext;
 // $arrreturn['data']['photo'] = $photo;
 // echo json_encode($arrreturn);return;
 $intlength = $_FILES['file']['size'];
-if($strext == '.jpg' || $strext == '.gif' || $strext == '.png') {
+if($strext == '.jpg' || $strext == '.gif' || $strext == '.png' || $strext == '.jpeg') {
 	if($intlength < 1024000) {
 		$hresult = move_uploaded_file($arrfile['tmp_name'], $GLOBALS['gconfig']['photo'][0].$photo);
 		if(!$hresult) {
@@ -44,7 +44,7 @@ if($intreturn == 0){
 }else if($intreturn == 2){
 	$arrreturn['code'] = '500';
 	$arrreturn['msg'] = 'err2';
-}else if($intreturn == 2){
+}else if($intreturn == 3){
 	$arrreturn['code'] = '500';
 	$arrreturn['msg'] = 'err3';
 }else{

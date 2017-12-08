@@ -230,6 +230,7 @@
 	      });
 	    }
 	    ,done: function(res, index, upload){
+	    	// console.log(res);
 	      if(res.code == 200){ //上传成功
 	        var tr = showListView.find('tr#upload-'+ index)
 	        ,tds = tr.children();

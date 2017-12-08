@@ -22,6 +22,7 @@
 	</div>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
+	console.log((633011.20-31296.30).toFixed(2));
 	layui.use(["element"], function() {
 		var objelement = layui.element;
 	});

@@ -12,8 +12,12 @@ $arr2 = array_sort($arr, 'card_record_atime','desc');
 echo "<pre>";
 echo var_dump($arr2);
 echo "</pre>";
+/**
+ * @param $array要排序的数组
+ * @param $keys排序的键名
+ * @param $type排序方式，默认为升序排序
+ */
 function array_sort($array,$keys,$type='asc'){
-//$array为要排序的数组,$keys为要用来排序的键名,$type默认为升序排序
 	$keysvalue = $new_array = array();
 	foreach($array as $k=>$v){
 		$keysvalue[$k] = $v[$keys];

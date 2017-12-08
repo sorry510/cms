@@ -185,9 +185,9 @@ function laimi_config_wpay(){
  * 获取商品最低价格
  *
  * @param int $goods_id
- * @param int $type
+ * @param int $type 1.wgoods,2.sgoods,3.mcombo
  * @param int $card_id
- * @param array $act_id : 1.mgoods,2.sgoods,3.mcombo
+ * @param array $act_id 
  * @return array min_price,act_discount_id
  */
 function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = array()){
@@ -213,19 +213,13 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 				$price = $arrmgoods['mgoods_price'];
 				$cprice = $arrmgoods['mgoods_cprice'];
 				//$act_price
-				if($arrmgoods['mgoods_act'] == 1 && !empty($stract_id)){
-					$strsql = "SELECT act_discount_id,mgoods_id,act_discount_goods_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$goods_id." && act_discount_id in (".$stract_id.")";
+				if(!empty($stract_id)){
+					$strsql = "SELECT min(act_discount_goods_price) as min_price,act_discount_id,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$goods_id." && act_discount_id in (".$stract_id.")";
 					$hresult = $GLOBALS['gdb']->fun_query($strsql);
-					$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 					if(!empty($arr)){
-						$act_price = $arr[0]['act_discount_goods_price'];
-						$act_discount_id = $arr[0]['act_discount_id'];
-						foreach($arr as $v){
-							if($act_price > $v['act_discount_goods_price']){
-								$act_price = $v['act_discount_goods_price'];
-								$act_discount_id = $v['act_discount_id'];
-							}
-						}
+						$act_price = $arr['min_price'];
+						$act_discount_id = $arr['act_discount_id'];
 					}
 				}
 				//$discount_price
@@ -274,19 +268,13 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 				$price = $arrmcombo['mcombo_price'];
 				$cprice = $arrmcombo['mcombo_cprice'];
 				//$act_price
-				if($arrmcombo['mcombo_act'] == 1 && !empty($stract_id)){
-					$strsql = "SELECT act_discount_id,mcombo_id,act_discount_goods_price,c_mcombo_name,c_mcombo_price FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$goods_id." && act_discount_id in (".$stract_id.")";
+				if(!empty($stract_id)){
+					$strsql = "SELECT min(act_discount_goods_price) as min_price,act_discount_id,mcombo_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$goods_id." && act_discount_id in (".$stract_id.")";
 					$hresult = $GLOBALS['gdb']->fun_query($strsql);
-					$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+					$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 					if(!empty($arr)){
-						$act_price = $arr[0]['act_discount_goods_price'];
-						$act_discount_id = $arr[0]['act_discount_id'];
-						foreach($arr as $v){
-							if($act_price > $v['act_discount_goods_price']){
-								$act_mcombo_price = $v['act_discount_goods_price'];
-								$act_discount_id = $v['act_discount_id'];
-							}
-						}
+						$act_price = $arr['min_price'];
+						$act_discount_id = $arr['act_discount_id'];
 					}
 				}
 				//$discount_price
@@ -315,6 +303,45 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 		$arrprice[] = $act_price;
 	if($discount_price != 0)
 		$arrprice[] = $discount_price;
+
+	$arrgoods = array();
+	$arrgoods['min_price'] = 0;
+	$arrgoods['act_discount_id'] = 0;
+	if(!empty($arrprice)){
+		$arrgoods['min_price'] = min($arrprice);
+		$arrgoods['act_discount_id'] = $arrgoods['min_price'] == $act_price ? $act_discount_id : 0;
+	}
+	return $arrgoods;
+}
+
+/**
+ * 获取微商品最低价格
+ *
+ * @param int $goods_id
+ * @param str $act_id : '1,2,3'
+ * @return array min_price,act_discount_id
+ */
+function laimi_wgoods_price($goods_id = 0, $price = 0, $cprice = 0, $act_id = ''){
+	$arr = array();
+	$act_price = 0;
+	$act_discount_id = 0;
+	if(!empty($act_id) && $goods_id != 0){
+		$strsql = "SELECT min(wact_discount_goods_price) as min_price,wgoods_id,wact_discount_id FROM ".$GLOBALS['gdb']->fun_table2('wact_discount_goods')." where wgoods_id=".$goods_id." && wact_discount_id in (".$act_id.")";
+		$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		if(!empty($arr)){
+			$act_price = $arr['min_price'];
+			$act_discount_id = $arr['wact_discount_id'];
+		}
+	}
+
+	$arrprice = array();
+	if($price != 0)
+		$arrprice[] = $price;
+	if($cprice != 0)
+		$arrprice[] = $cprice;
+	if($act_price != 0)
+		$arrprice[] = $act_price;
 
 	$arrgoods = array();
 	$arrgoods['min_price'] = 0;

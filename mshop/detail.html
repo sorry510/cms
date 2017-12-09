@@ -31,7 +31,7 @@
 		</span>
 		<span class="mui-tab-label laimi-font10">电话</span>
 	</a>
-	<a class="mui-tab-item" href="#tabbar-with-contact">
+	<a class="mui-tab-item" onclick="window.location='cart.html';">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:15px;">
 			    <use xlink:href="#icon-gouwuche-copy"></use>
@@ -40,7 +40,7 @@
 		</span>
 		<span class="mui-tab-label laimi-font10">购物车</span>
 	</a>
-	<a class="mui-tab-item" href="index.html" style="background-color:#CF2D28;width:2.2%;">
+	<a id='toastBtn' class="mui-tab-item" href="cart.html" style="background-color:#CF2D28;width:2.2%;">
 		<span class="laimi-color-white laimi-font16">加入购物车</span>
 	</a>
 </nav>
@@ -98,15 +98,19 @@
 		<ul class="mui-table-view laimi-font12 laimi-color-gray">
 			<li class="mui-table-view-cell">
 		        <a class="mui-navigate-right">数量：
-		        	<div class="mui-numbox laimi-font12" data-numbox-min='1' data-numbox-max='1000' style="width:120px;height:26px;">
-					<button class="mui-btn-numbox-minus" type="button">-</button>
-					<input class="mui-input-numbox laimi-font14" type="number" />
-					<button class="mui-btn-numbox-plus" type="button">+</button>
-				</div>
+		        	<div class="mui-numbox laimi-font12" data-numbox-min='1' data-numbox-max='1000' style="width:92px;height:28px;padding:0px 28px;">
+						<button class="mui-btn-numbox-minus" type="button" style="width:28px;">-</button>
+						<input class="mui-input-numbox laimi-font14" type="number" />
+						<button class="mui-btn-numbox-plus" type="button" style="width:28px;">+</button>
+					</div>
 		        </a>
 		    </li>
+		</ul>
+	</div>
+	<div class="mui-card" style="margin:0px;margin-top:6px;">
+		<ul class="mui-table-view laimi-font12 laimi-color-gray">
 		    <li class="mui-table-view-cell">
-		        <a class="mui-navigate-right">限时打折：庆元旦，全店8折优惠，即时至12月31日。</a>
+		        <a class="mui-navigate-right" href="cart.html">限时打折：庆元旦，全店8折优惠，即时至12月31日。</a>
 		    </li>
 		    <li class="mui-table-view-cell">
 		        <span>
@@ -134,7 +138,7 @@
 		    </li>
 		</ul>
 	</div>
-	<div class="mui-card" style="margin:0px;margin-top:6px;">
+	<!--div class="mui-card" style="margin:0px;margin-top:6px;">
 		<ul class="mui-table-view">
 		    <li class="mui-table-view-cell">
 		        <a class="mui-navigate-right" class="laimi-color-gray">用户评价（12）</a>
@@ -173,9 +177,19 @@
 		        </div>
 		    </li>
 		</ul>
-	</div>	
+	</div-->	
 </div>
 <script src="../js/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+			//mui初始化
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var info = document.getElementById("info");			
+			document.getElementById("toastBtn").addEventListener('tap', function() {
+				mui.toast('已添加到购物车~');
+			});
+		</script>
 <script type="text/javascript" charset="utf-8">
 	mui.init({
 		swipeBack:true //启用右滑关闭功能

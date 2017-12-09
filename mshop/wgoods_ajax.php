@@ -46,7 +46,7 @@ function goods_list(){
 		return $arrpackage;
 	}
 
-	$intpagesize = 2;
+	$intpagesize = 20;
 	if($GLOBALS['intsize'] != 0){
 		$intpagesize = $GLOBALS['intsize'];
 	}
@@ -71,22 +71,11 @@ function goods_list(){
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$stract_id = '';
-	$strsql = "SELECT wact_discount_id FROM ". $GLOBALS['gdb']->fun_table2('wact_discount')." WHERE wact_discount_state = 1 and wact_discount_start < ".time()." and wact_discount_end > ".time();
-	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	foreach($arr as $v){
-		$stract_id .= $v['wact_discount_id'].",";
-	}
-	if(!empty($stract_id)){
-		$stract_id = substr($stract_id, 0, -1);
-	}
-
 	$strsql = "SELECT wgoods_id,wgoods_name,wgoods_price,wgoods_cprice,wgoods_photo1,wgoods_photo2,wgoods_photo3,wgoods_photo4,wgoods_photo5 FROM " . $GLOBALS['gdb']->fun_table2('wgoods')." WHERE 1=1 ".$strwhere." ORDER BY wgoods_id desc LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arrgoods as &$row){
-		$goodsinfo = laimi_wgoods_price($row['wgoods_id'], $row['wgoods_price'], $row['wgoods_cprice'], $stract_id);
+		$goodsinfo = laimi_wgoods_price($row['wgoods_id'], $row['wgoods_price'], $row['wgoods_cprice']);
 		$row['min_price'] = $goodsinfo['min_price'];
 		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
 		$row['photo'] = '';

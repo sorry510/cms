@@ -321,10 +321,11 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
  * @param str $act_id : '1,2,3'
  * @return array min_price,act_discount_id
  */
-function laimi_wgoods_price($goods_id = 0, $price = 0, $cprice = 0, $act_id = ''){
+function laimi_wgoods_price($goods_id = 0, $price = 0, $cprice = 0){
 	$arr = array();
 	$act_price = 0;
 	$act_discount_id = 0;
+	$act_id = laimi_wact_discount();
 	if(!empty($act_id) && $goods_id != 0){
 		$strsql = "SELECT min(wact_discount_goods_price) as min_price,wgoods_id,wact_discount_id FROM ".$GLOBALS['gdb']->fun_table2('wact_discount_goods')." where wgoods_id=".$goods_id." && wact_discount_id in (".$act_id.")";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -351,4 +352,27 @@ function laimi_wgoods_price($goods_id = 0, $price = 0, $cprice = 0, $act_id = ''
 		$arrgoods['act_discount_id'] = $arrgoods['min_price'] == $act_price ? $act_discount_id : 0;
 	}
 	return $arrgoods;
+}
+
+function laimi_cart_count(){
+	$arr = array();
+	$strsql = "SELECT sum(wcart_wgoods_count) as count FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".$GLOBALS['gdb']->fun_escape($GLOBALS['_SESSION']['login_id']);
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	return $arr;
+}
+
+function laimi_wact_discount(){
+	$arr = array();
+	$stract_id = '';
+	$strsql = "SELECT wact_discount_id FROM ". $GLOBALS['gdb']->fun_table2('wact_discount')." WHERE wact_discount_state = 1 and wact_discount_start < ".time()." and wact_discount_end > ".time();
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+	foreach($arr as $v){
+		$stract_id .= $v['wact_discount_id'].",";
+	}
+	if(!empty($stract_id)){
+		$stract_id = substr($stract_id, 0, -1);
+	}
+	return $stract_id;
 }

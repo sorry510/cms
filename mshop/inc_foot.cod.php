@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-	<a class="mui-tab-item mui-active laimi-href" href="javascript:;" onclick="window.location='shop.php';">
+	<a class="mui-tab-item mui-active laimi-href" href="./shop.php">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-home"></use>
@@ -7,7 +7,7 @@
 		</span>
 		<span class="mui-tab-label">首页</span>
 	</a>
-	<a class="mui-tab-item laimi-href" href="javascript:;">
+	<a class="mui-tab-item laimi-href" href="#">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-chanpinfenlei-xuanzhong"></use>
@@ -15,7 +15,7 @@
 		</span>
 		<span class="mui-tab-label">商品分类</span>
 	</a>
-	<a class="mui-tab-item laimi-href" href="javascript:;" onclick="window.location='cart.php';">
+	<a class="mui-tab-item laimi-href" href="./cart.php">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-gouwuche1"></use>
@@ -26,7 +26,7 @@
 		</span>
 		<span class="mui-tab-label">购物车</span>
 	</a>
-	<a class="mui-tab-item laimi-href" href="javascript:;" onclick="window.location='index.php';">
+	<a class="mui-tab-item laimi-href" href="./index.php">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-huiyuan"></use>

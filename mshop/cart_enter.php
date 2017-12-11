@@ -3,8 +3,13 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
+$cart_count = 0;
+$cart_money = 0;
+
 $gtemplate->fun_assign('cart_list', get_cart_list());
-$gtemplate->fun_show('cart');
+$gtemplate->fun_assign('address', get_address());
+$gtemplate->fun_assign('card_info', get_card_info());
+$gtemplate->fun_show('cart_enter');
 
 function get_cart_list(){
 	$arr = array();
@@ -22,6 +27,24 @@ function get_cart_list(){
 				break;
 			}
 		}
+		$GLOBALS['cart_count'] += $row['wcart_wgoods_count'];
+		$GLOBALS['cart_money'] += $row['wcart_wgoods_count'] * $row['min_price'];
 	}
+	return $arr;
+}
+
+function get_address(){
+	$arr = array();
+	$strsql = "SELECT waddress_id,waddress_name,waddress_phone,waddress_detail FROM ".$GLOBALS['gdb']->fun_table2('waddress')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and waddress_state = 2";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	return $arr;
+}
+
+function get_card_info(){
+	$arr = array();
+	$strsql = "SELECT s_card_ymoney FROM ".$GLOBALS['gdb']->fun_table2('card')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and card_state = 1 and (card_edate>".time()." or card_edate = 0)";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;
 }

@@ -83,27 +83,27 @@
 	      	<div style="margin:0 auto; background-color:#009688;height:43px;width:43px;border-radius:30px;text-align:center;">
 	      		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-fenlei1"></use>
-						</svg>				
+						</svg>
 	        </div>
 	        <div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">全部分类</div>
 				</a>
 	    </div>
 	    <div class="mui-col-sm-3" style="width:25%;padding:10px;">
-	    	<a href="shop.html">
+	    	<a href="#">
 		    	<div style="margin:0 auto; background-color:#5FB878;height:43px;width:43px;border-radius:30px;text-align:center;">
 		    		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-zhuanti"></use>
-						</svg>				
+						</svg>
 		    	</div>
 		    	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">热门专题</div>
 				</a>
 	    </div>
 	    <div class="mui-col-sm-3" style="width:25%;padding:10px;">
-	    	<a href="shop.html">
+	    	<a href="./cart.php">
 		    	<div style="margin:0 auto; background-color:#FFB800;height:43px;width:43px;border-radius:30px;text-align:center;">
 		    		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-gouwuche"></use>
-						</svg>				
+						</svg>
 	    		</div>
 	    		<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">购物车</div>
 				</a>
@@ -113,7 +113,7 @@
 		    	<div style="margin:0 auto; background-color:#01AAED;height:43px;width:43px;border-radius:30px;text-align:center;">
 		    		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-huiyuanzhongxinxian"></use>
-						</svg>				
+						</svg>
 		    	</div>
 		    	<div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">会员中心</div>
 				</a>
@@ -121,7 +121,7 @@
 	  </div>
 	  <ul class="mui-table-view" style="margin-top:6px;">
 			<li class="mui-table-view-cell">
-				<a class="mui-navigate-right" style="font-size:14px;">
+				<a class="mui-navigate-right" style="font-size:14px;" href="list.html">
 					<span class="mui-badge mui-badge-inverted">更多商品</span>
 					<svg class="laimi-icon2" aria-hidden="true">
 					    <use xlink:href="#icon-huiyuanzhongxin1"></use>
@@ -149,6 +149,8 @@
       }
     }
   });
+  mui('body').on('tap', 'a', function(){document.location.href=this.href;});//mui阻止href跳转，模拟一下
+  
   var page = {
   	allcount : 0,
   	pagecount: 1,
@@ -161,7 +163,6 @@
    */
   function pullupRefresh() {
 		mui.getJSON('wgoods_ajax.php', {type: 1, size: 2, page: page.pagenext}, function(res){
-			console.log(res);
 			if(res){
 				page = res.page;
 				mui.each(res.list, function(k, v){

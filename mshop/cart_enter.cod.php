@@ -30,7 +30,7 @@
 		</svg>
 		<div class="mui-media-body mui-navigate-right laimi-address" style="white-space:normal;">
 			<a href="javascript:;">
-				<span class="laimi-font14" style="font-weight:bold;line-height:24px;"><?php if($address = $this->_data['address']) echo $address['waddress_name']."，".$address['waddress_phone']; ?></span>&nbsp;&nbsp;<span class="laimi-font10" style="border:1px solid #FF5053;border-radius:3px;padding:1px 4px; color:#FF5053;">默认地址</span>
+				<span class="laimi-font14" style="font-weight:bold;line-height:24px;"><?php if($address = $this->_data['address']) echo $address['waddress_name']."，".$address['waddress_phone']; ?></span>&nbsp;&nbsp;<?php if($address['waddress_state'] == 2){ ?><span class="laimi-font10" style="border:1px solid #FF5053;border-radius:3px;padding:1px 4px; color:#FF5053;">默认地址</span><?php } ?>
 			</a>
 			<div class="laimi-color-gray laimi-font12" style="margin-right:30px;">
 			<?php if($address) echo $address['waddress_detail']; ?>
@@ -59,19 +59,19 @@
 		<ul class="mui-table-view laimi-font12 laimi-color-gray">
 	    <li class="mui-table-view-cell">
 		    <a href="javascript:;" class="mui-navigate-right">
-            <span class="mui-badge mui-badge-inverted">0.00（免运费）</span>
+           <span class="mui-badge mui-badge-inverted">0.00（免运费）</span>
             	运费
         </a>
 	    </li>
 	    <li class="mui-table-view-cell">
 		    <a href="javascript:;" class="mui-navigate-right">
 		    	<span class="mui-badge mui-badge-inverted" style="margin-right:80px;">
-		    		<input name="gettype" type="radio">
-		    		商城发货
+		    		<input class="laimi-gettype" name="gettype" type="radio" value="3">
+		    		用户自取
 		    	</span>
 		    	<span class="mui-badge mui-badge-inverted">
-		    		<input name="gettype" type="radio" checked="checked">
-		    		用户自取
+		    		<input class="laimi-gettype" name="gettype" type="radio" value="2" checked>
+		    		商城发货
 		    	</span>
           	请选择取货方式
         </a>
@@ -85,12 +85,12 @@
 		    <a href="javascript:;" class="mui-navigate-right">
 		    <?php if($this->_data['card_info']){ ?>
           <span class="mui-badge mui-badge-inverted" style="margin-right:80px;">
-          	<input name="paytype" type="radio" vlaue="33" <?php if($this->_data['card_info']['s_card_ymoney'] - $GLOBALS['cart_money'] < 0) echo 'disabled'; ?>>
+          	<input class="laimi-paytype" name="paytype" type="radio" value="33" <?php if($this->_data["card_info"]["s_card_ymoney"] - $GLOBALS["cart_money"] < 0) echo "disabled"; ?> />
           	会员卡余额（¥<?php echo $this->_data['card_info']['s_card_ymoney']; ?>）&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
         <?php } ?>
           <span class="mui-badge mui-badge-inverted">
-          	<input name="paytype" type="radio" value="21" checked="checked">
+          	<input class="laimi-paytype" name="paytype" type="radio" value="21" checked />
           	微信支付
           </span>
           	付款方式
@@ -98,6 +98,9 @@
 	    </li>
 		</ul>
 	</div>
+	<form id="wx_pay" method="get" action="jsapi.php">
+		<input class="addressid" type="hidden" name="address" value="<?php if($address) echo $address['waddress_id']; else echo 0; ?>" />
+	</form>
 </div>
 <script src="./js/mui.min.js"></script>
 <script src="js/iconfont.js"></script>
@@ -117,39 +120,56 @@
   	window.location.href = './address.html';
   });
   mui('.laimi-pay')[0].addEventListener('tap', function() {
-  	var paytype = mui("input[name='paytype']:checked")[0].value;
-  	console.log(paytype);
-  	/*if(intuseragent == 1){
-  		if(){
-  			mui.ajax("cart_enter_do.php", {
-  				data:{},
-  				dataType:"text", type:"post", timeout:5000, success:function(strdata) {
-  					if(strdata == "l") {
-  						mui.alert("登录超时，请重新登录！", "提示信息", "", function() {
-  							window.location = "login.php";
-  						});
-  					} else if(strdata == "l2") {
-  						window.location = "cart_regist.php";
-  					}  else if(strdata == "n") {
-  						mui.alert("操作异常！", "提示信息");
-  					} else if(strdata == "c") {
-  						mui.alert("该订单已失效，请重新购买！", "提示信息");
-  						window.location = "index.php";
-  					} else {
-  						//return;
-  						if(intuseragent == 1) {
-  							window.location = "pay.bill.ali.php?amount=<?php echo api_value_int0($decsum * 100 + 0.0001); ?>&addressid=" + straddress;
-  						} else if(intuseragent == 2) {
-  							window.location = "pay.bill.php?amount=<?php echo api_value_int0($decsum * 100 + 0.0001); ?>&addressid=" + straddress;
-  						}
-  					}
-  				}, error:function(xhr,type,errorThrown) {
-  					mui.alert("网络不给力，请稍后重试！", "提示信息");
-  				}
-  			});
-  		}
-  	}*/
+  	var paytype = getRadioRes('laimi-paytype');
+  	var gettype = getRadioRes('laimi-gettype');
+  	if(mui('.addressid')[0].value == 0 || mui('.addressid')[0].value == ''){
+  		mui.alert("请选择一个地址！", "提示信息");
+  		return false;
+  	}
+		mui.ajax("cart_enter_ajax.php", {
+			data: {},
+			dataType: "json",
+			type: "post",
+			timeout: 5000,
+			success: function(jsondata) {
+				if(jsondata.msg == "1") {
+					mui.alert("账号异常！", "提示信息");
+				} else if(jsondata.msg == "2") {
+					mui.alert("没有此用户！", "提示信息");
+				}  else if(jsondata.msg == "3") {
+					window.location = "cart_regist.php";
+				} else if(jsondata.msg == "200") {
+					if(jsondata.money - <?php echo $GLOBALS["cart_money"]; ?> < 0.01){
+						if(paytype == 21){
+							if(intuseragent == 1){
+								//微信支付
+								document.getElementById("wx_pay").submit();
+							}
+						}else if(paytype == 33){
+
+						}
+					}else{
+						mui.alert("商品价格已改变，请刷新页面！", "提示信息", "", function(){
+							window.location.reload();
+						});
+					}
+				} else {
+					mui.alert("操作异常！", "提示信息");
+				}
+			},
+			error: function(xhr,type,errorThrown) {
+				mui.alert("网络不给力，请稍后重试！", "提示信息");
+			}
+		});
   });
+  function getRadioRes(className){
+    var rdsObj = document.getElementsByClassName(className);
+    var checkVal = null;
+    for(i = 0; i < rdsObj.length; i++){
+        if(rdsObj[i].checked){checkVal = rdsObj[i].value;}
+    }
+    return checkVal;
+  }
 </script>
 </body>
 </html>

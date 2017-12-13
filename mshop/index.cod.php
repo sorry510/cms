@@ -162,8 +162,5 @@
 		</li>
 	</ul>
 </div>
- <script type="text/javascript" charset="utf-8">
-    mui.init();
-</script>
 </body>
 </html>

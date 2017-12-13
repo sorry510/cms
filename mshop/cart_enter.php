@@ -3,6 +3,8 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
+$straddress_id = api_value_get('address_id');
+$intaddress_id = api_value_int0($straddress_id);
 $cart_count = 0;
 $cart_money = 0;
 
@@ -13,7 +15,8 @@ $gtemplate->fun_show('cart_enter');
 
 function get_cart_list(){
 	$arr = array();
-	$strsql = "SELECT a.*,b.wgoods_name,b.wgoods_name2,b.wgoods_price,b.wgoods_cprice,b.wgoods_photo1,b.wgoods_photo2,b.wgoods_photo3,b.wgoods_photo4,b.wgoods_photo5 FROM (SELECT wcart_id,wgoods_id,wcart_wgoods_count FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." order by wcart_id desc) AS a left join ".$GLOBALS['gdb']->fun_table2('wgoods')." AS b on a.wgoods_id = b.wgoods_id order by a.wcart_id desc";
+	$strsql = "SELECT a.*,b.* FROM (SELECT wcart_id,wgoods_id,wcart_wgoods_count FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and wcart_wgoods_state = 1 order by wcart_id desc) AS a join (SELECT wgoods_id,wgoods_name,wgoods_name2,wgoods_price,wgoods_cprice,wgoods_photo1,wgoods_photo2,wgoods_photo3,wgoods_photo4,wgoods_photo5 FROM ".$GLOBALS['gdb']->fun_table2('wgoods')." WHERE wgoods_state = 1) AS b on a.wgoods_id = b.wgoods_id order by a.wcart_id desc";
+	// echo $strsql;exit;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arr as &$row){
@@ -35,7 +38,11 @@ function get_cart_list(){
 
 function get_address(){
 	$arr = array();
-	$strsql = "SELECT waddress_id,waddress_name,waddress_phone,waddress_detail FROM ".$GLOBALS['gdb']->fun_table2('waddress')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and waddress_state = 2";
+	$strwhere = " and waddress_state = 2";
+	if($GLOBALS['intaddress_id'] != 0){
+		$strwhere = " and waddress_id = ".$GLOBALS['intaddress_id'];
+	}
+	$strsql = "SELECT waddress_id,waddress_state,waddress_name,waddress_phone,waddress_detail FROM ".$GLOBALS['gdb']->fun_table2('waddress')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id']).$strwhere;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;

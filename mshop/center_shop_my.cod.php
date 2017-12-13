@@ -25,7 +25,7 @@
     <input type="hidden" name="id" class="mui-input-clear" value="<?php echo $this->_data['card_info']['card_id']; ?>">
     </div>
     <div class="mui-table-view-cell">
-    	<span class="mui-badge mui-badge-inverted" style="font-size:14px;"><?php echo $this->_data['card_info']['card_code']; ?></span>					
+    	<span class="mui-badge mui-badge-inverted" style="font-size:14px;"><?php echo $this->_data['card_info']['card_code']; ?></span>
     	会员卡号
     </div>
     <div class="mui-table-view-cell">

@@ -73,7 +73,7 @@
 					<svg class="laimi-icon4" aria-hidden="true" style="color:#FFA500;">
 					    <use xlink:href="#icon-tongzhi"></use>
 					</svg>
-					<?php echo $this->_data['notice'][0]['wnotice_title']; ?>
+					<?php if(!empty($this->_data['notice'])){echo $this->_data['notice'][0]['wnotice_title'];} else { echo '当前没有活动';} ?>
 				</span>
 			</marquee>
 		</div>
@@ -163,7 +163,7 @@
    */
   function pullupRefresh() {
 		mui.getJSON('wgoods_ajax.php', {type: 1, size: 2, page: page.pagenext}, function(res){
-			if(res){
+			if(res.list.length > 0){
 				page = res.page;
 				mui.each(res.list, function(k, v){
 					var li = document.createElement('li');

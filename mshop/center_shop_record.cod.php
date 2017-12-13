@@ -102,7 +102,7 @@
    */
   function pullupRefresh() {
 		mui.getJSON('center_shop_record_ajax.php', {id:'<?php echo $GLOBALS['intid'];?>', page: page.pagenext}, function(res){
-			if(res){
+			if(res.list.length > 0){
 				page = res.page;
 				if(recordid == 0)
 					recordid = res.list[0].card_record_id;

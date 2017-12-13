@@ -7,14 +7,14 @@
     <script src="js/mui.min.js"></script>
     <script src="http://at.alicdn.com/t/font_485373_cencq7eaouqjv2t9.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <link href="css/laimi.css" rel="stylesheet"/> 
+    <link href="css/laimi.css" rel="stylesheet"/>
 </head>
 <body id="laimi-body">
 <header id="laimi-header" class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title laimi-color-white laimi-font14" style="line-height:40px;">优惠券</h1>
 </header>
-<div id="laimi-content" class="mui-content">	
+<div id="laimi-content" class="mui-content">
 	<div style="padding: 10px 10px;">
 		<div id="segmentedControl" class="mui-segmented-control laimi-font14" style="height:25px;">
 			<a class="mui-control-item mui-active laimi-font14" href="#item1">可用优惠券</a>
@@ -36,7 +36,7 @@
 			</div>
 			<?php if(empty($this->_data['card_coupon1'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
-			<? } ?>
+			<?php } ?>
 		</div>
 		<div id="item2" class="mui-control-content">
 			<div class="mui-card laimi-first" style="padding: 15px;">
@@ -51,7 +51,7 @@
 			</div>
 			<?php if(empty($this->_data['card_coupon2'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
-			<? } ?>
+			<?php } ?>
 		</div>
 		<div id="item3" class="mui-control-content">
 			<div class="mui-card laimi-first" style="padding: 15px;">
@@ -65,7 +65,7 @@
 			<?php } ?>
 			<?php if(empty($this->_data['card_coupon3'])){ ?>
 			<div style="height:100%;text-align:center;">无</div>
-			<? } ?>
+			<?php } ?>
 		</div>
 	</div>
 </div>

@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$GLOBALS['_SESSION']['login_type'] = 10;
+$GLOBALS['_SESSION']['login_type'] = 11;
 $GLOBALS['_SESSION']['login_id'] = 4;
 $GLOBALS['_SESSION']['login_code'] = 'am';
 $GLOBALS['_SESSION']['login_cid'] = 1;

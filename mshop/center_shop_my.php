@@ -4,8 +4,7 @@ require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 // require('inc_limit.php');
 
-$strid = api_value_get('id');
-$intid = api_value_int0($strid);
+$intid = api_value_int0($GLOBALS['_SESSION']['login_id']);
 
 $gtemplate->fun_assign('card_info', card_info());
 $gtemplate->fun_show('center_shop_my');

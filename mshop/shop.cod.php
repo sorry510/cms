@@ -10,7 +10,9 @@
 <body id="laimi-body">
 <header class="mui-bar mui-bar-nav">
 	<div class="mui-input-row mui-search" style="width:96%;margin:0 auto;">
-		<input type="search" placeholder="搜索商品，很多好货哦~" style="background-color:#FFFFFF;font-size:14px;color:#8F8F94;">
+		<form method="post" action="list.php">
+			<input type="search" name="search" placeholder="搜索商品，很多好货哦~" style="background-color:#FFFFFF;font-size:14px;color:#8F8F94;width:100%;">
+		</form>
 	</div>
 </header>
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
@@ -79,7 +81,7 @@
 		</div>
 		<div class="mui-row" style="margin-top:6px;background-color:#FFFFFF;">
 			<div class="mui-col-sm-3" style="width:25%;padding:10px;">
-	      <a href="list.html">
+	      <a href="class.php">
 	      	<div style="margin:0 auto; background-color:#009688;height:43px;width:43px;border-radius:30px;text-align:center;">
 	      		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-fenlei1"></use>
@@ -89,7 +91,7 @@
 				</a>
 	    </div>
 	    <div class="mui-col-sm-3" style="width:25%;padding:10px;">
-	    	<a href="#">
+	    	<a href="topic.php">
 		    	<div style="margin:0 auto; background-color:#5FB878;height:43px;width:43px;border-radius:30px;text-align:center;">
 		    		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-zhuanti"></use>
@@ -121,7 +123,7 @@
 	  </div>
 	  <ul class="mui-table-view" style="margin-top:6px;">
 			<li class="mui-table-view-cell">
-				<a class="mui-navigate-right" style="font-size:14px;" href="list.html">
+				<a class="mui-navigate-right" style="font-size:14px;" href="list.php">
 					<span class="mui-badge mui-badge-inverted">更多商品</span>
 					<svg class="laimi-icon2" aria-hidden="true">
 					    <use xlink:href="#icon-huiyuanzhongxin1"></use>
@@ -169,7 +171,7 @@
 					var li = document.createElement('li');
 							li.className = 'mui-table-view-cell mui-media mui-col-xs-6';
 					var html = '';
-					html += '<a href="detail.html?id='+v.wgoods_id+'">'+
+					html += '<a href="detail.php?id='+v.wgoods_id+'">'+
 						        '<img class="mui-media-object" style="width:100%; height:auto;" src="read_image.php?c=<?php echo $GLOBALS["_SESSION"]["login_cid"];?>&type=wgoods&image='+v.photo+'">'+
 						        '<div class="mui-media-body laimi-font12" style="text-align:left;">'+v.wgoods_name+'</div>'+
 						        '<div style="width:100%;line-height:40px;">'+

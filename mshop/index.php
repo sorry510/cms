@@ -14,7 +14,7 @@ $gtemplate->fun_show('index');
 
 function get_card_info(){
 	$arr = array();
-	$strsql = "SELECT card_id,card_okey,card_ikey,card_code,card_state,card_name,card_photo_file,card_phone,card_carcode,card_sex,card_birthday_date,card_password_state,card_password,card_identity,card_atime,card_edate,card_memo,s_card_ymoney,s_card_yscore,s_card_smoney,s_card_sscore,c_card_type_name,c_card_type_discount,worker_id,card_link FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_okey = '".$GLOBALS['sqlopen_id']."' limit 1";
+	$strsql = "SELECT card_id,card_okey,card_ikey,card_code,card_state,card_name,card_photo_file,card_phone,card_carcode,card_sex,card_birthday_date,card_password_state,card_password,card_identity,card_atime,card_edate,card_memo,s_card_ymoney,s_card_yscore,s_card_smoney,s_card_sscore,c_card_type_name,c_card_type_discount,worker_id,card_link,s_card_reward FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_okey = '".$GLOBALS['sqlopen_id']."' limit 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){

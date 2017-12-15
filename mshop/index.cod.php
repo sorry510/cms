@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
-    <script src="js/mui.min.js"></script>
-     <script src="http://at.alicdn.com/t/font_485373_jtxfnkz96dlblnmi.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/laimi.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/iconfont.js"></script>
 </head>
 <body id="laimi-body">
 <div id="laimi-content" class="mui-content">
@@ -23,35 +23,35 @@
 		</li>
 		<li class="mui-table-view-cell mui-disabled">
 			<div class="mui-row">
-        <div class="mui-col-sm-4" style="width:33%;text-align:center;">
+				<div class="mui-col-sm-3" style="width:25%;text-align:center;">
+	        <a href="shop.php">
+	        	<svg class="laimi-icon3" aria-hidden="true">
+				    <use xlink:href="#icon-shangchengdingdanguanli"></use>
+						</svg><br><span style="font-size:12px;color:#555555;">微商城</span>
+					</a>
+        </div>
+        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
         	<a href="center_shop.php">
 	        	<svg class="laimi-icon3" aria-hidden="true">
 				    <use xlink:href="#icon-yuyue-"></use>
 						</svg><br><span style="font-size:12px;color:#555555;">微信预约</span>
 					</a>
         </div>
-        <!--div class="mui-col-sm-3" style="width:25%;text-align:center;">
-        	<a href="cnter_shop_line.html">
-	        	<svg class="laimi-icon3" aria-hidden="true">
-				    <use xlink:href="#icon-chaxun_paiduiqingkuang"></use>
-						</svg><br><span style="font-size:12px;color:#555555;">排队叫号</span>
-					</a>
-        </div-->
-        <div class="mui-col-sm-4" style="width:33%;text-align:center;">
+        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
         	<a href="center_shop_coupon.php?id=<?php echo $this->_data['card_info']['card_id']; ?>">
 	        	<svg class="laimi-icon3" aria-hidden="true">
 				    <use xlink:href="#icon-youhuiquan2"></use>
 						</svg><br><span style="font-size:12px;color:#555555;">优惠券</span>
 					</a>
         </div>
-        <div class="mui-col-sm-4" style="width:33%;text-align:center;">
+        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
         	<a href="center_shop_record.php?id=<?php echo $this->_data['card_info']['card_id']; ?>">
 	        	<svg class="laimi-icon3" aria-hidden="true">
 				    <use xlink:href="#icon-yuyuejilu"></use>
 						</svg><br><span style="font-size:12px;color:#555555;">消费记录</span>
 					</a>
         </div>
-		   </div>
+		  </div>
 		</li>
 	</ul>
 	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
@@ -92,7 +92,7 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="cnter_shop_myappointment.html" class="mui-navigate-right">
+			<a href="center_shop_myappointment.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-Group"></use>
 				</svg>
@@ -108,7 +108,7 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="center_shop_my.php?id=<?php echo $this->_data['card_info']['card_id']; ?>" class="mui-navigate-right">
+			<a href="center_shop_my.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-wode"></use>
 				</svg>
@@ -118,7 +118,7 @@
 	</ul>
 	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
 		<li class="mui-table-view-cell">
-			<a href="cnter_shop_order.html" class="mui-navigate-right">
+			<a href="center_shop_order.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-goumai1"></use>
 				</svg>
@@ -126,7 +126,7 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="center_shop_address.html" class="mui-navigate-right">
+			<a href="center_shop_address.php" class="mui-navigate-right">
 				<svg class="laimi-icon" aria-hidden="true">
 				    <use xlink:href="#icon-guiji"></use>
 				</svg>
@@ -140,12 +140,17 @@
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-footer-commission"></use>
 				</svg>
-				<span class="mui-badge mui-badge-danger mui-badge-inverted" style="font-size:14px;font-family:'Segoe UI';">¥150.00</span>
+				<span class="mui-badge mui-badge-danger mui-badge-inverted" style="font-size:14px;font-family:'Segoe UI';"><?php if ($this->_data['card_info']['s_card_reward'] !=0) {
+					echo '¥'.$this->_data['card_info']['s_card_reward'];
+				}else{
+					echo '暂无佣金';
+					} ;?>
+				</span>
 				我的佣金
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="cnter_shop_agent_money.html" class="mui-navigate-right">
+			<a href="center_shop_agent_money.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-tixian1"></use>
 				</svg>
@@ -153,7 +158,7 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="cnter_shop_agent_order.html" class="mui-navigate-right">
+			<a href="center_shop_agent_order.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-wendang"></use>
 				</svg>

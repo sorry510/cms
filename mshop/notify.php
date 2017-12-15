@@ -2,13 +2,32 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-require_once "wx_pay/WxPay.Api.php";
-require_once 'wx_pay/WxPay.Notify.php';
+$intid = 0;
+$xml = file_get_contents('php://input');
+libxml_disable_entity_loader(true);//阻止外部xml注入
+$arr = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+if($arrattach = json_decode($arr['attach'], true)){
+	$intid = $arrattach['cid'];
+}
+$strsystem_code = '';
+$strsql = "SELECT system_code FROM ".$gdb->fun_table('company')." WHERE company_id=".$intid;
+$hresult = $GLOBALS['gdb']->fun_query($strsql);
+$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+if(!empty($arr)){
+	$strsystem_code = $arr['system_code'];
+}
+$strprefix2 = substr($strsystem_code, 0, 5) . "_"
+		. str_pad(api_value_int0($intid), 4, '0', STR_PAD_LEFT) . '_';
+$gdb->pub_prefix2 = $strprefix2;
+$arrwpay = laimi_config_wpay($intid);
+require_once "wx_pay/lib/WxPay.Api.php";
+require_once 'wx_pay/lib/WxPay.Notify.php';
 require_once 'wx_pay/log.php';
 
 //初始化日志
 $logHandler= new CLogFileHandler("wx_pay/logs/".date('Y-m-d').'.log');
 $log = Log::Init($logHandler, 15);
+// Log::DEBUG(json_encode($arr));
 
 class PayNotifyCallBack extends WxPayNotify
 {
@@ -45,7 +64,9 @@ class PayNotifyCallBack extends WxPayNotify
 			return false;
 		}
 		//业务逻辑
-		// laimi_pay_return($data);
+		laimi_pay_return($data);
+		//通知微信服务器
+		echo exit('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
 		return true;
 	}
 }

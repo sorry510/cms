@@ -154,7 +154,7 @@ function laimi_config_wshop(){
 	return $arrwshop;
 }
 
-function laimi_config_wpay(){
+function laimi_config_wpay($cid){
 	$arr = array();
 	$arrwpay = array();
 	$arrwpay_init = array(
@@ -167,7 +167,7 @@ function laimi_config_wpay(){
 					'weixin_key' => '',
 					'weixin_appsecret' => '',
 				);
-	$strsql = "SELECT company_config_wpay FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
+	$strsql = "SELECT company_config_wpay FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id = " . $cid . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
@@ -396,312 +396,201 @@ function laimi_wgoods_allprice(){
 function laimi_pay_return($postarr){
 	$intreturn = 0;
 	//公共回传参数
+	$addressid = 0;
 	if(!empty($postarr['extra_common_param'])){
 	    /*支付宝pc来源*/
 	    //额外公共参数
-	    $extra = explode('|',$postarr['extra_common_param']);
-	    //买家收货地址
-	    $addressid = $extra[0];
-	    //支付渠道
-	    $pay_channel = $extra[count($extra)-1];
+	    // $extra = explode('|',$postarr['extra_common_param']);
+	    // //买家收货地址
+	    // $addressid = $extra[0];
+	    // //支付渠道
+	    // $pay_channel = $extra[count($extra)-1];
 	}else if(!empty($postarr['attach'])){
-	    // /*微信渠道*/
-	    $extra = explode('|',$postarr['attach']);
+	    /*微信渠道*/
+		  $extra = json_decode($postarr['attach'], true);
 	    //买家收货地址
-	    $addressid = $extra[0];
+	    if(!empty($extra['address']))
+	    	$addressid = $extra['address'];
 	    //支付渠道
-	    $pay_channel = $extra[count($extra)-1];
+	    $pay_channel = $extra['paytype'];
+	    //取货方式
+	    $worder_get = $extra['worder_get'];
 	}else if(!empty($postarr['passback_params'])){
 		/*支付宝wap来源*/
-		$extra = explode('|',urldecode($postarr['passback_params']));
-		//买家收货地址
-		$addressid = $extra[0];
-		//支付渠道
-		$pay_channel = $extra[count($extra)-1];
+		// $extra = explode('|',urldecode($postarr['passback_params']));
+		// //买家收货地址
+		// $addressid = $extra[0];
+		// //支付渠道
+		// $pay_channel = $extra[count($extra)-1];
+	}else{
+		$intreturn = 1;
 	}
 
 	if($pay_channel=='ALI_WEB'){
-	    //订单号
-	    $out_trade_no = $postarr['out_trade_no'];
-	    //支付宝交易号
-	    $trade_no = $postarr['trade_no'];
-	    //交易状态
-	    $trade_status = $postarr['trade_status'];
-	    //交易金额
-	    $total_fee = $postarr['total_fee'];
-	    //卖家支付宝id
-	    //$seller_id = $postarr['seller_id'];
+	    // //订单号
+	    // $out_trade_no = $postarr['out_trade_no'];
+	    // //支付宝交易号
+	    // $trade_no = $postarr['trade_no'];
+	    // //交易状态
+	    // $trade_status = $postarr['trade_status'];
+	    // //交易金额
+	    // $total_fee = $postarr['total_fee'];
+	    // //卖家支付宝id
+	    // //$seller_id = $postarr['seller_id'];
 
-	    /*支付宝验证*/ 
-	 
-	    if($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS'){
-	       $intreturn = 0;
-	    }else{
-	       $intreturn = 1; 
-	    }
+	    // /*支付宝验证*/
+
+	    // if($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS'){
+	    //    $intreturn = 0;
+	    // }else{
+	    //    $intreturn = 1;
+	    // }
 	   
 	}else if($pay_channel=='WX_NATIVE'){
-	    $app_id = $postarr['appid'];
+	    // $app_id = $postarr['appid'];
 
-	    $out_trade_no = $postarr['out_trade_no'];
+	    // $out_trade_no = $postarr['out_trade_no'];
 
-	    $total_fee = round($postarr['total_fee']/100, 2);
+	    // $total_fee = round($postarr['total_fee']/100, 2);
 	   
 	}else if($pay_channel=='WX_JSAPI'){
 		$app_id = $postarr['appid'];
-
 		$out_trade_no = $postarr['out_trade_no'];
-
-		$total_fee = round($postarr['total_fee']/100, 2);
+		$total_fee = round($postarr['total_fee'] / 100, 2);
 	}else if($pay_channel=='ALI_WAP'){
-		//订单号
-		$out_trade_no = $postarr['out_trade_no'];
-		//支付宝交易号
-		$trade_no = $postarr['trade_no'];
-		//交易状态
-		$trade_status = $postarr['trade_status'];
-		//交易金额
-		$total_fee = $postarr['total_amount'];
-		//卖家支付宝id
-		$seller_id = $postarr['seller_id'];
+		// //订单号
+		// $out_trade_no = $postarr['out_trade_no'];
+		// //支付宝交易号
+		// $trade_no = $postarr['trade_no'];
+		// //交易状态
+		// $trade_status = $postarr['trade_status'];
+		// //交易金额
+		// $total_fee = $postarr['total_amount'];
+		// //卖家支付宝id
+		// $seller_id = $postarr['seller_id'];
 
-		/*支付宝验证*/ 
-		
-		if($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS'){
-		   $intreturn = 0;
-		}else{
-		   $intreturn = 1; 
-		}
+		/*支付宝验证*/
+
+		// if($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS'){
+		//    $intreturn = 0;
+		// }else{
+		//    $intreturn = 1;
+		// }
+	}else{
+		$intreturn = 2;
 	}
 
 	$jsonstr = json_encode($postarr);
-	// var_dump($postarr);
-	// exit;
 
 	if($intreturn == 0){
-	        //验证客户id
-	        $strclientid = substr($out_trade_no, 5, strpos($out_trade_no, 'T') - 5);
-	        $arr = array();
-	        if($intreturn == 0) {
-	            $strsql = "SELECT client_id, client_name, client_phone, client_qq, client_weixin FROM " . $GLOBALS['gdb']->fun_table('client') . " WHERE client_id = "
-	            . api_value_int0($strclientid) . " LIMIT 1";
-	            $hresult = $GLOBALS['gdb']->fun_query($strsql);
-	            $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	            // var_dump($arr);
-	            // exit;
-	            if(empty($arr)) {
-	                $intreturn = 1;
-	            }
-	        }
-	            //验证订单是否已经存在，空继续,存在不在写入数据
-	        $inttime = time();
-	        $arr2 = array();
-	        if($intreturn == 0) {
-	            $strsql = "SELECT order_id FROM " . $GLOBALS['gdb']->fun_table('order') . " WHERE order_time > " . ($inttime - 86400) . " AND order_code = '"
-	            . $GLOBALS['gdb']->fun_escape($out_trade_no) . "' LIMIT 1";
-	            $hresult = $GLOBALS['gdb']->fun_query($strsql);
-	            $arr2 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	            if(!empty($arr2)) {
-	                $intreturn = 2;
-	            }
-	        }
-	            //写一条订单异常记录
-	        if($intreturn == 0){
-	            $strsql = "INSERT INTO " . $GLOBALS['gdb']->fun_table('order_error') . " (order_error_type, order_error_json) VALUES (" . $intreturn . ", '" . $GLOBALS['gdb']->fun_escape($jsonstr)
-	            . "')";
-	            $GLOBALS['gdb']->fun_do($strsql);
-	            $strid_error = $GLOBALS['gdb']->fun_insert_id();
-	        }else{
-	            $strid_error = 0;
-	        }
-	            
+    //验证客户id
+    $strcard_id = substr($out_trade_no, 0, strpos($out_trade_no, 'T'));
+    $intcard_id = api_value_int0($strcard_id);
+    $arrcard = array();
+    if($intreturn == 0) {
+      $strsql = "SELECT card_id, card_name, card_phone, c_card_type_name, card_type_id FROM " . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ". $intcard_id . " LIMIT 1";
+      $hresult = $GLOBALS['gdb']->fun_query($strsql);
+      $arrcard = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+      if(empty($arrcard)) {
+          $intreturn = 3;
+          // return $strsql;
+      }
+    }
+    //验证订单是否已经存在，空继续,存在不再写入数据
+    $arr2 = array();
+    if($intreturn == 0) {
+      $strsql = "SELECT worder_id FROM " . $GLOBALS['gdb']->fun_table2('worder') . " WHERE worder_code = '"
+      . $GLOBALS['gdb']->fun_escape($out_trade_no) . "' LIMIT 1";
+      $hresult = $GLOBALS['gdb']->fun_query($strsql);
+      $arr2 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+      if(!empty($arr2)) {
+        $intreturn = 4;
+      }
+    }
+    //写一条订单记录
+    /*if($intreturn == 0){
+      $strsql = "INSERT INTO " . $GLOBALS['gdb']->fun_table2('order_error') . " (order_error_type, order_error_json) VALUES (" . $intreturn . ", '" . $GLOBALS['gdb']->fun_escape($jsonstr)
+      . "')";
+      $GLOBALS['gdb']->fun_do($strsql);
+      $strid_error = $GLOBALS['gdb']->fun_insert_id();
+    }else{
+      $strid_error = 0;
+    }*/
+    //处理数据
+		if($intreturn == 0) {
+	    //查询购物车
+	    $deccart_money = 0;
+	    $arrcart = array();
+	    $strsql = "SELECT a.*,b.wgoods_name,b.wgoods_name2,b.wgoods_price,b.wgoods_cprice,b.wgoods_photo1,b.wgoods_photo2,b.wgoods_photo3,b.wgoods_photo4,b.wgoods_photo5 FROM (SELECT wcart_id, card_id, wgoods_id, wcart_wgoods_count, wcart_wgoods_state FROM "
+	    . $GLOBALS['gdb']->fun_table2('wcart') . " WHERE card_id = " . $intcard_id . " AND wcart_wgoods_state = 1) AS a LEFT JOIN "
+	    . $GLOBALS['gdb']->fun_table2('wgoods') . " AS b ON a.wgoods_id = b.wgoods_id ORDER BY a.wcart_id";
+	    $hresult = $GLOBALS['gdb']->fun_query($strsql);
+	    $arrcart = $GLOBALS['gdb']->fun_fetch_all($hresult);
+		  if(!empty($arrcart)){
+		  	foreach($arrcart as &$row){
+		  		$goodsinfo = laimi_wgoods_price($row['wgoods_id'], $row['wgoods_price'], $row['wgoods_cprice']);
+		  		$row['min_price'] = $goodsinfo['min_price'];
+		  		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
+		  		$row['photo'] = '';
+		  		for($i = 1; $i <= 5; $i++){
+		  			if($row['wgoods_photo'.$i] != ''){
+		  				$row['photo'] = $row['wgoods_photo'.$i];
+		  				break;
+		  			}
+		  		}
+		  		$deccart_money += $row['wcart_wgoods_count'] * $row['min_price'];
+		  	}
+		  	unset($row);
+  	    //查询订单客户的地址信息
+  	    $straddressname = '';
+  	    $straddressphone = '';
+  	    $straddresssheng = '';
+  	    $straddressshi = '';
+  	    $straddressdetail = '';
+  	    $strsql = "SELECT waddress_name, waddress_phone, waddress_sheng, waddress_shi, waddress_detail FROM "
+  	    . $GLOBALS['gdb']->fun_table2('waddress') . " WHERE waddress_id = " . api_value_int0($addressid) . " AND card_id = " . $intcard_id. " LIMIT 1";
+  	    $hresult = $GLOBALS['gdb']->fun_query($strsql);
+  	    $arraddress = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+  	    if(!empty($arraddress)){
+  	        $straddressname = $arraddress['waddress_name'];
+  	        $straddressphone = $arraddress['waddress_phone'];
+  	        $straddresssheng = $arraddress['waddress_sheng'];
+  	        $straddressshi = $arraddress['waddress_shi'];
+  	        $straddressdetail = $arraddress['waddress_detail'];
+  	    }
 
-	            
-	            //处理数据
-	        $arr3 = array();
-	        if($intreturn == 0) {
-	            $intdate = strtotime(date('Y-n-j'));//当日的购物车清单
-	            //查询购物车当天购物车
-	            $strsql = "SELECT a.*, b.goods_type, b.goods_name, b.goods_price, b.goods_discount_price, b.goods_discount_from, b.goods_discount_to, b.goods_discount_price2, "
-	            . "b.goods_discount_from2, b.goods_discount_to2 FROM (SELECT cart_id, goods_id, cart_goods_count, cart_goods_from, cart_goods_to FROM "
-	            . $GLOBALS['gdb']->fun_table('cart') . " WHERE client_id = " . $arr['client_id'] . " AND cart_date = " . $intdate . ") AS a LEFT JOIN "
-	            . $GLOBALS['gdb']->fun_table('goods') . " AS b ON a.goods_id = b.goods_id ORDER BY a.cart_id";
-	            
-	            $hresult = $GLOBALS['gdb']->fun_query($strsql);
-	            $arr2 = $GLOBALS['gdb']->fun_fetch_all($hresult);
-	           
-	            if(!empty($arr2)) {
-	                $decsum = 0;
-	                foreach($arr2 as $intkey => $row) {
-	                    $arr2[$intkey]['myprice'] = 0;
-	                    //discount 打折
+  	    //订单状态
+  	    $intworder_state = 1;
+  	    if(abs($deccart_money * 100 - $total_fee * 100) > 1) {
+  	      $intworder_state = 11;
+  	    }
+	      $intpay = 0;
+	      $intworder_from = 0;
+				if($pay_channel == 'ALI_WEB') {
+				    $intpay = 11;
+				} else if($pay_channel == 'ALI_WAP') {
+				    $intpay = 12;
+				} else if($pay_channel == 'WX_JSAPI') {
+				    $intpay = 21;
+				    $intworder_from = 1;
+				} else if($pay_channel == 'WX_NATIVE') {
+				    $intpay = 22;
+				}
+				$inttime = time();
+				//写入到订单表order
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder')." (card_id,worder_code,worder_money,worder_money2,worder_pay,worder_address_name,worder_address_phone,worder_address_detail,worder_get,worder_from,worder_state,worder_atime,c_card_type_id,c_card_type_name,c_card_name,c_card_phone) VALUES (".$arrcard['card_id'].",'".$out_trade_no."',".$deccart_money.",".$total_fee.",".$intpay.",'".$straddressname."','".$straddressphone."','".$straddressdetail."',".$worder_get.",".$intworder_from.",".$intworder_state.",".$inttime.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."','".$arrcard['card_name']."','".$arrcard['card_phone']."')";
+				$GLOBALS['gdb']->fun_do($strsql);
 
-	                    if($row['goods_discount_price'] == 0 && $row['goods_discount_price2'] == 0) {
-	                        $arr2[$intkey]['myprice'] = $row['goods_price'];//打折为零则为原价
-	                    } else {
-	                        if($row['goods_discount_price'] > 0 && $intdate >= $row['goods_discount_from'] && $intdate <= $row['goods_discount_to']) {
-	                            $arr2[$intkey]['myprice'] = $row['goods_discount_price'];//打折在期限内则为打折价格
-	                        } else if($row['goods_discount_price2'] > 0 && $intdate >= $row['goods_discount_from2'] && $intdate <= $row['goods_discount_to2']) {
-	                            $arr2[$intkey]['myprice'] = $row['goods_discount_price2'];
-	                        } else {
-	                            $arr2[$intkey]['myprice'] = $row['goods_price'];
-	                        }
-	                    }
-	                    $arr2[$intkey]['myall'] = 1;
-	                    if($row['goods_type'] == 1) {
-	                        //如果商品是每日送订，计算天数
-	                        $arr2[$intkey]['myall'] = api_value_int0(($row['cart_goods_to'] - $row['cart_goods_from']) / 86400 + 1);
-	                    }
-	                    $decsum = $decsum + $arr2[$intkey]['myprice'] * $row['cart_goods_count'] * $arr2[$intkey]['myall'];
-	                }
-
-	                //总价
-	                $decsum = api_value_decimal($decsum, 2);
-	                
-	                //查询订单客户的地址信息
-	                $straddressname = '';
-	                $straddressphone = '';
-	                $straddressshi = '';
-	                $straddressqu = '';
-	                $straddressdetail = '';
-	                $strsql = "SELECT client_address_id, client_address_name, client_address_phone, client_address_shi, client_address_qu, client_address_detail FROM "
-	                . $GLOBALS['gdb']->fun_table('client_address') . " WHERE client_address_id = " . api_value_int0($addressid) . " AND client_id = " . $arr['client_id']
-	                . " LIMIT 1";
-	                $hresult = $GLOBALS['gdb']->fun_query($strsql);
-	                $arr3 = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	                if(!empty($arr3)) {
-	                    $straddressname = $arr3['client_address_name'];
-	                    $straddressphone = $arr3['client_address_phone'];
-	                    if(!empty($GLOBALS['gaddress']['shi'][$arr3['client_address_shi']])) {
-	                        $straddressshi = $GLOBALS['gaddress']['shi'][$arr3['client_address_shi']]['name'];
-	                    }
-	                    if(!empty($GLOBALS['gaddress']['shi'][$arr3['client_address_shi']]['qu'][$arr3['client_address_qu']])) {
-	                        $straddressqu = $GLOBALS['gaddress']['shi'][$arr3['client_address_shi']]['qu'][$arr3['client_address_qu']]['name'];
-	                    }
-	                    $straddressdetail = $arr3['client_address_detail'];
-	                }
-
-	                //判断价格是否有误
-	                $inteflag = 0;
-	                if(abs($decsum * 100 - $total_fee*100) < 1) {
-	                    $inteflag = 1;
-	                } else {
-	                    $inteflag = 2;
-	                }
-	                
-	                //支付来源渠道'ALI_WEB'
-	                $intpay = 0;
-	                $intflag = 0;
-	                if($pay_channel == 'ALI_WEB') {
-	                    $intpay = 11;
-	                    $intflag = 1;
-	                } else if($pay_channel == 'ALI_WAP') {
-	                    $intpay = 12;
-	                    $intflag = 3;
-	                } else if($pay_channel == 'WX_JSAPI') {
-	                    $intpay = 21;
-	                    $intflag = 2;
-	                } else if($pay_channel == 'WX_NATIVE') {
-	                    $intpay = 22;
-	                    $intflag = 1;
-	                }
-	               
-	                
-
-	                /***********写入到订单表order***************/
-	                
-	                     $strsql = "INSERT INTO " . $GLOBALS['gdb']->fun_table('order') . " (client_id, order_code, order_money, order_money2, order_pay, order_address_name, "
-	                     . "order_address_phone, order_address_shi, order_address_qu, order_address_detail, order_flag, order_state, order_time, r_client_name, r_client_phone, "
-	                     . "r_client_qq, r_client_weixin, o_order_dflag, o_order_eflag) VALUES (" . $arr['client_id'] . ", '" . $GLOBALS['gdb']->fun_escape($out_trade_no)
-	                     . "', " . $decsum . ", " . api_value_decimal($total_fee, 2) . ", " . $intpay . ", '" . $GLOBALS['gdb']->fun_escape($straddressname) . "', '"
-	                     . $GLOBALS['gdb']->fun_escape($straddressphone) . "', '" . $GLOBALS['gdb']->fun_escape($straddressshi) . "', '" . $GLOBALS['gdb']->fun_escape($straddressqu) . "', '"
-	                     . $GLOBALS['gdb']->fun_escape($straddressdetail) . "', " . $intflag . ", 1, " . $inttime . ", '" . $GLOBALS['gdb']->fun_escape($arr['client_name']) . "', '"
-	                     . $GLOBALS['gdb']->fun_escape($arr['client_phone']) . "', '" . $GLOBALS['gdb']->fun_escape($arr['client_qq']) . "', '" . $GLOBALS['gdb']->fun_escape($arr['client_weixin']) . "', 1, "
-	                     . $inteflag . ")";
-	                     /**************************************************************************************************************更新订单异常记录*************************************************************/
-	                     if($strid_error!=0){
-	                        $strsql_error = "UPDATE " . $GLOBALS['gdb']->fun_table('order_error') . " SET order_error_sql = '" . $GLOBALS['gdb']->fun_escape($strsql) . "' WHERE order_error_id = " . $strid_error . " LIMIT 1";
-	                         $GLOBALS['gdb']->fun_do($strsql_error);
-	                     }
-	                     /**************************/
-	                     $GLOBALS['gdb']->fun_do($strsql);
-	                     $strid = $GLOBALS['gdb']->fun_insert_id();
-	                     
-
-	                     /*******写入order_goods表***********/
-
-	                     $strtype = '';
-	                     $strfrom = '';
-	                     $strto = '';
-	                     // arr2购物车信息+对应商品信息
-	                    foreach($arr2 as $intkey => $row) {
-	                         $strsql = "INSERT INTO " . $GLOBALS['gdb']->fun_table('order_goods') . " (client_id, order_id, goods_id, order_goods_type, order_goods_count, order_goods_price, "
-	                         . "order_goods_from, order_goods_to, order_goods_time, r_goods_name) VALUES (" . $arr['client_id']  . ", " . $strid . ", " . $row['goods_id'] . ", "
-	                         . $row['goods_type'] . ", " . $row['cart_goods_count'] . ", " . $row['myprice'] . ", " . $row['cart_goods_from'] . ", " . $row['cart_goods_to'] . ", "
-	                         . $inttime . ", '" . $GLOBALS['gdb']->fun_escape($row['goods_name']) . "')";
-	                        $GLOBALS['gdb']->fun_do($strsql);
-	                        if($row['goods_type'] == 1 && $strfrom == '' && $strto == '') {
-	                             $strfrom = date('Y-n-j', $row['cart_goods_from']);
-	                             $strto = date('Y-n-j', $row['cart_goods_to']);
-	                         }
-	                        if($strtype == '') {
-	                             $strtype = $row['goods_type'];
-	                        } else if($strtype == 1) {
-	                             if($row['goods_type'] == 2) {
-	                                $strtype = 11;
-	                            }
-	                        } else if($strtype == 2) {
-	                            if($row['goods_type'] == 1) {
-	                                $strtype = 11;
-	                            }
-	                        }
-	                   
-	                    }
-	                     //更新订单商品类型
-	                     $strsql = "UPDATE " . $GLOBALS['gdb']->fun_table('order') . " SET order_type = " . $strtype . " WHERE order_id = " . $strid . " LIMIT 1";
-	                     $GLOBALS['gdb']->fun_do($strsql);
-	                     //删除购物车
-	                     $strsql = "DELETE FROM " . $GLOBALS['gdb']->fun_table('cart') . " WHERE client_id = " . api_value_int0($strclientid);
-	                     $GLOBALS['gdb']->fun_do($strsql);
-	                     
-	                     $strmessage = '';
-	                     if($strtype == 1) {
-	                         $strmessage = '您的订单已受理，配送日期' . $strfrom . '至' . $strto . '，近日会有送奶员和您联系，总部热线：63188866。【阿新自由订】';
-	                     } else if($strtype == 2) {
-	                         $strmessage = '您的订单已受理，48小时内给您配送，总部热线：63188866。【阿新自由订】';
-	                     } else if($strtype == 11) {
-	                         $strmessage = '您的订单已受理，近日会有送奶员和您联系，总部热线：63188866。【阿新自由订】';
-	                     }
-	                     /*发送短信提醒*/
-	                     $hresult = curl_init();
-	                     curl_setopt($hresult, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json");
-	                     curl_setopt($hresult, CURLOPT_CONNECTTIMEOUT, 30);
-	                     curl_setopt($hresult, CURLOPT_RETURNTRANSFER, TRUE); 
-	                     curl_setopt($hresult, CURLOPT_HEADER, FALSE);
-	                     curl_setopt($hresult, CURLOPT_HTTPAUTH , CURLAUTH_BASIC);
-	                     curl_setopt($hresult, CURLOPT_USERPWD  , 'api:key-4e855fc4dc0a3ecec9251a4717990b3e');
-	                     curl_setopt($hresult, CURLOPT_POST, TRUE);
-	                     curl_setopt($hresult, CURLOPT_POSTFIELDS, array('mobile' => $arr['client_phone'], 'message' => $strmessage));
-	                     $hresource = curl_exec($hresult);
-	                     curl_close($hresult);
-	                     if($arr['client_phone'] != $straddressphone) {
-	                         $hresult = curl_init();
-	                         curl_setopt($hresult, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json");
-	                         curl_setopt($hresult, CURLOPT_CONNECTTIMEOUT, 30);
-	                         curl_setopt($hresult, CURLOPT_RETURNTRANSFER, TRUE); 
-	                         curl_setopt($hresult, CURLOPT_HEADER, FALSE);
-	                         curl_setopt($hresult, CURLOPT_HTTPAUTH , CURLAUTH_BASIC);
-	                         curl_setopt($hresult, CURLOPT_USERPWD  , 'api:key-4e855fc4dc0a3ecec9251a4717990b3e');
-	                         curl_setopt($hresult, CURLOPT_POST, TRUE);
-	                         curl_setopt($hresult, CURLOPT_POSTFIELDS, array('mobile' => $straddressphone, 'message' => $strmessage));
-	                         $hresource = curl_exec($hresult);
-	                         curl_close($hresult);
-	                     }
-	               
-	           
-	            }else{
-	                $intreturn = 1;
-	            }
-	        }    
+				$intworder_id = mysql_insert_id();
+				foreach($arrcart as $row2){
+					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder_goods')." (card_id,worder_id,worder_goods_count,worder_goods_price,worder_goods_state,worder_goods_atime,	c_wgoods_name,c_wgoods_photo1) VALUES (".$arrcard['card_id'].",".$intworder_id.",".$row2['wcart_wgoods_count'].",".$row2['min_price'].",".$intworder_state.",".$inttime.",'".$row2['wgoods_name']."','".$row2['photo']."')";
+					$GLOBALS['gdb']->fun_do($strsql);
+				}
+				//删除购物车
+				$strsql = "DELETE FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".$arrcard['card_id']." AND wcart_wgoods_state = 1";
+				$GLOBALS['gdb']->fun_do($strsql);
+		  }
+		}
 	}
+	return $intreturn;
 }

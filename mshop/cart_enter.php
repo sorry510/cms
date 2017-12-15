@@ -25,7 +25,7 @@ function get_cart_list(){
 		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
 		$row['photo'] = '';
 		for($i = 1; $i <= 5; $i++){
-			if($row['wgoods_photo'.$i] != 0){
+			if($row['wgoods_photo'.$i] != ''){
 				$row['photo'] = $row['wgoods_photo'.$i];
 				break;
 			}
@@ -50,7 +50,7 @@ function get_address(){
 
 function get_card_info(){
 	$arr = array();
-	$strsql = "SELECT s_card_ymoney FROM ".$GLOBALS['gdb']->fun_table2('card')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and card_state = 1 and (card_edate>".time()." or card_edate = 0)";
+	$strsql = "SELECT s_card_ymoney,card_phone FROM ".$GLOBALS['gdb']->fun_table2('card')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id'])." and card_state = 1 and (card_edate>".time()." or card_edate = 0)";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;

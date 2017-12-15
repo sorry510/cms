@@ -2,10 +2,11 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-// require('inc_limit.php');
 
 $strtype = api_value_get('type');
 $inttype = api_value_int0($strtype);
+$strcatalog_id = api_value_get('catalog_id');
+$intcatalog_id = api_value_int0($strcatalog_id);
 $strsize = api_value_get('size');
 $intsize = api_value_int0($strsize);
 $strname = api_value_get('name');
@@ -25,6 +26,9 @@ function goods_list(){
 
 	if($GLOBALS['inttype'] == 1){
 		$strwhere .= " and wgoods_commend = 1";
+	}
+	if($GLOBALS['intcatalog_id'] != 0){
+		$strwhere .= " and wgoods_catalog_id = ".$GLOBALS['intcatalog_id'];
 	}
 	if($GLOBALS['sqlname'] != ''){
 		$strwhere .= " and wgoods_name like '%".$GLOBALS['sqlname']."%'";
@@ -71,7 +75,7 @@ function goods_list(){
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 
-	$strsql = "SELECT wgoods_id,wgoods_name,wgoods_price,wgoods_cprice,wgoods_photo1,wgoods_photo2,wgoods_photo3,wgoods_photo4,wgoods_photo5 FROM " . $GLOBALS['gdb']->fun_table2('wgoods')." WHERE 1=1 ".$strwhere." ORDER BY wgoods_id desc LIMIT ". $intoffset . ", " . $intpagesize;
+	$strsql = "SELECT wgoods_id,wgoods_name,wgoods_name2,wgoods_price,wgoods_cprice,wgoods_photo1,wgoods_photo2,wgoods_photo3,wgoods_photo4,wgoods_photo5 FROM " . $GLOBALS['gdb']->fun_table2('wgoods')." WHERE 1=1 ".$strwhere." ORDER BY wgoods_id desc LIMIT ". $intoffset . ", " . $intpagesize;
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrgoods = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	foreach($arrgoods as &$row){
@@ -80,7 +84,7 @@ function goods_list(){
 		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
 		$row['photo'] = '';
 		for($i = 1; $i <= 5; $i++){
-			if($row['wgoods_photo'.$i] != 0){
+			if($row['wgoods_photo'.$i] != ''){
 				$row['photo'] = $row['wgoods_photo'.$i];
 				break;
 			}

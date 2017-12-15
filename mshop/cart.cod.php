@@ -235,10 +235,6 @@
 						mui.alert("网络不给力，请稍后重试！", "提示信息");
 					}
 				})
-			} else {
-				setTimeout(function() {
-					mui.swipeoutClose(li);
-				}, 0);
 			}
 		});
 	});

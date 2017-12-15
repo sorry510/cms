@@ -7,7 +7,7 @@
 		</span>
 		<span class="mui-tab-label">首页</span>
 	</a>
-	<a class="mui-tab-item laimi-href" href="#">
+	<a class="mui-tab-item laimi-href" href="./class.php">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-chanpinfenlei-xuanzhong"></use>

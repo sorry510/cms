@@ -11,8 +11,6 @@ $strcard_name = api_value_post('cardname');
 $sqlcard_name = $gdb->fun_escape($strcard_name);
 $strcard_birthday = api_value_post('birthday');
 $intcard_birthday_date = strtotime($strcard_birthday) ? strtotime($strcard_birthday) : 0;
-$strcard_password = api_value_post('password');
-$sqlcard_password = $gdb->fun_escape($strcard_password);
 
 $intreturn = 0;
 $intnow = time();
@@ -37,15 +35,12 @@ if(!empty($arrcard)){
 	if($arrcard['card_okey'] != $gdb->fun_escape($GLOBALS['_SESSION']['login_openid'])){
 		$intreturn = 1;
 	}
-	if(empty($sqlcard_password)){
-		$sqlcard_password = $arrcard['card_password'];
-	}
 }else{
 	$intreturn = 2;
 }
 
 if($intreturn == 0){
-	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET card_name = '".$sqlcard_name."',card_birthday_date=".$intcard_birthday_date.",card_birthday_month=".$intcard_birthday_month.",card_birthday_day=".$intcard_birthday_day.",card_password='".$sqlcard_password."',card_ctime=".$intnow." where card_id=".$intid." limit 1";
+	$strsql = "UPDATE ".$gdb->fun_table2('card')." SET card_name = '".$sqlcard_name."',card_birthday_date=".$intcard_birthday_date.",card_birthday_month=".$intcard_birthday_month.",card_birthday_day=".$intcard_birthday_day.",card_ctime=".$intnow." where card_id=".$intid." limit 1";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;

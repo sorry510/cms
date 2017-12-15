@@ -6,6 +6,7 @@
     <title></title>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/laimi.css" rel="stylesheet"/>
+    <script src="js/layer.js"></script>
 </head>
 <body id="laimi-body">
 <header class="mui-bar mui-bar-nav">
@@ -85,12 +86,12 @@
 		    <a href="javascript:;" class="mui-navigate-right">
 		    <?php if($this->_data['card_info']){ ?>
           <span class="mui-badge mui-badge-inverted" style="margin-right:80px;">
-          	<input class="laimi-paytype" name="paytype" type="radio" value="33" <?php if($this->_data["card_info"]["s_card_ymoney"] - $GLOBALS["cart_money"] < 0) echo "disabled"; ?> />
+          	<input class="laimi-paytype" name="paytype" type="radio" value="1" <?php if($this->_data["card_info"]["s_card_ymoney"] - $GLOBALS["cart_money"] < 0) echo "disabled"; ?> />
           	会员卡余额（¥<?php echo $this->_data['card_info']['s_card_ymoney']; ?>）&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
         <?php } ?>
           <span class="mui-badge mui-badge-inverted">
-          	<input class="laimi-paytype" name="paytype" type="radio" value="21" checked />
+          	<input class="laimi-paytype" name="paytype" type="radio" value="2" checked />
           	微信支付
           </span>
           	付款方式
@@ -98,9 +99,6 @@
 	    </li>
 		</ul>
 	</div>
-	<form id="wx_pay" method="get" action="jsapi.php">
-		<input class="addressid" type="hidden" name="address" value="<?php if($address) echo $address['waddress_id']; else echo 0; ?>" />
-	</form>
 </div>
 <script src="./js/mui.min.js"></script>
 <script src="js/iconfont.js"></script>
@@ -117,12 +115,18 @@
   });
   mui('body').on('tap', 'a', function(){document.location.href=this.href;});//mui阻止href跳转，模拟一下
   mui('.laimi-address')[0].addEventListener('tap', function() {
-  	window.location.href = './address.html';
+  	window.location.href = './address.php';
   });
   mui('.laimi-pay')[0].addEventListener('tap', function() {
+  	var phone = "<?php echo $this->_data['card_info']['card_phone']; ?>" || '';
+  	if(phone == ''){
+  	  show();
+  	  return false;
+  	}
   	var paytype = getRadioRes('laimi-paytype');
   	var gettype = getRadioRes('laimi-gettype');
-  	if(mui('.addressid')[0].value == 0 || mui('.addressid')[0].value == ''){
+  	var address = <?php if($address) echo $address['waddress_id']; else echo 0; ?>;
+  	if(address ==  0){
   		mui.alert("请选择一个地址！", "提示信息");
   		return false;
   	}
@@ -140,12 +144,13 @@
 					window.location = "cart_regist.php";
 				} else if(jsondata.msg == "200") {
 					if(jsondata.money - <?php echo $GLOBALS["cart_money"]; ?> < 0.01){
-						if(paytype == 21){
+						if(paytype == 2){
 							if(intuseragent == 1){
 								//微信支付
-								document.getElementById("wx_pay").submit();
+								window.location.href = "jsapi.php?gettype="+gettype+"&address="+address;
+								// document.getElementById("wx_pay").submit();
 							}
-						}else if(paytype == 33){
+						}else if(paytype == 1){
 
 						}
 					}else{
@@ -162,6 +167,89 @@
 			}
 		});
   });
+  mui('body').on('tap', '.laimi-valid', function(){
+    var _this = this;
+    var maxtime = 60;
+    var phone = mui('.laimi-tel')[0].value;
+    if(!isPhone(phone)){
+      alert('请填写正确的手机号码');
+      return false;
+    }
+    // 获取验证码
+    _this.disabled = true;
+    _this.innerHTML = maxtime+'秒后重试';
+    var time = setInterval(function() {
+      maxtime--;
+      _this.innerHTML = maxtime+'秒后重试';
+      if(maxtime <= 0){
+        clearInterval(time);
+        _this.innerHTML = '获取验证码';
+        _this.disabled = false;
+      }
+    }, 1000);
+    
+    mui.post('phone_sms_ajax.php', {phone: phone}, function(res){
+      if(res == 0){
+        alert('短信已发出请及时接收');
+      }else if(res=='2'){
+        alert('短信余额已不足');
+      }else{
+        alert('异常错误');
+      }
+    });
+  });
+  mui('body').on('tap', '.laimi-btn-phone', function(){
+    var phone = mui('.laimi-tel')[0].value || '';
+    var verify = mui('.laimi-verify')[0].value || '';
+    if(phone == '' || verify == ''){
+      return false;
+    }
+    mui.ajax({
+      url: 'phone_bind_ajax.php',
+      data: {
+        phone: phone,
+        verify: verify
+      },
+      dataType:"text",
+      type:"post",
+      timeout:5000,
+      success: function(res){
+        if(res == 0){
+          alert('绑定成功');
+          window.location.reload();
+        }else if(res == 1){
+          alert('验证码错误');
+        }else if(res == 2){
+          alert('验证码超时');
+        }else if(res == 3){
+          alert('没有此用户');
+        }else if(res == 4){
+          alert('您已经绑定过了');
+        }else{
+          alert('绑定失败');
+        }
+      },
+      error: function(xhr, type, errorThrown){
+        mui.alert("网络不给力，请稍后重试！", "提示信息");
+      }
+    })
+  })
+  function show() { //信息框
+    layer.open({
+      title: ['绑定手机号','background-color:#0162CB; color:#ffffff; height:36px; margin-top:0px;line-height:36px;'],
+      Boolean: 'true',
+        content: '<div style=text-align:left;><input class="laimi-tel" type="text" placeholder="手机号码" style="font-size:14px; width:160px;height:28px;padding:3px;padding-left:10px;"/></div><div style=text-align:left;><input type="text" class="laimi-verify" placeholder="验证码" style="font-size:14px; width:80px;height:28px;padding:3px;padding-left:10px;"/>&nbsp;&nbsp;<button type="button" class="mui-btn mui-btn-warning laimi-valid" style="padding:7px 8px;font-size:14px;">获取验证码</button></div><div style=text-align:left;margin-right:16px;><button type="button" class="mui-btn mui-btn-primary mui-btn-block laimi-btn-phone" style="font-size:14px;padding:8px;width:100%;">绑定手机号</button></div>',
+        style: 'width:80%; height:auto;'
+      });
+  }
+  function isPhone(phone) {
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (!myreg.test(phone)) {
+        return false;
+    } else {
+        return true;
+    }
+  }
   function getRadioRes(className){
     var rdsObj = document.getElementsByClassName(className);
     var checkVal = null;

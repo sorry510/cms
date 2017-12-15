@@ -12,7 +12,7 @@ if(laimi_config_trade()['wsc_module'] != 1){
 }
 
 $arrwshop = laimi_config_wshop();
-$arrwpay = laimi_config_wpay();
+$arrwpay = laimi_config_wpay(api_value_int0($GLOBALS['_SESSION']['login_cid']));
  //echo json_encode($arrwshop);exit;
 $gtemplate->fun_assign('system_config_wshop', $arrwshop);
 $gtemplate->fun_assign('system_config_wpay', $arrwpay);

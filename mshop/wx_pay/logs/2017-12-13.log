@@ -1,2 +1,0 @@
-[2017-12-13 14:08:30][debug] begin notify
-[2017-12-13 14:08:30][debug] call back:{"appid":"wxbeda5ab3d65c0ab1","attach":"{\"address\":0}","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244649802","nonce_str":"mmco1si6sstkria6smqjxgz1rur7qodk","openid":"oC8-sjl_agIH6gB9WvpOdf_jiDow","out_trade_no":"abcd35T1513145305","result_code":"SUCCESS","return_code":"SUCCESS","sign":"584F0E5A49C17D7272A331197DD0ACD8","time_end":"20171213140829","total_fee":"1","trade_type":"JSAPI","transaction_id":"4200000017201712133290813612"}

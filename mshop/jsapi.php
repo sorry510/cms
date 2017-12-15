@@ -2,27 +2,31 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-$arrwpay = laimi_config_wpay();
-
-require_once "wx_pay/WxPay.Api.php";
+$arrwpay = laimi_config_wpay(api_value_int0($GLOBALS['_SESSION']['login_cid']));
+require_once "wx_pay/lib/WxPay.Api.php";
 require_once "wx_pay/WxPay.JsApiPay.php";
 
 //接收数据,openid是get接收，保持一致用get
 $straddress = api_value_get('address');
 $intaddress = api_value_int0($straddress);
+$strgettype = api_value_get('gettype');
+$intgettype = api_value_int0($strgettype);
 /*$strtotal_fee = api_value_get('total_fee');
 $inttotal_fee = api_value_int1($strtotal_fee);*/
 
 $arrattach = array(
-	'address' => $intaddress
+	'address' => $intaddress,
+	'paytype' => 'WX_JSAPI',
+	'worder_get' => $intgettype,
+	'cid' => api_value_int0($GLOBALS['_SESSION']['login_cid'])
 	);
 //①、获取用户openid
 $tools = new JsApiPay();
 $openId = $tools->GetOpenid();
 
-$strbody = '我的世界';
+$strbody = '订单信息';
 $strattach = json_encode($arrattach);
-$strout_trade_no = 'abcd' . api_value_int0($GLOBALS['_SESSION']['login_id']) . 'T' . time();//订单号，需要保证唯一性
+$strout_trade_no = api_value_int0($GLOBALS['_SESSION']['login_id']) . 'T' . time();//订单号，需要保证唯一性
 // $inttotal_fee = laimi_wgoods_allprice();
 $inttotal_fee = 1;//测试的1分钱
 

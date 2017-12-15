@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/iconfont.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/laimi.css" rel="stylesheet"/> 
+    <link rel="stylesheet" href="css/layer.css" media="all">
+    <script src="js/layer.js"></script>
+</head>
+<body id="laimi-body">
+<div id="laimi-content" class="mui-content">
+	<div class="mui-card" style="border-radius:6px; height:200px; background-color:#0162CB; margin-bottom:0px;">
+		<div class="mui-card-header laimi-card-header2" style="color:#75A6F2;font-size:14px;">某某瑜伽馆VIP会员卡</div>
+		<div style="margin-top:120px; margin-right:15px; font-family:'Segoe UI'; color:#FFFFFF; text-align:right; font-size:14px;">NO. 10001136238</div>
+	</div>
+	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
+		<li class="mui-table-view-cell">				
+			<a class="mui-navigate-right">									
+				会员专享
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-disabled">
+			<div class="mui-row">
+				<div class="mui-col-sm-3" style="width:25%;text-align:center;">
+		        	<a href="shop.html">
+		        	<svg class="laimi-icon3" aria-hidden="true">
+					    <use xlink:href="#icon-shangchengdingdanguanli"></use>
+					</svg><br><span style="font-size:12px;color:#555555;">微商城</span>
+					</a>
+		        </div>
+		        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
+		        	<a href="cnter_shop.html">
+		        	<svg class="laimi-icon3" aria-hidden="true">
+					    <use xlink:href="#icon-yuyue-"></use>
+					</svg><br><span style="font-size:12px;color:#555555;">微信预约</span>
+					</a>
+		        </div>
+		        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
+		        	<a href="cnter_shop_coupon.html">
+		        	<svg class="laimi-icon3" aria-hidden="true">
+					    <use xlink:href="#icon-youhuiquan2"></use>
+					</svg><br><span style="font-size:12px;color:#555555;">优惠券</span>
+					</a>
+		        </div>
+		        <div class="mui-col-sm-3" style="width:25%;text-align:center;">
+		        	<a href="cnter_shop_record.html">
+		        	<svg class="laimi-icon3" aria-hidden="true">
+					    <use xlink:href="#icon-yuyuejilu"></use>
+					</svg><br><span style="font-size:12px;color:#555555;">消费记录</span>
+					</a>
+		        </div>
+		    </div>
+		</li>
+	</ul>
+	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
+		<li class="mui-table-view-cell">				
+			<a class="mui-navigate-right" href="javascript:;" onclick="show()">
+				<svg class="laimi-icon" aria-hidden="true">
+				    <use xlink:href="#icon-zijinlicai"></use>
+				</svg>
+				<span class="mui-badge mui-badge-danger mui-badge-inverted" style="font-size:14px;font-family:'Segoe UI';">¥150.00</span>					
+				会员卡余额
+			</a>
+		</li>
+		<li class="mui-table-view-cell">				
+			<a class="mui-navigate-right" href="cnter_shop_card.html">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-goumai"></use>
+				</svg>
+				<span class="mui-badge mui-badge-danger">2</span>					
+				会员卡套餐
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_coupon.html" class="mui-navigate-right">
+				<svg class="laimi-icon" aria-hidden="true">
+				    <use xlink:href="#icon-youhuiquan"></use>
+				</svg>
+				<span class="mui-badge mui-badge-danger">3</span>
+				我的优惠券
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<svg class="laimi-icon" aria-hidden="true">
+				    <use xlink:href="#icon-jinbi"></use>
+				</svg>
+				<span class="mui-badge mui-badge-inverted" style="font-size:14px;">0</span>		
+				我的积分
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_myappointment.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-Group"></use>
+				</svg>
+				我的预约
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_record.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-shangchengdingdanguanli"></use>
+				</svg>
+				消费记录
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_my.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-wode"></use>
+				</svg>
+				会员信息
+			</a>
+		</li>
+	</ul>
+	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_order.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-goumai1"></use>
+				</svg>
+				商城订单
+			</a>
+		</li>			
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_address.html" class="mui-navigate-right">
+				<svg class="laimi-icon" aria-hidden="true">
+				    <use xlink:href="#icon-guiji"></use>
+				</svg>
+				收货地址
+			</a>
+		</li>
+	</ul>		
+	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-footer-commission"></use>
+				</svg>
+				<span class="mui-badge mui-badge-danger mui-badge-inverted" style="font-size:14px;font-family:'Segoe UI';">¥150.00</span>
+				我的佣金
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_agent_money.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-tixian1"></use>
+				</svg>
+				提现记录
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="cnter_shop_agent_order.html" class="mui-navigate-right">
+				<svg class="laimi-icon2" aria-hidden="true">
+				    <use xlink:href="#icon-wendang"></use>
+				</svg>
+				客户订单
+			</a>
+		</li>
+	</ul>
+</div>
+<script>
+    function show() { //信息框
+        layer.open({
+        	title: ['绑定手机号','background-color:#0162CB; color:#ffffff; height:36px; margin-top:0px;line-height:36px;'],
+        	Boolean: 'true',
+            content: '<div style=text-align:left;><input type="text" placeholder="手机号码" style="font-size:14px; width:160px;height:28px;padding:3px;padding-left:10px;"/></div><div style=text-align:left;><input type="text"  placeholder="验证码" style="font-size:14px; width:80px;height:28px;padding:3px;padding-left:10px;"/>&nbsp;&nbsp;<button type="button" class="mui-btn mui-btn-warning" style="padding:7px 8px;font-size:14px;">获取验证码</button></div><div style=text-align:left;margin-right:16px;><button type="button" class="mui-btn mui-btn-primary mui-btn-block" style="font-size:14px;padding:8px;width:100%;">绑定手机号</button></div>',
+            style: 'width:80%; height:auto;'
+    	});
+     }
+</script>
+</body>
+</html>

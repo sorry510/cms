@@ -21,7 +21,7 @@ function get_cart_list(){
 		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
 		$row['photo'] = '';
 		for($i = 1; $i <= 5; $i++){
-			if($row['wgoods_photo'.$i] != 0){
+			if($row['wgoods_photo'.$i] != ''){
 				$row['photo'] = $row['wgoods_photo'.$i];
 				break;
 			}

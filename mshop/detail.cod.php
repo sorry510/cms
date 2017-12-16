@@ -30,7 +30,7 @@
 		</span>
 		<span class="mui-tab-label laimi-font10">400-6238860</span>
 	</a>
-	<a class="mui-tab-item" href="#tabbar-with-contact">
+	<a class="mui-tab-item" href="cart.php">
 		<span class="mui-icon" id="container">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:15px;">
 			   <use xlink:href="#icon-gouwuche-copy"></use>
@@ -174,11 +174,12 @@
 		        </div>
 		    </li>
 		</ul>
-	</div>
+	</div>	
 </div>
 <script src="./js/mui.min.js"></script>
 <script type="text/javascript" charset="utf-8">
   mui.init();
+  mui('body').on('tap', 'a', function(){document.location.href=this.href;});
   mui("#slider").slider({
 		interval: 3000
 	});
@@ -200,7 +201,7 @@
 			},
 			dataType:'text',//服务器返回json格式数据
 			type:'post',//HTTP请求类型
-			timeout:5000,//超时时间设置为10秒；	              
+			timeout:5000,//超时时间设置为10秒；
 			success:function(res){
 				if (res == 0) {
 					mui.alert('添加购物车成功');
@@ -218,6 +219,8 @@
 							mui('.laimi-cart')[0].innerHTML = parseInt(mui('.laimi-cart')[0].innerHTML) + parseInt(mui('.laimi-count')[0].value);
 						}
 					}
+				}else if(res == 3){
+					mui.alert('商品已下架');
 				}else{
 					mui.alert('添加购物车失败');
 				}

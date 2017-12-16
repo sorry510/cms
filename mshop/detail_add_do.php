@@ -17,12 +17,21 @@ if ($intreturn == 0) {
 	}
 }
 
-if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('wcart') . " (card_id, wgoods_id, wcart_wgoods_count, wcart_wgoods_state,wcart_time) VALUES (". api_value_int0($GLOBALS['_SESSION']['login_id']) . ", " . $intid . ", ". $intcount ." , 1 ,".time()." )";
+if ($intreturn == 0) {
+	$strsql = " SELECT wgoods_id FROM " . $GLOBALS['gdb']->fun_table2('wgoods') ." WHERE wgoods_id = " . $GLOBALS['intid'] ." AND wgoods_state = 1";
 
-	$hresult = $gdb->fun_do($strsql);
-	if($hresult == FALSE) {
-		$intreturn = 2;
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+
+	if ($arr) {
+		$strsql = "INSERT INTO " . $gdb->fun_table2('wcart') . " (card_id, wgoods_id, wcart_wgoods_count, wcart_wgoods_state,wcart_time) VALUES (". api_value_int0($GLOBALS['_SESSION']['login_id']) . ", " . $intid . ", ". $intcount ." , 1 ,".time()." )";
+
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 2;
+		}
+	}else{
+		$intreturn = 3;
 	}
 }
 

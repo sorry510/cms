@@ -15,6 +15,8 @@ $strymoney = api_value_post('ymoney');//各种优惠后
 $decymoney = api_value_decimal($strymoney, 2);
 $strsmoney = api_value_post('smoney');//实际付款价
 $decsmoney = api_value_decimal($strsmoney, 2);
+$strmmoney = api_value_post('decrease_money');//满减活动
+$decmmoney = api_value_decimal($strmmoney, 2);
 $strjmoney = api_value_post('jmoney');//手动优惠
 $decjmoney = api_value_decimal($strjmoney, 2);
 $strpay_type = api_value_post('pay_type');
@@ -265,9 +267,10 @@ if($intreturn == 0){
 }
 //消费商品遍历,记录card_record3_goods,记录库存出库,记录提成
 if($intreturn == 0 && !empty($arrinfo)){
+	$arract_discount = array();
 	foreach($arrinfo as $row){
 		//记录打折活动id
-		if(array_key_exists("act_discount_id",$row)){
+		if(array_key_exists("act_discount_id", $row)){
 			if($row['act_discount_id'] != '0'){
 				$arract_discount[] = $row['act_discount_id'];
 			}

@@ -14,6 +14,7 @@ $inttime = time();
 
 $gtemplate->fun_assign('detail', get_detail());
 $gtemplate->fun_assign('cart', get_cart());
+$gtemplate->fun_assign('wx_share', get_wx_share());
 $gtemplate->fun_show('detail');
 
 function get_detail(){
@@ -71,6 +72,35 @@ function get_cart(){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 
+	return $arr;
+}
+
+function get_wx_share() {
+	$inttime = time();
+	
+	$arr = array();
+	$arr_weixin = laimi_config_weixin();
+	$arr['appid'] = $arr_weixin['appid'];
+	$arr['timestamp'] = $inttime;
+	$arr['nonceStr'] = 'test.axin.cc';
+	$arr['signature'] = '';
+	
+	$strticket = '';
+
+	$strtoken = '';
+
+	$strjson = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $arr_weixin['appid']
+	. '&secret=' . $arr_weixin['appsecret']); 
+
+	$objjson = json_decode($strjson);
+	$strtoken = $objjson->access_token;
+	$strjson = api_value_https('https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' . $strtoken . '&type=jsapi');
+	$objjson = json_decode($strjson);
+	$strticket = $objjson->ticket;
+	
+	$arr['signature'] = sha1('jsapi_ticket=' . $strticket . '&noncestr=' . $arr['nonceStr'] . '&timestamp=' . $arr['timestamp']
+	. '&url='.$GLOBALS['gconfig']['project']['url_mobile'].'/detail.php?id=' . $GLOBALS['intid']);
+	
 	return $arr;
 }
 

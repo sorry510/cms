@@ -192,8 +192,8 @@
 		  var url="mcombo_add_do.php";
 		  var arr = [];
 		  $("#laimi-mcombo .laimi-mcombo input[name='mgoods_id[]']:checked").each(function(){
-		    var json = {'mgoods_id':$(this).val(),'number':0};
-		    arr.push(json); 
+		    var json = {'mgoods_id':$(this).val(),'number':1};
+		    arr.push(json);
 		  });
 
 		  if (arr.length == 0) {

@@ -81,6 +81,7 @@
 							span.innerHTML = "默认地址";
 							span.setAttribute('class','laimi-font10 laimi-state');
 							son.appendChild(span);
+							window.location.href = 'cart_enter.php';
 						}else{
 							mui.alert('设置失败');
 						}

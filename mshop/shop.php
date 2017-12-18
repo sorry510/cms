@@ -9,6 +9,8 @@ $GLOBALS['_SESSION']['login_code'] = 'am';
 $GLOBALS['_SESSION']['login_cid'] = 1;
 $GLOBALS['_SESSION']['login_sid'] = 0;
 $GLOBALS['_SESSION']['login_openid'] = '111';
+$strchannel = "shop";
+
 $gsession->fun_update();
 $gdb->pub_prefix2 = laimi_prefix2_value();
 

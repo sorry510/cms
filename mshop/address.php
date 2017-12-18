@@ -16,7 +16,6 @@ $gtemplate->fun_show('address');
 function get_waddress(){
 	$arr = array();
 	$strsql = "SELECT waddress_id , waddress_name, waddress_phone,waddress_detail,waddress_state FROM " . $GLOBALS['gdb']->fun_table2('waddress') . " WHERE card_id = ". $GLOBALS['_SESSION']['login_id'];
-
 	//echo $strsql;exit();
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 

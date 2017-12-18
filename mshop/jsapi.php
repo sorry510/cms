@@ -27,7 +27,7 @@ $openId = $tools->GetOpenid();
 $strbody = '订单信息';
 $strattach = json_encode($arrattach);
 $strout_trade_no = api_value_int0($GLOBALS['_SESSION']['login_id']) . 'T' . time();//订单号，需要保证唯一性
-// $inttotal_fee = laimi_wgoods_allprice();
+// $inttotal_fee = laimi_wgoods_allprice() * 100;
 $inttotal_fee = 1;//测试的1分钱
 
 //②、统一下单

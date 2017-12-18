@@ -13,7 +13,7 @@ $gtemplate->fun_show('center_shop_myappointment');
 
 function get_reserve(){
 	$arr = array();
-	$strsql = "SELECT reserve_id,reserve_atime,reserve_count,reserve_here,reserve_state,reserve_type,reserve_dtime FROM " . $GLOBALS['gdb']->fun_table2('reserve') ." WHERE card_id = " .api_value_int0($GLOBALS['_SESSION']['login_id']);
+	$strsql = "SELECT reserve_id,reserve_atime,reserve_count,reserve_here,reserve_state,reserve_type,reserve_dtime FROM " . $GLOBALS['gdb']->fun_table2('reserve') ." WHERE card_id = " .api_value_int0($GLOBALS['_SESSION']['login_id']) ." ORDER BY reserve_atime DESC";
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

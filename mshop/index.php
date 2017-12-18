@@ -6,6 +6,7 @@ require(C_ROOT . '/_include/inc_init.php');
 $GLOBALS['_SESSION']['login_openid'] = '111';
 // $GLOBALS['_SESSION']['login_cid'] = 1;0
 // $gdb->pub_prefix2 = 'am_0001_';
+$strchannel = "index";
 
 $sqlopen_id = $gdb->fun_escape($GLOBALS['_SESSION']['login_openid']);
 

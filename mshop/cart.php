@@ -6,6 +6,8 @@ require(C_ROOT . '/_include/inc_init.php');
 $cart_count = 0;
 $cart_money = 0;
 
+$strchannel = "cart";
+
 $gtemplate->fun_assign('cart_list', get_cart_list());
 $gtemplate->fun_show('cart');
 

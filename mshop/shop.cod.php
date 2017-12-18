@@ -81,13 +81,13 @@
 		</div>
 		<div class="mui-row" style="margin-top:6px;background-color:#FFFFFF;">
 			<div class="mui-col-sm-3" style="width:25%;padding:10px;">
-	      <a href="class.php">
+	      <a href="list.php">
 	      	<div style="margin:0 auto; background-color:#009688;height:43px;width:43px;border-radius:30px;text-align:center;">
 	      		<svg class="laimi-icon3" aria-hidden="true" style="color:#FFFFFF;margin-top:7px;">
 				    <use xlink:href="#icon-fenlei1"></use>
 						</svg>
 	        </div>
-	        <div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">全部分类</div>
+	        <div style="font-size:12px;color:#555555;line-height:24px; text-align:center;">全部商品</div>
 				</a>
 	    </div>
 	    <div class="mui-col-sm-3" style="width:25%;padding:10px;">

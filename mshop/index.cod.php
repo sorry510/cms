@@ -10,6 +10,7 @@
     <script src="js/iconfont.js"></script>
 </head>
 <body id="laimi-body">
+<?php echo $this->fun_fetch('inc_foot', ''); ?>
 <div id="laimi-content" class="mui-content">
 	<div class="mui-card" style="border-radius:6px; height:200px; background-color:#0162CB; margin-bottom:0px;">
 		<div class="mui-card-header laimi-card-header2" style="color:#75A6F2;font-size:14px;"><?php echo $this->_data['card_info']['c_card_type_name']; ?></div>
@@ -168,4 +169,8 @@
 	</ul>
 </div>
 </body>
+<script type="text/javascript">
+	mui.init();
+	mui('body').on('tap', 'a', function(){document.location.href=this.href;});//mui阻止href跳转，模拟一下
+</script>
 </html>

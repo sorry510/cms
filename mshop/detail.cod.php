@@ -7,28 +7,26 @@
     <script src="js/iconfont.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/laimi.css" rel="stylesheet"/>
+    <style type="text/css">
+			#lami-img-max img{width: 100%;}
+    </style>
 </head>
 <body id="laimi-body">
 <header class="mui-bar mui-bar-nav">
-	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:;"></a>
 	<h1 class="mui-title laimi-font14">商品详细</h1>
-	<a class="mui-pull-right laimi-font14">
-		<svg class="laimi-icon5" aria-hidden="true" style="margin-top:12px;color:#AAAAAA;">
-		    <use xlink:href="#icon-fenxiang"></use>
-		</svg>
-	</a>
 </header>
 <nav class="mui-bar mui-bar-tab">
 	<a class="mui-tab-item mui-active" href="#tabbar" style="width:2%;">
 		<span class="mui-tab-label laimi-font16" style="color:#CF2D28;margin-left:5px;">¥<span class="laimi-price" style="font-weight:bold;font-size:22px;color:#CF2D28;"><?php echo $this->_data['detail']['min_price'];?></span></span>
 	</a>
-	<a class="mui-tab-item" href="#tabbar-with-chat" style="border-right:1px solid #EFEFF4;border-left:1px solid #EFEFF4;">
+	<a id="telephone" class="mui-tab-item" href="#tabbar-with-chat" style="border-right:1px solid #EFEFF4;border-left:1px solid #EFEFF4;">
 		<span class="mui-icon">
 			<svg class="laimi-icon5" aria-hidden="true" style="height:15px;">
 			    <use xlink:href="#icon-renzhengicondianhua"></use>
 			</svg>
 		</span>
-		<span class="mui-tab-label laimi-font10">400-6238860</span>
+		<span class="mui-tab-label laimi-font10">电话</span>
 	</a>
 	<a class="mui-tab-item" href="cart.php">
 		<span class="mui-icon" id="container">
@@ -41,7 +39,7 @@
 		</span>
 		<span class="mui-tab-label laimi-font10">购物车</span>
 	</a>
-	<a class="mui-tab-item laimi-add" style="background-color:#CF2D28;width:2.2%;">
+	<a class="mui-tab-item laimi-add" href="javascript:;" style="background-color:#CF2D28;width:2.2%;">
 		<span class="laimi-color-white laimi-font16">加入购物车</span>
 	</a>
 </nav>
@@ -50,34 +48,33 @@
 		<div class="mui-slider-group mui-slider-loop">
 			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 			<div class="mui-slider-item mui-slider-item-duplicate">
-				<a href="#">
+				<a href="javascript:;">
 					<img src="read_image.php?c=<?php echo $GLOBALS["_SESSION"]["login_cid"];?>&type=wgoods&image=<?php echo $this->_data['detail']['photo'][0];?>">
 				</a>
 			</div>
 			<!-- 第一张 -->
 			<?php foreach($this->_data['detail']['photo'] as $row) { ?>
 			<div class="mui-slider-item">
-				<a href="#">
+				<a href="javascript:;">
 					<img src="read_image.php?c=<?php echo $GLOBALS["_SESSION"]["login_cid"];?>&type=wgoods&image=<?php echo $row;?>">
 				</a>
 			</div>
 			<?php };?>
 			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 			<div class="mui-slider-item mui-slider-item-duplicate">
-				<a href="#">
+				<a href="javascript:;">
 					<img src="read_image.php?c=<?php echo $GLOBALS["_SESSION"]["login_cid"];?>&type=wgoods&image=<?php echo $this->_data['detail']['photo'][0];?>">
 				</a>
 			</div>
 		</div>
 		<div class="mui-slider-indicator">
-			<div class="mui-indicator mui-active"></div>
+			<?php foreach($this->_data['detail']['photo'] as $row) { ?>
 			<div class="mui-indicator"></div>
-			<div class="mui-indicator"></div>
-			<div class="mui-indicator"></div>
+			<?php };?>
 		</div>
 	</div>
 	<div class="mui-card" style="margin:0px;padding:12px;">
-		<a href="detail.html">
+		<a href="javascript:;">
 			<div class="mui-media-body laimi-font16" style="white-space:normal; line-height:26px;">
 				<?php echo $this->_data['detail']['wgoods_name'];?>
 				<div class='laimi-font12 laimi-color-gray'><?php echo $this->_data['detail']['wgoods_name2'];?></div>
@@ -96,7 +93,7 @@
 	<div class="mui-card" style="margin:0px;margin-top:6px;">
 		<ul class="mui-table-view laimi-font12 laimi-color-gray">
 			<li class="mui-table-view-cell laimi-code">
-		        <a class="mui-navigate-right">数量：
+		        <a class="mui-navigate-right" href="javascript:;">数量：
 		        	<div class="mui-numbox laimi-font12" data-numbox-min='1' data-numbox-max='1000' style="width:120px;height:26px;">
 					<button class="mui-btn-numbox-minus" type="button">-</button>
 					<input class="mui-input-numbox laimi-font14 laimi-count" type="number" />
@@ -106,7 +103,7 @@
 		    </li>
 		    <?php if ($this->_data['detail']['min_price'] != $this->_data['detail']['wgoods_price'] && $this->_data['detail']['min_price'] != $this->_data['detail']['wgoods_cprice']) { ?>
 		    <li class="mui-table-view-cell">
-		        <a class="mui-navigate-right">限时打折：<?php echo $this->_data['detail']['act_name'];?></a>
+		        <a class="mui-navigate-right" href="javascript:;">限时打折：<?php echo $this->_data['detail']['act_name'];?></a>
 		    </li>
 		    <?php };?>
 		    <li class="mui-table-view-cell">
@@ -128,17 +125,17 @@
 	<div class="mui-card" style="margin:0px;margin-top:6px;">
 		<ul class="mui-table-view">
 		    <li class="mui-table-view-cell">
-		        <a class="mui-navigate-right">商品详情</a>
+		        <a class="mui-navigate-right" href="javascript:;">商品详情</a>
 		    </li>
-		    <li class="mui-table-view-cell">
-		        <?php echo $this->_data['detail']['wgoods_content'];?>
+		    <li class="mui-table-view-cell" id="lami-img-max">
+		      <?php echo $this->_data['detail']['wgoods_content'];?>
 		    </li>
 		</ul>
 	</div>
 	<div class="mui-card" style="margin:0px;margin-top:6px;">
 		<ul class="mui-table-view">
 		    <li class="mui-table-view-cell">
-		        <a class="mui-navigate-right" class="laimi-color-gray">用户评价（12）</a>
+		        <a class="mui-navigate-right" class="laimi-color-gray" href="javascript:;">用户评价（12）</a>
 		        <span class="mui-badge mui-badge-inverted" style="margin-right:10px;">好评度&nbsp;<span style="color:#FF0000;">100%</span></span>
 		    </li>
 		    <li class="mui-table-view-cell">
@@ -177,6 +174,7 @@
 	</div>	
 </div>
 <script src="./js/mui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" charset="utf-8">
   mui.init();
   mui('body').on('tap', 'a', function(){document.location.href=this.href;});
@@ -231,6 +229,47 @@
 			}
 		});
   })
+  document.getElementById("telephone").addEventListener('tap',function(){
+    var btnArray=['拨打','取消'];
+    var phone="15238070156";
+    window.location.href = 'tel:'+phone;
+  });
+  wx.config({
+		debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		appId: "<?php echo $this->_data['wx_share']['appid']; ?>", // 必填，公众号的唯一标识
+		timestamp: <?php echo $this->_data['wx_share']['timestamp']; ?>, // 必填，生成签名的时间戳
+		nonceStr: "<?php echo $this->_data['wx_share']['nonceStr']; ?>", // 必填，生成签名的随机串
+		signature: "<?php echo $this->_data['wx_share']['signature']; ?>",// 必填，签名，见附录1
+		jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+	wx.ready(function() {
+		wx.onMenuShareTimeline({
+			title: "分享测试", // 分享标题
+			link: "<?php echo $GLOBALS['gconfig']['project']['url_mobile'];?>"+"/detail.php?id=<?php echo $GLOBALS['strid']; ?>", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+			imgUrl: "<?php echo $GLOBALS['gconfig']['project']['url_mobile'];?>"+"/img/axin.jpg", // 分享图标
+			success: function () {
+				// 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () {
+				// 用户取消分享后执行的回调函数
+	    }
+		});
+		wx.onMenuShareAppMessage({
+	    title: '分享测试', // 分享标题
+	    desc: '没有任何描述╮(╯_╰)╭', // 分享描述
+	    link: "<?php echo $GLOBALS['gconfig']['project']['url_mobile'];?>"+"/detail.php?id=<?php echo $GLOBALS['strid']; ?>", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	    imgUrl: "<?php echo $GLOBALS['gconfig']['project']['url_mobile'];?>"+"/img/axin.jpg", // 分享图标
+	    type: '', // 分享类型,music、video或link，不填默认为link
+	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () {
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () {
+	        // 用户取消分享后执行的回调函数
+	    }
+		});
+	});
+
 </script>
 </body>
 </html>

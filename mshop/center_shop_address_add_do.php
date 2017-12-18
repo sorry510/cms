@@ -27,11 +27,24 @@ if ($intreturn == 0) {
 }
 
 if($intreturn == 0) {
-	$strsql = "INSERT INTO " . $gdb->fun_table2('waddress') . " (waddress_name, waddress_phone, waddress_detail, waddress_state,card_id) VALUES ('". $sqlname . "', '" . $sqlphone . "', '". $sqladdress ."' , 1 ,".api_value_int0($GLOBALS['_SESSION']['login_id'])." )";
+	$strsql = "SELECT waddress_id FROM " . $gdb->fun_table2('waddress') . " WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id']);
 
-	$hresult = $gdb->fun_do($strsql);
-	if($hresult == FALSE) {
-		$intreturn = 2;
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if($arr == FALSE) {
+		$strsql = "INSERT INTO " . $gdb->fun_table2('waddress') . " (waddress_name, waddress_phone, waddress_detail, waddress_state,card_id) VALUES ('". $sqlname . "', '" . $sqlphone . "', '". $sqladdress ."' , 2 ,".api_value_int0($GLOBALS['_SESSION']['login_id'])." )";
+
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 3;
+		}
+	}else{
+		$strsql = "INSERT INTO " . $gdb->fun_table2('waddress') . " (waddress_name, waddress_phone, waddress_detail, waddress_state,card_id) VALUES ('". $sqlname . "', '" . $sqlphone . "', '". $sqladdress ."' , 1 ,".api_value_int0($GLOBALS['_SESSION']['login_id'])." )";
+
+		$hresult = $gdb->fun_do($strsql);
+		if($hresult == FALSE) {
+			$intreturn = 3;
+		}
 	}
 }
 

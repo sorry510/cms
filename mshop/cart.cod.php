@@ -24,14 +24,11 @@
 	<a class="mui-tab-item mui-active laimi-font14 laimi-color-gray" style="width:1.3%;">
 		合计：¥<span class="mui-tab-label laimi-font16 laimi-allmoney" style="color:#CF2D28;"><?php echo $GLOBALS['cart_money']; ?></span>
 	</a>
-	<a class="mui-tab-item" style="background-color:#CF2D28;width:1.4%;" href="./cart_enter.php">
+	<span class="mui-tab-item laimi-add" style="background-color:#CF2D28;width:1.4%;" >
 		<span class="laimi-color-white laimi-font16">去结算</span>
-	</a>
+	</span>
 </nav>
 <div id="laimi-content" class="mui-content" style="padding-bottom:110px;">
-	<div style="line-height:30px;height:30px;background-color:#CF2D28;color:#FFFFFF;font-size:12px;text-align:center;">
-	库存不多了，尽快付款哦~~~~
-	</div>
 	<?php foreach($this->_data['cart_list'] as $row){ ?>
 	<div class="mui-table-view-cell" style="padding:0;">
 		<div class="mui-slider-right mui-disabled" style="margin-top:6px;">
@@ -248,6 +245,17 @@
 		mui('.laimi-allcount')[0].innerHTML = Number(allcount);
 		mui('.laimi-allmoney')[0].innerHTML = Number(allmoney).toFixed(2);
 	}
+	mui('.laimi-add')[0].addEventListener('tap',function(){
+		var allcount = parseInt(mui('.laimi-allcount')[0].innerHTML);
+		console.log(allcount);
+		if (allcount > 0) {
+			console.log(1);
+			window.location.href = "cart_enter.php";
+		}else{
+			mui.alert('购物车为空');
+		}
+	})
+
 </script>
 </body>
 </html>

@@ -26,6 +26,7 @@
 		</svg>
 	</a>
 </header>
+<?php echo $this->fun_fetch('inc_foot', ''); ?>
 <!--下拉刷新容器-->
 <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
   <div class="mui-scroll">

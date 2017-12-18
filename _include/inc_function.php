@@ -423,7 +423,11 @@ function laimi_pay_return($postarr){
 		// //支付渠道
 		// $pay_channel = $extra[count($extra)-1];
 	}else{
-		$intreturn = 1;
+		$addressid = $postarr['address'];
+		//支付渠道
+    $pay_channel = $postarr['paytype'];
+    //取货方式
+    $worder_get = $postarr['worder_get'];
 	}
 
 	if($pay_channel=='ALI_WEB'){
@@ -456,7 +460,7 @@ function laimi_pay_return($postarr){
 	}else if($pay_channel=='WX_JSAPI'){
 		$app_id = $postarr['appid'];
 		$out_trade_no = $postarr['out_trade_no'];
-		$total_fee = round($postarr['total_fee'] / 100, 2);
+		$total_fee = round($postarr['total_fee'] / 100, 2);//元
 	}else if($pay_channel=='ALI_WAP'){
 		// //订单号
 		// $out_trade_no = $postarr['out_trade_no'];
@@ -476,6 +480,9 @@ function laimi_pay_return($postarr){
 		// }else{
 		//    $intreturn = 1;
 		// }
+	}else if($pay_channel=='KAKOU'){
+		$out_trade_no = $postarr['out_trade_no'];
+		$total_fee = round($postarr['total_fee'] / 100, 2);//元
 	}else{
 		$intreturn = 2;
 	}
@@ -488,7 +495,7 @@ function laimi_pay_return($postarr){
     $intcard_id = api_value_int0($strcard_id);
     $arrcard = array();
     if($intreturn == 0) {
-      $strsql = "SELECT card_id, card_name, card_phone, c_card_type_name, card_type_id FROM " . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ". $intcard_id . " LIMIT 1";
+      $strsql = "SELECT card_id, card_name, card_phone, c_card_type_name, card_type_id,s_card_ymoney FROM " . $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id = ". $intcard_id . " LIMIT 1";
       $hresult = $GLOBALS['gdb']->fun_query($strsql);
       $arrcard = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
       if(empty($arrcard)) {
@@ -575,8 +582,24 @@ function laimi_pay_return($postarr){
 				    $intworder_from = 1;
 				} else if($pay_channel == 'WX_NATIVE') {
 				    $intpay = 22;
+				} else if($pay_channel == 'KAKOU'){
+					$intpay = 31;
+					$intworder_from = 1;
 				}
 				$inttime = time();
+				//卡扣方式付款
+				if($intpay = 31){
+					$card_ymoney = $arrcard['s_card_ymoney'] - $total_fee;
+					if($card_ymoney < 0){
+						$intreturn = 5;
+						return $intreturn;
+					}
+					$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('card')." SET s_card_ymoney=".$card_ymoney.",card_ctime=".$inttime.",card_ltime=".$inttime." where card_id=".$arrcard['card_id']." limit 1";
+					$hresult = $GLOBALS['gdb']->fun_do($strsql);
+					if($hresult == FALSE) {
+						$intreturn = 4;
+					}
+				}
 				//写入到订单表order
 				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder')." (card_id,worder_code,worder_money,worder_money2,worder_pay,worder_address_name,worder_address_phone,worder_address_detail,worder_get,worder_from,worder_state,worder_atime,c_card_type_id,c_card_type_name,c_card_name,c_card_phone) VALUES (".$arrcard['card_id'].",'".$out_trade_no."',".$deccart_money.",".$total_fee.",".$intpay.",'".$straddressname."','".$straddressphone."','".$straddressdetail."',".$worder_get.",".$intworder_from.",".$intworder_state.",".$inttime.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."','".$arrcard['card_name']."','".$arrcard['card_phone']."')";
 				$GLOBALS['gdb']->fun_do($strsql);

@@ -129,8 +129,12 @@
 		},function(res){
 				if (res == 0) {
 					window.location.href="center_shop_myappointment.php";
-				}else if(res == 1 || res == 2){
+				}else if(res == 1){
 					mui.alert('请您完善数据');
+					console.log(res);
+				}else if(res == 2){
+					mui.alert('预约时间必须大于当前时间');
+					console.log(res);
 				}else{
 					mui.alert('预约出现错误');
 				}

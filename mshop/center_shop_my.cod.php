@@ -35,7 +35,7 @@
     </div>
     <div class="mui-input-row">
         <label>会员姓名</label>
-    <input type="text" name="cardname" class="mui-input-clear" placeholder="请输入姓名" value="<?php echo $this->_data['card_info']['card_name']; ?>">
+    <input type="text" name="cardname" style="text-align: right;font-size: 14px;color:#929292;" class="mui-input-clear" placeholder="请输入姓名" value="<?php echo $this->_data['card_info']['card_name']; ?>">
     </div>
 		<div class="mui-table-view-cell">
 			<a href="javascript:;" id='date1' class="mui-navigate-right" data-options='{}'>

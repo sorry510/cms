@@ -8,6 +8,8 @@ if(laimi_config_trade()['wmp_module'] != 1){
 	return;
 }
 
+$strchannel = "list";
+
 $strname = api_value_post('search');
 $sqlname = $gdb->fun_escape($strname);
 $strcatalog_id = api_value_get('catalog_id');

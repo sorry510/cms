@@ -9,7 +9,7 @@ $arr = array();
 $strcard_id = api_value_get('id');
 $intcard_id = api_value_int0($strcard_id);
 
-$strsql1 = "SELECT card_mcombo_atime FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." WHERE card_id = ".$intcard_id." group by card_mcombo_atime having sum(card_mcombo_gcount)!=0";
+$strsql1 = "SELECT card_mcombo_atime FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." WHERE card_id = ".$intcard_id." group by card_mcombo_parent having sum(card_mcombo_gcount)!=0";
 
 $strsql = "SELECT card_mcombo_id,card_mcombo_type,mcombo_id,card_mcombo_ccount,mgoods_id,card_mcombo_gcount,c_mcombo_name,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mcombo_type,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id = ".$intcard_id." and (card_mcombo_cedate>=".time()." or card_mcombo_cedate=0) and card_mcombo_atime in(".$strsql1.") order by card_mcombo_atime asc, mcombo_id desc, card_mcombo_type asc";
 // echo $strsql;

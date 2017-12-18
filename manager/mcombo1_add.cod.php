@@ -127,8 +127,7 @@
 								<tr class="laimi-mcombo laimi-use1" mgoods_catalog_id="<?php echo $row['mgoods_catalog_id'];?>" mgoods_id="<?php echo $row2['mgoods_id'];?>" mgoods_price="<?php echo $row2['mgoods_price'];?>">
 									<td><?php echo $row['mgoods_catalog_name'];?></td>
 									<td style="text-align: left;"><?php echo $row2['mgoods_name'];?><span class="laimi-color-ju">（￥<?php echo $row2['mgoods_price'];?>）</span></td>
-									<td style="padding-top:5px; padding-bottom:5px;">																
-										<input type="text" class="layui-input laimi-input-60" value="" name="mgoods_num" lay-skin="primary" mgoods_id="<?php echo $row2['mgoods_id'];?>">
+									<td style="padding-top:5px; padding-bottom:5px;">										<input type="text" class="layui-input laimi-input-60" value="1" name="mgoods_num" lay-skin="primary" mgoods_id="<?php echo $row2['mgoods_id'];?>">
 									</td>
 								</tr>
 									<?php }

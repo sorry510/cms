@@ -65,7 +65,6 @@ class PayNotifyCallBack extends WxPayNotify
 		}
 		//业务逻辑
 		laimi_pay_return($data);
-		//通知微信服务器
 		echo exit('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
 		return true;
 	}

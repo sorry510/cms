@@ -322,6 +322,12 @@
 						{{# }) }}
 					</div>
 					{{# } }}
+					<div class="layui-field-box" style="font-size:14px;border:1px solid #F0F0F0;margin-top:20px;">
+					  <label class="layui-form-label">付款码</label>
+						<div class="layui-input-block">
+							<input type="text" class="layui-input laimi-input-200 laimi-pay-code">
+						</div>
+					</div>
 					<div class="layui-row" style="padding-top:15px;">
 						<label class="layui-form-label">导购人员</label>
 						<div class="layui-input-inline">
@@ -390,7 +396,7 @@
 											selected
 										{{# } }}
 									  ><?php echo $row['card_type_name']; ?></option>
-									<? } ?>
+									<?php } ?>
 								</select>
 							</div>
 							<label class="layui-form-label">折扣</label>
@@ -1327,6 +1333,7 @@
 	  }
 	  function payConfirm(ele, data){
 	    // ele.attr('disabled', false);
+	    var ele = ele;
 	    var card = {};
 	    if(card_id != 0){
 	    	card = cardlist[card_key];
@@ -1435,7 +1442,45 @@
 	    };
 	    // console.log(objdata);
 	    // return false;
-	    $.post('workbench_do.php', objdata, function(res){
+	    /***********支付方式*************/
+	    var auth_code = $('.laimi-pay-code').val();
+	    var paydata = {
+	    	out_trade_no: '<?php echo api_value_int0($GLOBALS['_SESSION']['login_id']).time(); ?>',
+	    	total_amount: 0.01,
+	    	auth_code: auth_code
+	    };
+
+	    if(pay_type == 4){
+  	    $.ajax({
+  	    	url: '../paysdk/ali_pay/dangmianfu/f2fpay/barpay_test.php',
+  	    	data: paydata,
+  	    	method: 'POST',
+  	    	dataType: 'json',
+  	    	success: function(barpay){
+  	    		if(barpay.code == '10000' && barpay.msg == 'Success'){
+  	    			objdata.out_trade_no = barpay.out_trade_no;
+  	    			objdata.relmoney = barpay.buyer_pay_amount;
+  				    pay_do(ele, objdata);
+  	    		}else if(){
+  	    			
+  	    		}else{
+  	    			
+  	    		}
+  	    	},
+  	    	error: function(e){
+  	    		console.log(e);
+  	    	}
+  	    })
+	    }else if(pay_type == 3){
+
+	    }else{
+	    	objdata.out_trade_no = paydata.out_trade_no;
+  	    objdata.relmoney = paydata.total_amount;
+	    	pay_do(data);
+	    }
+	  }
+	  function pay_do(ele, data){
+	    $.post('workbench_do.php', data, function(res){
 	      ele.attr('disabled', false);
 	      // console.log(res);
 	      if(res == '0'){

@@ -3,12 +3,12 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 $arrwpay = laimi_config_wpay(api_value_int0($GLOBALS['_SESSION']['login_cid']));
-require_once C_ROOT ."/wx_pay/lib/WxPay.Api.php";
-require_once C_ROOT ."/wx_pay/WxPay.MicroPay.php";
-require_once C_ROOT .'/wx_pay/log.php';
+require_once C_ROOT ."/paysdk/wx_pay/lib/WxPay.Api.php";
+require_once C_ROOT ."/paysdk/wx_pay/WxPay.MicroPay.php";
+require_once C_ROOT ."/paysdk/wx_pay/log.php";
 
 //初始化日志
-$logHandler= new CLogFileHandler(C_ROOT .'/wx_pay/logs/'.date('Y-m-d').'.log');
+$logHandler= new CLogFileHandler(C_ROOT .'/paysdk/wx_pay/logs/'.date('Y-m-d').'.log');
 $log = Log::Init($logHandler, 15);
 
 //打印输出数组信息
@@ -54,7 +54,7 @@ if(isset($_REQUEST["auth_code"]) && $_REQUEST["auth_code"] != ""){
         <div style="margin-left:2%;">授权码：</div><br/>
         <input type="text" style="width:96%;height:35px;margin-left:2%;" name="auth_code" /><br /><br />
        	<div align="center">
-			<input type="submit" value="提交刷卡" style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" />
+			<input type="submit" value="提交刷卡" style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;"/>
 		</div>
 	</form>
 </body>

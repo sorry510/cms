@@ -76,6 +76,37 @@ function laimi_config_trade(){
 	}
 	return $arrtrade;
 }
+// get系统支付配置信息
+function laimi_config_pay(){
+	$arr = array();
+	$arrtrade = array();
+	$arrtrade_init = array(
+					'alipay_flag' => 2,
+					'alipay_appid' => '',
+					'alipaysign_type' => '',
+					'alipay_public_key' => '',
+					'alipay_private_key' => '',
+					'weixin_flag' => 2,
+					'weixin_appid' => '',
+					'weixin_appsecret' => '',
+					'weixin_mchid' => '',
+					'weixin_key' => '',
+				);
+	$strsql = "SELECT company_config_pay FROM ". $GLOBALS['gdb']->fun_table('company')." WHERE company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if(!empty($arr)){
+		if(!empty($arr['company_config_pay'])){
+			$arrtrade = json_decode($arr['company_config_pay'], true);
+			if(!$arrtrade){
+				$arrtrade = $arrtrade_init;
+			}
+		}else{
+			$arrtrade = $arrtrade_init;
+		}
+	}
+	return $arrtrade;
+}
 // get店铺配置信息
 function laimi_config_shop_trade(){
 	$arr = array();

@@ -339,7 +339,7 @@
 							</select>
 						</div>
 						<div class="laimi-float-right">
-							<button class="layui-btn" style="height:50px;font-size:18px;" lay-filter="card-pay" lay-submit>完成结帐</button>
+							<button class="layui-btn laimi-card-pay" style="height:50px;font-size:18px;" lay-filter="card-pay" lay-submit>完成结帐</button>
 						</div>
 					</div>
 			  </div>
@@ -438,6 +438,12 @@
 				    </div>
 				  </div>
 				</fieldset>
+				<div class="layui-field-box" style="font-size:14px;border:1px solid #F0F0F0;margin-top:20px;">
+				  <label class="layui-form-label">付款码</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input laimi-input-200 laimi-pay-code">
+					</div>
+				</div>
 				<div class="layui-row" style="padding-top:15px;">
 					<label class="layui-form-label">导购人员</label>
 					<div class="layui-input-inline">
@@ -928,6 +934,35 @@
 		  	});
 	  	});
 	  }
+	  function cardRechargeConfirm(data){
+    	var select = $("#laimi-modal-recharge select[name='cardtype']").find("option:selected");
+    	var cardtypeid = select.attr('typeid') || 0;
+    	var discount = select.val() || 0;
+    	var objdata = {
+        money: data.rmoney,
+        cash: data.smoney,
+        card_id: data.cardid,
+        pay_type: data.paytype,
+        worker_id: data.workerid,
+        card_type_id: cardtypeid,
+        card_type_discount: discount
+      };
+      var auth_code = $('#laimi-modal-recharge .laimi-pay-code').val();
+      var paydata = {
+      	out_trade_no: '<?php echo api_value_int0($GLOBALS['_SESSION']['login_id']).time(); ?>',
+      	total_amount: 0.01,
+      	auth_code: auth_code
+      };
+	  	if(objdata.pay_type == 4){
+	  		ali_pay(2, paydata, objdata);
+	  	}else if(objdata.pay_type == 3){
+
+	  	}else{
+	  		objdata.out_trade_no = paydata.out_trade_no;
+  	    objdata.relmoney = paydata.total_amount;
+	  		cardRechargeDo(objdata);
+	  	}
+	  }
 	  function cardRechargeDo(data){
 	  	$.post('card_recharge_do.php', data, function(res){
 	  		// console.log(res);
@@ -1081,8 +1116,8 @@
 	  	  })
 	  };*/
 	  function goodsPrice(goods_id, goods_type){
-	  	/**
-  		*goods_type: 1mgoods, 2sgoods, 3mcombo
+	  	
+  		/***goods_type: 1mgoods, 2sgoods, 3mcombo
   		*/
 	  	var act_id = [];
 	  	$.each(card_act_discount, function(k, v){
@@ -1331,9 +1366,8 @@
 	  	$("#laimi-modal-bill .laimi-money-last").text(money_last);
 	  	$("#laimi-modal-bill .laimi-money-ling").text(ling);
 	  }
-	  function payConfirm(ele, data){
+	  function payConfirm(data){
 	    // ele.attr('disabled', false);
-	    var ele = ele;
 	    var card = {};
 	    if(card_id != 0){
 	    	card = cardlist[card_key];
@@ -1443,45 +1477,64 @@
 	    // console.log(objdata);
 	    // return false;
 	    /***********支付方式*************/
-	    var auth_code = $('.laimi-pay-code').val();
+	    var auth_code = $('#laimi-modal-bill .laimi-pay-code').val();
 	    var paydata = {
 	    	out_trade_no: '<?php echo api_value_int0($GLOBALS['_SESSION']['login_id']).time(); ?>',
 	    	total_amount: 0.01,
 	    	auth_code: auth_code
 	    };
+	    //是否免单
+	    if(pay_state == 1){
+		    if(pay_type == 4){
+		    	ali_pay(1, paydata, objdata);
+		    }else if(pay_type == 3){
 
-	    if(pay_type == 4){
-  	    $.ajax({
-  	    	url: '../paysdk/ali_pay/dangmianfu/f2fpay/barpay_test.php',
-  	    	data: paydata,
-  	    	method: 'POST',
-  	    	dataType: 'json',
-  	    	success: function(barpay){
-  	    		if(barpay.code == '10000' && barpay.msg == 'Success'){
-  	    			objdata.out_trade_no = barpay.out_trade_no;
-  	    			objdata.relmoney = barpay.buyer_pay_amount;
-  				    pay_do(ele, objdata);
-  	    		}else if(){
-  	    			
-  	    		}else{
-  	    			
-  	    		}
-  	    	},
-  	    	error: function(e){
-  	    		console.log(e);
-  	    	}
-  	    })
-	    }else if(pay_type == 3){
-
-	    }else{
+		    }else{
+		    	objdata.out_trade_no = paydata.out_trade_no;
+	  	    objdata.relmoney = paydata.total_amount;
+		    	pay_do(objdata);
+		    }
+	    }else if(pay_state == 4){
 	    	objdata.out_trade_no = paydata.out_trade_no;
   	    objdata.relmoney = paydata.total_amount;
-	    	pay_do(data);
+	    	pay_do(objdata);
 	    }
 	  }
-	  function pay_do(ele, data){
+	  /**
+			*@type 1:消费，2充值
+			*@paydata 支付数据
+			*@objdata record数据
+			*/
+	  function ali_pay(type, paydata, objdata){
+	    $.ajax({
+	    	url: '../paysdk/ali_pay/dangmianfu/f2fpay/barpay_test.php',
+	    	data: paydata,
+	    	method: 'POST',
+	    	dataType: 'json',
+	    	success: function(barpay){
+	    		if(barpay.code == '10000' && barpay.msg == 'Success'){
+	    			objdata.out_trade_no = barpay.out_trade_no;
+	    			objdata.relmoney = barpay.buyer_pay_amount;
+	    			if(type == 1){
+	    				pay_do(objdata);
+	    			}else if(type == 2){
+	    				cardRechargeDo(objdata);
+	    			}
+	    		}else if(barpay.code == '40004'){
+	    			
+	    		}else{
+	    			
+	    		}
+	    	},
+	    	error: function(e){
+	    		$('.laimi-card-pay').attr('disabled', false);
+	    		console.log(e);
+	    	}
+	    })
+	  }
+	  function pay_do(data){
 	    $.post('workbench_do.php', data, function(res){
-	      ele.attr('disabled', false);
+	      $('.laimi-card-pay').attr('disabled', false);
 	      // console.log(res);
 	      if(res == '0'){
 	        window.location.reload();
@@ -1494,7 +1547,7 @@
 		    		title: '提示信息'
 		    	});
 	      }else{
-
+	      	console.log(res);
 	      }
 	    });
 	  }
@@ -1597,19 +1650,7 @@
 	    	$('#laimi-modal-recharge .laimi-song').text(chong - money);
 	    });
 	    objform.on("submit(laimi-card-recharge)", function(data) {
-	    	var select = $("#laimi-modal-recharge select[name='cardtype']").find("option:selected");
-	    	var cardtypeid = select.attr('typeid') || 0;
-	    	var discount = select.val() || 0;
-	    	var objdata = {
-          money: data.field.rmoney,
-          cash: data.field.smoney,
-          card_id: data.field.cardid,
-          pay_type: data.field.paytype,
-          worker_id: data.field.workerid,
-          card_type_id: cardtypeid,
-          card_type_discount: discount
-        };
-	    	cardRechargeDo(objdata);
+	    	cardRechargeConfirm(data.field);
 	    	return false;
 	    });
 	    /****************************************************************************************/
@@ -1637,7 +1678,7 @@
 	    objform.on("submit(card-pay)", function(data) {
 	    	var _this = $(this);
 	    	_this.attr('disabled', true);
-	    	payConfirm(_this, data.field);
+	    	payConfirm(data.field);
 	    	return false;
 	    })
 	  })();

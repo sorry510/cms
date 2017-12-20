@@ -15,6 +15,8 @@ $strmoney = api_value_post('money');
 $decmoney = api_value_decimal($strmoney, 2);//充值金额
 $strcash = api_value_post('cash');
 $deccash = api_value_decimal($strcash, 2);//实收金额
+$strsmoney2 = api_value_post('relmoney');//实际付款价2
+$decsmoney2 = api_value_decimal($strsmoney2, 2);
 $strpay_type = api_value_post('pay_type');
 $intpay_type = api_value_int0($strpay_type);
 $strworker_id = api_value_post('worker_id');
@@ -26,7 +28,9 @@ if(laimi_config_trade()['score_module'] == 1 && laimi_config_trade()['score_flag
 	$intscore = floor($deccash);
 }
 $intnow = time();
-$card_record_code = api_value_int0($GLOBALS['_SESSION']['login_id']).time();//用户id+时间戳
+// $card_record_code = api_value_int0($GLOBALS['_SESSION']['login_id']).time();//用户id+时间戳
+$strout_trade_no = api_value_post('out_trade_no');
+$card_record_code = $gdb->fun_escape($strout_trade_no);//用户id+时间戳
 
 $intreturn = 0;
 
@@ -78,7 +82,7 @@ if($intreturn == 0){
 			break;
 	}
 
-	$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',1,".$decmoney.",".$deccash.",".$arr['s_card_ymoney'].",".$intpay_type.",".$deccash.",".$intscore.",".$intnow.",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$struser_name."',1)";
+	$strsql = "INSERT INTO ".$gdb->fun_table2('card_record')." (card_id,shop_id,card_record_code,card_record_type,card_record_cmoney,card_record_smoney,card_record_smoney2,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",'".$card_record_code."',1,".$decmoney.",".$deccash.",".$decsmoney2.",".$arr['s_card_ymoney'].",".$intpay_type.",".$deccash.",".$intscore.",".$intnow.",".$arr['card_type_id'].",'".$arr['c_card_type_name']."',".$arr['c_card_type_discount'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$arr['card_sex'].",".$GLOBALS['_SESSION']['login_id'].",'".$struser_name."',1)";
 	$hresult = $gdb->fun_do($strsql);
 	if($hresult == FALSE) {
 		$intreturn = 3;
@@ -106,12 +110,11 @@ if(laimi_config_trade()['worker_module'] == 1 && laimi_config_trade()['worker_fl
 					$decgroup_reward_fill = $arrreward['group_reward_fill'];
 				}
 				if($arrreward['group_reward_pfill'] != 0){
-					$decgroup_reward_fill = $arrreward['group_reward_pfill'] * $decsmoney/100;
+					$decgroup_reward_fill = $arrreward['group_reward_pfill'] * $deccash/100;
 				}
 		
 				if($decgroup_reward_fill != 0){
 					$strsql = "INSERT INTO " . $gdb->fun_table2('worker_reward') ." (worker_id,shop_id,worker_reward_type,worker_reward_money,worker_reward_state,worker_reward_atime,c_worker_group_id,c_worker_group_name,c_worker_name,c_card_type_id,c_card_type_name,c_card_id,c_card_code,c_card_name,c_card_phone,c_card_record_id,c_card_record_code,c_card_record_smoney) VALUES (".$intworker_id.",".$GLOBALS['_SESSION']['login_sid'].",2,".$decgroup_reward_fill.",1,".$intnow.",".$intworker_group_id.",'".$strworker_group_name."','".$strworker_name."',".$intcard_type_id.",'".$strcard_type_name."',".$arr['card_id'].",'".$arr['card_code']."','".$arr['card_name']."','".$arr['card_phone']."',".$record_id.",'".$card_record_code."',".$deccash.")";
-					// echo $strsql;
 					$hresult = $gdb->fun_do($strsql);
 					if($hresult == false){
 						$intreturn = 6;

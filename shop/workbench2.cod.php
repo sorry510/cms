@@ -209,6 +209,12 @@
 						{{# }) }}
 					</div>
 					{{# } }}
+					<div class="layui-field-box" style="font-size:14px;border:1px solid #F0F0F0;margin-top:20px;">
+					  <label class="layui-form-label">付款码</label>
+						<div class="layui-input-block">
+							<input type="text" class="layui-input laimi-input-200 laimi-pay-code">
+						</div>
+					</div>
 					<div class="layui-row" style="padding-top:15px;">
 						<label class="layui-form-label">导购人员</label>
 						<div class="layui-input-inline">
@@ -220,7 +226,7 @@
 							</select>
 						</div>
 						<div class="laimi-float-right">
-							<button class="layui-btn" style="height:50px;font-size:18px;" lay-filter="card-pay" lay-submit>完成结帐</button>
+							<button class="layui-btn laimi-card-pay" style="height:50px;font-size:18px;" lay-filter="card-pay" lay-submit>完成结帐</button>
 						</div>
 					</div>
 			  </div>
@@ -822,7 +828,7 @@
 	  	$("#laimi-modal-bill .laimi-money-last").text(money_last);
 	  	$("#laimi-modal-bill .laimi-money-ling").text(ling);
 	  }
-	  function payConfirm(ele, data){
+	  function payConfirm(data){
 	    // ele.attr('disabled', false);
 	    var card = {};
 	    if(card_id != 0){
@@ -901,23 +907,75 @@
 	    };
 	    // console.log(objdata);
 	    // return false;
-	    $.post('workbench2_do.php', objdata, function(res){
-	      ele.attr('disabled', false);
+	    var auth_code = $('#laimi-modal-bill .laimi-pay-code').val();
+	    var paydata = {
+	    	out_trade_no: '<?php echo api_value_int0($GLOBALS['_SESSION']['login_id']).time(); ?>',
+	    	total_amount: 0.01,
+	    	auth_code: auth_code
+	    };
+	    //是否免单
+	    if(pay_state == 1){
+		    if(pay_type == 4){
+		    	ali_pay(3, paydata, objdata);
+		    }else if(pay_type == 3){
+
+		    }else{
+		    	objdata.out_trade_no = paydata.out_trade_no;
+	  	    objdata.relmoney = paydata.total_amount;
+		    	pay_do(objdata);
+		    }
+	    }else if(pay_state == 4){
+	    	objdata.out_trade_no = paydata.out_trade_no;
+  	    objdata.relmoney = paydata.total_amount;
+	    	pay_do(objdata);
+	    }
+	  }
+	  function pay_do(data){
+	    $.post('workbench2_do.php', data, function(res){
+	      $('.laimi-card-pay').attr('disabled', false);
+	      // console.log(res);
 	      if(res == '0'){
 	        window.location.reload();
 	      }else if(res == '1'){
         	objlayer.alert('请至少选择一个商品', {
 		    		title: '提示信息'
 		    	});
-	      }else if(res == '30'){
-        	objlayer.alert('此体验券已经没有对应商品，不能使用', {
-		    		title: '提示信息'
-		    	});
 	      }else{
-
+	      	console.log(res);
 	      }
 	    });
 	  }
+    /**
+  		*@type 1:消费，2充值, 3买套餐
+  		*@paydata 支付数据
+  		*@objdata record数据
+  		*/
+    function ali_pay(type, paydata, objdata){
+      $.ajax({
+      	url: '../paysdk/ali_pay/dangmianfu/f2fpay/barpay_test.php',
+      	data: paydata,
+      	method: 'POST',
+      	dataType: 'json',
+      	success: function(barpay){
+      		if(barpay.code == '10000' && barpay.msg == 'Success'){
+      			objdata.out_trade_no = barpay.out_trade_no;
+      			objdata.relmoney = barpay.buyer_pay_amount;
+      			if(type == 3){
+      				pay_do(objdata);
+      			}
+      		}else if(barpay.code == '40004'){
+      			
+      		}else{
+      			
+      		}
+      	},
+      	error: function(e){
+      		$('.laimi-card-pay').attr('disabled', false);
+      		console.log(e);
+      	}
+      })
+    }
+
 	  function clone(obj){
 	    //深层clone,用于只有数据的数组或json对象
 	    if(obj)
@@ -974,7 +1032,7 @@
 	    objform.on("submit(card-pay)", function(data) {
 	    	var _this = $(this);
 	    	_this.attr('disabled', true);
-	    	payConfirm(_this, data.field);
+	    	payConfirm(data.field);
 	    	return false;
 	    })
 	  })();

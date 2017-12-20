@@ -619,7 +619,7 @@ function laimi_pay_return($postarr){
 				}
 				$inttime = time();
 				//卡扣方式付款
-				if($intpay = 31){
+				if($intpay == 31){
 					$card_ymoney = $arrcard['s_card_ymoney'] - $total_fee;
 					if($card_ymoney < 0){
 						$intreturn = 5;
@@ -637,7 +637,7 @@ function laimi_pay_return($postarr){
 
 				$intworder_id = mysql_insert_id();
 				foreach($arrcart as $row2){
-					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder_goods')." (card_id,worder_id,worder_goods_count,worder_goods_price,worder_goods_state,worder_goods_atime,	c_wgoods_name,c_wgoods_photo1) VALUES (".$arrcard['card_id'].",".$intworder_id.",".$row2['wcart_wgoods_count'].",".$row2['min_price'].",".$intworder_state.",".$inttime.",'".$row2['wgoods_name']."','".$row2['photo']."')";
+					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder_goods')." (card_id,worder_id,wgoods_id,worder_goods_count,worder_goods_price,worder_goods_state,worder_goods_atime,	c_wgoods_name,c_wgoods_photo1) VALUES (".$arrcard['card_id'].",".$intworder_id.",".$row2['wgoods_id'].",".$row2['wcart_wgoods_count'].",".$row2['min_price'].",".$intworder_state.",".$inttime.",'".$row2['wgoods_name']."','".$row2['photo']."')";
 					$GLOBALS['gdb']->fun_do($strsql);
 				}
 				//删除购物车

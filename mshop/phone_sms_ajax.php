@@ -175,7 +175,7 @@ if($intreturn == 0){
           "GWZek0XmIcJAOKnD",
           "pnHKa0sCZunORgfxYDdKqTwOVc1WUB"
       );
-      $rand = rand(0, 9999);
+      $rand = rand(1000, 9999);
       $response = $demo->sendSms(
           "来米软件", // 短信签名
           "SMS_100855094", // 短信模板编号

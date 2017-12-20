@@ -15,6 +15,8 @@ $strymoney = api_value_post('ymoney');//各种优惠后
 $decymoney = api_value_decimal($strymoney, 2);
 $strsmoney = api_value_post('smoney');//实际付款价
 $decsmoney = api_value_decimal($strsmoney, 2);
+$strsmoney2 = api_value_post('relmoney');//实际付款价2
+$decsmoney2 = api_value_decimal($strsmoney2, 2);
 $strmmoney = api_value_post('decrease_money');//满减活动
 $decmmoney = api_value_decimal($strmmoney, 2);
 $strjmoney = api_value_post('jmoney');//手动优惠
@@ -28,7 +30,9 @@ $strticketmoneyid = api_value_post('ticketmoneyid');//代金券
 $intticketmoneyid = api_value_int0($strticketmoneyid);
 $arract_give = api_value_post('act_give_use');//满送活动
 $arract_decrease = api_value_post('act_decrease_use');//满减活动
-$card_record_code = api_value_int0($GLOBALS['_SESSION']['login_id']).time();//用户id+时间戳
+$strout_trade_no = api_value_post('out_trade_no');
+$card_record_code = $gdb->fun_escape($strout_trade_no);//用户id+时间戳
+// $card_record_code = api_value_int0($GLOBALS['_SESSION']['login_id']).time();//用户id+时间戳
 $user_name = laimi_user_name();//操作员姓名;
 $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 $user_id = api_value_int0($GLOBALS['_SESSION']['login_id']);
@@ -96,7 +100,7 @@ if($intreturn == 0){
 		// 有会员卡
 		if($card_pay != 'card_record_kakou'){
 			//不是卡扣
-			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_mmoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',2,".$dechmoney.",".$decymoney.",".$decmmoney.",".$decjmoney.",".$decsmoney.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".$intscore.",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
+			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_mmoney,card_record_jmoney,card_record_smoney,card_record_smoney2,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',2,".$dechmoney.",".$decymoney.",".$decmmoney.",".$decjmoney.",".$decsmoney.",".$decsmoney2.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".$intscore.",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
 			$hresult = $gdb->fun_do($strsql);
 			$record_id = mysql_insert_id();
 
@@ -124,7 +128,7 @@ if($intreturn == 0){
 				$intreturn = 4;
 			}
 			if($intreturn == 0){
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_mmoney,card_record_jmoney,card_record_smoney,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',2,".$dechmoney.",".$decymoney.",".$decmmoney.",".$decjmoney.",".$decsmoney.",".$card_ymoney.",".$intpay_type.",".$decsmoney.",0,".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_mmoney,card_record_jmoney,card_record_smoney,card_record_smoney2,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',2,".$dechmoney.",".$decymoney.",".$decmmoney.",".$decjmoney.",".$decsmoney.",".$decsmoney2.",".$card_ymoney.",".$intpay_type.",".$decsmoney.",0,".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
 				// echo $strsql;
 				$hresult = $gdb->fun_do($strsql);
 				$record_id = mysql_insert_id();

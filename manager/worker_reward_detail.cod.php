@@ -23,7 +23,7 @@
 				<option value="">全部分店</option>
 				<?php foreach($this->_data['shop_list'] as $row){?>
 				  <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop']) echo 'selected'?>><?php echo $row['shop_name'];?></option>
-				<? }?>
+				<?php }?>
 			</select>
 		</div>
 		<label class="layui-form-label">日期</label>

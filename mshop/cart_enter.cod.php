@@ -135,7 +135,8 @@
 				} else if(jsondata.msg == "2") {
 					mui.alert("没有此用户！", "提示信息");
 				}  else if(jsondata.msg == "3") {
-					window.location = "cart_regist.php";
+					mui.alert("消费前请先绑定手机", "提示信息");
+					window.location = "center_shop_my.php";
 				} else if(jsondata.msg == "200") {
 					if(jsondata.money - <?php echo $GLOBALS["cart_money"]; ?> < 0.01){
 						if(paytype == 2){

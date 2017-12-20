@@ -29,7 +29,7 @@
 				<option value="">全部分店</option>
 				<?php foreach($this->_data['shop_list'] as $row){?>
 				  <option value="<?php echo $row['shop_id'];?>" <?php if($row['shop_id']==$this->_data['request']['shop']) echo 'selected'?>><?php echo $row['shop_name'];?></option>
-				<? }?>
+				<?php } ?>
 			</select>
 		</div>
 		<label class="layui-form-label">选择分组</label>
@@ -38,7 +38,7 @@
 				<option value="">全部分组</option>
 				<?php foreach($this->_data['worker_group_list'] as $row){?>
 				  <option value="<?php echo $row['worker_group_id'];?>" <?php if($row['worker_group_id']==$this->_data['request']['group']) echo 'selected'?>><?php echo $row['worker_group_name'];?></option>
-				<? }?>
+				<?php } ?>
 			</select>
 		</div>
 		<label class="layui-form-label">员工</label>
@@ -128,7 +128,7 @@
 					        <option value="" selected="">请选择分店</option>
 					        <?php foreach($this->_data['shop_list'] as $row){?>
 					          <option value="<?php echo $row['shop_id'];?>"><?php echo $row['shop_name'];?></option>
-					        <? }?>
+					        <?php }?>
 					      </select>
 					    </div>
 					  </div>
@@ -141,7 +141,7 @@
 					        <option value="" selected="">请选择分组</option>
 					        <?php foreach($this->_data['worker_group_list'] as $row){?>
 					          <option value="<?php echo $row['worker_group_id'];?>"><?php echo $row['worker_group_name'];?></option>
-					        <? }?>
+					        <?php }?>
 					      </select>
 					    </div>
 					  </div>
@@ -283,7 +283,7 @@
 											selected
 										{{#  } }}
 					          ><?php echo $row['shop_name'];?></option>
-					        <? }?>
+					        <?php }?>
 					      </select>
 					    </div>
 					  </div>
@@ -300,7 +300,7 @@
 					          	selected
 					          {{#  } }}
 					          ><?php echo $row['worker_group_name'];?></option>
-					        <? }?>
+					        <?php }?>
 					      </select>
 					    </div>
 					  </div>

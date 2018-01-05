@@ -99,11 +99,9 @@ if($intreturn == 0){
 
 			if($intmgoods_id != 0){
 				$strsql = "INSERT INTO ".$gdb->fun_table2('group_reward2')." (worker_group_id,shop_id,mgoods_catalog_id,mgoods_id,group_reward2_money,group_reward2_percent,group_reward2_atime,group_reward2_ctime) VALUES (".$intworker_group_id.",".$intshop.",".$intmgoods_catalog_id.",".$intmgoods_id.",".$decmoney.",".$decpercent.",".$intnow.",".$intnow.")";
-				// echo $strsql;
 			}
 			if($intsgoods_id != 0){
 				$strsql = "INSERT INTO ".$gdb->fun_table2('group_reward2')." (worker_group_id,shop_id,sgoods_catalog_id,sgoods_id,group_reward2_money,group_reward2_percent,group_reward2_atime,group_reward2_ctime) VALUES (".$intworker_group_id.",".$intshop.",".$intsgoods_catalog_id.",".$intsgoods_id.",".$decmoney.",".$decpercent.",".$intnow.",".$intnow.")";
-				// echo $strsql;
 			}
 			if($intmcombo_id != 0){
 				$strsql = "INSERT INTO ".$gdb->fun_table2('group_reward2')." (worker_group_id,shop_id,mcombo_id,group_reward2_money,group_reward2_percent,group_reward2_atime,group_reward2_ctime) VALUES (".$intworker_group_id.",".$intshop.",".$intmcombo_id.",".$decmoney.",".$decpercent.",".$intnow.",".$intnow.")";

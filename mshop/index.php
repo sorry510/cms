@@ -3,7 +3,7 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$GLOBALS['_SESSION']['login_openid'] = '111';
+// $GLOBALS['_SESSION']['login_openid'] = '111';
 // $GLOBALS['_SESSION']['login_cid'] = 1;0
 // $gdb->pub_prefix2 = 'am_0001_';
 $strchannel = "index";

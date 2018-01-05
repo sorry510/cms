@@ -426,15 +426,15 @@
 					    	<div class="layui-form-mid">
 					    		<input class="layui-input laimi-input-80 laimi-color-lan laimi-money-xian" type="text" name="txtname" placeholder="0.00" style="font-size:20px;height:40px;line-height:40px;">
 							</div>
-					    	<div class="layui-form-mid" style="margin-top:8px;">
-					    		<span class="laimi-color-lan">找零：</span><span class="layui-badge layui-bg-blue laimi-money-ling" style="font-size:16px;padding:2px 10px;">0.00</span>
-					    	</div>
+				    	<div class="layui-form-mid" style="margin-top:8px;">
+				    		<span class="laimi-color-lan">找零：</span><span class="layui-badge layui-bg-blue laimi-money-ling" style="font-size:16px;padding:2px 10px;">0.00</span>
+				    	</div>
 						</div>
-					    <div class="layui-col-md3">
-					    	<div class="layui-form-mid">
-					    		<input type="radio" name="paytype" value="2" title="POS刷卡">
-					    	</div>
-					    </div>
+				    <div class="layui-col-md3">
+				    	<div class="layui-form-mid">
+				    		<input type="radio" name="paytype" value="2" title="POS刷卡">
+				    	</div>
+				    </div>
 				    </div>
 				  </div>
 				</fieldset>
@@ -1532,6 +1532,38 @@
 	    	}
 	    })
 	  }
+    /**
+  		*@type 1:消费，2充值
+  		*@paydata 支付数据
+  		*@objdata record数据
+  		*/
+    function wx_pay(type, paydata, objdata){
+      $.ajax({
+      	url: './micropay.php',
+      	data: paydata,
+      	method: 'POST',
+      	dataType: 'json',
+      	success: function(barpay){
+      		if(barpay.code == '10000' && barpay.msg == 'Success'){
+      			objdata.out_trade_no = barpay.out_trade_no;
+      			objdata.relmoney = barpay.buyer_pay_amount;
+      			if(type == 1){
+      				pay_do(objdata);
+      			}else if(type == 2){
+      				cardRechargeDo(objdata);
+      			}
+      		}else if(barpay.code == '40004'){
+      			
+      		}else{
+      			
+      		}
+      	},
+      	error: function(e){
+      		$('.laimi-card-pay').attr('disabled', false);
+      		console.log(e);
+      	}
+      })
+    }
 	  function pay_do(data){
 	    $.post('workbench_do.php', data, function(res){
 	      $('.laimi-card-pay').attr('disabled', false);

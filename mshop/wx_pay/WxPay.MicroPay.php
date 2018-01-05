@@ -99,7 +99,7 @@ class MicroPay
 			//用户支付中
 			else if($result["trade_state"] == "USERPAYING"){
 				$succCode = 2;
-				return false;
+				return $succCode;
 			}
 		}
 		

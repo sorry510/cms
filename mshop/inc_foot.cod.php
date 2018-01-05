@@ -26,9 +26,7 @@
 			<svg class="laimi-icon5" aria-hidden="true" style="height:20px;">
 			    <use xlink:href="#icon-gouwuche1"></use>
 			</svg>
-			<?php if(!empty(laimi_cart_count()['count'])){ ?>
-			<span class="mui-badge laimi-cartcount"><?php echo laimi_cart_count()['count']; ?></span>
-			<?php } ?>
+			
 		</span>
 		<span class="mui-tab-label">购物车</span>
 	</a>

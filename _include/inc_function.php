@@ -4,45 +4,67 @@ if(!defined('C_CNFLY')) {
 }
 
 function laimi_prefix2_value() {
-	$str = '';
+	$strprefix2 = '';
 	if(!empty($GLOBALS['_SESSION']['login_type'])) {
-		$str = substr($GLOBALS['_SESSION']['login_code'], 0, 5) . "_"
-		. str_pad(api_value_int0($GLOBALS['_SESSION']['login_cid']), 4, '0', STR_PAD_LEFT) . '_';
+		$strprefix2 = substr($GLOBALS['_SESSION']['login_code'], 0, 5) . "_" . str_pad(api_value_int0($GLOBALS['_SESSION']['login_cid']), 4, '0', STR_PAD_LEFT) . '_';
 	}
-	return $str;
+	return $strprefix2;
 }
 
 function laimi_company_name() {
-	$str = '';
+	$strname = '';
 	$arr = array();
 	$strsql = "SELECT company_id, company_name FROM " . $GLOBALS['gdb']->fun_table('company')
 	. " WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	$str = $arr['company_name'];
-	return $str;
+	if(!empty($arr)) {
+		$strname = $arr['company_name'];
+	}
+	return $strname;
 }
 
-function laimi_shop_list(){
+function laimi_shop_list() {
 	$arr = array();
-	$strsql = "SELECT shop_id, shop_name, shop_phone, shop_area_address FROM " . $GLOBALS['gdb']->fun_table('shop')
-	. " WHERE shop_etime > " . time() . " and company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) ." ORDER BY shop_id DESC";
+	$strsql = "SELECT shop_id, shop_name ,shop_phone,shop_area_address FROM " . $GLOBALS['gdb']->fun_table('shop')
+	. " WHERE shop_etime > " . time() . " AND company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " ORDER BY shop_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;
 }
 
-// 获取当前用户姓名
-function laimi_user_name(){
-	$str = '';
+function laimi_company_trade() {
+	$arrtrade = array(
+		'sms_module' => 2,
+		'score_module' => 2,
+		'worker_module' => 2,
+		'history_module' => 2,
+		'act_module' => 2,
+		'wmp_module' => 2,
+		'wshop_module' => 2,
+		'sms_flag' => 2,
+		'score_flag' => 2,
+		'worker_flag' => 2,
+		'history_flag' => 2,
+		'store_count' => 0
+	);
+	
 	$arr = array();
-	$strsql = "SELECT user_name FROM ".$GLOBALS['gdb']->fun_table2('user'). " WHERE user_id=".api_value_int0($GLOBALS['_SESSION']['login_id']). " LIMIT 1";
+	$arr2 = array();
+	$strsql = "SELECT company_id, company_config_trade FROM " . $GLOBALS['gdb']->fun_table('company')
+	. " WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
-	$str = $arr['user_name'];
-	return $str;
+	if(!empty($arr)) {
+		if(!empty($arr['company_config_trade'])) {
+			$arr2 = json_decode($arr['company_config_trade'], true);
+			if(!empty($arr2)) {
+				$arrtrade = $arr2;
+			}
+		}
+	}
+	return $arrtrade;
 }
-
 // get系统基础配置信息
 function laimi_config_trade(){
 	$arr = array();
@@ -112,18 +134,19 @@ function laimi_config_shop_trade(){
 	$arr = array();
 	$arrtrade = array();
 	$arrjson = array(
-				'print_flag' => 2,
-				'print_title' => '',
-				'print_width' => 0,
-				'print_memo' => '',
-				'print_device' => '',
+				'sprint_flag' => 2,
+				'sprint_title' => '',
+				'sprint_memo' => '',
+				'sprint_width' => 0,
+				'sprint_device' => '',
+				'wprint_device' => ''
 			);
-	$strsql = "SELECT shop_config FROM " . $GLOBALS['gdb']->fun_table('shop')." where shop_id=".api_value_int0($GLOBALS['_SESSION']['login_sid'])." and company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']);
+	$strsql = "SELECT shop_config_print FROM " . $GLOBALS['gdb']->fun_table('shop')." where shop_id=".api_value_int0($GLOBALS['_SESSION']['login_sid'])." and company_id=" . api_value_int0($GLOBALS['_SESSION']['login_cid']);
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(!empty($arr)){
-		if($arr['shop_config'] != ''){
-			$arrtrade = json_decode($arr['shop_config'], true);
+		if($arr['shop_config_print'] != ''){
+			$arrtrade = json_decode($arr['shop_config_print'], true);
 			if(!$arrtrade){
 				$arrtrade = $arrjson;
 			}
@@ -244,7 +267,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 			$arrmgoods = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arrmgoods)){
 				$price = $arrmgoods['mgoods_price'];
-				$cprice = $arrmgoods['mgoods_cprice'];
+				$cprice = 0;
 				//$act_price
 				if(!empty($stract_id)){
 					$strsql = "SELECT min(act_discount_goods_price) as min_price,act_discount_id,mgoods_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mgoods_id=".$goods_id." && act_discount_id in (".$stract_id.")";
@@ -266,6 +289,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 							$card_discount = 10;
 						}
 						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+						$cprice = $arrmgoods['mgoods_cprice'];
 					}
 				}
 			}
@@ -276,7 +300,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 			$arrsgoods = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arrsgoods)){
 				$price = $arrsgoods['sgoods_price'];
-				$cprice = $arrsgoods['sgoods_cprice'];
+				$cprice = 0;
 				//$discount_price
 				if(!empty($card_id)){
 					$strsql = "SELECT c_card_type_discount FROM ".$GLOBALS['gdb']->fun_table2('card')." where card_id=".$card_id." limit 1";
@@ -288,6 +312,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 							$card_discount = 10;
 						}
 						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+						$cprice = $arrsgoods['sgoods_cprice'];
 					}
 				}
 			}
@@ -299,7 +324,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 			$arrmcombo = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 			if(!empty($arrmcombo)){
 				$price = $arrmcombo['mcombo_price'];
-				$cprice = $arrmcombo['mcombo_cprice'];
+				$cprice = 0;
 				//$act_price
 				if(!empty($stract_id)){
 					$strsql = "SELECT min(act_discount_goods_price) as min_price,act_discount_id,mcombo_id FROM ".$GLOBALS['gdb']->fun_table2('act_discount_goods')." where mcombo_id=".$goods_id." && act_discount_id in (".$stract_id.")";
@@ -321,6 +346,7 @@ function laimi_goods_price($goods_id = 0, $type = 0, $card_id = 0, $act_id = arr
 							$card_discount = 10;
 						}
 						$discount_price = round($price * $card_discount / 10, 2);//四舍五入
+						$cprice = $arrmcombo['mcombo_cprice'];
 					}
 				}
 			}
@@ -389,9 +415,12 @@ function laimi_wgoods_price($goods_id = 0, $price = 0, $cprice = 0){
 
 function laimi_cart_count(){
 	$arr = array();
-	$strsql = "SELECT sum(wcart_wgoods_count) as count FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".$GLOBALS['gdb']->fun_escape($GLOBALS['_SESSION']['login_id']);
+	$strsql = "SELECT sum(wcart_wgoods_count) as count FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".api_value_int0($GLOBALS['_SESSION']['login_id']);
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if(empty($arr['count'])){
+		$arr['count'] = 0;
+	}
 	return $arr;
 }
 
@@ -428,6 +457,7 @@ function laimi_pay_return($postarr){
 	$intreturn = 0;
 	//公共回传参数
 	$addressid = 0;
+	$parent_id = 0;
 	if(!empty($postarr['extra_common_param'])){
 	    /*支付宝pc来源*/
 	    //额外公共参数
@@ -440,12 +470,12 @@ function laimi_pay_return($postarr){
 	    /*微信渠道*/
 		  $extra = json_decode($postarr['attach'], true);
 	    //买家收货地址
-	    if(!empty($extra['address']))
-	    	$addressid = $extra['address'];
+	    $addressid = $extra['address'];
 	    //支付渠道
 	    $pay_channel = $extra['paytype'];
 	    //取货方式
 	    $worder_get = $extra['worder_get'];
+	    $parent_id = $extra['parentid'];
 	}else if(!empty($postarr['passback_params'])){
 		/*支付宝wap来源*/
 		// $extra = explode('|',urldecode($postarr['passback_params']));
@@ -459,6 +489,7 @@ function laimi_pay_return($postarr){
     $pay_channel = $postarr['paytype'];
     //取货方式
     $worder_get = $postarr['worder_get'];
+    $parent_id = $postarr['parentid'];
 	}
 
 	if($pay_channel=='ALI_WEB'){
@@ -480,18 +511,17 @@ function laimi_pay_return($postarr){
 	    // }else{
 	    //    $intreturn = 1;
 	    // }
-	   
 	}else if($pay_channel=='WX_NATIVE'){
 	    // $app_id = $postarr['appid'];
 
 	    // $out_trade_no = $postarr['out_trade_no'];
 
 	    // $total_fee = round($postarr['total_fee']/100, 2);
-	   
 	}else if($pay_channel=='WX_JSAPI'){
 		$app_id = $postarr['appid'];
 		$out_trade_no = $postarr['out_trade_no'];
 		$total_fee = round($postarr['total_fee'] / 100, 2);//元
+		
 	}else if($pay_channel=='ALI_WAP'){
 		// //订单号
 		// $out_trade_no = $postarr['out_trade_no'];
@@ -514,6 +544,7 @@ function laimi_pay_return($postarr){
 	}else if($pay_channel=='KAKOU'){
 		$out_trade_no = $postarr['out_trade_no'];
 		$total_fee = round($postarr['total_fee'] / 100, 2);//元
+		
 	}else{
 		$intreturn = 2;
 	}
@@ -558,8 +589,9 @@ function laimi_pay_return($postarr){
 		if($intreturn == 0) {
 	    //查询购物车
 	    $deccart_money = 0;
+	    $decreward_money = 0;//提成奖金
 	    $arrcart = array();
-	    $strsql = "SELECT a.*,b.wgoods_name,b.wgoods_name2,b.wgoods_price,b.wgoods_cprice,b.wgoods_photo1,b.wgoods_photo2,b.wgoods_photo3,b.wgoods_photo4,b.wgoods_photo5 FROM (SELECT wcart_id, card_id, wgoods_id, wcart_wgoods_count, wcart_wgoods_state FROM "
+	    $strsql = "SELECT a.*,b.wgoods_name,b.wgoods_name2,b.wgoods_price,b.wgoods_cprice,b.wgoods_photo1,b.wgoods_photo2,b.wgoods_photo3,b.wgoods_photo4,b.wgoods_photo5,b.wgoods_reward FROM (SELECT wcart_id, card_id, wgoods_id, wcart_wgoods_count, wcart_wgoods_state FROM "
 	    . $GLOBALS['gdb']->fun_table2('wcart') . " WHERE card_id = " . $intcard_id . " AND wcart_wgoods_state = 1) AS a LEFT JOIN "
 	    . $GLOBALS['gdb']->fun_table2('wgoods') . " AS b ON a.wgoods_id = b.wgoods_id ORDER BY a.wcart_id";
 	    $hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -569,6 +601,7 @@ function laimi_pay_return($postarr){
 		  		$goodsinfo = laimi_wgoods_price($row['wgoods_id'], $row['wgoods_price'], $row['wgoods_cprice']);
 		  		$row['min_price'] = $goodsinfo['min_price'];
 		  		$row['act_discount_id'] = $goodsinfo['act_discount_id'];
+		  		$row['reward'] = $row['wcart_wgoods_count'] * $row['wgoods_reward'];
 		  		$row['photo'] = '';
 		  		for($i = 1; $i <= 5; $i++){
 		  			if($row['wgoods_photo'.$i] != ''){
@@ -577,8 +610,10 @@ function laimi_pay_return($postarr){
 		  			}
 		  		}
 		  		$deccart_money += $row['wcart_wgoods_count'] * $row['min_price'];
+		  		$decreward_money += $row['wcart_wgoods_count'] * $row['wgoods_reward'];
 		  	}
 		  	unset($row);
+		  	
   	    //查询订单客户的地址信息
   	    $straddressname = '';
   	    $straddressphone = '';
@@ -631,18 +666,50 @@ function laimi_pay_return($postarr){
 						$intreturn = 4;
 					}
 				}
+
+		  	//查询提成人的信息,记录提成
+		  	$strparentname = '';
+		  	$strparentphone = '';
+		  	$strsql = "SELECT card_name,card_phone FROM "
+		  	. $GLOBALS['gdb']->fun_table2('card') . " WHERE card_id=".$parent_id." LIMIT 1";
+		  	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+		  	$arrparent = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		  	if(!empty($arrparent)){
+		  		$strparentname = $arrparent['card_name'];
+		  		$strparentphone = $arrparent['card_phone'];
+		  		$strsql = "UPDATE ". $GLOBALS['gdb']->fun_table2('card') ." SET s_card_reward = s_card_reward+".$decreward_money." WHERE card_id=".$parent_id." LIMIT 1";
+		  		$hresult = $GLOBALS['gdb']->fun_do($strsql);
+					if($hresult == FALSE) {
+						$intreturn = 6;
+					}
+		  	}else{
+		  		$decreward_money = 0;
+		  	}
 				//写入到订单表order
-				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder')." (card_id,worder_code,worder_money,worder_money2,worder_pay,worder_address_name,worder_address_phone,worder_address_detail,worder_get,worder_from,worder_state,worder_atime,c_card_type_id,c_card_type_name,c_card_name,c_card_phone) VALUES (".$arrcard['card_id'].",'".$out_trade_no."',".$deccart_money.",".$total_fee.",".$intpay.",'".$straddressname."','".$straddressphone."','".$straddressdetail."',".$worder_get.",".$intworder_from.",".$intworder_state.",".$inttime.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."','".$arrcard['card_name']."','".$arrcard['card_phone']."')";
-				$GLOBALS['gdb']->fun_do($strsql);
+				$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder')." (card_id,worder_code,worder_money,worder_money2,worder_pay,worder_address_name,worder_address_phone,worder_address_detail,worder_get,worder_from,worder_state,worder_atime,c_card_type_id,c_card_type_name,c_card_name,c_card_phone,c_parent_card_name,c_parent_card_phone,s_worder_reward,card_parent_id) VALUES (".$arrcard['card_id'].",'".$out_trade_no."',".$deccart_money.",".$total_fee.",".$intpay.",'".$straddressname."','".$straddressphone."','".$straddressdetail."',".$worder_get.",".$intworder_from.",".$intworder_state.",".$inttime.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."','".$arrcard['card_name']."','".$arrcard['card_phone']."','".$strparentname."','".$strparentphone."',".$decreward_money.",".$parent_id.")";
+				$hresult = $GLOBALS['gdb']->fun_do($strsql);
+				if($hresult == FALSE) {
+					$intreturn = 7;
+				}
 
 				$intworder_id = mysql_insert_id();
+				// echo "<pre>";
+				// var_dump($arrcart);
+				// echo "</pre>";
+				// exit;
 				foreach($arrcart as $row2){
-					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder_goods')." (card_id,worder_id,wgoods_id,worder_goods_count,worder_goods_price,worder_goods_state,worder_goods_atime,	c_wgoods_name,c_wgoods_photo1) VALUES (".$arrcard['card_id'].",".$intworder_id.",".$row2['wgoods_id'].",".$row2['wcart_wgoods_count'].",".$row2['min_price'].",".$intworder_state.",".$inttime.",'".$row2['wgoods_name']."','".$row2['photo']."')";
-					$GLOBALS['gdb']->fun_do($strsql);
+					$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('worder_goods')." (card_id,worder_id,wgoods_id,worder_goods_count,worder_goods_price,worder_goods_state,worder_goods_atime,	c_wgoods_name,c_wgoods_photo1,c_wgoods_reward,card_parent_id) VALUES (".$arrcard['card_id'].",".$intworder_id.",".$row2['wgoods_id'].",".$row2['wcart_wgoods_count'].",".$row2['min_price'].",".$intworder_state.",".$inttime.",'".$row2['wgoods_name']."','".$row2['photo']."',".$row2['reward'].",".$parent_id.")";
+					$hresult = $GLOBALS['gdb']->fun_do($strsql);
+					if($hresult == FALSE) {
+						$intreturn = 8;
+					}
 				}
 				//删除购物车
-				$strsql = "DELETE FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".$arrcard['card_id']." AND wcart_wgoods_state = 1";
-				$GLOBALS['gdb']->fun_do($strsql);
+				// $strsql = "DELETE FROM ".$GLOBALS['gdb']->fun_table2('wcart')." WHERE card_id = ".$arrcard['card_id']." AND wcart_wgoods_state = 1";
+				// $hresult = $GLOBALS['gdb']->fun_do($strsql);
+				// if($hresult == FALSE) {
+				// 	$intreturn = 9;
+				// }
 		  }
 		}
 	}

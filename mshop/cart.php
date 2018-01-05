@@ -9,6 +9,7 @@ $cart_money = 0;
 $strchannel = "cart";
 
 $gtemplate->fun_assign('cart_list', get_cart_list());
+$gtemplate->fun_assign('card_info', get_card_info());
 $gtemplate->fun_show('cart');
 
 function get_cart_list(){
@@ -35,5 +36,13 @@ function get_cart_list(){
 			$GLOBALS['cart_money'] += $row['wcart_wgoods_count'] * $row['min_price'];
 		}
 	}
+	return $arr;
+}
+
+function get_card_info(){
+	$arr = array();
+	$strsql = "SELECT card_phone FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = '".$GLOBALS['_SESSION']['login_id']."' limit 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	return $arr;
 }

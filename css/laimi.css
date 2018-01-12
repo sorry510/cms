@@ -1,0 +1,57 @@
+html, body {width:100%; height:100%;}
+
+/*覆盖layui*/
+.layui-field-title {margin-top:20px;}
+.layui-field-title legend {font-size:14px; font-weight:bold;}
+.layui-form-item {margin-bottom:10px;}
+.layui-form-item .layui-input-inline {width:auto;}
+.layui-form-item .layui-form-label {padding-left:0;}
+.layui-form-item .layui-form-label span {color:#FF5722;}
+.layui-form-item .layui-input-block {margin-left:95px;}
+.layui-form-select .layui-input {padding-right:0;}
+.layui-form-switch {margin-top:5px;}
+.layui-table th {text-align:center;}
+.layui-table td {text-align:center;}
+.layui-layer.layui-layer-page .layui-layer-content {overflow:visible;}
+
+/*通用样式*/
+.laimi-hicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#666666;}
+.laimi-qicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#C9C9C9;}
+.laimi-cicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#009F95;}
+.laimi-bicon {overflow:hidden; fill:currentColor; width:1em; height:1em; vertical-align:-0.15em; color:#FFFFFF;}
+.laimi-color-huang {color:#FFB800;}
+.laimi-color-ju {color:#FF5722;}
+.laimi-color-hui {color:#757575;}
+.laimi-color-hui2 {color:#757575; text-decoration:line-through;}
+.laimi-color-lv {color:#009688;}
+.laimi-color-lan {color:#1E9FFF; text-decoration:underline;}
+.laimi-input-60 {width:60px;}
+.laimi-input-80 {width:80px;}
+.laimi-input-100 {width:100px;}
+.laimi-input-200 {width:200px;}
+.laimi-input-300 {width:300px;}
+.laimi-input-b80 {width:80%;}
+.laimi-input-b95 {width:95%;}
+.laimi-input-60-32 {width:60px; height:32px;}
+.laimi-button-100 {width:100px;}
+.laimi-float-right {float:right;}
+.laimi-modal {padding:20px 20px 40px;}
+.laimi-page {width:100%; text-align:center;}
+
+/*顶部样式*/
+#laimi-top .laimi-logo {position:absolute; left:0; top:0; width:140px; height:60px;}
+#laimi-top .laimi-logo a {position:absolute; left:50px; top:10px;}
+#laimi-top .laimi-title {position:absolute; left:180px; top:20px; color:white; font-size:16px;}
+#laimi-top .layui-badge {position:static; margin:0 0 0 5px;}
+
+/*左侧样式*/
+#laimi-left {width:140px;}
+#laimi-left .layui-side-scroll {width:160px;}
+#laimi-left .layui-nav {width:140px;}
+
+/*主界面样式*/
+#laimi-content {left:140px; bottom:0; padding:0 20px;}
+#laimi-main .laimi-tools {margin-bottom:15px; padding-top:10px;}
+#laimi-main .laimi-tools .layui-form-label {padding-left:0px; padding-right:10px; width:auto;}
+#laimi-main .laimi-tools .layui-input-inline {margin-right:25px;}
+#laimi-main .laimi-tools .layui-input-inline.last {margin-right:10px;}

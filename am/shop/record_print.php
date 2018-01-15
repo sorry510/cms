@@ -18,15 +18,15 @@ $gtemplate->fun_assign('record_info', record_info());
 $gtemplate->fun_assign('card_info', card_info());
 $gtemplate->fun_show('record_print');
 
-if($strtype == '1') {
-	echo '<script type="text/javascript">alert("充值成功");window.location.href = "workbench.php";</script>';
-} else if($strtype == '2') {
-	echo '<script type="text/javascript">alert("买套餐成功");window.location.href = "workbench2.php";</script>';
-} else if($strtype == '3') {
-	echo '<script type="text/javascript">alert("消费成功");window.location.href = "workbench.php";</script>';
-} else {
-	echo '<script type="text/javascript">window.location.href = "record.php";</script>';
-}
+// if($strtype == '1') {
+// 	echo '<script type="text/javascript">alert("充值成功");window.location.href = "workbench.php";</script>';
+// } else if($strtype == '2') {
+// 	echo '<script type="text/javascript">alert("买套餐成功");window.location.href = "workbench2.php";</script>';
+// } else if($strtype == '3') {
+// 	echo '<script type="text/javascript">alert("消费成功");window.location.href = "workbench.php";</script>';
+// } else {
+// 	echo '<script type="text/javascript">window.location.href = "record.php";</script>';
+// }
 
 function record_info(){
 	$arr = array();

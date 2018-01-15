@@ -248,7 +248,7 @@
 							    <tr>
 							      <td>{{item.c_mgoods_name}}</td>
 							      <td>{{item.c_mgoods_price}}元</td>
-							      <td>{{item.card_mcombo_gcount}}元</td>
+							      <td>{{item.card_mcombo_gcount}}</td>
 							      <td>{{item.edate}}</td>
 							    </tr>
 							  {{# }) }}

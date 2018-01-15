@@ -279,8 +279,10 @@
 						    	<div class="layui-form-mid">
 						    		<input type="radio" name="paytype" value="5" title="会员卡（余¥{{d.card.s_card_ymoney || '0.00'}}）"
 										{{# if(d.card.s_card_ymoney == undefined || d.card.s_card_ymoney - d.money < 0.001){ }}
-										 disabled
-										{{# } }}
+											disabled
+										{{# } else { }}
+											checked
+										{{#  } }}
 						    		>
 						    	</div>
 						    </div>
@@ -291,7 +293,11 @@
 						    </div>
 						    <div class="layui-col-md5">
 						    	<div class="layui-form-mid" style="margin-right:0px;">
-						    		<input type="radio" name="paytype" value="1" title="现金">
+						    		<input type="radio" name="paytype" value="1" title="现金" 
+										{{# if(d.card.s_card_ymoney == undefined || d.card.s_card_ymoney - d.money < 0.001){ }}
+						    			checked
+						    		{{# } }}
+						    		>
 						    	</div>
 						    	<div class="layui-form-mid">
 						    		<input class="layui-input laimi-input-80 laimi-color-lan laimi-money-xian" type="text" placeholder="0.00" style="font-size:20px;height:40px;line-height:40px;">
@@ -301,7 +307,7 @@
 						    	</div>
 							  </div>
 						    <div class="layui-col-md4">
-						      <input type="radio" name="paytype" value="4" title="支付宝扫码" checked>
+						      <input type="radio" name="paytype" value="4" title="支付宝扫码">
 						    </div>
 						    <div class="layui-col-md3">
 						      <input type="radio" name="paytype" value="3" title="微信扫码">
@@ -965,11 +971,12 @@
 	  }
 	  function cardRechargeDo(data){
 	  	$.post('card_recharge_do.php', data, function(res){
-	  		console.log(res);
+	  		// console.log(res);
 	  		var type = res.type || '';
 	  		if(type != ''){
 	  			window.location.href="record_print.php?id="+res.id+"&type="+type;
 	  		}else{
+	  			var res = res.int;
 		  		if(res == '0'){
 		  			// window.location.href="record_print.php?id=26";
 		  		  // window.location.reload();
@@ -1406,6 +1413,7 @@
 	    		objlayer.alert('您不能用此方式付款', {
 		  			title: '提示信息'
 		  		});
+		  		$('.laimi-card-pay').attr('disabled', false);
 		  		return false;
 	    	}
 	      // 卡余额<实际付款金额
@@ -1413,6 +1421,7 @@
 	      	objlayer.alert('余额不足，请选用其它方式付款', {
 		  			title: '提示信息'
 		  		});
+		  		$('.laimi-card-pay').attr('disabled', false);
 		      return false;
 	      }
 	    }
@@ -1460,6 +1469,7 @@
     		objlayer.alert('请添加至少一个商品!!!', {
 	  			title: '提示信息'
 	  		});
+	  		$('.laimi-card-pay').attr('disabled', false);
 	  		return false;
 	    }
 
@@ -1581,25 +1591,34 @@
 	  function pay_do(data){
 	    $.post('workbench_do.php', data, function(res){
 	      $('.laimi-card-pay').attr('disabled', false);
-	      console.log(res);
-	      if(res == '0'){
+	      var type = res.type || '';
+	      if(type != ''){
 	      	objlayer.alert("支付成功！", {
 	      		title: "提示信息"
 	      	}, function() {
-	      		window.location.reload();
+	      		window.location.href="record_print.php?id="+res.id+"&type="+type;
 	      	});
-	      }else if(res == '1'){
-        	objlayer.alert('请至少选择一个商品', {
-		    		title: '提示信息'
-		    	});
-	      }else if(res == '30'){
-        	objlayer.alert('此体验券已经没有对应商品，不能使用', {
-		    		title: '提示信息'
-		    	});
-	      }else{
-	      	console.log(res);
+	      }else {
+	      	var res = res.int;
+		      if(res == '0'){
+		      	objlayer.alert("支付成功！", {
+		      		title: "提示信息"
+		      	}, function() {
+		      		window.location.reload();
+		      	});
+		      }else if(res == '1'){
+	        	objlayer.alert('请至少选择一个商品', {
+			    		title: '提示信息'
+			    	});
+		      }else if(res == '30'){
+	        	objlayer.alert('此体验券已经没有对应商品，不能使用', {
+			    		title: '提示信息'
+			    	});
+		      }else{
+		      	console.log(res);
+		      }
 	      }
-	    });
+	    }, 'json');
 	  }
 	  function clone(obj){
 	    //深层clone,用于只有数据的数组或json对象

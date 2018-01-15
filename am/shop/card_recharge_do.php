@@ -297,7 +297,7 @@ if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1)
 		      $dechmoney = $decmoney;
 		      $decymoney = $arrcard['s_card_ymoney'];
 		      $response = $demo->sendSms(
-		          "来米软件", // 短信签名
+		          $GLOBALS['gtrade']['sms_sign'], // 短信签名
 		          $strsmscode, // 短信模板编号
 		          $strphone, // 短信接收者
 		          Array(  // 短信模板中字段的值
@@ -323,7 +323,10 @@ if($intreturn == 0){
 		);
 	echo json_encode($arr);
 }else{
-	echo $intreturn;
+	$arr = array(
+		'int' => $intreturn
+		);
+	echo json_encode($arr);
 }
 
 ?>

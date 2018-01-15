@@ -55,7 +55,7 @@
 				</table>
 			<?php } ?>
 			<?php if($this->_data['record_info']['card_record_type'] == 2) { ?>
-	    	<!-- <table class="layui-table">
+	    	<table class="layui-table">
 				  <thead>
 				    <tr>
 				      <th width="400">名称</th>
@@ -65,19 +65,16 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  {{#  layui.each(d.mcombo_goods_list, function(index, item){ }}
+				  <?php foreach($this->_data['record_info']['mcombo_goods_list'] as $row) { ?>
 				    <tr>
-				      <td>{{item.c_mgoods_name}}</td>
-				      <td>{{item.card_record2_mcombo_gcount}}</td>
-				      <td style="text-decoration:line-through;">¥{{item.c_mgoods_price}}</td>
-				      <td>{{item.c_mgoods_cprice != 0 ? '¥'+item.c_mgoods_cprice : '--'}}</td>
+				      <td><?php echo $row['c_mgoods_name']; ?></td>
+				      <td><?php echo $row['card_record2_mcombo_gcount']; ?></td>
+				      <td style="text-decoration:line-through;">¥<?php echo $row['c_mgoods_price'] + 0; ?></td>
+				      <td><?php echo $row['c_mgoods_cprice'] != 0 ? ($row['c_mgoods_cprice'] + 0) : '--'; ?></td>
 				    </tr>
-				  {{# }) }}
-				    <tr>
-				      <td colspan="4" style="text-align:right;">共{{d.mcombo_goods_count}}件，合计<span class="laimi-color-ju">¥{{d.mcombo_goods_money}}</span>，实收<span class="laimi-color-ju" style="font-size:18pt;">¥{{d.card_record_smoney}}</span>&nbsp;&nbsp;</td>
-				    </tr>
+				  <?php } ?>
 				  </tbody>
-				</table> -->
+				</table>
 			<?php } ?>
 	    <?php if($this->_data['record_info']['card_record_type'] == 3) { ?>
 	    	<table class="layui-table">
@@ -90,7 +87,7 @@
 				  <tbody>
 				  <?php foreach($this->_data['record_info']['goods_list'] as $row) { ?>
 				    <tr>
-				      <td><?php echo $row['c_mgoods_name'] != '' ? $row['c_mgoods_name'] : $row['c_sgoods_name']; ?>x<?php echo $row['card_record3_goods_count']; ?></td>
+				      <td><?php echo $row['c_mgoods_name'] != '' ? $row['c_mgoods_name'] : $row['c_sgoods_name']; ?>x<?php echo $row['card_record3_goods_count'] + 0; ?></td>
 				      <td>¥<?php echo $row['c_mgoods_rprice'] != 0 ? ($row['c_mgoods_rprice'] + 0) : ($row['c_sgoods_rprice'] + 0); ?></td>
 				    </tr>
 				  <?php } ?>
@@ -139,11 +136,11 @@
 			手动优惠：¥<?php echo $this->_data['record_info']['card_record_jmoney'] + 0; ?>
     </div>
     <div class="laimi-line hr"></div>
-   <!--  <?php foreach($this->_data['record_info']['ticket_list'] as $key => $row) { ?>
+    <?php foreach($this->_data['record_info']['ticket_list'] as $key => $row) { ?>
     <div class="laimi-line">
 			<?php if($key == 0) echo '满送：'; ?><?php echo $row['c_ticket_name']."x".$row['count']."(满".($row['c_ticket_limit'] + 0)."元可用)"; ?>
     </div>
-    <?php } ?> -->
+    <?php } ?>
     <div class="laimi-line hr"></div>
     <div class="laimi-line">
 			卡余额：¥<?php echo $this->_data['record_info']['card_record_emoney'] + 0; ?>
@@ -192,18 +189,15 @@
 		}
 		return true;
 	};
-	// function Print(){
-	// 	CreateOnePage();
-	// 	LODOP.PREVIEW();
-	// }
+
 	function OpenPreview() {
 		if(CreateOnePage()){
 			// LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Full-Page");//按整页缩放
 			// LODOP.SET_SHOW_MODE("HIDE_PAPER_BOARD",true);//隐藏走纸板
 			// LODOP.SET_PREVIEW_WINDOW(0,3,0,0,0,""); //隐藏工具条，设置适高显示
 			// LODOP.SET_SHOW_MODE("PREVIEW_IN_BROWSE",true); //预览界面内嵌到页面内
-			// LODOP.PREVIEW();
-			LODOP.PRINT();
+			LODOP.PREVIEW();//打印预览
+			// LODOP.PRINT();//打印
 			// blPreviewOpen=true;
 	  }
 	};

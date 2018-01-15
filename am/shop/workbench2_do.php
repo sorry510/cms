@@ -4,6 +4,12 @@ define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
+require_once C_ROOT . '/sms/api_sdk/vendor/autoload.php';
+use Aliyun\Core\Config;
+use Aliyun\Core\Profile\DefaultProfile;
+use Aliyun\Core\DefaultAcsClient;
+use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest;
+use Aliyun\Api\Sms\Request\V20170525\QuerySendDetailsRequest;
 
 $strcard_id = api_value_post('card_id');
 $intcard_id = api_value_int0($strcard_id);
@@ -105,6 +111,7 @@ if($intreturn == 0){
 	if(!empty($arrcard)){
 		// 有会员卡
 		if($card_pay != 'card_record_kakou'){
+			$card_ymoney = $arrcard['s_card_ymoney'];
 			//不是卡扣
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_mmoney,card_record_jmoney,card_record_smoney,card_record_smoney2,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',2,".$dechmoney.",".$decymoney.",".$decmmoney.",".$decjmoney.",".$decsmoney.",".$decsmoney2.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".$intscore.",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
 			$hresult = $gdb->fun_do($strsql);
@@ -323,7 +330,180 @@ if($intreturn == 0 && !empty($arrinfo)){
 		}
 	}
 }
+//发送短信
+if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1){
+	if($intreturn == 0 && $intcard_id!=0){
+	  $intsms_ycount = 0;
+	  $strsql = "SELECT company_sms_ycount FROM ".$GLOBALS['gdb']->fun_table('company')." WHERE company_id=".api_value_int0($GLOBALS['_SESSION']['login_cid']);
+	  $hresult = $GLOBALS['gdb']->fun_query($strsql);
+	  $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	  if(!empty($arr)){
+	    $intsms_ycount = $arr['company_sms_ycount'];
+	  }
 
+		if($intsms_ycount > 0){
+		  // 加载区域结点配置
+		  Config::load();
+
+		  /**
+		   * Class SmsDemo
+		   *
+		   * @property \Aliyun\Core\DefaultAcsClient acsClient
+		   */
+		  class SmsDemo
+		  {
+
+		      /**
+		       * 构造器
+		       *
+		       * @param string $accessKeyId 必填，AccessKeyId
+		       * @param string $accessKeySecret 必填，AccessKeySecret
+		       */
+		      public function __construct($accessKeyId, $accessKeySecret)
+		      {
+
+		          // 短信API产品名
+		          $product = "Dysmsapi";
+
+		          // 短信API产品域名
+		          $domain = "dysmsapi.aliyuncs.com";
+
+		          // 暂时不支持多Region
+		          $region = "cn-hangzhou";
+
+		          // 服务结点
+		          $endPointName = "cn-hangzhou";
+
+		          // 初始化用户Profile实例
+		          $profile = DefaultProfile::getProfile($region, $accessKeyId, $accessKeySecret);
+
+		          // 增加服务结点
+		          DefaultProfile::addEndpoint($endPointName, $region, $product, $domain);
+
+		          // 初始化AcsClient用于发起请求
+		          $this->acsClient = new DefaultAcsClient($profile);
+		      }
+
+		      /**
+		       * 发送短信范例
+		       *
+		       * @param string $signName <p>
+		       * 必填, 短信签名，应严格"签名名称"填写，参考：<a href="https://dysms.console.aliyun.com/dysms.htm#/sign">短信签名页</a>
+		       * </p>
+		       * @param string $templateCode <p>
+		       * 必填, 短信模板Code，应严格按"模板CODE"填写, 参考：<a href="https://dysms.console.aliyun.com/dysms.htm#/template">短信模板页</a>
+		       * (e.g. SMS_0001)
+		       * </p>
+		       * @param string $phoneNumbers 必填, 短信接收号码 (e.g. 12345678901)
+		       * @param array|null $templateParam <p>
+		       * 选填, 假如模板中存在变量需要替换则为必填项 (e.g. Array("code"=>"12345", "product"=>"阿里通信"))
+		       * </p>
+		       * @param string|null $outId [optional] 选填, 发送短信流水号 (e.g. 1234)
+		       * @return stdClass
+		       */
+		      public function sendSms($signName, $templateCode, $phoneNumbers, $templateParam = null, $outId = null) {
+
+		          // 初始化SendSmsRequest实例用于设置发送短信的参数
+		          $request = new SendSmsRequest();
+
+		          // 必填，设置雉短信接收号码
+		          $request->setPhoneNumbers($phoneNumbers);
+
+		          // 必填，设置签名名称
+		          $request->setSignName($signName);
+
+		          // 必填，设置模板CODE
+		          $request->setTemplateCode($templateCode);
+
+		          // 可选，设置模板参数
+		          if($templateParam) {
+		              $request->setTemplateParam(json_encode($templateParam));
+		          }
+
+		          // 可选，设置流水号
+		          if($outId) {
+		              $request->setOutId($outId);
+		          }
+
+		          // 发起访问请求
+		          $acsResponse = $this->acsClient->getAcsResponse($request);
+
+		          // 打印请求结果
+		          // var_dump($acsResponse);
+
+		          return $acsResponse;
+
+		      }
+
+		      /**
+		       * 查询短信发送情况范例
+		       *
+		       * @param string $phoneNumbers 必填, 短信接收号码 (e.g. 12345678901)
+		       * @param string $sendDate 必填，短信发送日期，格式Ymd，支持近30天记录查询 (e.g. 20170710)
+		       * @param int $pageSize 必填，分页大小
+		       * @param int $currentPage 必填，当前页码
+		       * @param string $bizId 选填，短信发送流水号 (e.g. abc123)
+		       * @return stdClass
+		       */
+		      public function queryDetails($phoneNumbers, $sendDate, $pageSize = 10, $currentPage = 1, $bizId=null) {
+
+		          // 初始化QuerySendDetailsRequest实例用于设置短信查询的参数
+		          $request = new QuerySendDetailsRequest();
+
+		          // 必填，短信接收号码
+		          $request->setPhoneNumber($phoneNumbers);
+
+		          // 选填，短信发送流水号
+		          $request->setBizId($bizId);
+
+		          // 必填，短信发送日期，支持近30天记录查询，格式Ymd
+		          $request->setSendDate($sendDate);
+
+		          // 必填，分页大小
+		          $request->setPageSize($pageSize);
+
+		          // 必填，当前页码
+		          $request->setCurrentPage($currentPage);
+
+		          // 发起访问请求
+		          $acsResponse = $this->acsClient->getAcsResponse($request);
+
+		          // 打印请求结果
+		          // var_dump($acsResponse);
+
+		          return $acsResponse;
+		      }
+
+		  }
+
+		  if($intreturn == 0){
+		      $demo = new SmsDemo(
+		          "GWZek0XmIcJAOKnD",
+		          "pnHKa0sCZunORgfxYDdKqTwOVc1WUB"
+		      );
+
+		      $response = $demo->sendSms(
+		          $GLOBALS['gtrade']['sms_sign'], // 短信签名
+		          'SMS_121910761', // 短信模板编号
+		          $arrcard['card_phone'], // 短信接收者
+		          Array(  // 短信模板中字段的值
+		              "cardname"=> $arrcard['card_name'],
+		              "cardcode"=> $arrcard['card_code'],
+		              "money"=> $decsmoney,
+		              "cardymoney"=> $card_ymoney,
+		          )
+		          // "123"
+		      );
+		      if($response->Message == 'OK'){
+	          $strsql = "UPDATE ".$GLOBALS['gdb']->fun_table('company'). " SET company_sms_ycount=company_sms_ycount-1 WHERE company_id=".api_value_int0($GLOBALS['_SESSION']['login_cid']);
+	          $hresult = $gdb->fun_do($strsql);
+		      }else{
+		      	// var_dump($response->Message);
+		      }
+		  }
+		}
+	}
+}
 //记录优惠券使用情况
 if($intreturn == 0 && !empty($arrinfo3)){
 	$arract_id_use = array();
@@ -334,7 +514,7 @@ if($intreturn == 0 && !empty($arrinfo3)){
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 		if(empty($arr)){
-			$intreturn = 21;
+			// $intreturn = 21;
 		}else{
 			$arract_id_use[] = $arr['act_id'];
 		}
@@ -342,34 +522,34 @@ if($intreturn == 0 && !empty($arrinfo3)){
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('card_ticket'). " SET card_ticket_state=2 where card_ticket_id=".$intcard_ticket_id." limit 1";
 			$hresult = $gdb->fun_do($strsql);
-			if($hresult==false){
-				$intreturn = 22;
-			}
+			// if($hresult==false){
+			// 	$intreturn = 22;
+			// }
 		}
 		//更新card_ticket_record,记录活动名称
 		if($intreturn == 0){
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket_record'). " (card_id,card_ticket_record_atype,act_id,act_give_id,act_ticket_id,card_ticket_record_ttype,ticket_money_id,ticket_goods_id,card_ticket_record_utype,card_ticket_id,card_record_id,card_ticket_record_atime,c_ticket_name,c_ticket_value,c_ticket_limit,c_ticket_days,c_ticket_begin,c_mgoods_id,c_mgoods_name,c_ticket_edate,c_act_name) VALUES (".$intcard_id.",".$arr['act_type'].",".$arr['act_id'].",".$arr['act_give_id'].",".$arr['act_ticket_id'].",".$arr['ticket_type'].",".$arr['ticket_money_id'].",".$arr['ticket_goods_id'].",2,".$arr['card_ticket_id'].",".$record_id.",".$intnow.",'".$arr['c_ticket_name']."',".$arr['c_ticket_value'].",".$arr['c_ticket_limit'].",".$arr['c_ticket_days'].",".$arr['c_ticket_begin'].",".$arr['c_mgoods_id'].",'".$arr['c_mgoods_name']."',".$arr['card_ticket_edate'].",'".$arr['act_give_name']."')";
 			$hresult = $gdb->fun_do($strsql);
-			if($hresult == FALSE) {
-				$intreturn = 23;
-			}
+			// if($hresult == FALSE) {
+			// 	$intreturn = 23;
+			// }
 		}
 		//记录act总表记录
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_uticket=act_relate_uticket+1,act_ctime=".$intnow." where act_id=".$arr['act_id'];
 			$hresult = $gdb->fun_do($strsql);
-			if($hresult == FALSE) {
-				$intreturn = 25;
-			}
+			// if($hresult == FALSE) {
+			// 	$intreturn = 25;
+			// }
 		}
 	}
 	$arract_id_use = array_unique($arract_id_use);//去重
 	foreach($arract_id_use as $row){
 		$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$row;
 		$hresult = $gdb->fun_do($strsql);
-		if($hresult == FALSE) {
-			$intreturn = 26;
-		}
+		// if($hresult == FALSE) {
+		// 	$intreturn = 26;
+		// }
 	}
 }
 //记录recrord2_ygoods,没有考虑到期时间
@@ -382,9 +562,9 @@ if($intreturn == 0){
 		foreach($arr as $v){
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record2_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['c_mgoods_name']."',".$v['c_mgoods_price'].",".$v['c_mgoods_cprice'].")";
 			$hresult = $GLOBALS['gdb']->fun_do($strsql);
-			if($hresult == FALSE) {
-				$intreturn = 13;
-			}
+			// if($hresult == FALSE) {
+			// 	$intreturn = 13;
+			// }
 		}
 	}
 }
@@ -398,9 +578,9 @@ if($intreturn == 0){
 			if(!empty($arract)){
 				$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." set act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$arract['act_id'];
 				$hresult = $GLOBALS['gdb']->fun_do($strsql);
-				if($hresult == FALSE) {
-					$intreturn = 12;
-				}
+				// if($hresult == FALSE) {
+				// 	$intreturn = 12;
+				// }
 			}
 		}
 	}
@@ -416,12 +596,24 @@ if($intreturn == 0){
 			if(!empty($arract)){
 				$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." set act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$arract['act_id'];
 				$hresult = $GLOBALS['gdb']->fun_do($strsql);
-				if($hresult == FALSE) {
-					$intreturn = 12;
-				}
+				// if($hresult == FALSE) {
+				// 	$intreturn = 12;
+				// }
 			}
 		}
 	}
 }
 
-echo $intreturn;
+if($intreturn == 0){
+	$arr = array(
+		'type' => '3',
+		'id' => $record_id
+		);
+	echo json_encode($arr);
+}else{
+	$arr = array(
+		'int' => $intreturn
+		);
+	echo json_encode($arr);
+}
+

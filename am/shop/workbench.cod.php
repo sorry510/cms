@@ -965,21 +965,27 @@
 	  }
 	  function cardRechargeDo(data){
 	  	$.post('card_recharge_do.php', data, function(res){
-	  		// console.log(res);
-	  		if(res == '0'){
-	  		  window.location.reload();
-	  		}else if(res == '4'){
-	  		  objlayer.alert('没有此类型的会员卡，请重新选择', {
-		  			title: '提示信息'
-		  		});
-	  		  return false;
+	  		console.log(res);
+	  		var type = res.type || '';
+	  		if(type != ''){
+	  			window.location.href="record_print.php?id="+res.id+"&type="+type;
 	  		}else{
-	  		  objlayer.alert('充值失败，请联系管理员', {
-		  			title: '提示信息'
-		  		});
-	  		  return false;
+		  		if(res == '0'){
+		  			// window.location.href="record_print.php?id=26";
+		  		  // window.location.reload();
+		  		}else if(res == '4'){
+		  		  objlayer.alert('没有此类型的会员卡，请重新选择', {
+			  			title: '提示信息'
+			  		});
+		  		  return false;
+		  		}else{
+		  		  objlayer.alert('充值失败，请联系管理员', {
+			  			title: '提示信息'
+			  		});
+		  		  return false;
+		  		}
 	  		}
-	  	})
+	  	}, 'json');
 	  }
 	  function cardClear(){
 	    // var _this = this;
@@ -1575,7 +1581,7 @@
 	  function pay_do(data){
 	    $.post('workbench_do.php', data, function(res){
 	      $('.laimi-card-pay').attr('disabled', false);
-	      // console.log(res);
+	      console.log(res);
 	      if(res == '0'){
 	      	objlayer.alert("支付成功！", {
 	      		title: "提示信息"

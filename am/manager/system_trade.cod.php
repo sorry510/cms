@@ -32,6 +32,12 @@
 		<?php } ?>
 	</div>
 	<div class="layui-form-item">
+		<label class="layui-form-label">短信签名</label>
+		<div class="layui-form-mid layui-word-aux">
+			<span><?php echo $GLOBALS['gtrade']['sms_sign']; ?></span>
+		</div>
+	</div>
+	<div class="layui-form-item">
 		<label class="layui-form-label">短信余额</label>
 		<div class="layui-form-mid layui-word-aux">
 			<span class="laimi-color-ju"><?php echo $this->_data['sms_ycount']; ?>条</span>

@@ -117,7 +117,7 @@
 					}
 				});
 			} else {
-				objlayer.alert('打印插件未正确安装，请重新安装！', {
+				objlayer.alert('<a style="color:blue;text-decoration:underline" href="http://www.c-lodop.com/download/CLodop_Setup_for_Win32NT_https_3.028Extend.zip">打印插件未正确安装，请点击安装！</a>', {
 					title: '提示信息'
 				});
 			}

@@ -31,6 +31,12 @@
 			<input class="layui-input laimi-input-300" type="text" name="wshop_title" value="<?php echo htmlspecialchars($this->_data['company_wshop']['wshop_title']); ?>">
 		</div>
 	</div>
+	<div class="layui-form-item" style="margin-top:20px;">
+		<label class="layui-form-label">微商城电话</label>
+		<div class="layui-input-inline">
+			<input class="layui-input laimi-input-300" type="text" name="wshop_phone" value="<?php echo htmlspecialchars($this->_data['company_wshop']['wshop_phone']); ?>">
+		</div>
+	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">在线支付</label>
 		<div class="layui-form-mid layui-word-aux">
@@ -58,7 +64,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">分销功能</label>
 		<div class="layui-input-inline">
-			<input type="radio" name="fenxiao_flag" value="2" title="关闭"<?php if($this->_data['company_wshop']['fenxiao_flag'] == 0) echo ' checked'; ?>>
+			<input type="radio" name="fenxiao_flag" value="0" title="关闭"<?php if($this->_data['company_wshop']['fenxiao_flag'] == 0) echo ' checked'; ?>>
 			<input type="radio" name="fenxiao_flag" value="1" title="1级分销"<?php if($this->_data['company_wshop']['fenxiao_flag'] == 1) echo ' checked'; ?>>
 		</div>
 		<div class="layui-form-mid layui-word-aux">
@@ -249,9 +255,12 @@
 	  });
 		objform.on("submit(laimi-submit)", function(data) {
 			$.post('wechat_shop_config_do.php', data.field, function(res) {
-				alert(res);
 				if(res == 0) {
-					window.location.reload();
+					objlayer.alert('微商城设置成功！', {
+						title: "提示信息"
+					}, function() {
+						window.location.reload();
+					});
 				} else {
 					objlayer.alert('修改失败，请联系管理员', {
 						title: "提示信息"

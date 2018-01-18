@@ -26,7 +26,7 @@ function get_mgoods() {
 	$arr = array();
 	$strsql = "SELECT a.*, b.mcombo_goods_id FROM " . $GLOBALS['gdb']->fun_table2('mgoods')
 	. " AS a LEFT JOIN (SELECT mcombo_goods_id, mgoods_id FROM " . $GLOBALS['gdb']->fun_table2('mcombo_goods') . " WHERE mcombo_id = " . $GLOBALS['intid']
-	. ") AS b ON a.mgoods_id = b.mgoods_id WHERE a.mgoods_state = 1 ORDER BY a.mgoods_catalog_id DESC";
+	. ") AS b ON a.mgoods_id = b.mgoods_id WHERE a.mgoods_state = 1 AND a.mgoods_type = 1 ORDER BY a.mgoods_catalog_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

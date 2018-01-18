@@ -22,19 +22,19 @@ if($strstime != ''){
 	$intstime = strtotime($strstime) ? strtotime($strstime) : 0;
 }
 
-if($intstime == 0){
-	//默认时间是，3个月之前
-	// $strstime = date('Y-m-d',strtotime('-3 month'))." 00:00:00";
-	$strstime = date('Y-m-d', strtotime('-3 month'));
-	$intstime = strtotime($strstime);
-}else{
-	//最早日期为一年前
-	$intstime = $intstime < date('Y-m-d', strtotime('-1 year')) ? date('Y-m-d', strtotime('-1 year')) : $intstime;
-}
+// if($intstime == 0){
+// 	//默认时间是，3个月之前
+// 	// $strstime = date('Y-m-d',strtotime('-3 month'))." 00:00:00";
+// 	$strstime = date('Y-m-d', strtotime('-3 month'));
+// 	$intstime = strtotime($strstime);
+// }else{
+// 	//最早日期为一年前
+// 	$intstime = $intstime < date('Y-m-d', strtotime('-1 year')) ? date('Y-m-d', strtotime('-1 year')) : $intstime;
+// }
 
 $intetime = 0;
 if($stretime != ''){
-	$intetime = strtotime($stretime) ? strtotime($stretime) : 0;
+	$intetime = strtotime($stretime) ? strtotime($stretime) + 86399 : 0;
 }
 
 $gtemplate->fun_assign('request', get_request());

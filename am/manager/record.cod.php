@@ -30,7 +30,6 @@
 		<div class="layui-input-inline">
 			<select name="cardtype">
 				<option value="">全部卡类型</option>
-				<option value="0"<?php if($GLOBALS['strcardtype'] != '' && $GLOBALS['intcardtype'] == 0) echo " selected"; ?>>未设置</option>
 				<?php foreach($this->_data['card_type_list'] as $row) { ?>
 				<option value="<?php echo $row['card_type_id']; ?>"<?php if($row['card_type_id'] == $GLOBALS['intcardtype']) echo " selected"; ?>><?php echo $row['card_type_name']; ?></option>
 				<?php } ?>
@@ -42,7 +41,7 @@
 		</div>
 		<label class="layui-form-label laimi-input">至</label>
 		<div class="layui-input-inline">
-			<input id="laimi-to" class="layui-input laimi-input-100" type="text" name="to" placeholder="yyyy-MM-dd" value="<?php echo $GLOBALS['strfrom']; ?>">
+			<input id="laimi-to" class="layui-input laimi-input-100" type="text" name="to" placeholder="yyyy-MM-dd" value="<?php echo $GLOBALS['strto']; ?>">
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">

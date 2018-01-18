@@ -71,7 +71,7 @@ if($intreturn == 0) {
 			
 			if($intmgoods > 0) {
 				$strsql = "INSERT INTO " . $gdb->fun_table2('mcombo_goods') . " (mcombo_id, mgoods_id, mcombo_goods_count, mcombo_goods_atime, mcombo_goods_ctime) VALUES ("
-				. $strid . ", ". $intmgoods . ", 1, " . $inttime . ", 0)";
+				. $strid . ", ". $intmgoods . ", 0, " . $inttime . ", 0)";
 				$gdb->fun_do($strsql);
 			}
 		}

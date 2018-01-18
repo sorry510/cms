@@ -111,12 +111,15 @@
 			<?php if(!empty($row['mymcombo'])) { ?>，卡余：【
 			  <?php
 			  foreach($row['mymcombo'] as $row2) {
-				  echo $row2['c_mgoods_name'] . '(<span class="laimi-color-ju">' . $row2['card_mcombo_gcount'] . '</span>)';
-				  if($row2['card_mcombo_cedate'] == 0) {
-				  	echo '；';
-				  } else {
-				  	echo '，到期时间:' . date('Y-m-d', $row2['card_mcombo_cedate']) . '；';
-				  }
+		    	echo $row2['c_mgoods_name'];
+		    	if($row2['c_mcombo_type']==1){
+		    	  echo '(<span class="laimi-color-ju">'.$row2['card_mcombo_gcount'].'</span>)';
+		    	}
+		  	  if($row2['card_mcombo_cedate'] == 0) {
+		  	  	echo '；';
+		  	  } else {
+		  	  	echo '，到期时间:' . date('Y-m-d', $row2['card_mcombo_cedate']) . '；';
+		  	  }
 			  }
 			  ?>】
 			<?php } ?>
@@ -381,7 +384,6 @@
 			objlayer.close(hindex);
 		});
 		$(".laimi-info").on("click", function() {
-			console.log($(this).attr('card_id'));
 			$.getJSON('card_info_ajax.php', {id:$(this).attr('card_id')}, function(data){
 				objlaytpl($("#laimi-script-info").html()).render(data, function(html){
 				  objlayer.open({

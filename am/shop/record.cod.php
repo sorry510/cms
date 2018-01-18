@@ -21,7 +21,6 @@
 		<div class="layui-input-inline">
 			<select name="card_type_id">
 				<option value="all" <?php if($this->_data['request']['card_type_id']=='all') echo "selected";?>>全部</option>
-				<option value="0" <?php if($this->_data['request']['card_type_id']=='0') echo "selected";?>>未设置</option>
 				<?php foreach($this->_data['card_type_list'] as $row) { ?>
 				<option value="<?php echo $row['card_type_id'];?>" <?php if($row['card_type_id']==$this->_data['request']['card_type_id']) echo "selected";?>><?php echo $row['card_type_name'];?></option>
 				<?php }?>

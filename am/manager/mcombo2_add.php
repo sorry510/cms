@@ -21,7 +21,7 @@ function get_mgoods_catalog() {
 function get_mgoods() {
 	$arr = array();
 	$strsql = "SELECT mgoods_id, mgoods_catalog_id, mgoods_name, mgoods_price FROM " . $GLOBALS['gdb']->fun_table2('mgoods')
-	. " WHERE mgoods_state = 1 ORDER BY mgoods_catalog_id DESC, mgoods_id DESC";
+	. " WHERE mgoods_state = 1 AND mgoods_type = 1 ORDER BY mgoods_catalog_id DESC, mgoods_id DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	return $arr;

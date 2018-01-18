@@ -136,9 +136,9 @@
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
-			    <label class="layui-form-label"><span>*</span> 备注</label>
+			    <label class="layui-form-label"> 备注</label>
 			    <div class="layui-input-block">
-			      <textarea class="layui-textarea laimi-input-b80" name="txtmemo" lay-verify="required"></textarea>
+			      <textarea class="layui-textarea laimi-input-b80" name="txtmemo"></textarea>
 			    </div>
 			  </div>
 			  <div class="layui-form-item">

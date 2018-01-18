@@ -11,8 +11,8 @@ if(laimi_config_trade()['act_module'] != 1){
 
 $strchannel = 'marketing';
 
-$strsign = api_value_get('sign');
-$intsign = api_value_int0($strsign);
+/*$strsign = api_value_get('sign');
+$intsign = api_value_int0($strsign);*/
 $strtype = api_value_get('card');
 $inttype = api_value_int0($strtype);
 $strshop = api_value_get('shop');
@@ -109,9 +109,9 @@ function get_card_list() {
 	$arrpackage = array();
 	
 	$strwhere = '';
-	if ($GLOBALS['intsign'] != 1) {
+	/*if ($GLOBALS['intsign'] != 1) {
 		$strwhere = $strwhere . ' AND 1>2 ';
-	}
+	}*/
 	if ($GLOBALS['strtype'] != '') {
 		$strwhere = $strwhere . ' AND card_type_id = '. $GLOBALS['inttype'];
 	}

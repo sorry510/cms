@@ -16,9 +16,9 @@
 					<li>
 						<a href="act_batch_weixin.php">微信营销记录</a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="act_batch_sms.php">短信营销记录</a>
-					</li>
+					</li> -->
 				</ul>
 				<div id="laimi-main" class="p-act-batch layui-tab-content">
 <form class="layui-form">
@@ -26,9 +26,9 @@
 		<div class="layui-input-inline">
 			<a class="layui-btn layui-btn-normal laimi-search">高级查询条件</a>
 		</div>
-		<div class="laimi-float-right">
+		<!-- <div class="laimi-float-right">
 			<a id="" class="layui-btn laimi-sms">批量短信营销</a>
-		</div>
+		</div> -->
 		<div class="laimi-float-right" style="margin-right:10px;">
 			<a id="" class="layui-btn laimi-weixin">批量微信营销</a>
 		</div>
@@ -213,7 +213,7 @@
 	</script>
 	<!--新增微信营销弹出层结束-->
 	<!--新增短信营销弹出层开始-->
-	<script type="text/html" id="laimi-sms">
+	<!-- <script type="text/html" id="laimi-sms">
 		<div id="laimi-modal-sms" class="laimi-modal">
 			<form class="layui-form">
 				<div class="layui-form-item">
@@ -254,7 +254,7 @@
 		  	</div>
 			</form>
 		</div>
-	</script>
+	</script> -->
 	<!--消息弹出层结束-->
 <?php echo $this->fun_fetch('inc_foot', ''); ?>
 	<script>
@@ -325,7 +325,7 @@
 			});
 			objform.render(); //刷新select选择框渲染
 		});
-		$(".laimi-sms").on("click", function() {
+		/*$(".laimi-sms").on("click", function() {
 			objlayer.open({
 				type: 1,
 				title: ["批量短信营销", "font-size:16px;"],
@@ -335,7 +335,7 @@
 				content: $("#laimi-sms").html()
 			});
 			objform.render(); //刷新select选择框渲染
-		});
+		});*/
 		objform.on('checkbox', function(data){
 			if (data.elem.checked) {
 				$(this).val(1);
@@ -377,7 +377,6 @@
 	      sms:sms,
 	      weixin:weixin
 	    };
-	    console.log(data);
 	    $.post(url,data,function(res){
 	      if(res=='0'){
 	        alert('发送成功！');
@@ -388,7 +387,6 @@
 	        _self.attr("disabled",false);
 	      }else{
 	        alert('发送失败');
-	        console.log(res);
 	        _self.attr("disabled",false);
 	      }
 	    });
@@ -426,7 +424,6 @@
 	      act_name:act_name,
 	      act_info:act_info
 	    };
-	    console.log(data);
 	    $.post(url,data,function(res){
 	      if(res=='0'){
 	        alert('发送成功！');
@@ -437,7 +434,6 @@
 	        _self.attr("disabled",false);
 	      }else{
 	        alert('发送失败');
-	        console.log(res);
 	        _self.attr("disabled",false);
 	      }
 	    });

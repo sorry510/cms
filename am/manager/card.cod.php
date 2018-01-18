@@ -34,7 +34,6 @@
 		<div class="layui-input-inline">
 			<select name="cardtype">
 				<option value="">全部卡类型</option>
-				<option value="0"<?php if($GLOBALS['strcardtype'] != '' && $GLOBALS['intcardtype'] == 0) echo " selected"; ?>>未设置</option>
 				<?php foreach($this->_data['card_type_list'] as $row) { ?>
 				<option value="<?php echo $row['card_type_id']; ?>"<?php if($row['card_type_id'] == $GLOBALS['intcardtype']) echo " selected"; ?>><?php echo $row['card_type_name']; ?></option>
 				<?php } ?>

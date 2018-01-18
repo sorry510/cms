@@ -11,9 +11,10 @@ if($GLOBALS['gtrade']['wshop_module'] != 1) {
 $strwshop_flag = api_value_post('wshop_flag');
 $intwshop_flag = api_value_int0($strwshop_flag);
 $strwshop_title = api_value_post('wshop_title');
+$strwshop_phone = api_value_post('wshop_phone');
 $strsend_method = api_value_post('send_method');
 $intsend_method = api_value_int0($strsend_method);
-$strfenxiao_flag = api_value_post('txtfenxiao_flag');
+$strfenxiao_flag = api_value_post('fenxiao_flag');
 $intfenxiao_flag = api_value_int0($strfenxiao_flag);
 $strshare_title = api_value_post('share_title');
 $strshare_image = api_value_post('share_image');
@@ -29,6 +30,11 @@ $intreturn = 0;
 if($intreturn == 0) {
 	if($intwshop_flag != 0 && $intwshop_flag != 1) {
 		$intreturn = 1;
+	}
+	if($intreturn == 0) {
+		if($intwshop_flag == 0) {
+			$intwshop_flag = 2;
+		}
 	}
 }
 
@@ -116,13 +122,22 @@ if($intreturn == 0) {
 	$arrwshop = get_company_wshop();
 	$arrwshop['wshop_flag'] = $intwshop_flag;
 	$arrwshop['wshop_title'] = $strwshop_title;
+	$arrwshop['wshop_phone'] = $strwshop_phone;
 	$arrwshop['send_method'] = $intsend_method;
 	$arrwshop['fenxiao_flag'] = $intfenxiao_flag;
 	$arrwshop['share_title'] = $strshare_title;
-	$arrwshop['share_image'] = $strshare_image;
-	$arrwshop['ad_image1'] = $strad_image1;
-	$arrwshop['ad_image2'] = $strad_image2;
-	$arrwshop['ad_image3'] = $strad_image3;
+	if($strshare_image != '') {
+		$arrwshop['share_image'] = $strshare_image;
+	}
+	if($strad_image1 != '') {
+		$arrwshop['ad_image1'] = $strad_image1;
+	}
+	if($strad_image2 != '') {
+		$arrwshop['ad_image2'] = $strad_image2;
+	}
+	if($strad_image3 != '') {
+		$arrwshop['ad_image3'] = $strad_image3;
+	}
 	$strjson = json_encode($arrwshop, JSON_UNESCAPED_UNICODE);
 	$strsql = "UPDATE " . $gdb->fun_table('company') . " SET company_config_wshop = '" . $gdb->fun_escape($strjson)
 	. "' WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";

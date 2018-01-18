@@ -16,6 +16,7 @@ function get_company_wshop() {
 	$arrwshop = array(
 		'wshop_flag' => 0,
 		'wshop_title' => '',
+		'wshop_phone' => '',
 		'send_method' => 0,
 		'send_from' => 1,
 		'fenxiao_flag' => 0,

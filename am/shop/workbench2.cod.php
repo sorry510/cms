@@ -643,7 +643,17 @@
 	  	//添加套餐
 	  	var tr ='';
 	  	var goodsinfo = $(this);
+	  	var mcomboid = goodsinfo.attr('gid');
 	  	var mtype = goodsinfo.attr('mtype') == 1 ? '计次' : '计时';
+	  	var flag = true;
+	  	$('#laimi-main .laimi-num').each(function(){
+	  	  if(mcomboid != undefined && mcomboid == $(this).attr('gid')){
+	  	    flag = false;
+	  	  }
+	  	});
+	  	if(!flag){
+	  	  return false;//添加过了后面不在执行
+	  	}
 	  	$.when(goodsPrice(goodsinfo.attr('gid'), 3))
 	  	  .then(function(){
 	  	  	var span = '';
@@ -653,7 +663,7 @@
 	  	  	tr = ['<tr>',
 					  			'<td style="text-align:left;"><span class="layui-badge layui-bg-blue">套餐</span>&nbsp;'+goodsinfo.attr('gname')+'</td>',
 					  			'<td><span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span>'+span+'</td>',
-					  			'<td><input class="layui-input laimi-num" type="text" value="1" style="width:50px;padding:5px;text-align:center;" price="'+goodsinfo.attr('price')+'" min-price="'+min_goods.min_price+'" act-discount-id="'+min_goods.act_discount_id+'" act="'+goodsinfo.attr('act')+'" gid="'+goodsinfo.attr('gid')+'" gtype="3"></td>',
+					  			'<td>1<input class="layui-input laimi-num" type="hidden" value="1" style="width:50px;padding:5px;text-align:center;" price="'+goodsinfo.attr('price')+'" min-price="'+min_goods.min_price+'" act-discount-id="'+min_goods.act_discount_id+'" act="'+goodsinfo.attr('act')+'" gid="'+goodsinfo.attr('gid')+'" gtype="3"></td>',
 					  			'<td>'+mtype+'</td>',
 					  			'<td>',
 					  				'<a href="javascript:;" class="laimi-color-lan laimi-del">移除</a>',

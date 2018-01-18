@@ -129,7 +129,7 @@ function get_card_list() {
 			$row['mystate'] = '已删除';
 		}
 		$strsql = "SELECT card_mcombo_id, card_mcombo_gcount, card_mcombo_cedate, c_mgoods_name, c_mcombo_type FROM " . $GLOBALS['gdb']->fun_table2('card_mcombo')
-		. " WHERE card_id = " . $row['card_id'] . " AND card_mcombo_type = 2 AND (card_mcombo_cedate = 0 OR card_mcombo_cedate > " . $inttime . ") ORDER BY card_mcombo_id";
+		. " WHERE card_id = " . $row['card_id'] . " AND card_mcombo_type = 2 AND (card_mcombo_cedate = 0 OR card_mcombo_cedate > " . $inttime . ") AND ((c_mcombo_type = 1 AND card_mcombo_gcount != 0) OR c_mcombo_type = 2) ORDER BY card_mcombo_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$row['mymcombo'] = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	}

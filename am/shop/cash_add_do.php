@@ -22,7 +22,7 @@ $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 $intreturn = 0;
 $arr = array();
 
-if($sqlcash_name == '' || $intcash_type_id == 0 || $deccash_money == 0 || $intcash_time == 0 || $sqlcash_memo == ''){
+if($sqlcash_name == '' || $intcash_type_id == 0 || $deccash_money == 0 || $intcash_time == 0){
 	$intreturn = 1;
 }
 

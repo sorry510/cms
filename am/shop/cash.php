@@ -17,14 +17,14 @@ $strto = api_value_get('to');
 $intto = strtotime($strto) ? strtotime($strto) : 0;
 $intshop = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 
-if($intfrom == 0){
-	//默认是3个月之前
-	$strfrom = date('Y-m-d',strtotime('-3 month'));
-	$intfrom = strtotime($strfrom);
-}else{
-	//最早日期为一年前
-	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year')) ? date('Y-m-d', strtotime('-1 year')) : $intfrom;
-}
+// if($intfrom == 0){
+// 	//默认是3个月之前
+// 	$strfrom = date('Y-m-d',strtotime('-3 month'));
+// 	$intfrom = strtotime($strfrom);
+// }else{
+// 	//最早日期为一年前
+// 	$intfrom = $intfrom < date('Y-m-d',strtotime('-1 year')) ? date('Y-m-d', strtotime('-1 year')) : $intfrom;
+// }
 
 $strchannel = 'cash';
 $gtemplate->fun_assign('request', get_request());

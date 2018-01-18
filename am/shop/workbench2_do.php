@@ -514,7 +514,7 @@ if($intreturn == 0 && !empty($arrinfo3)){
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 		if(empty($arr)){
-			// $intreturn = 21;
+			$intreturn = 21;
 		}else{
 			$arract_id_use[] = $arr['act_id'];
 		}
@@ -522,34 +522,34 @@ if($intreturn == 0 && !empty($arrinfo3)){
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('card_ticket'). " SET card_ticket_state=2 where card_ticket_id=".$intcard_ticket_id." limit 1";
 			$hresult = $gdb->fun_do($strsql);
-			// if($hresult==false){
-			// 	$intreturn = 22;
-			// }
+			if($hresult==false){
+				$intreturn = 22;
+			}
 		}
 		//更新card_ticket_record,记录活动名称
 		if($intreturn == 0){
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_ticket_record'). " (card_id,card_ticket_record_atype,act_id,act_give_id,act_ticket_id,card_ticket_record_ttype,ticket_money_id,ticket_goods_id,card_ticket_record_utype,card_ticket_id,card_record_id,card_ticket_record_atime,c_ticket_name,c_ticket_value,c_ticket_limit,c_ticket_days,c_ticket_begin,c_mgoods_id,c_mgoods_name,c_ticket_edate,c_act_name) VALUES (".$intcard_id.",".$arr['act_type'].",".$arr['act_id'].",".$arr['act_give_id'].",".$arr['act_ticket_id'].",".$arr['ticket_type'].",".$arr['ticket_money_id'].",".$arr['ticket_goods_id'].",2,".$arr['card_ticket_id'].",".$record_id.",".$intnow.",'".$arr['c_ticket_name']."',".$arr['c_ticket_value'].",".$arr['c_ticket_limit'].",".$arr['c_ticket_days'].",".$arr['c_ticket_begin'].",".$arr['c_mgoods_id'].",'".$arr['c_mgoods_name']."',".$arr['card_ticket_edate'].",'".$arr['act_give_name']."')";
 			$hresult = $gdb->fun_do($strsql);
-			// if($hresult == FALSE) {
-			// 	$intreturn = 23;
-			// }
+			if($hresult == FALSE) {
+				$intreturn = 23;
+			}
 		}
 		//记录act总表记录
 		if($intreturn == 0){
 			$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_uticket=act_relate_uticket+1,act_ctime=".$intnow." where act_id=".$arr['act_id'];
 			$hresult = $gdb->fun_do($strsql);
-			// if($hresult == FALSE) {
-			// 	$intreturn = 25;
-			// }
+			if($hresult == FALSE) {
+				$intreturn = 25;
+			}
 		}
 	}
 	$arract_id_use = array_unique($arract_id_use);//去重
 	foreach($arract_id_use as $row){
 		$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." SET act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$row;
 		$hresult = $gdb->fun_do($strsql);
-		// if($hresult == FALSE) {
-		// 	$intreturn = 26;
-		// }
+		if($hresult == FALSE) {
+			$intreturn = 26;
+		}
 	}
 }
 //记录recrord2_ygoods,没有考虑到期时间
@@ -562,9 +562,9 @@ if($intreturn == 0){
 		foreach($arr as $v){
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record2_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record2_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$GLOBALS['_SESSION']['login_sid'].",".$v['mgoods_id'].",".$v['sum'].",'".$v['c_mgoods_name']."',".$v['c_mgoods_price'].",".$v['c_mgoods_cprice'].")";
 			$hresult = $GLOBALS['gdb']->fun_do($strsql);
-			// if($hresult == FALSE) {
-			// 	$intreturn = 13;
-			// }
+			if($hresult == FALSE) {
+				$intreturn = 13;
+			}
 		}
 	}
 }
@@ -578,9 +578,9 @@ if($intreturn == 0){
 			if(!empty($arract)){
 				$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." set act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$arract['act_id'];
 				$hresult = $GLOBALS['gdb']->fun_do($strsql);
-				// if($hresult == FALSE) {
-				// 	$intreturn = 12;
-				// }
+				if($hresult == FALSE) {
+					$intreturn = 12;
+				}
 			}
 		}
 	}
@@ -596,24 +596,12 @@ if($intreturn == 0){
 			if(!empty($arract)){
 				$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('act')." set act_relate_hmoney=act_relate_hmoney+".$dechmoney.",act_relate_smoney=act_relate_smoney+".$decsmoney.",act_ctime=".$intnow." where act_id=".$arract['act_id'];
 				$hresult = $GLOBALS['gdb']->fun_do($strsql);
-				// if($hresult == FALSE) {
-				// 	$intreturn = 12;
-				// }
+				if($hresult == FALSE) {
+					$intreturn = 12;
+				}
 			}
 		}
 	}
 }
 
-if($intreturn == 0){
-	$arr = array(
-		'type' => '3',
-		'id' => $record_id
-		);
-	echo json_encode($arr);
-}else{
-	$arr = array(
-		'int' => $intreturn
-		);
-	echo json_encode($arr);
-}
-
+echo $intreturn;

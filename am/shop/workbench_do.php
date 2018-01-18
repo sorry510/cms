@@ -830,8 +830,5 @@ if($intreturn == 0){
 		);
 	echo json_encode($arr);
 }else{
-	$arr = array(
-		'int' => $intreturn
-		);
-	echo json_encode($arr);
+	echo $intreturn;
 }

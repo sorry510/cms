@@ -83,9 +83,11 @@
 		<tbody>
 			<?php foreach($this->_data['worder_list']['list'] as $row) { ?>
 			<td><?php echo date('Y-m-d H:i',$row['worder_atime']);?></td>
-				<td><span class="layui-btn layui-btn-mini <?php if ($row['c_card_type_name']!='') {
+				<td><span class="layui-btn layui-btn-mini <?php if ($row['c_card_type_name']!='' && $row['c_card_type_name'] != '微信会员') {
 					echo 'layui-btn-warm';
-				}?>"><?php echo $row['c_card_type_name']==''?'暂无类型':$row['c_card_type_name']; ?></span></td>
+				}else if($row['c_card_type_name'] == '微信会员'){
+					echo 'layui-btn';
+					}?>"><?php echo $row['c_card_type_name']==''?'暂无类型':$row['c_card_type_name']; ?></span></td>
 				<td><?php echo $row['c_card_name'];?></td>
 				<td><?php echo $row['c_card_phone'];?></td>
 				<td>¥<?php echo $row['worder_money'];?></td>
@@ -310,7 +312,7 @@
 				type: 1,
 				title: ["订单详情", "font-size:16px;"],
 				btnAlign: "r",
-				area: ["800px", "auto"],
+				area: ["950px", "auto"],
 				shadeClose: true,//点击遮罩关闭
 				content: $("#laimi-add").html(),
 				success: function(){
@@ -419,16 +421,22 @@
 		  console.log(data.field);
 		  $.post(url,data.field,function(res){
 		    if(res=='0'){
-		      window.location.href='wechat_shop_order.php';
+		    	objlayer.alert("发货成功",{
+			  		title: '提示信息'
+			  	},function(){
+			  		window.location.href='wechat_shop_order.php';
+			  	});
 		    }else if(res=='1'){
 		      objlayer.alert("缺少必填项",{
 			  		title: '提示信息'
 			  	});
 		      _self.attr('disabled',false);
 		    }else{
+		    	console.log(res);
 		      objlayer.alert("发货失败",{
 		  			title: '提示信息'
 		  		});
+		  		_self.attr('disabled',false);
 		    }
 		  });
 			return false;

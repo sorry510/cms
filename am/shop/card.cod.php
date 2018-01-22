@@ -32,7 +32,7 @@
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -300,6 +300,8 @@
 		var objpage = layui.laypage;
 		var objlaytpl = layui.laytpl;
 		var objform = layui.form;
+
+		$('.laimi-focus').focus();
 		objpage.render({
 			elem: 'laimi-page-content',
 			count: <?php echo $this->_data['card_list']['allcount']; ?>,
@@ -314,58 +316,90 @@
 		});
 		$(".laimi-state1").on("click", function() {
 			var strid = $(this).attr("card_id");
-		  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
-        if(strdata == 0) {
-          window.location.reload();
-        } else {
-          objlayer.alert('停用会员失败，请联系管理员！', {
-		  			title: '提示信息'
-		  		});
-        }
+			objlayer.confirm('确定要停用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('停用成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('停用会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+	      objlayer.close(hindex);
       });
 		});
 		$(".laimi-state2").on("click", function() {
 			var strid = $(this).attr("card_id");
-		  $.post('card_state_do.php', {id:strid,state:2}, function(strdata) {
-        if(strdata == 0) {
-          window.location.reload();
-        } else {
-          objlayer.alert('启用会员失败，请联系管理员！', {
-		  			title: '提示信息'
-		  		});
-        }
+			objlayer.confirm('确定要启用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:2}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('启用成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('启用会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+        objlayer.close(hindex);
       });
 		});
 		$(".laimi-del").on("click", function() {
 			var strid = $(this).attr("card_id");
-		  $.post('card_state_do.php', {id:strid,state:3}, function(strdata) {
-        if(strdata == 0) {
-          window.location.reload();
-        } else {
-          objlayer.alert('删除会员失败，请联系管理员！', {
-		  			title: '提示信息'
-		  		});
-        }
+			objlayer.confirm('确定要删除该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:3}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('删除成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('删除会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+	      objlayer.close(hindex);
       });
 		});
 		$(".laimi-huifu").on("click", function() {
 			var strid = $(this).attr("card_id");
-		  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
-        if(strdata == 0) {
-          window.location.reload();
-        } else {
-          objlayer.alert('恢复会员失败，请联系管理员！', {
-		  			title: '提示信息'
-		  		});
-        }
+			objlayer.confirm('确定要恢复该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('恢复成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('恢复会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+        objlayer.close(hindex);
       });
 		});
 		$(".laimi-del2").on("click", function() {
 			var strid = $(this).attr("card_id");
-			objlayer.confirm('确定要删除该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			objlayer.confirm('确定要彻底删除该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
 			  $.post('card_delete_do.php', {id:strid}, function(strdata) {
 	        if(strdata == 0) {
-	          window.location.reload();
+	          objlayer.alert('彻底删除会员成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
 	        } else if(strdata == 2) {
 	          objlayer.alert('会员卡有余额，不能删除！', {
 			  			title: '提示信息'
@@ -380,8 +414,8 @@
 			  		});
 	        }
 	      });
+	      objlayer.close(hindex);
 	    });
-			objlayer.close(hindex);
 		});
 		$(".laimi-info").on("click", function() {
 			$.getJSON('card_info_ajax.php', {id:$(this).attr('card_id')}, function(data){

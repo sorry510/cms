@@ -718,3 +718,43 @@ function laimi_pay_return($postarr){
 	}
 	return $intreturn;
 }
+
+/**
+ * @param array $arrwx_data($open_id, $token, $template_id,$url)
+ * @param array $arrtpl_data
+ * @return json {"errcode": 0,"errmsg": "ok","msgid": 111589657099223040}
+ */
+function laimi_wx_template_msg($arrwx_data, $arrtpl_data){
+  $stropen_id = $arrwx_data['open_id'];
+  $strtoken = $arrwx_data['token'];
+  $strtemplate_id = $arrwx_data['template_id'];
+  $strurl = !empty($arrwx_data['url']) ? $arrwx_data['url'] : '#';
+
+  $template_msg=array(
+    'touser'=>$stropen_id,
+    'template_id'=>$strtemplate_id,
+    "url"=>$strurl,
+    'topcolor'=>'#FF0000',
+    'data'=>$arrtpl_data
+  );
+
+  $curl = curl_init('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $strtoken);
+  $header = array();
+  $header[] = 'Content-Type: application/x-www-form-urlencoded';
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+  // 不输出header头信息
+  curl_setopt($curl, CURLOPT_HEADER, 0);
+  // 信任任何证书，使用http
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+  // 伪装浏览器
+  curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
+  // 保存到字符串而不是输出
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  // post数据
+  curl_setopt($curl, CURLOPT_POST, 1);
+  // 请求数据
+  curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($template_msg));
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return $response;
+}

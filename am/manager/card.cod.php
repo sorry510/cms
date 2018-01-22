@@ -41,7 +41,7 @@
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -61,6 +61,7 @@
 			<th>电子档案</th>
 			<th>消费明细</th>
 			<th>所属店铺</th>
+			<th width="140">操作</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -76,6 +77,36 @@
 			<td><a class="laimi-color-lan" href="card_history.php?key=<?php echo $row['card_phone']; ?>">电子档案</a></td>
 			<td><a class="laimi-color-lan" href="record.php?key=<?php echo $row['card_phone']; ?>">消费明细</a></td>
 			<td><?php echo empty($row['shop_name']) ? '总店会员' : $row['shop_name']; ?></td>
+			<td>
+				<?php if($row['card_state'] == 1 || $row['card_state'] == 2) { ?>
+				<?php if($row['card_state'] == 2) { ?>
+				<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state1" card_id="<?php echo $row['card_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-dui"></use></svg>
+					启用
+				</button>
+				<?php } ?>
+				<?php if($row['card_state'] == 1) { ?>
+				<button class="layui-btn layui-bg-red layui-btn-mini laimi-state2" card_id="<?php echo $row['card_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-tingyong"></use></svg>
+					停用
+				</button>
+				<?php } ?>
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del" card_id="<?php echo $row['card_id']; ?>">
+					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
+					删除
+				</button>
+				<?php } ?>
+				<?php if($row['card_state'] == 3) { ?>
+				<button class="layui-btn layui-btn-mini laimi-huifu" card_id="<?php echo $row['card_id'];?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					恢复
+				</button>
+				<button class="layui-btn layui-btn-primary layui-btn-mini laimi-del2" card_id="<?php echo $row['card_id']; ?>">
+					<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-clear"></use></svg>
+					彻底删除
+				</button>
+				<?php } ?>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="11" class="laimi-color-hui" style="text-align:left;">余额：<span class="laimi-color-ju">￥<?php echo $row['s_card_ymoney'];?></span>，剩余积分：<?php echo $row['s_card_yscore'];?>
@@ -268,6 +299,9 @@
 		var objform = layui.form;
 		var objlaytpl = layui.laytpl;
 		var objtable = layui.table;
+
+		$('.laimi-focus').focus();
+
 		objpage.render({
 			elem: 'laimi-page-content',
 			count: <?php echo $this->_data['card_list']['allcount'];?>,
@@ -281,6 +315,109 @@
 					window.location.href = url;
         }
 			}
+		});
+		$(".laimi-state1").on("click", function() {
+			var strid = $(this).attr("card_id");
+			objlayer.confirm('确定要停用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('停用成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('停用会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+	      objlayer.close(hindex);
+      });
+		});
+		$(".laimi-state2").on("click", function() {
+			var strid = $(this).attr("card_id");
+			objlayer.confirm('确定要启用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:2}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('启用成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('启用会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+        objlayer.close(hindex);
+      });
+		});
+		$(".laimi-del").on("click", function() {
+			var strid = $(this).attr("card_id");
+			objlayer.confirm('确定要删除该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:3}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('删除成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('删除会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+	      objlayer.close(hindex);
+      });
+		});
+		$(".laimi-huifu").on("click", function() {
+			var strid = $(this).attr("card_id");
+			objlayer.confirm('确定要恢复该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('恢复成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else {
+	          objlayer.alert('恢复会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+        objlayer.close(hindex);
+      });
+		});
+		$(".laimi-del2").on("click", function() {
+			var strid = $(this).attr("card_id");
+			objlayer.confirm('确定要彻底删除该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			  $.post('card_delete_do.php', {id:strid}, function(strdata) {
+	        if(strdata == 0) {
+	          objlayer.alert('彻底删除会员成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+	        } else if(strdata == 2) {
+	          objlayer.alert('会员卡有余额，不能删除！', {
+			  			title: '提示信息'
+			  		});
+	        } else if(strdata == 3) {
+	          objlayer.alert('会员卡有剩余套餐，不能删除！', {
+			  			title: '提示信息'
+			  		});
+	        } else {
+	          objlayer.alert('删除会员失败，请联系管理员！', {
+			  			title: '提示信息'
+			  		});
+	        }
+	      });
+	      objlayer.close(hindex);
+	    });
 		});
 		$(".laimi-info").on("click", function() {
 			$.getJSON('card_info_ajax.php', {id:$(this).attr('card_id')}, function(data){

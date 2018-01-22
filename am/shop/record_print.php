@@ -146,8 +146,12 @@ function card_info(){
 	$str = substr($str, 0, -1);
 	$str1 = mb_substr($str, 0, 8)."<br/>";
 	$str2 = mb_substr($str, 9);
-	if(!empty($str2))
+	if(!empty($str2)){
 		$str = $str1.implode(mbStrSplit($str2 ,13), "<br/>");//一行最多13个汉字
+	}
+	if($str == ''){
+		$str = '<br/>';//为空，不为换行时打印机报错
+	}
 	return $str;
 }
 

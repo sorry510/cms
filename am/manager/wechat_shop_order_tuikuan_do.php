@@ -57,11 +57,7 @@ if($intreturn == 0) {
 
 if($intreturn == 0) {
 	if (!empty($arr)) {
-		$strsql = "SELECT card_fenxiao FROM ". $gdb->fun_table2('card') ." WHERE card_id = ".$arr['card_parent_id'] ." LIMIT 1";
-		//echo $strsql;exit();
-		$hresult = $gdb->fun_query($strsql);
-		$arr2 = $gdb->fun_fetch_assoc($hresult);
-		if($arr2['card_fenxiao'] == 1){
+		if($arr['card_parent_id'] != 0){
 			$strsql = "UPDATE " . $gdb->fun_table2('card') . " SET s_card_reward = s_card_reward - ".$arr['s_worder_reward']." WHERE card_id = " . $arr['card_parent_id'];
 			//echo $strsql;exit();
 			$hresult = $gdb->fun_do($strsql);

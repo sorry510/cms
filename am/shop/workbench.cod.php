@@ -16,7 +16,7 @@
   	<!-- 会员搜索栏 -->
     <tr>
       <td style="padding:0px;" class="layui-bg-gray" colspan="2">
-      	<div class="layui-form-mid" style="margin-left:20px;"><input class="layui-input card-search" type="text" name="txtname" placeholder="卡号/姓名/手机号"></div>
+      	<div class="layui-form-mid" style="margin-left:20px;"><input class="layui-input card-search laimi-focus" type="text" name="txtname" placeholder="卡号/姓名/手机号"></div>
 				<div class="layui-form-mid"><button type="button" class="layui-btn layui-btn-normal laimi-add3">搜索</button></div>
 				<div class="layui-form-mid laimi-float-right"><a href="workbench2.php" class="layui-btn layui-btn-normal">买套餐</a>&nbsp;&nbsp;<a href="card_add.php" target="_blank" class="layui-btn layui-btn-danger">开卡</a></div>
 	  	</td>
@@ -631,6 +631,8 @@
 		var objform = layui.form;
 		var objlaytpl = layui.laytpl;
 
+		$('.laimi-focus').focus();
+
 		var card_id = 0;
 		var card_key = null;//cardlist中的key
 	  var cardlist = [];
@@ -793,6 +795,17 @@
 	  	          .then(function(){
 	  	          	index++;
 	  	          	// console.log(index);
+	  	          	//当价格一致时删除原价，不一致时添加原价
+	  	          	var td = elm.parent().prev();
+	  	          	if(Number(elm.attr('price')) - Number(min_goods.min_price) > 0.01) {
+	  	          		if(td.find('span').length == 1){
+	  	          			td.prepend('<span class="laimi-color-hui2">¥'+elm.attr('min-price')+'</span>&nbsp;');
+	  	          		}
+	  	          	} else {
+	  	          		if(td.find('span').length == 2){
+	  	          			td.find('span').eq(0).remove();
+	  	          		}
+	  	          	}
 	  	            elm.attr('min-price', min_goods.min_price);
 	  	            elm.attr('act-discount-id', min_goods.act_discount_id);
 	  	            elm.parent().prev().find('.laimi-minprice').text(min_goods.min_price);
@@ -971,7 +984,7 @@
 	  }
 	  function cardRechargeDo(data){
 	  	$.post('card_recharge_do.php', data, function(res){
-	  		// console.log(res);
+	  		console.log(res);
 	  		var type = res.type || '';
 	  		if(type != ''){
 	  			window.location.href="record_print.php?id="+res.id+"&type="+type;
@@ -1075,12 +1088,12 @@
 	  	  .then(function(){
 	  	  	// console.log(2);
 	  	  	var span = '';
-	  	  	// if(Number(goodsinfo.attr('price')) - Number(min_goods.min_price) > 0.01){
-	  	  		span = '&nbsp;<span class="laimi-color-ju laimi-minprice">'+min_goods.min_price+'</span>';
-	  	  	// }
+	  	  	if(Number(goodsinfo.attr('price')) - Number(min_goods.min_price) > 0.01){
+	  	  		span = '<span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span>&nbsp;';
+	  	  	}
 	  	  	tr = ['<tr>',
 					  			'<td style="text-align:left;"><span class="layui-badge layui-bg-blue">'+type+'</span>&nbsp;'+goodsinfo.attr('gname')+'</td>',
-					  			'<td><span class="laimi-color-hui2">¥'+goodsinfo.attr('price')+'</span>'+span+'</td>',
+					  			'<td>'+span+'<span class="laimi-color-ju laimi-minprice">'+min_goods.min_price+'</span></td>',
 					  			'<td><input class="layui-input laimi-num" type="text" value="1" style="width:50px;padding:5px;text-align:center;" price="'+goodsinfo.attr('price')+'" min-price="'+min_goods.min_price+'" act-discount-id="'+min_goods.act_discount_id+'" act="'+goodsinfo.attr('act')+'" gid="'+goodsinfo.attr('gid')+'" gtype="'+type_id+'"></td>',
 					  			'<td></td>',
 					  			'<td style="padding:5px;width:100px;text-align:left;">',
@@ -1631,6 +1644,14 @@
 	    cardActDiscount();//初始化活动
 	    cardActDecrease();//初始化活动
 	    // 会员卡搜索
+	    $('#laimi-main .card-search').on('keyup', function(event){
+	    	event.stopPropagation();
+	    	if(event.keyCode == 13){
+	    		//回车 13
+	    	 cardSearch();
+	    	}
+	    });
+	    // 会员卡搜索
 	    $('.laimi-add3').on('click', cardSearch);
 	    // 选中会员卡
 	    objform.on("submit(laimi-card-confirm)", function(data) {
@@ -1644,7 +1665,8 @@
 	    $("#laimi-main .laimi-search").on('keyup', function(event){
 	      event.stopPropagation();
 	      if(event.keyCode == 113){
-	      	//F2
+	      	//回车 13
+	      	//F2 113
 	       goodsSearch();
 	      }
 	    });

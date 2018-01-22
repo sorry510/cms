@@ -71,7 +71,7 @@ if($intreturn == 0) {
 }
 //查询card信息
 if($intreturn == 0){
-	$strsql = "SELECT card_id,card_code,card_sex, card_name,card_phone,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
+	$strsql = "SELECT card_id,card_okey,card_code,card_sex, card_name,card_phone,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arrcard = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(empty($arr)){
@@ -315,6 +315,44 @@ if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1)
 		  }
 		}
 	}
+}
+//微信推送
+if($GLOBALS['gtrade']['wmp_module'] == 1 && $arrcard['card_okey'] != '') {
+	$arrwechat_config = laimi_config_weixin();
+	$ac = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrwechat_config['appid'].'&secret='.$arrwechat_config['appsecret']);
+	$wxt = json_decode($ac, true);
+	$arrwx_data = array(
+	  'open_id' => $arrcard['card_okey'],
+	  'token' => $wxt['access_token'],
+	  'template_id' => '28xbLti0nk9ERasD1kKQBp2p_QM1oWTuyC9LiIIgios',
+	  'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_code'].'&goto=center'
+	  // 'url' => 'http://weixin.test.laimisoft.com/am/center_shop_record.php?id=7'
+	);
+	$arrtpl_data = array(
+	    'first' => array(
+	        'value' => '尊敬的' . $arrcard['card_name'].'，您已充值成功！',
+	        // 'color' => '#FF0000'
+	    ),
+	    'keyword1' => array(
+	        'value' => $arrcard['card_code'],
+	    ),
+	    'keyword2' => array(
+	        'value' => $decmoney . "元",
+	    ),
+	    'keyword3' => array(
+	        'value' => $arrcard['s_card_ymoney'] . "元",
+	    ),
+	    'keyword4' => array(
+	        'value' => $GLOBALS['gcompanyname'] . "——" . $GLOBALS['gshopname'],//仅限shop目录用
+	    ),
+	    'keyword5' => array(
+	        'value' => date("Y-m-d H:i", $intnow),
+	    ),
+	    'remark' => array(
+	        'value' => '更多请点击查看详情',
+	    )
+	);
+	laimi_wx_template_msg($arrwx_data, $arrtpl_data);
 }
 if($intreturn == 0){
 	$arr = array(

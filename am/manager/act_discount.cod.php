@@ -23,7 +23,7 @@
 	<div class="laimi-tools layui-form-item">
 		<label class="layui-form-label">活动名称</label>
 		<div class="layui-input-inline">
-			<input class="layui-input" type="text" name="name" value="<?php echo htmlspecialchars($GLOBALS['strname']); ?>">
+			<input class="layui-input laimi-focus" type="text" name="name" value="<?php echo htmlspecialchars($GLOBALS['strname']); ?>">
 		</div>
 		<label class="layui-form-label">日期</label>
 		<div class="layui-input-inline">
@@ -123,6 +123,9 @@
 		var objelement = layui.element;
 		var objdate = layui.laydate;
 		var objpage = layui.laypage;
+
+		$('.laimi-focus').focus();
+		
 		objdate.render({
 			elem: '#laimi-from'
 		});

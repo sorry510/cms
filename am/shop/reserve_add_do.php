@@ -17,14 +17,14 @@ $strcount = api_value_post('txtcount');
 $intcount = api_value_int0($strcount);
 $strmemo = api_value_post('txtmemo');
 $sqlmemo = $gdb->fun_escape($strmemo);
-$strmgoods_id = api_value_post('arr');
+$arrmgoods_id = api_value_post('arr');
 $intshop_id = api_value_int0($GLOBALS['_SESSION']['login_sid']);
 $time = time();
 
 $intreturn = 0;
 
 if ($intreturn == 0) {
-	if (empty($sqlname) || empty($sqlphone) || empty($strmgoods_id)) {
+	if (empty($sqlname) || empty($sqlphone) || empty($arrmgoods_id)) {
 		$intreturn = 1;
 	}
 }
@@ -55,12 +55,62 @@ if($intreturn == 0) {
 }
 
 if($intreturn == 0) {
-	foreach($strmgoods_id as $key => $value) {
+	foreach($arrmgoods_id as $key => $value) {
 		$strsql = "INSERT INTO " . $gdb->fun_table2('reserve_mgoods') . "(reserve_id,mgoods_id,c_mgoods_name) VALUES (" .$id . " , " .$value['mgoods_id'] . " , '" . $value['mgoods_name']. "')";
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 4;
 		}
+	}
+}
+
+if ($intreturn == 0) {
+	$strreserve_goods = '';
+	$strsql = "SELECT card_okey FROM " . $gdb->fun_table2('card') . " WHERE card_phone = '".$sqlphone."'";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+	if (!empty($arr['card_okey'])) {
+
+		$arrweixin = laimi_config_weixin();
+		$strtoken = '';
+		$strjson = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrweixin['appid'].'&secret=' . $arrweixin['appsecret']);
+		$objjson = json_decode($strjson);
+		$strtoken = $objjson->access_token;
+
+		$arrwx_data = array(
+	  	'open_id' => $arr['card_okey'],
+	  	'token' => $strtoken,
+	  	'template_id' => 'gMR5p-DNwBb1I55xwCH6vosjGDERAQ90uv77Aqy4lds',
+	  	'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_code'].'&goto=center',
+	  );
+	  foreach ($arrmgoods_id as $key => $value) {
+	  	if ($strreserve_goods == '') {
+	  		$strreserve_goods = $value['mgoods_name'];
+	  	}else{
+	  		$strreserve_goods = $strreserve_goods ."，".$value['mgoods_name'];
+	  	}
+	  }
+	  $arrtpl_data = array(
+	    'first' => array(
+	        'value' => '尊敬的'.$sqlname.'，您有1条预约信息。',
+	    ),
+	    'keyword1' => array(
+	        'value' => $sqlname,
+	    ),
+	    'keyword2' => array(
+	        'value' => $sqlphone,
+	    ),
+	    'keyword3' => array(
+	        'value' => $strdtime,
+	    ),
+	    'keyword4' => array(
+	        'value' => $strreserve_goods,
+	    ),
+	    'remark' => array(
+	        'value' => '敬请按时到店，感谢您的预约。',
+	    )
+		);
+		laimi_wx_template_msg($arrwx_data, $arrtpl_data);
 	}
 }
 
@@ -74,6 +124,7 @@ if ($intreturn == 0) {
 		$intreturn = 203;
 	}
 }
+
 echo $intreturn;
 
 ?>

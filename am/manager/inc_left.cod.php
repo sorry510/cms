@@ -194,18 +194,18 @@
 									&nbsp;满送活动
 								</a>
 							</dd>
-							<!--dd>
+							<!-- <dd>
 								<a href="act_chong.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-song"></use></svg>
 									&nbsp;充值活动
 								</a>
-							</dd>
+							</dd> -->
 							<dd>
 								<a href="act_batch.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yingxiao"></use></svg>
 									&nbsp;批量营销
 								</a>
-							</dd-->
+							</dd>
 						</dl>
 					</li>
 <?php } ?>

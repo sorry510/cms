@@ -39,7 +39,7 @@
 		</div>
 		<label class="layui-form-label">搜索</label>
 		<div class="layui-input-inline">
-			<input class="layui-input" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['key']); ?>">
+			<input class="layui-input laimi-focus" type="text" name="key" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['key']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -86,6 +86,9 @@
 		var objdate = layui.laydate;
 		var objpage = layui.laypage;
 		var objform = layui.form;
+
+		$('.laimi-focus').focus();
+		
 		objdate.render({
 			elem: '#laimi-from'
 		});

@@ -10,9 +10,11 @@ $gconfig['path']['worker_photo'] = '/worker_photo';
 $gconfig['path']['worker_identity'] = '/worker_identity';
 $gconfig['path']['card_photo'] = '/card_photo';
 $gconfig['path']['card_history'] = '/card_history';
-$gconfig['path']['wgoods_image'] = '/wgoods_image';
 $gconfig['path']['weixin'] = 'c:/wwwroot/weixin.test.laimisoft.com/upload';
 $gconfig['path']['card_background'] = '/card_background';
+$gconfig['path']['share_image'] = '/share_image';
+$gconfig['path']['ad_image'] = '/ad_image';
+$gconfig['path']['wgoods_image'] = '/wgoods_image';
 
 $gconfig['project']['url_mobile'] = 'http://test.axin.cc/mshop';
 $gconfig['image']['base'] = '..'.DIRECTORY_SEPARATOR.'am'.DIRECTORY_SEPARATOR.'manager'.DIRECTORY_SEPARATOR.'D:'.DIRECTORY_SEPARATOR.'UPUPW5.6'.DIRECTORY_SEPARATOR.'UPUPW_AP5.6'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'photo'.DIRECTORY_SEPARATOR;

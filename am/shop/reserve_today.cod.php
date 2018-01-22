@@ -36,7 +36,7 @@
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="search" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -137,6 +137,7 @@
 		objdate.render({
 			elem: '#laimi-to'
 		});
+		$('.laimi-focus').focus();
 		//取消预约操作JS
 		$('.laimi-stop').on('click',function(){
 		  var url="reserve_cancel_do.php";
@@ -144,19 +145,30 @@
 		    id:$(this).val(),
 		    type:'stop'
 		  }
-		  console.log(data);
-		  $.post(url,data,function(res){
-		    if(res=='0'){
-		      window.location.reload();
-		    }else if(res=='100'){
-		      alert('客人已到店');
-		    }else if(res=='101'){
-		      alert('预约已过期');
-		    }else{
-		      alert('停止失败');
-		      console.log(res);
-		    }
-		  });
+		  objlayer.confirm('确定取消预约吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url,data,function(res){
+			    if(res=='0'){
+			    	objlayer.alert('操作成功！', {
+			  			title: '提示信息'
+			  		},function(){
+			  			window.location.reload();
+			  		}); 
+			    }else if(res=='100'){
+			      objlayer.alert('客人已到店', {
+			  			title: '提示信息'
+			  		});
+			    }else if(res=='101'){
+			      objlayer.alert('预约已过期', {
+			  			title: '提示信息'
+			  		});
+			    }else{
+			      objlayer.alert('取消失败！', {
+			  			title: '提示信息'
+			  		});
+			    }
+			  })
+			  objlayer.close(index);
+			})
 		});
 		//到店操作JS
 		$('.laimi-here').on('click',function(){
@@ -164,18 +176,28 @@
 		  var data = {
 		    id:$(this).val(),
 		  }
-		  console.log(data);
-		  $.post(url,data,function(res){
-		    if(res=='0'){
-		      window.location.reload();
-		    }else if(res=='101'){
-		      alert('预约已过期');
-		    }else{
-		      alert('操作失败');
-		      console.log(res);
-		    }
-		  });
-		});
+		  objlayer.confirm('确定客人到店吗', {icon: 0, title:'提示',shadeClose: true}, function(index){
+			  $.post(url,data,function(res){
+			    if(res=='0'){
+			    	objlayer.alert('操作成功！', {
+			  			title: '提示信息'
+			  		},function(){
+			  			window.location.reload();
+			  		});
+			    }else if(res=='101'){
+			      objlayer.alert('预约已过期', {
+			  			title: '提示信息'
+			  		});
+			    }else{
+			      objlayer.alert('操作失败', {
+			  			title: '提示信息'
+			  		});
+			      console.log(res);
+			    }
+			  })
+			  objlayer.close(index);
+			})
+		})
 	});
 	</script>
 </body>

@@ -245,11 +245,11 @@
 		    }else if(res == '1' || res == '2'){
 		      alert('请完善数据');
 		      console.log(res);
-		      $('.laimi-submitadd').attr("disabled",true);
+		      $('.laimi-submitadd').attr("disabled",false);
 		    }else{
 		      alert('添加失败');
 		      console.log(res);
-		      $('.laimi-submitadd').attr("disabled",true);
+		      $('.laimi-submitadd').attr("disabled",false);
 		    }
 		  });
 		  return false;

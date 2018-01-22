@@ -19,7 +19,7 @@
 	<div class="laimi-tools layui-form-item">		
 		<label class="layui-form-label">套餐</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="key" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>" placeholder="套餐名称/编码/简拼">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="key" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>" placeholder="套餐名称/编码/简拼">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -136,6 +136,9 @@
 		var objelement = layui.element;
 		var objpage = layui.laypage;
 		var objform = layui.form;
+
+		$('.laimi-focus').focus();
+		
 		objpage.render({
 			elem: 'laimi-page-content',
 			count: <?php echo $this->_data['mcombo_list']['allcount'];?>,

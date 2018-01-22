@@ -22,7 +22,7 @@ if($intreturn == 0) {
 				$intreturn = 1;
 			}
 		} else if($strtype == 'image') {
-			if($strext != '.jpg' && $strext != '.gif' && $strext != '.png') {
+			if($strext != '.jpg' && $strext != '.jpeg' && $strext != '.gif' && $strext != '.png') {
 				$intreturn = 1;
 			}
 		} else {

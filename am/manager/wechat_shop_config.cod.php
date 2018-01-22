@@ -100,6 +100,9 @@
 		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
 			<?php echo $this->_data['company_wshop']['ad_image1']; ?>
 		</div>
+		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image1']; ?>">查看图片</a>
+		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">轮播图2</label>
@@ -112,6 +115,9 @@
 		<div id="ad-image2-info" class="layui-form-mid layui-word-aux">
 			<?php echo $this->_data['company_wshop']['ad_image2']; ?>
 		</div>
+		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image2']; ?>">查看图片</a>
+		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">轮播图3</label>
@@ -123,6 +129,9 @@
 		</div>
 		<div id="ad-image3-info" class="layui-form-mid layui-word-aux">
 			<?php echo $this->_data['company_wshop']['ad_image3']; ?>
+		</div>
+		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image3']; ?>">查看图片</a>
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -148,7 +157,7 @@
 		objupload.render({
 		  elem: '#share-image-button', //绑定元素
 		  url: 'pub_upload_do.php', //上传接口
-		  exts: 'jpg|gif|png',
+		  exts: 'jpg|jpeg|gif|png',
 		  data: {
 		  	type:'image'
 		  },
@@ -175,7 +184,7 @@
 	  objupload.render({
 		  elem: '#ad-image1-button', //绑定元素
 		  url: 'pub_upload_do.php', //上传接口
-		  exts: 'jpg|gif|png',
+		  exts: 'jpg|jpeg|gif|png',
 		  data: {
 		  	type:'image'
 		  },
@@ -202,7 +211,7 @@
 	  objupload.render({
 		  elem: '#ad-image2-button', //绑定元素
 		  url: 'pub_upload_do.php', //上传接口
-		  exts: 'jpg|gif|png',
+		  exts: 'jpg|jpeg|gif|png',
 		  data: {
 		  	type:'image'
 		  },
@@ -229,7 +238,7 @@
 	  objupload.render({
 		  elem: '#ad-image3-button', //绑定元素
 		  url: 'pub_upload_do.php', //上传接口
-		  exts: 'jpg|gif|png',
+		  exts: 'jpg|jpeg|gif|png',
 		  data: {
 		  	type:'image'
 		  },

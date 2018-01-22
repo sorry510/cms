@@ -36,7 +36,7 @@
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="search" placeholder="卡号/手机号/姓名" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -137,6 +137,7 @@
 		objdate.render({
 			elem: '#laimi-to'
 		});
+		$('.laimi-focus').focus();
 		//取消预约操作JS
 		$('.laimi-stop').on('click',function(){
 		  var url="reserve_cancel_do.php";

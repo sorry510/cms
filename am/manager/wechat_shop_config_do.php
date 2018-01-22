@@ -56,7 +56,7 @@ if($intreturn == 0) {
 		$int = strrpos($strshare_image, '.');
 		if($int != FALSE) {
 			$str = substr($strshare_image, $int);
-			if($str == '.jpg' || $str == '.gif' || $str == '.png') {
+			if($str == '.jpg' || $str == '.jpeg' || $str == '.gif' || $str == '.png') {
 				copy($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strshare_image,
 				$GLOBALS['gconfig']['path']['weixin'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['share_image'] . '/laimi' . $str);
 				unlink($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strshare_image);
@@ -72,7 +72,7 @@ if($intreturn == 0) {
 		$int = strrpos($strad_image1, '.');
 		if($int != FALSE) {
 			$str = substr($strad_image1, $int);
-			if($str == '.jpg' || $str == '.gif' || $str == '.png') {
+			if($str == '.jpg' || $str == '.jpeg' || $str == '.gif' || $str == '.png') {
 				copy($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image1,
 				$GLOBALS['gconfig']['path']['weixin'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/laimi1' . $str);
 				unlink($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image1);
@@ -88,7 +88,7 @@ if($intreturn == 0) {
 		$int = strrpos($strad_image2, '.');
 		if($int != FALSE) {
 			$str = substr($strad_image2, $int);
-			if($str == '.jpg' || $str == '.gif' || $str == '.png') {
+			if($str == '.jpg' || $str == '.jpeg' || $str == '.gif' || $str == '.png') {
 				copy($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image2,
 				$GLOBALS['gconfig']['path']['weixin'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/laimi2' . $str);
 				unlink($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image2);
@@ -104,7 +104,7 @@ if($intreturn == 0) {
 		$int = strrpos($strad_image3, '.');
 		if($int != FALSE) {
 			$str = substr($strad_image3, $int);
-			if($str == '.jpg' || $str == '.gif' || $str == '.png') {
+			if($str == '.jpg' || $str == '.jpeg' || $str == '.gif' || $str == '.png') {
 				copy($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image3,
 				$GLOBALS['gconfig']['path']['weixin'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/laimi3' . $str);
 				unlink($GLOBALS['gconfig']['path']['upload'] . '/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . '/temp/' . $strad_image3);

@@ -27,7 +27,7 @@
       </div>
 		<label class="layui-form-label">员工</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="key" placeholder="姓名/编号" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="key" placeholder="姓名/编号" value="<?php echo htmlspecialchars($GLOBALS['strkey']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -243,6 +243,9 @@
 		var objpage = layui.laypage;
 		var objform = layui.form;
 		var objlaytpl = layui.laytpl;
+
+		$('.laimi-focus').focus();
+
 		objdate.render({
 			elem: '#laimi-from'
 		});

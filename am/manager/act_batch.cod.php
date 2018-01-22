@@ -198,7 +198,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"><span>*</span> 通知方式</label>
 					<div class="layui-input-inline">
-						<input type="checkbox" name="like1[write]" lay-skin="primary" value="1" title="微信推送" checked="">
+						<!-- <input type="checkbox" name="like1[write]" lay-skin="primary" value="1" title="微信推送" checked=""> -->
 						<input type="checkbox" name="like1[read]" lay-skin="primary" value="2" title="短信通知">
 					</div>
 				</div>
@@ -372,11 +372,13 @@
 	      birthday:birthday,
 	      lbirthday:lbirthday,
 	      ldays:ldays,
+	      txtcode:phone,
 	      act_name:act_name,
 	      ticket:ticket,
 	      sms:sms,
 	      weixin:weixin
 	    };
+	    console.log(data);
 	    $.post(url,data,function(res){
 	      if(res=='0'){
 	        alert('发送成功！');
@@ -386,6 +388,7 @@
 	        alert('没有发送对象');
 	        _self.attr("disabled",false);
 	      }else{
+	      	console.log(res);
 	        alert('发送失败');
 	        _self.attr("disabled",false);
 	      }
@@ -421,6 +424,7 @@
 	      birthday:birthday,
 	      lbirthday:lbirthday,
 	      ldays:ldays,
+	      txtcode:phone,
 	      act_name:act_name,
 	      act_info:act_info
 	    };
@@ -433,6 +437,7 @@
 	        alert('没有发送对象');
 	        _self.attr("disabled",false);
 	      }else{
+	      	console.log(res);
 	        alert('发送失败');
 	        _self.attr("disabled",false);
 	      }

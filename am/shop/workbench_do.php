@@ -107,7 +107,7 @@ $arrcard = array();
 //查询card信息,不是会员不用判断
 if($intreturn == 0){
 	if($intcard_id != 0){
-		$strsql = "SELECT card_id,card_code,card_sex, card_name,card_phone,s_card_ymoney,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
+		$strsql = "SELECT card_id,card_okey,card_code,card_sex, card_name,card_phone,s_card_ymoney,s_card_yscore,card_type_id,c_card_type_name,c_card_type_discount FROM " . $GLOBALS['gdb']->fun_table2('card') . " where card_id = ".$intcard_id." limit 1";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);
 		$arrcard = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 		if(empty($arrcard)){
@@ -138,8 +138,9 @@ if($intreturn == 0){
 	}
 	if(!empty($arrcard)){
 		// 有会员卡
+		$card_ymoney = $arrcard['s_card_ymoney'];
+		$card_yscore = $arrcard['s_card_yscore'];
 		if($card_pay != 'card_record_kakou'){
-			$card_ymoney = $arrcard['s_card_ymoney'];
 			//不是卡扣
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record'). "(card_id,shop_id,card_record_code,card_record_type,card_record_hmoney,card_record_ymoney,card_record_jmoney,card_record_smoney,card_record_smoney2,card_record_emoney,card_record_pay,".$card_pay.",card_record_score,card_record_atime,c_card_type_id,c_card_type_name,c_card_type_discount,c_card_code,c_card_name,c_card_phone,c_card_sex,c_user_id,c_user_name,card_record_state) VALUE (".$intcard_id.",".$intshop.",'".$card_record_code."',3,".$dechmoney.",".$decymoney.",".$decjmoney.",".$decsmoney.",".$decsmoney2.",".$arrcard['s_card_ymoney'].",".$intpay_type.",".$decsmoney.",".$intscore.",".$intnow.",".$arrcard['card_type_id'].",'".$arrcard['c_card_type_name']."',".$arrcard['c_card_type_discount'].",'".$arrcard['card_code']."','".$arrcard['card_name']."','".$arrcard['card_phone']."',".$arrcard['card_sex'].",".$user_id.",'".$user_name."',".$intpay_state.")";
 			$hresult = $gdb->fun_do($strsql);
@@ -150,6 +151,7 @@ if($intreturn == 0){
 			}
 			//更新积分
 			if($intreturn == 0) {
+				$card_yscore = $card_yscore + $intscore;
 				//启用积分模块
 				if($GLOBALS['gtrade']['score_module'] == 1 && $GLOBALS['gtrade']['score_flag'] == 1){
 					$strsql = "UPDATE ".$gdb->fun_table2('card')." SET s_card_smoney=s_card_smoney+".$decsmoney.",s_card_sscore=s_card_sscore+".$intscore.",s_card_yscore=s_card_yscore+".$intscore.",card_ctime=".$intnow.",card_ltime=".$intnow." where card_id=".$intcard_id." limit 1";
@@ -551,7 +553,7 @@ if($intreturn == 0 && !empty($arrinfo2)){
 }
 //发送短信
 if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1){
-	if($intreturn == 0 && $intcard_id!=0){
+	if($intreturn == 0 && $intcard_id != 0){
 	  $intsms_ycount = 0;
 	  $strsql = "SELECT company_sms_ycount FROM ".$GLOBALS['gdb']->fun_table('company')." WHERE company_id=".api_value_int0($GLOBALS['_SESSION']['login_cid']);
 	  $hresult = $GLOBALS['gdb']->fun_query($strsql);
@@ -723,6 +725,7 @@ if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1)
 		}
 	}
 }
+
 //记录优惠券使用情况
 if($intreturn == 0 && !empty($arrinfo3)){
 	$arract_id_use = array();
@@ -773,18 +776,66 @@ if($intreturn == 0 && !empty($arrinfo3)){
 }
 //记录recrord3_ygoods,没有考虑到期时间
 if($intreturn == 0 && $intcard_id!=0){
-	$strsql = "SELECT SUM(card_mcombo_gcount)as sum,mgoods_id,c_mgoods_name,c_mgoods_price,c_mgoods_cprice FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by c_mgoods_name";
+	$strsql = "SELECT SUM(card_mcombo_gcount)as sum,mgoods_id,c_mgoods_name,c_mgoods_price,c_mgoods_cprice,c_mgoods_type,card_mcombo_cedate FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_mcombo_type=2 and card_id=".$intcard_id." group by mgoods_id";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 	// echo json_encode($arr);
+	$strcard_goods = '无';
 	if(!empty($arr)){
+		$strcard_goods = '';
 		foreach($arr as $row){
+			if($row['c_mgoods_type'] == 1){
+				$strcard_goods .= $row['c_mgoods_name'] . '*' . $row['sum'] . ',';
+			} else if($row['c_mgoods_type'] == 2){
+				$strcard_goods .= $row['c_mgoods_name'] . '(' . date("Y-m-d", $row['card_mcombo_cedate']) . '),';
+			}
+			//数据库有问题
 			$strsql = "INSERT INTO ".$GLOBALS['gdb']->fun_table2('card_record3_ygoods')." (card_record_id,card_id,shop_id,mgoods_id,card_record3_ygoods_count,c_mgoods_name,c_mgoods_price,c_mgoods_cprice) VALUES (".$record_id.",".$intcard_id.",".$intshop.",".$row['mgoods_id'].",".$row['sum'].",'".$row['c_mgoods_name']."',".$row['c_mgoods_price'].",".$row['c_mgoods_cprice'].")";
 			$hresult = $GLOBALS['gdb']->fun_do($strsql);
 			// if($hresult == FALSE) {
 			// 	$intreturn = 13;
 			// }
 		}
+		$strcard_goods = substr($strcard_goods, 0, (strlen($strcard_goods) - 1));
+	}
+}
+//微信推送
+if($intreturn == 0 && $intcard_id != 0){
+	if($GLOBALS['gtrade']['wmp_module'] == 1 && $arrcard['card_okey'] != '') {
+		$arrwechat_config = laimi_config_weixin();
+		$ac = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrwechat_config['appid'].'&secret='.$arrwechat_config['appsecret']);
+		$wxt = json_decode($ac, true);
+		$arrwx_data = array(
+		  'open_id' => $arrcard['card_okey'],
+		  'token' => $wxt['access_token'],
+		  'template_id' => '1f16GSiGfrWkToxv5lxKBWtJo8_k7cKBTBSUt1Ldl_E',
+		  'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_code'].'&goto=center'
+		  );
+		$arrtpl_data = array(
+		    'first' => array(
+		        'value' => '尊敬的' . $arrcard['card_name'] . '，您已消费成功。',
+		        // 'color' => '#FF0000'
+		    ),
+		    'keyword1' => array(
+		        'value' => $GLOBALS['gcompanyname'] . "——" . $GLOBALS['gshopname'],
+		    ),
+		    'keyword2' => array(
+		        'value' => date("Y-m-d H:i", $intnow),
+		    ),
+		    'keyword3' => array(
+		        'value' => $decsmoney . "元",
+		    ),
+		    'keyword4' => array(
+		        'value' => $card_ymoney . "元",
+		    ),
+		    'keyword5' => array(
+		        'value' => $card_yscore . '积分',
+		    ),
+		    'remark' => array(
+		        'value' => '其它卡余：' . $strcard_goods . '  ~更多请点击查看详情~',
+		    )
+		);
+		laimi_wx_template_msg($arrwx_data, $arrtpl_data);
 	}
 }
 //记录满减活动产生的金额,没有对这次消费中参加的满减活动做记录
@@ -830,5 +881,8 @@ if($intreturn == 0){
 		);
 	echo json_encode($arr);
 }else{
-	echo $intreturn;
+	$arr = array(
+		'int' => $intreturn
+		);
+	echo json_encode($arr);
 }

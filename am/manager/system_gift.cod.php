@@ -22,7 +22,7 @@
 	<div class="laimi-tools layui-form-item">
 		<label class="layui-form-label laimi-input">礼品名称</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input" type="text" name="name" placeholder="输入礼品名称" value="<?php echo htmlspecialchars($GLOBALS['strname']); ?>">
+			<input class="layui-input laimi-focus" type="text" name="name" placeholder="输入礼品名称" value="<?php echo htmlspecialchars($GLOBALS['strname']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -126,6 +126,9 @@
 		var objelement = layui.element;
 		var objlaytpl = layui.laytpl;
 		var objform = layui.form;
+
+		$('.laimi-focus').focus();
+		
 		objform.verify({
 		  score: function(strvalue, objitem) { //value：表单的值、item：表单的DOM对象
 		    if(strvalue <= 0) {

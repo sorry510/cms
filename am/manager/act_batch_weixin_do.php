@@ -4,6 +4,12 @@ define('C_NOTEMPLATE', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
+require_once C_ROOT . '/sms/api_sdk/vendor/autoload.php';
+use Aliyun\Core\Config;
+use Aliyun\Core\Profile\DefaultProfile;
+use Aliyun\Core\DefaultAcsClient;
+use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest;
+use Aliyun\Api\Sms\Request\V20170525\QuerySendDetailsRequest;
 
 if(laimi_config_trade()['act_module'] != 1){
 	echo '<script> window.history.back();</script>';
@@ -30,7 +36,7 @@ $strlbirthday = api_value_post('lbirthday');
 $sqllbirthday = $gdb->fun_escape($strlbirthday);
 $strldays =  api_value_post('ldays');
 $intldays = api_value_int0($strldays);
-$strphone = api_value_get('phone');
+$strphone = api_value_post('txtcode');
 $sqlphone = $gdb->fun_escape($strphone);
 $stract_name = api_value_post('act_name');
 $sqlact_name = $gdb->fun_escape($stract_name);
@@ -221,7 +227,7 @@ if ($intreturn == 0) {
 		}
 	}
 	if($GLOBALS['intsex'] !='') {
-		if ($GLOBALS['intsex'] != 0) {
+		if ($GLOBALS['intsex'] != 3) {
 			$strwhere = $strwhere . ' AND card_sex = ' . $GLOBALS['intsex'];
 		}
 	}
@@ -232,7 +238,7 @@ if ($intreturn == 0) {
 		}
 	}
 	if($GLOBALS['sqlphone'] !='') {
-		$strwhere = $strwhere . ' AND card_phone = "' . $GLOBALS['sqlphone'] .'" OR card_name like "%'.$GLOBALS['sqlphone'].'%" OR card_code = "'.$GLOBALS['sqlphone'].'"';
+		$strwhere = $strwhere . ' AND (card_phone = "' . $GLOBALS['sqlphone'] .'" OR card_name = "'.$GLOBALS['sqlphone'].'" OR card_code = "'.$GLOBALS['sqlphone'].'")';
 	}
 	if($GLOBALS['intshop'] !='') {
 		$strwhere = $strwhere . ' AND shop_id = '.$GLOBALS['intshop'];
@@ -243,7 +249,7 @@ if ($intreturn == 0) {
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	$act_relate_aticket = $arr['act_relate_aticket'];
 
-	$strsql = 'SELECT card_id FROM' . $GLOBALS['gdb']->fun_table2('card') . ' WHERE card_state = 1 ' . $strwhere .' ORDER BY card_id DESC';
+	$strsql = 'SELECT card_id,card_phone,card_name,card_code FROM' . $GLOBALS['gdb']->fun_table2('card') . ' WHERE card_state = 1 ' . $strwhere .' ORDER BY card_id DESC';
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -275,6 +281,140 @@ if($intreturn == 0) {
 	}
 }
 
+// 加载区域结点配置
+Config::load();
+
+/**
+ * Class SmsDemo
+ *
+ * @property \Aliyun\Core\DefaultAcsClient acsClient
+ */
+class SmsDemo
+{
+
+    /**
+     * 构造器
+     *
+     * @param string $accessKeyId 必填，AccessKeyId
+     * @param string $accessKeySecret 必填，AccessKeySecret
+     */
+    public function __construct($accessKeyId, $accessKeySecret)
+    {
+
+        // 短信API产品名
+        $product = "Dysmsapi";
+
+        // 短信API产品域名
+        $domain = "dysmsapi.aliyuncs.com";
+
+        // 暂时不支持多Region
+        $region = "cn-hangzhou";
+
+        // 服务结点
+        $endPointName = "cn-hangzhou";
+
+        // 初始化用户Profile实例
+        $profile = DefaultProfile::getProfile($region, $accessKeyId, $accessKeySecret);
+
+        // 增加服务结点
+        DefaultProfile::addEndpoint($endPointName, $region, $product, $domain);
+
+        // 初始化AcsClient用于发起请求
+        $this->acsClient = new DefaultAcsClient($profile);
+    }
+
+    /**
+     * 发送短信范例
+     *
+     * @param string $signName <p>
+     * 必填, 短信签名，应严格"签名名称"填写，参考：<a href="https://dysms.console.aliyun.com/dysms.htm#/sign">短信签名页</a>
+     * </p>
+     * @param string $templateCode <p>
+     * 必填, 短信模板Code，应严格按"模板CODE"填写, 参考：<a href="https://dysms.console.aliyun.com/dysms.htm#/template">短信模板页</a>
+     * (e.g. SMS_0001)
+     * </p>
+     * @param string $phoneNumbers 必填, 短信接收号码 (e.g. 12345678901)
+     * @param array|null $templateParam <p>
+     * 选填, 假如模板中存在变量需要替换则为必填项 (e.g. Array("code"=>"12345", "product"=>"阿里通信"))
+     * </p>
+     * @param string|null $outId [optional] 选填, 发送短信流水号 (e.g. 1234)
+     * @return stdClass
+     */
+    public function sendSms($signName, $templateCode, $phoneNumbers, $templateParam = null, $outId = null) {
+
+        // 初始化SendSmsRequest实例用于设置发送短信的参数
+        $request = new SendSmsRequest();
+
+        // 必填，设置雉短信接收号码
+        $request->setPhoneNumbers($phoneNumbers);
+
+        // 必填，设置签名名称
+        $request->setSignName($signName);
+
+        // 必填，设置模板CODE
+        $request->setTemplateCode($templateCode);
+
+        // 可选，设置模板参数
+        if($templateParam) {
+            $request->setTemplateParam(json_encode($templateParam));
+        }
+
+        // 可选，设置流水号
+        if($outId) {
+            $request->setOutId($outId);
+        }
+
+        // 发起访问请求
+        $acsResponse = $this->acsClient->getAcsResponse($request);
+
+        // 打印请求结果
+        // var_dump($acsResponse);
+
+        return $acsResponse;
+
+    }
+
+    /**
+     * 查询短信发送情况范例
+     *
+     * @param string $phoneNumbers 必填, 短信接收号码 (e.g. 12345678901)
+     * @param string $sendDate 必填，短信发送日期，格式Ymd，支持近30天记录查询 (e.g. 20170710)
+     * @param int $pageSize 必填，分页大小
+     * @param int $currentPage 必填，当前页码
+     * @param string $bizId 选填，短信发送流水号 (e.g. abc123)
+     * @return stdClass
+     */
+    public function queryDetails($phoneNumbers, $sendDate, $pageSize = 10, $currentPage = 1, $bizId=null) {
+
+        // 初始化QuerySendDetailsRequest实例用于设置短信查询的参数
+        $request = new QuerySendDetailsRequest();
+
+        // 必填，短信接收号码
+        $request->setPhoneNumber($phoneNumbers);
+
+        // 选填，短信发送流水号
+        $request->setBizId($bizId);
+
+        // 必填，短信发送日期，支持近30天记录查询，格式Ymd
+        $request->setSendDate($sendDate);
+
+        // 必填，分页大小
+        $request->setPageSize($pageSize);
+
+        // 必填，当前页码
+        $request->setCurrentPage($currentPage);
+
+        // 发起访问请求
+        $acsResponse = $this->acsClient->getAcsResponse($request);
+
+        // 打印请求结果
+        // var_dump($acsResponse);
+
+        return $acsResponse;
+    }
+
+}
+
 foreach ($arr as $key => $row) {
 	if($intreturn == 0) {
 		$strsql = "INSERT INTO " . $gdb->fun_table2('card_ticket') . " (card_id, act_type, act_id,act_ticket_id,ticket_type,ticket_money_id,ticket_goods_id,card_ticket_state,card_ticket_atime,card_ticket_edate,c_ticket_name,c_ticket_value,c_ticket_limit,c_ticket_days,c_ticket_begin,c_mgoods_id,c_mgoods_name) VALUES (" .$row['card_id'] . " , 4 , " . $act_id."," .$act_ticket_id.",".$intttype.",".$intticket_money_id.",".$intticket_goods_id.", 1 ,".$time.",".$intedate2.",'".$sqlc_ticket_name."',".$decc_ticket_value.",".$decc_ticket_limit.",".$intc_ticket_days.",".$intc_ticket_begin.",".$intc_mgoods_id.",'".$sqlc_mgoods_name . "')";
@@ -292,6 +432,47 @@ foreach ($arr as $key => $row) {
 		$hresult = $gdb->fun_do($strsql);
 		if($hresult == FALSE) {
 			$intreturn = 16;
+		}
+	}
+	//发送短信
+	if($GLOBALS['gtrade']['sms_module'] == 1 && $GLOBALS['gtrade']['sms_flag'] == 1){
+		if($intreturn == 0 && $intsms != 0){
+		  $intsms_ycount = 0;
+		  $strsql = "SELECT company_sms_ycount FROM ".$GLOBALS['gdb']->fun_table('company')." WHERE company_id=".api_value_int0($GLOBALS['_SESSION']['login_cid']);
+		  $hresult = $GLOBALS['gdb']->fun_query($strsql);
+		  $arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+		  if(!empty($arr)){
+		    $intsms_ycount = $arr['company_sms_ycount'];
+		  }
+
+			if($intsms_ycount > 0){
+			  if($intreturn == 0){
+			      $demo = new SmsDemo(
+			          "GWZek0XmIcJAOKnD",
+			          "pnHKa0sCZunORgfxYDdKqTwOVc1WUB"
+			      );
+
+			      $response = $demo->sendSms(
+			          $GLOBALS['gtrade']['sms_sign'], // 短信签名
+			          'SMS_121905615', // 短信模板编号
+			          $row['card_phone'], // 短信接收者
+			          Array(  // 短信模板中字段的值
+			              "cardname"=> $row['card_name'],
+			              "cardcode"=> $row['card_code'],
+			              "Number"=> 1,
+			              "coupon"=> $sqlc_ticket_name,
+			              "date1"=> $intc_ticket_days,
+			          )
+			          // "123"
+			      );
+			      if($response->Message == 'OK'){
+		          $strsql = "UPDATE ".$GLOBALS['gdb']->fun_table('company'). " SET company_sms_ycount=company_sms_ycount-1 WHERE company_id=".api_value_int0($GLOBALS['_SESSION']['login_cid']);
+		          $hresult = $gdb->fun_do($strsql);
+			      }else{
+			       /*	var_dump($response->Message);*/
+			      }
+			  }
+			}
 		}
 	}
 }

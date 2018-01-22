@@ -16,9 +16,6 @@
 					<li class="layui-this">
 						<a href="act_batch_weixin.php">微信营销记录</a>
 					</li>
-					<li>
-						<a href="act_batch_sms.php">短信营销记录</a>
-					</li>
 				</ul>
 				<div id="laimi-main" class="p-act-batch-weixin layui-tab-content">
 <form class="layui-form">		    

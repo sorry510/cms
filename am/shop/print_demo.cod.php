@@ -8,19 +8,14 @@
 	.laimi-text-right{text-align:right;}
 	.hr{margin:5pt 0; width:100%; border-bottom:1pt dashed #000;}
 </style>
-<style type="text/css" media="screen">
-	.hide{
-		display:none;
-	}
-</style>
 <!-- <script language="javascript" src="../../js/LodopFuncs.js"></script> -->
 </head>
 <body>
-	<object id="LODOP_X" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0 style="display:none;">
+	<object id="LODOP_X" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=100% height=500>
 	        <param name="Color" value="#ADD8E6">
 		<embed id="LODOP_EM" TYPE="application/x-print-lodop" width=100% height=500 color="#ADD8E6"  PLUGINSPAGE="install_lodop32.exe"></embed>
 	</object>
-	<div id="laimi-container" class="hide">
+	<div id="laimi-container">
 	  <div class="laimi-line" style="padding:5pt 0;text-align:center;font-size:12pt;font-weight:bold;">
       <?php echo $this->_data['print_info']['sprint_title'] ; ?>
     </div>
@@ -184,11 +179,22 @@
 	<?php } else if($GLOBALS['strtype'] == '2') { ?>
 		url = 'workbench.php';
 	<?php } else if($GLOBALS['strtype'] == '3') { ?>
-		url = 'workbench2.php';
+		url = 'workbench3.php';
 	<?php } ?>
+	window.onload = function(){
+		try{ LODOP=getCLodop(); } catch(err) {};
+		if(LODOP) {
+			OpenPreview();
+		} else {
+			// console.log(11111);
+			alert("当前设备没有检测到此打印驱动");
+			window.location.href = url;
+		}
+	};
 	function CreateOnePage(){
 		var strBodyStyle="<style>"+document.getElementById("style1").innerHTML+"</style>";
 		var strFormHtml=strBodyStyle+"<body>"+document.getElementById("laimi-container").innerHTML+"</body>";
+		var title = '<?php echo $this->_data['print_info']['sprint_title']; ?>';
 		var width = 580;
 		var widthindex = '<?php echo $this->_data['print_info']['sprint_width']; ?>';
 		if(widthindex == 1){
@@ -197,6 +203,7 @@
 			width = 880;
 		}
 		var device = '<?php echo $this->_data['print_info']['sprint_device']; ?>';
+		LODOP.PRINT_INIT(title);
 		LODOP.ADD_PRINT_HTM(0, 0, '100%', '100%', strFormHtml);
 		LODOP.SET_PRINT_PAGESIZE(3, width, 0, '');//设定纸张大小
 		var flag = LODOP.SET_PRINTER_INDEX(device);
@@ -218,24 +225,9 @@
 			// blPreviewOpen=true;
 	  }
 	  //延时跳转
-	  // setTimeout(function(){
+	  setTimeout(function(){
 	  	window.location.href = url;
-	  // }, 0)
-	};
-	//参见官网demo22
-	window.onload = function(){
-		try{ LODOP=getCLodop(); } catch(err) {};
-		if(LODOP){
-			window.On_CLodop_Opened=function(){
-				// console.log(2);
-				OpenPreview();
-				window.On_CLodop_Opened=null;
-			};
-		}else{
-			alert('当前设备没有检测到LODOP驱动');
-			window.location.href = url;
-			// console.log(3);
-		}
+	  }, 0)
 	};
 </script>
 <!-- <?php

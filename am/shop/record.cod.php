@@ -36,7 +36,7 @@
 		</div>
 		<label class="layui-form-label">会员</label>
 		<div class="layui-input-inline last">
-			<input class="layui-input laimi-input-200" type="text" name="search" placeholder="会员卡号/姓名/手机号码" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
+			<input class="layui-input laimi-input-200 laimi-focus" type="text" name="search" placeholder="会员卡号/姓名/手机号码" value="<?php echo htmlspecialchars($this->_data['request']['search']); ?>">
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
@@ -286,7 +286,7 @@
 		var objdate = layui.laydate;
 
 		$('.laimi-focus').focus();
-		
+
 		objdate.render({
 			elem: '#laimi-from'
 		});

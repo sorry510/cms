@@ -22,12 +22,6 @@
           <li>
             <a href="tongji_income.php">新增会员曲线</a>
           </li>
-          <li>
-            <a href="tongji_shop_revenue.php">店铺收入占比</a>
-          </li>
-          <li>
-            <a href="tongji_shop_ranking.php">店铺收入排名</a>
-          </li>
         </ul>
 				<div id="laimi-main" class="p-tongji-goods layui-tab-content">
 <form class="layui-form">

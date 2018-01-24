@@ -136,6 +136,7 @@
 					mui.alert('预约时间必须大于当前时间');
 					console.log(res);
 				}else{
+					console.log(res);
 					mui.alert('预约出现错误');
 				}
 			}

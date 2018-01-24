@@ -7,6 +7,10 @@
     <script src="js/iconfont.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/laimi.css" rel="stylesheet"/>
+    <style>
+		/*toast信息提示*/
+		.mui-toast-container {bottom: 50% !important;}
+		</style>
 </head>
 <body id="laimi-body">
 <header class="mui-bar mui-bar-nav">
@@ -93,11 +97,11 @@
 					})
 					mui('.laimi-cartcount')[0].innerHTML = count;
 				}else{
-					mui.alert('修改失败', null, "提示");
+					mui.toast('修改失败', null, "提示");
 				}
 			},
 			error: function(xhr, type, errorThrown){
-				mui.alert("网络不给力，请稍后重试！", "提示信息");
+				mui.toast("网络不给力，请稍后重试！", "提示信息");
 			}
 		})
 	});
@@ -125,11 +129,11 @@
 					})
 					mui('.laimi-cartcount')[0].innerHTML = count;
 				}else{
-					mui.alert('修改失败', null, "提示");
+					mui.toast('修改失败', null, "提示");
 				}
 			},
 			error: function(xhr, type, errorThrown){
-				mui.alert("网络不给力，请稍后重试！", "提示信息");
+				mui.toast("网络不给力，请稍后重试！", "提示信息");
 			}
 		})
 	});
@@ -151,13 +155,13 @@
 						mui(".laimi-num[tid='"+value+"']")[0].setAttribute("flag", 1);
 						result();
 					}else if(res == 1){
-						mui.alert('商品不存在', null, "提示");
+						mui.toast('商品不存在', null, "提示");
 					}else if(res == 2){
-						mui.alert('修改失败', null, "提示");
+						mui.toast('修改失败', null, "提示");
 					}
 				},
 				error: function(xhr, type, errorThrown){
-					mui.alert("网络不给力，请稍后重试！", "提示信息");
+					mui.toast("网络不给力，请稍后重试！", "提示信息");
 				}
 			})
 		}else{
@@ -172,13 +176,13 @@
 						mui(".laimi-num[tid='"+value+"']")[0].setAttribute("flag", 2);
 						result();
 					}else if(res == 1){
-						mui.alert('商品不存在', null, "提示");
+						mui.toast('商品不存在', null, "提示");
 					}else if(res == 2){
-						mui.alert('修改失败', null, "提示");
+						mui.toast('修改失败', null, "提示");
 					}
 				},
 				error: function(xhr, type, errorThrown){
-					mui.alert("网络不给力，请稍后重试！", "提示信息");
+					mui.toast("网络不给力，请稍后重试！", "提示信息");
 				}
 			})
 		}
@@ -200,13 +204,13 @@
 							li.parentNode.removeChild(li);
 							result();
 						}else if(res == 1){
-							alert('此商品已不存在');
+							toast('此商品已不存在');
 						}else{
-							alert('删除失败');
+							toast('删除失败');
 						}
 					},
 					error: function(xhr, type, errorThrown){
-						mui.alert("网络不给力，请稍后重试！", "提示信息");
+						mui.toast("网络不给力，请稍后重试！", "提示信息");
 					}
 				})
 			} else {
@@ -231,11 +235,11 @@
 						if(res == 0){
 							window.location.reload();
 						}else{
-							alert('删除失败');
+							toast('删除失败');
 						}
 					},
 					error: function(xhr, type, errorThrown){
-						mui.alert("网络不给力，请稍后重试！", "提示信息");
+						mui.toast("网络不给力，请稍后重试！", "提示信息");
 					}
 				})
 			}
@@ -258,7 +262,7 @@
 			console.log(1);
 			window.location.href = "cart_enter.php";
 		}else{
-			mui.alert('购物车为空');
+			mui.toast('购物车为空');
 		}
 	})
 </script>

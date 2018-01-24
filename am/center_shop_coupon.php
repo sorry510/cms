@@ -3,13 +3,6 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$GLOBALS['_SESSION']['login_type'] = 11;
-$GLOBALS['_SESSION']['login_id'] = 1;
-$GLOBALS['_SESSION']['login_openid'] = 'abc';
-$GLOBALS['_SESSION']['login_code'] = 'am';
-$GLOBALS['_SESSION']['login_cid'] = 1;
-$GLOBALS['_SESSION']['login_sid'] = 1;
-
 $strcard_id = api_value_get('id');
 $intcard_id = api_value_int0($strcard_id);
 $gtemplate->fun_assign('card_coupon1', get_card_coupon(1));

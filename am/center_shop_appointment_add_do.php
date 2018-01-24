@@ -64,39 +64,6 @@ if($intreturn == 0) {
 	}
 }
 
-/*function laimi_wx_template_msg($arrwx_data, $arrtpl_data){
-  $stropen_id = $arrwx_data['open_id'];
-  $strtoken = $arrwx_data['token'];
-  $strtemplate_id = $arrwx_data['template_id'];
-
-  $template_msg=array(
-    'touser'=>$stropen_id,
-    'template_id'=>$strtemplate_id,
-    'topcolor'=>'#FF0000',
-    'data'=>$arrtpl_data
-  );
-   
-  $curl = curl_init('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $strtoken);
-  $header = array();
-  $header[] = 'Content-Type: application/x-www-form-urlencoded';
-  curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-  // 不输出header头信息
-  curl_setopt($curl, CURLOPT_HEADER, 0);
-  // 信任任何证书，使用http
-  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-  // 伪装浏览器
-  curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
-  // 保存到字符串而不是输出
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  // post数据
-  curl_setopt($curl, CURLOPT_POST, 1);
-  // 请求数据
-  curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($template_msg));
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return $response;
-}
-
 if ($intreturn == 0) {
 	$strreserve_goods = '';
 	$strsql = "SELECT card_okey FROM " . $gdb->fun_table2('card') . " WHERE card_phone = '".$sqlphone."'";
@@ -106,23 +73,27 @@ if ($intreturn == 0) {
 
 		$arrweixin = laimi_config_weixin();
 		$strtoken = '';
-		$strjson = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrweixin['appid'].'&secret=' . $arrweixin['appsecret']);
+		$strjson = api_http_html('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrweixin['appid'].'&secret=' . $arrweixin['appsecret']);
 		$objjson = json_decode($strjson);
 		$strtoken = $objjson->access_token;
 
 		$arrwx_data = array(
 	  	'open_id' => $arr['card_okey'],
 	  	'token' => $strtoken,
-	  	'template_id' => 'gMR5p-DNwBb1I55xwCH6vosjGDERAQ90uv77Aqy4lds'
+	  	'template_id' => 'gMR5p-DNwBb1I55xwCH6vosjGDERAQ90uv77Aqy4lds',
+	  	'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_cid'].'&goto=center',
 	  );
-	  /*foreach ($arrmgoods as $key => $value) {
-	  	$arr = explode(',',$value);
-	  	if ($strreserve_goods == '') {
-	  		$strreserve_goods = $arr[1];
-	  	}else{
-	  		$strreserve_goods = $strreserve_goods ."，".$arr[1];
-	  	}
-	  }
+
+		$strgoods = '';
+		foreach ($arrmgoods as $key => $value) {
+			$arr = explode(',',$value);
+			if ($strgoods == '') {
+				$strgoods = $arr[1];
+			}else{
+				$strgoods = $strgoods.",".$arr[1];
+			}
+		}
+
 	  $arrtpl_data = array(
 	    'first' => array(
 	        'value' => '尊敬的'.$sqlname.'，您有1条预约信息。',
@@ -137,7 +108,7 @@ if ($intreturn == 0) {
 	        'value' => $strdtime,
 	    ),
 	    'keyword4' => array(
-	        'value' => '敬请按时到店，感谢您的预约。',
+	        'value' => $strgoods,
 	    ),
 	    'remark' => array(
 	        'value' => '敬请按时到店，感谢您的预约。',
@@ -145,7 +116,7 @@ if ($intreturn == 0) {
 		);
 		laimi_wx_template_msg($arrwx_data, $arrtpl_data);
 	}
-}*/
+}
 
 echo $intreturn;
 

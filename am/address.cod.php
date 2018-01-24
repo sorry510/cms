@@ -10,6 +10,8 @@
     <link href="css/laimi.css" rel="stylesheet"/>
     <style type="text/css">
     	.laimi-state{border:1px solid #FF5053;border-radius:3px;padding:1px 4px; color:#FF5053;}
+    	/*toast信息提示*/
+			.mui-toast-container {bottom: 50% !important;}
     </style>
 </head>
 <body id="laimi-body">
@@ -82,11 +84,11 @@
 							span.setAttribute('class','laimi-font10 laimi-state');
 							son.appendChild(span);
 						}else{
-							mui.alert('设置失败');
+							mui.toast('设置失败');
 						}
 					},
 					error: function(xhr, type, errorThrown){
-						mui.alert("网络不给力，请稍后重试！", "提示信息");
+						mui.toast("网络不给力，请稍后重试！", "提示信息");
 					}
 				})
 			}

@@ -83,16 +83,20 @@
 							li.className = 'mui-card mui-table-view-cell laimi-list-div';
 					var html = '';
 					var src = '../upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']); ?>/wgoods_image/'+v.photo;
+					var span = '';
+					if(v.min_price != v.wgoods_price){
+						span = '&nbsp;<span class="laimi-color-gray" style="font-size:16px;text-decoration:line-through">¥'+v.wgoods_price+'</span>';
+					}
 					html += '<a href="goods.php?id='+v.wgoods_id+'">'+
 						        '<img class="mui-media-object mui-pull-left" style="max-width:100px;height:100px;" src="'+src+'">'+
 						        '<div class="mui-media-body" style="white-space:normal;">'+v.wgoods_name+
 						        	'<p class="laimi-font12">'+v.wgoods_name2+'</p>'+
-						        	'<p style="color:#CF2D28;font-size:12px;margin-top:3px;line-height:30px;">¥<span style="font-size:16px;">'+v.min_price+'</span>&nbsp;¥<span class="laimi-color-gray" style="font-size:16px;text-decoration:line-through">'+v.wgoods_price+'</span>';
+						        	'<p style="color:#CF2D28;font-size:12px;margin-top:3px;line-height:30px;">¥<span style="font-size:16px;">'+v.min_price+'</span>'+span;
 						        	if (v.act_discount_id != 0) {
 						        		html +='<span style="background-color:#CF2D28;color:#FFFFFF;font-size:10px;border-radius:2px; padding:2px 3px 0px 3px;">'+'限时打折'+'</span>';
 						        	}
 						        	html += '</p>'+
-						        	'<p class="mui-pull-left laimi-font12">共有1250条评价</p>'+
+						        	'<p class="mui-pull-left laimi-font12"></p>'+
 						        '</div>'+
 						      '</a>'+
 						      '<button type="button" class="mui-btn mui-btn-danger laimi-font12 laimi-add" gid="'+v.wgoods_id+'">加入购物车</button>';

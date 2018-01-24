@@ -61,7 +61,7 @@ if($intreturn == 0) {
 
 $arrcard_parent = array();
 if($intreturn == 0) {
-	$gdb->pub_prefix2 = $arrcompany['system_code'] . "_" . str_pad($arrcompany['company_id'], 4, '0', STR_PAD_LEFT) . "_";
+	$gdb->pubprefix2 = $arrcompany['system_code'] . "_" . str_pad($arrcompany['company_id'], 4, '0', STR_PAD_LEFT) . "_";
 	$strsql = "SELECT card_id FROM " . $gdb->fun_table2('card') . " WHERE card_id = " . $intparent . " LIMIT 1";
 	$hresult = $gdb->fun_query($strsql);
 	$arrcard_parent = $gdb->fun_fetch_assoc($hresult);
@@ -73,6 +73,7 @@ if($intreturn == 0) {
 }
 
 $stropenid = '';
+$straccess_token = '';
 $arraccess_token = array();
 if($intreturn == 0) {
 	$str = api_http_html('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $arrcompany_config_weixin['appid'] . '&secret=' . $arrcompany_config_weixin['appsecret']
@@ -81,6 +82,9 @@ if($intreturn == 0) {
 	if(!empty($arraccess_token)) {
 		if(!empty($arraccess_token['openid'])) {
 			$stropenid = $arraccess_token['openid'];
+		}
+		if(!empty($arraccess_token['access_token'])) {
+			$straccess_token = $arraccess_token['access_token'];
 		}
 	}
 	if(empty($stropenid)) {
@@ -94,9 +98,24 @@ if($intreturn == 0) {
 	$hresult = $gdb->fun_query($strsql);
 	$arrcard = $gdb->fun_fetch_assoc($hresult);
 	if(empty($arrcard)) {
+		$strnickname = '';
+		$strjson = api_http_html('https://api.weixin.qq.com/sns/userinfo?access_token=' . $straccess_token . '&openid=' . $stropenid . '&lang=zh_CN');
+		$arrjson = json_decode($strjson, true);
+		if(!empty($arrjson['nickname'])){
+			$strnickname = $arrjson['nickname'];
+		}
+		
+		$strsql = "SELECT weixin_id,weixin_nicheng FROM " . $gdb->fun_table2('weixin') . " WHERE weixin_okey = '" . $stropenid . "' LIMIT 1";
+		$hresult = $gdb->fun_query($strsql);
+		$arrweixin = $gdb->fun_fetch_assoc($hresult);
+		if(empty($arrweixin)){
+			$strsql = "INSERT INTO " . $gdb->fun_table2('weixin') . " (weixin_okey, weixin_nicheng, weixin_atime) VALUES ('" . $stropenid . "', '" . $strnickname . "', " . time() . ")";
+			$gdb->fun_do($strsql);
+		}
+
 		$GLOBALS['_SESSION']['login_type'] = 11;
 		$GLOBALS['_SESSION']['login_id'] = 0;
-		$GLOBALS['_SESSION']['login_openid'] = '';
+		$GLOBALS['_SESSION']['login_openid'] = $stropenid;
 		$GLOBALS['_SESSION']['login_code'] = $arrcompany['system_code'];
 		$GLOBALS['_SESSION']['login_cid'] = $arrcompany['company_id'];
 		$GLOBALS['_SESSION']['login_sid'] = $intparent;

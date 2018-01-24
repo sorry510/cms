@@ -2,7 +2,6 @@
 define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
-require('inc_limit.php');
 
 $strphone = api_value_post('phone');
 $sqlphone = $gdb->fun_escape($strphone);
@@ -46,6 +45,14 @@ if($intreturn == 0){
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 	if(empty($arr)){
+		//昵称
+		$strnickname = '无';
+		$strsql = "SELECT weixin_id,weixin_nicheng FROM " . $gdb->fun_table2('weixin') . " WHERE weixin_okey = '" . $stropenid . "' LIMIT 1";
+		$hresult = $gdb->fun_query($strsql);
+		$arrweixin = $gdb->fun_fetch_assoc($hresult);
+		if(!empty($arrweixin)){
+			$strnickname = $arrweixin['weixin_nicheng'];
+		}
 		//微信会员卡类型为2
 		$strcard_type_name = '';
 		$intcard_type_discount = 10;
@@ -59,9 +66,9 @@ if($intreturn == 0){
 			}
 		}
 
-		$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (card_okey, card_type_id, card_code, card_atime,card_password_state,card_state,	card_phone, c_card_type_name, c_card_type_discount) VALUES ('"
+		$strsql = "INSERT INTO " . $gdb->fun_table2('card') . " (card_okey, card_type_id, card_code, card_atime,card_password_state,card_state,	card_phone, c_card_type_name, c_card_type_discount, card_name) VALUES ('"
 	. $stropenid . "', 2, '" . $sqlphone . "', " . time()
-	. ", 2,1,'".$sqlphone."', '" . $strcard_type_name . "'," . $intcard_type_discount . ")";
+	. ", 2,1,'".$sqlphone."', '" . $strcard_type_name . "'," . $intcard_type_discount . ",'".$strnickname."')";
 		$hresult = $gdb->fun_do($strsql);
 
 		$intcard_id = $GLOBALS['gdb']->fun_insert_id();

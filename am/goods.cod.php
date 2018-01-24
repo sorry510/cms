@@ -4,6 +4,8 @@
 <?php echo $this->fun_fetch('inc_head', ''); ?>
 	<style>
 	#lami-img-max img{width:100%;}
+	/*toast信息提示*/
+	.mui-toast-container {bottom: 50% !important;}
 	</style>
 </head>
 <body id="laimi-body">
@@ -205,7 +207,7 @@ if($intcount > 0) {
 				timeout:5000,//超时时间设置为10秒；
 				success:function(res){
 					if (res == 0) {
-						mui.alert('添加购物车成功');
+						mui.toast('添加购物车成功');
 						var count = <?php echo $GLOBALS['gcart']; ?>;
 						if (count > 0) {
 							mui('.laimi-cart')[0].innerHTML = parseInt(mui('.laimi-cart')[0].innerHTML) + parseInt(mui('.laimi-count')[0].value);
@@ -221,14 +223,14 @@ if($intcount > 0) {
 							}
 						}
 					}else if(res == 3){
-						mui.alert('商品已下架');
+						mui.toast('商品已下架');
 					}else{
-						mui.alert('添加购物车失败');
+						mui.toast('添加购物车失败');
 					}
 				},
 				error:function(xhr,type,errorThrown){
 					//异常处理；
-					mui.alert('操作异常，请稍后再试');
+					mui.toast('操作异常，请稍后再试');
 				}
 			});
 	  })
@@ -239,7 +241,7 @@ if($intcount > 0) {
 	  });
 	  
 	wx.config({
-		debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		debug: false, // 开启调试模式,调用的所有api的返回值会在客户端toast出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 		appId: "<?php echo $this->_data['wx_share']['appid']; ?>", // 必填，公众号的唯一标识
 		timestamp: <?php echo $this->_data['wx_share']['timestamp']; ?>, // 必填，生成签名的时间戳
 		nonceStr: "<?php echo $this->_data['wx_share']['nonceStr']; ?>", // 必填，生成签名的随机串
@@ -251,7 +253,7 @@ if($intcount > 0) {
 		wx.onMenuShareTimeline({
 			title: "<?php echo $GLOBALS['gwshop']['share_title']; ?>", // 分享标题
 			link: "<?php echo $GLOBALS['gconfig']['url']['weixin'] . '/' . $GLOBALS['_SESSION']['login_code']
-			. '/s_share.php?company=' . $GLOBALS['_SESSION']['login_cid'] . '&wgoods=' . $GLOBALS['intid'] . '&parent=' . $GLOBALS['_SESSION']['login_sid'] . '&goto=goods'; ?>",
+			. '/s_share.php?company=' . $GLOBALS['_SESSION']['login_cid'] . '&wgoods=' . $GLOBALS['intid'] . '&parent=' . $GLOBALS['_SESSION']['login_id'] . '&goto=goods'; ?>",
 			imgUrl: "<?php echo $GLOBALS['gconfig']['url']['weixin'] . '/upload/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['wgoods_image'] . '/' . $this->_data['wgoods_info']['wgoods_photo1']; ?>", // 分享图标
 			success: function () {
 				// 用户确认分享后执行的回调函数
@@ -264,7 +266,7 @@ if($intcount > 0) {
 	    title: '<?php echo $GLOBALS['gwshop']['share_title']; ?>', // 分享标题
 	    desc: '<?php echo $this->_data['wgoods_info']['wgoods_name']; ?>', // 分享描述
 	    link: "<?php echo $GLOBALS['gconfig']['url']['weixin'] . '/' . $GLOBALS['_SESSION']['login_code']
-			. '/s_share.php?company=' . $GLOBALS['_SESSION']['login_cid'] . '&wgoods=' . $GLOBALS['intid'] . '&parent=' . $GLOBALS['_SESSION']['login_sid'] . '&goto=goods'; ?>",
+			. '/s_share.php?company=' . $GLOBALS['_SESSION']['login_cid'] . '&wgoods=' . $GLOBALS['intid'] . '&parent=' . $GLOBALS['_SESSION']['login_id'] . '&goto=goods'; ?>",
 	    imgUrl: "<?php echo $GLOBALS['gconfig']['url']['weixin'] . '/upload/' . api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['wgoods_image'] . '/' . $this->_data['wgoods_info']['wgoods_photo1']; ?>", // 分享图标
 	    type: '', // 分享类型,music、video或link，不填默认为link
 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空

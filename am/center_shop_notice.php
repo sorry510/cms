@@ -8,18 +8,15 @@ if(laimi_config_trade()['wmp_module'] != 1){
 	return;
 }
 
-$gtemplate->fun_assign('waddress', get_waddress());
-$gtemplate->fun_show('address');
+$gtemplate->fun_assign('notice', get_notice());
+$gtemplate->fun_show('center_shop_notice');
 
-function get_waddress(){
+function get_notice(){
 	$arr = array();
-	$strsql = "SELECT waddress_id , waddress_name, waddress_phone,waddress_detail,waddress_state FROM " . $GLOBALS['gdb']->fun_table2('waddress') . " WHERE card_id = ". $GLOBALS['_SESSION']['login_id'];
-
-	//echo $strsql;exit();
+	$strsql = "SELECT wnotice_id,wnotice_title,wnotice_content FROM " . $GLOBALS['gdb']->fun_table2('wnotice') ." ORDER BY wnotice_atime DESC";
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
-
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
+
 	return $arr;
 }
-
 ?>

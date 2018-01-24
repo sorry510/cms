@@ -153,7 +153,7 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="center_shop_agent_money.html" class="mui-navigate-right">
+			<a href="center_shop_agent_money.php" class="mui-navigate-right">
 				<svg class="laimi-icon2" aria-hidden="true">
 				    <use xlink:href="#icon-tixian1"></use>
 				</svg>

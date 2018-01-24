@@ -67,7 +67,7 @@ if($intcount > 0) {
 		</div>
 		<div style="margin-top:6px;height:32px;line-height:32px;background-color:#FFFFFF;color:#FFA500;">
 			<marquee behavior="scroll">
-				<span style="margin-left:15px;font-size:12px;">
+				<span style="margin-left:15px;font-size:12px;" onclick="window.location.href='center_shop_notice.php'">
 					<svg class="laimi-icon4" aria-hidden="true" style="color:#FFA500;">
 						<use xlink:href="#icon-tongzhi"></use>
 					</svg>
@@ -136,7 +136,10 @@ if($intcount > 0) {
 	        <div class="mui-media-body laimi-font12" style="text-align:left;"><?php echo $row['wgoods_name']; ?></div>
 	        <div style="width:100%;line-height:40px;">
 	        	<div style="float:left; text-align:left;color:#CF2D28;">
-	        		¥<?php echo $row['myprice']['wgoods_iprice'] + 0; ?>&nbsp;&nbsp;&nbsp;<span class="laimi-color-gray" style="text-decoration:line-through">¥<?php echo $row['wgoods_price'];?></span>
+	        		¥<?php echo $row['myprice']['wgoods_iprice'] + 0; ?>&nbsp;&nbsp;&nbsp;
+							<?php if($row['myprice']['wgoods_iprice'] != $row['wgoods_price']) { ?>
+	        		<span class="laimi-color-gray" style="text-decoration:line-through">¥<?php echo $row['wgoods_price'];?></span>
+	        		<?php } ?>
 	        	</div>
 	        	<div style="float:right; text-align:right;margin-top:6px;">
 	        		<button type="button" class="mui-btn mui-btn-danger laimi-font12" style="padding:2px 6px 2px 6px;">购买</button>

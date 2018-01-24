@@ -12,7 +12,9 @@ $strparent = api_value_get('parent');
 $intparent = api_value_int0($strparent);
 $strgoto = api_value_get('goto');
 
-if($GLOBALS['_SESSION']['login_id'] != 0){
+$strhangye = 'am';
+
+if(api_value_int0($GLOBALS['_SESSION']['login_id']) != 0){
 	//如果cookie还保持的化直接跳转
 	header('Location: center.php');
 	return true;
@@ -21,9 +23,9 @@ if($GLOBALS['_SESSION']['login_id'] != 0){
 $arrshare = get_wx_share();
 
 header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $arrshare['appid']
-. "&redirect_uri=" . urlencode($GLOBALS['gconfig']['url']['weixin'] . '/' . $GLOBALS['_SESSION']['login_code']
+. "&redirect_uri=" . urlencode($GLOBALS['gconfig']['url']['weixin'] . '/' . $strhangye
 . '/s_oauth2.php?company=' . $intcompany . '&wgoods=' . $intwgoods . '&parent=' . $intparent . '&goto=' . $strgoto)
-. '&response_type=code&scope=snsapi_base#wechat_redirect');
+. '&response_type=code&scope=snsapi_userinfo#wechat_redirect');
 
 function get_wx_share() {
 	$arrweixin = array();

@@ -126,7 +126,7 @@
   	var gettype = getRadioRes('laimi-gettype');
   	var address = <?php if(!empty($this->_data['address'])) echo $this->_data['address']['waddress_id']; else echo 0; ?>;
   	if(address ==  0){
-  		mui.alert("请选择一个地址！", "提示信息");
+  		mui.toast("请选择一个地址！", "提示信息");
   		return false;
   	}
 		mui.ajax("cart_enter_ajax.php", {
@@ -136,11 +136,11 @@
 			timeout: 5000,
 			success: function(jsondata) {
 				if(jsondata.msg == "1") {
-					mui.alert("账号异常！", "提示信息");
+					mui.toast("账号异常！", "提示信息");
 				} else if(jsondata.msg == "2") {
-					mui.alert("没有此用户！", "提示信息");
+					mui.toast("没有此用户！", "提示信息");
 				}  else if(jsondata.msg == "3") {
-					mui.alert("消费前请先绑定手机", "提示信息");
+					mui.toast("消费前请先绑定手机", "提示信息");
 					window.location = "center_shop_my.php";
 				} else if(jsondata.msg == "200") {
 					if(jsondata.money - <?php echo $GLOBALS["cart_money"]; ?> < 0.01){
@@ -156,17 +156,17 @@
 							window.location.href = "cart_center_do.php?gettype="+gettype+"&address="+address;
 						}
 					}else{
-						mui.alert("商品价格已改变，请刷新页面！", "提示信息", "", function(){
+						mui.toast("商品价格已改变，请刷新页面！", "提示信息", "", function(){
 							window.location.reload();
 						});
 					}
 				} else {
-					mui.alert("操作异常！", "提示信息");
+					mui.toast("操作异常！", "提示信息");
 				}
 			},
 			error: function(xhr,type,errorThrown) {
-				alert(errorThrown);
-				mui.alert("网络不给力，请稍后重试！", "提示信息");
+				toast(errorThrown);
+				mui.toast("网络不给力，请稍后重试！", "提示信息");
 			}
 		});
   });

@@ -56,7 +56,7 @@
 				<th width="80">库存</th>									
 				<th width="80">是否推荐</th>	
 				<th width="80">状态</th>
-				<th>操作</th>
+				<th width="200">操作</th>
 			</tr>
 		</thead>
 		<tbody>

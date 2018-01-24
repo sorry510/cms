@@ -14,7 +14,7 @@
 						<a href="act_batch.php">批量营销</a>
 					</li>
 					<li>
-						<a href="act_batch_weixin.php">微信营销记录</a>
+						<a href="act_batch_weixin.php">赠送优惠券记录</a>
 					</li>
 					<!-- <li>
 						<a href="act_batch_sms.php">短信营销记录</a>
@@ -30,7 +30,7 @@
 			<a id="" class="layui-btn laimi-sms">批量短信营销</a>
 		</div> -->
 		<div class="laimi-float-right" style="margin-right:10px;">
-			<a id="" class="layui-btn laimi-weixin">批量微信营销</a>
+			<a id="" class="layui-btn laimi-weixin">批量赠送优惠券</a>
 		</div>
 	</div>
 </form>
@@ -111,11 +111,11 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">生日时段</label>
 					<div class="layui-input-inline">
-						<input name="birthday" id="laimi-bfrom" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="birthday" id="laimi-bfrom" class="layui-input" type="text" placeholder="MM-dd">
 					</div>
 					<div class="layui-form-mid layui-word-aux">至</div>
 					<div class="layui-input-inline">
-						<input name="lbirthday" id="laimi-bto" class="layui-input" type="text" placeholder="yyyy-MM-dd">
+						<input name="lbirthday" id="laimi-bto" class="layui-input" type="text" placeholder="MM-dd">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -267,9 +267,11 @@
 		var objform = layui.form;
 		objdate.render({
 			elem: '#laimi-bfrom'
+			,format: 'MM-dd'
 		});
 		objdate.render({
 			elem: '#laimi-bto'
+			,format: 'MM-dd'
 		});
 		objpage.render({
 			elem: 'laimi-page-content',
@@ -297,9 +299,11 @@
 			objform.render(); //刷新select选择框渲染
 			objdate.render({
 				elem: '#laimi-bfrom'
+				,format: 'MM-dd'
 			});
 			objdate.render({
 				elem: '#laimi-bto'
+				,format: 'MM-dd'
 			});
 			objdate.render({
 				elem: '#laimi-kfrom'

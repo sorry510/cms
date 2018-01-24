@@ -10,8 +10,11 @@
 		<div id="laimi-content" class="layui-body">
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title">
-					<li class="<?php if($this->_data['request']['state'] != 3) echo 'layui-this'; ?>">
-						<a href="card.php">会员管理</a>
+					<li class="<?php if($this->_data['request']['state'] == 1) echo 'layui-this'; ?>">
+						<a href="card.php?state=1">会员管理</a>
+					</li>
+					<li class="<?php if($this->_data['request']['state'] == 2) echo 'layui-this'; ?>">
+						<a href="card.php?state=2">过期会员</a>
 					</li>
 					<li class="<?php if($this->_data['request']['state'] == 3) echo 'layui-this'; ?>">
 						<a href="card.php?state=3">回收站</a>
@@ -45,6 +48,9 @@
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
+		</div>
+		<div class="laimi-float-right">
+			<a href="card_export.php?<?php echo api_value_query($this->_data['request']);?>" class="layui-btn">会员导出</a>
 		</div>
 	</div>
 </form>
@@ -318,16 +324,16 @@
 		});
 		$(".laimi-state1").on("click", function() {
 			var strid = $(this).attr("card_id");
-			objlayer.confirm('确定要停用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			objlayer.confirm('确定要启用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
 			  $.post('card_state_do.php', {id:strid,state:1}, function(strdata) {
 	        if(strdata == 0) {
-	          objlayer.alert('停用成功', {
+	          objlayer.alert('启用成功', {
 			  			title: '提示信息'
 			  		}, function(){
 			  			window.location.reload();
 			  		});
 	        } else {
-	          objlayer.alert('停用会员失败，请联系管理员！', {
+	          objlayer.alert('启用会员失败，请联系管理员！', {
 			  			title: '提示信息'
 			  		});
 	        }
@@ -337,16 +343,16 @@
 		});
 		$(".laimi-state2").on("click", function() {
 			var strid = $(this).attr("card_id");
-			objlayer.confirm('确定要启用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
+			objlayer.confirm('确定要停用该会员吗？', {icon:0, title:'提示', shadeClose:true}, function(hindex) {
 			  $.post('card_state_do.php', {id:strid,state:2}, function(strdata) {
 	        if(strdata == 0) {
-	          objlayer.alert('启用成功', {
+	          objlayer.alert('停用成功', {
 			  			title: '提示信息'
 			  		}, function(){
 			  			window.location.reload();
 			  		});
 	        } else {
-	          objlayer.alert('启用会员失败，请联系管理员！', {
+	          objlayer.alert('停用会员失败，请联系管理员！', {
 			  			title: '提示信息'
 			  		});
 	        }
@@ -428,7 +434,7 @@
 				  	btnAlign: "r",
 				  	offset: 'rt',
 				  	anim: 0,
-				  	area: ["800px", "100%"],
+				  	area: ["850px", "100%"],
 				  	shadeClose: true,//点击遮罩关闭
 				  	content: html,
 				  	success: function(){

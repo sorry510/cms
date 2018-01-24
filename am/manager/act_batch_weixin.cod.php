@@ -14,7 +14,7 @@
 						<a href="act_batch.php">批量营销</a>
 					</li>
 					<li class="layui-this">
-						<a href="act_batch_weixin.php">微信营销记录</a>
+						<a href="act_batch_weixin.php">赠送优惠券记录</a>
 					</li>
 				</ul>
 				<div id="laimi-main" class="p-act-batch-weixin layui-tab-content">

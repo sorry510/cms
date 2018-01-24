@@ -77,14 +77,14 @@ option = {
     },
     toolbox: {
         feature: {
-            dataView: {show: true, readOnly: false},
+            dataView: {show: false, readOnly: false},
             magicType: {show: true, type: ['line', 'bar']},
             restore: {show: true},
             saveAsImage: {show: true}
         }
     },
     legend: {
-        data:['会员消费','散客消费','充值金额','营业额']
+        data:['会员消费','散客消费','充值金额','买套餐','营业额']
     },
     xAxis: [
         {
@@ -135,6 +135,12 @@ option = {
             stack: 'b',
             type:'bar',
             data:[<?php echo $this->_data['cmoney']['cmoney'];?>]
+        },
+        {
+            name:'买套餐',
+            stack: 'b',
+            type:'bar',
+            data:[<?php echo $this->_data['mcombo']['mcombo'];?>]
         },
         {
             name:'营业额',

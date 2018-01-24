@@ -46,19 +46,22 @@ function get_card_list() {
 	
 	$strwhere = '';
 	if($GLOBALS['intstate'] == 3) {
-		$strwhere .= " AND card_state = 3";
+		$strwhere .= " AND card_state = 3";//删除
+	} else if($GLOBALS['intstate'] == 2) {
+		$strwhere .= " AND (card_state = 1 OR card_state = 2) AND (card_edate < ".time()." AND card_edate != 0)";//过期
 	} else {
-		$strwhere .= " AND (card_state = 1 OR card_state = 2)";
+		$strwhere .= " AND (card_state = 1 OR card_state = 2)";//正常
 	}
 	if($GLOBALS['inttype'] != 0) {
 		$strwhere .= " AND card_type_id = " . $GLOBALS['inttype'];
 	}
-	if($GLOBALS['strkey'] != '') {
+
+	if($GLOBALS['strkey'] == '') {
+		$strwhere .= " AND shop_id = " . api_value_int0($GLOBALS['_SESSION']['login_sid']);
+	} else {
 		$strwhere = $strwhere . " AND (card_code = '" . $GLOBALS['sqlkey'] . "'";
 		$strwhere = $strwhere . " OR card_name = '" . $GLOBALS['sqlkey'] . "'";
 		$strwhere = $strwhere . " OR card_phone = '" . $GLOBALS['sqlkey'] . "')";
-	} else {
-		$strwhere .= " AND shop_id = " . api_value_int0($GLOBALS['_SESSION']['login_sid']);
 	}
 	
 	$arr = array();
@@ -98,7 +101,7 @@ function get_card_list() {
 	}
 	$intoffset = ($intpagenow - 1) * $intpagesize;
 	
-	$strsql = "SELECT a.*, b.shop_name FROM (SELECT card_id, shop_id, card_okey, card_code, card_name, card_phone, card_sex, card_birthday_date, card_state, card_atime, "
+	$strsql = "SELECT a.*, b.shop_name FROM (SELECT card_id, shop_id, card_okey, card_code, card_name, card_phone, card_sex, card_birthday_date, card_state, card_atime, card_edate, "
 	. "c_card_type_name, c_card_type_discount, s_card_smoney, s_card_ymoney, s_card_sscore, s_card_yscore FROM " . $GLOBALS['gdb']->fun_table2('card')
 	. " WHERE 1 = 1" . $strwhere . " ORDER BY card_id DESC LIMIT ". $intoffset . ", " . $intpagesize
 	. ") AS a LEFT JOIN " . $GLOBALS['gdb']->fun_table('shop') . " AS b ON a.shop_id = b.shop_id ORDER BY a.card_id DESC";
@@ -122,12 +125,17 @@ function get_card_list() {
 		$row['mydiscount'] = $row['c_card_type_discount'] == 0 ? 10 : $row['c_card_type_discount'];
 		$row['mystate'] = '';
 		if($row['card_state'] == 1) {
-			$row['mystate'] = '正常';
+			if($row['card_edate'] != 0 && $row['card_edate'] < time()) {
+				$row['mystate'] = '过期';
+			} else {
+				$row['mystate'] = '正常';
+			}
 		} else if($row['card_state'] == 2) {
 			$row['mystate'] = '停用';
 		} else if($row['card_state'] == 3) {
 			$row['mystate'] = '已删除';
 		}
+		
 		$strsql = "SELECT card_mcombo_id, card_mcombo_gcount, card_mcombo_cedate, c_mgoods_name, c_mcombo_type FROM " . $GLOBALS['gdb']->fun_table2('card_mcombo')
 		. " WHERE card_id = " . $row['card_id'] . " AND card_mcombo_type = 2 AND (card_mcombo_cedate = 0 OR card_mcombo_cedate > " . $inttime . ") AND ((c_mcombo_type = 1 AND card_mcombo_gcount != 0) OR c_mcombo_type = 2) ORDER BY card_mcombo_id";
 		$hresult = $GLOBALS['gdb']->fun_query($strsql);

@@ -2,6 +2,11 @@
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo $this->fun_fetch('inc_head', ''); ?>
+<style>
+	#laimi-main .laimi-tools .layui-input-inline{
+		margin-right: 15px;
+	}
+</style>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -49,6 +54,9 @@
 		</div>
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
+		</div>
+		<div class="laimi-float-right">
+			<a href="record_export.php?<?php echo api_value_query($this->_data['request']);?>" class="layui-btn">明细导出</a>
 		</div>
 	</div>
 </form>

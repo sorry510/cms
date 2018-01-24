@@ -50,6 +50,9 @@
 			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
 		<div class="laimi-float-right">
+			<a href="worker_export.php?<?php echo api_value_query($this->_data['request']);?>" class="layui-btn">员工导出</a>
+		</div>
+		<div class="laimi-float-right" style="margin-right:20px;">
 			<a class="layui-btn laimi-add">新增员工</a>
 		</div>
 	</div>
@@ -353,7 +356,7 @@
 			      <div class="layui-form-item">
 					    <label class="layui-form-label">出生日期</label>
 					    <div class="layui-input-inline">
-					      <input id="laimi-birthday2" class="layui-input laimi-input-200" type="text" name="txtbirthday" placeholder="yyyy-MM-dd" value="{{d.mybirthday}}">
+					      <input id="laimi-birthday" class="layui-input laimi-input-200" type="text" name="txtbirthday" placeholder="yyyy-MM-dd" value="{{d.mybirthday}}">
 					    </div>
 					  </div>
 			    </div>
@@ -386,7 +389,7 @@
 			      <div class="layui-form-item">
 					    <label class="layui-form-label">入职时间</label>
 					    <div class="layui-input-inline">
-					      <input id="laimi-join2" class="layui-input laimi-input-200" type="text" name="txtjoin" placeholder="yyyy-MM-dd" value="{{d.myjoin}}">
+					      <input id="laimi-join" class="layui-input laimi-input-200" type="text" name="txtjoin" placeholder="yyyy-MM-dd" value="{{d.myjoin}}">
 					    </div>
 					  </div>
 			    </div>

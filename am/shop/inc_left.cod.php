@@ -1,4 +1,4 @@
-		<div id="laimi-left" class="layui-side layui-bg-black" style="padding-bottom:20px;">
+		<!--div id="laimi-left" class="layui-side layui-bg-black" style="padding-bottom:20px;">
 			<div class="layui-side-scroll">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item<?php if($GLOBALS['strchannel'] == 'main') echo ' layui-nav-itemed'; ?>">
@@ -20,7 +20,7 @@
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="card.php">
+								<a href="card.php?state=1">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-huiyuan"></use></svg>
 									&nbsp;会员管理
 								</a>
@@ -52,7 +52,7 @@
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingxiao2"></use></svg>
 							&nbsp;营销
 						</a>
-					</li-->
+					</li>
 					<li class="layui-nav-item<?php if($GLOBALS['strchannel'] == 'tongji') echo ' layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
@@ -177,6 +177,22 @@
 						</dl>
 					</li>
 <?php } ?>
+<?php if($GLOBALS['gtrade']['wshop_module'] == 1) { ?>
+					<li class="layui-nav-item<?php if($GLOBALS['strchannel'] == 'wshop') echo ' layui-nav-itemed'; ?>">
+						<a href="javascript:;">
+							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-yingyeting"></use></svg>
+							&nbsp;微商城
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="wechat_shop_order.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-zhangdanmingxi"></use></svg>
+									&nbsp;商城订单
+								</a>
+							</dd>
+						</dl>
+					</li>
+<?php } ?>
 					<li class="layui-nav-item <?php if($GLOBALS['strchannel'] == 'cash') echo 'layui-nav-itemed'; ?>">
 						<a href="javascript:;">
 							<svg class="laimi-cicon" aria-hidden="true"><use xlink:href="#icon-tongji7"></use></svg>
@@ -228,9 +244,21 @@
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-caozuoyuanquanxian"></use></svg>
 									&nbsp;操作员管理
 								</a>
-							</dd>	
+							</dd>
+							<dd>
+								<a href="card_birthday_notice.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-caozuoyuanquanxian"></use></svg>
+									&nbsp;生日提醒
+								</a>
+							</dd>
+							<dd>
+								<a href="system_score_warning.php">
+									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-caozuoyuanquanxian"></use></svg>
+									&nbsp;库存报警
+								</a>
+							</dd>
 						</dl>
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div-->

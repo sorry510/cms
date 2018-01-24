@@ -41,6 +41,9 @@
 		<div class="layui-input-inline">
 			<button class="layui-btn layui-btn-normal">搜索</button>
 		</div>
+		<div class="laimi-float-right">
+			<a href="worker_reward_tongji_export.php?<?php echo api_value_query($this->_data['request']);?>" class="layui-btn">提成导出</a>
+		</div>
 	</div>
 </form>
 <table class="layui-table">
@@ -72,6 +75,7 @@
 		</tr>
 	</thead>
 	<tbody>
+	<!-- tc提成 kk开卡 cz充值 fu服务 je金额 sw实物 dg导购 -->
 		<?php foreach($this->_data['worker_reward_tongji']['list'] as $key => $row) { ?>
 	  <tr>
 	    <td><?php echo $key+1;?></td>

@@ -73,7 +73,7 @@ if ($intreturn == 0) {
 
 		$arrweixin = laimi_config_weixin();
 		$strtoken = '';
-		$strjson = api_value_https('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrweixin['appid'].'&secret=' . $arrweixin['appsecret']);
+		$strjson = api_http_html('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$arrweixin['appid'].'&secret=' . $arrweixin['appsecret']);
 		$objjson = json_decode($strjson);
 		$strtoken = $objjson->access_token;
 
@@ -81,7 +81,7 @@ if ($intreturn == 0) {
 	  	'open_id' => $arr['card_okey'],
 	  	'token' => $strtoken,
 	  	'template_id' => 'gMR5p-DNwBb1I55xwCH6vosjGDERAQ90uv77Aqy4lds',
-	  	'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_code'].'&goto=center',
+	  	'url' => 'http://weixin.test.laimisoft.com/'.$GLOBALS['_SESSION']['login_code'].'/s_push.php?company='.$GLOBALS['_SESSION']['login_cid'].'&goto=center',
 	  );
 	  foreach ($arrmgoods_id as $key => $value) {
 	  	if ($strreserve_goods == '') {

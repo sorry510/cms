@@ -162,24 +162,15 @@ function get_worder_list(){
 	}
 
 	foreach($arr as $key => $row) {
-		$arr[$key]['get'] = '';
-		if($row['worder_get'] == 2) {
-			$arr[$key]['get'] = '邮寄';
-		} else if($row['worder_get'] == 3) {
-			$arr[$key]['get'] = '用户自取';
-		}
-	}
-
-	foreach($arr as $key => $row) {
 		$arr[$key]['state'] = '';
 		if($row['worder_state'] == 1 && $row['worder_get'] == 2) {
 			$arr[$key]['state'] = '待处理';
 		} else if($row['worder_state'] == 2) {
-			$arr[$key]['state'] = '已发货';
+			$arr[$key]['state'] = '<span style="color:#666666;">已发货</span>';
 		} else if($row['worder_state'] == 3) {
-			$arr[$key]['state'] = '已自取';
+			$arr[$key]['state'] = '<span style="color:#666666;">已自取</span>';
 		} else if($row['worder_state'] == 4) {
-			$arr[$key]['state'] = '已退款';
+			$arr[$key]['state'] = '<span style="color:#666666;">已退款</span>';
 		} else if($row['worder_state'] == 1 && $row['worder_get'] == 3) {
 			$arr[$key]['state'] = '等待自取';
 		} else if($row['worder_state'] == 11) {

@@ -1,4 +1,4 @@
-		<div id="laimi-left" class="layui-side layui-bg-black" style="padding-bottom:20px;">
+		<!--div id="laimi-left" class="layui-side layui-bg-black" style="padding-bottom:20px;">
 			<div class="layui-side-scroll">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item<?php if($GLOBALS['strchannel'] == 'main') echo ' layui-nav-itemed'; ?>">
@@ -200,7 +200,7 @@
 									&nbsp;充值活动
 								</a>
 							</dd> -->
-							<dd>
+							<!--dd>
 								<a href="act_batch.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yingxiao"></use></svg>
 									&nbsp;批量营销
@@ -287,7 +287,7 @@
 									&nbsp;分销商管理
 								</a>
 							</dd> -->
-							<dd>
+							<!--dd>
 								<a href="wechat_shop_agent_money.php">
 									<svg class="laimi-hicon" aria-hidden="true"><use xlink:href="#icon-yongjinjiesuan"></use></svg>
 									&nbsp;佣金设置
@@ -362,4 +362,4 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div-->

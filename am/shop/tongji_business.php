@@ -24,6 +24,7 @@ $gtemplate->fun_assign('card_shopping', get_card_shopping());
 $gtemplate->fun_assign('normal_shopping', get_normal_shopping());
 $gtemplate->fun_assign('cmoney', get_cmoney());
 $gtemplate->fun_assign('money', get_money());
+$gtemplate->fun_assign('mcombo', get_buy_mcombo());
 $gtemplate->fun_show('tongji_business');
 
 function get_request() {
@@ -157,7 +158,7 @@ function get_cmoney() {
 			$intfrom = strtotime("-$day day",$GLOBALS['inttoday']);
 			$intto = strtotime("-$day2 day",$GLOBALS['inttoday']);
 	
-			$strsql = "SELECT sum(card_record_cmoney) as sum_cmoney FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE card_record_type = 1 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
+			$strsql = "SELECT sum(card_record_smoney) as sum_cmoney FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE card_record_type = 1 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
 
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arr_cmoney = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -175,7 +176,7 @@ function get_cmoney() {
 			$intfrom = strtotime("-$month month",$GLOBALS['intmonth']);
 			$intto = strtotime("-$month2 month",$GLOBALS['intmonth']);
 
-			$strsql = "SELECT sum(card_record_cmoney) as sum_cmoney FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE card_record_type = 1 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
+			$strsql = "SELECT sum(card_record_smoney) as sum_cmoney FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE card_record_type = 1 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
 			
 			$hresult = $GLOBALS['gdb']->fun_query($strsql);
 			$arr_cmoney = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
@@ -225,6 +226,47 @@ function get_money() {
 				$arr['money'] = $arr_money['sum_money'];
 			}else{
 				$arr['money'] = $arr['money'] . "," .$arr_money['sum_money'];
+			}
+		}
+	}
+	return $arr;
+}
+
+function get_buy_mcombo() {
+	$arr = array();
+
+	if ($GLOBALS['intdata_time'] == 1) {
+		for($i = 0;$i < 30;$i++){
+			$day = 30 - $i;
+			$day2 = $day - 1;
+			$intfrom = strtotime("-$day day",$GLOBALS['inttoday']);
+			$intto = strtotime("-$day2 day",$GLOBALS['inttoday']);
+
+			$strsql = "SELECT sum(card_record_smoney) as sum_money FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE (card_record_state = 1 OR card_record_state = 4) AND card_record_type = 2 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arr_money = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+
+			if ($i == 0) {
+				$arr['mcombo'] = $arr_money['sum_money'];
+			}else{
+				$arr['mcombo'] = $arr['mcombo'] . "," .$arr_money['sum_money'];
+			}
+		}
+	}else{
+		for($i = 0;$i < 12;$i++){
+			$month = 12-$i;
+			$month2 = $month - 1;
+			$intfrom = strtotime("-$month month",$GLOBALS['intmonth']);
+			$intto = strtotime("-$month2 month",$GLOBALS['intmonth']);
+
+			$strsql = "SELECT sum(card_record_smoney) as sum_money FROM " . $GLOBALS['gdb']->fun_table2('card_record') . " WHERE (card_record_state = 1 OR card_record_state = 4) AND card_record_type = 2 AND card_record_atime > " . $intfrom ." AND card_record_atime <= " .$intto . $GLOBALS['strwhere'];
+			$hresult = $GLOBALS['gdb']->fun_query($strsql);
+			$arr_money = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+
+			if ($i == 0) {
+				$arr['mcombo'] = $arr_money['sum_money'];
+			}else{
+				$arr['mcombo'] = $arr['mcombo'] . "," .$arr_money['sum_money'];
 			}
 		}
 	}

@@ -10,14 +10,16 @@ $intmonth = strtotime(date('Y-m'));
 $inttime = time();
 
 $gtemplate->fun_assign('goods_count_list', get_goods_count_list());
+$gtemplate->fun_assign('worker_reward_list', get_worker_reward_list());
 $gtemplate->fun_assign('day_money', get_day_money());
 $gtemplate->fun_assign('week_money', get_week_money());
 $gtemplate->fun_assign('month_money', get_month_money());
+$gtemplate->fun_assign('order_num', get_order_num());
 $gtemplate->fun_show('main');
 
 function get_goods_count_list() {
 
-	$strsql = 'SELECT a.sales_volume, a.sales_count ,a.mgoods_id ,a.sgoods_id,b.shop_name,c.mgoods_name,c.mgoods_price,c.mgoods_code,c.mgoods_cprice,d.sgoods_name,d.sgoods_code,d.sgoods_price,d.sgoods_cprice FROM (SELECT shop_id,mgoods_id,sgoods_id,c_mgoods_rprice,c_sgoods_rprice,c_sgoods_name,c_mgoods_name,card_record3_goods_count, sum(card_record3_goods_count * c_mgoods_rprice + card_record3_goods_count * c_sgoods_rprice) as sales_volume , sum(card_record3_goods_count) as sales_count FROM' . $GLOBALS['gdb']->fun_table2('card_record3_goods') . ' WHERE card_record3_goods_atime >= '.$GLOBALS['intmonth'].' AND card_record3_goods_atime <= '.$GLOBALS['inttime'].' GROUP BY mgoods_id,sgoods_id ORDER BY sales_count DESC) as a LEFT JOIN (SELECT shop_id, shop_name FROM '. $GLOBALS['gdb']->fun_table('shop') .' WHERE company_id = ' . $GLOBALS['_SESSION']['login_cid'] . ') as b on a.shop_id = b.shop_id LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('mgoods') . ' as c on a.mgoods_id = c.mgoods_id LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('sgoods') . ' as d on a.sgoods_id = d.sgoods_id ORDER BY sales_count DESC LIMIT 8';
+	$strsql = 'SELECT a.sales_volume, a.sales_count ,a.mgoods_id ,a.sgoods_id,b.shop_name,c.mgoods_name,c.mgoods_price,c.mgoods_code,c.mgoods_cprice,d.sgoods_name,d.sgoods_code,d.sgoods_price,d.sgoods_cprice FROM (SELECT shop_id,mgoods_id,sgoods_id,c_mgoods_rprice,c_sgoods_rprice,c_sgoods_name,c_mgoods_name,card_record3_goods_count, sum(card_record3_goods_count * c_mgoods_rprice + card_record3_goods_count * c_sgoods_rprice) as sales_volume , sum(card_record3_goods_count) as sales_count FROM' . $GLOBALS['gdb']->fun_table2('card_record3_goods') . ' WHERE card_record3_goods_atime >= '.$GLOBALS['intmonth'].' AND card_record3_goods_atime <= '.$GLOBALS['inttime'].' GROUP BY mgoods_id,sgoods_id ORDER BY sales_count DESC LIMIT 10) as a LEFT JOIN (SELECT shop_id, shop_name FROM '. $GLOBALS['gdb']->fun_table('shop') .' WHERE company_id = ' . $GLOBALS['_SESSION']['login_cid'] . ') as b on a.shop_id = b.shop_id LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('mgoods') . ' as c on a.mgoods_id = c.mgoods_id LEFT JOIN ' . $GLOBALS['gdb']->fun_table2('sgoods') . ' as d on a.sgoods_id = d.sgoods_id ORDER BY sales_count DESC LIMIT 10';
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
@@ -30,6 +32,17 @@ function get_goods_count_list() {
 			$arr[$key]['goods_name'] = $row['mgoods_name'];
 		}
 	}
+
+	return $arr;
+
+}
+
+function get_worker_reward_list() {
+
+	$strsql = "SELECT a.*,b.shop_name FROM (SELECT c_worker_name,shop_id,sum(worker_reward_money) as sum_reward FROM ".  $GLOBALS['gdb']->fun_table2('worker_reward') ." WHERE worker_reward_atime >= ".$GLOBALS['intmonth']." AND worker_reward_atime <= ".$GLOBALS['inttime']." GROUP BY worker_id ORDER BY sum_reward DESC LIMIT 10) as a LEFT JOIN (SELECT shop_id,shop_name FROM ".  $GLOBALS['gdb']->fun_table('shop') .") as b on a.shop_id = b.shop_id ORDER BY sum_reward DESC LIMIT 10";
+
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);
 
 	return $arr;
 
@@ -211,6 +224,17 @@ function get_month_money(){
 	}
 
 	return $arr;
+}
+
+function get_order_num() {
+
+	$strsql = "SELECT COUNT(worder_id) as worder_num FROM " . $GLOBALS['gdb']->fun_table2('worder') . " WHERE worder_state = 1 ";
+
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+
+	return $arr;
+
 }
 
 ?>

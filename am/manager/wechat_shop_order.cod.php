@@ -312,7 +312,7 @@
 				type: 1,
 				title: ["订单详情", "font-size:16px;"],
 				btnAlign: "r",
-				area: ["950px", "auto"],
+				area: ["950px", "530px"],
 				shadeClose: true,//点击遮罩关闭
 				content: $("#laimi-add").html(),
 				success: function(){

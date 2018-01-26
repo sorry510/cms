@@ -137,6 +137,7 @@
 			</a>
 		</li>
 	</ul>
+	<?php if($GLOBALS['gwshop']['fenxiao_flag'] == 1) { ?>
 	<ul class="mui-table-view laimi-table-view" style="margin-top:15px;">
 		<li class="mui-table-view-cell">
 			<a class="mui-navigate-right" href="javascript:;">
@@ -169,6 +170,7 @@
 			</a>
 		</li>
 	</ul>
+	<?php } ?>
 </div>
 </body>
 <script src="js/bind_phone.js"></script>

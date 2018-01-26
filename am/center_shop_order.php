@@ -13,7 +13,7 @@ $gtemplate->fun_show('center_shop_order');
 
 function get_worder(){
 	$arr = array();
-	$strsql = "SELECT worder_id,worder_atime,worder_ctime,worder_express_company,	worder_express_code,worder_money2,	worder_address_detail,worder_address_name,worder_address_phone,worder_get,worder_state,	worder_get_shop FROM " . $GLOBALS['gdb']->fun_table2('worder') ." WHERE card_id = " .api_value_int0($GLOBALS['_SESSION']['login_id']);
+	$strsql = "SELECT worder_id,worder_atime,worder_ctime,worder_express_company,	worder_express_code,worder_money2,	worder_address_detail,worder_address_name,worder_address_phone,worder_get,worder_state,	worder_get_shop FROM " . $GLOBALS['gdb']->fun_table2('worder') ." WHERE card_id = " .api_value_int0($GLOBALS['_SESSION']['login_id']) ." ORDER BY worder_id DESC ";
 
 	$hresult = $GLOBALS['gdb']->fun_query($strsql);
 	$arr = $GLOBALS['gdb']->fun_fetch_all($hresult);

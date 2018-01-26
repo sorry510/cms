@@ -3,16 +3,16 @@ define('C_CNFLY', true);
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 
-$strtype = api_value_get('type');
+$strtype = api_value_get('type');//是否推荐
 $inttype = api_value_int0($strtype);
 $strcatalog_id = api_value_get('catalog_id');
-$intcatalog_id = api_value_int0($strcatalog_id);
+$intcatalog_id = api_value_int0($strcatalog_id);//商品类别
 $strsize = api_value_get('size');
-$intsize = api_value_int0($strsize);
+$intsize = api_value_int0($strsize);//每页大小
 $strname = api_value_get('name');
-$sqlname = $gdb->fun_escape($strname);
+$sqlname = $gdb->fun_escape($strname);//商品名称
 $strpage = api_value_get('page');
-$intpage = api_value_int1($strpage);
+$intpage = api_value_int1($strpage);//当前页
 
 function goods_list(){
 	$intallcount = 0;

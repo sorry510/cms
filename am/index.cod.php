@@ -22,12 +22,12 @@ if($intcount > 0) {
 				
 				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
-					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][$intcount - 1]; ?>"></a>
+					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][$intcount - 1]; ?>?rand=<?php echo time();?>"></a>
 				</div>
 <?php } ?>
 <?php for($i = 0; $i < $intcount; $i = $i + 1) { ?>
 				<div class="mui-slider-item">
-					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][$i]; ?>"></a>
+					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][$i]; ?>?rand=<?php echo time();?>"></a>
 				</div>
 <?php } ?>
 <?php
@@ -35,7 +35,7 @@ if($intcount > 0) {
 ?>
 				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
-					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][0]; ?>"></a>
+					<a href="javascript:;"><img src="/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['ad_list'][0]; ?>?rand=<?php echo time();?>"></a>
 				</div>
 <?php } ?>
 			</div>

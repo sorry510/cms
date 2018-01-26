@@ -99,7 +99,7 @@
 						        	'<p class="mui-pull-left laimi-font12"></p>'+
 						        '</div>'+
 						      '</a>'+
-						      '<button type="button" class="mui-btn mui-btn-danger laimi-font12 laimi-add" gid="'+v.wgoods_id+'">加入购物车</button>';
+						      '<button type="button" class="mui-btn mui-btn-danger laimi-font10 laimi-add" gid="'+v.wgoods_id+'" style="padding-left:5px;padding-right:5px;">加入购物车</button>';
 					li.innerHTML = html;
 					mui('.laimi-showlist')[0].appendChild(li);
 				})

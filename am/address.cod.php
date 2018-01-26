@@ -18,10 +18,10 @@
 <header class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title laimi-font14">选择收货地址</h1>
-	<a class="mui-pull-right laimi-font12" style="margin-top:13px;" href="center_shop_address.php">
-		管理收货地址
-	</a>
 </header>
+<nav class="mui-bar mui-bar-tab">
+	<button onclick="javascript:window.location.href='center_shop_address.php'" type="button" class="mui-btn mui-btn-warning mui-btn-block laimi-botton">管理收货地址</button>
+</nav>
 <div id="laimi-content" class="mui-content">
 	<?php foreach($this->_data['waddress'] as $row) { ?>
 	<div class="mui-card mui-table-view mui-table-view-cell laimi-edit " id="<?php echo $row['waddress_id'];?>" style="margin:0px;padding:10px 12px;margin-top:6px;">

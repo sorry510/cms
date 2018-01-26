@@ -20,14 +20,14 @@
 			<ul class="mui-table-view laimi-table-view">
 				<li class="mui-table-view-cell">				
 					<span class="mui-badge mui-badge-inverted">
-						<input type="text" placeholder="您的姓名" name="name" class="laimi-font14 laimi-input100" style="border:0px;text-align:right;">
+						<input type="text" placeholder="您的姓名" name="name" class="laimi-font14" style="border:0px;text-align:right;width:150px;margin-top:12px;">
 						<input type="hidden" value="<?php echo $this->_data['assign']['type'];?>" name="type" class="laimi-font14 laimi-input100" style="border:0px;text-align:right;">
 					</span>					
 					会员姓名
 				</li>
 				<li class="mui-table-view-cell">			
 					<span class="mui-badge mui-badge-inverted">
-						<input type="text" placeholder="您的手机" name="phone" class="laimi-font14 laimi-input100" style="border:0px;text-align:right;">
+						<input type="text" placeholder="您的手机" name="phone" class="laimi-font14" style="border:0px;text-align:right;width:150px;margin-top:12px;">
 					</span>					
 					手机号码
 				</li>

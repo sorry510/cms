@@ -124,7 +124,7 @@
 				        		<?php } ?>
 				  	      </td>
 				  	      <td>
-				        		<span class="laimi-color-hui2">¥<?php echo $row2['sgoods_price']; ?><!-- &nbsp;<span class="laimi-color-ju">¥0</span> -->
+				        		<span>¥<?php echo $row2['sgoods_price']; ?><!-- &nbsp;<span class="laimi-color-ju">¥0</span> -->
 				  	      </td>
 				  	      <td>
 				        		<a href="javascript:;" class="laimi-color-lan laimi-goods-add1">添加</a>
@@ -652,7 +652,10 @@
 	  var card_act_give_use = [];
 	  var min_goods = {};//min_price,act_discount_id
 	  var allmoney_act = 0;
-
+	  /**
+	 		*打折活动
+			*@Deferred record数据
+			*/
 	  function cardActDiscount(){
 	    card_act_discount.length = 0;
 	    return $.getJSON('./card_act_discount_ajax.php', {id: card_id}, function(res){
@@ -670,6 +673,10 @@
 	    	// console.log(1);
 	    });
 	  };
+	  /**
+	 		*满减活动
+			*@Deferred record数据
+			*/
 	  function cardActDecrease(){
 	    card_act_decrease.length = 0;
 	    return $.getJSON('./card_act_decrease_ajax.php', {id: card_id}, function(res){
@@ -691,12 +698,19 @@
 	    	// console.log(2);
 	    });
 	  };
+	  /**
+	 		*满送活动
+			*@Deferred record数据
+			*/
 	  function cardActGive(){
 	    card_act_give.length = 0;
 	    return $.getJSON('./card_act_give_ajax.php', {id: card_id}, function(res){
 	    	card_act_give = res;
 	    });
 	  };
+	  /**
+	 		*会员搜索
+			*/
 	  function cardSearch(){
 	  	var _this = $(this);
 	    _this.attr('disabled', true);
@@ -721,6 +735,9 @@
 	    	}
 	    });
 	  };
+	  /**
+	 		*当会员搜索不唯一时，会员选择
+			*/
 	  function cardSelect(list){
   		objlaytpl($("#laimi-script-add3").html()).render(list, function(html){
   		  objlayer.open({
@@ -746,6 +763,9 @@
   		  });
   		});
 	  };
+	  /**
+	 		*会员信息
+			*/
 	  function cardInfo(info){
 	  	objlaytpl($("#laimi-script-add4").html()).render(info, function(html){
 	  	  objlayer.open({
@@ -758,8 +778,11 @@
 	  	  });
 	  	});
 	  }
+	  /**
+	 		*会员选择
+	 		*data数据是用户密码数据
+			*/
 	  function cardChecked(data){
-	  	//data数据是用户密码数据
       $.get('card_password_ajax.php', data, function(state){
         if(state == '0'){
         	if(cardlist[card_key]){
@@ -784,6 +807,9 @@
         }
       });
 	  };
+	  /**
+	 		*会员改变
+			*/
 	  function cardChange(){
 	  	//清除右边购买栏套餐和体验券
 	  	$("#laimi-main .laimi-num2").parent().parent().remove();
@@ -833,6 +859,10 @@
 	  	  })
 	  	cardActGive();
 	  }
+	  /**
+	 		*会员显示
+	 		*card 会员信息
+			*/
 	  function cardShow(card){
 	  	if(card){
 	  		$('#laimi-main .laimi-chongzhi').removeClass('layui-hide');
@@ -857,6 +887,9 @@
 	  		$('#laimi-main .laimi-card-yscore').html('0');
 	  	}
 	  }
+	  /**
+	 		*会员套餐
+			*/
 	  function cardMcombo(){
 	    $('#laimi-main .laimi-mymcombo').empty();
 	    $('#laimi-main .laimi-mymcombo-count').addClass('layui-hide');
@@ -911,6 +944,10 @@
 	    	}
 	    })
 	  };
+    /**
+   		*会员优惠券
+   		*type 1.代金 2.体验
+  		*/
 	  function cardTicket(type){
 	  	var type = type || 2;//1.代金 2.体验
 	    if(type == 2){
@@ -946,6 +983,10 @@
 	    	}
 	    })
 	  };
+	  /**
+   		*会员充值
+   		*card 会员信息
+  		*/
 	  function cardRecharge(card){
 	  	objlaytpl($("#laimi-script-add2").html()).render(card, function(html){
 		  	objlayer.open({
@@ -961,6 +1002,10 @@
 		  	});
 	  	});
 	  }
+	  /**
+   		*会员充值确认
+   		*card 会员信息
+  		*/
 	  function cardRechargeConfirm(data){
     	var select = $("#laimi-modal-recharge select[name='cardtype']").find("option:selected");
     	var cardtypeid = select.attr('typeid') || 0;
@@ -996,9 +1041,12 @@
 	  		cardRechargeDo(objdata);
 	  	}
 	  }
+	  /**
+   		*会员充值后台逻辑
+   		*card 会员信息
+  		*/
 	  function cardRechargeDo(data){
 	  	$.post('card_recharge_do.php', data, function(res){
-	  		console.log(res);
 	  		var type = res.type || '';
 	  		if(type != ''){
 	  			window.location.href="record_print.php?id="+res.id+"&type="+type;
@@ -1021,6 +1069,9 @@
 	  		}
 	  	}, 'json');
 	  }
+	  /**
+   		*会员清除
+  		*/
 	  function cardClear(){
 	    // var _this = this;
 	    card_id = 0;
@@ -1033,6 +1084,9 @@
 	    $('#laimi-main .laimi-myticket-count').addClass('layui-hide');
 	    cardChange()
 	  };
+	  /**
+   		*商品搜索
+  		*/
 	  function goodsSearch(){
 	    var search = $("#laimi-main select[name='goodscatalog']").val() || 0;
 	    var goods = $("#laimi-main .laimi-search").val() || '';
@@ -1085,6 +1139,9 @@
 	    	}
 	    }
 	  };
+	  /**
+   		*商品添加
+  		*/
 	  function goodsAdd(){
 	  	var goodsinfo = $(this).parent().parent();
 	  	var tr ='';
@@ -1155,10 +1212,13 @@
 					allGoodsPrice();
 	  	  })
 	  };*/
-	  function goodsPrice(goods_id, goods_type){
-	  	
-  		/***goods_type: 1mgoods, 2sgoods, 3mcombo
+	  /**
+   		*获取商品真实价格和是否参与某个打折活动
+   		*goods_type: 1mgoods, 2sgoods, 3mcombo
+   		*return deferred
+   		*ajax返回时在全局变量min_goods中填写一个{min_price:0,act_discount_id:0}
   		*/
+	  function goodsPrice(goods_id, goods_type){
 	  	var act_id = [];
 	  	$.each(card_act_discount, function(k, v){
 	  		act_id.push(v.act_discount_id);
@@ -1170,18 +1230,22 @@
 		        act_id: act_id
 		      };
 		  //返回一个deferred对象
-		  // console.log(data);
 	    return $.getJSON('goods_price_ajax.php', data, function(res){
 	    	min_goods = res;
-	    	// console.log(1);
 	    })
 	  };
+	  /**
+   		*商品删除
+  		*/
 	  function goodsDelete(){
 	  	$(this).parent().parent().remove();
 	  	allGoodsPrice();
 		  // var event = event || window.event;
 		  // var emt = event.target;
 		}
+		/**
+   		*会员卡中套餐添加
+  		*/
 		function mcomboAdd(){
 			//添加会员卡中的套餐
 		  var goodsinfo = $(this).parent().parent();
@@ -1230,6 +1294,9 @@
 			  objform.render('select');
 	    })
 		};
+		/**
+   		*会员卡中优惠券添加
+  		*/
 		function ticketAdd(){
 			var ticketinfo = $(this);
 			// //没有考虑停用商品，后台处理吧
@@ -1268,6 +1335,9 @@
 			  objform.render('select');
 	    })
 		};
+		/**
+   		*所有商品价格
+  		*/
 		function allGoodsPrice(){
 			card_act_decrease_use.length = 0;
 			decrease_money = 0;
@@ -1322,6 +1392,9 @@
 	    $("#laimi-main .laimi-money-jian").text(jian);
 	    $("#laimi-main .laimi-money-ying").text(ymoney2);
 	  }
+	  /**
+   		*结账显示
+  		*/
 	  function bill(){
 	  	card_act_give_use.length = 0;
 	  	var money_act = allmoney_act;
@@ -1381,6 +1454,9 @@
 	  			});
 	  		})
 	  }
+	  /**
+   		*最终价格
+  		*/
 	  function moneyFinal(){
 	  	var pmoney = money_pbill;//应收
 	  	var money_last = pmoney;//实收
@@ -1406,6 +1482,10 @@
 	  	$("#laimi-modal-bill .laimi-money-last").text(money_last);
 	  	$("#laimi-modal-bill .laimi-money-ling").text(ling);
 	  }
+	  /**
+   		*结账页面
+   		*data 结账数据
+  		*/
 	  function payConfirm(data){
 	    // ele.attr('disabled', false);
 	    var card = {};
@@ -1615,6 +1695,9 @@
       	}
       })
     }
+    /**
+   		*结账后台逻辑
+  		*/
 	  function pay_do(data){
 	    $.post('workbench_do.php', data, function(res){
 	      $('.laimi-card-pay').attr('disabled', false);
@@ -1647,6 +1730,9 @@
 	      }
 	    }, 'json');
 	  }
+	  /**
+	  	* clone数据,用于只有数据的数组或json对象
+	  	*/
 	  function clone(obj){
 	    //深层clone,用于只有数据的数组或json对象
 	    if(obj)
@@ -1654,6 +1740,9 @@
 	    else
 	    	return [];
 	  }
+	  /**
+	  	*页面初始化
+	  	*/
 	  (function init(){
 	    cardActDiscount();//初始化活动
 	    cardActDecrease();//初始化活动

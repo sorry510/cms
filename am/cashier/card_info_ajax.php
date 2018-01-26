@@ -25,11 +25,11 @@ if(empty($arr['worker_name'])){
 }
 // $arr['photo'] = $arr['card_photo_file'] != '' ? $arr['card_photo_file'] : 'no.jpg';//默认图片名称
 
-$strsql = "SELECT c_mgoods_name,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$arr['card_id']." and card_mcombo_type=2 and (card_mcombo_cedate>".time()." or card_mcombo_cedate=0)";
+$strsql = "SELECT c_mgoods_name,c_mcombo_type,card_mcombo_gcount,card_mcombo_cedate,c_mgoods_price FROM ".$GLOBALS['gdb']->fun_table2('card_mcombo')." where card_id=".$arr['card_id']." and card_mcombo_type=2 and (card_mcombo_cedate>".time()." or card_mcombo_cedate=0) and ((c_mcombo_type=1 and card_mcombo_gcount!=0) or c_mcombo_type=2)";
 $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arrmcombo = $GLOBALS['gdb']->fun_fetch_all($hresult);
 foreach($arrmcombo as &$row){
-	$row['edate'] = date("Y-m-d", $row['card_mcombo_cedate']);
+	$row['edate'] = $row['card_mcombo_cedate'] == 0 ? '--' : date("Y-m-d", $row['card_mcombo_cedate']);
 }
 unset($row);
 $arr['mcombo'] = $arrmcombo;
@@ -39,7 +39,7 @@ $hresult = $GLOBALS['gdb']->fun_query($strsql);
 $arrticket = $GLOBALS['gdb']->fun_fetch_all($hresult);
 foreach($arrticket as &$row){
 	$row['typename'] = $row['ticket_type'] == 1 ? '代金券' : ($row['ticket_type'] == 2 ? '体验券' : '其它');
-	$row['edate'] = date("Y-m-d", $row['card_ticket_edate']);
+	$row['edate'] = $row['card_ticket_edate'] == 0 ? '--' : date("Y-m-d", $row['card_ticket_edate']);
 }
 unset($row);
 $arr['ticket'] = $arrticket;

@@ -101,7 +101,7 @@
 			<?php echo $this->_data['company_wshop']['ad_image1']; ?>
 		</div>
 		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
-			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image1']; ?>">查看图片</a>
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image1']; ?>?rand<?php echo time(); ?>">查看图片</a>
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -116,12 +116,12 @@
 			<?php echo $this->_data['company_wshop']['ad_image2']; ?>
 		</div>
 		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
-			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image2']; ?>">查看图片</a>
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image2']; ?>?rand<?php echo time(); ?>">查看图片</a>
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">轮播图3</label>
-		<input type="hidden" name="ad_image1" value="">
+		<input type="hidden" name="ad_image3" value="">
 		<div class="layui-input-inline">
 			<div class="layui-upload">
 			  <button id="ad-image3-button" class="layui-btn layui-btn-normal layui-btn-small" type="button">上传图片</button>
@@ -131,7 +131,7 @@
 			<?php echo $this->_data['company_wshop']['ad_image3']; ?>
 		</div>
 		<div id="ad-image1-info" class="layui-form-mid layui-word-aux">
-			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image3']; ?>">查看图片</a>
+			<a style="color:#1E9FFF;" target="_blank" href="http://weixin.test.laimisoft.com/upload/<?php echo api_value_int0($GLOBALS['_SESSION']['login_cid']) . $GLOBALS['gconfig']['path']['ad_image'] . '/' . $this->_data['company_wshop']['ad_image3']; ?>?rand<?php echo time(); ?>">查看图片</a>
 		</div>
 	</div>
 	<div class="layui-form-item">

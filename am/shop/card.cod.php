@@ -244,6 +244,7 @@
 							    <tr>
 							      <th>名称</th>
 							      <th>价格</th>
+							      <th>类型</th>
 							      <th>数量</th>
 							      <th>到期时间</th>
 							    </tr>
@@ -253,7 +254,8 @@
 							    <tr>
 							      <td>{{item.c_mgoods_name}}</td>
 							      <td>{{item.c_mgoods_price}}元</td>
-							      <td>{{item.card_mcombo_gcount}}</td>
+							      <td>{{item.c_mcombo_type == '1' ? '计次' : '计时'}}</td>
+							      <td>{{item.c_mcombo_type == '1' ? item.card_mcombo_gcount : '--'}}</td>
 							      <td>{{item.edate}}</td>
 							    </tr>
 							  {{# }) }}

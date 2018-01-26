@@ -348,18 +348,38 @@
 				});
 			})
 		});
+		//退款
 		$(document).on('click', '.laimi-refund', function(){
 			var id = $(this).val();
-			objlaytpl($("#laimi-script-refund").html()).render({id: id}, function(html){
-				objlayer.open({
-					type: 1,
-					title: ["退款", "font-size:16px;"],
-					btnAlign: "r",
-					area: ["480px", "auto"],
-					shadeClose: true,//点击遮罩关闭
-					content: html,
-				});
+			// 直接退款
+			objlayer.confirm('您确定要退款吗', {icon: 3, title:'提示'}, function(index){
+			  $.post('refund_do.php', {id: id}, function(msg){
+			  	console.log(msg);
+			  	if(msg == 0){
+			  		objlayer.alert('退款成功', {
+			  			title: '提示信息'
+			  		}, function(){
+			  			window.location.reload();
+			  		});
+			  	}else{
+			  		objlayer.alert('退款失败', {
+			  			title: '提示信息'
+			  		});
+			  	}
+			  })
+			  layer.close(index);
 			});
+			// 授权页面
+			// objlaytpl($("#laimi-script-refund").html()).render({id: id}, function(html){
+			// 	objlayer.open({
+			// 		type: 1,
+			// 		title: ["退款", "font-size:16px;"],
+			// 		btnAlign: "r",
+			// 		area: ["480px", "auto"],
+			// 		shadeClose: true,//点击遮罩关闭
+			// 		content: html,
+			// 	});
+			// });
 		});
 		$(document).on('click', '.laimi-del', function(){
 			var id = $(this).val();
@@ -376,7 +396,7 @@
 			  layer.close(index);
 			});
 		});
-		objform.on("submit(laimi-submitrefund)", function(data) {
+		/*objform.on("submit(laimi-submitrefund)", function(data) {
 			var _self = $(this);
 		  _self.attr('disabled', true);
 		  $.post('refund_do.php', data.field, function(res){
@@ -395,7 +415,7 @@
 		    }
 		  });
 			return false;
-		});
+		});*/
 	});
 	</script>
 </body>

@@ -98,7 +98,7 @@
   </div>
   <div class="layui-row layui-col-space22">
   	<div class="layui-col-md4">
-    	<div style="padding:20px;height:360px;border-radius:6px;background-color:#F4F4F4;">
+    	<div style="padding:20px;border-radius:6px;background-color:#F4F4F4;">
     		<div class="laimi-color-hui" style="font-size:14px;font-weight:bold;">
     			<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-huo"></use></svg>
     			本月最受欢迎的商品-TOP10
@@ -127,7 +127,7 @@
 	    </div>
     </div>
     <div class="layui-col-md4">
-    	<div style="padding:20px;height:360px;border-radius:6px;background-color:#F4F4F4;">
+    	<div style="padding:20px;min-height:360px;border-radius:6px;background-color:#F4F4F4;">
     		<div class="laimi-color-hui" style="font-size:14px;font-weight:bold;">
     			<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-huo"></use></svg>
     			本月员工提成排名-TOP10

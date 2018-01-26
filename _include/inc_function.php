@@ -758,3 +758,15 @@ function laimi_wx_template_msg($arrwx_data, $arrtpl_data){
   curl_close($curl);
   return $response;
 }
+
+function laimi_company_sms() {
+	$intycount = 0;
+	$arr = array();
+	$strsql = "SELECT company_sms_ycount FROM " . $GLOBALS['gdb']->fun_table('company')
+	. " WHERE company_id = " . api_value_int0($GLOBALS['_SESSION']['login_cid']) . " LIMIT 1";
+	$hresult = $GLOBALS['gdb']->fun_query($strsql);
+	$arr = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
+
+	$intsms = $arr['company_sms_ycount'];
+	return $intsms;
+}

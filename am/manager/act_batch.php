@@ -226,7 +226,11 @@ function get_card_list() {
 
 	foreach($arr as $key => $row) {
 		$arr[$key]['leave_days'] = '';
-		$arr[$key]['leave_days'] = ceil(($GLOBALS['time'] - $row['card_ltime'])/86400);
+		if ($row['card_ltime'] == 0) {
+			$arr[$key]['leave_days'] = '--';
+		}else{
+			$arr[$key]['leave_days'] = ceil(($GLOBALS['time'] - $row['card_ltime'])/86400);
+		}
 	}
 
 	foreach($arr as $key => $row) {
@@ -235,7 +239,7 @@ function get_card_list() {
 			$arr[$key]['sex'] = '男';
 		} else if($row['card_sex'] == 2) {
 			$arr[$key]['sex'] = '女';
-		} else if($row['card_sex'] == 3) {
+		} else{
 			$arr[$key]['sex'] = '保密';
 		}
 	}

@@ -1,12 +1,9 @@
 <?php
 define('C_CNFLY', true);
-define('C_NOTEMPLATE', true);
+
 require('inc_path.php');
 require(C_ROOT . '/_include/inc_init.php');
 require('inc_limit.php');
-if($GLOBALS['gtrade']['worker_module'] != 1) {
-	return 1;
-}
 
 $strworker_id = api_value_get('id');
 $intworker_id = api_value_int0($strworker_id);
@@ -27,19 +24,19 @@ if($arr['worker_sex'] == '1'){
 switch($arr['worker_education'])
 {
 	case '1':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][1];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][1];break;
 	case '2':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][2];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][2];break;
 	case '3':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][3];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][3];break;
 	case '4':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][4];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][4];break;
 	case '5':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][5];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][5];break;
 	case '6':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][6];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][6];break;
 	case '7':
-		$arr['worker_education_name'] = $GLOBALS['gconfig']['education'][7];break;
+		$arr['worker_education_name'] = $GLOBALS['gconfig']['worker']['education'][7];break;
 	default:
 		$arr['worker_education_name'] = '未知';
 }

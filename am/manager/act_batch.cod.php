@@ -44,7 +44,6 @@
 			<th>手机号</th>
 			<th>生日</th>
 			<th>办卡时间</th>
-			<th>到期时间</th>
 			<th>上次到店时间</th>
 			<th>未到店天数</th>
 		</tr>
@@ -57,10 +56,13 @@
       <td><?php echo $row['card_code']; ?></td>
 			<td><?php echo $row['c_card_type_name']; ?></td>
 			<td><?php echo $row['card_phone']; ?></td>
-			<td><?php echo date('Y-m-d',$row['card_birthday_date']); ?></td>
+			<td><?php if($row['card_birthday_date'] == 0){
+									echo '--';
+								}else{
+									echo date('Y-m-d',$row['card_birthday_date']);
+								} ?></td>
 			<td><?php echo date('Y-m-d',$row['card_atime']); ?></td>
-      <td><?php echo date('Y-m-d',$row['card_edate']); ?></td>
-			<td><?php echo date('Y-m-d H:i:s',$row['card_ltime']); ?></td>
+			<td><?php if($row['card_ltime'] == 0){echo '--';}else{echo date('Y-m-d H:i:s',$row['card_ltime']);} ?></td>
 			<td><?php echo $row['leave_days']; ?></td>
 		</tr>
 		<?php } ?>

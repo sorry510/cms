@@ -88,7 +88,7 @@
 				      <div class="layui-form-item">
 						    <label class="layui-form-label">消费密码</label>
 						    <div class="layui-input-inline">
-						      <input class="layui-input laimi-input-200" type="password" name="txtpassword" value="<?php echo htmlspecialchars($this->_data['card_info']['card_password']); ?>">
+						      <input class="layui-input laimi-input-200" type="password" name="txtpassword" autocomplete="new-password" value="<?php echo htmlspecialchars($this->_data['card_info']['card_password']); ?>">
 						    </div>
 						  </div>
 				    </div>

@@ -240,28 +240,30 @@
 		    <div class="layui-col-md12">
 		      <div class="layui-form-item" style="margin-bottom:0;">
 			    	<label class="layui-form-label">卡余套餐</label>
-				    <div class="layui-form-mid layui-word-aux laimi-input-b80" style="line-height: 26px;">
-				    	<table class="layui-table" lay-filter="mcombo">
-							  <thead>
-							    <tr>
-							      <th>名称</th>
-							      <th>价格</th>
-							      <th>数量</th>
-							      <th>到期时间</th>
-							    </tr>
-							  </thead>
-							  <tbody>
-							  {{#  layui.each(d.mcombo, function(index, item){ }}
-							    <tr>
-							      <td>{{item.c_mgoods_name}}</td>
-							      <td>{{item.c_mgoods_price}}元</td>
-							      <td>{{item.card_mcombo_gcount}}元</td>
-							      <td>{{item.edate}}</td>
-							    </tr>
-							  {{# }) }}
-							  </tbody>
-							</table>
-				    </div>
+		   	    <div class="layui-form-mid layui-word-aux laimi-input-b80" style="line-height: 26px;">
+		   	    	<table class="layui-table" lay-filter="mcombo">
+		   				  <thead>
+		   				    <tr>
+		   				      <th>名称</th>
+		   				      <th>价格</th>
+		   				      <th>类型</th>
+		   				      <th>数量</th>
+		   				      <th>到期时间</th>
+		   				    </tr>
+		   				  </thead>
+		   				  <tbody>
+		   				  {{#  layui.each(d.mcombo, function(index, item){ }}
+		   				    <tr>
+		   				      <td>{{item.c_mgoods_name}}</td>
+		   				      <td>{{item.c_mgoods_price}}元</td>
+		   				      <td>{{item.c_mcombo_type == '1' ? '计次' : '计时'}}</td>
+		   				      <td>{{item.c_mcombo_type == '1' ? item.card_mcombo_gcount : '--'}}</td>
+		   				      <td>{{item.edate}}</td>
+		   				    </tr>
+		   				  {{# }) }}
+		   				  </tbody>
+		   				</table>
+		   	    </div>
 			  	</div>
 		    </div>
 		    <div class="layui-col-md12">

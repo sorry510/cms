@@ -75,7 +75,7 @@
   function pullupRefresh() {
   	var name = "<?php echo $GLOBALS['strkey'];?>";
   	var catalog_id = "<?php echo $GLOBALS['intcatalog']; ?>"
-		mui.getJSON('wgoods_ajax.php', {type: 2, size: 2 , name:name,catalog_id:catalog_id ,page: page.pagenext}, function(res){
+		mui.getJSON('wgoods_ajax.php', {type: 2, size: 5 , name:name,catalog_id:catalog_id ,page: page.pagenext}, function(res){
 			if(res.list.length > 0){
 				page = res.page;
 				mui.each(res.list, function(k, v){

@@ -16,6 +16,7 @@ $arrcompany = $GLOBALS['gdb']->fun_fetch_assoc($hresult);
 if(!empty($arrcompany)){
 	$strsystem_code = $arrcompany['system_code'];
 }
+$GLOBALS['_SESSION']['login_cid'] = $intid;
 $strprefix2 = substr($strsystem_code, 0, 5) . "_"
 		. str_pad(api_value_int0($intid), 4, '0', STR_PAD_LEFT) . '_';
 $gdb->pubprefix2 = $strprefix2;

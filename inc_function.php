@@ -696,9 +696,8 @@ function laimi_pay_return($postarr){
 					$intworder_from = 1;
 				}
 				$inttime = time();
-				
+				//卡扣方式付款
 				if($intpay == 31){
-					//卡扣方式付款
 					$card_ymoney = $arrcard['s_card_ymoney'] - $total_fee;
 					if($card_ymoney < 0){
 						$intreturn = 5;
@@ -712,16 +711,11 @@ function laimi_pay_return($postarr){
 				} else {
 					$intscore = 0;
 					//积分模块是否开启了
-					$arrcompany_trade = laimi_company_trade();
-					if($arrcompany_trade['score_module'] == 1 && $arrcompany_trade['score_flag'] == 1){
-						// $intscore = 5;//测试
-						$intscore = floor($total_fee);
+					if(laimi_company_trade()['score_module'] == 1 && laimi_company_trade()['score_flag'] == 1){
+						$intscore = 1;
+						// $intscore = floor($total_fee);
 					}
 					$strsql = "UPDATE ".$GLOBALS['gdb']->fun_table2('card')." SET s_card_smoney=s_card_smoney+".$total_fee.",s_card_sscore=s_card_sscore+".$intscore.",s_card_yscore=s_card_yscore+".$intscore.",card_ctime=".$inttime.",card_ltime=".$inttime." where card_id=".$arrcard['card_id']." limit 1";
-					$hresult = $GLOBALS['gdb']->fun_do($strsql);
-					if($hresult == FALSE) {
-						$intreturn = 5;
-					}
 				}
 
 		  	//查询提成人的信息,记录提成

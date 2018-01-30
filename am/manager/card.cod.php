@@ -67,7 +67,7 @@
 			<th>电子档案</th>
 			<th>消费明细</th>
 			<th>所属店铺</th>
-			<th width="140">操作</th>
+			<th width="180">操作</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -84,6 +84,10 @@
 			<td><a class="laimi-color-lan" href="record.php?key=<?php echo $row['card_phone']; ?>">消费明细</a></td>
 			<td><?php echo empty($row['shop_name']) ? '总店会员' : $row['shop_name']; ?></td>
 			<td>
+				<a class="layui-btn layui-btn-mini" href="card_edit.php?id=<?php echo $row['card_id']; ?>">
+					<svg class="laimi-bicon" aria-hidden="true"><use xlink:href="#icon-bianji"></use></svg>
+					修改
+				</a>
 				<?php if($row['card_state'] == 1 || $row['card_state'] == 2) { ?>
 				<?php if($row['card_state'] == 2) { ?>
 				<button class="layui-btn layui-bg-blue layui-btn-mini laimi-state1" card_id="<?php echo $row['card_id']; ?>">
